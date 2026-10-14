@@ -1,0 +1,922 @@
+[
+  {
+    "key": "bence-boer/clanqr:web::a11y/interactive-nesting::src/routes/chat/ChatActions.svelte:109::<button> is nested inside interactive <span role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ChatActions.svelte:102-112: edit <button> inside <span role=\"button\" tabindex=\"0\" ondblclick>; nested interactive as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/permitted-contents::src/lib/components/notification-bell/NotificationBell.svelte:70::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/lib/components/notification-bell/NotificationBell.svelte): <div> at :70 has literal parent element button[role=\"menuitem\"]:68 (ancestors: button[role=\"menuitem\"]:68 < Each(notification_store.items.slice(0, 20)):67 < div:66 < If(notification_store.items.length === 0):63 < div[ro); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/permitted-contents::src/routes/agent-types/+page.svelte:80::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/agent-types/+page.svelte): <div> at :80 has literal parent element button:77 (ancestors: button:77 < Each(filtered):76 < div:75 < If(filtered.length === 0):72 < If(loading):70 < div:57); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/permitted-contents::src/routes/agent-types/+page.svelte:84::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/agent-types/+page.svelte): <h3> at :84 has literal parent element button:77 (ancestors: button:77 < Each(filtered):76 < div:75 < If(filtered.length === 0):72 < If(loading):70 < div:57); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/permitted-contents::src/routes/agent-types/+page.svelte:85::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/agent-types/+page.svelte): <p> at :85 has literal parent element button:77 (ancestors: button:77 < Each(filtered):76 < div:75 < If(filtered.length === 0):72 < If(loading):70 < div:57); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/permitted-contents::src/routes/projects/[id]/FeatureList.svelte:85::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/projects/[id]/FeatureList.svelte): <div> at :85 has literal parent element button:84 (ancestors: button:84 < Each(features):82 < If(features.length === 0):79 < section:61); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/permitted-contents::src/routes/projects/[id]/FeatureList.svelte:98::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/projects/[id]/FeatureList.svelte): <div> at :98 has literal parent element button:84 (ancestors: button:84 < Each(features):82 < If(features.length === 0):79 < section:61); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/permitted-contents::src/routes/skills/SkillCard.svelte:26::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/skills/SkillCard.svelte): <div> at :26 has literal parent element button:25 (ancestors: button:25 < div:24); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/permitted-contents::src/routes/skills/SkillCard.svelte:31::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/skills/SkillCard.svelte): <p> at :31 has literal parent element button:25 (ancestors: button:25 < div:24); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/permitted-contents::src/routes/skills/SkillCard.svelte:32::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/skills/SkillCard.svelte): <div> at :32 has literal parent element button:25 (ancestors: button:25 < div:24); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "bence-boer/clanqr:web::a11y/top-level-landmark::src/routes/pipeline/+page.svelte:170::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "root +layout.svelte:34-42 renders authenticated pages inside <main class=\"content\">; pipeline/+page.svelte:170 unlabelled <aside class=\"dag-aside\"> (no sectioning ancestor) is a complementary nested in main"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 229 physical lines (newline count, trailing newline not counted; 198 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/chat/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/chat/+page.svelte has 222 physical lines (newline count, trailing newline not counted; 201 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/chat/ChatActions.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/chat/ChatActions.svelte has 212 physical lines (newline count, trailing newline not counted; 192 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/chat/MessageThread.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/chat/MessageThread.svelte has 219 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/invite/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/invite/+page.svelte has 216 physical lines (newline count, trailing newline not counted; 190 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/projects/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/+page.svelte has 219 physical lines (newline count, trailing newline not counted; 198 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/projects/ProjectCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/ProjectCard.svelte has 203 physical lines (newline count, trailing newline not counted; 192 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/projects/[id]/FeatureDetail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/FeatureDetail.svelte has 207 physical lines (newline count, trailing newline not counted; 187 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/projects/[id]/FeatureList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/FeatureList.svelte has 210 physical lines (newline count, trailing newline not counted; 199 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/projects/[id]/TaskArtifacts.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/TaskArtifacts.svelte has 202 physical lines (newline count, trailing newline not counted; 191 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/projects/[id]/TaskList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/TaskList.svelte has 218 physical lines (newline count, trailing newline not counted; 200 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/prompts/TraitList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/prompts/TraitList.svelte has 214 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/component-size::src/routes/skills/SkillCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/skills/SkillCard.svelte has 206 physical lines (newline count, trailing newline not counted; 184 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/lib/components/confirm-modal/ConfirmModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/confirm-modal/ConfirmModal.svelte has a single destructured $props() with 10 named props (> 6): open, title, message, confirm_label, cancel_label, variant, loading, on_confirm, on_cancel, children"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/lib/components/empty-state/EmptyState.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/empty-state/EmptyState.svelte has a single destructured $props() with 7 named props (> 6): icon, message, detail, action_label, action_href, onaction, children"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/lib/components/primitives/button/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/primitives/button/Button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: ref, variant, size, icon, loading, active, class, children"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/lib/components/primitives/input/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/primitives/input/Input.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, value, class, label, id, required, type"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/lib/components/primitives/select/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/primitives/select/Select.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: ref, value, class, label, id, required, style, children"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/Sidebar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/Sidebar.svelte has a single destructured $props() with 9 named props (> 6): current_path, role, system_stats, collapsed, badges, notification_bell, on_close, on_logout, on_toggle_collapse"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/admin/users/UserTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/admin/users/UserTable.svelte has a single destructured $props() with 7 named props (> 6): users, users_loading, users_error, self_id, admin_count, ontoggle_role, ondelete_user"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/chat/ChatActions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/chat/ChatActions.svelte has a single destructured $props() with 14 named props (> 6): session, messages, loading_messages, is_streaming, streaming_content, input_text, selected_model, error_msg, models, format_session_title, on_send, on_stop, on_create, on_rename"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/pipeline/PipelineHistory.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/pipeline/PipelineHistory.svelte has a single destructured $props() with 8 named props (> 6): history, history_total, history_page, history_total_pages, filter_status, on_filter_change, on_page_change, on_retry"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/projects/ProjectCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/projects/ProjectCard.svelte has a single destructured $props() with 8 named props (> 6): project, features, selected, on_save, on_delete, on_archive, on_unarchive, on_toggle_select"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/projects/[id]/TaskEditForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/projects/[id]/TaskEditForm.svelte has a single destructured $props() with 8 named props (> 6): task_id, title, description, model, v2, saving, on_save, on_cancel"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/projects/[id]/TaskItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/projects/[id]/TaskItem.svelte has a single destructured $props() with 16 named props (> 6): task, auto_approve, editing, editing_title, editing_desc, editing_model, editing_v2, saving, on_approve, on_spawn, on_start_edit, on_save_edit, on_cancel_edit, on_delete, on_toggle_artifacts, show_artifacts"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/projects/[id]/TaskList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/projects/[id]/TaskList.svelte has a single destructured $props() with 8 named props (> 6): feature, on_approve, on_approve_all, on_spawn, on_add, on_update, on_delete, on_toggle_auto_approve"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/prompts/TraitRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/prompts/TraitRow.svelte has a single destructured $props() with 8 named props (> 6): trait, assignment_count, delete_confirming, deleting, on_edit, on_confirm_delete, on_request_delete, on_cancel_delete"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/skills/SkillCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/skills/SkillCard.svelte has a single destructured $props() with 7 named props (> 6): skill, expanded, content, files, content_loading, task_count, on_toggle"
+  },
+  {
+    "key": "bence-boer/clanqr:web::architecture/prop-count::src/routes/usage/RunHistory.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/usage/RunHistory.svelte has a single destructured $props() with 12 named props (> 6): runs, total_pages, total_count, loading, filter_type, filter_status, current_page, date_range, on_filter_type_change, on_filter_status_change, on_page_change, on_date_range_change"
+  },
+  {
+    "key": "bence-boer/clanqr:web::correctness/each-index-key::src/routes/SystemStatsCard.svelte:33::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/SystemStatsCard.svelte:33 '{#each system_alerts as alert, i (i)}' keyed by its index binding; system_alerts prop (:7, :13) carries the server's current system alerts, which appear and clear between refreshes; runtime records"
+  },
+  {
+    "key": "bence-boer/clanqr:web::correctness/each-index-key::src/routes/agent-types/+page.svelte:107::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/agent-types/+page.svelte:107 '{#each selected.tools as tool, i (i)}' keyed by its index binding; the tool names of the one selected agent-type record rendered as plain tags; positional list (fields of one record)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::correctness/each-index-key::src/routes/projects/[id]/FeatureResources.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/projects/[id]/FeatureResources.svelte:27 '{#each resources as resource, index (index)}' keyed by its index binding; editable list with bind:value inputs per row (:29) and remove-by-index (resources.filter((_, i) => i !== index), :16): mid-list removal shifts input identity, as claimed"
+  },
+  {
+    "key": "bence-boer/clanqr:web::correctness/prop-mutation::src/routes/prompts/PromptList.svelte:35::Prop \"edit_state\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/routes/prompts/PromptList.svelte:35 edit_state[agent_type] = … writes into the non-bindable edit_state prop (:18, :22), passed by prompts/+page.svelte:139 without bind; a member write on a prop the child does not own, as documented"
+  },
+  {
+    "key": "bence-boer/clanqr:web::correctness/prop-mutation::src/routes/prompts/PromptList.svelte:39::Prop \"edit_state\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/routes/prompts/PromptList.svelte:39 edit_state[agent_type] = … writes into the non-bindable edit_state prop (:18, :22), passed by prompts/+page.svelte:139 without bind; a member write on a prop the child does not own, as documented"
+  },
+  {
+    "key": "bence-boer/clanqr:web::correctness/prop-mutation::src/routes/prompts/PromptList.svelte:48::Prop \"edit_state\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/routes/prompts/PromptList.svelte:48 edit_state[agent_type] = … writes into the non-bindable edit_state prop (:18, :22), passed by prompts/+page.svelte:139 without bind; a member write on a prop the child does not own, as documented"
+  },
+  {
+    "key": "bence-boer/clanqr:web::performance/state-raw::src/routes/admin/settings/+page.svelte:11::\"models\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"models\" in src/routes/admin/settings/+page.svelte: reassigned from the API (:38) and read in a keyed {#each} of options (:93); no member writes, mutating calls, bind:, or call/prop escapes of the binding — $state.raw fits"
+  },
+  {
+    "key": "bence-boer/clanqr:web::performance/state-raw::src/routes/projects/[id]/TaskArtifacts.svelte:20::\"resolved_traits\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"resolved_traits\" in src/routes/projects/[id]/TaskArtifacts.svelte: reassigned from api.resolve_task_traits / [] (:58,:63), read as .length and a keyed {#each} whose items are only read (:139-147); no member writes, mutating calls, bind:, or call/prop escapes of the binding — $state.raw fits"
+  },
+  {
+    "key": "bence-boer/clanqr:web::performance/state-raw::src/routes/projects/[id]/TaskEditForm.svelte:32::\"model_options\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"model_options\" in src/routes/projects/[id]/TaskEditForm.svelte: reassigned from api.list_models / [] (:40,:44) and read in a keyed {#each} of options (:89); no member writes, mutating calls, bind:, or call/prop escapes of the binding — $state.raw fits"
+  },
+  {
+    "key": "bence-boer/clanqr:web::security/raw-html::src/routes/chat/MessageContent.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read MessageContent.svelte:12-23 + lib/utils/markdown.ts:83-89: render_markdown = DOMPurify.sanitize(marked output) (code blocks hljs-highlighted/escaped), run client-side in $effect — sanitized, reported per docs"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/admin/maintenance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/maintenance (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/admin/metrics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/metrics (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/agent-types/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /agent-types (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/chat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /chat (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/invite/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /invite (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); public route outside the auth gate (+layout.svelte:106-107 renders /invite children directly), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/monitoring/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /monitoring (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/pipeline/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /pipeline (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/projects/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/prompts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /prompts (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/skills/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /skills (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/canonical-url::src/routes/usage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /usage (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it) but not a search target (client auth-gated: root +layout.svelte:106-109 renders <AuthScreen> instead of the page unless auth_store.state === \"authenticated\", for every path outside /invite), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on / (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /admin (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/admin/maintenance/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /admin/maintenance (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/admin/metrics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /admin/metrics (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/admin/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /admin/settings (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /admin/users (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/agent-types/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /agent-types (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/chat/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /chat (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/invite/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /invite (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/monitoring/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /monitoring (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/pipeline/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /pipeline (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /projects (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/projects/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /projects/[id] (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/prompts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /prompts (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/skills/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /skills (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/description-presence::src/routes/usage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /usage (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: the layout's literal <title> in src/routes/+layout.svelte is the only title of /, /admin, /admin/maintenance, /admin/metrics, /admin/settings, /admin/users, /agent-types, /chat, /invite, /monitoring, /pipeline, /projects, /projects/[id], /prompts, /skills, /usage (local CLI list) (claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), no search competition"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/heading-level-skip::src/routes/admin/maintenance/+page.svelte:25::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:53 renders <h2>Admin then Tabs (no heading) and the page; the page's first heading is <h4 class=section-heading> (admin/maintenance/+page.svelte:25) -> <h2> to <h4>"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/heading-level-skip::src/routes/admin/metrics/+page.svelte:62::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:53 renders <h2>Admin then Tabs (no heading) and the page; the page's first heading is <h4 class=section-heading> (admin/metrics/+page.svelte:62) -> <h2> to <h4>"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; / renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /admin renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/admin/maintenance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /admin/maintenance renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/admin/metrics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /admin/metrics renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /admin/settings renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /admin/users renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/agent-types/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /agent-types renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /chat renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/invite/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /invite renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/monitoring/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /monitoring renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/pipeline/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /pipeline renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /projects renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/projects/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /projects/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/prompts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /prompts renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/skills/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /skills renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/json-ld::src/routes/usage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /usage renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/admin/maintenance/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/maintenance (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/admin/metrics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/metrics (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/agent-types/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /agent-types (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/chat/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /chat (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/invite/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /invite (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); public route, renders"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/monitoring/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /monitoring (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/pipeline/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pipeline (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/prompts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /prompts (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/skills/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /skills (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-description::src/routes/usage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /usage (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/admin/maintenance/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/maintenance (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/admin/metrics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/metrics (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/agent-types/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /agent-types (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/chat/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /chat (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/invite/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /invite (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); public route, renders"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/monitoring/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /monitoring (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/pipeline/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pipeline (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/prompts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /prompts (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/skills/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /skills (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-image::src/routes/usage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /usage (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/admin/maintenance/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/maintenance (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/admin/metrics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/metrics (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/agent-types/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /agent-types (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/chat/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /chat (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/invite/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /invite (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); public route, renders"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/monitoring/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /monitoring (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/pipeline/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pipeline (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/prompts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /prompts (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/skills/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /skills (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-title::src/routes/usage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /usage (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/admin/maintenance/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/maintenance (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/admin/metrics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/metrics (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/agent-types/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /agent-types (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/chat/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /chat (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/invite/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invite (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); public route, renders"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/monitoring/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /monitoring (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/pipeline/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pipeline (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/prompts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /prompts (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/skills/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /skills (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/og-url::src/routes/usage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /usage (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), nothing for a crawler to list"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/+layout.ts (claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not content for search"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/+layout.svelte, whitespace collapsed, 16 graphemes as reported; no other title emitter on the route) (key covers 16 routes per local CLI: /, /admin, /admin/maintenance, /admin/metrics, /admin/settings, /admin/users, /agent-types, /chat, /invite, /monitoring, /pipeline, /projects, /projects/[id], /prompts, /skills, /usage, all the same app) (literal claim holds); but self-hosted multi-agent orchestration workspace (root +layout.ts ssr=false SPA), not a search target"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/admin/maintenance/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/maintenance (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/admin/metrics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/metrics (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/agent-types/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /agent-types (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/chat/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /chat (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/invite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /invite (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); public route, renders"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/monitoring/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /monitoring (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/pipeline/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pipeline (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/projects/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/prompts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /prompts (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/skills/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /skills (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "bence-boer/clanqr:web::seo/twitter-card::src/routes/usage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /usage (repo grep: no og:*/twitter:*/rel=canonical anywhere in bence-boer/clanqr; web/src/app.html is charset/fonts/preconnect/viewport; root +layout.svelte:102-104 head is <title> only; workspace dep \"server\" ships no .svelte, npm deps dompurify/highlight.js/hono/marked are not Svelte components; ssr=false app-wide (routes/+layout.ts:1) so client heads count, and none emits it); route renders for signed-in users behind the client auth gate; social tags are judged regardless of gating (ledger convention)"
+  }
+]

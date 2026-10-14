@@ -1,0 +1,522 @@
+[
+  {
+    "key": "grinlemon/sackli::architecture/component-size::src/lib/components/Sankey.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Sankey.svelte has 279 physical lines (newline count, trailing newline not counted; 266 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "grinlemon/sackli::architecture/component-size::src/lib/components/SplitEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SplitEditor.svelte has 265 physical lines (newline count, trailing newline not counted; 245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "grinlemon/sackli::architecture/component-size::src/lib/components/TransactionSheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TransactionSheet.svelte has 224 physical lines (newline count, trailing newline not counted; 207 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "grinlemon/sackli::architecture/component-size::src/lib/views/AnalyseView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/views/AnalyseView.svelte has 222 physical lines (newline count, trailing newline not counted; 199 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "grinlemon/sackli::architecture/component-size::src/lib/views/BudgetView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/views/BudgetView.svelte has 549 physical lines (newline count, trailing newline not counted; 502 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "grinlemon/sackli::architecture/component-size::src/lib/views/ExportView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/views/ExportView.svelte has 359 physical lines (newline count, trailing newline not counted; 334 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "grinlemon/sackli::architecture/component-size::src/routes/(app)/budgets/[id]/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/budgets/[id]/settings/+page.svelte has 487 physical lines (newline count, trailing newline not counted; 452 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "grinlemon/sackli::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 428 physical lines (newline count, trailing newline not counted; 403 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "grinlemon/sackli::architecture/prop-count::src/lib/components/Field.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Field.svelte has a single destructured $props() with 8 named props (> 6): label, name, type, value, required, autocomplete, placeholder, hint"
+  },
+  {
+    "key": "grinlemon/sackli::correctness/each-index-key::src/lib/components/Sankey.svelte:110::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Sankey.svelte:110 '{#each layout.links as link, i (i)}' keyed by its index binding; the link paths of one computed Sankey layout; positional list (computed chart geometry)"
+  },
+  {
+    "key": "grinlemon/sackli::correctness/each-index-key::src/lib/components/TransactionRow.svelte:133::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/TransactionRow.svelte:133 '{#each categoryOptions as group, i (i)}' keyed by its index binding; categoryOptions = $derived.by (:57) builds the <optgroup>s of one category <select>; option list (positional groups)"
+  },
+  {
+    "key": "grinlemon/sackli::performance/sequential-awaits::src/routes/(app)/+layout.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read (app)/+layout.server.ts:6-11: the only preceding await is locals.safeGetSession(), whose missing session redirects to /login — auth-before-query ordering, docs Limitations (ledger session-gate convention)"
+  },
+  {
+    "key": "grinlemon/sackli::performance/sequential-awaits::src/routes/(app)/+layout.server.ts:13::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read (app)/+layout.server.ts:9-16: claim_memberships rpc attaches pending invitations to this user before the budgets select reads the budgets they can see (RLS) — setup the later query relies on, docs Limitations"
+  },
+  {
+    "key": "grinlemon/sackli::security/raw-html::src/routes/+page.svelte:132::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:132: JSON-LD inserted as jsonLd.replace(/</g, '\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/(app)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library) but not a search target (auth-gated: hooks.server.ts:42-43 and (app)/+layout.server.ts:7 redirect guests to /login; hooks.server.ts:54-57 sets X-Robots-Tag noindex outside lib/seo.ts INDEXABLE; robots.txt Disallows it), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/(app)/budgets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /budgets (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library) but not a search target (auth-gated: hooks.server.ts:42-43 and (app)/+layout.server.ts:7 redirect guests to /login; hooks.server.ts:54-57 sets X-Robots-Tag noindex outside lib/seo.ts INDEXABLE; robots.txt Disallows it), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/(app)/budgets/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /budgets/[id] (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library) but not a search target (auth-gated: hooks.server.ts:42-43 and (app)/+layout.server.ts:7 redirect guests to /login; hooks.server.ts:54-57 sets X-Robots-Tag noindex outside lib/seo.ts INDEXABLE; robots.txt Disallows it), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/(app)/budgets/[id]/analyse/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /budgets/[id]/analyse (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library) but not a search target (auth-gated: hooks.server.ts:42-43 and (app)/+layout.server.ts:7 redirect guests to /login; hooks.server.ts:54-57 sets X-Robots-Tag noindex outside lib/seo.ts INDEXABLE; robots.txt Disallows it), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/(app)/budgets/[id]/export/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /budgets/[id]/export (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library) but not a search target (auth-gated: hooks.server.ts:42-43 and (app)/+layout.server.ts:7 redirect guests to /login; hooks.server.ts:54-57 sets X-Robots-Tag noindex outside lib/seo.ts INDEXABLE; robots.txt Disallows it), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/(app)/budgets/[id]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /budgets/[id]/settings (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library) but not a search target (auth-gated: hooks.server.ts:42-43 and (app)/+layout.server.ts:7 redirect guests to /login; hooks.server.ts:54-57 sets X-Robots-Tag noindex outside lib/seo.ts INDEXABLE; robots.txt Disallows it), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library) but not a search target (noindex: hooks.server.ts:54-57 sets X-Robots-Tag noindex since it is not in lib/seo.ts INDEXABLE, and robots.txt/+server.ts Disallows /forgot-password), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); public, indexable route (lib/seo.ts INDEXABLE lists /login; robots.txt allows it), renders for guests"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library) but not a search target (reset-password/+page.server.ts:13-14 redirects without a recovery session; X-Robots-Tag noindex from hooks.server.ts:54-57; robots.txt Disallows it), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "grinlemon/sackli::seo/canonical-url::src/routes/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /signup (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); public, indexable route (lib/seo.ts INDEXABLE lists /signup; robots.txt allows it), renders for guests"
+  },
+  {
+    "key": "grinlemon/sackli::seo/description-length::src/routes/login/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=description> in src/routes/login/+page.svelte, whitespace collapsed, grapheme count as reported, the route's only description) (literal claim holds); indexable public page (lib/seo.ts INDEXABLE)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/description-presence::src/routes/(app)/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /account (only /, /login, /signup and the demo layout set one) (literal claim holds); login-gated ((app)/+layout.server.ts:7 and hooks.server.ts PROTECTED redirect guests to /login), X-Robots-Tag noindex, robots.txt Disallow"
+  },
+  {
+    "key": "grinlemon/sackli::seo/description-presence::src/routes/(app)/budgets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /budgets (only /, /login, /signup and the demo layout set one) (literal claim holds); login-gated ((app)/+layout.server.ts:7 and hooks.server.ts PROTECTED redirect guests to /login), X-Robots-Tag noindex, robots.txt Disallow"
+  },
+  {
+    "key": "grinlemon/sackli::seo/description-presence::src/routes/(app)/budgets/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /budgets/[id] (only /, /login, /signup and the demo layout set one) (literal claim holds); login-gated ((app)/+layout.server.ts:7 and hooks.server.ts PROTECTED redirect guests to /login), X-Robots-Tag noindex, robots.txt Disallow"
+  },
+  {
+    "key": "grinlemon/sackli::seo/description-presence::src/routes/(app)/budgets/[id]/analyse/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /budgets/[id]/analyse (only /, /login, /signup and the demo layout set one) (literal claim holds); login-gated ((app)/+layout.server.ts:7 and hooks.server.ts PROTECTED redirect guests to /login), X-Robots-Tag noindex, robots.txt Disallow"
+  },
+  {
+    "key": "grinlemon/sackli::seo/description-presence::src/routes/(app)/budgets/[id]/export/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /budgets/[id]/export (only /, /login, /signup and the demo layout set one) (literal claim holds); login-gated ((app)/+layout.server.ts:7 and hooks.server.ts PROTECTED redirect guests to /login), X-Robots-Tag noindex, robots.txt Disallow"
+  },
+  {
+    "key": "grinlemon/sackli::seo/description-presence::src/routes/(app)/budgets/[id]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /budgets/[id]/settings (only /, /login, /signup and the demo layout set one) (literal claim holds); login-gated ((app)/+layout.server.ts:7 and hooks.server.ts PROTECTED redirect guests to /login), X-Robots-Tag noindex, robots.txt Disallow"
+  },
+  {
+    "key": "grinlemon/sackli::seo/description-presence::src/routes/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /forgot-password (literal claim holds); but outside lib/seo.ts INDEXABLE, so hooks.server.ts sends X-Robots-Tag noindex and robots.txt disallows it; not a search target"
+  },
+  {
+    "key": "grinlemon/sackli::seo/description-presence::src/routes/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /reset-password (literal claim holds); but outside lib/seo.ts INDEXABLE, so hooks.server.ts sends X-Robots-Tag noindex and robots.txt disallows it; not a search target"
+  },
+  {
+    "key": "grinlemon/sackli::seo/duplicate-description::src/routes/demo/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: demo/+layout.svelte:24-27 literal description is the only description of /demo, /demo/analyse, /demo/export (claim holds); but only /demo is indexable (lib/seo.ts INDEXABLE; the other two get X-Robots-Tag noindex) and the layout's canonical points all three at /demo, so no search competition"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/(app)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /account renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/(app)/budgets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /budgets renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/(app)/budgets/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /budgets/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/(app)/budgets/[id]/analyse/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /budgets/[id]/analyse renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/(app)/budgets/[id]/export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /budgets/[id]/export renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/(app)/budgets/[id]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /budgets/[id]/settings renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/demo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /demo renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/demo/analyse/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /demo/analyse renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/demo/export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /demo/export renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /forgot-password renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /login renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /reset-password renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/json-ld::src/routes/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the {@html} ld+json in src/routes/+page.svelte:132 (the / landing), not rendered on this route; /signup renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/(app)/budgets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /budgets (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/(app)/budgets/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /budgets/[id] (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/(app)/budgets/[id]/analyse/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /budgets/[id]/analyse (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/(app)/budgets/[id]/export/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /budgets/[id]/export (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/(app)/budgets/[id]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /budgets/[id]/settings (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forgot-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-description::src/routes/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signup (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/(app)/budgets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /budgets (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/(app)/budgets/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /budgets/[id] (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/(app)/budgets/[id]/analyse/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /budgets/[id]/analyse (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/(app)/budgets/[id]/export/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /budgets/[id]/export (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/(app)/budgets/[id]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /budgets/[id]/settings (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forgot-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-image::src/routes/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signup (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/(app)/budgets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /budgets (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/(app)/budgets/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /budgets/[id] (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/(app)/budgets/[id]/analyse/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /budgets/[id]/analyse (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/(app)/budgets/[id]/export/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /budgets/[id]/export (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/(app)/budgets/[id]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /budgets/[id]/settings (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forgot-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-title::src/routes/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signup (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/(app)/budgets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /budgets (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/(app)/budgets/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /budgets/[id] (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/(app)/budgets/[id]/analyse/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /budgets/[id]/analyse (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/(app)/budgets/[id]/export/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /budgets/[id]/export (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/(app)/budgets/[id]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /budgets/[id]/settings (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/og-url::src/routes/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signup (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  },
+  {
+    "key": "grinlemon/sackli::seo/single-h1::src/lib/views/ExportView.svelte:137::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "key covers /budgets/[id]/export and /demo/export (local CLI), same shape: the layout's BudgetHeader renders <h1>{title} (BudgetHeader.svelte:35, budgets/[id]/+layout.svelte:7 / demo/+layout.svelte) and ExportView renders the report's <h1>{budget.name} (ExportView.svelte:137) — two <h1>s on screen (the header is print:hidden only)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/title-length::src/routes/(app)/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/(app)/account/+page.svelte, whitespace collapsed, 19 graphemes as reported; no other title emitter on the route) (literal claim holds); but login-gated ((app)/+layout.server.ts redirect, X-Robots-Tag noindex), not a search target"
+  },
+  {
+    "key": "grinlemon/sackli::seo/title-length::src/routes/(app)/budgets/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/(app)/budgets/+page.svelte, whitespace collapsed, 20 graphemes as reported; no other title emitter on the route) (literal claim holds); but login-gated ((app)/+layout.server.ts redirect, X-Robots-Tag noindex), not a search target"
+  },
+  {
+    "key": "grinlemon/sackli::seo/title-length::src/routes/forgot-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/forgot-password/+page.svelte, whitespace collapsed, 28 graphemes as reported; no other title emitter on the route) (literal claim holds); but outside lib/seo.ts INDEXABLE (X-Robots-Tag noindex, robots.txt Disallow), not a search target"
+  },
+  {
+    "key": "grinlemon/sackli::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/login/+page.svelte, whitespace collapsed, 18 graphemes as reported; no other title emitter on the route) (literal claim holds); indexable public page (lib/seo.ts INDEXABLE)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/title-length::src/routes/reset-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/reset-password/+page.svelte, whitespace collapsed, 29 graphemes as reported; no other title emitter on the route) (literal claim holds); but outside lib/seo.ts INDEXABLE (X-Robots-Tag noindex, robots.txt Disallow), not a search target"
+  },
+  {
+    "key": "grinlemon/sackli::seo/title-length::src/routes/signup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/signup/+page.svelte, whitespace collapsed, 24 graphemes as reported; no other title emitter on the route) (literal claim holds); indexable public page (lib/seo.ts INDEXABLE)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/(app)/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/(app)/budgets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /budgets (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/(app)/budgets/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /budgets/[id] (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/(app)/budgets/[id]/analyse/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /budgets/[id]/analyse (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/(app)/budgets/[id]/export/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /budgets/[id]/export (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/(app)/budgets/[id]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /budgets/[id]/settings (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forgot-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders (noindex, but social tags are judged regardless of gating (ledger convention))"
+  },
+  {
+    "key": "grinlemon/sackli::seo/twitter-card::src/routes/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /signup (repo grep: the only og:*/twitter:*/canonical emitters are +page.svelte:115-130 (route /) and demo/+layout.svelte:29-43 (/demo); root +layout.svelte and (app) layouts add none; page heads are <title>/description at most only; app.html icons/viewport/theme-color; no meta-tag library); route renders"
+  }
+]

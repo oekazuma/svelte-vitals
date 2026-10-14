@@ -1,0 +1,377 @@
+[
+  {
+    "key": "andrei0x309/flashsoft-sk::a11y/deprecated-attr::src/routes/(app)/projects/components/MegaEmbed.svelte:9::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read MegaEmbed.svelte:9: <iframe ... frameborder=\"0\">; frameborder is obsolete on iframe (use CSS border)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::a11y/interactive-nesting::src/routes/+error.svelte:58::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read +error.svelte:57-70: <a href=\"/\"><button>...</button></a> (three links); button inside a link as reported"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::a11y/interactive-nesting::src/routes/+error.svelte:64::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read +error.svelte:57-70: <a href=\"/\"><button>...</button></a> (three links); button inside a link as reported"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::a11y/interactive-nesting::src/routes/+error.svelte:70::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read +error.svelte:57-70: <a href=\"/\"><button>...</button></a> (three links); button inside a link as reported"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::a11y/permitted-contents::src/routes/+error.svelte:59::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/+error.svelte): <div> at :59 has literal parent element button:58 (ancestors: button:58 < a:57 < div:56 < div:49 < main:47 < div:45); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::a11y/permitted-contents::src/routes/+error.svelte:65::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/+error.svelte): <div> at :65 has literal parent element button:64 (ancestors: button:64 < a:63 < div:56 < div:49 < main:47 < div:45); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::a11y/permitted-contents::src/routes/+error.svelte:71::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/+error.svelte): <div> at :71 has literal parent element button:70 (ancestors: button:70 < a:69 < div:56 < div:49 < main:47 < div:45); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::a11y/top-level-landmark::src/routes/(index)/+page.svelte:68::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "route / renders (hooks.server.ts:6-16 redirects only www./alternate hosts; (index)/+page.server.ts errors only in its catch); (index)/+page.svelte:55-68 puts an unlabelled <aside class=\"rsb\"> directly inside the page <main id=\"main\">; complementary nested in main as reported"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::architecture/component-size::src/routes/(index)/left-side/ContactForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(index)/left-side/ContactForm.svelte has 203 physical lines (newline count, trailing newline not counted; 185 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::architecture/component-size::src/routes/(index)/left-side/Techs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(index)/left-side/Techs.svelte has 706 physical lines (newline count, trailing newline not counted; 593 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-index-key::src/routes/(app)/certs/components/CertList.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/certs/components/CertList.svelte:32 '{#each certs as cert, i (i)}' keyed by its index binding; certs is a const snapshot of one page of certs (:16) and CertListPage.svelte:66-68 remounts CertList in {#key pagKey} on every navigation, so the list is fixed for each mount and never reorders"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/certs/components/CertFilter.svelte:97::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/certs/components/CertFilter.svelte:97 '{#each tags as tag}' has no key; tags = $state filled from fetch('/api/cert/get/tags') (:17-30) and refetched with ?all=true when toggled, each row a checkbox: runtime list whose length changes under stateful inputs"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/certs/components/CertList.svelte:48::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/certs/components/CertList.svelte:48 '{#each cert['tags'] as tag}' has no key; tags of one cert in the const certs snapshot (:16), and CertList is remounted by {#key pagKey} on every navigation (CertListPage.svelte:66-68): fixed for each mount"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/certs/components/CertPagination.svelte:65::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/certs/components/CertPagination.svelte:65 '{#each linkList as link }' has no key; linkList holds the page-number slots built once at init (:18-50); pagination slots (positional list)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/certs/components/CertSingle.svelte:59::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/certs/components/CertSingle.svelte:59 '{#each cert.tags as tag}' has no key; cert is a const snapshot of the one cert (:24) and nothing navigates from one cert view to another (only CertList links to /certs/view), so the list never changes while mounted"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/projects/components/ProjectList.svelte:14::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/projects/components/ProjectList.svelte:14 '{#each data.res.data as project}' has no key; one page of project records the server load fetches (projects/*/+page.server.ts), read reactively from the data prop and swapped on pagination; runtime records"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/projects/components/ProjectList.svelte:54::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/projects/components/ProjectList.svelte:54 '{#each project.techs as tech}' has no key; the technology links of one project record shown read-only (the enclosing project list is what changes on pagination); parts of one record shown read-only (ledger convention)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/projects/components/ProjectSingle.svelte:103::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/projects/components/ProjectSingle.svelte:103 '{#each Object.entries(screenPics) as [name, src]}' has no key; screenPics is a const snapshot of the one project (:24), and nothing navigates from one project view to another (only ProjectList links to /projects/view), so the list never changes while mounted"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/projects/components/ProjectSingle.svelte:109::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/projects/components/ProjectSingle.svelte:109 '{#each Object.entries(screenPics) as [name, src]}' has no key; screenPics is a const snapshot of the one project (:24), and nothing navigates from one project view to another, so the list never changes while mounted"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/projects/components/ProjectSingle.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/projects/components/ProjectSingle.svelte:118 '{#each techs as tech}' has no key; techs is a const snapshot of the one project (:25), and nothing navigates from one project view to another, so the list never changes while mounted"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/each-key::src/routes/(app)/projects/components/ProjectSingle.svelte:78::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/projects/components/ProjectSingle.svelte:78 '{#each Object.entries(links) as [name, href]}' has no key; links is a const snapshot of the one project (:23), and nothing navigates from one project view to another, so the list never changes while mounted"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/effect-as-derived::src/routes/(app)/projects/[...rest]/+page.svelte:29::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/projects/[...rest]/+page.svelte:29 the effect only does page = data.res.page; page ($state :27) has no other writer, so $derived(data.res.page) expresses it directly, as claimed"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/effect-as-derived::src/routes/(app)/projects/all/+page.svelte:30::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/projects/all/+page.svelte:30 the effect only does page = data.res.page; page ($state :28) has no other writer, so $derived(data.res.page) expresses it directly, as claimed"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/effect-as-derived::src/routes/(app)/projects/ogs/+page.svelte:30::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/projects/ogs/+page.svelte:30 the effect only does page = data.res.page; page ($state :28) has no other writer, so $derived(data.res.page) expresses it directly, as claimed"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/effect-as-derived::src/routes/(app)/projects/view/[slug]/+page.svelte:28::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/projects/view/[slug]/+page.svelte:28 the effect only does page = data.res.page; page ($state :26) has no other writer, so $derived(data.res.page) expresses it directly, as claimed"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/instance-browser-global::src/components/Lazy.svelte:13::IntersectionObserver is accessed during component initialisation — during SSR this runs on the server, where IntersectionObserver is not defined",
+    "verdict": "design",
+    "basis": "read: src/components/Lazy.svelte:13 new IntersectionObserver at instance top level, unguarded (structurally true), but its only render site is ContactForm.svelte:152-153 inside {#if browser}, so it never runs on the server (the docs' parent-guard case)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/prop-mutation::src/routes/(index)/mobile/SideMenuToggle.svelte:9::Prop \"sideMenu\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(index)/mobile/SideMenuToggle.svelte:9 sideMenu?.classList.add(…) on the sideMenu prop, an HTMLElement (the side-menu node); a DOM side effect that takes effect directly, none of the documented proxy/no-op failure modes apply; reported per the rule's method-call semantics (ledger DOM-element convention)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/stale-prop-derivation::src/routes/(app)/certs/components/CertList.svelte:16::\"certs\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/certs/components/CertList.svelte:16 certs = data?.res?.data ?? [] at init, rendered (structurally true), but CertListPage.svelte:66-68 remounts CertList inside {#key pagKey}, bumped in afterNavigate on every navigation, so the snapshot is retaken whenever data changes"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/stale-prop-derivation::src/routes/(app)/certs/components/CertPagination.svelte:11::\"isMinPage\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/certs/components/CertPagination.svelte:11 isMinPage = currentPage === 1 at init (structurally true); CertPagination renders inside CertList (:79), which CertListPage remounts with {#key pagKey} on every navigation, so the prop never changes for a mounted instance"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/stale-prop-derivation::src/routes/(app)/certs/components/CertPagination.svelte:12::\"isMaxPage\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/certs/components/CertPagination.svelte:12 isMaxPage = currentPage === maxPage at init (structurally true); CertPagination renders inside CertList (:79), which CertListPage remounts with {#key pagKey} on every navigation, so the props never change for a mounted instance"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/stale-prop-derivation::src/routes/(app)/components/Header.svelte:9::\"logoUrl\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/components/Header.svelte:9 logoUrl = segment === 'cert' ? … at init (structurally true); every render site passes a literal segment (\"projects\" or \"cert\", e.g. projects/all/+page.svelte:54, CertListPage.svelte:57), so the prop never changes after mount"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/stale-prop-derivation::src/routes/(app)/projects/components/ProjectSingle.svelte:21::\"youtubeLink\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/projects/components/ProjectSingle.svelte:21 youtubeLink from data at init (structurally true); ProjectSingle renders only on projects/view/[slug] and nothing links one project view to another (only ProjectList links there), so data does not change while it is mounted"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/stale-prop-derivation::src/routes/(app)/projects/components/ProjectSingle.svelte:25::\"techs\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/projects/components/ProjectSingle.svelte:25 techs from data at init (structurally true); ProjectSingle renders only on projects/view/[slug] and nothing links one project view to another (only ProjectList links there), so data does not change while it is mounted"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::correctness/unmutated-state::src/routes/(app)/certs/components/CertImg.svelte:21::$state \"srcset\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file): src/routes/(app)/certs/components/CertImg.svelte:21 srcset = $state(''); its only other mentions are a commented-out assignment (:38) and the read {srcset} (:72); never written, bound or passed"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::performance/iframe-loading::src/routes/(app)/projects/components/MegaEmbed.svelte:9::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "read: <iframe> has no loading attribute and no spread; the MEGA demo-video embed sits in ProjectSingle after the feature image and the Open Source/Category/Description/Links sections (ProjectSingle.svelte:52-91) — can sit offscreen"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::performance/preconnect::src/routes/(app)/+layout.svelte::Third-party origin fonts.gstatic.com used without a preconnect",
+    "verdict": "fp",
+    "basis": "read (app)/+layout.svelte:24: the only head reference to fonts.gstatic.com is <link rel=\"dns-prefetch preconnect\" href=\"https://fonts.gstatic.com\"/>, itself a preconnect (rel is a token list); preconnect.ts compares tag.rel === 'preconnect' exactly, so it counts the hint as an un-preconnected resource — the origin IS preconnected"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::performance/preconnect::src/routes/(index)/+layout.svelte::Third-party origin fonts.gstatic.com used without a preconnect",
+    "verdict": "fp",
+    "basis": "read (index)/+layout.svelte:24: the only head reference to fonts.gstatic.com is <link rel=\"dns-prefetch preconnect\" href=\"https://fonts.gstatic.com\" />, itself a preconnect (rel is a token list); preconnect.ts compares tag.rel === 'preconnect' exactly, so it counts the hint as an un-preconnected resource — the origin IS preconnected"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::security/raw-html::src/routes/(app)/+layout.svelte:35::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read (app)/+layout.svelte:3,35 + src/lib/utils/analytics.ts: analyticsCode is a repo string constant (a gtag snippet wrapped entirely in an HTML comment) — repo-authored, reported per docs"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::security/raw-html::src/routes/(index)/+layout.svelte:35::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read (index)/+layout.svelte:4,35 + src/lib/utils/analytics.ts: analyticsCode is a repo string constant (a gtag snippet wrapped entirely in an HTML comment) — repo-authored, reported per docs"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::security/raw-html::src/routes/(index)/left-side/MainSection.svelte:77::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read MainSection.svelte:66,77 + (index)/+page.server.ts:7-56: html is HTML scraped from https://github.com/users/andrei0x309/contributions (fetch + cheerio .html(), cached in Supabase) and rendered with no sanitizer — third-party HTML rendered raw (ledger external-content tp convention)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::security/raw-html::src/routes/(index)/left-side/MainSection.svelte:83::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read MainSection.svelte:66,83 + (index)/+page.server.ts:7-56: the activity-overview half of HTML scraped from github.com (fetch + cheerio .html(), cached in Supabase) rendered with no sanitizer — third-party HTML rendered raw (ledger external-content tp convention)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::security/raw-html::src/routes/+error.svelte:41::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +error.svelte:40-41: data.schemaContent is set by no load anywhere in src (grep: only this file names it), so the block never renders — nothing unsanitized reaches it; reported per docs"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(app)/certs/[...rest]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /certs/[...rest]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and CertListPage.svelte:40-55 rendered by the page (title/description/og:title/description/type/url/image, prev/next); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(app)/certs/search/[[page=page]]/[[num=num]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /certs/search/[[page=page]]/[[num=num]]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and CertListPage.svelte:40-55 rendered by the page (title/description/og:title/description/type/url/image, prev/next); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(app)/certs/view/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /certs/view/[slug]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :36-46 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(app)/projects/[...rest]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /projects/[...rest]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :40-55 (title/description/og:title/description/type/url/image, prev/next); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(app)/projects/all/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /projects/all: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :41-52 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(app)/projects/category/[slug]/[[page=page]]/[[num=num]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /projects/category/[slug]/[[page=page]]/[[num=num]]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :45-56 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(app)/projects/ogs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects/ogs: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :41-52 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts but not a search target (dev-only: projects/ogs/+page.server.ts:7-10 error(404) unless the host is localhost/127.0.0.1), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(app)/projects/technology/[slug]/[[page=page]]/[[num=num]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /projects/technology/[slug]/[[page=page]]/[[num=num]]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :45-56 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(app)/projects/view/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /projects/view/[slug]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :39-50 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/canonical-url::src/routes/(index)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: its head is (index)/+layout.svelte:12-30 (meta/icons/preconnect) and (index)/+page.svelte:31-53 (title/description/og:title/description/type/url/image + Organization JSON-LD); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/json-ld::src/routes/(app)/certs/[...rest]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the literal Organization block in src/routes/(index)/+page.svelte:41, which (app)/ routes never render ((app)/+layout.svelte head is icons/author only; its {@html analyticsCode} is the gtag snippet); /certs/[...rest] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/json-ld::src/routes/(app)/certs/search/[[page=page]]/[[num=num]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the literal Organization block in src/routes/(index)/+page.svelte:41, which (app)/ routes never render ((app)/+layout.svelte head is icons/author only; its {@html analyticsCode} is the gtag snippet); /certs/search/[[page=page]]/[[num=num]] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/json-ld::src/routes/(app)/certs/view/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the literal Organization block in src/routes/(index)/+page.svelte:41, which (app)/ routes never render ((app)/+layout.svelte head is icons/author only; its {@html analyticsCode} is the gtag snippet); /certs/view/[slug] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/json-ld::src/routes/(app)/projects/[...rest]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the literal Organization block in src/routes/(index)/+page.svelte:41, which (app)/ routes never render ((app)/+layout.svelte head is icons/author only; its {@html analyticsCode} is the gtag snippet); /projects/[...rest] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/json-ld::src/routes/(app)/projects/all/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the literal Organization block in src/routes/(index)/+page.svelte:41, which (app)/ routes never render ((app)/+layout.svelte head is icons/author only; its {@html analyticsCode} is the gtag snippet); /projects/all renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/json-ld::src/routes/(app)/projects/category/[slug]/[[page=page]]/[[num=num]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the literal Organization block in src/routes/(index)/+page.svelte:41, which (app)/ routes never render ((app)/+layout.svelte head is icons/author only; its {@html analyticsCode} is the gtag snippet); /projects/category/[slug]/[[page=page]]/[[num=num]] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/json-ld::src/routes/(app)/projects/ogs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the literal Organization block in src/routes/(index)/+page.svelte:41, which (app)/ routes never render ((app)/+layout.svelte head is icons/author only; its {@html analyticsCode} is the gtag snippet); /projects/ogs renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience); load 404s unless the host is localhost (dev-only page), json-ld convention: tp"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/json-ld::src/routes/(app)/projects/technology/[slug]/[[page=page]]/[[num=num]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the literal Organization block in src/routes/(index)/+page.svelte:41, which (app)/ routes never render ((app)/+layout.svelte head is icons/author only; its {@html analyticsCode} is the gtag snippet); /projects/technology/[slug]/[[page=page]]/[[num=num]] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/json-ld::src/routes/(app)/projects/view/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is the literal Organization block in src/routes/(index)/+page.svelte:41, which (app)/ routes never render ((app)/+layout.svelte head is icons/author only; its {@html analyticsCode} is the gtag snippet); /projects/view/[slug] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: (index)/+layout.svelte and +page.svelte with its left-side/right-side components render <h2>/<h3> only (Skills.svelte:5-8, ContactForm.svelte:147, Techs.svelte:4); MainSection's {@html} is the GitHub contribution graph (an <h2>, +page.server.ts:16-19) — no <h1>"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/single-h1::src/routes/(app)/certs/components/CertSingle.svelte:30::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "two <h1>s render: Header segment=\"cert\" renders <h1>Courses & Certs DB (Header.svelte:66) and CertSingle renders <h1>{cert.cert_name} (CertSingle.svelte:30), both unconditional on certs/view/[slug]"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/single-h1::src/routes/(app)/components/Header.svelte:108::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "key covers 5 project list routes (local CLI), all the same: Header segment=\"projects\" renders <h1>Projects DB (Header.svelte:108) and each page renders its own <h1> (e.g. projects/[...rest]/+page.svelte:63, all/+page.svelte:61) — two <h1>s render"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/single-h1::src/routes/(app)/projects/components/ProjectSingle.svelte:47::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "two <h1>s render: Header segment=\"projects\" renders <h1>Projects DB (Header.svelte:108) and ProjectSingle renders <h1>{title} (ProjectSingle.svelte:47), both unconditional"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(app)/certs/[...rest]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /certs/[...rest]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and CertListPage.svelte:40-55 rendered by the page (title/description/og:title/description/type/url/image, prev/next); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(app)/certs/search/[[page=page]]/[[num=num]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /certs/search/[[page=page]]/[[num=num]]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and CertListPage.svelte:40-55 rendered by the page (title/description/og:title/description/type/url/image, prev/next); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(app)/certs/view/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /certs/view/[slug]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :36-46 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(app)/projects/[...rest]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[...rest]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :40-55 (title/description/og:title/description/type/url/image, prev/next); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(app)/projects/all/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/all: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :41-52 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(app)/projects/category/[slug]/[[page=page]]/[[num=num]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/category/[slug]/[[page=page]]/[[num=num]]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :45-56 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(app)/projects/ogs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/ogs: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :41-52 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; localhost-only OG tool route (+page.server.ts:7-10), twitter:card stays tp per ledger precedent for dev-only routes"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(app)/projects/technology/[slug]/[[page=page]]/[[num=num]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/technology/[slug]/[[page=page]]/[[num=num]]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :45-56 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(app)/projects/view/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/view/[slug]: its head is (app)/+layout.svelte:14-26 (meta/icons/preconnect) and the page head :39-50 (title/description/og:*); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  },
+  {
+    "key": "andrei0x309/flashsoft-sk::seo/twitter-card::src/routes/(index)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: its head is (index)/+layout.svelte:12-30 (meta/icons/preconnect) and (index)/+page.svelte:31-53 (title/description/og:title/description/type/url/image + Organization JSON-LD); app.html is charset/viewport; repo grep: the only rel=canonical is in +error.svelte:36 (error page) and there is no twitter:card anywhere (the one \"twitter\" hit is the JSON-LD sameAs URL in (index)/+page.svelte:49); no meta-tag library; hooks.server.ts only redirects www/alias hosts; public portfolio route, renders (load errors only on unknown params), robots.txt/+server.ts allows all"
+  }
+]

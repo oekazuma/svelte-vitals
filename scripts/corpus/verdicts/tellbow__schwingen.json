@@ -1,0 +1,142 @@
+[
+  {
+    "key": "tellbow/schwingen::architecture/component-size::src/routes/associations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/associations/+page.svelte has 327 physical lines (newline count, trailing newline not counted; 301 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "tellbow/schwingen::architecture/component-size::src/routes/bouts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/bouts/+page.svelte has 241 physical lines (newline count, trailing newline not counted; 229 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "tellbow/schwingen::architecture/component-size::src/routes/head2head/[wid]-[oid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/head2head/[wid]-[oid]/+page.svelte has 228 physical lines (newline count, trailing newline not counted; 211 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "tellbow/schwingen::architecture/component-size::src/routes/rankings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/rankings/+page.svelte has 297 physical lines (newline count, trailing newline not counted; 283 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "tellbow/schwingen::architecture/component-size::src/routes/statistics/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/statistics/+page.svelte has 221 physical lines (newline count, trailing newline not counted; 207 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "tellbow/schwingen::architecture/component-size::src/routes/wrestler/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/wrestler/[id]/+page.svelte has 319 physical lines (newline count, trailing newline not counted; 297 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "tellbow/schwingen::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "tellbow/schwingen::correctness/each-index-key::src/lib/components/wrestler/wrestler-head-to-head.svelte:92::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/wrestler/wrestler-head-to-head.svelte:92 '{#each b.result.split('') as char, i (i)}' keyed by its index binding; the characters of one result string; positional list (segments of one string)"
+  },
+  {
+    "key": "tellbow/schwingen::correctness/each-index-key::src/routes/wrestler/[id]/+page.svelte:292::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/wrestler/[id]/+page.svelte:292 '{#each r.result.split('') as char, i (i)}' keyed by its index binding; the characters of one result string; positional list (segments of one string)"
+  },
+  {
+    "key": "tellbow/schwingen::correctness/each-index-key::src/routes/wrestler/[wid]-[pid]/+page.svelte:96::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/wrestler/[wid]-[pid]/+page.svelte:96 '{#each b.result.split('') as char, i (i)}' keyed by its index binding; the characters of one result string; positional list (segments of one string)"
+  },
+  {
+    "key": "tellbow/schwingen::performance/state-raw::src/lib/components/wrestler/wrestler-top-opponents.svelte:9::\"topOpponents\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"topOpponents\" in src/lib/components/wrestler/wrestler-top-opponents.svelte: whole-binding reassignments (:21,:42,:48) and a keyed {#each} (:64) whose items are only read (opp.id/name/count text); no member writes, mutating calls, bind:, or call/prop escapes of the binding — $state.raw fits"
+  },
+  {
+    "key": "tellbow/schwingen::security/server-module-state::src/routes/sitemap.xml/+server.ts:76::module-scope variable \"cachedSitemap\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/sitemap.xml/+server.ts:11,74-77: cachedSitemap is a 1-hour TTL cache of the public sitemap XML built from PocketBase public collections — a process-wide cache of public, non-personal data with no request or user data, per docs (ledger lazy-cache convention)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/heading-level-skip::src/routes/wrestler/[id]/+page.svelte:244::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: wrestler/[id]/+page.svelte:175 <h1>; WrestlerStatsCharts (:238) renders only <h3>s; the results card <h3> (:244) follows with no <h2> anywhere -> <h1> to <h3>"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; / renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/associations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /associations renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/associations/association/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /associations/association/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/associations/canton/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /associations/canton/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/associations/club/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /associations/club/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/bouts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /bouts renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/head2head/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /head2head renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/head2head/[wid]-[oid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /head2head/[wid]-[oid] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/places/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /places renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/rankings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /rankings renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/rankings/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /rankings/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/statistics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /statistics renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/wrestler/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /wrestler renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/wrestler/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /wrestler/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "tellbow/schwingen::seo/json-ld::src/routes/wrestler/[wid]-[pid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /wrestler/[wid]-[pid] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  }
+]
