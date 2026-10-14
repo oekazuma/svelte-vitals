@@ -5,6 +5,7 @@ import {
   attrTextOf,
   collectConstantListExports,
   collectFalseExports,
+  hasRel,
   parseModuleProgram,
   resolveRepoLocalPath,
   unwrapTs
@@ -412,7 +413,7 @@ export function tagKey(tag: ParsedTag): string {
     case 'meta':
       return `meta:${tag.name ? `name=${tag.name}` : tag.property ? `prop=${tag.property}` : '?'}`;
     case 'link':
-      return `link:${tag.rel ?? '?'}`;
+      return hasRel(tag, 'canonical') ? 'link:canonical' : `link:${tag.rel ?? '?'}`;
     case 'jsonld':
       return 'jsonld';
     case 'script':

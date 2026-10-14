@@ -14,6 +14,7 @@ import {
   withWorkspacePackages,
   resolveKitPathsBase,
   findKitHashRouterInSvelteConfig,
+  hasRel,
   servesRootFile,
   type Project,
   type Runtime
@@ -224,7 +225,7 @@ function detectAppHtmlHeadTags(html: string): ParsedTag[] {
         t.kind === 'title' ||
         t.kind === 'jsonld' ||
         (t.kind === 'meta' && t.name !== 'charset' && t.name !== 'viewport') ||
-        (t.kind === 'link' && (t.rel === 'canonical' || t.rel === 'preconnect' || t.rel === 'dns-prefetch'))
+        (t.kind === 'link' && ['canonical', 'preconnect', 'dns-prefetch'].some((r) => hasRel(t, r)))
     )
     .map((t) =>
       // A placeholder in a JSON-LD body (a script's text, so never an expression) makes its content unknown;

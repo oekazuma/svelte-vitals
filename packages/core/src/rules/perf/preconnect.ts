@@ -1,4 +1,5 @@
 import type { Result } from '../../types.js';
+import { hasRel } from '../../head.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { compileOverrides } from '../../config-apply.js';
 import { listOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
@@ -61,7 +62,7 @@ export const performancePreconnect: Rule = {
         // leave the hint unrecorded and report the origin as un-preconnected, a false
         // positive. Gating only the *reference* side keeps the two sides in agreement
         // whatever each tag resolves.
-        if (tag.kind === 'link' && (tag.rel === 'preconnect' || tag.rel === 'dns-prefetch')) {
+        if (tag.kind === 'link' && (hasRel(tag, 'preconnect') || hasRel(tag, 'dns-prefetch'))) {
           covered.add(host);
           continue;
         }

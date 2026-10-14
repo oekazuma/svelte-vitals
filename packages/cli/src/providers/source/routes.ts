@@ -13,7 +13,7 @@ import type {
   ResolvedImages,
   Runtime
 } from '@svelte-vitals/core/internal';
-import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core/internal';
+import { defaultConfig, foldOccurrences, hasRel, isTopFragment } from '@svelte-vitals/core/internal';
 import type { A11yNode, ChildrenSite, ParsedFile, ParsedTag } from './parse.js';
 import { commonPrefix, decidedArms, flagArms, unsatisfiable, type Cond } from './parse.js';
 import { urlHolds, type UrlCond } from './url-cond.js';
@@ -536,7 +536,7 @@ async function resolveRoute(
       if (
         tag.kind === 'jsonld' ||
         tag.kind === 'script' ||
-        (tag.kind === 'link' && tag.rel !== 'canonical') ||
+        (tag.kind === 'link' && !hasRel(tag, 'canonical')) ||
         isRobotsMeta(tag)
       )
         additiveTags.push(stamped);

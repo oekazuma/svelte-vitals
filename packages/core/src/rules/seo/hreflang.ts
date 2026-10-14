@@ -1,4 +1,5 @@
 import type { Result } from '../../types.js';
+import { hasRel } from '../../head.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { PENALIZED, PASS } from '../detection.js';
 
@@ -36,7 +37,7 @@ export const seoHreflang: Rule = {
     const out: Result[] = [];
     for (const head of ctx.heads) {
       const alternates = head.tags.filter(
-        (t) => t.kind === 'link' && t.rel === 'alternate' && typeof t.hreflang === 'string'
+        (t) => t.kind === 'link' && hasRel(t, 'alternate') && typeof t.hreflang === 'string'
       );
       if (alternates.length === 0) continue; // no hreflang on this route → not applicable
       const values = alternates.map((t) => t.hreflang as string);
