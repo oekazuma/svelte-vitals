@@ -43,6 +43,11 @@ export interface HeadTag {
   file?: string;
 }
 
+/** Whether a `<link>`'s `rel` holds `token`: `rel` is a set of space-separated keywords (`dns-prefetch preconnect`). */
+export function hasRel(tag: { rel?: string }, token: string): boolean {
+  return tag.rel?.split(/\s+/).includes(token) ?? false;
+}
+
 /** Resolved effective head for a single route (design §8). */
 export interface ResolvedHead {
   /** Route path, e.g. '/blog/[slug]'. */

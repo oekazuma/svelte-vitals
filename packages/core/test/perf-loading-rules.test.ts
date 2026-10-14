@@ -164,6 +164,17 @@ describe('performance/preconnect preconnect third-party origin', () => {
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
+  it('reads rel as a token list: a "dns-prefetch preconnect" hint covers its origin and is not itself flagged', async () => {
+    const rs = await performancePreconnect.check(
+      headsCtx(
+        head('rendered', [
+          link('dns-prefetch preconnect', 'https://fonts.gstatic.com'),
+          link('stylesheet preload', 'https://fonts.gstatic.com/x.css')
+        ])
+      )
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
   it('a passing result carries the same location a penalized result on this route would (design 2026-08-08-pass-result-location-design.md)', async () => {
     const rs = await performancePreconnect.check(
       headsCtx(

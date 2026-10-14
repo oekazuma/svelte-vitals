@@ -11,7 +11,7 @@ export type { Project, KitAlias, Scope } from './types.js';
 export { defaultConfig, defaultProject } from './types.js';
 
 export type { HeadTag, ResolvedHead } from './head.js';
-export { isClassicScriptType } from './head.js';
+export { hasRel, isClassicScriptType } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
 export { isSvgSrc } from './images.js';
 export type { HeadingInfo, ResolvedHeadings } from './headings.js';

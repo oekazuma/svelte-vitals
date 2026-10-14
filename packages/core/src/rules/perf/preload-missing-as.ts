@@ -1,3 +1,4 @@
+import { hasRel } from '../../head.js';
 import { linkRule } from './link-rule.js';
 
 export const performancePreloadMissingAs = linkRule({
@@ -14,6 +15,6 @@ export const performancePreloadMissingAs = linkRule({
     snippet: '<link rel="preload" href="/app.css" as="style" />',
     lang: 'html'
   },
-  relevant: (t) => t.rel === 'preload',
+  relevant: (t) => hasRel(t, 'preload'),
   ok: (t) => t.hasAs === true
 });

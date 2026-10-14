@@ -1,3 +1,4 @@
+import { hasRel } from '../../head.js';
 import { linkRule } from './link-rule.js';
 
 export const performanceFontPreloadCrossorigin = linkRule({
@@ -14,6 +15,6 @@ export const performanceFontPreloadCrossorigin = linkRule({
     snippet: '<link rel="preload" href="/inter.woff2" as="font" type="font/woff2" crossorigin />',
     lang: 'html'
   },
-  relevant: (t) => t.rel === 'preload' && t.as === 'font',
+  relevant: (t) => hasRel(t, 'preload') && t.as === 'font',
   ok: (t) => t.hasCrossorigin === true
 });

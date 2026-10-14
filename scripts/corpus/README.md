@@ -524,7 +524,7 @@ Measured on 483 apps, each pinned to a commit:
 - [andrei0x309/flashsoft-sk](https://github.com/andrei0x309/flashsoft-sk/tree/7d45109e4dd803d118bb29e90fdf70bab5895bbb) (`7d45109`)
 - [onassis-salinas/CSTGRP_ERP/apps/app](https://github.com/onassis-salinas/CSTGRP_ERP/tree/68c9d31f519a3cb726fc6e4b5cce53503e6664b2/apps/app) (`68c9d31`)
 
-196473 of 196498 corpus findings have a verdict.
+196471 of 196496 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -591,7 +591,7 @@ Measured on 483 apps, each pinned to a commit:
 | [`performance/load-waterfall`](../../docs/src/content/docs/rules/performance/load-waterfall.md)                       | 307             | 50   | 147 / 1 / 159 / 0                     | 99% (147/148)      | 52% (159/307)    |
 | [`performance/minify-disabled`](../../docs/src/content/docs/rules/performance/minify-disabled.md)                     | 0               | 0    | —                                     | —                  | —                |
 | [`performance/namespace-import`](../../docs/src/content/docs/rules/performance/namespace-import.md)                   | 19              | 11   | 7 / 0 / 12 / 0                        | 100% (7/7)         | 63% (12/19)      |
-| [`performance/preconnect`](../../docs/src/content/docs/rules/performance/preconnect.md)                               | 5               | 4    | 3 / 2 / 0 / 0                         | 60% (3/5)          | 0% (0/5)         |
+| [`performance/preconnect`](../../docs/src/content/docs/rules/performance/preconnect.md)                               | 3               | 3    | 3 / 0 / 0 / 0                         | 100% (3/3)         | 0% (0/3)         |
 | [`performance/preload-missing-as`](../../docs/src/content/docs/rules/performance/preload-missing-as.md)               | 0               | 0    | —                                     | —                  | —                |
 | [`performance/render-blocking-script`](../../docs/src/content/docs/rules/performance/render-blocking-script.md)       | 7               | 5    | 7 / 0 / 0 / 0                         | 100% (7/7)         | 0% (0/7)         |
 | [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 2941            | 315  | 2452 / 4 / 485 / 0                    | 100% (2452/2456)   | 16% (485/2941)   |
