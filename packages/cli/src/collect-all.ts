@@ -13,6 +13,7 @@ import {
   VITE_CONFIG_FILES,
   type ComponentFacts,
   type DirectiveIndex,
+  type HeadTag,
   type KitModuleFacts,
   type Project,
   type ResolvedA11y,
@@ -23,7 +24,7 @@ import {
   type SuppressionDirective
 } from '@svelte-vitals/core/internal';
 import { collectProjectFacts } from './providers/source/project.js';
-import { dropConstantListEachBlocks, type ParseCache } from './providers/source/resolve.js';
+import { BROAD_KINDS, dropConstantListEachBlocks, tagKey, type ParseCache } from './providers/source/resolve.js';
 import { collectRoutes, deriveRoute } from './providers/source/routes.js';
 import { urlHolds } from './providers/source/url-cond.js';
 import { routeMatcher } from './route-matcher.js';
@@ -35,6 +36,18 @@ function globList(globs: string | string[] | undefined): string[] {
 
 const PAGE_MODULE_RE = /\/\+page(\.server)?\.(ts|js)$/;
 const HOOKS_RE = /(^|\/)src\/hooks\.server\.(ts|js)$/;
+
+/**
+ * The tags a `transformPageChunk` in `hooks.server` may write into the shell's `<head>`: when it replaces a
+ * whole comment that sits there (`<!--seo-head-->`), what it writes is unknown, so every route may carry the meta
+ * family an opaque head source implies, dynamic, beneath its own tags.
+ */
+function pageChunkFill(kitModules: KitModuleFacts[], project: Project): HeadTag[] {
+  const tokens = kitModules.filter((m) => HOOKS_RE.test(m.file)).flatMap((m) => m.pageChunkTokens ?? []);
+  const comments = project.appHtmlHeadComments ?? [];
+  if (!tokens.some((t) => comments.includes(t))) return [];
+  return BROAD_KINDS.map((t) => ({ ...t, presence: 'inherited', file: 'src/app.html' }) as HeadTag);
+}
 
 /** Routes the app's `hooks.server` answers before `resolve()` on every request (`answeredPaths`). */
 async function hooksAnswered(
@@ -142,13 +155,19 @@ export async function collectAll(
     ...(await hooksAnswered(rt, cwd, allKitModules, collected.heads, project, sourceFiles))
   ]);
   const routeLevel = (route: string) => matches(route) && !redirectOnly.has(route);
+  const chunkFill = pageChunkFill(allKitModules, project);
   const heads = collected.heads
     .filter((h) => routeLevel(h.route))
     .map((h) =>
       h.tags.some((t) => t.clientOnly) && !routeNeverSsr(h.file, ssrScope)
         ? { ...h, tags: h.tags.filter((t) => !t.clientOnly) }
         : h
-    );
+    )
+    .map((h) => {
+      const have = new Set(h.tags.map((t) => tagKey(t)));
+      const fill = chunkFill.filter((t) => !have.has(tagKey(t)));
+      return fill.length === 0 ? h : { ...h, tags: [...h.tags, ...fill] };
+    });
   const images = collected.images.filter((i) => routeLevel(i.route));
   const pageOf = new Map(collected.heads.map((h) => [h.route, h.file]));
   const headings = collected.headings

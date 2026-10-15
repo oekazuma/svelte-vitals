@@ -538,7 +538,7 @@ Measured on 497 apps, each pinned to a commit:
 - [CUB-CORR/concepts-browser/app](https://github.com/CUB-CORR/concepts-browser/tree/00a7fa0315fb8f8f430fab7c4a161bfa7646ff6f/app) (`00a7fa0`)
 - [Gurparkash-Singh/Taqdeer-Alitura](https://github.com/Gurparkash-Singh/Taqdeer-Alitura/tree/d0b8c495d6ad53fbfb740d1d5cca977a4fdc7afc) (`d0b8c49`)
 
-200082 of 200107 corpus findings have a verdict.
+199949 of 199974 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -616,10 +616,10 @@ Measured on 497 apps, each pinned to a commit:
 | [`security/raw-html`](../../docs/src/content/docs/rules/security/raw-html.md)                                         | 3956            | 359  | 415 / 0 / 3540 / 1                    | 100% (415/415)     | 89% (3540/3956)  |
 | [`security/server-module-state`](../../docs/src/content/docs/rules/security/server-module-state.md)                   | 213             | 64   | 4 / 2 / 207 / 0                       | 67% (4/6)          | 97% (207/213)    |
 | [`security/shared-state-import`](../../docs/src/content/docs/rules/security/shared-state-import.md)                   | 64              | 12   | 49 / 0 / 15 / 0                       | 100% (49/49)       | 23% (15/64)      |
-| [`seo/canonical-url`](../../docs/src/content/docs/rules/seo/canonical-url.md)                                         | 12851           | 400  | 4407 / 97 / 8347 / 0                  | 98% (4407/4504)    | 65% (8347/12851) |
+| [`seo/canonical-url`](../../docs/src/content/docs/rules/seo/canonical-url.md)                                         | 12832           | 399  | 4407 / 78 / 8347 / 0                  | 98% (4407/4485)    | 65% (8347/12832) |
 | [`seo/charset`](../../docs/src/content/docs/rules/seo/charset.md)                                                     | 0               | 0    | —                                     | —                  | —                |
 | [`seo/description-length`](../../docs/src/content/docs/rules/seo/description-length.md)                               | 567             | 144  | 513 / 0 / 54 / 0                      | 100% (513/513)     | 10% (54/567)     |
-| [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 9945            | 327  | 1093 / 104 / 8748 / 0                 | 91% (1093/1197)    | 88% (8748/9945)  |
+| [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 9926            | 326  | 1093 / 85 / 8748 / 0                  | 93% (1093/1178)    | 88% (8748/9926)  |
 | [`seo/duplicate-description`](../../docs/src/content/docs/rules/seo/duplicate-description.md)                         | 155             | 79   | 108 / 0 / 47 / 0                      | 100% (108/108)     | 30% (47/155)     |
 | [`seo/duplicate-title`](../../docs/src/content/docs/rules/seo/duplicate-title.md)                                     | 294             | 154  | 53 / 2 / 239 / 0                      | 96% (53/55)        | 81% (239/294)    |
 | [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 1416            | 249  | 1370 / 41 / 5 / 0                     | 97% (1370/1411)    | 0% (5/1416)      |
@@ -634,10 +634,10 @@ Measured on 497 apps, each pinned to a commit:
 | [`seo/json-ld-relative-url`](../../docs/src/content/docs/rules/seo/json-ld-relative-url.md)                           | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)         |
 | [`seo/json-ld-required-props`](../../docs/src/content/docs/rules/seo/json-ld-required-props.md)                       | 0               | 0    | —                                     | —                  | —                |
 | [`seo/json-ld-validity`](../../docs/src/content/docs/rules/seo/json-ld-validity.md)                                   | 44              | 10   | 44 / 0 / 0 / 0                        | 100% (44/44)       | 0% (0/44)        |
-| [`seo/og-description`](../../docs/src/content/docs/rules/seo/og-description.md)                                       | 12307           | 370  | 12199 / 108 / 0 / 0                   | 99% (12199/12307)  | 0% (0/12307)     |
-| [`seo/og-image`](../../docs/src/content/docs/rules/seo/og-image.md)                                                   | 12389           | 376  | 12305 / 84 / 0 / 0                    | 99% (12305/12389)  | 0% (0/12389)     |
-| [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 12138           | 368  | 12031 / 107 / 0 / 0                   | 99% (12031/12138)  | 0% (0/12138)     |
-| [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 12605           | 376  | 12535 / 68 / 2 / 0                    | 99% (12535/12603)  | 0% (2/12605)     |
+| [`seo/og-description`](../../docs/src/content/docs/rules/seo/og-description.md)                                       | 12288           | 369  | 12199 / 89 / 0 / 0                    | 99% (12199/12288)  | 0% (0/12288)     |
+| [`seo/og-image`](../../docs/src/content/docs/rules/seo/og-image.md)                                                   | 12370           | 375  | 12305 / 65 / 0 / 0                    | 99% (12305/12370)  | 0% (0/12370)     |
+| [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 12119           | 367  | 12031 / 88 / 0 / 0                    | 99% (12031/12119)  | 0% (0/12119)     |
+| [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 12586           | 375  | 12535 / 49 / 2 / 0                    | 100% (12535/12584) | 0% (2/12586)     |
 | [`seo/robots-txt`](../../docs/src/content/docs/rules/seo/robots-txt.md)                                               | 191             | 191  | 78 / 2 / 111 / 0                      | 98% (78/80)        | 58% (111/191)    |
 | [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 3683            | 395  | 3343 / 123 / 186 / 6                  | 96% (3343/3466)    | 5% (186/3658)    |
 | [`seo/sitemap-in-robots`](../../docs/src/content/docs/rules/seo/sitemap-in-robots.md)                                 | 14              | 14   | 13 / 0 / 1 / 0                        | 100% (13/13)       | 7% (1/14)        |
@@ -645,7 +645,7 @@ Measured on 497 apps, each pinned to a commit:
 | [`seo/ssr-disabled`](../../docs/src/content/docs/rules/seo/ssr-disabled.md)                                           | 665             | 169  | 141 / 0 / 524 / 0                     | 100% (141/141)     | 79% (524/665)    |
 | [`seo/title-length`](../../docs/src/content/docs/rules/seo/title-length.md)                                           | 2944            | 315  | 2077 / 7 / 860 / 0                    | 100% (2077/2084)   | 29% (860/2944)   |
 | [`seo/title-presence`](../../docs/src/content/docs/rules/seo/title-presence.md)                                       | 2316            | 163  | 2210 / 40 / 65 / 1                    | 98% (2210/2250)    | 3% (65/2316)     |
-| [`seo/twitter-card`](../../docs/src/content/docs/rules/seo/twitter-card.md)                                           | 12461           | 372  | 12364 / 97 / 0 / 0                    | 99% (12364/12461)  | 0% (0/12461)     |
+| [`seo/twitter-card`](../../docs/src/content/docs/rules/seo/twitter-card.md)                                           | 12442           | 371  | 12364 / 78 / 0 / 0                    | 99% (12364/12442)  | 0% (0/12442)     |
 | [`seo/viewport`](../../docs/src/content/docs/rules/seo/viewport.md)                                                   | 0               | 0    | —                                     | —                  | —                |
 
 <!-- rule-reliability:end -->

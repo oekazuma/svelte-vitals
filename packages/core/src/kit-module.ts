@@ -56,6 +56,8 @@ export interface KitModuleFacts {
   loadNeverRenders?: true;
   /** The request paths the exported `handle` of a hooks file answers before calling `resolve` (see `handleAnsweredPaths` in kit-module-parse.ts): a route they cover never renders. */
   answeredPaths?: { op: 'eq' | 'starts'; v: string }[];
+  /** The string literals a `transformPageChunk` the exported `handle` passes to `resolve` replaces in the page HTML (`html.replace('<!--seo-head-->', …)`). */
+  pageChunkTokens?: string[];
   /** The imported flag a load's leading guard reads (`if (!FLAG) redirect(…)`): `collectKitModuleFacts` sets `loadNeverRenders` when that export is the literal `false`. */
   pendingFlagGuard?: { resolved: string; name: string; member?: string };
   /** The imported factory `export const load = factory(…)` calls: `collectKitModuleFacts` sets `loadNeverRenders` when the function it returns redirects or errors on every call. */
