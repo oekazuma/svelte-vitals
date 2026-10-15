@@ -14,13 +14,6 @@ on:
       - 'scripts/corpus/**'
       - 'scripts/corpus-measure.js'
       - '.github/workflows/corpus.yml'
-  # A PR restores caches from its own ref and its base branch only, so main keeps the clones warm.
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/corpus/targets.json'
-      - 'scripts/corpus-measure.js'
-      - '.github/workflows/corpus.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -29,37 +22,15 @@ concurrency:
 permissions: {}
 
 jobs:
-  warm:
-    if: github.event_name == 'push'
-    permissions:
-      contents: read
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      - name: Setup Node.js and dependencies
-        uses: ./.github/workflows/setup-node
-      - name: Cache corpus clones
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ runner.temp }}/corpus
-          key: corpus-${{ hashFiles('scripts/corpus/targets.json') }}
-          restore-keys: corpus-
-      - name: Fetch every pinned clone
-        run: node scripts/corpus-measure.js fetch --cache "$RUNNER_TEMP/corpus"
-
   measure:
-    if: github.event_name == 'pull_request'
     # Runs the PR's code over cloned third-party repos, so it gets nothing worth stealing; the
     # write token lives only in the `comment` job, which runs neither.
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    # A normal run measures both sides in minutes. This backstops a hung job; it is not sized for
-    # every app hitting the script's per-app limit on both sides.
-    timeout-minutes: 45
+    # Both sides of a 500-app corpus take about half an hour, fetching every clone included. This
+    # backstops a hung job; it is not sized for every app hitting the script's per-app limit on both sides.
+    timeout-minutes: 60
     outputs:
       report: ${{ steps.report.outputs.report }}
       failed: ${{ steps.report.outputs.failed }}
@@ -90,12 +61,8 @@ jobs:
         if: steps.cli.outputs.same != 'true'
         working-directory: .corpus-base
         run: pnpm install --frozen-lockfile && pnpm build
-      - name: Cache corpus clones
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ runner.temp }}/corpus
-          key: corpus-${{ hashFiles('scripts/corpus/targets.json') }}
-          restore-keys: corpus-
+      # No clone cache: the clones of the whole corpus outgrow the repository's cache space, so an entry
+      # is evicted before the next run restores it, and saving one costs more than fetching.
       # The head's script measures both sides, so the base is read with the same key function
       # and targets even when the base predates them. An app that fails is reported in the diff.
       - name: Measure head
