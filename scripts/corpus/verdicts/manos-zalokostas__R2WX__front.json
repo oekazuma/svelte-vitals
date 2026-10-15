@@ -1,0 +1,592 @@
+[
+  {
+    "key": "manos-zalokostas/R2WX:front::a11y/interactive-nesting::src/lib/client/component/R2wxInputSwitchFlat.svelte:39::<input> is nested inside interactive <button>",
+    "verdict": "design",
+    "basis": "read R2wxInputSwitchFlat.svelte:33-41: <input type=\"checkbox\"/> directly inside <button aria-label=\"swith-flat\"> in <div class=\"r2wx-control\">; nested as reported, but the component style (:75-78, nested .r2wx-control { input { display: none } }) hides it, so it is neither focusable nor exposed and the button is the only control (ledger convention for display:none inputs inside a control)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::a11y/permitted-contents::src/lib/client/component/EventList.svelte:28::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/client/component/EventList.svelte:28: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<summary>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/base-path-navigation::src/routes/[[lang]]/+layout.server.js:13::redirect(…, '/authenticate') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/authenticate') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: [[lang]]/+layout.server.js:13 redirect(302, \"/authenticate\") root-relative; svelte.config.js sets kit.paths.base = process.env.PUBLIC_BASEPATH (computed, so the documented gate opens), but nothing sets it non-empty: .env.example and front/.env.example leave PUBLIC_BASEPATH= blank (dev and PRODUCTION sections), front/Dockerfile and docker-compose.yml set no base; blink() ($lib/index.js:12) and authall.js:110 honour the base, so this redirect is the one spot that would break if one were set"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/Alert.svelte:69::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Alert.svelte:69 '{#each links as link}' has no key; links prop defaults to a literal list (:12-18) and the only caller (<Alert mins={0.2}/>, [[lang]]/+layout.svelte:49) does not pass it; static list"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/Breadcrump.svelte:27::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Breadcrump.svelte:27 '{#each paths as [name, link], i}' has no key; breadcrumb entries of the current path; positional list (breadcrumb)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/EventList.svelte:18::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: EventList.svelte:18 '{#each list as o, i}' has no key; list prop of event records from the API; runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/MainMenu.svelte:17::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each toolPack() as [key, name, path…]}' has no key; toolPack() maps the constant TOOL/PAGE tables ($lib/index.js:279); static menu list"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/R2wxFormGeneric.svelte:25::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: R2wxFormGeneric.svelte:25 '{#each Object.values($active.form) as attr}' has no key; $active.form is the field set of the active entity form built by packEntityForm from server data ($lib/index.js:211), and each item renders an input component (R2wxFieldsetInput id={attr.id}); switching forms reuses those instances by position; runtime data"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/R2wxInputFile.svelte:31::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: R2wxInputFile.svelte:31 '{#each input.value as {originalname, filename: file}}' has no key; the files attached to the entity record; runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/R2wxInputFile.svelte:54::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: R2wxInputFile.svelte:54 '{#each files as fname,i}' has no key; files = names of one file-input selection, replaced wholesale on change (:24); positional list (one selection)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/R2wxInputLabel.svelte:45::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: R2wxInputLabel.svelte:45 '{#each alerts as [key, val]}' has no key; alerts = the constraint attributes (min/max/required/…) of one input filtered by the TRAITS literal (:36); static list"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/R2wxInputSelect.svelte:30::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: R2wxInputSelect(Multi).svelte '{#each options as option, i}' has no key; options = exportOpts(field) = data-options, filled from server-loaded rule._option in packEntityForm ($lib/index.js:226); runtime option list"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/R2wxInputSelectMulti.svelte:31::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: R2wxInputSelect(Multi).svelte '{#each options as option, i}' has no key; options = exportOpts(field) = data-options, filled from server-loaded rule._option in packEntityForm ($lib/index.js:226); runtime option list"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/lib/client/component/ToolBoard.svelte:12::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each toolPack() as [key, name, path…]}' has no key; toolPack() maps the constant TOOL/PAGE tables ($lib/index.js:279); static menu list"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/each-key::src/routes/(dev)/devroom/+page.svelte:8::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (dev)/devroom/+page.svelte:8 '{#each Object.entries(SVGI) as [key, icon]}' has no key; Object.entries of the constant icon table $lib/SVGIcon.js on a dev page; static list"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/stale-prop-derivation::src/lib/client/component/Authorized.svelte:13::\"levelRequired\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: Authorized.svelte:13 levelRequired = +level at init (claim structurally true), but every use passes a constant ROLE.* member or omits it (Wrapper.svelte:35 authLevel from each page's literal ROLE.*, MainMenu.svelte:14, EventList.svelte:30), so the prop never changes"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::correctness/unmutated-state::src/lib/client/component/ModalConfirm.svelte:19::$state \"currBtn\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w currBtn): ModalConfirm.svelte:19 currBtn = $state(BUTTON[modeCurr]) is only read (:24, :29, :38); never reassigned, mutated or bound"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::performance/image-dimensions::src/routes/[[lang]]/+layout.svelte:35::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "key covers 9 [[lang]] routes: <img src=/image/logo.png> ([[lang]]/+layout.svelte:35) lacks width/height, no spread; CSS width:175px only - the logo's aspect decides the header height"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::performance/image-dimensions::src/routes/authenticate/+page.svelte:16::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img src=/image/logo.png> (authenticate/+page.svelte:16) lacks width/height, no spread; CSS width:250px only - the logo's aspect decides the header height above the <h1>"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::performance/image-loading-hint::src/routes/[[lang]]/+layout.svelte:35::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "key covers 9 [[lang]] routes: <img> has no loading attribute, no spread; logo in the layout's top header bar - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::performance/image-loading-hint::src/routes/authenticate/+page.svelte:16::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; logo in the page header above the <h1> - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::performance/responsive-image::src/routes/[[lang]]/+layout.svelte:35::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "key covers 9 [[lang]] routes: <img> has no srcset, no spread; src a literal .png (/image/logo.png) - one fixed-size raster"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::performance/responsive-image::src/routes/authenticate/+page.svelte:16::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; src a literal .png (/image/logo.png) - one fixed-size raster"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::performance/state-raw::src/lib/client/component/R2wxInputFile.svelte:14::\"files\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/client/component/R2wxInputFile.svelte:14,24,52-56: files is only reassigned (:24) and read (.length, read-only {#each}) — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::security/raw-html::src/lib/client/component/SVG.svelte:8::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/client/component/SVG.svelte:8: {@html icon({color, ...attrs})} — every caller passes an SVGI icon function from the repo's lib/SVGIcon.js (literal SVG templates) with literal colors (MainMenu.svelte, R2wxFormModeButtons.svelte, R2wxInputFile.svelte:37) — no user data, reported per docs"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/(dev)/devroom/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /devroom (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders) but not a search target (an ungated developer icon gallery in the (dev) group, not a content page); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/[[lang]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session) but not a search target (auth-gated: [[lang]]/+layout.server.js:9 throws redirect(302, \"/authenticate\") when Auth.access finds no valid session cookie (lib/server/authall.js:121)); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/[[lang]]/entities/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang]]/entities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session) but not a search target (auth-gated: [[lang]]/+layout.server.js:9 throws redirect(302, \"/authenticate\") when Auth.access finds no valid session cookie (lib/server/authall.js:121)); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/[[lang]]/entities/sam/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang]]/entities/sam (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session) but not a search target (auth-gated: [[lang]]/+layout.server.js:9 throws redirect(302, \"/authenticate\") when Auth.access finds no valid session cookie (lib/server/authall.js:121)); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/[[lang]]/entities/sam/[evt_id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang]]/entities/sam/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session) but not a search target (auth-gated: [[lang]]/+layout.server.js:9 throws redirect(302, \"/authenticate\") when Auth.access finds no valid session cookie (lib/server/authall.js:121)); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/[[lang]]/entities/samx/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang]]/entities/samx (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session) but not a search target (auth-gated: [[lang]]/+layout.server.js:9 throws redirect(302, \"/authenticate\") when Auth.access finds no valid session cookie (lib/server/authall.js:121)); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/[[lang]]/entities/samx/[evt_id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang]]/entities/samx/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session) but not a search target (auth-gated: [[lang]]/+layout.server.js:9 throws redirect(302, \"/authenticate\") when Auth.access finds no valid session cookie (lib/server/authall.js:121)); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/[[lang]]/events/latest/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang]]/events/latest (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session) but not a search target (auth-gated: [[lang]]/+layout.server.js:9 throws redirect(302, \"/authenticate\") when Auth.access finds no valid session cookie (lib/server/authall.js:121)); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/[[lang]]/events/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang]]/events/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session) but not a search target (auth-gated: [[lang]]/+layout.server.js:9 throws redirect(302, \"/authenticate\") when Auth.access finds no valid session cookie (lib/server/authall.js:121)); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/[[lang]]/events/search/[tool_id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang]]/events/search/[tool_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session) but not a search target (auth-gated: [[lang]]/+layout.server.js:9 throws redirect(302, \"/authenticate\") when Auth.access finds no valid session cookie (lib/server/authall.js:121)); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/canonical-url::src/routes/authenticate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /authenticate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders) but not a search target (the sign-in page for an app whose every [[lang]] page requires a session); personal Docker Compose R&D infrastructure (README), self-hosted, so no public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/(dev)/devroom/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (dev)/devroom/+page.svelte has no svelte:head and app.html no description (claim holds); unguarded developer icon-gallery page, not content"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/[[lang]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in the page, [[lang]]/+layout.svelte (Wrapper.svelte head has only a <title>) or app.html (claim holds); login-gated: R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/[[lang]]/entities/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in the page, [[lang]]/+layout.svelte (Wrapper.svelte head has only a <title>) or app.html (claim holds); login-gated: R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/[[lang]]/entities/sam/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in the page, [[lang]]/+layout.svelte (Wrapper.svelte head has only a <title>) or app.html (claim holds); login-gated: R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/[[lang]]/entities/sam/[evt_id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in the page, [[lang]]/+layout.svelte (Wrapper.svelte head has only a <title>) or app.html (claim holds); login-gated: R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/[[lang]]/entities/samx/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in the page, [[lang]]/+layout.svelte (Wrapper.svelte head has only a <title>) or app.html (claim holds); login-gated: R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/[[lang]]/entities/samx/[evt_id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in the page, [[lang]]/+layout.svelte (Wrapper.svelte head has only a <title>) or app.html (claim holds); login-gated: R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/[[lang]]/events/latest/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in the page, [[lang]]/+layout.svelte (Wrapper.svelte head has only a <title>) or app.html (claim holds); login-gated: R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/[[lang]]/events/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in the page, [[lang]]/+layout.svelte (Wrapper.svelte head has only a <title>) or app.html (claim holds); login-gated: R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/[[lang]]/events/search/[tool_id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in the page, [[lang]]/+layout.svelte (Wrapper.svelte head has only a <title>) or app.html (claim holds); login-gated: R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/description-presence::src/routes/authenticate/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: authenticate/+page.svelte has no description, app.html none (claim holds); login page of R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`, not a search target"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/(dev)/devroom/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /devroom renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/[[lang]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /[[lang]] renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/[[lang]]/entities/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /[[lang]]/entities renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/[[lang]]/entities/sam/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /[[lang]]/entities/sam renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/[[lang]]/entities/sam/[evt_id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /[[lang]]/entities/sam/[evt_id] renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/[[lang]]/entities/samx/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /[[lang]]/entities/samx renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/[[lang]]/entities/samx/[evt_id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /[[lang]]/entities/samx/[evt_id] renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/[[lang]]/events/latest/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /[[lang]]/events/latest renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/[[lang]]/events/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /[[lang]]/events/search renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/[[lang]]/events/search/[tool_id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /[[lang]]/events/search/[tool_id] renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/json-ld::src/routes/authenticate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/svelte:head: the only svelte:head is lib/client/component/Wrapper.svelte with a <title>; no meta/JSON-LD library in deps): /authenticate renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/(dev)/devroom/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /devroom (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/[[lang]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/[[lang]]/entities/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang]]/entities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/[[lang]]/entities/sam/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang]]/entities/sam (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/[[lang]]/entities/sam/[evt_id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang]]/entities/sam/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/[[lang]]/entities/samx/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang]]/entities/samx (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/[[lang]]/entities/samx/[evt_id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang]]/entities/samx/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/[[lang]]/events/latest/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang]]/events/latest (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/[[lang]]/events/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang]]/events/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/[[lang]]/events/search/[tool_id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang]]/events/search/[tool_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-description::src/routes/authenticate/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /authenticate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/(dev)/devroom/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /devroom (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/[[lang]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/[[lang]]/entities/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang]]/entities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/[[lang]]/entities/sam/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang]]/entities/sam (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/[[lang]]/entities/sam/[evt_id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang]]/entities/sam/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/[[lang]]/entities/samx/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang]]/entities/samx (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/[[lang]]/entities/samx/[evt_id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang]]/entities/samx/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/[[lang]]/events/latest/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang]]/events/latest (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/[[lang]]/events/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang]]/events/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/[[lang]]/events/search/[tool_id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang]]/events/search/[tool_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-image::src/routes/authenticate/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /authenticate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/(dev)/devroom/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /devroom (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/[[lang]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/[[lang]]/entities/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang]]/entities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/[[lang]]/entities/sam/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang]]/entities/sam (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/[[lang]]/entities/sam/[evt_id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang]]/entities/sam/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/[[lang]]/entities/samx/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang]]/entities/samx (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/[[lang]]/entities/samx/[evt_id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang]]/entities/samx/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/[[lang]]/events/latest/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang]]/events/latest (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/[[lang]]/events/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang]]/events/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/[[lang]]/events/search/[tool_id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang]]/events/search/[tool_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-title::src/routes/authenticate/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /authenticate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/(dev)/devroom/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /devroom (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/[[lang]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/[[lang]]/entities/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/entities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/[[lang]]/entities/sam/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/entities/sam (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/[[lang]]/entities/sam/[evt_id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/entities/sam/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/[[lang]]/entities/samx/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/entities/samx (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/[[lang]]/entities/samx/[evt_id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/entities/samx/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/[[lang]]/events/latest/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/events/latest (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/[[lang]]/events/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/events/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/[[lang]]/events/search/[tool_id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/events/search/[tool_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/og-url::src/routes/authenticate/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /authenticate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: front/static has favicon.png, font, image, svg only, no robots.txt route (claim holds); R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`, nothing public to crawl"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/single-h1::/devroom::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (dev)/devroom/+page.svelte is an icon gallery ({#each SVGI} SVG + <strong>) with no heading; no root layout; the route is not gated (no load, no hooks) -> no <h1>"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/single-h1::src/lib/client/component/Wrapper.svelte:33::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two unconditional <h1>s render: authenticate/+page.svelte:19 <h1>R2wx | Road to Webbox and Wrapper.svelte:33 <h1>{title} (outside any {#if}) inside the page's <section>"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in front/static or routes (claim holds); R2WX is a personal Docker-composed R&D CRUD tool (README \"Personal full-stack R&D infrastructure\"), every [[lang]] route behind [[lang]]/+layout.server.js:13 `if (!profile) throw redirect(302, \"/authenticate\")`, nothing public to list"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/title-presence::src/routes/(dev)/devroom/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "read: (dev)/devroom/+page.svelte is an unguarded developer icon gallery (renders every SVGI icon) with no svelte:head, no (dev) layout, no root +layout.svelte, app.html head has no <title> (only <head title=\"ecare-front\"> attribute); missing as claimed, but a dev test page, not content (demo/test-page precedent)"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/(dev)/devroom/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /devroom (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/[[lang]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/[[lang]]/entities/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/entities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/[[lang]]/entities/sam/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/entities/sam (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/[[lang]]/entities/sam/[evt_id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/entities/sam/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/[[lang]]/entities/samx/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/entities/samx (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/[[lang]]/entities/samx/[evt_id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/entities/samx/[evt_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/[[lang]]/events/latest/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/events/latest (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/[[lang]]/events/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/events/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/[[lang]]/events/search/[tool_id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/events/search/[tool_id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders for a signed-in session); missing as claimed"
+  },
+  {
+    "key": "manos-zalokostas/R2WX:front::seo/twitter-card::src/routes/authenticate/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /authenticate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (incl. modules/ workspace); app.html is charset/icon/viewport; npm date-picker-svelte@2.17.0 has no head tags (jsDelivr, a1b_npmscan.py), @neoconfetti/svelte is an action; no hooks; route renders); missing as claimed"
+  }
+]

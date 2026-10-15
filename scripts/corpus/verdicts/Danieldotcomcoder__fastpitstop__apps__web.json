@@ -1,0 +1,1087 @@
+[
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/disallowed-aria-props::src/lib/components/SectionSkeleton.svelte:10::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/SectionSkeleton.svelte:10: literal element with aria-label and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/disallowed-aria-props::src/lib/desk/PhoneGlance.svelte:77::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/desk/PhoneGlance.svelte:77: literal element with aria-label and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/disallowed-aria-props::src/lib/desk/PitBoard.svelte:168::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/desk/PitBoard.svelte:168: literal element with aria-label and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/disallowed-aria-props::src/lib/ui/DeltaChip.svelte:37::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/ui/DeltaChip.svelte:37: literal element with aria-label and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/disallowed-aria-props::src/lib/ui/PositionChange.svelte:30::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/ui/PositionChange.svelte:30: literal element with aria-label and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/disallowed-aria-props::src/lib/ui/TyreBadge.svelte:22::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/ui/TyreBadge.svelte:22: literal element with aria-label and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/duplicate-landmark::src/lib/session-detail/RaceWorkspace.svelte:536::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:19-21 wraps every page in <main>, and sessions/[year]/[round]/+page.svelte:97-99 renders <RaceWorkspace> once the session loads, whose {#if qualiBoard}<main class=desk q-desk> (:536)/{:else}<main class=desk> (:557) always adds a second main; load (+page.server.ts) and hooks.server.ts always resolve, so the route really has two main landmarks"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/permitted-contents::src/lib/desk/PitBoard.svelte:379::`<span>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/lib/desk/PitBoard.svelte:379: literal <span> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<div>` admits only `<dt>`, `<dd>` and script-supporting elements per the HTML content model, as reported"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/permitted-contents::src/lib/desk/PitBoard.svelte:386::`<span>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/lib/desk/PitBoard.svelte:386: literal <span> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<div>` admits only `<dt>`, `<dd>` and script-supporting elements per the HTML content model, as reported"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/permitted-contents::src/lib/desk/PitBoard.svelte:393::`<span>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/lib/desk/PitBoard.svelte:393: literal <span> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<div>` admits only `<dt>`, `<dd>` and script-supporting elements per the HTML content model, as reported"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/permitted-contents::src/lib/desk/PitBoard.svelte:401::`<span>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/lib/desk/PitBoard.svelte:401: literal <span> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<div>` admits only `<dt>`, `<dd>` and script-supporting elements per the HTML content model, as reported"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::a11y/permitted-contents::src/lib/desk/PitBoard.svelte:407::`<span>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/lib/desk/PitBoard.svelte:407: literal <span> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<div>` admits only `<dt>`, `<dd>` and script-supporting elements per the HTML content model, as reported"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/AppHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AppHeader.svelte has 224 physical lines (newline count, trailing newline not counted; 200 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/BrakingPointDrift.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BrakingPointDrift.svelte has 468 physical lines (newline count, trailing newline not counted; 427 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/DegradationCurves.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DegradationCurves.svelte has 564 physical lines (newline count, trailing newline not counted; 522 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/Estimate.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Estimate.svelte has 206 physical lines (newline count, trailing newline not counted; 185 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/ExplanationCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ExplanationCard.svelte has 299 physical lines (newline count, trailing newline not counted; 268 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/GapStreamGraph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/GapStreamGraph.svelte has 204 physical lines (newline count, trailing newline not counted; 182 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/RadioClipCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RadioClipCard.svelte has 243 physical lines (newline count, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/TimingTower.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TimingTower.svelte has 286 physical lines (newline count, trailing newline not counted; 257 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/TrackMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TrackMap.svelte has 209 physical lines (newline count, trailing newline not counted; 189 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/components/UndercutCountdown.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UndercutCountdown.svelte has 234 physical lines (newline count, trailing newline not counted; 210 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/desk/BrakeChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/desk/BrakeChart.svelte has 238 physical lines (newline count, trailing newline not counted; 227 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/desk/DegChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/desk/DegChart.svelte has 335 physical lines (newline count, trailing newline not counted; 324 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/desk/DeskMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/desk/DeskMap.svelte has 475 physical lines (newline count, trailing newline not counted; 452 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/desk/DeskTower.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/desk/DeskTower.svelte has 291 physical lines (newline count, trailing newline not counted; 279 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/desk/GapChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/desk/GapChart.svelte has 315 physical lines (newline count, trailing newline not counted; 301 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/desk/PhoneGlance.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/desk/PhoneGlance.svelte has 342 physical lines (newline count, trailing newline not counted; 330 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/desk/PitBoard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/desk/PitBoard.svelte has 423 physical lines (newline count, trailing newline not counted; 411 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/home/NextRace.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/home/NextRace.svelte has 237 physical lines (newline count, trailing newline not counted; 226 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/qualifying/QualifyingBoard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/qualifying/QualifyingBoard.svelte has 395 physical lines (newline count, trailing newline not counted; 350 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/session-detail/BrakingOverview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/session-detail/BrakingOverview.svelte has 545 physical lines (newline count, trailing newline not counted; 493 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/session-detail/CrossoverRetrospective.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/session-detail/CrossoverRetrospective.svelte has 213 physical lines (newline count, trailing newline not counted; 211 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/session-detail/RaceShapeChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/session-detail/RaceShapeChart.svelte has 614 physical lines (newline count, trailing newline not counted; 551 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/session-detail/RaceWorkspace.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/session-detail/RaceWorkspace.svelte has 676 physical lines (newline count, trailing newline not counted; 635 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/lib/standings/StandingsPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/standings/StandingsPage.svelte has 592 physical lines (newline count, trailing newline not counted; 531 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 331 physical lines (newline count, trailing newline not counted; 296 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/circuits/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/circuits/[slug]/+page.svelte has 459 physical lines (newline count, trailing newline not counted; 407 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/design/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/design/+page.svelte has 468 physical lines (newline count, trailing newline not counted; 453 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/feedback/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/feedback/+page.svelte has 215 physical lines (newline count, trailing newline not counted; 190 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/race/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/race/+page.svelte has 504 physical lines (newline count, trailing newline not counted; 461 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/races/[year]/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/races/[year]/[slug]/+page.svelte has 372 physical lines (newline count, trailing newline not counted; 330 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/radio/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/radio/+page.svelte has 277 physical lines (newline count, trailing newline not counted; 251 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/sessions/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sessions/+page.svelte has 340 physical lines (newline count, trailing newline not counted; 305 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/story/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/story/+page.svelte has 275 physical lines (newline count, trailing newline not counted; 255 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/component-size::src/routes/track-map/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/track-map/+page.svelte has 284 physical lines (newline count, trailing newline not counted; 253 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/prop-count::src/lib/components/Estimate.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Estimate.svelte has a single destructured $props() with 12 named props (> 6): label, value, unit, ciLow, ciHigh, sampleSize, minSamples, method, residual, digits, format, size"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/prop-count::src/lib/desk/BrakeChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/desk/BrakeChart.svelte has a single destructured $props() with 7 named props (> 6): apiKey, pair, codes, names, teams, isStintRevealed, revision"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/prop-count::src/lib/desk/DeskMap.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/desk/DeskMap.svelte has a single destructured $props() with 8 named props (> 6): controller, circuit, circuitStatus, rows, pair, codes, timeScale, estimate"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/prop-count::src/lib/desk/DeskTower.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/desk/DeskTower.svelte has a single destructured $props() with 9 named props (> 6): rows, focus, pair, names, currentLap, totalLaps, lastLapClass, sectorClass, onFocus"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/prop-count::src/lib/desk/PhoneGlance.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/desk/PhoneGlance.svelte has a single destructured $props() with 7 named props (> 6): rows, model, spark, names, explanations, onFocus, onAll"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/prop-count::src/lib/desk/SyncStrip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/desk/SyncStrip.svelte has a single destructured $props() with 7 named props (> 6): controller, isLive, speed, status, lightsOutUtc, onSpeed, onRestart"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/prop-count::src/lib/ui/Sparkline.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/Sparkline.svelte has a single destructured $props() with 7 named props (> 6): values, label, width, height, domain, bands, color"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::architecture/prop-count::src/lib/ui/TrackThumbnail.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/TrackThumbnail.svelte has a single destructured $props() with 7 named props (> 6): points, fitted, label, width, height, draw, strokeWidth"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::correctness/each-index-key::src/lib/desk/DeskTooltip.svelte:29::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: DeskTooltip.svelte:29 '{#each $tip.rows as row, index (index)}' keyed by its index; label/value rows of the shared chart tooltip set per hover (tooltip.ts showTip); positional list (tooltip rows)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::correctness/each-index-key::src/lib/desk/PitBoard.svelte:271::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: PitBoard.svelte:271 '{#each shades as shade, index (index)}' keyed by its index; shades = SVG band rects of the spark chart (:80); positional chart geometry"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::correctness/each-index-key::src/routes/circuits/[slug]/+page.svelte:51::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: circuits/[slug]/+page.svelte:51 '{#each data.map.drs as zone, i (i)}' keyed by its index; the DRS zone geometry of one circuit's map, fixed per circuit; positional map geometry"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::correctness/effect-as-onmount::src/lib/desk/FeedLane.svelte:41::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: FeedLane.svelte:41 `$effect(() => () => player?.pause())` only returns a cleanup; player is a plain let, so the effect reads nothing reactive and acts as onDestroy, as claimed"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::performance/sequential-awaits::src/routes/circuits/[slug]/+page.server.ts:25::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/circuits/[slug]/+page.server.ts:25 + lib/server/circuits.ts:16,25-55: circuitList() is the single-key '/circuits' entry of a 10-minute in-process cache (errors swallowed to []) — a cache hit on a warm process, nothing real serialized (ledger in-memory-cache convention)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::performance/sequential-awaits::src/routes/races/[year]/[slug]/+page.server.ts:35::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/races/[year]/[slug]/+page.server.ts:35: Promise.all([circuitList(), seoSessions()]) — circuitList is a 10-minute in-process cache (lib/server/circuits.ts:16,25-55) and seoSessions a stale-while-revalidate in-process cache that returns cached rows immediately (lib/server/sessions.ts:18-55) — cache hits on a warm process (ledger in-memory-cache convention)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::performance/state-raw::src/lib/components/GapStreamGraph.svelte:14::\"names\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"names\" in src/lib/components/GapStreamGraph.svelte: declared :14, whole reassignments :49,:74, read only as names[d.driver] (:150) — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::performance/state-raw::src/routes/analytics/+page.svelte:25::\"sessions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"sessions\" in src/routes/analytics/+page.svelte: declared :25, whole reassignment :43, read as .length (:102) and in a keyed {#each} of <option>s (:113) — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::performance/state-raw::src/routes/delay-sync/+page.svelte:24::\"sessions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"sessions\" in src/routes/delay-sync/+page.svelte: declared :24, whole reassignment :45, read as .length (:108) and in a keyed {#each} of <option>s (:119) — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::performance/state-raw::src/routes/track-map/+page.svelte:46::\"sessions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"sessions\" in src/routes/track-map/+page.svelte: declared :46, whole reassignment :67, read as .length (:185) and in a keyed {#each} of <option>s (:188) — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /about); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/analytics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /analytics); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/circuits/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/circuits/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/delay-sync/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /delay-sync); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/design/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /design); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/feedback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /feedback); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/live/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /live); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/race/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /race); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/races/[year]/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /races/[year]/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/radio/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /radio); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/sessions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/sessions/[year]/[round]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions/[year]/[round]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/standings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/standings/[year]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings/[year]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/status/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /status); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/story/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /story); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/canonical-url::src/routes/track-map/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits <link rel=\"canonical\"> unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /track-map); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/analytics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/circuits/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/circuits/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/delay-sync/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/design/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/feedback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/live/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/race/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/races/[year]/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/radio/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/sessions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/sessions/[year]/[round]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/standings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/standings/[year]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/status/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/story/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/description-presence::src/routes/track-map/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "description IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which always emits <meta name=\"description\" content=\"…\"> (lib/seo.ts:375; every path gets a description, the fallback page(brand.name, \"… Unofficial fan project.\") included); the analyzer does not read tags a handle hook writes into an app.html placeholder"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which emits <script type=\"application/ld+json\"> for each seo.jsonLd item (lib/seo.ts:391-393); for / seoFor(\"/\") passes homeJsonLd() (WebSite, WebApplication, FAQPage; lib/seo.ts:176-182, 271-303)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /about an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/analytics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /analytics an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/circuits/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /circuits an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/circuits/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which emits <script type=\"application/ld+json\"> for each seo.jsonLd item (lib/seo.ts:391-393); for /circuits/[slug] seoFor returns a SportsActivityLocation block for a known circuit (lib/seo.ts:224-241); the page itself 404s an unknown slug (circuits/[slug]/+page.server.ts:24)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/delay-sync/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /delay-sync an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/design/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /design an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/feedback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /feedback an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/live/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /live an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/race/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /race an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/races/[year]/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which emits <script type=\"application/ld+json\"> for each seo.jsonLd item (lib/seo.ts:391-393); for /races/[year]/[slug] seoFor returns raceJsonLd(race) for a known race (lib/seo.ts:243-253); the page 404s an unknown race (races/[year]/[slug]/+page.server.ts:28)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/radio/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /radio an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/sessions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /sessions an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/sessions/[year]/[round]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in the server HTML: src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), which emits <script type=\"application/ld+json\"> for each seo.jsonLd item (lib/seo.ts:391-393); for /sessions/[year]/[round] seoFor returns eventJsonLd(session) when the round has a session (lib/seo.ts:255-266), a data-conditional block"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/standings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /standings an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/standings/[year]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /standings/[year] an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/status/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /status an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/story/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /story an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/json-ld::src/routes/track-map/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is src/hooks.server.ts:27-44 handle replaces app.html:47 placeholder <!--seo-head--> via transformPageChunk with renderSeoHead(seoFor(path)) (lib/seo.ts:368-396), and seoFor gives /track-map an empty jsonLd list (only /, known circuits, races and session rounds get blocks; no ld+json in any .svelte file or app.html): no JSON-LD on this public route (json-ld convention: tp)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /about); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/analytics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /analytics); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/circuits/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/circuits/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/delay-sync/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /delay-sync); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/design/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /design); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/feedback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /feedback); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/live/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /live); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/race/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /race); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/races/[year]/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /races/[year]/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/radio/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /radio); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/sessions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/sessions/[year]/[round]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions/[year]/[round]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/standings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/standings/[year]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings/[year]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/status/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /status); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/story/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /story); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-description::src/routes/track-map/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:description unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /track-map); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /about); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/analytics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /analytics); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/circuits/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/circuits/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/delay-sync/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /delay-sync); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/design/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /design); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/feedback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /feedback); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/live/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /live); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/race/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /race); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/races/[year]/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /races/[year]/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/radio/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /radio); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/sessions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/sessions/[year]/[round]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions/[year]/[round]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/standings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/standings/[year]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings/[year]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/status/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /status); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/story/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /story); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-image::src/routes/track-map/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:image unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /track-map); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /about); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/analytics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /analytics); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/circuits/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/circuits/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/delay-sync/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /delay-sync); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/design/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /design); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/feedback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /feedback); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/live/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /live); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/race/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /race); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/races/[year]/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /races/[year]/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/radio/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /radio); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/sessions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/sessions/[year]/[round]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions/[year]/[round]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/standings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/standings/[year]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings/[year]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/status/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /status); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/story/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /story); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-title::src/routes/track-map/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:title unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /track-map); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /about); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/analytics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /analytics); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/circuits/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/circuits/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/delay-sync/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /delay-sync); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/design/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /design); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/feedback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /feedback); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/live/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /live); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/race/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /race); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/races/[year]/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /races/[year]/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/radio/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /radio); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/sessions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/sessions/[year]/[round]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions/[year]/[round]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/standings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/standings/[year]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings/[year]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/status/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /status); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/story/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /story); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/og-url::src/routes/track-map/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits og:url unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /track-map); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/ssr-disabled::src/routes/+layout.ts:5::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:5 (\"every route is client-rendered\"); /, /about, /circuits*, /standings*, /sessions and /races/[year]/[slug] override it with ssr = true, but the public live-timing and replay dashboards /live and /sessions/[year]/[round] (both in the sitemap, lib/seo.ts sitemapPaths) stay SPA shells for non-JS crawlers, as claimed (\"whole app\" wording overstates it, as in the 0base-vc ledger entry)"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /about); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/analytics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /analytics); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/circuits/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/circuits/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /circuits/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/delay-sync/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /delay-sync); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/design/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /design); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/feedback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /feedback); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/live/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /live); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/race/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /race); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/races/[year]/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /races/[year]/[slug]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/radio/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /radio); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/sessions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/sessions/[year]/[round]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /sessions/[year]/[round]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/standings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/standings/[year]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /standings/[year]); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/status/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /status); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/story/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /story); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  },
+  {
+    "key": "Danieldotcomcoder/fastpitstop:apps/web::seo/twitter-card::src/routes/track-map/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "rendered: src/hooks.server.ts handle replaces the <!--seo-head--> placeholder in app.html (<head>, line before %sveltekit.head%) via transformPageChunk on every page response with renderSeoHead(seoFor(path)) (lib/seo.ts:370-390), which emits twitter:card unconditionally; seoFor (lib/seo.ts:161-268) ends in a fallback page() so every path gets the tags, ssr=false shells included (route /track-map); only a backend failure in the try block (sessions/circuits/races lookups) drops them"
+  }
+]

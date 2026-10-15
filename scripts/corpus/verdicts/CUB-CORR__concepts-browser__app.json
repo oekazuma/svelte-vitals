@@ -1,0 +1,1477 @@
+[
+  {
+    "key": "CUB-CORR/concepts-browser:app::a11y/permitted-contents::src/lib/components/ConceptSearchPicker.svelte:89::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/ConceptSearchPicker.svelte:89: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::a11y/top-level-landmark::src/routes/concepts/+page.svelte:560::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:71-73 renders children inside <main>, and concepts/+page.svelte:560 <aside class=\"lg:w-64 …\"> (unlabelled, not in sectioning content, inside a plain <div>) is a complementary landmark nested in it; /concepts renders for users with can_read (redirects are conditional), as reported"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::a11y/top-level-landmark::src/routes/docs/+layout.svelte:22::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:71-73 renders children inside <main>, and docs/+layout.svelte:22 <aside class=\"hidden w-56 shrink-0 lg:block\"> (unlabelled, in a plain <div>) is a complementary landmark nested in it on all 11 /docs routes (shown at lg widths); docs/+layout.server.ts guardRead redirects only anonymous/unapproved users"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/lib/components/AdminApiKeys.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AdminApiKeys.svelte has 222 physical lines (newline count, trailing newline not counted; 210 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/lib/components/ConceptTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ConceptTable.svelte has 317 physical lines (newline count, trailing newline not counted; 307 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/lib/components/DraftEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DraftEditor.svelte has 345 physical lines (newline count, trailing newline not counted; 323 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/lib/components/SourceTabs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SourceTabs.svelte has 221 physical lines (newline count, trailing newline not counted; 210 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/lib/components/UploadFileDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UploadFileDialog.svelte has 256 physical lines (newline count, trailing newline not counted; 237 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/lib/components/docs/DataModelDiagram.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/docs/DataModelDiagram.svelte has 806 physical lines (newline count, trailing newline not counted; 766 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/lib/components/schema/SchemaField.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/schema/SchemaField.svelte has 295 physical lines (newline count, trailing newline not counted; 273 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/lib/components/schema/SchemaView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/schema/SchemaView.svelte has 329 physical lines (newline count, trailing newline not counted; 304 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/api-keys/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/api-keys/+page.svelte has 300 physical lines (newline count, trailing newline not counted; 281 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/audit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/audit/+page.svelte has 430 physical lines (newline count, trailing newline not counted; 402 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/concepts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/concepts/+page.svelte has 663 physical lines (newline count, trailing newline not counted; 611 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/concepts/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/concepts/new/+page.svelte has 253 physical lines (newline count, trailing newline not counted; 229 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/docs/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/docs/admin/+page.svelte has 247 physical lines (newline count, trailing newline not counted; 238 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/docs/capabilities/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/docs/capabilities/+page.svelte has 265 physical lines (newline count, trailing newline not counted; 256 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/docs/clients/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/docs/clients/+page.svelte has 295 physical lines (newline count, trailing newline not counted; 281 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/docs/concepts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/docs/concepts/+page.svelte has 405 physical lines (newline count, trailing newline not counted; 397 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/docs/editing/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/docs/editing/+page.svelte has 324 physical lines (newline count, trailing newline not counted; 307 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/docs/files/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/docs/files/+page.svelte has 231 physical lines (newline count, trailing newline not counted; 222 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/docs/orientation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/docs/orientation/+page.svelte has 248 physical lines (newline count, trailing newline not counted; 243 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/files/[src]/[uuid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/files/[src]/[uuid]/+page.svelte has 263 physical lines (newline count, trailing newline not counted; 248 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/projects/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/+page.svelte has 255 physical lines (newline count, trailing newline not counted; 240 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/review/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/review/+page.svelte has 287 physical lines (newline count, trailing newline not counted; 264 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/component-size::src/routes/users/[username]/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/users/[username]/profile/+page.svelte has 214 physical lines (newline count, trailing newline not counted; 200 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/prop-count::src/lib/components/DraftEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/DraftEditor.svelte has a single destructured $props() with 7 named props (> 6): name, source, schema, canPublish, draft, type, files"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/prop-count::src/lib/components/SourcePanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SourcePanel.svelte has a single destructured $props() with 11 named props (> 6): taxonomy, name, source, config, schema, history, drafts, selectedVersion, activeDraftId, canEdit, readOnly"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/prop-count::src/lib/components/SourceTabs.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SourceTabs.svelte has a single destructured $props() with 12 named props (> 6): concept, taxonomy, name, history, drafts, schemas, sources, selectedVersion, activeDraftId, initialSource, canEdit, canPublish"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/prop-count::src/lib/components/VersionHistory.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/VersionHistory.svelte has a single destructured $props() with 8 named props (> 6): taxonomy, name, source, rows, drafts, selectedVersion, activeDraftId, canDelete"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) plus a ...rest: ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest: open, ref, value, title, description, showCloseButton, portalProps, children, class"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::correctness/each-index-key::src/lib/components/ActivityChart.svelte:38::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ActivityChart.svelte '{#each window.buckets as b, i (i)}' keyed by its index; time buckets of one activity window drawn as chart bars; positional chart geometry"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::correctness/each-index-key::src/lib/components/ActivityChart.svelte:52::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ActivityChart.svelte '{#each window.buckets as b, i (i)}' keyed by its index; time buckets of one activity window drawn as chart bars; positional chart geometry"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::correctness/each-index-key::src/lib/components/schema/SchemaField.svelte:200::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: SchemaField.svelte:200 '{#each (value as string[]) ?? [] as item, i (i)}' keyed by its index; editable string array with inputs, setItem/removeItem by index and Add item (:200-208); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::correctness/each-index-key::src/lib/components/schema/SchemaField.svelte:217::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: SchemaField.svelte:217 '{#each schema.oneOf ?? [] as branch, i (i)}' keyed by its index; the oneOf branches of a fixed JSON schema; static list"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::correctness/each-index-key::src/lib/components/schema/SchemaView.svelte:252::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: SchemaView.svelte '{#each value as unknown[] as item, i (i)}' keyed by its index; string-array values of a concept record, edited through SchemaField's add/remove; runtime data"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::correctness/each-index-key::src/lib/components/schema/SchemaView.svelte:270::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: SchemaView.svelte '{#each value as unknown[] as item, i (i)}' keyed by its index; string-array values of a concept record, edited through SchemaField's add/remove; runtime data"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::correctness/each-index-key::src/lib/components/ui/calendar/calendar.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: calendar.svelte:85 '{#each weekdays as weekday, i (i)}' keyed by its index; the seven weekday headers of the calendar; positional list (calendar weekdays)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::correctness/each-index-key::src/routes/users/[username]/profile/+page.svelte:198::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: users/[username]/profile/+page.svelte:198 '{#each values as value, i (i)}' keyed by its index; values of one LDAP attribute of the user's directory entry (ldapEntries, :191); runtime data"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::correctness/effect-as-derived::src/lib/components/TaxonomySelect.svelte:33::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: TaxonomySelect.svelte:33 the effect only does selected = value (prop); later writes are reassignments in choose() (:45), the writable-$derived override pattern (svelte ^5.55.2)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-dimensions::src/routes/+layout.svelte:88::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "key covers 27 routes (root +layout.svelte footer): same on every route: footer logo <img> (+layout.svelte:88) lacks width/height, no spread; class h-5 w-auto only - height fixed, width comes from the image, no box reserved"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-dimensions::src/routes/+layout.svelte:89::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "key covers 27 routes (root +layout.svelte footer): same on every route: dark-mode footer logo <img> (+layout.svelte:89) lacks width/height, no spread; class hidden h-5 w-auto dark:block only - height fixed, width comes from the image when shown"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-dimensions::src/routes/login/+page.svelte:26::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> (login/+page.svelte:26) lacks width/height, no spread; class w-40 max-w-full only - width fixed, the logo decides the card header height"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-dimensions::src/routes/login/+page.svelte:27::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> (login/+page.svelte:27) lacks width/height, no spread; class hidden w-40 max-w-full dark:block only - width fixed, height comes from the image when shown"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-dimensions::src/routes/users/[username]/profile/+page.svelte:185::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> (users/[username]/profile/+page.svelte:185) lacks width/height, no spread; class h-6 w-auto only - height fixed, width comes from the image, the button row shifts"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-dimensions::src/routes/users/[username]/profile/+page.svelte:186::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> (users/[username]/profile/+page.svelte:186) lacks width/height, no spread; class hidden h-6 w-auto dark:block only - height fixed, width comes from the image"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-loading-hint::src/routes/+layout.svelte:88::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "key covers 27 routes (root +layout.svelte footer): <img> has no loading attribute, no spread; attribution logo in the footer after {@render children()} in the min-h-screen column - offscreen on load on the majority content pages (in view on the short /login and /pending cards)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-loading-hint::src/routes/+layout.svelte:89::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "key covers 27 routes (root +layout.svelte footer): <img> has no loading attribute, no spread; dark-mode attribution logo in the footer after {@render children()} - offscreen on load on the majority content pages (in view on the short /login and /pending cards)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-loading-hint::src/routes/login/+page.svelte:26::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; logo at the top of the sign-in card (Card.Header) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-loading-hint::src/routes/login/+page.svelte:27::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; dark-mode logo at the top of the sign-in card (Card.Header) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-loading-hint::src/routes/users/[username]/profile/+page.svelte:185::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; directory logo next to the 'Directory profile' toggle, after the profile header, Capabilities and API usage sections - can be offscreen on load"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/image-loading-hint::src/routes/users/[username]/profile/+page.svelte:186::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; dark-mode directory logo after the profile header, Capabilities and API usage sections - can be offscreen on load"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/responsive-image::src/routes/+layout.svelte:88::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "key covers 27 routes (root +layout.svelte footer): same on every route: <img> has no srcset, no spread; src brand.footerLogoLight defaults to /brand/charite.png (lib/brand.ts) - one fixed-size raster"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/responsive-image::src/routes/+layout.svelte:89::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "key covers 27 routes (root +layout.svelte footer): same on every route: <img> has no srcset, no spread; src brand.footerLogoDark defaults to /brand/charite-negativ.png (lib/brand.ts) - one fixed-size raster"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/responsive-image::src/routes/login/+page.svelte:26::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; src brand.logoLight defaults to /logos/corr-white.png (lib/brand.ts) shown at w-40 - one fixed-size raster"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/responsive-image::src/routes/login/+page.svelte:27::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; src brand.logoDark defaults to /logos/corr-darkmode.png (lib/brand.ts) - one fixed-size raster"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/responsive-image::src/routes/users/[username]/profile/+page.svelte:185::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; src brand.directoryLogoLight defaults to /brand/charite.png (lib/brand.ts) - one fixed-size raster"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/responsive-image::src/routes/users/[username]/profile/+page.svelte:186::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; src brand.directoryLogoDark defaults to /brand/charite-negativ.png (lib/brand.ts) - one fixed-size raster"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::performance/sequential-awaits::src/routes/projects/[id]/+page.server.ts:19::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/projects/[id]/+page.server.ts:19-22: the activity/usage Promise.all uses only params.id and the token, nothing from the :11 project api() fetch (a 404 existence check) — independent backend requests serialized (ledger 404-gate convention)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::security/raw-html::src/lib/components/CodeBlock.svelte:81::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/CodeBlock.svelte:49-52,81: highlighted is monaco.editor.colorize(src, lang) output — Monaco's tokenizer HTML-escapes the source text and wraps tokens in spans — escaping-highlighter output, reported per docs"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/api-keys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /api-keys (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/concepts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: concepts/+layout.server.ts:12 redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/concepts/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /concepts/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: concepts/+layout.server.ts:12 redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/concepts/tax/[taxonomy]/[name]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /concepts/tax/[taxonomy]/[name] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: concepts/+layout.server.ts:12 redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/admin (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/capabilities/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/capabilities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/clients/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/clients (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/concepts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/corr-vars/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/corr-vars (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/editing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/editing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/orientation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/orientation (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/quick-start/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/quick-start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/docs/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: docs/+layout.server.ts calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/files/[src]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /files/[src] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/files/[src]/[uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /files/[src]/[uuid] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load calls guardRead (lib/server/files.ts:11) which redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (the sign-in page of an app whose every other page redirects guests to it); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/pending/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /pending (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/projects/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/projects/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /review (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/canonical-url::src/routes/users/[username]/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users/[username]/profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)) but not a search target (auth-gated: its +page.server.ts load redirects guests to /login); self-hosted, institution-agnostic Docker Compose deployment with LDAP sign-in (README), so no single public URL exists for a canonical, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/api-keys/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /api-keys); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /audit); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/concepts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /concepts); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/concepts/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /concepts/new); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/concepts/tax/[taxonomy]/[name]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /concepts/tax/[taxonomy]/[name]); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/admin); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/capabilities/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/capabilities); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/clients/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/clients); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/concepts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/concepts); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/corr-vars/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/corr-vars); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/editing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/editing); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/files); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/orientation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/orientation); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/quick-start/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/quick-start); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/docs/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /docs/search); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /files); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/files/[src]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /files/[src]); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/files/[src]/[uuid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /files/[src]/[uuid]); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /login); but it is the sign-in page of a self-hosted institutional tool: Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/pending/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /pending); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /projects); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/projects/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /projects/[id]); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/projects/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /projects/new); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/review/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /review); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /users); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/description-presence::src/routes/users/[username]/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src for <meta name=\"description\": none (only form fields named description); root +layout.svelte has no svelte:head, app.html none) (claim holds on /users/[username]/profile); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/api-keys/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /api-keys renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /audit renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/concepts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /concepts renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/concepts/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /concepts/new renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/concepts/tax/[taxonomy]/[name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /concepts/tax/[taxonomy]/[name] renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/admin renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/capabilities/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/capabilities renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/clients/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/clients renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/concepts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/concepts renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/corr-vars/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/corr-vars renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/editing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/editing renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/files renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/orientation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/orientation renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/quick-start/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/quick-start renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/docs/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/search renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /files renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/files/[src]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /files/[src] renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/files/[src]/[uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /files/[src]/[uuid] renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /login renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/pending/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /pending renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /projects renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/projects/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /projects/[id] renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/projects/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /projects/new renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /review renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /users renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/json-ld::src/routes/users/[username]/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /users/[username]/profile renders (its guard redirects only guests/unapproved users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/api-keys/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /api-keys (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/concepts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/concepts/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /concepts/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/concepts/tax/[taxonomy]/[name]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /concepts/tax/[taxonomy]/[name] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/admin (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/capabilities/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/capabilities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/clients/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/clients (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/concepts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/corr-vars/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/corr-vars (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/editing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/editing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/orientation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/orientation (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/quick-start/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/quick-start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/docs/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/files/[src]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /files/[src] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/files/[src]/[uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /files/[src]/[uuid] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/pending/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pending (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/projects/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /review (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-description::src/routes/users/[username]/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users/[username]/profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/api-keys/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /api-keys (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/concepts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/concepts/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /concepts/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/concepts/tax/[taxonomy]/[name]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /concepts/tax/[taxonomy]/[name] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/admin (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/capabilities/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/capabilities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/clients/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/clients (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/concepts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/corr-vars/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/corr-vars (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/editing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/editing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/orientation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/orientation (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/quick-start/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/quick-start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/docs/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/files/[src]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /files/[src] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/files/[src]/[uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /files/[src]/[uuid] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/pending/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pending (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/projects/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/review/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /review (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-image::src/routes/users/[username]/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users/[username]/profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/api-keys/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /api-keys (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/concepts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/concepts/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /concepts/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/concepts/tax/[taxonomy]/[name]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /concepts/tax/[taxonomy]/[name] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/admin (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/capabilities/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/capabilities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/clients/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/clients (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/concepts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/corr-vars/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/corr-vars (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/editing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/editing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/orientation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/orientation (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/quick-start/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/quick-start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/docs/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/files/[src]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /files/[src] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/files/[src]/[uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /files/[src]/[uuid] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/pending/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pending (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/projects/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/review/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /review (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-title::src/routes/users/[username]/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users/[username]/profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/api-keys/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /api-keys (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/concepts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/concepts/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /concepts/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/concepts/tax/[taxonomy]/[name]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /concepts/tax/[taxonomy]/[name] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/admin (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/capabilities/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/capabilities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/clients/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/clients (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/concepts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/corr-vars/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/corr-vars (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/editing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/editing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/orientation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/orientation (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/quick-start/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/quick-start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/docs/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/files/[src]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /files/[src] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/files/[src]/[uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /files/[src]/[uuid] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/pending/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pending (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/projects/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/review/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /review (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/og-url::src/routes/users/[username]/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users/[username]/profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/single-h1::/concepts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /concepts renders concepts/+layout.svelte (TaxonomySelect, DateFilter) and concepts/+page.svelte (search/filter snippets, ConceptTable, ExportDialog) - no heading at all; the only <h1>s are in other pages and ConceptHeader (used only on /concepts/tax/[taxonomy]/[name]); root layout has none"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte titles the card with Card.Title, which renders a <div data-slot=card-title> (ui/card/card-title.svelte); no <h1> in the page or root layout (TopBar only when signed in)"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/single-h1::/pending::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: pending/+page.svelte titles the card with Card.Title (<div>, ui/card/card-title.svelte); no <h1> in the page or root layout"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: app/static has icons, brand/, logos/ and robots.txt (allow all), no sitemap.xml file, route or API endpoint (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search, nothing public to list"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/api-keys/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"API keys\" at src/routes/api-keys/+page.svelte:87 in the page's top-level svelte:head, 8 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/audit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Audit log\" at src/routes/audit/+page.svelte:120 in the page's top-level svelte:head, 9 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/concepts/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"New concept\" at src/routes/concepts/new/+page.svelte:58 in the page's top-level svelte:head, 11 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/docs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"User guide\" at src/routes/docs/+page.svelte:13 in the page's top-level svelte:head, 10 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/files/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Data files\" at src/routes/files/+page.svelte:9 in the page's top-level svelte:head, 10 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Sign in · Concepts\" at src/routes/login/+page.svelte:18 in the page's top-level svelte:head, 18 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/pending/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Approval pending\" at src/routes/pending/+page.svelte:12 in the page's top-level svelte:head, 16 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/projects/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Projects\" at src/routes/projects/+page.svelte:35 in the page's top-level svelte:head, 8 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/projects/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"New project\" at src/routes/projects/new/+page.svelte:28 in the page's top-level svelte:head, 11 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/review/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Review\" at src/routes/review/+page.svelte:55 in the page's top-level svelte:head, 6 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/title-length::src/routes/users/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"User management\" at src/routes/users/+page.svelte:24 in the page's top-level svelte:head, 15 graphemes as reported; no layout or app.html title, no document.title) (claim holds); but Concepts Browser is a self-hosted institutional repository of clinical concept definitions (README: Charité CORR, LDAP sign-in, Docker Compose images); every route but /login is behind a login/capability guard (guardRead in lib/server/files.ts:10-12, concepts/+layout.server.ts:12-13, docs/+layout.server.ts \"deliberately not public\", or the page load), not content for search"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/api-keys/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /api-keys (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/concepts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/concepts/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /concepts/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/concepts/tax/[taxonomy]/[name]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /concepts/tax/[taxonomy]/[name] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/admin (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/capabilities/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/capabilities (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/clients/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/clients (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/concepts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/concepts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/corr-vars/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/corr-vars (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/editing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/editing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/orientation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/orientation (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/quick-start/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/quick-start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/docs/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /files (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/files/[src]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /files/[src] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/files/[src]/[uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /files/[src]/[uuid] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/pending/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pending (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/projects/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/projects/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/review/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /review (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  },
+  {
+    "key": "CUB-CORR/concepts-browser:app::seo/twitter-card::src/routes/users/[username]/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users/[username]/profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is icons/brand.css; npm Svelte deps (shadcn-svelte, svelte-sonner, @lucide/svelte) emit none; hooks.server.ts only resolves the session; route renders (no load that always redirects)); missing as claimed"
+  }
+]

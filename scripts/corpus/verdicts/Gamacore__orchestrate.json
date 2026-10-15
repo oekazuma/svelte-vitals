@@ -1,0 +1,232 @@
+[
+  {
+    "key": "Gamacore/orchestrate::a11y/disallowed-aria-props::src/routes/+page.svelte:94::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:94: literal element with aria-label and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Gamacore/orchestrate::a11y/disallowed-aria-props::src/routes/demo/requests/+page.svelte:92::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/routes/demo/requests/+page.svelte:92: literal element with aria-label and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Gamacore/orchestrate::a11y/permitted-contents::src/lib/ui/TierPricingDemo.svelte:178::`<small>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/lib/ui/TierPricingDemo.svelte:178: literal <small> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<div>` admits only `<dt>`, `<dd>` and script-supporting elements per the HTML content model, as reported"
+  },
+  {
+    "key": "Gamacore/orchestrate::a11y/permitted-contents::src/lib/ui/TierPricingDemo.svelte:183::`<small>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/lib/ui/TierPricingDemo.svelte:183: literal <small> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<div>` admits only `<dt>`, `<dd>` and script-supporting elements per the HTML content model, as reported"
+  },
+  {
+    "key": "Gamacore/orchestrate::a11y/permitted-contents::src/lib/ui/TierPricingDemo.svelte:188::`<small>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/lib/ui/TierPricingDemo.svelte:188: literal <small> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<div>` admits only `<dt>`, `<dd>` and script-supporting elements per the HTML content model, as reported"
+  },
+  {
+    "key": "Gamacore/orchestrate::architecture/component-size::src/lib/ui/AsciiHero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/AsciiHero.svelte has 319 physical lines (newline count, trailing newline not counted; 276 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Gamacore/orchestrate::architecture/component-size::src/lib/ui/BlogTimeline.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/BlogTimeline.svelte has 244 physical lines (newline count, trailing newline not counted; 210 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Gamacore/orchestrate::architecture/component-size::src/lib/ui/TierPricingDemo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/TierPricingDemo.svelte has 353 physical lines (newline count, trailing newline not counted; 307 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Gamacore/orchestrate::architecture/component-size::src/lib/ui/TrustStrip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/TrustStrip.svelte has 307 physical lines (newline count, trailing newline not counted; 268 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Gamacore/orchestrate::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 303 physical lines (newline count, trailing newline not counted; 278 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Gamacore/orchestrate::architecture/component-size::src/routes/demo/requests/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/demo/requests/+page.svelte has 255 physical lines (newline count, trailing newline not counted; 249 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Gamacore/orchestrate::architecture/component-size::src/routes/tos/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tos/+page.svelte has 209 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Gamacore/orchestrate::architecture/prop-count::src/lib/ui/AsciiHero.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/AsciiHero.svelte has a single destructured $props() with 13 named props (> 6): class, cols, rows, fontSize, fontFamily, charRamp, colorful, palette, baseOpacity, frameMs, clickRipple, clickRippleRadius, clickRippleDuration"
+  },
+  {
+    "key": "Gamacore/orchestrate::correctness/each-key::src/routes/demo/models/+page.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: demo/models/+page.svelte:49 '{#each visibleModels as model}' has no key; visibleModels filters the same-file constant models literal (:3-25) by a toggle; static demo list"
+  },
+  {
+    "key": "Gamacore/orchestrate::correctness/each-key::src/routes/demo/requests/+page.svelte:128::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: demo/requests/+page.svelte:128 '{#each visibleRequests as request}' has no key; requests is $state rewritten by retry/cancel (:60+) and filtered by status (:58), rows enter and leave; runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Gamacore/orchestrate::security/raw-html::src/routes/+layout.svelte:53::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:8-12,53: JSON-LD from the repo constant organizationJsonLd (lib/config/site) serialized with '<' escaped as \\\\u003c — script-safe literal block, reported per docs"
+  },
+  {
+    "key": "Gamacore/orchestrate::security/raw-html::src/routes/blog/[slug]/+page.svelte:40::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/blog/[slug]/+page.svelte:40 + lib/content/blog.server.ts:49,241,353: post.html is marked/shiki output over repo-committed content/blog/*.md (files present in the clone, not gitignored) (import.meta.glob, prerendered via entries()) — repo-authored content, no user input, reported per docs"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/description-length::src/routes/tos/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Terms of Service governing access to and use of the Arcten website.\" at tos/+page.svelte:8 in its top-level svelte:head, 67 graphemes as reported; it is the later of the two descriptions (root layout's siteConfig.description precedes it)): too short as claimed on a public prerendered page"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/duplicate-title::src/routes/demo/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: demo/+layout.svelte:8 literal <title>Arcten Dashboard</title> is the last title of all 9 /demo routes (local CLI list; no demo page sets its own; root layout title precedes it), duplicate as claimed; but the /demo tree is a mock \"Arcten Dashboard\" whose demo/+layout.svelte:8 head carries noindex, nofollow, not content for search"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/indexability::src/routes/demo/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: demo/+layout.svelte:8 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /demo (no @ reset; root +layout.svelte:28 also emits index, follow, and the most restrictive wins); noindex as claimed, deliberate for the mock dashboard"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/indexability::src/routes/demo/agents/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: demo/+layout.svelte:8 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /demo/agents (no @ reset; root +layout.svelte:28 also emits index, follow, and the most restrictive wins); noindex as claimed, deliberate for the mock dashboard"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/indexability::src/routes/demo/agents/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: demo/+layout.svelte:8 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /demo/agents/[id] (no @ reset; root +layout.svelte:28 also emits index, follow, and the most restrictive wins); noindex as claimed, deliberate for the mock dashboard"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/indexability::src/routes/demo/agents/[id]/edit/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: demo/+layout.svelte:8 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /demo/agents/[id]/edit (no @ reset; root +layout.svelte:28 also emits index, follow, and the most restrictive wins); noindex as claimed, deliberate for the mock dashboard"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/indexability::src/routes/demo/agents/new/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: demo/+layout.svelte:8 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /demo/agents/new (no @ reset; root +layout.svelte:28 also emits index, follow, and the most restrictive wins); noindex as claimed, deliberate for the mock dashboard"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/indexability::src/routes/demo/api-keys/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: demo/+layout.svelte:8 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /demo/api-keys (no @ reset; root +layout.svelte:28 also emits index, follow, and the most restrictive wins); noindex as claimed, deliberate for the mock dashboard"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/indexability::src/routes/demo/models/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: demo/+layout.svelte:8 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /demo/models (no @ reset; root +layout.svelte:28 also emits index, follow, and the most restrictive wins); noindex as claimed, deliberate for the mock dashboard"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/indexability::src/routes/demo/requests/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: demo/+layout.svelte:8 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /demo/requests (no @ reset; root +layout.svelte:28 also emits index, follow, and the most restrictive wins); noindex as claimed, deliberate for the mock dashboard"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/indexability::src/routes/demo/usage/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: demo/+layout.svelte:8 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /demo/usage (no @ reset; root +layout.svelte:28 also emits index, follow, and the most restrictive wins); noindex as claimed, deliberate for the mock dashboard"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/[slug]: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/demo/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/demo/agents/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/agents: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/demo/agents/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/agents/[id]: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/demo/agents/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/agents/[id]/edit: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/demo/agents/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/agents/new: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/demo/api-keys/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/api-keys: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/demo/models/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/models: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/demo/requests/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/requests: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/demo/usage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/usage: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/docs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/og-image::src/routes/tos/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tos: root +layout.svelte:20-53 emits title/description/canonical/og:type/locale/site_name/title/description/url and twitter:card/title/description/site/creator but no og:image; repo-wide grep finds no og:image anywhere; page heads add <title>/description (demo/+layout.svelte adds noindex); npm performative-ui is a React package; prerendered, route renders"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/title-length::src/routes/blog/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Inference Notes | Arcten\" at src/routes/blog/+page.svelte:10 in the page's top-level svelte:head, 24 graphemes as reported, rendered after the root layout's {siteConfig.title}): too short as claimed on a public, prerendered page of the Arcten marketing site (robots.txt Allow: /)"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/title-length::src/routes/demo/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Arcten Dashboard\" at demo/+layout.svelte:8, 16 graphemes as reported, the last title of all 9 /demo routes in the key (local CLI list)) (claim holds); but the /demo tree is a mock \"Arcten Dashboard\" whose demo/+layout.svelte:8 head carries noindex, nofollow, not content for search"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/title-length::src/routes/docs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Docs | Arcten\" at src/routes/docs/+page.svelte:18 in the page's top-level svelte:head, 13 graphemes as reported, rendered after the root layout's {siteConfig.title}): too short as claimed on a public, prerendered page of the Arcten marketing site (robots.txt Allow: /)"
+  },
+  {
+    "key": "Gamacore/orchestrate::seo/title-length::src/routes/tos/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Terms of Service | Arcten\" at src/routes/tos/+page.svelte:7 in the page's top-level svelte:head, 25 graphemes as reported, rendered after the root layout's {siteConfig.title}): too short as claimed on a public, prerendered page of the Arcten marketing site (robots.txt Allow: /)"
+  }
+]

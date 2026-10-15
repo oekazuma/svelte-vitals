@@ -1,0 +1,1287 @@
+[
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/interactive-nesting::src/lib/components/files/file-move-dialog.svelte:75::<span> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read file-move-dialog.svelte:68-81: <span role=\"button\" tabindex=\"0\"> expand toggle directly inside the row <button> (in {#if dir.children…}); an interactive role inside a <button>, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/label-has-control::src/lib/components/staged-config-view.svelte:177::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/lib/components/staged-config-view.svelte:177: <label> with static text only, no for attribute, no spread and no wrapped labelable control (the field follows as a sibling), so it is not associated"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/label-has-control::src/routes/modpacks/studio/+page.svelte:609::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/modpacks/studio/+page.svelte:609: <label> with static text only, no for attribute, no spread and no wrapped labelable control (the field follows as a sibling), so it is not associated"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/label-has-control::src/routes/modpacks/studio/[id]/+page.svelte:1848::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/modpacks/studio/[id]/+page.svelte:1848: <label> with static text only, no for attribute, no spread and no wrapped labelable control (the field follows as a sibling), so it is not associated"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/label-has-control::src/routes/servers/new/+page.svelte:468::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:468: <label> with static text only, no for attribute, no spread and no wrapped labelable control (the field follows as a sibling), so it is not associated"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/label-has-control::src/routes/servers/new/+page.svelte:729::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:729: <label> with static text only, no for attribute, no spread and no wrapped labelable control (the field follows as a sibling), so it is not associated"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/label-has-control::src/routes/servers/new/+page.svelte:933::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:933: <label> with static text only, no for attribute, no spread and no wrapped labelable control (the field follows as a sibling), so it is not associated"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/no-autofocus::src/lib/components/files/file-toolbar.svelte:57::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; file-toolbar.svelte:57-63 search input with autofocus under {#if showSearch}, showSearch = $state(false) (:15) set true only by the search button's onclick (:81); focus follows a user action, not page load (docs only carve out <dialog>/popover)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/carbon/CarbonAccordionItem.svelte:30::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/carbon/CarbonAccordionItem.svelte:30: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server-tasks.svelte:1238::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server-tasks.svelte:1238: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server-tasks.svelte:1364::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server-tasks.svelte:1364: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server-tasks.svelte:1532::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server-tasks.svelte:1532: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server-tasks.svelte:1648::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server-tasks.svelte:1648: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server/ModuleDialog.svelte:1314::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server/ModuleDialog.svelte:1314: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server/ModuleDialog.svelte:824::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server/ModuleDialog.svelte:824: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server/ModuleDialog.svelte:836::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server/ModuleDialog.svelte:836: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server/ModuleDialog.svelte:848::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server/ModuleDialog.svelte:848: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server/ModuleDialog.svelte:862::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server/ModuleDialog.svelte:862: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server/ModuleTemplateCreateDialog.svelte:1097::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server/ModuleTemplateCreateDialog.svelte:1097: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server/ModuleTemplateCreateDialog.svelte:622::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server/ModuleTemplateCreateDialog.svelte:622: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/server/ModuleTemplateCreateDialog.svelte:634::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/server/ModuleTemplateCreateDialog.svelte:634: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/support-settings.svelte:296::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/support-settings.svelte:296: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/support-settings.svelte:311::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/support-settings.svelte:311: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/support-settings.svelte:367::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/support-settings.svelte:367: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/ui/AliasHelper.svelte:154::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/ui/AliasHelper.svelte:154: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/lib/components/ui/AliasHelper.svelte:178::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/ui/AliasHelper.svelte:178: literal <p> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:1023::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:1023: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:1040::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:1040: literal <p> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:1103::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:1103: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:1123::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:1123: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:1143::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:1143: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:1160::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:1160: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:1177::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:1177: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<label>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:1284::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:1284: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:418::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:418: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:433::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:433: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:483::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:483: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:487::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:487: literal <p> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:501::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:501: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:507::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:507: literal <p> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:746::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:746: literal <h4> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:747::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:747: literal <p> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:771::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:771: literal <h4> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:772::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:772: literal <p> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:947::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:947: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:953::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:953: literal <p> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:967::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:967: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::a11y/permitted-contents::src/routes/servers/new/+page.svelte:971::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/routes/servers/new/+page.svelte:971: literal <p> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<button>`'s content model is phrasing content per the HTML content model, as reported"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/api-keys-settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/api-keys-settings.svelte has 406 physical lines (newline count, trailing newline not counted; 383 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/auth-settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/auth-settings.svelte has 452 physical lines (newline count, trailing newline not counted; 429 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/carbon/CarbonModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/carbon/CarbonModal.svelte has 235 physical lines (newline count, trailing newline not counted; 217 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/carbon/CarbonShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/carbon/CarbonShell.svelte has 299 physical lines (newline count, trailing newline not counted; 273 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/docker-overrides-editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/docker-overrides-editor.svelte has 727 physical lines (newline count, trailing newline not counted; 686 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/files/file-context-menu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/files/file-context-menu.svelte has 223 physical lines (newline count, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/files/file-editor-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/files/file-editor-dialog.svelte has 387 physical lines (newline count, trailing newline not counted; 361 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/files/file-tree-row.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/files/file-tree-row.svelte has 204 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/files/server-files.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/files/server-files.svelte has 1157 physical lines (newline count, trailing newline not counted; 1070 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/manifest-inspector-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/manifest-inspector-dialog.svelte has 324 physical lines (newline count, trailing newline not counted; 304 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/mod-browser-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mod-browser-dialog.svelte has 740 physical lines (newline count, trailing newline not counted; 695 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/modpack-deploy-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modpack-deploy-dialog.svelte has 245 physical lines (newline count, trailing newline not counted; 228 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/node-settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/node-settings.svelte has 1097 physical lines (newline count, trailing newline not counted; 1029 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/role-settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/role-settings.svelte has 792 physical lines (newline count, trailing newline not counted; 738 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/routing-settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/routing-settings.svelte has 616 physical lines (newline count, trailing newline not counted; 579 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server-configuration.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server-configuration.svelte has 884 physical lines (newline count, trailing newline not counted; 810 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server-console.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server-console.svelte has 646 physical lines (newline count, trailing newline not counted; 594 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server-mods.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server-mods.svelte has 533 physical lines (newline count, trailing newline not counted; 500 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server-routing.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server-routing.svelte has 343 physical lines (newline count, trailing newline not counted; 321 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server-settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server-settings.svelte has 765 physical lines (newline count, trailing newline not counted; 708 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server-tasks.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server-tasks.svelte has 1773 physical lines (newline count, trailing newline not counted; 1696 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server/ModuleDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server/ModuleDialog.svelte has 1594 physical lines (newline count, trailing newline not counted; 1515 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server/ModuleLogsDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server/ModuleLogsDialog.svelte has 300 physical lines (newline count, trailing newline not counted; 271 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server/ModuleTemplateCreateDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server/ModuleTemplateCreateDialog.svelte has 1200 physical lines (newline count, trailing newline not counted; 1129 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/server/ServerModules.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/server/ServerModules.svelte has 592 physical lines (newline count, trailing newline not counted; 556 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/staged-config-view.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/staged-config-view.svelte has 276 physical lines (newline count, trailing newline not counted; 261 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/support-settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/support-settings.svelte has 628 physical lines (newline count, trailing newline not counted; 593 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/lib/components/user-settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/user-settings.svelte has 1059 physical lines (newline count, trailing newline not counted; 1005 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 896 physical lines (newline count, trailing newline not counted; 869 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/docs/api/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/docs/api/+page.svelte has 353 physical lines (newline count, trailing newline not counted; 337 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 509 physical lines (newline count, trailing newline not counted; 477 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/modpacks/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/modpacks/+page.svelte has 955 physical lines (newline count, trailing newline not counted; 882 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/modpacks/studio/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/modpacks/studio/+page.svelte has 679 physical lines (newline count, trailing newline not counted; 634 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/modpacks/studio/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/modpacks/studio/[id]/+page.svelte has 1907 physical lines (newline count, trailing newline not counted; 1800 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/modules/ActiveModules.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/modules/ActiveModules.svelte has 438 physical lines (newline count, trailing newline not counted; 408 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/modules/TemplateManagement.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/modules/TemplateManagement.svelte has 285 physical lines (newline count, trailing newline not counted; 262 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/+page.svelte has 715 physical lines (newline count, trailing newline not counted; 669 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/servers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/servers/+page.svelte has 778 physical lines (newline count, trailing newline not counted; 741 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/servers/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/servers/[id]/+page.svelte has 858 physical lines (newline count, trailing newline not counted; 820 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/component-size::src/routes/servers/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/servers/new/+page.svelte has 1306 physical lines (newline count, trailing newline not counted; 1231 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/carbon/CarbonButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/carbon/CarbonButton.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest: kind, size, iconOnly, disabled, loading, href, class, children"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/carbon/CarbonConfirm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/carbon/CarbonConfirm.svelte has a single destructured $props() with 10 named props (> 6): open, title, message, details, confirmLabel, cancelLabel, danger, confirming, onconfirm, onclose"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/carbon/CarbonModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/carbon/CarbonModal.svelte has a single destructured $props() with 13 named props (> 6): open, title, description, primaryButtonText, secondaryButtonText, danger, size, hasFooter, onprimary, onsecondary, onclose, footer, children"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/carbon/CarbonSearch.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/carbon/CarbonSearch.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest: value, placeholder, size, disabled, class, onclear, onkeydown"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/carbon/CarbonSelect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/carbon/CarbonSelect.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest: label, helperText, error, value, class, id, children"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/carbon/CarbonTag.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/carbon/CarbonTag.svelte has a single destructured $props() with 7 named props (> 6): type, size, filter, pulse, onclose, class, children"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/carbon/CarbonTextInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/carbon/CarbonTextInput.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest: label, helperText, error, value, class, id, revealable, type"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/files/file-bulk-actions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/files/file-bulk-actions.svelte has a single destructured $props() with 8 named props (> 6): selectedCount, canExtract, onClear, onDelete, onDownload, onMove, onCompress, onExtract"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/files/file-context-menu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/files/file-context-menu.svelte has a single destructured $props() with 18 named props (> 6): visible, x, y, file, hasSelection, selectedCount, onClose, onEdit, onRename, onCopy, onMove, onDownload, onNewFile, onNewFolder, onUpload, onCompress, onExtract, onDelete"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/files/file-tree-row.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/files/file-tree-row.svelte has a single destructured $props() with 15 named props (> 6): file, depth, isExpanded, isSelected, isFocused, isDragOver, hasSelection, onToggleExpand, onSelect, onCheckboxToggle, onContextMenu, onDragStart, onDragOver, onDragLeave, onDrop"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/files/file-tree.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/files/file-tree.svelte has a single destructured $props() with 16 named props (> 6): flatFiles, expandedDirs, selectedPaths, focusedPath, dragOverPath, onToggleExpand, onSelect, onCheckboxToggle, onSelectAll, onContextMenu, onDragStart, onDragOver, onDragLeave, onDrop, onKeydown, getDepth"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/server/ModuleDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/server/ModuleDialog.svelte has a single destructured $props() with 7 named props (> 6): open, mode, server, templates, module, onSuccess, onTemplateDeleted"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) plus a ...rest: ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest: ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6) plus a ...rest: ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest: open, ref, value, title, description, portalProps, children"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest: ref, class, sideOffset, alignOffset, align, side, portalProps"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar.svelte has a single destructured $props() with 14 named props (> 6) plus a ...rest: ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/additional-ports-editor.svelte:116::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: additional-ports-editor.svelte:116 '{#each ports as port, index (index)}' keyed by its index; ports $bindable appended (:29) and filtered by index (:34); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/docker-overrides-editor.svelte:424::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: docker-overrides-editor.svelte:424 '{#each overrides.volumes as volume, i (i)}' keyed by its index; volumes appended (:211) and removed (:216) by the editor; runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/files/file-breadcrumb.svelte:46::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: file-breadcrumb.svelte:46 '{#each segments as segment, i (i)}' keyed by its index; segments = path segments of the current directory (:19); positional list (breadcrumb)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server-console.svelte:503::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each logEntries as entry, i (i)}' keyed by its index; logEntries $state replaced from the log API/websocket and trimmed from the front to MAX_LOG_ENTRIES (server-console.svelte:169) or cleared; runtime list (ledger log-list convention)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleDialog.svelte:1033::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleDialog.svelte:1090::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleDialog.svelte:1193::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleDialog.svelte:1343::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleDialog.svelte:1470::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleLogsDialog.svelte:228::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each logEntries as entry, i (i)}' keyed by its index; logEntries $state replaced from the log API/websocket and trimmed from the front to MAX_LOG_ENTRIES (server-console.svelte:169) or cleared; runtime list (ledger log-list convention)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleTemplateCreateDialog.svelte:1129::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleTemplateCreateDialog.svelte:664::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleTemplateCreateDialog.svelte:775::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleTemplateCreateDialog.svelte:835::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/each-index-key::src/lib/components/server/ModuleTemplateCreateDialog.svelte:944::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: Module dialog editable list ('{#each envVars/volumes/dependencies/eventHooks/metadata/ports/defaultHooks as …, i (i)}') keyed by its index; $state appended and filtered by index (e.g. ModuleDialog.svelte:229/232); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/stale-prop-derivation::src/lib/components/carbon/CarbonSelect.svelte:27::\"describedById\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: describedById = `${id}-desc` at init (claim structurally true), but id defaults to $props.id() and callers pass it only as a literal (id=\"urlPin\") or omit it, so the prop never changes for a mounted input"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/stale-prop-derivation::src/lib/components/carbon/CarbonTextInput.svelte:37::\"describedById\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: describedById = `${id}-desc` at init (claim structurally true), but id defaults to $props.id() and callers pass it only as a literal (id=\"urlPin\") or omit it, so the prop never changes for a mounted input"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::correctness/stale-prop-derivation::src/lib/components/carbon/CarbonTile.svelte:22::\"hoverClasses\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: CarbonTile.svelte:22 hoverClasses from clickable/href at init (claim structurally true), but no caller passes clickable or href (all <CarbonTile class=…> uses), so the defaults never change"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/iframe-loading::src/routes/docs/api/+page.svelte:270::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "<iframe> (docs/api/+page.svelte:270) has no loading attribute and no spread; the API documentation frame is absolute inset-0 h-full w-full, the page's whole content - visible on load, where eager is right"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-dimensions::src/routes/login/+page.svelte:214::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> (login/+page.svelte:214) lacks width/height, no spread; own class h-8 w-8 - box reserved by CSS"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-dimensions::src/routes/modpacks/+page.svelte:669::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> (modpacks/+page.svelte:669) lacks width/height, no spread; own class h-14 w-14 - box reserved by CSS"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-dimensions::src/routes/modpacks/studio/[id]/+page.svelte:1706::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> (modpacks/studio/[id]/+page.svelte:1706) lacks width/height, no spread; own class h-10 w-10 - box reserved by CSS"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-dimensions::src/routes/servers/new/+page.svelte:1278::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> (servers/new/+page.svelte:1278) lacks width/height, no spread; own class h-12 w-12 - box reserved by CSS"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-dimensions::src/routes/servers/new/+page.svelte:523::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> (servers/new/+page.svelte:523) lacks width/height, no spread; own class h-12 w-12 - box reserved by CSS"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-loading-hint::src/routes/login/+page.svelte:214::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; logo beside the <h1> at the top of the login card - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-loading-hint::src/routes/modpacks/+page.svelte:669::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; modpack logo in each CarbonTile of the {#each displayModpacks} grid - later tiles offscreen"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-loading-hint::src/routes/modpacks/studio/[id]/+page.svelte:1706::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; mod icon in each CarbonTile of the {#each searchResults} list - later rows offscreen"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-loading-hint::src/routes/servers/new/+page.svelte:1278::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; logo in each button of the {#each favoriteModpacks} list - later rows offscreen"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/image-loading-hint::src/routes/servers/new/+page.svelte:523::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; selected-modpack preview in {#if selectedModpack} inside step 1's form, shown after the user picks a pack - the visible content when it renders"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/responsive-image::src/routes/login/+page.svelte:214::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread, src a literal .png (/g1_24x24.png) shown at 32px - one fixed-size raster"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/responsive-image::src/routes/modpacks/+page.svelte:669::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread, src not .svg; modpack.logoUrl is a remote modpack logo (raster) - one fixed-size asset"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/responsive-image::src/routes/modpacks/studio/[id]/+page.svelte:1706::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread, src not .svg; item.icon_url is a remote mod icon (raster) - one fixed-size asset"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/responsive-image::src/routes/servers/new/+page.svelte:1278::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread, src not .svg; modpack.logoUrl is a remote modpack logo (raster) - one fixed-size asset"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/responsive-image::src/routes/servers/new/+page.svelte:523::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread, src not .svg; selectedModpack.logoUrl is a remote modpack logo (raster) - one fixed-size asset"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/state-raw::src/routes/modpacks/+page.svelte:86::\"gameVersions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"gameVersions\" in src/routes/modpacks/+page.svelte: declared :86, whole reassignment :109, read only in the keyed {#each} of <option>s :532 (modpack.gameVersions at :727+ is a different object) — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/state-raw::src/routes/modpacks/+page.svelte:87::\"modLoaders\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"modLoaders\" in src/routes/modpacks/+page.svelte: declared :87, whole reassignment :119, read only in the keyed {#each} of <option>s :540 — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::performance/state-raw::src/routes/servers/new/+page.svelte:42::\"minecraftVersions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"minecraftVersions\" in src/routes/servers/new/+page.svelte: declared :42, whole reassignment :116, read only in the keyed {#each} of <option>s :638 — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::security/raw-html::src/lib/components/server-console.svelte:506::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/server-console.svelte:33-39,506: ansiConverter is ansi-to-html with escapeXML: true, so the log message text is HTML-escaped and only color spans are added — escaped output, reported per docs"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::security/raw-html::src/lib/components/server/ModuleLogsDialog.svelte:231::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/server/ModuleLogsDialog.svelte:15-21,231: ansiConverter is ansi-to-html with escapeXML: true, so the log message text is HTML-escaped and only color spans are added — escaped output, reported per docs"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/docs/api/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /docs/api (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/modpacks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /modpacks (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/modpacks/studio/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /modpacks/studio (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/modpacks/studio/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /modpacks/studio/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/modules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /modules (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/servers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /servers (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/servers/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /servers/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/servers/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /servers/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders) but not a search target (self-hosted Minecraft server panel embedded into a Go binary (embed.go, README \"homelab operators\"), so no public URL exists for a canonical; root +layout.svelte initialize() goto('/login') unless anonymous access is enabled), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/docs/api/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /docs/api); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /login); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/modpacks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /modpacks); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/modpacks/studio/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /modpacks/studio); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/modpacks/studio/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /modpacks/studio/[id]); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/modules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /modules); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /profile); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/servers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /servers); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/servers/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /servers/[id]); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/servers/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /servers/new); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of web/carbon-panel/src for name=\"description\": none; root +layout.svelte:86-88 head has only a <title>, app.html icons only) (claim holds on /settings); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: root +layout.svelte:87 literal <title>Carbon Panel - Minecraft Server Management</title> is the only title of the 6 routes in the key (local CLI list: /, /docs/api, /servers, /servers/[id], /servers/new, /settings set none), duplicate as claimed; but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/heading-level-skip::src/routes/modpacks/+page.svelte:683::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: modpacks/+page.svelte:420 <h1>Modpacks, then filters/buttons (CarbonSelect etc., no heading) and each tile's <h3> (:683) with no <h2> between -> h1 to h3 (ssr=false app; CarbonShell and root layout render no heading)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/heading-level-skip::src/routes/modpacks/studio/+page.svelte:375::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: modpacks/studio/+page.svelte:322 <h1>Modpack Studio, then the {:else if filteredPacks.length === 0} empty-state <h3> (:375) with no <h2> between -> h1 to h3 (ssr=false app; CarbonShell and root layout render no heading)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/heading-level-skip::src/routes/servers/+page.svelte:360::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: servers/+page.svelte:207 <h1>Servers, then search/view controls and the empty-state <h3> (:360) with no <h2> between -> h1 to h3 (ssr=false app; CarbonShell and root layout render no heading)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/heading-level-skip::src/routes/servers/[id]/+page.svelte:706::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: servers/[id]/+page.svelte:307 <h1> server name, then status/info panels (no heading) and the overview tab's <h3>Server Settings (:706) with no <h2> between -> h1 to h3 (ssr=false app; CarbonShell and root layout render no heading)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/heading-level-skip::src/routes/servers/new/+page.svelte:485::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: servers/new/+page.svelte step 0 <h2> (:459), then the manual-configuration <h4> (:485) with no <h3> between -> h2 to h4 (ssr=false app; CarbonShell and root layout render no heading)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): / renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/docs/api/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /docs/api renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /login renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/modpacks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /modpacks renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/modpacks/studio/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /modpacks/studio renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/modpacks/studio/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /modpacks/studio/[id] renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/modules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /modules renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /profile renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/servers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /servers renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/servers/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /servers/[id] renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/servers/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /servers/new renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/carbon-panel/src incl. app.html for ld+json: none; no meta/JSON-LD library in deps): /settings renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/docs/api/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/api (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/modpacks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /modpacks (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/modpacks/studio/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /modpacks/studio (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/modpacks/studio/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /modpacks/studio/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/modules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /modules (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/servers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /servers (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/servers/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /servers/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/servers/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /servers/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/docs/api/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/api (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/modpacks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /modpacks (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/modpacks/studio/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /modpacks/studio (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/modpacks/studio/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /modpacks/studio/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/modules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /modules (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/servers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /servers (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/servers/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /servers/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/servers/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /servers/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/docs/api/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/api (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/modpacks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /modpacks (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/modpacks/studio/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /modpacks/studio (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/modpacks/studio/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /modpacks/studio/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/modules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /modules (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/servers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /servers (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/servers/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /servers/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/servers/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /servers/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/docs/api/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/api (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/modpacks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /modpacks (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/modpacks/studio/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /modpacks/studio (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/modpacks/studio/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /modpacks/studio/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/modules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /modules (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/servers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /servers (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/servers/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /servers/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/servers/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /servers/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has icons, robots.txt (allow all) and scalar.js, no sitemap.xml file or route (claim holds); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search, nothing public to list"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 (adapter-static SPA with fallback index.html); Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Carbon Panel - Login\" at src/routes/login/+page.svelte:202 in the page's top-level svelte:head, 20 graphemes as reported, after the root layout title) (claim holds); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/title-length::src/routes/modpacks/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Modpacks - Carbon Panel\" at src/routes/modpacks/+page.svelte:405 in the page's top-level svelte:head, 23 graphemes as reported, after the root layout title) (claim holds); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/title-length::src/routes/modpacks/studio/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Modpack Studio - Carbon Panel\" at src/routes/modpacks/studio/+page.svelte:299 in the page's top-level svelte:head, 29 graphemes as reported, after the root layout title) (claim holds); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/title-length::src/routes/profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Profile - Carbon Panel\" at src/routes/profile/+page.svelte:230 in the page's top-level svelte:head, 22 graphemes as reported, after the root layout title) (claim holds); but Carbon Panel is a self-hosted Minecraft server management panel (README; app.html comment \"offline-capable, self-hosted panel\"), a client-only SPA whose root +layout.svelte:29-47 sends visitors to /login when auth is enabled, not content for search"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/docs/api/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/api (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/modpacks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /modpacks (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/modpacks/studio/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /modpacks/studio (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/modpacks/studio/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /modpacks/studio/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/modules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /modules (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/servers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /servers (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/servers/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /servers/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/servers/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /servers/new (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  },
+  {
+    "key": "athNdev/carbon-panel:web/carbon-panel::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages (the only hit, static/scalar.js, is the vendored Scalar bundle loaded inside an iframe srcdoc on /docs/api, so it never writes the route's document head); npm carbon-components-svelte@0.112.0 has 309 .svelte files, none with <svelte:head>/og/twitter/canonical (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1) and no client head emits it; route renders); missing as claimed"
+  }
+]

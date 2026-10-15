@@ -1,0 +1,1162 @@
+[
+  {
+    "key": "AlphaTechini/Mithra:apps/web::a11y/disallowed-aria-props::src/lib/components/audit/NewRequest.svelte:127::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/audit/NewRequest.svelte:127: literal element with aria-labelledby and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::a11y/disallowed-aria-props::src/lib/components/holder/PositionSummary.svelte:20::`aria-labelledby` is prohibited on <p> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/holder/PositionSummary.svelte:20: literal element with aria-labelledby and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::a11y/disallowed-aria-props::src/lib/components/landing/ShowcaseSeal.svelte:108::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/landing/ShowcaseSeal.svelte:108: literal element with aria-labelledby and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::a11y/duplicate-landmark::src/lib/components/SessionGate.svelte:41::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: SessionGate.svelte:39-50 renders its <main id=main> only in the {#if status==='error'} and {:else if status!=='ready' || target} arms and {@render children()} only in the {:else}; the route's other <main> (app/holder/auditor/setup +layout.svelte or start/+page.svelte, each passed as SessionGate's children content) therefore never renders with it, yet the analyzer counts the gate's <main> together with the children's (one {#if} chain counted together; same shape on all 19 routes)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::a11y/id-duplication::src/lib/components/SessionGate.svelte:41::Duplicate id \"main\"",
+    "verdict": "fp",
+    "basis": "fp: SessionGate.svelte:41/:45 <main id=\"main\"> renders only in the error/loading arms of its {#if} chain (:39-50) and {@render children()} only in its {:else}; the copy it is counted with is the <main id=\"main\"> in the content each route passes as SessionGate's children (app/holder/auditor/setup +layout.svelte, start/+page.svelte), so the two never co-render (one {#if} chain counted together; same shape on all 19 routes)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::a11y/id-duplication::src/lib/components/treasury/AddFundsDialog.svelte:64::Duplicate id \"add-funds-form\"",
+    "verdict": "design",
+    "basis": "read: on /app/overview form#add-funds-form (AddFundsDialog.svelte:64) comes from two AddFundsDialog instances, app/overview/+page.svelte:203 under {#if addingFunds} and FundsWarning.svelte:45 under its own {#if open}, each opened by its own button; separate {#if} blocks counted as both rendering (documented model), two modal dialogs open at once is not a normal state"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::a11y/top-level-landmark::src/routes/setup/policy/+page.svelte:203::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: setup/+layout.svelte:28-47 renders the page inside <main id=main> (SessionGate's children arm), and setup/policy/+page.svelte:203 <aside class=summary aria-labelledby=summary-title> sits in it; a labelled aside is a complementary landmark nested in main, as reported (app is ssr=false but renders client-side)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/AgentPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AgentPanel.svelte has 220 physical lines (newline count, trailing newline not counted; 204 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/AppNav.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AppNav.svelte has 221 physical lines (newline count, trailing newline not counted; 209 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/Seal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Seal.svelte has 308 physical lines (newline count, trailing newline not counted; 297 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/audit/AuditRequestView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/audit/AuditRequestView.svelte has 515 physical lines (newline count, trailing newline not counted; 491 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/audit/AuditorRequestPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/audit/AuditorRequestPanel.svelte has 236 physical lines (newline count, trailing newline not counted; 222 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/audit/EvidenceRoomView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/audit/EvidenceRoomView.svelte has 411 physical lines (newline count, trailing newline not counted; 397 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/audit/NewRequest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/audit/NewRequest.svelte has 297 physical lines (newline count, trailing newline not counted; 278 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/holder/TxDetailView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/holder/TxDetailView.svelte has 203 physical lines (newline count, trailing newline not counted; 187 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/treasury/CycleDetailView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/treasury/CycleDetailView.svelte has 764 physical lines (newline count, trailing newline not counted; 724 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/treasury/PolicyEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/treasury/PolicyEditor.svelte has 253 physical lines (newline count, trailing newline not counted; 245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/lib/components/treasury/SignPayouts.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/treasury/SignPayouts.svelte has 562 physical lines (newline count, trailing newline not counted; 538 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 290 physical lines (newline count, trailing newline not counted; 270 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/app/approvals/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/approvals/+page.svelte has 221 physical lines (newline count, trailing newline not counted; 210 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/app/overview/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/overview/+page.svelte has 289 physical lines (newline count, trailing newline not counted; 272 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/app/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/settings/+page.svelte has 291 physical lines (newline count, trailing newline not counted; 277 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/auditor/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/auditor/+page.svelte has 210 physical lines (newline count, trailing newline not counted; 198 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/holder/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/holder/+page.svelte has 227 physical lines (newline count, trailing newline not counted; 210 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/holder/welcome/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/holder/welcome/+page.svelte has 228 physical lines (newline count, trailing newline not counted; 212 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/setup/mandate/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/setup/mandate/+page.svelte has 306 physical lines (newline count, trailing newline not counted; 292 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/setup/organization/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/setup/organization/+page.svelte has 335 physical lines (newline count, trailing newline not counted; 316 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/component-size::src/routes/setup/policy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/setup/policy/+page.svelte has 285 physical lines (newline count, trailing newline not counted; 265 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/prop-count::src/lib/components/ActionCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ActionCard.svelte has a single destructured $props() with 7 named props (> 6): title, status, summary, items, details, open, href"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/prop-count::src/lib/components/AgentPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/AgentPanel.svelte has a single destructured $props() with 9 named props (> 6): open, messages, suggestions, busy, unavailableReason, error, onretry, onsend, onclose"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/prop-count::src/lib/components/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Button.svelte has a single destructured $props() with 10 named props (> 6) plus a ...rest: variant, type, href, externalHref, busy, disabled, fullWidth, small, onclick, children"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::architecture/prop-count::src/lib/components/Seal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Seal.svelte has a single destructured $props() with 8 named props (> 6): required, signed, label, state, expiresAt, grantedAt, size, hold"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::correctness/each-index-key::src/lib/components/Seal.svelte:145::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Seal.svelte:145 '{#each stampLines as line, i (i)}' keyed by its index; stampLines = text lines laid out on the seal (:100); positional list (text segments)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); public, renders for guests (landing / sign-in / public invitation page per its header comment), no noindex, no robots.txt"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/activity/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/activity (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/agent/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/agent (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/approvals/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/approvals (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/audit/[requestId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/audit/[requestId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/cycles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/cycles (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/cycles/[cycleId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/cycles/[cycleId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/holders/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/holders (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/overview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/overview (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/app/tx/[updateId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/app/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/auditor/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auditor (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/auditor/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/holder/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /holder (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/holder/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/holder/tx/[updateId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /holder/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/holder/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/holder/welcome/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /holder/welcome (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/holder/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/invite/[code]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /invite/[code] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); public, renders for guests (landing / sign-in / public invitation page per its header comment), no noindex, no robots.txt"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/launch/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /launch (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); public, renders for guests (landing / sign-in / public invitation page per its header comment), no noindex, no robots.txt"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/setup/mandate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup/mandate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/setup/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/setup/organization/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup/organization (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/setup/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/setup/policy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup/policy (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: routes/setup/+layout.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/canonical-url::src/routes/start/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders) but not a search target (client auth-gated: start/+page.svelte wraps it in <SessionGate>, whose redirectFor (lib/routing.ts:43) sends signed-out visitors to /launch and renders children only when allowed), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/activity/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/activity); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/agent/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/agent); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/approvals/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/approvals); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/audit); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/audit/[requestId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/audit/[requestId]); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/cycles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/cycles); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/cycles/[cycleId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/cycles/[cycleId]); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/holders/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/holders); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/overview/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/overview); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/settings); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/app/tx/[updateId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /app/tx/[updateId]); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/auditor/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /auditor); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/holder/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /holder); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/holder/tx/[updateId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /holder/tx/[updateId]); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/holder/welcome/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /holder/welcome); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/invite/[code]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /invite/[code]); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/launch/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /launch); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/setup/mandate/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /setup/mandate); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/setup/organization/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /setup/organization); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/setup/policy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /setup/policy); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/description-presence::src/routes/start/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src for name=\"description\": only the landing +page.svelte:62-65; no layout or app.html description) (claim holds on /start); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/duplicate-title::src/routes/app/tx/[updateId]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title>Transaction · Mithra</title> at app/tx/[updateId]/+page.svelte:11 and holder/tx/[updateId]/+page.svelte:12, duplicate as claimed; but the two are the treasurer's and the holder's view of one ledger transaction in Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/duplicate-title::src/routes/holder/tx/[updateId]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title>Transaction · Mithra</title> at app/tx/[updateId]/+page.svelte:11 and holder/tx/[updateId]/+page.svelte:12, duplicate as claimed; but the two are the treasurer's and the holder's view of one ledger transaction in Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/heading-level-skip::src/routes/setup/organization/+page.svelte:190::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: setup/organization/+page.svelte renders PageHeader (<h1>, PageHeader.svelte:11), then in the form arm Field/fieldset (no heading) and {#if others.length > 0} <h3> (:190) with no <h2> between -> h1 to h3"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): / renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/activity/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/activity renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/agent/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/agent renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/approvals/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/approvals renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/audit renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/audit/[requestId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/audit/[requestId] renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/cycles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/cycles renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/cycles/[cycleId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/cycles/[cycleId] renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/holders/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/holders renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/overview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/overview renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/settings renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/app/tx/[updateId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /app/tx/[updateId] renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/auditor/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /auditor renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/holder/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /holder renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/holder/tx/[updateId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /holder/tx/[updateId] renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/holder/welcome/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /holder/welcome renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/invite/[code]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /invite/[code] renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/launch/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /launch renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/setup/mandate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /setup/mandate renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/setup/organization/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /setup/organization renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/setup/policy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /setup/policy renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/json-ld::src/routes/start/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and packages/* for ld+json: none; no meta/JSON-LD library in deps): /start renders (client-side, no load redirects) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/activity/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/activity (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/agent/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/agent (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/approvals/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/approvals (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/audit/[requestId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/audit/[requestId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/cycles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/cycles (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/cycles/[cycleId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/cycles/[cycleId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/holders/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/holders (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/overview/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/overview (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/app/tx/[updateId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/auditor/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auditor (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/holder/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /holder (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/holder/tx/[updateId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /holder/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/holder/welcome/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /holder/welcome (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/invite/[code]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /invite/[code] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/launch/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /launch (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/setup/mandate/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup/mandate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/setup/organization/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup/organization (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/setup/policy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup/policy (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-description::src/routes/start/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/activity/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/activity (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/agent/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/agent (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/approvals/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/approvals (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/audit/[requestId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/audit/[requestId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/cycles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/cycles (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/cycles/[cycleId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/cycles/[cycleId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/holders/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/holders (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/overview/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/overview (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/app/tx/[updateId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/auditor/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auditor (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/holder/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /holder (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/holder/tx/[updateId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /holder/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/holder/welcome/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /holder/welcome (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/invite/[code]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /invite/[code] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/launch/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /launch (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/setup/mandate/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup/mandate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/setup/organization/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup/organization (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/setup/policy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup/policy (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-image::src/routes/start/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/activity/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/activity (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/agent/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/agent (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/approvals/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/approvals (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/audit/[requestId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/audit/[requestId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/cycles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/cycles (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/cycles/[cycleId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/cycles/[cycleId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/holders/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/holders (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/overview/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/overview (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/app/tx/[updateId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/auditor/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auditor (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/holder/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /holder (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/holder/tx/[updateId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /holder/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/holder/welcome/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /holder/welcome (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/invite/[code]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /invite/[code] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/launch/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /launch (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/setup/mandate/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup/mandate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/setup/organization/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup/organization (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/setup/policy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup/policy (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-title::src/routes/start/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/activity/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/activity (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/agent/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/agent (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/approvals/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/approvals (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/audit/[requestId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/audit/[requestId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/cycles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/cycles (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/cycles/[cycleId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/cycles/[cycleId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/holders/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/holders (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/overview/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/overview (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/app/tx/[updateId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/auditor/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auditor (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/holder/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /holder (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/holder/tx/[updateId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /holder/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/holder/welcome/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /holder/welcome (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/invite/[code]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invite/[code] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/launch/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /launch (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/setup/mandate/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup/mandate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/setup/organization/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup/organization (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/setup/policy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup/policy (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/og-url::src/routes/start/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: apps/web/static has only favicon.svg, no robots.txt route, and apps/backend serves none (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in apps/web or apps/backend (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/ssr-disabled::src/routes/+layout.ts:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:2 (\"Frontend only: no server-side rendering\"), a deliberate adapter-static SPA; Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/activity/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Activity · Mithra\" at src/routes/app/activity/+page.svelte:40 in the page's top-level svelte:head, 17 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/agent/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Agent · Mithra\" at src/routes/app/agent/+page.svelte:20 in the page's top-level svelte:head, 14 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/approvals/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Approvals · Mithra\" at src/routes/app/approvals/+page.svelte:60 in the page's top-level svelte:head, 18 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/audit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Audit · Mithra\" at src/routes/app/audit/+page.svelte:57 in the page's top-level svelte:head, 14 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/audit/[requestId]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: the page renders only {#key requestId}<AuditRequestView/>, whose top-level svelte:head (lib/components/audit/AuditRequestView.svelte:162-164) has literal <title>Audit request · Mithra</title>, 22 graphemes as reported (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/cycles/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Cycles · Mithra\" at src/routes/app/cycles/+page.svelte:43 in the page's top-level svelte:head, 15 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/holders/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Holders · Mithra\" at src/routes/app/holders/+page.svelte:59 in the page's top-level svelte:head, 16 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/overview/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Overview · Mithra\" at src/routes/app/overview/+page.svelte:60 in the page's top-level svelte:head, 17 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Settings · Mithra\" at src/routes/app/settings/+page.svelte:83 in the page's top-level svelte:head, 17 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/app/tx/[updateId]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Transaction · Mithra\" at src/routes/app/tx/[updateId]/+page.svelte:11 in the page's top-level svelte:head, 20 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/auditor/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Audit workspace · Mithra\" at src/routes/auditor/+page.svelte:54 in the page's top-level svelte:head, 24 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/holder/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Your position · Mithra\" at src/routes/holder/+page.svelte:83 in the page's top-level svelte:head, 22 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/holder/tx/[updateId]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Transaction · Mithra\" at src/routes/holder/tx/[updateId]/+page.svelte:12 in the page's top-level svelte:head, 20 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/holder/welcome/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Welcome · Mithra\" at src/routes/holder/welcome/+page.svelte:81 in the page's top-level svelte:head, 16 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/invite/[code]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Invitation · Mithra\" at src/routes/invite/[code]/+page.svelte:62 in the page's top-level svelte:head, 19 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/launch/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Launch app · Mithra\" at src/routes/launch/+page.svelte:80 in the page's top-level svelte:head, 19 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/setup/policy/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Policy · Set up · Mithra\" at src/routes/setup/policy/+page.svelte:161 in the page's top-level svelte:head, 24 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/title-length::src/routes/start/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Get started · Mithra\" at src/routes/start/+page.svelte:36 in the page's top-level svelte:head, 20 graphemes as reported; no layout or app.html title) (claim holds); but Mithra is a HackCanton hackathon demo run on a local Canton LocalNet (README \"Quick start on LocalNet\", the backend serves the built SPA on localhost:8787); apart from the landing page every route is a signed-in party's treasury/holder/auditor flow (app/+layout.svelte:5 \"signed out goes to /launch\"), not content for search"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/activity/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/activity (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/agent/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/agent (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/approvals/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/approvals (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/audit (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/audit/[requestId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/audit/[requestId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/cycles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/cycles (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/cycles/[cycleId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/cycles/[cycleId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/holders/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/holders (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/overview/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/overview (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/settings (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/app/tx/[updateId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/auditor/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auditor (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/holder/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /holder (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/holder/tx/[updateId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /holder/tx/[updateId] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/holder/welcome/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /holder/welcome (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/invite/[code]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /invite/[code] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/launch/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /launch (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/setup/mandate/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup/mandate (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/setup/organization/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup/organization (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/setup/policy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup/policy (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  },
+  {
+    "key": "AlphaTechini/Mithra:apps/web::seo/twitter-card::src/routes/start/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /start (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/viewport/icon; page heads are <title> (plus description on /) only; npm @groftylabs/dapp-sdk@0.2.0 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:2), so client heads count and none emits it; no hooks; route renders); missing as claimed"
+  }
+]
