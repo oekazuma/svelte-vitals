@@ -1292,8 +1292,8 @@ function childrenUrlConds(ast: AST.Root, source: string) {
   if (!source.includes('pathname') && !source.includes('route.id')) return { sites: out, blocks };
   type Expr = AST.IfBlock['test'];
   const derived = new Map<string, Expr>();
-  // `const PUBLIC = ['/login', '/setup']`, never changed: a list a test may search instead of an array literal.
-  const constant = collectComponentConstantLists(ast);
+  // `const PUBLIC = ['/login', '/setup']` or `new Set([…])`, never changed: a list a test may search.
+  const constant = collectComponentConstantLists(ast, { sets: true });
   const lists = new Map<string, Expr>();
   for (const stmt of ast.instance?.content.body ?? []) {
     if (stmt.type !== 'VariableDeclaration') continue;
@@ -1315,9 +1315,15 @@ function childrenUrlConds(ast: AST.Root, source: string) {
     return source.slice(start, end).replace(/\s+/g, '');
   };
   const literal = (n: Expr) => (n.type === 'Literal' && typeof n.value === 'string' ? n.value : undefined);
-  const stringsOf = (raw: Expr): string[] | undefined => {
+  // `set`: the strings of a `new Set([…])` instead of an array literal.
+  const stringsOf = (raw: Expr, set = false): string[] | undefined => {
     const n = strip(raw);
-    const list = n.type === 'Identifier' ? lists.get(n.name) : n;
+    let list = n.type === 'Identifier' ? lists.get(n.name) : n;
+    if (set) {
+      const isSet = list?.type === 'NewExpression' && list.callee.type === 'Identifier' && list.callee.name === 'Set';
+      const arg = isSet ? (list as Expr & { arguments: Expr[] }).arguments : [];
+      list = arg.length === 1 ? strip(arg[0]!) : undefined;
+    }
     if (list?.type !== 'ArrayExpression') return undefined;
     const values = list.elements.map((e) => (e?.type === 'Literal' ? literal(e as Expr) : undefined));
     return values.every((v) => v !== undefined) ? (values as string[]) : undefined;
@@ -1364,9 +1370,14 @@ function childrenUrlConds(ast: AST.Root, source: string) {
       const op = ({ startsWith: 'starts', endsWith: 'ends', includes: 'includes' } as const)[name as 'includes'];
       const v = n.arguments.length === 1 ? literal(n.arguments[0] as Expr) : undefined;
       if (op && v !== undefined && isPath(n.callee.object as Expr, depth)) return { op, v };
-      // `['/a', '/b'].includes(page.route.id)`
-      const ids = stringsOf(n.callee.object as Expr);
-      if (name === 'includes' && ids && n.arguments.length === 1 && isRouteId(n.arguments[0] as Expr, depth))
+      // `['/a', '/b'].includes(page.route.id)`, or `.has` on a `new Set([…])` of them
+      const ids = stringsOf(n.callee.object as Expr, name === 'has');
+      if (
+        (name === 'includes' || name === 'has') &&
+        ids &&
+        n.arguments.length === 1 &&
+        isRouteId(n.arguments[0] as Expr, depth)
+      )
         return { id: ids };
       // `PUBLIC.some((r) => page.url.pathname.startsWith(r))`
       const fn = n.arguments[0] as Expr;
