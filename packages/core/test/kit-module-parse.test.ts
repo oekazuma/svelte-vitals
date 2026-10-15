@@ -594,6 +594,16 @@ describe('parseKitModuleFacts — answeredPaths (paths the hooks handle answers 
   });
 });
 
+describe('parseKitModuleFacts — pageChunkTokens (what a transformPageChunk replaces)', () => {
+  it('reads the string literals, and same-file const strings, a hooks transformPageChunk replaces', () => {
+    const src = `const SLOT = '<!--seo-head-->';
+export const handle = async ({ event, resolve }) =>
+  resolve(event, { transformPageChunk: ({ html }) => html.replace(SLOT, head()).replaceAll('%x%', 'y') });`;
+    expect(facts(src, 'src/hooks.server.ts').pageChunkTokens).toEqual(['%x%', '<!--seo-head-->']);
+    expect(facts(src, 'src/routes/+page.server.ts').pageChunkTokens).toBeUndefined();
+  });
+});
+
 describe('parseKitModuleFacts — loadNeverRenders (routes whose load always redirects or errors)', () => {
   const kit = "import { redirect } from '@sveltejs/kit';\n";
   const always = (src: string, file = 'src/routes/old/+page.ts') => facts(kit + src, file).loadNeverRenders;

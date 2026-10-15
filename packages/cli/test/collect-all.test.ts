@@ -85,6 +85,23 @@ describe('collectAll', () => {
   });
 });
 
+describe('collectAll — head tags a transformPageChunk writes', () => {
+  it('fills the meta family on every route when the hook replaces a whole comment in the shell head', async () => {
+    const files = (comment: string) => ({
+      ...PROJECT,
+      'src/app.html': `<!doctype html><html lang="en"><head>${comment}%sveltekit.head%</head><body></body></html>`,
+      'src/hooks.server.ts': `export const handle = ({ event, resolve }) =>\n  resolve(event, { transformPageChunk: ({ html }) => html.replace('<!--seo-head-->', seo(event.url.pathname)) });\n`
+    });
+    const canonical = async (comment: string) =>
+      (await collectAll(createMemoryRuntime(files(comment)), '', defaultConfig)).heads.map((h) =>
+        h.tags.some((t) => t.kind === 'link' && t.rel === 'canonical')
+      );
+    expect(await canonical('<!--seo-head-->')).toEqual([true, true]);
+    // A comment that only mentions the token is not the block the hook replaces.
+    expect(await canonical('<!-- the hook replaces <!--seo-head--> below -->')).toEqual([false, false]);
+  });
+});
+
 describe('collectAll — routes that never render', () => {
   it('drops the routes the hooks handle answers before resolve, but not with a reroute or a paths.base', async () => {
     const hooks = `export const handle = async ({ event, resolve }) => {

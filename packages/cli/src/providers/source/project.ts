@@ -240,7 +240,12 @@ function detectAppHtmlHeadTags(html: string): ParsedTag[] {
 async function detectAppHtmlFacts(
   rt: Runtime,
   cwd: string
-): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds' | 'appHtmlBodyTags' | 'appHtmlHeadTags'>> {
+): Promise<
+  Pick<
+    Project,
+    'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds' | 'appHtmlBodyTags' | 'appHtmlHeadTags' | 'appHtmlHeadComments'
+  >
+> {
   const appHtmlPath = rt.join(cwd, 'src/app.html');
   if (!(await rt.exists(appHtmlPath))) return { htmlLang: { presence: 'none', value: 'absent' } };
   let content: string;
@@ -257,7 +262,9 @@ async function detectAppHtmlFacts(
     appHtmlDoctype: /^\s*<!doctype\s+html/i.test(content.replace(/<!--[\s\S]*?-->/g, '')),
     appHtmlIds: detectAppHtmlIds(content),
     appHtmlBodyTags: detectAppHtmlBodyTags(content),
-    appHtmlHeadTags: detectAppHtmlHeadTags(content)
+    appHtmlHeadTags: detectAppHtmlHeadTags(content),
+    appHtmlHeadComments:
+      /<head\b[^>]*>([\s\S]*?)(?:<\/head\s*>|<body\b|$)/i.exec(content)?.[1]?.match(/<!--[\s\S]*?-->/g) ?? []
   };
 }
 

@@ -264,6 +264,46 @@ function collectRedirectCalls(node: Node, locals: Set<string>, out: Node[] = [])
   return out;
 }
 
+/**
+ * The string literals a `transformPageChunk` option replaces in the page HTML (`html.replace(TOKEN, …)`,
+ * `.replaceAll`), wherever the file passes one to `resolve`, a same-file `const` holding the string
+ * included. A token the hook builds at run time is not read.
+ */
+function pageChunkTokens(program: Node): string[] {
+  const consts = new Map<string, string>();
+  for (const stmt of program.body ?? []) {
+    const decl = stmt?.type === 'ExportNamedDeclaration' ? stmt.declaration : stmt;
+    if (decl?.type !== 'VariableDeclaration' || decl.kind !== 'const') continue;
+    for (const d of decl.declarations ?? []) {
+      const init = unwrapTs(d.init);
+      if (d.id?.type === 'Identifier' && init?.type === 'Literal' && typeof init.value === 'string')
+        consts.set(d.id.name, init.value);
+    }
+  }
+  const out = new Set<string>();
+  const visit = (n: Node, inChunk: boolean): void => {
+    if (Array.isArray(n)) return n.forEach((c) => visit(c, inChunk));
+    if (!n || typeof n !== 'object' || typeof n.type !== 'string') return;
+    const chunk =
+      inChunk ||
+      (n.type === 'Property' && !n.computed && n.key?.type === 'Identifier' && n.key.name === 'transformPageChunk');
+    if (chunk && n.type === 'CallExpression' && n.callee?.type === 'MemberExpression' && !n.callee.computed) {
+      const method = n.callee.property?.name;
+      const arg = unwrapTs(n.arguments?.[0]);
+      const token =
+        arg?.type === 'Literal' && typeof arg.value === 'string'
+          ? arg.value
+          : arg?.type === 'Identifier'
+            ? consts.get(arg.name)
+            : undefined;
+      if ((method === 'replace' || method === 'replaceAll') && token) out.add(token);
+    }
+    for (const key of Object.keys(n)) if (!WALK_IGNORED_KEYS.has(key)) visit(n[key], chunk);
+  };
+  visit(program, false);
+  return [...out];
+}
+
 /** Whether `node` calls `name` outside nested functions. */
 function callsOutsideFunctions(node: Node, name: string): boolean {
   if (Array.isArray(node)) return node.some((n) => callsOutsideFunctions(n, name));
@@ -1533,7 +1573,9 @@ export function parseKitModuleFacts(
   }
 
   const exitLocals = collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES);
-  const answered = /(^|\/)hooks\.server\.(ts|js)$/.test(filename) ? handleAnsweredPaths(program, exitLocals) : [];
+  const hooks = /(^|\/)hooks\.server\.(ts|js)$/.test(filename);
+  const answered = hooks ? handleAnsweredPaths(program, exitLocals) : [];
+  const chunkTokens = hooks ? pageChunkTokens(program) : [];
   const flagGuard = leadingFlagGuard(program, exitLocals, (local) => {
     const spec = namespaceImports.has(local) ? undefined : importedSpecifiers.get(local);
     const resolved = spec === undefined ? undefined : localModulePath(spec, filename, aliases);
@@ -1560,6 +1602,7 @@ export function parseKitModuleFacts(
     ...(!csrOptOut && exportsName(program, 'csr') ? { csrEnabled: true as const } : {}),
     ...(loadNeverRenders(program, exitLocals) ? { loadNeverRenders: true as const } : {}),
     ...(answered.length > 0 ? { answeredPaths: answered } : {}),
+    ...(chunkTokens.length > 0 ? { pageChunkTokens: chunkTokens } : {}),
     ...(flagGuard ? { pendingFlagGuard: flagGuard } : {}),
     ...(factory ? { pendingLoadFactory: factory } : {}),
     ...(loadGatesOnLocals(program) ? { loadGated: true as const } : {}),

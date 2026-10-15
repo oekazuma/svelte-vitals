@@ -119,6 +119,8 @@ export interface Project {
    * `<link rel="canonical">`, rendered on every route beside `%sveltekit.head%` (static mode).
    */
   appHtmlHeadTags?: Omit<HeadTag, 'presence' | 'file'>[];
+  /** HTML comments inside the shell's `<head>` (`<!--seo-head-->`), which a `transformPageChunk` hook may replace with tags. */
+  appHtmlHeadComments?: string[];
 }
 
 export const defaultProject: Project = {
