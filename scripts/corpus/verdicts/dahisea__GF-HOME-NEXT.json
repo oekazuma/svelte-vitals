@@ -1,0 +1,697 @@
+[
+  {
+    "key": "dahisea/GF-HOME-NEXT::architecture/component-size::src/lib/components/Footer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Footer.svelte has 213 physical lines (newline count, trailing newline not counted; 189 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::architecture/component-size::src/lib/components/Nav.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Nav.svelte has 556 physical lines (newline count, trailing newline not counted; 528 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::architecture/component-size::src/routes/[lang]/(pages)/download/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/(pages)/download/+page.svelte has 357 physical lines (newline count, trailing newline not counted; 323 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::architecture/component-size::src/routes/[lang]/(pages)/help/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/(pages)/help/+page.svelte has 219 physical lines (newline count, trailing newline not counted; 191 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::architecture/component-size::src/routes/[lang]/(pages)/info/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/(pages)/info/+page.svelte has 1225 physical lines (newline count, trailing newline not counted; 1093 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::architecture/component-size::src/routes/[lang]/(pages)/lookup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/(pages)/lookup/+page.svelte has 1002 physical lines (newline count, trailing newline not counted; 888 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::architecture/component-size::src/routes/[lang]/(pages)/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/(pages)/search/+page.svelte has 460 physical lines (newline count, trailing newline not counted; 414 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::architecture/component-size::src/routes/[lang]/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/+layout.svelte has 212 physical lines (newline count, trailing newline not counted; 186 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/base-path-navigation::src/routes/+error.svelte:20::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+error.svelte:20 <a href=\"/\"> root-relative literal; svelte.config.js:33 sets kit.paths.base = process.env.VITE_BUILD_BASE_PATH || '' (computed, so the documented gate opens), but the only deploy (.github/workflows/deploy.yml) runs npm run build with no VITE_BUILD_BASE_PATH, so the site is served at the root (buildBasePath in cdn-toggle.ts only feeds paths.assets)"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/base-path-navigation::src/routes/+page.ts:2::redirect(…, '/zh-hans') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/zh-hans') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: +page.ts:2 load always redirect(301, '/zh-hans…') root-relative; svelte.config.js:33 sets kit.paths.base = process.env.VITE_BUILD_BASE_PATH || '' (computed, so the documented gate opens), but the only deploy (.github/workflows/deploy.yml) runs npm run build with no VITE_BUILD_BASE_PATH, so the site is served at the root (buildBasePath in cdn-toggle.ts only feeds paths.assets)"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/base-path-navigation::src/routes/l/+page.ts:2::redirect(…, '/zh-hans/l') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/zh-hans/l') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: +page.ts:2 load always redirect(301, '/zh-hans…') root-relative; svelte.config.js:33 sets kit.paths.base = process.env.VITE_BUILD_BASE_PATH || '' (computed, so the documented gate opens), but the only deploy (.github/workflows/deploy.yml) runs npm run build with no VITE_BUILD_BASE_PATH, so the site is served at the root (buildBasePath in cdn-toggle.ts only feeds paths.assets)"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/base-path-navigation::src/routes/s/+page.ts:2::redirect(…, '/zh-hans/s') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/zh-hans/s') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: +page.ts:2 load always redirect(301, '/zh-hans…') root-relative; svelte.config.js:33 sets kit.paths.base = process.env.VITE_BUILD_BASE_PATH || '' (computed, so the documented gate opens), but the only deploy (.github/workflows/deploy.yml) runs npm run build with no VITE_BUILD_BASE_PATH, so the site is served at the root (buildBasePath in cdn-toggle.ts only feeds paths.assets)"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/lib/components/Footer.svelte:61::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each i18nConfig.supportedLangs …}' has no key; supportedLangs is a member of the imported i18nConfig object (not a documented exempt shape); the app's fixed language list; static list"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/lib/components/Nav.svelte:209::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Nav.svelte '{#each navItems as item}' has no key; navItems = $derived([...]) literal of the site's nav links (:51); static nav list"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/lib/components/Nav.svelte:218::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Nav.svelte '{#each langItems as item}' has no key; langItems = i18nConfig.supportedLangs.map(...) (:58), the fixed language menu; static list"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/lib/components/Nav.svelte:76::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Nav.svelte '{#each navItems as item}' has no key; navItems = $derived([...]) literal of the site's nav links (:51); static nav list"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/lib/components/Nav.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Nav.svelte '{#each langItems as item}' has no key; langItems = i18nConfig.supportedLangs.map(...) (:58), the fixed language menu; static list"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/routes/[lang]/(pages)/download/+page.svelte:286::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: download/+page.svelte:286 '{#each selectedDomains as d}' has no key; selectedDomains = getDownloadDomains().slice(0, testCount) (:171), a shuffle of the fixed siteConfig.downloadNodes (config/index.ts:80) shown as plain status rows, reshuffled per test run; positional list of one run's nodes from a fixed config"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/routes/[lang]/(pages)/help/+page.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: help/+page.svelte '{#each <cards> as card}' has no key; gettingStarted/support/community are $derived literals of fixed help cards (:18-31); static list"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/routes/[lang]/(pages)/help/+page.svelte:72::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: help/+page.svelte '{#each <cards> as card}' has no key; gettingStarted/support/community are $derived literals of fixed help cards (:18-31); static list"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/routes/[lang]/(pages)/help/+page.svelte:92::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: help/+page.svelte '{#each <cards> as card}' has no key; gettingStarted/support/community are $derived literals of fixed help cards (:18-31); static list"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/routes/[lang]/(pages)/info/+page.svelte:494::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: info/+page.svelte:494 '{#each userData.github_identities as gh, i}' has no key; userData is $state fetched from the user API (:348); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::correctness/each-key::src/routes/[lang]/+layout.svelte:107::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each i18nConfig.supportedLangs …}' has no key; supportedLangs is a member of the imported i18nConfig object (not a documented exempt shape); the app's fixed language list; static list"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::performance/image-dimensions::src/routes/[lang]/(pages)/+page.svelte:75::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img src=/img/gforkg.svg> ([lang]/(pages)/+page.svelte:75) lacks width/height, no spread; style height:180px reserves the line, and it sits alone in a text-align:center card, so its width moves nothing"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::performance/lcp-image::src/routes/[lang]/(pages)/+page.svelte:75::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "<img> has literal loading=lazy; first <img> of the route (Nav uses inline <svg>, Footer's <img>s come after the page): the 180px site logo in the intro card right after the search card and an ad slot (:46-75) - in view on load, yet loading=lazy"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::security/raw-html::src/routes/[lang]/(pages)/info/+page.svelte:600::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/[lang]/(pages)/info/+page.svelte:600: renders base64-decoded HTML (json.c1/c2/c3 at :298-314) fetched from the external Greasy Fork mirror API (siteConfig.infoApi) — user-authored script descriptions/feedback from a third-party service — with no sanitizer anywhere in src (escapeHtml :244 is used only for text fields)"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::security/raw-html::src/routes/[lang]/(pages)/info/+page.svelte:608::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/[lang]/(pages)/info/+page.svelte:608: renders base64-decoded HTML (json.c1/c2/c3 at :298-314) fetched from the external Greasy Fork mirror API (siteConfig.infoApi) — user-authored script descriptions/feedback from a third-party service — with no sanitizer anywhere in src (escapeHtml :244 is used only for text fields)"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::security/raw-html::src/routes/[lang]/(pages)/info/+page.svelte:614::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/[lang]/(pages)/info/+page.svelte:614: renders base64-decoded HTML (json.c1/c2/c3 at :298-314) fetched from the external Greasy Fork mirror API (siteConfig.infoApi) — user-authored script descriptions/feedback from a third-party service — with no sanitizer anywhere in src (escapeHtml :244 is used only for text fields)"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::security/raw-html::src/routes/[lang]/(pages)/info/+page.svelte:629::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/[lang]/(pages)/info/+page.svelte:629: renders base64-decoded HTML (json.c1/c2/c3 at :298-314) fetched from the external Greasy Fork mirror API (siteConfig.infoApi) — user-authored script descriptions/feedback from a third-party service — with no sanitizer anywhere in src (escapeHtml :244 is used only for text fields)"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::security/raw-html::src/routes/[lang]/(pages)/tos/+page.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[lang]/(pages)/tos/+page.svelte:24: {@html t(lang, 'tos.…')} with a literal key — repo-authored message from src/lib/i18n/*.json (e.g. en.json:213,223), no user data — reported per docs, not a demonstrable defect"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::security/raw-html::src/routes/[lang]/(pages)/tos/+page.svelte:25::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[lang]/(pages)/tos/+page.svelte:25: {@html t(lang, 'tos.…')} with a literal key — repo-authored message from src/lib/i18n/*.json (e.g. en.json:213,223), no user data — reported per docs, not a demonstrable defect"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::security/raw-html::src/routes/[lang]/(pages)/tos/+page.svelte:37::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[lang]/(pages)/tos/+page.svelte:37: {@html t(lang, 'tos.…')} with a literal key — repo-authored message from src/lib/i18n/*.json (e.g. en.json:213,223), no user data — reported per docs, not a demonstrable defect"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::security/raw-html::src/routes/[lang]/+layout.svelte:138::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[lang]/+layout.svelte:138: gtmNoscript (:70-72) is a literal GTM <iframe> template over siteConfig.adsense.gtmId, a repo constant — no user data, reported per docs"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::security/raw-html::src/routes/[lang]/+layout.svelte:79::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[lang]/+layout.svelte:79: `<script>${getColorFoucScript()}</script>` — lib/colors.ts:372-382 builds the theme-flash script from repo constants (SCHEMES/PROPERTY_MAP via JSON.stringify) — no user data, reported per docs"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/about (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/applist/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/applist (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/download/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/download (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/feedback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/feedback (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/help/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/help (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/info/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/info (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/installing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/installing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/lookup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/lookup (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/(pages)/tos/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/tos (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); public prerendered content page listed in sitemap.xml/+server.ts, robots.txt allows all"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/l/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/l (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders) but not a search target (client redirect interstitial: renders <RedirectInterstitial> that sends the visitor on after a delay; not listed in sitemap.xml/+server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/canonical-url::src/routes/[lang]/s/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/s (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders) but not a search target (client redirect interstitial: renders <RedirectInterstitial> that sends the visitor on after a delay; not listed in sitemap.xml/+server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: /[lang]/l and /[lang]/s render only RedirectInterstitial.svelte, whose svelte:head has a stylesheet and a <title>, no description, so both ship app.html:9 literal \"Fast, safe, stable access to Greasy Fork user scripts…\" (claim holds); both are public, prerendered, indexable (no noindex anywhere in src) download/search redirect interstitials with ads"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/heading-level-skip::src/routes/[lang]/(pages)/info/+page.svelte:506::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: info/+page.svelte {:else if userData} arm: <h1> user name (:468), then bio/identities (no heading) and the scripts <h3> (:506) with no <h2> between -> h1 to h3"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang] is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/about is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/applist/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/applist is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/download/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/download is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/feedback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/feedback is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/help/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/help is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/info/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/info is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/installing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/installing is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/lookup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/lookup is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/search is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/(pages)/tos/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/tos is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/l/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/l is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/json-ld::src/routes/[lang]/s/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld: none; [lang]/+layout.svelte head has favicons, preconnects, hreflang alternates and ad scripts only; no meta library in deps): /[lang]/s is a prerendered public page of the GreasyFork mirror site (listed in sitemap.xml/+server.ts) with no JSON-LD"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/about (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/applist/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/applist (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/download/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/download (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/feedback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/feedback (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/help/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/help (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/info/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/info (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/installing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/installing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/lookup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/lookup (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/(pages)/tos/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/tos (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/l/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/l (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-description::src/routes/[lang]/s/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/s (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/about (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/applist/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/applist (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/download/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/download (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/feedback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/feedback (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/help/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/help (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/info/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/info (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/installing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/installing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/lookup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/lookup (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/(pages)/tos/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/tos (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/l/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/l (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-image::src/routes/[lang]/s/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/s (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/about (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/applist/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/applist (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/download/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/download (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/feedback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/feedback (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/help/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/help (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/info/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/info (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/installing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/installing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/lookup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/lookup (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/(pages)/tos/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/tos (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/l/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/l (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-title::src/routes/[lang]/s/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/s (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/about (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/applist/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/applist (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/download/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/download (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/feedback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/feedback (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/help/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/help (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/info/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/info (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/installing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/installing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/lookup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/lookup (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/(pages)/tos/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/tos (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/l/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/l (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/og-url::src/routes/[lang]/s/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/s (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::/[lang]/l::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; [lang]/l/+page.svelte renders no <h1>"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::/[lang]/s::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; [lang]/s/+page.svelte renders no <h1>"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::src/routes/[lang]/(pages)/+page.svelte:48::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; [lang]/(pages)/+page.svelte opens with an <h2> (:48) and has no <h1>"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::src/routes/[lang]/(pages)/applist/+page.svelte:19::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; applist/+page.svelte renders no <h1>"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::src/routes/[lang]/(pages)/download/+page.svelte:261::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "only one <h1> renders: download/+page.svelte's five <h1>s (:241,253,261,279,303) sit in sibling {#if} blocks without {:else} on stage === 'no-path' / 'fetching-ip' / ('checking-cache' || 'init') / 'testing' / 'success' (one $state, :12), with only comments and elements between - yet counted as 2: the analyzer leaves the {#if stage === 'checking-cache' || stage === 'init'} block (:259) apart from the others, while the single-h1 docs read places below {#if} blocks whose conditions cannot all hold (conditions read as &&, || and ! of === to literals) as never rendering together"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::src/routes/[lang]/(pages)/feedback/+page.svelte:17::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; feedback/+page.svelte renders no <h1>"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::src/routes/[lang]/(pages)/help/+page.svelte:47::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; help/+page.svelte renders no <h1>"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::src/routes/[lang]/(pages)/installing/+page.svelte:22::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; installing/+page.svelte renders no <h1>"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::src/routes/[lang]/(pages)/lookup/+page.svelte:661::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; lookup/+page.svelte renders no <h1>"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::src/routes/[lang]/(pages)/search/+page.svelte:150::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; search/+page.svelte renders no <h1>"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/single-h1::src/routes/[lang]/(pages)/tos/+page.svelte:17::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the only <h1>s in src are in about, download, info and +error.svelte; [lang]/+layout.svelte, Nav, Footer and Ad render none; tos/+page.svelte renders no <h1> ({@html} only of translated paragraph strings)"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/title-length::src/routes/[lang]/(pages)/info/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Script Info - ZGF\" at [lang]/(pages)/info/+page.svelte:442 in its top-level svelte:head, 17 graphemes as reported; [lang]/+layout.svelte and app.html set no title): this prerendered public page ships that 17-char title; the per-script titles (info/+page.svelte:302/350 document.title) are set only in the browser after a fetch"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/about (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/applist/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/applist (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/download/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/download (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/feedback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/feedback (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/help/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/help (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/info/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/info (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/installing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/installing (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/lookup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/lookup (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/search (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/(pages)/tos/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/tos (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/l/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/l (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  },
+  {
+    "key": "dahisea/GF-HOME-NEXT::seo/twitter-card::src/routes/[lang]/s/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/s (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html has description/keywords/theme-color only; [lang]/+layout.svelte:77-119 head is favicons, preconnects and hreflang alternates; page heads are <title>/description/keywords; npm paraglide-sveltekit emits only rel=alternate; hooks.server.ts only replaces %sveltekit.lang%; prerendered, route renders); missing as claimed"
+  }
+]

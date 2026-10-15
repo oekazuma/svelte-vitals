@@ -1,0 +1,812 @@
+[
+  {
+    "key": "bmccorm2/web::a11y/disallowed-aria-props::src/routes/books/Book.svelte:79::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/routes/books/Book.svelte:79: literal element with aria-label and no role, spread or use: action; its implicit role (generic/paragraph) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "bmccorm2/web::a11y/permitted-contents::src/lib/Navbar.svelte:106::`<li>` is not permitted content here — `<nav>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "read src/lib/Navbar.svelte:106: literal <li> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<nav>`'s content model is flow content per the HTML content model, as reported"
+  },
+  {
+    "key": "bmccorm2/web::a11y/permitted-contents::src/lib/Navbar.svelte:71::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/lib/Navbar.svelte:71: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<ul>` admits only `<li>` and script-supporting elements per the HTML content model, as reported"
+  },
+  {
+    "key": "bmccorm2/web::a11y/permitted-contents::src/lib/Navbar.svelte:74::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "read src/lib/Navbar.svelte:74: literal <li> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<div>`'s content model is flow content per the HTML content model, as reported"
+  },
+  {
+    "key": "bmccorm2/web::architecture/component-size::src/routes/cooking/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/cooking/+page.svelte has 215 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bmccorm2/web::architecture/component-size::src/routes/cooking/modify/[[id]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/cooking/modify/[[id]]/+page.svelte has 360 physical lines (newline count, trailing newline not counted; 336 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bmccorm2/web::architecture/component-size::src/routes/finances/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/finances/+page.svelte has 780 physical lines (newline count, trailing newline not counted; 741 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bmccorm2/web::architecture/component-size::src/routes/finances/accounts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/finances/accounts/+page.svelte has 357 physical lines (newline count, trailing newline not counted; 335 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "bmccorm2/web::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-index-key::src/routes/finances/+page.svelte:678::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: finances/+page.svelte:678 '{#each expenses as expense, i (i)}' keyed by its index; expenses $state appended (:67) and filtered by index (:73); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-index-key::src/routes/finances/accounts/+page.svelte:231::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: finances/accounts/+page.svelte:231 '{#each previewRows as r, i (i)}' keyed by its index; previewRows = the parsed rows of one uploaded CSV shown read-only before confirm (:177); positional list (rows of one parsed CSV, ledger CSV-preview convention)"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/lib/CarSource.svelte:8::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: CarSource.svelte:8 '{#each cars as car}' has no key; cars prop fed cars.data from a Convex query (consumption/[id]/+page.svelte:44); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/lib/components/ui/form/form-field-errors.svelte:26::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: form-field-errors.svelte:26 '{#each errors as error}' has no key; runtime validation errors (ledger form-field-errors / error-list convention)"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/books/+page.svelte:113::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: books/+page.svelte:113 '{#each genreOptions as genre}' has no key; genreOptions = $derived(unique genres of the fetched books) (:21); derived over runtime data"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/books/Book.svelte:104::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each … genres …}' has no key; genres of runtime book records from the Convex books/genres queries; runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/books/GenreTable.svelte:25::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each … genres …}' has no key; genres of runtime book records from the Convex books/genres queries; runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/books/modify/[[id]]/+page.svelte:118::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: books/modify/[[id]]/+page.svelte:118 '{#each genres.data as genre}' has no key; genres = useQuery(api.genres.getAll) (:20); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/consumption/[id]/MileageData.svelte:41::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: MileageData.svelte:41 '{#each tableRows.slice(0, 5) as row}' has no key; tableRows prop of fetched consumption records; runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/cooking/RecipeCard.svelte:164::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: RecipeCard.svelte '{#each recipe.ingredients/instructions …}' has no key; recipe is a Convex record (cooking/+page.svelte:13 useQuery(api.recipes.getAll)); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/cooking/RecipeCard.svelte:172::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: RecipeCard.svelte '{#each recipe.ingredients/instructions …}' has no key; recipe is a Convex record (cooking/+page.svelte:13 useQuery(api.recipes.getAll)); runtime data: items can be inserted, removed or reordered"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/life/+page.svelte:166::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each grid as row}' / '{#each row as cell}' has no key; grid is a fixed GRID_SIZE x GRID_SIZE board (life/snake +page.svelte); positional list (grid cells)"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/life/+page.svelte:168::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each grid as row}' / '{#each row as cell}' has no key; grid is a fixed GRID_SIZE x GRID_SIZE board (life/snake +page.svelte); positional list (grid cells)"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/snake/+page.svelte:139::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each grid as row}' / '{#each row as cell}' has no key; grid is a fixed GRID_SIZE x GRID_SIZE board (life/snake +page.svelte); positional list (grid cells)"
+  },
+  {
+    "key": "bmccorm2/web::correctness/each-key::src/routes/snake/+page.svelte:141::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each grid as row}' / '{#each row as cell}' has no key; grid is a fixed GRID_SIZE x GRID_SIZE board (life/snake +page.svelte); positional list (grid cells)"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/books/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /books (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/books/modify/[[id]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /books/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/cars/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /cars/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/consumption/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /consumption (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/consumption/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /consumption/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/consumption/input/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /consumption/input/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/cooking/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /cooking (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/cooking/modify/[[id]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /cooking/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/finances/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /finances (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/finances/accounts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /finances/accounts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/life/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /life (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/snake/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /snake (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/canonical-url::src/routes/yields/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /yields (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); public route, no robots.txt or noindex"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-length::src/routes/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Home Page\" at src/routes/+page.svelte:3 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 9 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-length::src/routes/consumption/[id]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"automobile consumption\" at src/routes/consumption/[id]/+page.svelte:22 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 22 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-length::src/routes/consumption/input/[id]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Input new consumption record\" at src/routes/consumption/input/[id]/+page.svelte:74 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 28 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-length::src/routes/life/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Game of life\" at src/routes/life/+page.svelte:142 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 12 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-length::src/routes/snake/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"retro snake game\" at src/routes/snake/+page.svelte:126 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 16 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-presence::src/routes/books/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for name=\"description\": only /, /consumption/[id], /consumption/input/[id], /life, /snake, /cars and /yields (both commented out) carry one; none in root +layout.svelte or app.html): src/routes/books/+page.svelte renders none; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-presence::src/routes/books/modify/[[id]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for name=\"description\": only /, /consumption/[id], /consumption/input/[id], /life, /snake, /cars and /yields (both commented out) carry one; none in root +layout.svelte or app.html): src/routes/books/modify/[[id]]/+page.svelte renders none; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-presence::src/routes/cars/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for name=\"description\": only /, /consumption/[id], /consumption/input/[id], /life, /snake, /cars and /yields (both commented out) carry one; none in root +layout.svelte or app.html): src/routes/cars/[id]/+page.svelte renders none (its page is fully commented out); public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-presence::src/routes/consumption/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for name=\"description\": only /, /consumption/[id], /consumption/input/[id], /life, /snake, /cars and /yields (both commented out) carry one; none in root +layout.svelte or app.html): src/routes/consumption/+page.svelte renders none; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-presence::src/routes/cooking/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for name=\"description\": only /, /consumption/[id], /consumption/input/[id], /life, /snake, /cars and /yields (both commented out) carry one; none in root +layout.svelte or app.html): src/routes/cooking/+page.svelte renders none; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-presence::src/routes/cooking/modify/[[id]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for name=\"description\": only /, /consumption/[id], /consumption/input/[id], /life, /snake, /cars and /yields (both commented out) carry one; none in root +layout.svelte or app.html): src/routes/cooking/modify/[[id]]/+page.svelte renders none; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-presence::src/routes/finances/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for name=\"description\": only /, /consumption/[id], /consumption/input/[id], /life, /snake, /cars and /yields (both commented out) carry one; none in root +layout.svelte or app.html): src/routes/finances/+page.svelte renders none; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-presence::src/routes/finances/accounts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for name=\"description\": only /, /consumption/[id], /consumption/input/[id], /life, /snake, /cars and /yields (both commented out) carry one; none in root +layout.svelte or app.html): src/routes/finances/accounts/+page.svelte renders none; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/description-presence::src/routes/yields/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for name=\"description\": only /, /consumption/[id], /consumption/input/[id], /life, /snake, /cars and /yields (both commented out) carry one; none in root +layout.svelte or app.html): src/routes/yields/+page.svelte renders none (its page is fully commented out); public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): / renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/books/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /books renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/books/modify/[[id]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /books/modify/[[id]] renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/cars/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /cars/[id] renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/consumption/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /consumption renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/consumption/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /consumption/[id] renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/consumption/input/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /consumption/input/[id] renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/cooking/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /cooking renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/cooking/modify/[[id]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /cooking/modify/[[id]] renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/finances/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /finances renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/finances/accounts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /finances/accounts renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/life/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /life renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/snake/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /snake renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/json-ld::src/routes/yields/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json: only a regex in api/parse-recipe/+server.ts that parses other sites; no meta/JSON-LD library in deps): /yields renders no JSON-LD"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/books/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /books (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/books/modify/[[id]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /books/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/cars/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /cars/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/consumption/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /consumption (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/consumption/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /consumption/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/consumption/input/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /consumption/input/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/cooking/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /cooking (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/cooking/modify/[[id]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /cooking/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/finances/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /finances (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/finances/accounts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /finances/accounts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/life/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /life (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/snake/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /snake (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-description::src/routes/yields/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /yields (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/books/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /books (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/books/modify/[[id]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /books/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/cars/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cars/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/consumption/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /consumption (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/consumption/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /consumption/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/consumption/input/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /consumption/input/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/cooking/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cooking (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/cooking/modify/[[id]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cooking/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/finances/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /finances (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/finances/accounts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /finances/accounts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/life/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /life (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/snake/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /snake (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-image::src/routes/yields/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /yields (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/books/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /books (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/books/modify/[[id]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /books/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/cars/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /cars/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/consumption/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /consumption (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/consumption/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /consumption/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/consumption/input/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /consumption/input/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/cooking/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /cooking (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/cooking/modify/[[id]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /cooking/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/finances/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /finances (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/finances/accounts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /finances/accounts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/life/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /life (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/snake/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /snake (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-title::src/routes/yields/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /yields (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/books/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /books (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/books/modify/[[id]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /books/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/cars/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /cars/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/consumption/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /consumption (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/consumption/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /consumption/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/consumption/input/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /consumption/input/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/cooking/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /cooking (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/cooking/modify/[[id]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /cooking/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/finances/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /finances (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/finances/accounts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /finances/accounts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/life/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /life (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/snake/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /snake (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/og-url::src/routes/yields/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /yields (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has only favicon.png, no robots.txt route or generator (claim holds); public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); / (+page.svelte) has no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::/books/modify/[[id]]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); books/modify/[[id]] titles its card with Card.Title (role=heading div) - no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::/cars/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); cars/[id] renders no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::/consumption/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); consumption/[id] renders no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::/consumption/input/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); consumption/input/[id] titles its card with Card.Title (role=heading div) - no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::/consumption::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); consumption renders no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::/cooking/modify/[[id]]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); cooking/modify/[[id]] renders no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::/yields::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); yields renders no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::src/routes/life/+page.svelte:158::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); life/+page.svelte has only an <h2> (:158) - no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/single-h1::src/routes/snake/+page.svelte:132::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app; the only <h1>s in src are in cooking, books, finances, finances/accounts pages and +error.svelte; root layout (Navbar, Toaster) has none, and ui/card/card-title.svelte is role=heading (never an <h1>); snake/+page.svelte has only <h3>s (:132-148) - no <h1>"
+  },
+  {
+    "key": "bmccorm2/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ or routes, no generator (claim holds); public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 with no route overriding it (/, /life, /snake are prerendered as empty shells); public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life) whose content is invisible to non-JS crawlers"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Home\" at src/routes/+page.svelte:2 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 4 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-length::src/routes/consumption/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Consumption\" at src/routes/consumption/[id]/+page.svelte:21 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 11 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-length::src/routes/consumption/input/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Input\" at src/routes/consumption/input/[id]/+page.svelte:73 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 5 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-length::src/routes/finances/accounts/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Finances — Accounts\" at src/routes/finances/accounts/+page.svelte:194 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 19 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-length::src/routes/life/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Life\" at src/routes/life/+page.svelte:141 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 4 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-length::src/routes/snake/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Snake\" at src/routes/snake/+page.svelte:125 in the page's top-level svelte:head, whitespace collapsed, grapheme count = 5 as reported; root layout/app.html set none): too short as claimed on a public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-presence::src/routes/books/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for <title/svelte:head/document.title: only /, /consumption/[id], /consumption/input/[id], /life, /snake, /finances, /finances/accounts set one; none in root +layout.svelte, Navbar, $lib/components/ui/*, the route's child components or app.html; no head library in deps): src/routes/books/+page.svelte renders no <title> even client-side under root +layout.ts ssr = false; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-presence::src/routes/books/modify/[[id]]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for <title/svelte:head/document.title: only /, /consumption/[id], /consumption/input/[id], /life, /snake, /finances, /finances/accounts set one; none in root +layout.svelte, Navbar, $lib/components/ui/*, the route's child components or app.html; no head library in deps): src/routes/books/modify/[[id]]/+page.svelte renders no <title> even client-side under root +layout.ts ssr = false; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-presence::src/routes/cars/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for <title/svelte:head/document.title: only /, /consumption/[id], /consumption/input/[id], /life, /snake, /finances, /finances/accounts set one; none in root +layout.svelte, Navbar, $lib/components/ui/*, the route's child components or app.html; no head library in deps): src/routes/cars/[id]/+page.svelte renders no <title> even client-side under root +layout.ts ssr = false (the whole +page.svelte and +page.server.ts are commented out, so the page renders empty); public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-presence::src/routes/consumption/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for <title/svelte:head/document.title: only /, /consumption/[id], /consumption/input/[id], /life, /snake, /finances, /finances/accounts set one; none in root +layout.svelte, Navbar, $lib/components/ui/*, the route's child components or app.html; no head library in deps): src/routes/consumption/+page.svelte renders no <title> even client-side under root +layout.ts ssr = false (only a conditional client goto once Convex data arrives, not an always-redirect); public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-presence::src/routes/cooking/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for <title/svelte:head/document.title: only /, /consumption/[id], /consumption/input/[id], /life, /snake, /finances, /finances/accounts set one; none in root +layout.svelte, Navbar, $lib/components/ui/*, the route's child components or app.html; no head library in deps): src/routes/cooking/+page.svelte renders no <title> even client-side under root +layout.ts ssr = false; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-presence::src/routes/cooking/modify/[[id]]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for <title/svelte:head/document.title: only /, /consumption/[id], /consumption/input/[id], /life, /snake, /finances, /finances/accounts set one; none in root +layout.svelte, Navbar, $lib/components/ui/*, the route's child components or app.html; no head library in deps): src/routes/cooking/modify/[[id]]/+page.svelte renders no <title> even client-side under root +layout.ts ssr = false; public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/title-presence::src/routes/yields/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all src for <title/svelte:head/document.title: only /, /consumption/[id], /consumption/input/[id], /life, /snake, /finances, /finances/accounts set one; none in root +layout.svelte, Navbar, $lib/components/ui/*, the route's child components or app.html; no head library in deps): src/routes/yields/+page.svelte renders no <title> even client-side under root +layout.ts ssr = false (the whole +page.svelte and +page.server.ts are commented out, so the page renders empty); public personal site (no hooks, no auth, adapter-vercel; nav links /consumption, /books, /cooking, /snake, /finances, /life)"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/books/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /books (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/books/modify/[[id]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /books/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/cars/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cars/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/consumption/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /consumption (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/consumption/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /consumption/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/consumption/input/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /consumption/input/[id] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/cooking/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cooking (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/cooking/modify/[[id]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cooking/modify/[[id]] (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/finances/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /finances (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/finances/accounts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /finances/accounts (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/life/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /life (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/snake/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /snake (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders); missing as claimed"
+  },
+  {
+    "key": "bmccorm2/web::seo/twitter-card::src/routes/yields/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /yields (repo-wide grep (excl. node_modules) finds no og:*/twitter:card/rel=canonical tag in src, app.html, static or workspace packages; app.html is charset/icon/viewport; page heads are <title>/description at most; root +layout.svelte has no <svelte:head>; npm convex-svelte ships no components, mode-watcher/svelte-sonner emit none; ssr=false (routes/+layout.ts:1); no hooks, no auth; public personal site, route renders (page body is entirely commented out, so it renders blank)); missing as claimed"
+  }
+]
