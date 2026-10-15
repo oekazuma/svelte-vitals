@@ -1096,6 +1096,18 @@ describe('collectRoutes a11y composition', () => {
     expect(await ids('let { withHeading } = $props(); for (withHeading in { a: 1 });', 'withHeading')).toBe(2);
   });
 
+  it('decides a component arm on the length of an array-literal prop, passed or defaulted', async () => {
+    const { a11y } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/Keys.svelte': `<script>let { keys = [] } = $props();</script>{#if keys.length > 0}<datalist id="keys"></datalist>{/if}`,
+        'src/routes/+page.svelte': `<script>import Keys from '$lib/Keys.svelte';</script><Keys /><Keys keys={[]} /><Keys keys={['a']} /><Keys keys={list} />`
+      }),
+      ''
+    );
+    // Only the `['a']` use, and the `list` the source does not fix, may render the id.
+    expect(a11y[0]!.ids.keys).toHaveLength(2);
+  });
+
   it('decides a component arm whose test joins prop tests with || or &&', async () => {
     const ids = async (test: string) => {
       const { a11y } = await collectRoutes(

@@ -558,6 +558,8 @@ export function flagArms(
 
 /** A prop default: its literal value, or `'unknown'` for any other expression. */
 type PropDefault = { value: string | number | boolean | null } | 'unknown';
+/** A prop's default as the gates read it: a literal, or an array literal's length. */
+type DefaultValue = PropDefault | { length: number };
 
 // A `Literal` node's value when it is one a gate can compare (not a regex or bigint).
 /** The conventional names of a translation function: `t`, `$t`, `_`, `$_`, `translate`, or one of those on an object (`i18n.t`). */
@@ -783,7 +785,7 @@ export function decidedArms(
     if (passed.length > 1 || passed[0]?.type === 'BindDirective') return undefined;
     const attr = passed[0] as AST.Attribute | undefined;
     // What the prop holds: its literal value, or just its type for an object or template literal.
-    let held: { value: unknown } | { type: string } | 'unknown';
+    let held: { value: unknown } | { type: string } | { length: number } | 'unknown';
     if (!attr) {
       // An absent prop is its default, or `undefined` without one.
       const d = parsed.propDefaults.get(gate.prop);
@@ -795,7 +797,8 @@ export function decidedArms(
       const tag = Array.isArray(attr.value) ? (attr.value.length === 1 ? attr.value[0] : undefined) : attr.value;
       const expr = tag?.type === 'ExpressionTag' ? tag.expression : undefined;
       const first = expr?.type === 'CallExpression' ? expr.arguments[0] : undefined;
-      if (expr?.type === 'ObjectExpression' || expr?.type === 'ArrayExpression') held = { type: 'object' };
+      if (expr?.type === 'ArrayExpression') held = arrayLength(expr) ?? { type: 'object' };
+      else if (expr?.type === 'ObjectExpression') held = { type: 'object' };
       else if (expr?.type === 'TemplateLiteral') held = { type: 'string' };
       // A translation call given a non-empty key (`t('Title')`, `$_('Title')`) returns non-empty text.
       else if (
@@ -810,6 +813,20 @@ export function decidedArms(
     }
     if (held === 'unknown') return undefined;
     if ('type' in held && held.type === 'text') return gate.kind === 'truthy' ? !gate.negate : undefined;
+    if ('length' in held) {
+      // An array literal: truthy, of type 'object', equal to no literal, and of a known length.
+      const n = held.length;
+      const m = gate.operand as number;
+      const holds =
+        gate.kind === 'truthy'
+          ? true
+          : gate.kind === 'typeof'
+            ? gate.operand === 'object'
+            : gate.kind === 'equals'
+              ? false
+              : { '>': n > m, '>=': n >= m, '<': n < m, '<=': n <= m, '===': n === m, '!==': n !== m }[gate.op!]!;
+      return holds !== gate.negate;
+    }
     const type = 'type' in held ? held.type : held.value === null ? 'object' : typeof held.value;
     let holds: boolean;
     if (gate.kind === 'typeof') holds = type === gate.operand;
@@ -974,8 +991,16 @@ function memberText(n: AST.IfBlock['test']): string | undefined {
 }
 
 /** Prop name → its default for `let { a = 'x' } = $props()` and `export let a = 'x'`. */
-function collectPropDefaults(ast: AST.Root): Map<string, PropDefault> {
-  const defaults = new Map<string, PropDefault>();
+/** An array literal's length, when no spread or hole leaves it open (`[]`, `['a', 'b']`). */
+function arrayLength(node: { type: string; elements?: unknown[] }): { length: number } | undefined {
+  return node.type === 'ArrayExpression' &&
+    node.elements!.every((e) => e !== null && (e as { type: string }).type !== 'SpreadElement')
+    ? { length: node.elements!.length }
+    : undefined;
+}
+
+function collectPropDefaults(ast: AST.Root): Map<string, DefaultValue> {
+  const defaults = new Map<string, DefaultValue>();
   for (const stmt of ast.instance?.content.body ?? []) {
     const exported = stmt.type === 'ExportNamedDeclaration';
     const decl = exported ? stmt.declaration : stmt;
@@ -991,7 +1016,7 @@ function collectPropDefaults(ast: AST.Root): Map<string, PropDefault> {
         if (p.type !== 'Property' || p.computed || p.value.type !== 'AssignmentPattern') continue;
         const key =
           p.key.type === 'Identifier' ? p.key.name : p.key.type === 'Literal' ? String(p.key.value) : undefined;
-        if (key !== undefined) defaults.set(key, literalValue(p.value.right));
+        if (key !== undefined) defaults.set(key, arrayLength(p.value.right) ?? literalValue(p.value.right));
       }
     }
   }
@@ -2364,7 +2389,7 @@ export interface ParsedFile {
   /** The instance script throws on every render, so no route through this file renders. */
   alwaysThrows?: true;
   /** Literal prop defaults, for `decidedArms`. */
-  propDefaults: ReadonlyMap<string, PropDefault>;
+  propDefaults: ReadonlyMap<string, DefaultValue>;
   /** Local → prop name for `let { a, b: c } = $props()` bindings the component never reassigns: they hold what the parent passed. */
   heldProps: ReadonlyMap<string, string>;
   a11y: ParsedA11y;

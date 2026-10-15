@@ -524,7 +524,7 @@ Measured on 483 apps, each pinned to a commit:
 - [andrei0x309/flashsoft-sk](https://github.com/andrei0x309/flashsoft-sk/tree/7d45109e4dd803d118bb29e90fdf70bab5895bbb) (`7d45109`)
 - [onassis-salinas/CSTGRP_ERP/apps/app](https://github.com/onassis-salinas/CSTGRP_ERP/tree/68c9d31f519a3cb726fc6e4b5cce53503e6664b2/apps/app) (`68c9d31`)
 
-196471 of 196496 corpus findings have a verdict.
+196470 of 196495 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -538,7 +538,7 @@ Measured on 483 apps, each pinned to a commit:
 | [`a11y/disallowed-element`](../../docs/src/content/docs/rules/a11y/disallowed-element.md)                             | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/doctype`](../../docs/src/content/docs/rules/a11y/doctype.md)                                                   | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 669             | 150  | 636 / 5 / 28 / 0                      | 99% (636/641)      | 4% (28/669)      |
-| [`a11y/id-duplication`](../../docs/src/content/docs/rules/a11y/id-duplication.md)                                     | 1205            | 146  | 312 / 25 / 868 / 0                    | 93% (312/337)      | 72% (868/1205)   |
+| [`a11y/id-duplication`](../../docs/src/content/docs/rules/a11y/id-duplication.md)                                     | 1204            | 145  | 312 / 24 / 868 / 0                    | 93% (312/336)      | 72% (868/1204)   |
 | [`a11y/interactive-nesting`](../../docs/src/content/docs/rules/a11y/interactive-nesting.md)                           | 1135            | 170  | 1102 / 4 / 29 / 0                     | 100% (1102/1106)   | 3% (29/1135)     |
 | [`a11y/invalid-aria-value`](../../docs/src/content/docs/rules/a11y/invalid-aria-value.md)                             | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)         |
 | [`a11y/invalid-role`](../../docs/src/content/docs/rules/a11y/invalid-role.md)                                         | 0               | 0    | —                                     | —                  | —                |
