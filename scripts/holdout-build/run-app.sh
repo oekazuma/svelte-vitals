@@ -38,6 +38,9 @@ while :; do
 done
 echo "lockfile: ${lock:-none} at ${root:-none}" >>"$log"
 cd "${root:-$app}" || exit 1
+# One deadline for the install and its retries: a hung install (a postinstall downloading a browser)
+# would otherwise run the job into its own timeout, which drops the first look with it.
+install_deps() {
 case "$lock" in
   # pnpm 11+ fails an install whose dependencies have build scripts nobody approved (ERR_PNPM_IGNORED_BUILDS);
   # `--ignore-scripts` installs the same packages and does not fail, though a build needing those scripts may.
@@ -57,7 +60,10 @@ case "$lock" in
       npm install --no-audit --no-fund --ignore-scripts >>"$log" 2>&1; } ;;
   yarn.lock) corepack enable >>"$log" 2>&1; yarn install --immutable >>"$log" 2>&1 || yarn install --frozen-lockfile >>"$log" 2>&1 ;;
   *) npm install >>"$log" 2>&1 ;;
-esac || { code=$?; first_look uninstalled; result install failed $code; exit 0; }
+esac
+}
+export log lock
+timeout 900 bash -c "$(declare -f install_deps); install_deps" || { code=$?; first_look uninstalled; result install failed $code; exit 0; }
 cd "$app" || exit 1
 # A `link:`/`file:` dependency outside the installed workspace keeps its own dependencies, which
 # the install above never reaches.
