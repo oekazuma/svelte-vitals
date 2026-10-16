@@ -1,0 +1,1792 @@
+[
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/disallowed-aria-props::src/lib/components/sudoku/GameTimer.svelte:47::`aria-label` is prohibited on <time> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label36/e_walk2.mjs): src/lib/components/sudoku/GameTimer.svelte:47 is a plain <time aria-label> with no role, spread or use: action, so its implicit role (time) does not take a name and aria-label is prohibited as reported"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/duplicate-landmark::src/routes/alias/[id]/+page.svelte:97::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read alias/[id]/+page.svelte:97 lobby-arm <main> plus root +layout.svelte:72 <main> (/alias/[id] is not in FULLSCREEN_ROUTES); two main landmarks as reported (load 404s only for a missing room)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/duplicate-landmark::src/routes/crossword/[id]/+page.svelte:267::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read crossword/[id]/+page.svelte:267 unconditional page <main> plus root +layout.svelte:72 <main> (/crossword/[id] is not in FULLSCREEN_ROUTES); two main landmarks as reported"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/duplicate-landmark::src/routes/sudoku/competitive/+page.svelte:605::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: routes/+layout.svelte:16-23/:70-73 renders {@render children()} bare in {#if fullScreen} and inside <main> only in {:else}; fullScreen = FULLSCREEN_ROUTES.has(page.route.id) with FULLSCREEN_ROUTES = new Set(['/', '/profile/[id]', '/leaderboard', '/sudoku/competitive', '/sudoku/custom', '/nonogram/[id]']), which holds on /sudoku/competitive, and the page's two <main>s (:605/:656) are the two arms of one {#if layoutMode === 'split'}…{:else}, so only one main renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/+page.svelte:176::complementary landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: routes/+layout.svelte:16-23/:70-73 renders {@render children()} bare in {#if fullScreen} and inside <main> only in {:else}; fullScreen = FULLSCREEN_ROUTES.has(page.route.id) with FULLSCREEN_ROUTES = new Set(['/', '/profile/[id]', '/leaderboard', '/sudoku/competitive', '/sudoku/custom', '/nonogram/[id]']), which holds on /, so the layout <main> never renders there; +page.svelte:176 <aside> has no <main> ancestor in the page (home-screen custom element), so it is not nested in any main"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/alias/[id]/+page.svelte:153::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read alias/[id]/+page.svelte:153: page <main> in one arm of {#if view === …} (each arm one main); /alias/[id] is not in FULLSCREEN_ROUTES, so root +layout.svelte:72 <main> wraps the page; a main nested in main when that arm renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/alias/[id]/+page.svelte:186::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read alias/[id]/+page.svelte:186: page <main> in one arm of {#if view === …} (each arm one main); /alias/[id] is not in FULLSCREEN_ROUTES, so root +layout.svelte:72 <main> wraps the page; a main nested in main when that arm renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/alias/[id]/+page.svelte:204::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read alias/[id]/+page.svelte:204: page <main> in one arm of {#if view === …} (each arm one main); /alias/[id] is not in FULLSCREEN_ROUTES, so root +layout.svelte:72 <main> wraps the page; a main nested in main when that arm renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/alias/[id]/+page.svelte:97::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read alias/[id]/+page.svelte:97: page <main> in one arm of {#if view === …} (each arm one main); /alias/[id] is not in FULLSCREEN_ROUTES, so root +layout.svelte:72 <main> wraps the page; a main nested in main when that arm renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/crossword/[id]/+page.svelte:267::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read crossword/[id]/+page.svelte:267 unconditional page <main> inside root +layout.svelte:72 <main> (/crossword/[id] is not in FULLSCREEN_ROUTES); a main nested in main"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/nonogram/[id]/+page.svelte:350::complementary landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: routes/+layout.svelte:16-23/:70-73 renders {@render children()} bare in {#if fullScreen} and inside <main> only in {:else}; fullScreen = FULLSCREEN_ROUTES.has(page.route.id) with FULLSCREEN_ROUTES = new Set(['/', '/profile/[id]', '/leaderboard', '/sudoku/competitive', '/sudoku/custom', '/nonogram/[id]']), which holds on /nonogram/[id]; nonogram/[id]/+page.svelte:350 <aside> has no <main> ancestor in the page, so it is not nested in any main"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/sudoku/+page.svelte:576::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read sudoku/+page.svelte:576 unlabelled <aside> in custom elements lobby-screen/lobby-cols (no sectioning ancestor); /sudoku is not in the root layout's FULLSCREEN_ROUTES, so +layout.svelte:72 <main> wraps it; complementary nested in main"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/sudoku/competitive/+page.svelte:605::main landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: routes/+layout.svelte:16-23/:70-73 renders {@render children()} bare in {#if fullScreen} and inside <main> only in {:else}; fullScreen = FULLSCREEN_ROUTES.has(page.route.id) with FULLSCREEN_ROUTES = new Set(['/', '/profile/[id]', '/leaderboard', '/sudoku/competitive', '/sudoku/custom', '/nonogram/[id]']), which holds on /sudoku/competitive, so its <main> (:605, {#if layoutMode === 'split'}) is not nested in any main"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/sudoku/competitive/+page.svelte:656::main landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: routes/+layout.svelte:16-23/:70-73 renders {@render children()} bare in {#if fullScreen} and inside <main> only in {:else}; fullScreen = FULLSCREEN_ROUTES.has(page.route.id) with FULLSCREEN_ROUTES = new Set(['/', '/profile/[id]', '/leaderboard', '/sudoku/competitive', '/sudoku/custom', '/nonogram/[id]']), which holds on /sudoku/competitive, so its <main> (:656, {:else} of {#if layoutMode === 'split'}) is not nested in any main"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::a11y/top-level-landmark::src/routes/sudoku/competitive/+page.svelte:670::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read sudoku/competitive/+page.svelte:656-691: unlabelled <aside> under {#if opponent} directly inside the page's own <main> (:656), no sectioning ancestor; complementary nested in main regardless of the (bare) layout"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/lib/components/sudoku/PrintModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sudoku/PrintModal.svelte has 280 physical lines (248 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 266 physical lines (245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/Header.svelte has 207 physical lines (192 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/alias/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/alias/[id]/+page.svelte has 222 physical lines (199 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/crossword/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/crossword/+page.svelte has 210 physical lines (193 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/crossword/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/crossword/[id]/+page.svelte has 357 physical lines (318 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/nonogram/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/nonogram/+page.svelte has 391 physical lines (370 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/nonogram/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/nonogram/[id]/+page.svelte has 514 physical lines (479 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/sudoku/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sudoku/+page.svelte has 727 physical lines (672 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/sudoku/competitive/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sudoku/competitive/+page.svelte has 723 physical lines (661 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/sudoku/story/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sudoku/story/+page.svelte has 216 physical lines (187 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/trivia/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/trivia/[id]/+page.svelte has 327 physical lines (297 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/component-size::src/routes/trivia/party/[code]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/trivia/party/[code]/+page.svelte has 299 physical lines (278 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/prop-count::src/lib/components/crossword/CrosswordBoard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/crossword/CrosswordBoard.svelte has a single destructured $props() with 9 named props (> 6): grid, clues, width, height, playerGrid, selectedRow, selectedCol, selectedDirection, oncellselect"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/prop-count::src/lib/components/nonogram/NonogramBoard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/nonogram/NonogramBoard.svelte has a single destructured $props() with 9 named props (> 6): rowClues, colClues, reveals, playerGrid, tool, readonly, label, onpaint, onstrokeend"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/prop-count::src/lib/components/shared/KraftAvatar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/KraftAvatar.svelte has a single destructured $props() with 7 named props (> 6): name, image, size, radius, letterColor, mascot, class"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/prop-count::src/lib/components/shared/MiniBoard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/MiniBoard.svelte has a single destructured $props() with 7 named props (> 6): grid, cellPx, showDigits, givens, frameRadius, blockColor, class"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::architecture/prop-count::src/lib/components/sudoku/SudokuBoard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sudoku/SudokuBoard.svelte has a single destructured $props() with 13 named props (> 6): puzzle, solution, playerGrid, activeDigit, theme, size, gridSize, readonly, hideDigits, opponentRow, opponentCol, onCellSelect, onSolved"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/lib/components/nonogram/NonogramThumb.svelte:39::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/nonogram/NonogramThumb.svelte:39 '{#each cells as filled, i (i)}' keyed by its index binding; cells = Array.from({ length: size * size }, ...) (:25), the cells of one nonogram grid; positional grid cells"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/lib/components/shared/DayStreak.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/shared/DayStreak.svelte:27 '{#each labels as lb, i (i)}' keyed by its index binding; the seven weekday labels of a streak week (default literal, caller passes streakWeek.labels); positional calendar cells"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/lib/components/shared/MiniBoard.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/shared/MiniBoard.svelte:37 '{#each grid as row, r (r)}' keyed by its index binding; rows of one sudoku grid; positional grid rows"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/lib/components/shared/MiniBoard.svelte:38::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/shared/MiniBoard.svelte:38 '{#each row as val, c (c)}' keyed by its index binding; cells of one sudoku grid row; positional grid cells"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/routes/profile/[id]/+page.svelte:122::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/profile/[id]/+page.svelte:122 '{#each col as level, r (r)}' keyed by its index binding; the levels of one heatmap column; positional chart cells"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/routes/trivia/[id]/+page.svelte:209::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/trivia/[id]/+page.svelte:209 '{#each marks as _m, i (i)}' keyed by its index binding; marks = one progress segment per question (:46); positional progress segments"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/routes/trivia/[id]/+page.svelte:251::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/trivia/[id]/+page.svelte:251 '{#each current.options as opt, i (i)}' keyed by its index binding; the answer options of the current question, answered by position (answer(i), optState(i)); option identity is its position"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/routes/trivia/party/[code]/+page.svelte:207::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/trivia/party/[code]/+page.svelte:207 '{#each party.players as p, i (i)}' keyed by its index binding; party.players = players of a live party (party $state polled from the server, :20) who join and leave; runtime records"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/routes/trivia/party/[code]/+page.svelte:240::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/trivia/party/[code]/+page.svelte:240 '{#each party.question.options as opt, i (i)}' keyed by its index binding; the answer options of the current party question, answered by position (answer(i)); option identity is its position"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/each-index-key::src/routes/trivia/party/[code]/+page.svelte:289::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/trivia/party/[code]/+page.svelte:289 '{#each leaderboard as p, i (i)}' keyed by its index binding; leaderboard = party players sorted by score (:44), re-sorted as scores change; runtime records that reorder"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::correctness/stale-prop-derivation::src/routes/trivia/party/[code]/+page.svelte:14::\"code\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/trivia/party/[code]/+page.svelte:14 const code = data.code (:14) structurally a one-time copy, rendered (:175, :202); the party page never navigates to another party (only to /trivia, :181, :278; rematch keeps the code, :142), so the copy never differs while mounted"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/(auth)/+layout.svelte:11::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /sudoku-maniac.webp with class size-8 (:11) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/+page.svelte:230::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; the dailyHead snippet img (src /sudoku-maniac.webp, /mascot-owl.png, /mascot-alias.png at :135-147) with class size-9 (:230) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/+page.svelte:245::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; the gameRow snippet img (src /sudoku-maniac.webp, /mascot-owl.png, /mascot-alias.png, /mascot-nono.png, /mascot-trivia.png at :159-163) with class size-11 (:245) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/+page.svelte:263::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; the mascotTile snippet img (src /sudoku-maniac.webp, /mascot-owl.png, /mascot-alias.png, /mascot-nono.png at :195-198) with class size-10 (:263) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/alias/+page.svelte:149::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-alias.png with class size-24 (:149) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/alias/+page.svelte:83::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-alias.png with class size-9 (:83) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/alias/[id]/+page.svelte:191::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /sudoku-maniac.webp with class size-16 (:191) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/alias/[id]/+page.svelte:206::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-alias.png with class size-24 (:206) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/alias/[id]/+page.svelte:99::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-alias.png with class size-8 (:99) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/crossword/+page.svelte:101::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-owl.png with class size-16 (:101) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/crossword/+page.svelte:128::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-owl.png with class size-[50px] (:128) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/crossword/+page.svelte:199::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-owl.png with class size-20 (:199) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/crossword/[id]/+page.svelte:285::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-owl.png with class size-20 (:285) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/crossword/[id]/+page.svelte:344::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-owl.png with class size-11 (:344) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/leaderboard/+page.svelte:136::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; row.image with class size-full of a size-8/sm:size-[38px] box (:136) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/leaderboard/+page.svelte:63::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /sudoku-maniac.webp with class size-16 (:63) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/nonogram/+page.svelte:122::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-nono.png with class size-16 (:122) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/nonogram/+page.svelte:198::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-nono.png with class size-12 (:198) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/nonogram/+page.svelte:299::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-nono.png with class size-[100px] (:299) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/nonogram/[id]/+page.svelte:294::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-nono.png with class size-8 (:294) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/nonogram/[id]/+page.svelte:407::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-nono.png with class size-[50px] (:407) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/profile/[id]/+page.svelte:88::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /sudoku-maniac.webp with class size-11 (:88) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/profile/[id]/+page.svelte:92::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-owl.png with class size-11 (:92) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/profile/[id]/+page.svelte:96::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-alias.png with class size-11 (:96) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/sudoku/+page.svelte:661::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /sudoku-maniac.webp with class size-[52px] (:661) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/sudoku/competitive/+page.svelte:462::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /sudoku-maniac.webp with class size-[50px] (:462) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/sudoku/competitive/+page.svelte:479::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /sudoku-maniac.webp with class size-16 (:479) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/trivia/+page.svelte:147::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-trivia.png with class size-24 (:147) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/trivia/+page.svelte:82::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-trivia.png with class size-9 (:82) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/trivia/[id]/+page.svelte:220::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-trivia.png with class size-8 (:220) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/trivia/[id]/+page.svelte:279::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-trivia.png with class size-9 (:279) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/trivia/[id]/+page.svelte:296::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-trivia.png with class size-24 (:296) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-dimensions::src/routes/trivia/party/[code]/+page.svelte:188::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /mascot-trivia.png with class size-16 (:188) - fixed box"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/(auth)/+layout.svelte:11::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; brand mark at the top of the auth card (:9-12) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/+page.svelte:230::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot in each daily-challenge card head, the three cards right under the greeting <h1> (:101-148) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/+page.svelte:245::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; mascot in each of the five game rows below the daily cards (:155-165); the nonogram and trivia rows (new files, not loaded above) sit below the fold on load"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/+page.svelte:263::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot tiles in the aside (:190-198); each file (/sudoku-maniac.webp, /mascot-owl.png, /mascot-alias.png, /mascot-nono.png) is one the daily cards or game rows above already load eagerly on this page - lazy would save nothing"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/alias/+page.svelte:149::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; in the fixed inset-0 creating overlay {#if creating} (:145-149), shown after the user creates a room; same file as the header mascot (:83) - visible when rendered"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/alias/+page.svelte:83::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot beside the page <h1> (:82-85) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/alias/[id]/+page.svelte:191::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; centre mascot of the guesser game view (:186-191), the same /sudoku-maniac.webp the root layout Header loads eagerly on this route (Header.svelte:55; the route is not in FULLSCREEN_ROUTES, +layout.svelte:17-24) - lazy would save nothing"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/alias/[id]/+page.svelte:206::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; trophy mascot at the top of the results view (:204-206) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/alias/[id]/+page.svelte:99::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot beside the lobby <h1> (:98-101) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/crossword/+page.svelte:101::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot in the page header beside the <h1> (:99-104) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/crossword/+page.svelte:128::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; sm-only mascot in the header card (:127-129), the same file as the header mascot at :101 - above the fold and already loaded"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/crossword/+page.svelte:199::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; in the fixed inset-0 generating overlay {#if generating} (:194-199), shown after the user starts generation; same file as :101 - visible when rendered"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/crossword/[id]/+page.svelte:285::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; top of the completion card {#if completed} that replaces the board (:283-285) - visible when rendered"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/crossword/[id]/+page.svelte:344::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; owl nudge card shown only {#if owlNudge}, set during play (:197,228,342-344) - appears after the user acts, visible when rendered"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/leaderboard/+page.svelte:136::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; avatar in each leaderboard row ({#each} list after the podium, :114-140) - later rows are offscreen on load"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/leaderboard/+page.svelte:63::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; placeholder card shown {#if period !== 'all'} only after the user switches tab (period starts 'all', :18,60-63), right under the top bar - visible when rendered"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/nonogram/+page.svelte:122::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot in the page header beside the <h1> (:120-125) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/nonogram/+page.svelte:198::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; sm-only mascot in the header card (:196-199), the same file as the header mascot at :122 - above the fold and already loaded"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/nonogram/+page.svelte:299::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; in the fixed inset-0 generating overlay {#if generating} (:286-299), shown after the user starts generation - visible when rendered"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/nonogram/[id]/+page.svelte:294::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; in the fallback notice at the top of the page {#if fallback && !fallbackDismissed} (:288-294) - above the fold"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/nonogram/[id]/+page.svelte:407::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; mascot tip in the aside {#if playing} (:350,402-407), which sits after the board on narrow screens (flex-col, lg:w-[280px]) - offscreen on load"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/profile/[id]/+page.svelte:88::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot tile in the left column card right under the profile card (:61-90) - within the first screen, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/profile/[id]/+page.svelte:92::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot tile in the left column card right under the profile card (:61-96) - within the first screen, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/profile/[id]/+page.svelte:96::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot tile in the left column card right under the profile card (:61-96) - within the first screen, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/sudoku/+page.svelte:661::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot tip in the game view, the same /sudoku-maniac.webp the root layout Header loads eagerly on this route (Header.svelte:55; the route is not in FULLSCREEN_ROUTES, +layout.svelte:17-24) - lazy would save nothing"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/sudoku/competitive/+page.svelte:462::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; player mascot in the VS panel, the first card under the top bar of the room view (:450-462) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/sudoku/competitive/+page.svelte:479::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot in the searching spinner, the first card under the top bar of the room view (:450-479) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/trivia/+page.svelte:147::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; in the fixed inset-0 creating overlay {#if creating} (:141-147), shown after the user creates a quiz; same file as :82 - visible when rendered"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/trivia/+page.svelte:82::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot beside the page <h1> (:81-83) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/trivia/[id]/+page.svelte:220::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; mascot in the question header at the top of the quiz card (:218-220) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/trivia/[id]/+page.svelte:279::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; in the answer-feedback card shown {#if phase === 'feedback' && result} after the user answers (:274-279); same file as the header mascot (:220) - already loaded"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/trivia/[id]/+page.svelte:296::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; at the top of the solo results view {:else if summary} (:292-296) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/image-loading-hint::src/routes/trivia/party/[code]/+page.svelte:188::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; at the top of the join-gate card, the page's main content in that state (:185-188) - above the fold"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/(auth)/+layout.svelte:11::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg; /sudoku-maniac.webp is a 100x100 raster WebP (pixel art, drawn pixelated at 28-64 CSS px) - raster, one fixed-size asset for every device (ledger: rasters are tp whatever their size)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/+page.svelte:230::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; dailyHead snippet src is /sudoku-maniac.webp (100px pixel art), /mascot-owl.png or /mascot-alias.png (320x320 PNGs, 16-22 KB) drawn at 36px (:135-147) - the two PNGs are raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/+page.svelte:245::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; snippet src is one of the mascots, mostly 320x320 PNGs (static/mascot-*.png, 16-22 KB) drawn at 44px (size-11) - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/+page.svelte:263::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; mascotTile snippet src is /sudoku-maniac.webp (100px pixel art) or one of three 320x320 PNG mascots (static/mascot-owl/alias/nono.png, 16-22 KB) drawn at 40px (:195-198) - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/alias/+page.svelte:149::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-alias.png is a 320x320 PNG (16-22 KB) drawn at size-24 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/alias/+page.svelte:83::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-alias.png is a 320x320 PNG (16-22 KB) drawn at size-9 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/alias/[id]/+page.svelte:191::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg; /sudoku-maniac.webp is a 100x100 raster WebP (pixel art, drawn pixelated at 28-64 CSS px) - raster, one fixed-size asset for every device (ledger: rasters are tp whatever their size)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/alias/[id]/+page.svelte:206::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-alias.png is a 320x320 PNG (16-22 KB) drawn at size-24 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/alias/[id]/+page.svelte:99::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-alias.png is a 320x320 PNG (16-22 KB) drawn at size-8 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/crossword/+page.svelte:101::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-owl.png is a 320x320 PNG (16-22 KB) drawn at size-16 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/crossword/+page.svelte:128::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-owl.png is a 320x320 PNG (16-22 KB) drawn at size-[50px] - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/crossword/+page.svelte:199::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-owl.png is a 320x320 PNG (16-22 KB) drawn at size-20 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/crossword/[id]/+page.svelte:285::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-owl.png is a 320x320 PNG (16-22 KB) drawn at size-20 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/crossword/[id]/+page.svelte:344::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-owl.png is a 320x320 PNG (16-22 KB) drawn at size-11 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/leaderboard/+page.svelte:136::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg; row.image is the user's account image (leaderboard/+page.server.ts:27, user.image) shown at 32-38px - raster, one fixed-size asset"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/leaderboard/+page.svelte:63::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg; /sudoku-maniac.webp is a 100x100 raster WebP (pixel art, drawn pixelated at 28-64 CSS px) - raster, one fixed-size asset for every device (ledger: rasters are tp whatever their size)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/nonogram/+page.svelte:122::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-nono.png is a 320x320 PNG (16-22 KB) drawn at size-16 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/nonogram/+page.svelte:198::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-nono.png is a 320x320 PNG (16-22 KB) drawn at size-12 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/nonogram/+page.svelte:299::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-nono.png is a 320x320 PNG (16-22 KB) drawn at size-[100px] - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/nonogram/[id]/+page.svelte:294::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-nono.png is a 320x320 PNG (16-22 KB) drawn at size-8 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/nonogram/[id]/+page.svelte:407::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-nono.png is a 320x320 PNG (16-22 KB) drawn at size-[50px] - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/profile/[id]/+page.svelte:88::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg; /sudoku-maniac.webp is a 100x100 raster WebP (pixel art, drawn pixelated at 28-64 CSS px) - raster, one fixed-size asset for every device (ledger: rasters are tp whatever their size)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/profile/[id]/+page.svelte:92::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-owl.png is a 320x320 PNG (16-22 KB) drawn at size-11 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/profile/[id]/+page.svelte:96::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-alias.png is a 320x320 PNG (16-22 KB) drawn at size-11 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/sudoku/+page.svelte:661::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg; /sudoku-maniac.webp is a 100x100 raster WebP (pixel art, drawn pixelated at 28-64 CSS px) - raster, one fixed-size asset for every device (ledger: rasters are tp whatever their size)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/sudoku/competitive/+page.svelte:462::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg; /sudoku-maniac.webp is a 100x100 raster WebP (pixel art, drawn pixelated at 28-64 CSS px) - raster, one fixed-size asset for every device (ledger: rasters are tp whatever their size)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/sudoku/competitive/+page.svelte:479::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg; /sudoku-maniac.webp is a 100x100 raster WebP (pixel art, drawn pixelated at 28-64 CSS px) - raster, one fixed-size asset for every device (ledger: rasters are tp whatever their size)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/trivia/+page.svelte:147::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-trivia.png is a 320x320 PNG (18 KB) drawn at size-24 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/trivia/+page.svelte:82::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-trivia.png is a 320x320 PNG (18 KB) drawn at size-9 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/trivia/[id]/+page.svelte:220::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-trivia.png is a 320x320 PNG (18 KB) drawn at size-8 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/trivia/[id]/+page.svelte:279::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-trivia.png is a 320x320 PNG (18 KB) drawn at size-9 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/trivia/[id]/+page.svelte:296::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-trivia.png is a 320x320 PNG (18 KB) drawn at size-24 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/responsive-image::src/routes/trivia/party/[code]/+page.svelte:188::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /mascot-trivia.png is a 320x320 PNG (18 KB) drawn at size-16 - raster, one fixed-size asset for every device"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/sequential-awaits::src/routes/profile/[id]/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/profile/[id]/+page.server.ts:23-26: userStats query uses only params.id; the preceding user lookup serves as a 404 gate (exceptional path) — per the 404-gate convention the drizzle postgres-js (network, lib/server/db/index.ts) queries serialize on the normal path"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/sequential-awaits::src/routes/profile/[id]/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/profile/[id]/+page.server.ts:28-41: history select uses only params.id, nothing from the user/stats queries — independent drizzle postgres-js queries serialized"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/sequential-awaits::src/routes/profile/[id]/+page.server.ts:46::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/profile/[id]/+page.server.ts:46-52: completed-games select uses only params.id — independent drizzle postgres-js queries serialized"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::performance/sequential-awaits::src/routes/profile/[id]/+page.server.ts:83::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/profile/[id]/+page.server.ts:83-89: achievements select uses only params.id — independent drizzle postgres-js queries serialized"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/(auth)/sign-in/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sign-in (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/(auth)/sign-up/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sign-up (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/alias/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /alias (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/alias/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /alias/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/coming-soon/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /coming-soon (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/crossword/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /crossword (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/crossword/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /crossword/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/demo/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/demo/better-auth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /demo/better-auth (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR) but not a search target (auth-gated: demo/better-auth/+page.server.ts:7-9 redirects guests to /demo/better-auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/demo/better-auth/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo/better-auth/login (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/demo/paraglide/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo/paraglide (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/demo/playwright/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo/playwright (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/leaderboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/nonogram/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /nonogram (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/nonogram/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /nonogram/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/profile/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /profile/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/sudoku/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sudoku (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/sudoku/competitive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sudoku/competitive (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/sudoku/custom/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sudoku/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/sudoku/story/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sudoku/story (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/trivia/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /trivia (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/trivia/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /trivia/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/canonical-url::src/routes/trivia/party/[code]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /trivia/party/[code] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); public route that renders for guests (no auth gate in its load or layouts), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/(auth)/sign-in/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: sign-in/sign-up form"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/(auth)/sign-up/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: sign-in/sign-up form"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/alias/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/alias/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/alias/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: a live Alias party-game room by id (team play session), not content for search"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/coming-soon/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/coming-soon/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/crossword/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/crossword/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/crossword/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/crossword/[id]/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/demo/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: sv-create scaffold demo page (better-auth/paraglide/playwright demos), not a page for search"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/demo/better-auth/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: sv-create scaffold demo page (better-auth/paraglide/playwright demos), not a page for search"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/demo/better-auth/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: sv-create scaffold demo page (better-auth/paraglide/playwright demos), not a page for search"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/demo/paraglide/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: sv-create scaffold demo page (better-auth/paraglide/playwright demos), not a page for search"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/demo/playwright/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: sv-create scaffold demo page (better-auth/paraglide/playwright demos), not a page for search"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/leaderboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/leaderboard/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/nonogram/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/nonogram/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/nonogram/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/nonogram/[id]/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/profile/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/profile/[id]/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/sudoku/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/sudoku/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/sudoku/competitive/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/sudoku/competitive/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/sudoku/custom/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/sudoku/custom/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/sudoku/story/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/sudoku/story/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/trivia/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/trivia/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/trivia/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html; src/routes/trivia/[id]/+page.svelte head has only <title> (or none), root +layout.svelte none; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/description-presence::src/routes/trivia/party/[code]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: a live trivia party room joined by code, not content for search"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/duplicate-title::src/routes/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte and coming-soon/+page.svelte both literal <title>NerdDen</title>, duplicate as claimed; both are public indexable pages (no noindex, robots.txt allows all), so the home page shares its title with the placeholder page"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/duplicate-title::src/routes/coming-soon/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte and coming-soon/+page.svelte both literal <title>NerdDen</title>, duplicate as claimed; both are public indexable pages (no noindex, robots.txt allows all), so the home page shares its title with the placeholder page"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/(auth)/sign-in/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /sign-in has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/(auth)/sign-up/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /sign-up has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; / has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/alias/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /alias has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/alias/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /alias/[id] has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/coming-soon/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /coming-soon has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/crossword/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /crossword has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/crossword/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /crossword/[id] has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/demo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /demo has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/demo/better-auth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /demo/better-auth has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/demo/better-auth/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /demo/better-auth/login has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/demo/paraglide/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /demo/paraglide has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/demo/playwright/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /demo/playwright has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/leaderboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /leaderboard has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/nonogram/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /nonogram has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/nonogram/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /nonogram/[id] has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/profile/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /profile/[id] has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/sudoku/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /sudoku has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/sudoku/competitive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /sudoku/competitive has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/sudoku/custom/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /sudoku/custom has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/sudoku/story/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /sudoku/story has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/trivia/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /trivia has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/trivia/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /trivia/[id] has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/json-ld::src/routes/trivia/party/[code]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|@context|jsonld|structured data|createElement('script'); no meta/JSON-LD package in package.json): no JSON-LD anywhere in src or app.html; /trivia/party/[code] has none; route renders (no page/layout load, hooks.server.ts branch or component script that redirects/throws on every request) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/(auth)/sign-in/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sign-in (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/(auth)/sign-up/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sign-up (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/alias/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /alias (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/alias/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /alias/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/coming-soon/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /coming-soon (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/crossword/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /crossword (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/crossword/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /crossword/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/demo/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/demo/better-auth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo/better-auth (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/demo/better-auth/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo/better-auth/login (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo/paraglide (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo/playwright (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/nonogram/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /nonogram (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/nonogram/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /nonogram/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/profile/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/sudoku/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sudoku (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/sudoku/competitive/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sudoku/competitive (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/sudoku/custom/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sudoku/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/sudoku/story/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sudoku/story (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/trivia/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /trivia (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/trivia/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /trivia/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-description::src/routes/trivia/party/[code]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /trivia/party/[code] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/(auth)/sign-in/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sign-in (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/(auth)/sign-up/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sign-up (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/alias/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /alias (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/alias/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /alias/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/coming-soon/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /coming-soon (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/crossword/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /crossword (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/crossword/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /crossword/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/demo/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/demo/better-auth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/better-auth (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/demo/better-auth/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/better-auth/login (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/paraglide (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/playwright (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/nonogram/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /nonogram (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/nonogram/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /nonogram/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/profile/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/sudoku/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sudoku (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/sudoku/competitive/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sudoku/competitive (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/sudoku/custom/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sudoku/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/sudoku/story/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sudoku/story (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/trivia/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /trivia (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/trivia/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /trivia/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-image::src/routes/trivia/party/[code]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /trivia/party/[code] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/(auth)/sign-in/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sign-in (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/(auth)/sign-up/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sign-up (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/alias/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /alias (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/alias/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /alias/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/coming-soon/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /coming-soon (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/crossword/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /crossword (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/crossword/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /crossword/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/demo/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/demo/better-auth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo/better-auth (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/demo/better-auth/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo/better-auth/login (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo/paraglide (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo/playwright (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/nonogram/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /nonogram (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/nonogram/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /nonogram/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/profile/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/sudoku/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sudoku (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/sudoku/competitive/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sudoku/competitive (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/sudoku/custom/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sudoku/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/sudoku/story/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sudoku/story (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/trivia/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /trivia (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/trivia/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /trivia/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-title::src/routes/trivia/party/[code]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /trivia/party/[code] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/(auth)/sign-in/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sign-in (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/(auth)/sign-up/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sign-up (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/alias/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /alias (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/alias/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /alias/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/coming-soon/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /coming-soon (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/crossword/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /crossword (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/crossword/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /crossword/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/demo/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/demo/better-auth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo/better-auth (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/demo/better-auth/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo/better-auth/login (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo/paraglide (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo/playwright (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/nonogram/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /nonogram (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/nonogram/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /nonogram/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/profile/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/sudoku/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sudoku (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/sudoku/competitive/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sudoku/competitive (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/sudoku/custom/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sudoku/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/sudoku/story/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sudoku/story (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/trivia/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /trivia (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/trivia/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /trivia/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/og-url::src/routes/trivia/party/[code]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /trivia/party/[code] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/single-h1::/demo::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: demo/+page.svelte (scaffold demo index) renders only three <a> links; root +layout.svelte (Header: brand text and nav, no heading) renders no <h1> -> no <h1> (ledger: scaffold /demo is tp)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/single-h1::/trivia/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: trivia/[id]/+page.svelte renders the question/feedback/results arms with no heading element (no KraftTopBar), and root +layout.svelte's Header renders none; the app's only <h1>s are page titles elsewhere and KraftTopBar -> no <h1>"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/single-h1::/trivia/party/[code]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: trivia/party/[code]/+page.svelte renders its join/lobby/playing/finished arms and the standings snippet with no heading element; root +layout.svelte's Header renders none -> no <h1>"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/single-h1::src/lib/components/shared/KraftTopBar.svelte:33::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: in the results view (sudoku/competitive/+page.svelte:696-700) KraftTopBar renders <h1>{title} (KraftTopBar.svelte:33) and the page renders <h1>Results right below it -> two <h1>s render together"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has robots.txt (allow all) only, no sitemap.xml file, route or generator; public games site with indexable puzzle, trivia and profile pages to list"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js): literal <title>NerdDen</title> in src/routes/+page.svelte's top-level svelte:head, 7 graphemes as reported, the route's only title; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-length::src/routes/coming-soon/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js): literal <title>NerdDen</title> in src/routes/coming-soon/+page.svelte's top-level svelte:head, 7 graphemes as reported, the route's only title; public page of the NerdDen puzzle/games site (Vercel; no auth gate in hooks.server.ts, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/(auth)/sign-in/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/(auth)/sign-in/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/(auth)/sign-up/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/(auth)/sign-up/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/demo/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/demo/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/demo/better-auth/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/demo/better-auth/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/demo/better-auth/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/demo/better-auth/login/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/demo/paraglide/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/demo/paraglide/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/demo/playwright/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/demo/playwright/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/sudoku/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/sudoku/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/sudoku/competitive/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/sudoku/competitive/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/title-presence::src/routes/sudoku/story/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: src/routes/sudoku/story/+page.svelte + layout chain + local import closure has no document <title>/svelte:head/document.title; PrintModal.svelte's '<title>' is a string for a print window); root +layout.svelte has no head, app.html has no <title>, transformPageChunk only swaps %paraglide.lang%/%paraglide.dir%; loads redirect only conditionally (locals.user); no dev gate, so leftover sv-create demo pages render in production — literal claim holds"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/(auth)/sign-in/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sign-in (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/(auth)/sign-up/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sign-up (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/alias/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /alias (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/alias/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /alias/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/coming-soon/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /coming-soon (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/crossword/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /crossword (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/crossword/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /crossword/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/demo/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/demo/better-auth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo/better-auth (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders for signed-in users; social tags are judged regardless of gating (ledger convention)"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/demo/better-auth/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo/better-auth/login (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/demo/paraglide/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo/paraglide (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/demo/playwright/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo/playwright (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/leaderboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/nonogram/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /nonogram (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/nonogram/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /nonogram/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/profile/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/sudoku/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sudoku (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/sudoku/competitive/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sudoku/competitive (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/sudoku/custom/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sudoku/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/sudoku/story/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sudoku/story (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/trivia/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /trivia (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/trivia/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /trivia/[id] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  },
+  {
+    "key": "dispbd/NerdDen:SudokuManiac::seo/twitter-card::src/routes/trivia/party/[code]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /trivia/party/[code] (repo grep: no og:*/twitter:*/rel=canonical anywhere in dispbd/NerdDen SudokuManiac (the only other <svelte:head> is the Storybook story src/stories/nonogram/NonogramPlayground.svelte, not a route); page heads are <title> only; app.html:4-17 icon/viewport/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir% on <html>; no meta-tag library among deps; SSR); route renders"
+  }
+]
