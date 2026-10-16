@@ -552,7 +552,7 @@ Measured on 511 apps, each pinned to a commit:
 - [escendit/coldframe/apps/ts/web](https://github.com/escendit/coldframe/tree/ed69105d2dc6f8b789ac7cc4e369310e1e251e7a/apps/ts/web) (`ed69105`)
 - [AkiChang0409/MiniERP](https://github.com/AkiChang0409/MiniERP/tree/4540e7d7401b447a33f6c22782353dcd7c9e3b05) (`4540e7d`)
 
-204810 of 204835 corpus findings have a verdict.
+204805 of 204830 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -565,7 +565,7 @@ Measured on 511 apps, each pinned to a commit:
 | [`a11y/disallowed-aria-props`](../../docs/src/content/docs/rules/a11y/disallowed-aria-props.md)                       | 1835            | 270  | 1782 / 2 / 51 / 0                     | 100% (1782/1784)   | 3% (51/1835)     |
 | [`a11y/disallowed-element`](../../docs/src/content/docs/rules/a11y/disallowed-element.md)                             | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/doctype`](../../docs/src/content/docs/rules/a11y/doctype.md)                                                   | 0               | 0    | —                                     | —                  | —                |
-| [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 676             | 155  | 641 / 7 / 28 / 0                      | 99% (641/648)      | 4% (28/676)      |
+| [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 675             | 155  | 641 / 6 / 28 / 0                      | 99% (641/647)      | 4% (28/675)      |
 | [`a11y/id-duplication`](../../docs/src/content/docs/rules/a11y/id-duplication.md)                                     | 1234            | 153  | 331 / 25 / 878 / 0                    | 93% (331/356)      | 71% (878/1234)   |
 | [`a11y/interactive-nesting`](../../docs/src/content/docs/rules/a11y/interactive-nesting.md)                           | 1152            | 180  | 1115 / 4 / 33 / 0                     | 100% (1115/1119)   | 3% (33/1152)     |
 | [`a11y/invalid-aria-value`](../../docs/src/content/docs/rules/a11y/invalid-aria-value.md)                             | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)         |
@@ -582,7 +582,7 @@ Measured on 511 apps, each pinned to a commit:
 | [`a11y/require-datetime`](../../docs/src/content/docs/rules/a11y/require-datetime.md)                                 | 21              | 2    | 21 / 0 / 0 / 0                        | 100% (21/21)       | 0% (0/21)        |
 | [`a11y/required-aria-props`](../../docs/src/content/docs/rules/a11y/required-aria-props.md)                           | 4               | 4    | 4 / 0 / 0 / 0                         | 100% (4/4)         | 0% (0/4)         |
 | [`a11y/required-element`](../../docs/src/content/docs/rules/a11y/required-element.md)                                 | 0               | 0    | —                                     | —                  | —                |
-| [`a11y/top-level-landmark`](../../docs/src/content/docs/rules/a11y/top-level-landmark.md)                             | 967             | 170  | 942 / 16 / 9 / 0                      | 98% (942/958)      | 1% (9/967)       |
+| [`a11y/top-level-landmark`](../../docs/src/content/docs/rules/a11y/top-level-landmark.md)                             | 963             | 170  | 942 / 12 / 9 / 0                      | 99% (942/954)      | 1% (9/963)       |
 | [`a11y/unknown-aria-attribute`](../../docs/src/content/docs/rules/a11y/unknown-aria-attribute.md)                     | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/unverified-id-ref`](../../docs/src/content/docs/rules/a11y/unverified-id-ref.md)                               | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/use-list`](../../docs/src/content/docs/rules/a11y/use-list.md)                                                 | 78              | 14   | 72 / 0 / 6 / 0                        | 100% (72/72)       | 8% (6/78)        |

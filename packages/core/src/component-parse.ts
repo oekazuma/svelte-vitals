@@ -226,7 +226,7 @@ type ImportBinding = EachBlockFact['importedList'] & {};
 function collectConstantLists(
   programs: Node[],
   fragment: Node,
-  opts: { exported?: boolean; imports?: Map<string, ImportBinding> } = {}
+  opts: { exported?: boolean; imports?: Map<string, ImportBinding>; sets?: boolean } = {}
 ): Set<string> {
   const candidates = new Map<string, Node>();
   const safe = new Set<Node>();
@@ -251,7 +251,7 @@ function collectConstantLists(
       const stmt = opts.exported ? unwrapExport(top) : top;
       if (stmt?.type !== 'VariableDeclaration' || stmt.kind !== 'const') continue;
       for (const d of stmt.declarations ?? []) {
-        const init = unwrapTs(d?.init);
+        const init = opts.sets ? setLiteralList(unwrapTs(d?.init)) : unwrapTs(d?.init);
         if (d?.id?.type === 'Identifier' && init?.type === 'ArrayExpression') {
           const spreads = (init.elements ?? []).some((el: Node) => el?.type === 'SpreadElement');
           if (!spreads) candidates.set(d.id.name, d.id);
@@ -382,9 +382,16 @@ function collectConstantLists(
 }
 
 /** A component's script `const` lists that nothing in its scripts or template can change. */
-export function collectComponentConstantLists(ast: Node): Set<string> {
+export function collectComponentConstantLists(ast: Node, opts: { sets?: boolean } = {}): Set<string> {
   const scripts = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
-  return collectConstantLists(scripts, ast.fragment ?? ast);
+  return collectConstantLists(scripts, ast.fragment ?? ast, opts);
+}
+
+/** The array literal of `new Set([…])`, or the node itself. */
+function setLiteralList(n: Node): Node {
+  const arg =
+    n?.type === 'NewExpression' && n.callee?.type === 'Identifier' && n.callee.name === 'Set' ? n.arguments : undefined;
+  return arg?.length === 1 && unwrapTs(arg[0])?.type === 'ArrayExpression' ? unwrapTs(arg[0]) : n;
 }
 
 /**
