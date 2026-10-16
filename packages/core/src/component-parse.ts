@@ -632,6 +632,14 @@ function collectStateWrites(
   // A local holding part of a state (`const day = days[i]`, `for (const day of days)`) shares its
   // reference: a member write or method call through it mutates the state. By name, like the writes.
   const aliasOf = new Map<string, string>();
+  // A local the code reassigns may hold something else by the time it is written through.
+  const reassigned = new Set<string>();
+  if (localStates)
+    walkEstree(root, (n: Node) => {
+      const target =
+        n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
+      if (target?.type === 'Identifier') reassigned.add(target.name);
+    });
   if (localStates)
     for (let pass = 0; pass < 2; pass++)
       walkEstree(root, (n: Node) => {
@@ -643,7 +651,8 @@ function collectStateWrites(
               : [undefined, undefined];
         const r = rootObjectName(unwrapTs(from));
         const owner = r && (stateNames.has(r) ? r : aliasOf.get(r));
-        if (id?.type === 'Identifier' && owner && !stateNames.has(id.name)) aliasOf.set(id.name, owner);
+        if (id?.type === 'Identifier' && owner && !stateNames.has(id.name) && !reassigned.has(id.name))
+          aliasOf.set(id.name, owner);
       });
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);

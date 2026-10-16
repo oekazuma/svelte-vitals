@@ -616,6 +616,9 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
     expect(names('<script>let days = $state([]); function f() { let day = days[0]; day = null; }</script>')).toEqual([
       'days'
     ]);
+    expect(
+      names('<script>let days = $state([]); function f(o) { let day = days[0]; day = o; day.done = true; }</script>')
+    ).toEqual(['days']);
   });
   it('sees writes to a $state declared inside a function', () => {
     const factory = (write: string) =>
