@@ -1318,7 +1318,8 @@ function childrenUrlConds(ast: AST.Root, source: string) {
   // `set`: the strings of a `new Set([…])` instead of an array literal.
   const stringsOf = (raw: Expr, set = false): string[] | undefined => {
     const n = strip(raw);
-    let list = n.type === 'Identifier' ? lists.get(n.name) : n;
+    const named = n.type === 'Identifier' ? lists.get(n.name) : n;
+    let list = named && strip(named);
     if (set) {
       const isSet = list?.type === 'NewExpression' && list.callee.type === 'Identifier' && list.callee.name === 'Set';
       const arg = isSet ? (list as Expr & { arguments: Expr[] }).arguments : [];
