@@ -596,6 +596,30 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
     expect(names('<script>let a = $state([]); a.push(1);</script>')).toEqual([]);
     expect(names('<script>let x = $state(0); use(x);</script>')).toEqual([]);
   });
+  it('does not flag a $state mutated through a local holding part of it', () => {
+    expect(
+      names('<script>let days = $state([]); function f() { for (const day of days) day.blocks = []; }</script>')
+    ).toEqual([]);
+    expect(
+      names('<script>let days = $state([]); function f(i) { const day = days[i]; day.blocks.push(1); }</script>')
+    ).toEqual([]);
+    expect(
+      names(
+        '<script>let o = $state({ a: { b: [] } }); function f() { const a = o.a; const b = a.b; b.push(1); }</script>'
+      )
+    ).toEqual([]);
+    expect(
+      names(
+        '<script>let days = $state([]); function f() { for (const day of days) send(day.id); }</script><p>{days.length}</p>'
+      )
+    ).toEqual(['days']);
+    expect(names('<script>let days = $state([]); function f() { let day = days[0]; day = null; }</script>')).toEqual([
+      'days'
+    ]);
+    expect(
+      names('<script>let days = $state([]); function f(o) { let day = days[0]; day = o; day.done = true; }</script>')
+    ).toEqual(['days']);
+  });
   it('sees writes to a $state declared inside a function', () => {
     const factory = (write: string) =>
       `<script>function create() { let current = $state.raw(0); return { get current() { return current; }, refresh() { ${write} } }; } const m = create();</script><p>{m.current}</p>`;

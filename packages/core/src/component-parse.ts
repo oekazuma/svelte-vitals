@@ -629,14 +629,42 @@ function collectStateWrites(
     if (localStates && isObjectState(init)) heldObjects.add(n.id.name);
   });
   for (const name of objectStates) primitiveStates.delete(name);
+  // A local holding part of a state (`const day = days[i]`, `for (const day of days)`) shares its
+  // reference: a member write or method call through it mutates the state. By name, like the writes.
+  const aliasOf = new Map<string, string>();
+  // A local the code reassigns may hold something else by the time it is written through.
+  const reassigned = new Set<string>();
+  if (localStates)
+    walkEstree(root, (n: Node) => {
+      const target =
+        n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
+      if (target?.type === 'Identifier') reassigned.add(target.name);
+    });
+  if (localStates)
+    for (let pass = 0; pass < 2; pass++)
+      walkEstree(root, (n: Node) => {
+        const [id, from]: [Node, Node] =
+          n?.type === 'VariableDeclarator' && unwrapTs(n.init)?.type === 'MemberExpression'
+            ? [n.id, n.init]
+            : n?.type === 'ForOfStatement' && n.left?.type === 'VariableDeclaration'
+              ? [n.left.declarations?.[0]?.id, n.right]
+              : [undefined, undefined];
+        const r = rootObjectName(unwrapTs(from));
+        const owner = r && (stateNames.has(r) ? r : aliasOf.get(r));
+        if (id?.type === 'Identifier' && owner && !stateNames.has(id.name) && !reassigned.has(id.name))
+          aliasOf.set(id.name, owner);
+      });
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
+    const mutated = (r: string | undefined): void => {
+      if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
+      else if (r && stateNames.has(aliasOf.get(r)!)) record(aliasOf.get(r)!, 'mutate');
+    };
     if (n?.type === 'AssignmentExpression') {
       if (n.left?.type === 'Identifier' && stateNames.has(n.left.name) && !shadowed(n.left.name)) {
         record(n.left.name, 'reassign');
       } else if (n.left?.type === 'MemberExpression') {
-        const r = rootObjectName(n.left);
-        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
+        mutated(rootObjectName(n.left));
       } else if (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern') {
         // Destructuring-assignment target, e.g. `({ count } = obj)` or `[count] = arr`.
         const bound = new Set<string>();
@@ -648,17 +676,12 @@ function collectStateWrites(
       if (n.argument?.type === 'Identifier') {
         if (stateNames.has(n.argument.name) && !shadowed(n.argument.name)) record(n.argument.name, 'reassign');
       } else {
-        const r = rootObjectName(n.argument);
-        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate'); // x.count++, x[i]++
+        mutated(rootObjectName(n.argument)); // x.count++, x[i]++
       }
     } else if (n?.type === 'UnaryExpression' && n.operator === 'delete') {
-      const r = rootObjectName(n.argument);
-      if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
+      mutated(rootObjectName(n.argument));
     } else if (n?.type === 'CallExpression') {
-      if (n.callee?.type === 'MemberExpression') {
-        const r = rootObjectName(n.callee);
-        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate'); // x.push(), x.foo()
-      }
+      if (n.callee?.type === 'MemberExpression') mutated(rootObjectName(n.callee)); // x.push(), x.foo()
       for (const a of n.arguments ?? []) {
         // Unwrap a spread argument (`f(...x)`, `f(...x.items)`) to its expression.
         const arg = a?.type === 'SpreadElement' ? a.argument : a;
