@@ -41,7 +41,9 @@ jobs:
   build:
     needs: pack
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Above the sum of run-app.sh's own stage limits (about 70 minutes with one linked package), so it
+    # always records a result and the upload below runs.
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
