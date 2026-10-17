@@ -72,9 +72,11 @@ The heading class has a ledger precedent (shadcn's `CardTitle`), and so does the
 
 GitHub Actions run 38983866121 (harness in `scripts/holdout-build/`). The first run, 38980860221,
 completed 13 apps; eraport's job hit the 30-minute job limit with no output, ending with a `pnpm`
-process still running, because the harness gave the install no deadline of its own. The harness now
-gives the install and its retries one 15-minute deadline (an app over it is measured uninstalled) and
-the job 45 minutes; all 14 apps were then rerun together, and every one installed. The plugin ran on all
+process still running, because the harness gave the install no deadline of its own. The rerun gave the
+install and its retries one 15-minute deadline (an app over it is measured uninstalled) and the job 45
+minutes; all 14 apps were rerun together, and every one installed. The clone, submodule and
+linked-package steps have since gained limits of their own and the job 90 minutes, so a run always
+records a result; that version has not run yet. The plugin ran on all
 14 and crashed on none. Ten builds completed: tomimi-dev (1,344 prerendered routes analyzed), pantheon
 (11 analyzed), and Advanced-Digital-Marketing-LTDA, slide-maker, runaround, eraport, hister, netdisk,
 mwmbl and skylark with no prerendered page. nautilus-website (72 analyzed) and Kennisbank were stopped by

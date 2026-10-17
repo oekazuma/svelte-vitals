@@ -25,9 +25,9 @@ first_look() {
 # LFS objects are binary assets the analysis never reads; a missing one would fail the checkout.
 export GIT_LFS_SKIP_SMUDGE=1
 mkdir -p "$work" && cd "$work" || exit 1
-{ git init -q . && git remote add origin "https://github.com/$REPO.git" && git fetch -q --depth 1 origin "$SHA" && git checkout -q FETCH_HEAD; } >>"$log" 2>&1 || { result clone failed; exit 0; }
+{ git init -q . && git remote add origin "https://github.com/$REPO.git" && timeout 600 git fetch -q --depth 1 origin "$SHA" && git checkout -q FETCH_HEAD; } >>"$log" 2>&1 || { result clone failed; exit 0; }
 # Workspaces vendored as submodules are part of the install: without them the checkout is not installed.
-git submodule update -q --init --recursive --depth 1 >>"$log" 2>&1 || { code=$?; first_look uninstalled; result submodules failed $code; exit 0; }
+timeout 600 git submodule update -q --init --recursive --depth 1 >>"$log" 2>&1 || { code=$?; first_look uninstalled; result submodules failed $code; exit 0; }
 app="$work/$APP_PATH"; app="${app%/.}"
 dir="$app"; root=""; lock=""
 while :; do
@@ -72,9 +72,9 @@ node -e 'const p=require("./package.json");for(const d of Object.values({...p.de
     [ -f "$dep/package.json" ] && [ ! -d "$dep/node_modules" ] || continue
     echo "installing linked package $dep" >>"$log"
     (cd "$dep" && case "$lock" in
-      pnpm-lock.yaml) pnpm install --ignore-workspace >>"$log" 2>&1 ;;
-      bun.lock|bun.lockb) bun install >>"$log" 2>&1 ;;
-      *) npm install --no-audit --no-fund >>"$log" 2>&1 ;;
+      pnpm-lock.yaml) timeout 600 pnpm install --ignore-workspace >>"$log" 2>&1 ;;
+      bun.lock|bun.lockb) timeout 600 bun install >>"$log" 2>&1 ;;
+      *) timeout 600 npm install --no-audit --no-fund >>"$log" 2>&1 ;;
     esac) || echo "linked package $dep failed to install" >>"$log"
   done
 first_look installed
