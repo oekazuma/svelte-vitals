@@ -85,6 +85,26 @@ describe('collectAll', () => {
   });
 });
 
+describe('collectAll — a page whose load returns only while building', () => {
+  const load = `import { redirect } from '@sveltejs/kit';\nimport { building } from '$app/environment';\nexport function load() {\n  if (building) return;\n  redirect(307, '/a');\n}\n`;
+  const routes = async (extra: Record<string, string>) => {
+    const rt = createMemoryRuntime({ ...PROJECT, 'src/routes/go/+page.svelte': '<h1>Go</h1>', ...extra });
+    return (await collectAll(rt, '', defaultConfig)).heads.map((h) => h.route).sort();
+  };
+
+  it('drops the route when nothing on its chain exports prerender', async () => {
+    expect(await routes({ 'src/routes/go/+page.server.ts': load })).toEqual(['/a', '/b']);
+  });
+
+  it('keeps it when the page or a layout above may prerender it', async () => {
+    const prerendered = 'export const prerender = true;\n';
+    expect(await routes({ 'src/routes/go/+page.server.ts': load + prerendered })).toContain('/go');
+    expect(await routes({ 'src/routes/go/+page.server.ts': load, 'src/routes/+layout.ts': prerendered })).toContain(
+      '/go'
+    );
+  });
+});
+
 describe('collectAll — head tags a transformPageChunk writes', () => {
   it('fills the meta family on every route when the hook replaces a whole comment in the shell head', async () => {
     const files = (comment: string) => ({

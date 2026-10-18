@@ -54,6 +54,10 @@ export interface KitModuleFacts {
   csrEnabled?: true;
   /** Set when the exported `load` redirects or throws `error()` on every call — every path through its body reaches a `redirect()`/`error()` before any `return`, directly or through a same-file top-level function that always does (see `loadNeverRenders` in kit-module-parse.ts). A `+page` module carrying it means the route never renders its own page. */
   loadNeverRenders?: true;
+  /** Set when the exported `load` redirects or errors on every call once `if (building)` (from `$app/environment`) is read false, as on every request; the page renders only if its route is prerendered (see `prerenderExported`). */
+  loadNeverRendersOutsideBuild?: true;
+  /** The module exports `prerender`, in any form. */
+  prerenderExported?: true;
   /** The request paths the exported `handle` of a hooks file answers before calling `resolve` (see `handleAnsweredPaths` in kit-module-parse.ts): a route they cover never renders. */
   answeredPaths?: { op: 'eq' | 'starts'; v: string }[];
   /** The string literals a `transformPageChunk` the exported `handle` passes to `resolve` replaces in the page HTML (`html.replace('<!--seo-head-->', …)`). */
@@ -226,6 +230,25 @@ export function layoutNeverRenders(file: string, scope: SsrScope): boolean {
     if (layout?.[2] === 'layout' && layout[1] !== ROUTES_DIR) dead.add(layout[1]!);
   }
   return dead.size > 0 && (pageChains(scope).get(match[1]!) ?? []).some((dir) => dead.has(dir));
+}
+
+/**
+ * Whether a `+page` file's route never renders because its own `load` redirects or errors on every
+ * request, a build-time `if (building)` aside (`loadNeverRendersOutsideBuild`), and nothing on its chain
+ * exports `prerender`, so the build never renders it either.
+ */
+export function pageRendersOnlyWhenBuilding(file: string, scope: SsrScope): boolean {
+  const match = ROUTE_FILE_RE.exec(file);
+  if (!match || match[2] !== 'page') return false;
+  const at = (m: KitModuleFacts) => ROUTE_FILE_RE.exec(m.file);
+  const modules = scope.kitModules ?? [];
+  if (!modules.some((m) => m.loadNeverRendersOutsideBuild && at(m)?.[2] === 'page' && at(m)?.[1] === match[1]))
+    return false;
+  const layouts = new Set([match[1]!, ...(pageChains(scope).get(match[1]!) ?? [])]);
+  return !modules.some((m) => {
+    const where = m.prerenderExported ? at(m) : null;
+    return !!where && (where[2] === 'page' ? where[1] === match[1] : layouts.has(where[1]!));
+  });
 }
 
 /** Whether a `+page`/`+layout` file (module or component) belongs to a route that is never server-rendered. */

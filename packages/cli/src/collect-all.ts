@@ -6,6 +6,7 @@ import {
   collectSourceFiles,
   compileOverrides,
   layoutNeverRenders,
+  pageRendersOnlyWhenBuilding,
   ROBOTS_SOURCE_PATHS,
   routeNeverSsr,
   SITEMAP_SOURCE_PATHS,
@@ -150,7 +151,9 @@ export async function collectAll(
   // errors never renders itself, so it has no route-level facts.
   const redirectOnly = new Set([
     ...allKitModules.filter((m) => m.loadNeverRenders && PAGE_MODULE_RE.test(m.file)).map((m) => deriveRoute(m.file)),
-    ...collected.heads.filter((h) => layoutNeverRenders(h.file, ssrScope)).map((h) => h.route),
+    ...collected.heads
+      .filter((h) => layoutNeverRenders(h.file, ssrScope) || pageRendersOnlyWhenBuilding(h.file, ssrScope))
+      .map((h) => h.route),
     ...collected.neverRenders,
     ...(await hooksAnswered(rt, cwd, allKitModules, collected.heads, project, sourceFiles))
   ]);

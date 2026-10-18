@@ -190,6 +190,7 @@ function findFalseOptOut(
 }
 
 const DEV_NAMES = new Set(['dev']);
+const BUILDING_NAMES = new Set(['building']);
 
 /** Whether the module exports a binding named `name` in any form, re-exports and unresolved aliases included. */
 function exportsName(program: Node, name: string): boolean {
@@ -410,13 +411,17 @@ type Frame = { seen: Set<Node>; observed: boolean };
  * of the same file that itself always redirects. A redirect under an `if` without an `else`, in a
  * loop, or in a function declared inside `load` does not count.
  */
-function loadNeverRenders(program: Node, locals: Set<string>): boolean {
+function loadNeverRenders(program: Node, locals: Set<string>, building = new Set<string>()): boolean {
   const load = locals.size > 0 ? findLoadFunction(program) : undefined;
-  return !!load?.body && alwaysExits(program, load, locals);
+  return !!load?.body && alwaysExits(program, load, locals, building);
 }
 
-/** Whether `fn`, a function of `program`, redirects or errors on every call (see `loadNeverRenders`). */
-function alwaysExits(program: Node, fn: Node, locals: Set<string>): boolean {
+/**
+ * Whether `fn`, a function of `program`, redirects or errors on every call (see `loadNeverRenders`).
+ * `building` holds the names `building` from `$app/environment` is imported as: an `if` on one of them
+ * is read with the test false, as it is on every request.
+ */
+function alwaysExits(program: Node, fn: Node, locals: Set<string>, building = new Set<string>()): boolean {
   const topLevel = collectTopLevelBindings(program);
   // A parameter or a declaration in the body named like the import is a different function. A helper
   // sees only its own scope, never its caller's; `seen` stops mutually recursive helpers. `observed`
@@ -488,7 +493,12 @@ function alwaysExits(program: Node, fn: Node, locals: Set<string>): boolean {
   };
   const always = (body: Node[] | undefined, outer: Set<string>, rethrow: string | undefined, frame: Frame): boolean => {
     const shadow = within(body, outer);
-    for (const stmt of body ?? []) {
+    for (let stmt of body ?? []) {
+      const test: Node = stmt?.type === 'IfStatement' ? unwrapTs(stmt.test) : undefined;
+      if (test?.type === 'Identifier' && building.has(test.name) && !shadow.has(test.name)) {
+        if (!stmt.alternate) continue;
+        stmt = stmt.alternate;
+      }
       if (redirects(stmt, shadow, rethrow, frame)) return true;
       if (plainReturn(stmt, shadow, frame)) return false;
     }
@@ -1573,6 +1583,8 @@ export function parseKitModuleFacts(
   }
 
   const exitLocals = collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES);
+  const neverRenders = loadNeverRenders(program, exitLocals);
+  const building = collectNamedImportAliases(program, '$app/environment', BUILDING_NAMES);
   const hooks = /(^|\/)hooks\.server\.(ts|js)$/.test(filename);
   const answered = hooks ? handleAnsweredPaths(program, exitLocals) : [];
   const chunkTokens = hooks ? pageChunkTokens(program) : [];
@@ -1600,7 +1612,11 @@ export function parseKitModuleFacts(
     ...(!ssrOptOut && exportsName(program, 'ssr') ? { ssrEnabled: true as const } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
     ...(!csrOptOut && exportsName(program, 'csr') ? { csrEnabled: true as const } : {}),
-    ...(loadNeverRenders(program, exitLocals) ? { loadNeverRenders: true as const } : {}),
+    ...(neverRenders ? { loadNeverRenders: true as const } : {}),
+    ...(!neverRenders && building.size > 0 && loadNeverRenders(program, exitLocals, building)
+      ? { loadNeverRendersOutsideBuild: true as const }
+      : {}),
+    ...(exportsName(program, 'prerender') ? { prerenderExported: true as const } : {}),
     ...(answered.length > 0 ? { answeredPaths: answered } : {}),
     ...(chunkTokens.length > 0 ? { pageChunkTokens: chunkTokens } : {}),
     ...(flagGuard ? { pendingFlagGuard: flagGuard } : {}),

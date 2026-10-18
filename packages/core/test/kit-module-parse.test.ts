@@ -604,6 +604,26 @@ export const handle = async ({ event, resolve }) =>
   });
 });
 
+describe('parseKitModuleFacts — loadNeverRendersOutsideBuild', () => {
+  const kit = "import { redirect } from '@sveltejs/kit';\nimport { building } from '$app/environment';\n";
+  const of = (body: string) => facts(kit + `export function load() {\n${body}\n}`, 'src/routes/+page.server.ts');
+  it('reads an `if (building)` as not taken, and only when building comes from $app/environment', () => {
+    expect(of("  if (building) return;\n  redirect(307, '/en');").loadNeverRendersOutsideBuild).toBe(true);
+    expect(of("  if (building) return {};\n  else redirect(307, '/en');").loadNeverRendersOutsideBuild).toBe(true);
+    expect(of("  if (building) return;\n  if (x) redirect(307, '/en');").loadNeverRendersOutsideBuild).toBeUndefined();
+    const local = facts(
+      "import { redirect } from '@sveltejs/kit';\nconst building = true;\nexport function load() {\n  if (building) return;\n  redirect(307, '/en');\n}",
+      'src/routes/+page.server.ts'
+    );
+    expect(local.loadNeverRendersOutsideBuild).toBeUndefined();
+    expect(of("  redirect(307, '/en');").loadNeverRendersOutsideBuild).toBeUndefined();
+  });
+  it('records a prerender export in any form', () => {
+    expect(facts('export const prerender = true;', 'src/routes/+layout.ts').prerenderExported).toBe(true);
+    expect(facts('export const ssr = false;', 'src/routes/+layout.ts').prerenderExported).toBeUndefined();
+  });
+});
+
 describe('parseKitModuleFacts — loadNeverRenders (routes whose load always redirects or errors)', () => {
   const kit = "import { redirect } from '@sveltejs/kit';\n";
   const always = (src: string, file = 'src/routes/old/+page.ts') => facts(kit + src, file).loadNeverRenders;
