@@ -1,0 +1,622 @@
+[
+  {
+    "key": "mwmbl/front-end::a11y/disallowed-aria-props::src/lib/components/custom/search/SeedCrawlPanel.svelte:444::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read custom/search/SeedCrawlPanel.svelte:444-447: <span class=\"font-display ...\" aria-label={plural(...)}> with no role/spread/use:; generic does not take a name"
+  },
+  {
+    "key": "mwmbl/front-end::a11y/top-level-landmark::src/routes/(nosearch)/+layout.svelte:19::complementary landmark is nested inside banner",
+    "verdict": "tp",
+    "basis": "read (nosearch)/+layout.svelte:17-30: unlabelled <aside> (Palestine banner, in {#if !pathname.startsWith(\"/membership\")}) inside the layout's top-level <header>, which root +layout.svelte renders only in a <div> (so it is banner); the aside is a complementary landmark nested in banner on the non-/membership routes"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/component-size::src/lib/components/custom/search/SeedCrawlPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/custom/search/SeedCrawlPanel.svelte has 669 physical lines (newline count, trailing newline not counted; 636 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/component-size::src/routes/(nosearch)/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nosearch)/account/+page.svelte has 545 physical lines (newline count, trailing newline not counted; 515 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/component-size::src/routes/(nosearch)/membership/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nosearch)/membership/+page.svelte has 329 physical lines (newline count, trailing newline not counted; 305 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/component-size::src/routes/(nosearch)/membership/MemberView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nosearch)/membership/MemberView.svelte has 532 physical lines (newline count, trailing newline not counted; 501 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/component-size::src/routes/(nosearch)/privacy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nosearch)/privacy/+page.svelte has 325 physical lines (newline count, trailing newline not counted; 296 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/component-size::src/routes/(nosearch)/seed-search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nosearch)/seed-search/+page.svelte has 699 physical lines (newline count, trailing newline not counted; 668 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/component-size::src/routes/(nosearch)/stats/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nosearch)/stats/+page.svelte has 672 physical lines (newline count, trailing newline not counted; 628 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/component-size::src/routes/(nosearch)/terms/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nosearch)/terms/+page.svelte has 306 physical lines (newline count, trailing newline not counted; 277 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/prop-count::src/lib/components/custom/brand/PromoCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/custom/brand/PromoCard.svelte has a single destructured $props() with 8 named props (> 6): title, action, icon, href, onclick, disabled, children, after"
+  },
+  {
+    "key": "mwmbl/front-end::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/lib/components/custom/search/SearchBar.svelte:98::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/custom/search/SearchBar.svelte:98 '{#each searchCompletions as completion}' has no key; searchCompletions = json[1] (:31) from the completion API on every keystroke, cleared (:45); runtime list"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/lib/components/custom/search/SearchResult.svelte:68::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/custom/search/SearchResult.svelte:68 '{#each urlSegments as urlSegment, index}' has no key; urlSegments = $derived(result.url...split('/')) (:40), the path segments of one result URL; positional list (segments of one string)"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/lib/components/custom/search/SearchResult.svelte:88::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/custom/search/SearchResult.svelte:88 '{#each result.title as titleSegment}' has no key; result.title/result.extract are the highlighted text segments of one search result; positional list (text segments)"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/lib/components/custom/search/SearchResult.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/custom/search/SearchResult.svelte:97 '{#each result.extract as extractSegment}' has no key; result.title/result.extract are the highlighted text segments of one search result; positional list (text segments)"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/lib/components/custom/search/WikipediaCard.svelte:39::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/custom/search/WikipediaCard.svelte:39 '{#each result.title as titleSegment}' has no key; result.title/result.extract are the highlighted text segments of one search result; positional list (text segments)"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/lib/components/custom/search/WikipediaCard.svelte:59::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/custom/search/WikipediaCard.svelte:59 '{#each result.title as titleSegment}' has no key; result.title/result.extract are the highlighted text segments of one search result; positional list (text segments)"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/account/+page.svelte:288::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(nosearch)/account/+page.svelte:288 '{#each data.apiKeys as key}' has no key; data.apiKeys of the account load, which the page's form actions create and revoke; runtime records"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/account/+page.svelte:385::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(nosearch)/account/+page.svelte:385 '{#each data.votes.items as vote}' has no key; data.votes.items, the user's votes from the account load; runtime records"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/account/+page.svelte:447::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(nosearch)/account/+page.svelte:447 '{#each data.devices as device}' has no key; data.devices, the user's logged-in devices from the account load, which the user can sign out; runtime records"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/account/stats/+page.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(nosearch)/account/stats/+page.svelte:47 '{#each data.chartLabels as label, i}' has no key; data.chartLabels, the x-axis labels of the stats chart; positional list (chart labels)"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/domain-submissions/+page.svelte:53::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(nosearch)/domain-submissions/+page.svelte:53 '{#each items as item}' has no key; items (snippet parameter) are domain submissions fetched from the API (:22-34); runtime records"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/membership/+page.svelte:132::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(nosearch)/membership/+page.svelte:132 '{#each tier.perks as perk}' has no key; tier.perks/t.perks of a membership tier from /api/v1/platform/membership/tiers with the hard-coded fallback in +page.server.ts:21; authored perk copy of a fixed tier catalog; static list"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/membership/+page.svelte:136::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(nosearch)/membership/+page.svelte:136 '{#each perkParts(perk) as part}' has no key; perkParts(perk) from ./tiers splits one perk string into text segments; positional list (text segments)"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/membership/MemberView.svelte:305::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(nosearch)/membership/MemberView.svelte:305 '{#each t.perks as perk}' has no key; tier.perks/t.perks of a membership tier from /api/v1/platform/membership/tiers with the hard-coded fallback in +page.server.ts:21; authored perk copy of a fixed tier catalog; static list"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/membership/MemberView.svelte:309::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(nosearch)/membership/MemberView.svelte:309 '{#each perkParts(perk) as part}' has no key; perkParts(perk) from ./tiers splits one perk string into text segments; positional list (text segments)"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/stats/+page.svelte:625::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(nosearch)/stats/+page.svelte:625 '{#each data.yesterdayLeaderboard as user, i}' has no key; data.yesterdayLeaderboard/allTimeLeaderboard, ranked user records from the stats load that reorder between loads; runtime records"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/(nosearch)/stats/+page.svelte:650::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(nosearch)/stats/+page.svelte:650 '{#each data.allTimeLeaderboard as user, i}' has no key; data.yesterdayLeaderboard/allTimeLeaderboard, ranked user records from the stats load that reorder between loads; runtime records"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/each-key::src/routes/search/+page.svelte:106::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/search/+page.svelte:106 '{#each results as result}' has no key; results = $derived(data.results ...) (:25), the search results of the current query; runtime records"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/effect-as-derived::src/lib/components/custom/menu/Options.svelte:19::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/components/custom/menu/Options.svelte:19 $effect(() => { loaded = true; }), the mount-flag idiom (loaded gates the client-only option switches); the docs list this shape as a known limitation that $derived would break"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/effect-as-derived::src/lib/components/custom/search/SeedSearchToggle.svelte:26::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/custom/search/SeedSearchToggle.svelte:26 $effect.pre only does checked = enabled && !disabled from props/$derived; checked's other writes are reassignments (:34, :46, :50) and bind:checked (:60), the writable-$derived override pattern (svelte ^5.37.2)"
+  },
+  {
+    "key": "mwmbl/front-end::correctness/effect-as-derived::src/routes/(nosearch)/membership/MemberView.svelte:88::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/(nosearch)/membership/MemberView.svelte:88 $effect.pre only does seedSearchOn = data.seedSearchEnabled && !quotaExhausted; its other writes are reassignments (:101, :105) and bind:checked (:170), the writable-$derived override pattern (svelte ^5.37.2)"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-dimensions::src/routes/(nosearch)/+layout.svelte:22::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; SVG logo/flag with a fixed-height class (h-6 / h-12, width auto) in the (nosearch) layout header on all 9 routes of the key ((nosearch)/+layout.svelte:22) - fixed-height box, width only varies inside its flex row"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-dimensions::src/routes/(nosearch)/+layout.svelte:28::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; SVG logo/flag with a fixed-height class (h-6 / h-12, width auto) in the (nosearch) layout header on all 9 routes of the key ((nosearch)/+layout.svelte:28) - fixed-height box, width only varies inside its flex row"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-dimensions::src/routes/(nosearch)/+layout.svelte:35::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; SVG logo/flag with a fixed-height class (h-6 / h-12, width auto) in the (nosearch) layout header on all 9 routes of the key ((nosearch)/+layout.svelte:35) - fixed-height box, width only varies inside its flex row"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-dimensions::src/routes/(nosearch)/+layout.svelte:40::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; SVG logo/flag with a fixed-height class (h-6 / h-12, width auto) in the (nosearch) layout header on all 9 routes of the key ((nosearch)/+layout.svelte:40) - fixed-height box, width only varies inside its flex row"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-dimensions::src/routes/(nosearch)/privacy/+page.svelte:17::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /logo.svg with class h-16 w-16 at the top of the page ((nosearch)/privacy/+page.svelte:17) - fixed box"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-dimensions::src/routes/(nosearch)/terms/+page.svelte:17::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; /logo.svg with class h-16 w-16 at the top of the page ((nosearch)/terms/+page.svelte:17) - fixed box"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-dimensions::src/routes/search/+page.svelte:39::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; SVG logo/flag with a fixed-height class (h-6 / h-12, width auto) in the search page header (search/+page.svelte:39) - fixed-height box, width only varies inside its flex row"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-dimensions::src/routes/search/+page.svelte:40::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; SVG logo/flag with a fixed-height class (h-6 / h-12, width auto) in the search page header (search/+page.svelte:40) - fixed-height box, width only varies inside its flex row"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-loading-hint::src/routes/(nosearch)/+layout.svelte:22::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo/flag in the (nosearch) layout's top banner/header on every route of the key (9 routes) ((nosearch)/+layout.svelte:22) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-loading-hint::src/routes/(nosearch)/+layout.svelte:28::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo/flag in the (nosearch) layout's top banner/header on every route of the key (9 routes) ((nosearch)/+layout.svelte:28) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-loading-hint::src/routes/(nosearch)/+layout.svelte:35::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo/flag in the (nosearch) layout's top banner/header on every route of the key (9 routes) ((nosearch)/+layout.svelte:35) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-loading-hint::src/routes/(nosearch)/+layout.svelte:40::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo/flag in the (nosearch) layout's top banner/header on every route of the key (9 routes) ((nosearch)/+layout.svelte:40) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-loading-hint::src/routes/(nosearch)/privacy/+page.svelte:17::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo directly above the page <h1> ((nosearch)/privacy/+page.svelte:17) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-loading-hint::src/routes/(nosearch)/terms/+page.svelte:17::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo directly above the page <h1> ((nosearch)/terms/+page.svelte:17) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-loading-hint::src/routes/search/+page.svelte:39::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo/flag in the search page header inside its <h1> (search/+page.svelte:39) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mwmbl/front-end::performance/image-loading-hint::src/routes/search/+page.svelte:40::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo/flag in the search page header inside its <h1> (search/+page.svelte:40) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mwmbl/front-end::performance/responsive-image::src/routes/(nosearch)/+layout.svelte:35::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src={page.url.pathname.startsWith('/membership') ? '/logo-green.svg' : '/logo.svg'} ((nosearch)/+layout.svelte:34-38) - a vector either way, but a conditional of two .svg literals is outside the docs' static SVG detection (ledger convention)"
+  },
+  {
+    "key": "mwmbl/front-end::performance/sequential-awaits::src/routes/(nosearch)/account/stats/+page.server.ts:57::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nosearch)/account/stats/+page.server.ts:57: the profile fetch to {API_BASE}/api/v1/platform/user uses only the accessToken cookie, nothing from the preceding /platform/user/stats fetch - independent remote API round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "mwmbl/front-end::performance/sequential-awaits::src/routes/(nosearch)/stats/+page.server.ts:47::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nosearch)/stats/+page.server.ts:47: the leaderboard/yesterday fetch uses nothing from the preceding /crawler/stats fetch - independent remote API round trips serialized"
+  },
+  {
+    "key": "mwmbl/front-end::performance/sequential-awaits::src/routes/(nosearch)/stats/+page.server.ts:57::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nosearch)/stats/+page.server.ts:57: the leaderboard/all fetch uses nothing from the preceding stats / leaderboard/yesterday fetches - independent remote API round trips serialized"
+  },
+  {
+    "key": "mwmbl/front-end::security/raw-html::src/lib/components/custom/search/WikipediaCard.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/custom/search/WikipediaCard.svelte:72 (:24-30): extract_html comes from Wikipedia's REST summary endpoint (en.wikipedia.org/api/rest_v1/page/summary), HTML Wikimedia generates and sanitizes server-side - a trusted third-party API response, reported per docs"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/(nosearch)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/(nosearch)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders) but not a search target (the sign-in/account page: (nosearch)/account/+page.svelte renders the login form or the visitor's own account (load at account/+page.server.ts:196 reads the token)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/(nosearch)/account/stats/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account/stats (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders) but not a search target (auth-gated: account/stats/+page.server.ts:8-11 redirects to /account unless locals.loginStatus === 'assumeLoggedIn'), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/(nosearch)/domain-submissions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /domain-submissions (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/(nosearch)/membership/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /membership (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/(nosearch)/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/(nosearch)/seed-search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /seed-search (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/(nosearch)/stats/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /stats (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/(nosearch)/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /terms (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /search (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/description-presence::src/routes/(nosearch)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: only (nosearch)/privacy, terms and seed-search set a <meta name=description>; root +layout.svelte:17-27 head has title + og tags, (nosearch)/+layout.svelte none) (literal claim holds); / is the public home page of the Mwmbl search engine, no noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/description-presence::src/routes/(nosearch)/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: only (nosearch)/privacy, terms and seed-search set a <meta name=description>; root +layout.svelte:17-27 head has title + og tags, (nosearch)/+layout.svelte none) (literal claim holds); /account is the publicly reachable sign-in/sign-up page of the public search engine (renders for guests), no noindex (login convention)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/description-presence::src/routes/(nosearch)/account/stats/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: only (nosearch)/privacy, terms and seed-search set a <meta name=description>; root +layout.svelte:17-27 head has title + og tags, (nosearch)/+layout.svelte none) (literal claim holds); but /account/stats is the signed-in user's stats page (load redirects guests to /account), not a search target"
+  },
+  {
+    "key": "mwmbl/front-end::seo/description-presence::src/routes/(nosearch)/domain-submissions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: only (nosearch)/privacy, terms and seed-search set a <meta name=description>; root +layout.svelte:17-27 head has title + og tags, (nosearch)/+layout.svelte none) (literal claim holds); /domain-submissions is the public list of submitted domains (load fetches it without a session), no noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/description-presence::src/routes/(nosearch)/membership/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: only (nosearch)/privacy, terms and seed-search set a <meta name=description>; root +layout.svelte:17-27 head has title + og tags, (nosearch)/+layout.svelte none) (literal claim holds); /membership is the public \"Become a member\" page (load serves tiers to guests), no noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/description-presence::src/routes/(nosearch)/stats/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: only (nosearch)/privacy, terms and seed-search set a <meta name=description>; root +layout.svelte:17-27 head has title + og tags, (nosearch)/+layout.svelte none) (literal claim holds); /stats is the public index statistics page, no noindex"
+  },
+  {
+    "key": "mwmbl/front-end::seo/description-presence::src/routes/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: only (nosearch)/privacy, terms and seed-search set a <meta name=description>; root +layout.svelte:17-27 head has title + og tags, (nosearch)/+layout.svelte none) (literal claim holds); /search is the public search-results page (search/+page.server.ts load serves guests), no noindex or robots.txt disallow (public /search precedent: svelte.dev, nrdbv2)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:18 literal <title>MWMBL</title> is the only title of /, /account, /account/stats and /domain-submissions (local CLI list), duplicate as claimed; the public home page shares its title with account and list pages"
+  },
+  {
+    "key": "mwmbl/front-end::seo/heading-level-skip::src/routes/(nosearch)/privacy/+page.svelte:34::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: (nosearch)/privacy/+page.svelte:20 <h1>Mwmbl - Data Privacy Policy, then <h3> section headings starting at :34, no <h2> on the page or in the (nosearch) layout - h1 to h3"
+  },
+  {
+    "key": "mwmbl/front-end::seo/heading-level-skip::src/routes/(nosearch)/stats/+page.svelte:351::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: stats/+page.svelte:343 <h1>Statistics, then the totals cards' <h3>Active Crawlers (30d) (:351) with no <h2> between (layout header renders no heading) - h1 to h3"
+  },
+  {
+    "key": "mwmbl/front-end::seo/heading-level-skip::src/routes/(nosearch)/terms/+page.svelte:33::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: (nosearch)/terms/+page.svelte:20 <h1>Mwmbl - Terms and Conditions, then <h3> section headings starting at :33, no <h2> on the page or in the (nosearch) layout - h1 to h3"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/(nosearch)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/(nosearch)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/(nosearch)/account/stats/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/(nosearch)/domain-submissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/(nosearch)/membership/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/(nosearch)/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/(nosearch)/seed-search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/(nosearch)/stats/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/(nosearch)/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org; root +layout.svelte:17-27 head is title + og tags only); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/(nosearch)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/(nosearch)/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/(nosearch)/account/stats/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/stats (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/(nosearch)/domain-submissions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /domain-submissions (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/(nosearch)/membership/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /membership (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/(nosearch)/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /privacy (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/(nosearch)/seed-search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /seed-search (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/(nosearch)/stats/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /stats (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/(nosearch)/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /terms (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /search (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/(nosearch)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/(nosearch)/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/(nosearch)/account/stats/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/stats (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/(nosearch)/domain-submissions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /domain-submissions (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/(nosearch)/membership/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /membership (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/(nosearch)/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /privacy (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/(nosearch)/seed-search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /seed-search (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/(nosearch)/stats/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /stats (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/(nosearch)/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /terms (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /search (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has icons, logos and opensearch.xml only, no robots.txt file or route, and hooks.server.ts proxies only /api/* to the backend (literal claim holds); public search-engine front end (mwmbl.org) with public home, stats, terms and privacy pages"
+  },
+  {
+    "key": "mwmbl/front-end::seo/single-h1::src/routes/(nosearch)/+page.svelte:11::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /: the page's top heading is an <h2> ((nosearch)/+page.svelte:11), the (nosearch) and root layouts render no heading (header logos, Buttons, ModeWatcher), and grep of src finds <h1> only on other routes (privacy, terms, stats, search, membership, account/stats, seed-search)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/single-h1::src/routes/(nosearch)/account/+page.svelte:67::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /account: the page's top heading is an <h2> ((nosearch)/account/+page.svelte:67), the (nosearch) and root layouts render no heading (header logos, Buttons, ModeWatcher), and grep of src finds <h1> only on other routes (privacy, terms, stats, search, membership, account/stats, seed-search)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/single-h1::src/routes/(nosearch)/domain-submissions/+page.svelte:86::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /domain-submissions: the page's top heading is an <h2> ((nosearch)/domain-submissions/+page.svelte:86), the (nosearch) and root layouts render no heading (header logos, Buttons, ModeWatcher), and grep of src finds <h1> only on other routes (privacy, terms, stats, search, membership, account/stats, seed-search)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has icons, logos and opensearch.xml only, no sitemap.xml file or route, and hooks.server.ts proxies only /api/* to the backend (literal claim holds); public search-engine front end (mwmbl.org) with public home, stats, terms and privacy pages"
+  },
+  {
+    "key": "mwmbl/front-end::seo/title-length::src/routes/(nosearch)/seed-search/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> \"Seed Search - Mwmbl\" (19) at (nosearch)/seed-search/+page.svelte:195 in the page's top-level svelte:head, after the layout title, length as reported; public page of the search engine"
+  },
+  {
+    "key": "mwmbl/front-end::seo/title-length::src/routes/(nosearch)/stats/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> \"Statistics - MWMBL\" (18) at (nosearch)/stats/+page.svelte:339 in the page's top-level svelte:head, after the layout title, length as reported; public page of the search engine"
+  },
+  {
+    "key": "mwmbl/front-end::seo/title-length::src/routes/(nosearch)/terms/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> \"Mwmbl - Terms and Conditions\" (28) at (nosearch)/terms/+page.svelte:6 in the page's top-level svelte:head, after the layout title, length as reported; public page of the search engine"
+  },
+  {
+    "key": "mwmbl/front-end::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:18 literal <title>MWMBL</title> (5 chars), the only title of the 4 routes (local CLI list: /, /account, /account/stats, /domain-submissions), length as reported; includes the public search-engine home page"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/(nosearch)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/(nosearch)/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/(nosearch)/account/stats/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/stats (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/(nosearch)/domain-submissions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /domain-submissions (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/(nosearch)/membership/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /membership (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/(nosearch)/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /privacy (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/(nosearch)/seed-search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /seed-search (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/(nosearch)/stats/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /stats (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/(nosearch)/terms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /terms (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  },
+  {
+    "key": "mwmbl/front-end::seo/twitter-card::src/routes/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /search (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over src incl. app.html: only +layout.svelte:19,23): root +layout.svelte:17-27 head has only <title>, og:title, og:site_name, og:type, og:description, og:determiner; no og:image, og:url, twitter:card or rel=canonical anywhere; hooks.server.ts only sets loginStatus and proxies /api; npm Svelte deps (mode-watcher, formsnap) emit none; route renders)"
+  }
+]

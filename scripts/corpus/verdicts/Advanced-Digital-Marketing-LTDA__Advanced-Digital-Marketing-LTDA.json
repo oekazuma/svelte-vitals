@@ -1,0 +1,552 @@
+[
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::architecture/component-size::src/lib/components/pages/SubscribeSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/SubscribeSection.svelte has 348 physical lines (newline count, trailing newline not counted; 321 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::architecture/component-size::src/lib/components/pages/TechnicalSeoPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/TechnicalSeoPage.svelte has 243 physical lines (newline count, trailing newline not counted; 230 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::architecture/route-component-import::src/lib/test-utils/TechnicalSeoRouteFixture.svelte:5::src/routes/services/[slug]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/lib/test-utils/TechnicalSeoRouteFixture.svelte:5,20 default-imports src/routes/services/[slug]/+page.svelte and renders <ServiceRoute data={data} form={null} params={{slug}}> with data passed by hand; its only importer is src/lib/technical-seo.integration.test.ts:5,27,119 (@testing-library render) -- a test-harness satellite outside the narrow default exemptImporters, same shape as the ledger's PaulDepping/tracewayapp/immich test-wrapper design entries; reported as documented, not a defect"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::architecture/route-component-import::src/lib/test-utils/TechnicalSeoRouteFixture.svelte:6::src/routes/pt-br/servicos/[slug]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/lib/test-utils/TechnicalSeoRouteFixture.svelte:6,18 default-imports src/routes/pt-br/servicos/[slug]/+page.svelte and renders <PortugueseServiceRoute data={data} form={null} params={{slug}}> with data passed by hand; its only importer is src/lib/technical-seo.integration.test.ts:5,27,119 (@testing-library render) -- a test-harness satellite outside the narrow default exemptImporters, same shape as the ledger's PaulDepping/tracewayapp/immich test-wrapper design entries; reported as documented, not a defect"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-index-key::src/lib/components/cyber/Terminal.svelte:67::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/cyber/Terminal.svelte:67 '{#each typed as l, i (i)}' keyed by its index binding; typed = $state([]) (:16) is the terminal animation of a fixed authored script: reset wholesale (:25, :29) and only appended at the end (typed = [...typed, line], :43), never reordered or inserted mid-list; positional list (lines of one script)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/HomePage.svelte:63::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/HomePage.svelte:63 '{#each content.services.slice(0, 4) as service}' has no key; content = $derived(PAGE_COPY[locale].home) (:14), authored site copy from $lib/constants; content.services is a fixed authored list; static authored list"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/HomePage.svelte:68::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/HomePage.svelte:68 '{#each servicesWords as word, i}' has no key; {#each <heading>Words as word, i} where the list is $derived(words(content.<heading>)) (:20-26), the words of one authored heading; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/HomePage.svelte:70::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/HomePage.svelte:70 '{#each processWords as word, i}' has no key; {#each <heading>Words as word, i} where the list is $derived(words(content.<heading>)) (:20-26), the words of one authored heading; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/HomePage.svelte:72::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/HomePage.svelte:72 '{#each whyWords as word, i}' has no key; {#each <heading>Words as word, i} where the list is $derived(words(content.<heading>)) (:20-26), the words of one authored heading; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/HomePage.svelte:74::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/HomePage.svelte:74 '{#each peopleWords as word, i}' has no key; {#each <heading>Words as word, i} where the list is $derived(words(content.<heading>)) (:20-26), the words of one authored heading; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/HomePage.svelte:76::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/HomePage.svelte:76 '{#each contactWords as word, i}' has no key; {#each <heading>Words as word, i} where the list is $derived(words(content.<heading>)) (:20-26), the words of one authored heading; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/ServiceOptions.svelte:13::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/ServiceOptions.svelte:13 '{#each words(content.optionsHeading) as word, i}' has no key; {#each words(<heading text>) as word, i}, the words of one authored heading split by words() from $lib/text; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/ServicePage.svelte:66::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/ServicePage.svelte:66 '{#each words(content.processHeading) as word, i}' has no key; {#each words(<heading text>) as word, i}, the words of one authored heading split by words() from $lib/text; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/ServicePage.svelte:68::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/ServicePage.svelte:68 '{#each words(content.contactHeading) as word, i}' has no key; {#each words(<heading text>) as word, i}, the words of one authored heading split by words() from $lib/text; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/ServicesIndexPage.svelte:105::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/ServicesIndexPage.svelte:105 '{#each words(text.heading) as word, i}' has no key; {#each words(<heading text>) as word, i}, the words of one authored heading split by words() from $lib/text; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::correctness/each-key::src/lib/components/pages/WebsiteBuildPricing.svelte:139::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/WebsiteBuildPricing.svelte:139 '{#each words(text.heading) as word, i}' has no key; {#each words(<heading text>) as word, i}, the words of one authored heading split by words() from $lib/text; positional list (words of one string)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::performance/state-raw::src/lib/components/cyber/Terminal.svelte:16::\"typed\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"typed\" in src/lib/components/cyber/Terminal.svelte: :16 declared, :25/:29/:43 whole reassignments (= [], = lines, = [...typed, line]), :67 {#each} whose item is only read as text - no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; $state.raw fits"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::security/raw-html::src/lib/components/pages/TechnicalSeoPage.svelte:104::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/pages/TechnicalSeoPage.svelte:104 + lib/server/technical-seo.ts:3-5,15,57: content is marked.parse of the repo's own src/lib/content/technical-seo-en.md / -pt-br.md (imported ?raw) - repo constants, reported per docs"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::security/raw-html::src/lib/components/pages/TechnicalSeoPage.svelte:118::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/pages/TechnicalSeoPage.svelte:118 + lib/server/technical-seo.ts:3-5,15,57: content is marked.parse of the repo's own src/lib/content/technical-seo-en.md / -pt-br.md (imported ?raw) - repo constants, reported per docs"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::security/raw-html::src/lib/components/pages/TechnicalSeoPage.svelte:128::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/pages/TechnicalSeoPage.svelte:128 + lib/server/technical-seo.ts:3-5,15,57: content is marked.parse of the repo's own src/lib/content/technical-seo-en.md / -pt-br.md (imported ?raw) - repo constants, reported per docs"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::security/raw-html::src/lib/components/pages/TechnicalSeoPage.svelte:26::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/pages/TechnicalSeoPage.svelte:26 + lib/server/technical-seo.ts:3-5,15,57: content is marked.parse of the repo's own src/lib/content/technical-seo-en.md / -pt-br.md (imported ?raw) - repo constants, reported per docs"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::security/raw-html::src/lib/components/pages/TechnicalSeoPage.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/pages/TechnicalSeoPage.svelte:55 + lib/server/technical-seo.ts:3-5,15,57: content is marked.parse of the repo's own src/lib/content/technical-seo-en.md / -pt-br.md (imported ?raw) - repo constants, reported per docs"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::security/raw-html::src/lib/components/pages/TechnicalSeoPage.svelte:70::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/pages/TechnicalSeoPage.svelte:70 + lib/server/technical-seo.ts:3-5,15,57: content is marked.parse of the repo's own src/lib/content/technical-seo-en.md / -pt-br.md (imported ?raw) - repo constants, reported per docs"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::security/raw-html::src/lib/components/pages/TechnicalSeoPage.svelte:81::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/pages/TechnicalSeoPage.svelte:81 + lib/server/technical-seo.ts:3-5,15,57: content is marked.parse of the repo's own src/lib/content/technical-seo-en.md / -pt-br.md (imported ?raw) - repo constants, reported per docs"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::security/raw-html::src/lib/components/pages/TechnicalSeoPage.svelte:91::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/pages/TechnicalSeoPage.svelte:91 + lib/server/technical-seo.ts:3-5,15,57: content is marked.parse of the repo's own src/lib/content/technical-seo-en.md / -pt-br.md (imported ?raw) - repo constants, reported per docs"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::security/raw-html::src/routes/blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:34::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:34 + +page.server.ts + lib/server/blog.ts:7-8,67-75: article.html is marked output of the repo file docs/ChatGPT-Ads-Complete-Guide-August-2026.md (imported ?raw) - repo constant, reported per docs"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/description-presence::src/routes/checkout/complete/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: checkout/complete/+page.svelte:42 svelte:head has only <title> and a literal robots noindex; root +layout.svelte renders only CanonicalHead (canonical/og:url) and app.html has no description (literal claim holds); but the route is the noindexed Stripe payment-result page (load reads ?session_id), not a search target"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/indexability::src/routes/checkout/complete/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: checkout/complete/+page.svelte:42 top-level svelte:head literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed (deliberate for a session-specific payment/verification result page)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/indexability::src/routes/contact/verify/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: contact/verify/+page.svelte renders ContactVerifyPage, whose top-level svelte:head (lib/components/pages/ContactVerifyPage.svelte:69-71) is a literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed (deliberate for a session-specific payment/verification result page)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/indexability::src/routes/pt-br/checkout/complete/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: pt-br/checkout/complete/+page.svelte:88-97 top-level svelte:head literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed (deliberate for a session-specific payment/verification result page)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/indexability::src/routes/pt-br/contato/verificar/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: pt-br/contato/verificar/+page.svelte renders ContactVerifyPage, whose top-level svelte:head (lib/components/pages/ContactVerifyPage.svelte:69-71) is a literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed (deliberate for a session-specific payment/verification result page)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/blog/chatgpt-ads-complete-guide-august-2026/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/checkout/complete/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/contact/verify/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/pt-br/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/pt-br/checkout/complete/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/pt-br/contato/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/pt-br/contato/verificar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/pt-br/servicos/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/pt-br/servicos/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/pt-br/sobre/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/services/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/json-ld::src/routes/services/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks/scripts for ld+json|jsonld|json-ld|schema.org|{@html}; no meta/JSON-LD package in deps): the app has no JSON-LD emitter (the {@html} blocks are copy/article HTML from $lib/server); route renders, none (json-ld convention: tp)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/checkout/complete/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /checkout/complete (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: checkout/complete/+page.svelte:42 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/contact/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /contact (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/contact/verify/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /contact/verify (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: ContactVerifyPage.svelte:70 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/pt-br/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pt-br (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/pt-br/checkout/complete/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pt-br/checkout/complete (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: pt-br/checkout/complete/+page.svelte:96 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/pt-br/contato/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pt-br/contato (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/pt-br/contato/verificar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pt-br/contato/verificar (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: ContactVerifyPage.svelte:70 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/pt-br/servicos/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pt-br/servicos (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/pt-br/servicos/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pt-br/servicos/[slug] (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/pt-br/sobre/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pt-br/sobre (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/services/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /services (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-description::src/routes/services/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /services/[slug] (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/blog/chatgpt-ads-complete-guide-august-2026/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/chatgpt-ads-complete-guide-august-2026 (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/checkout/complete/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /checkout/complete (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: checkout/complete/+page.svelte:42 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/contact/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /contact (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/contact/verify/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /contact/verify (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: ContactVerifyPage.svelte:70 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/pt-br/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pt-br (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/pt-br/checkout/complete/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pt-br/checkout/complete (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: pt-br/checkout/complete/+page.svelte:96 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/pt-br/contato/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pt-br/contato (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/pt-br/contato/verificar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pt-br/contato/verificar (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: ContactVerifyPage.svelte:70 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/pt-br/servicos/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pt-br/servicos (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/pt-br/servicos/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pt-br/servicos/[slug] (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/pt-br/sobre/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pt-br/sobre (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/services/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /services (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-image::src/routes/services/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /services/[slug] (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/checkout/complete/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /checkout/complete (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: checkout/complete/+page.svelte:42 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/contact/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /contact (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/contact/verify/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /contact/verify (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: ContactVerifyPage.svelte:70 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/pt-br/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pt-br (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/pt-br/checkout/complete/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pt-br/checkout/complete (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: pt-br/checkout/complete/+page.svelte:96 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/pt-br/contato/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pt-br/contato (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/pt-br/contato/verificar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pt-br/contato/verificar (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: ContactVerifyPage.svelte:70 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/pt-br/servicos/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pt-br/servicos (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/pt-br/servicos/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pt-br/servicos/[slug] (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/pt-br/sobre/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pt-br/sobre (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/services/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /services (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/og-title::src/routes/services/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /services/[slug] (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/single-h1::src/routes/checkout/complete/+page.svelte:48::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /checkout/complete: the page's headline is an <h2> (checkout/complete/+page.svelte:48), the root layout chrome (Curtain, Nav, Rail, LanguageSuggestion, Footer) renders none, and grep of src finds <h1> only in page components of other routes and pt-br/checkout/complete; the load always returns a state (no redirect)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/blog/chatgpt-ads-complete-guide-august-2026/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/chatgpt-ads-complete-guide-august-2026 (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/checkout/complete/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /checkout/complete (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: checkout/complete/+page.svelte:42 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/contact/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /contact (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/contact/verify/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /contact/verify (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: ContactVerifyPage.svelte:70 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/pt-br/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pt-br (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/pt-br/checkout/complete/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pt-br/checkout/complete (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: pt-br/checkout/complete/+page.svelte:96 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/pt-br/contato/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pt-br/contato (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/pt-br/contato/verificar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pt-br/contato/verificar (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); route context: ContactVerifyPage.svelte:70 noindex, but og/twitter tags stay tp there per ledger convention (no search-target exemption)"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/pt-br/servicos/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pt-br/servicos (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/pt-br/servicos/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pt-br/servicos/[slug] (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/pt-br/sobre/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pt-br/sobre (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/services/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /services (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  },
+  {
+    "key": "Advanced-Digital-Marketing-LTDA/Advanced-Digital-Marketing-LTDA::seo/twitter-card::src/routes/services/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /services/[slug] (script-verified (a1a_grep.py: repo-wide grep of the app tree incl. app.html/static/scripts, node_modules excluded, comments stripped): og:title/og:description appear only in blog/chatgpt-ads-complete-guide-august-2026/+page.svelte:19-20 (no og:image there), og:url/canonical only in lib/components/chrome/CanonicalHead.svelte:16-17 (root +layout.svelte:30), and no og:image or twitter:* anywhere; LocalizedHead.svelte:41-47 emits title/description/hreflang only; app.html is charset/viewport/theme-color/icon; hooks.server.ts transformPageChunk only rewrites <html lang>; no Svelte npm deps; route renders (no load always redirects/throws; the hook redirects only / and only for a pt-BR language cookie)); publicly reachable, rendered route"
+  }
+]

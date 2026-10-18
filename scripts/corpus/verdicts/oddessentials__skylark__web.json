@@ -1,0 +1,282 @@
+[
+  {
+    "key": "oddessentials/skylark:web::a11y/disallowed-aria-props::src/routes/progression/+page.svelte:198::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read progression/+page.svelte:198-201: legend <div class=\"flex ...\" aria-label=\"Who beat them\"> with no role/spread/use:; generic does not take a name"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/component-size::src/lib/ui/BreedingCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/BreedingCard.svelte has 328 physical lines (newline count, trailing newline not counted; 316 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/component-size::src/lib/ui/WorldMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/WorldMap.svelte has 541 physical lines (newline count, trailing newline not counted; 520 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 212 physical lines (newline count, trailing newline not counted; 200 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 276 physical lines (newline count, trailing newline not counted; 263 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/component-size::src/routes/admin/actions/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/actions/+page.svelte has 289 physical lines (newline count, trailing newline not counted; 270 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/component-size::src/routes/admin/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/settings/+page.svelte has 270 physical lines (newline count, trailing newline not counted; 256 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/component-size::src/routes/map/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/map/+page.svelte has 204 physical lines (newline count, trailing newline not counted; 198 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/component-size::src/routes/players/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/players/[id]/+page.svelte has 250 physical lines (newline count, trailing newline not counted; 237 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/component-size::src/routes/progression/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/progression/+page.svelte has 289 physical lines (newline count, trailing newline not counted; 278 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "oddessentials/skylark:web::architecture/prop-count::src/lib/ui/WorldMap.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/WorldMap.svelte has a single destructured $props() with 10 named props (> 6): world, trail, highlight, compact, landmarks, initialMap, focus, habitat, bosses, label"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/ActivityLine.svelte:33::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/ActivityLine.svelte:33 '{#each view.parts as part, index (index)}' keyed by its index binding; view = $derived(describeActivity(item)) (:19); view.parts are the text parts of one activity line; positional list (text segments)"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/BreedingCard.svelte:271::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/BreedingCard.svelte:271 '{#each data.members as entry, index (index)}' keyed by its index binding; data.members rendered as <option value={String(index)}> (:271-272): the select stores the member by its index, so the index is the item's identity; positional list (ledger chosen-by-index convention)"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/PalpediaCard.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/ui/PalpediaCard.svelte:82 '{#each members as member, index (index)}' keyed by its index binding; members prop (GuildPalpediaMember[]), the guild members and their catch counts, live Palworld server data from the API/live feed that changes between polls; runtime records"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/PlayerCountChart.svelte:127::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/PlayerCountChart.svelte:127 '{#each ticks as tick, index (index)}' keyed by its index binding; ticks = $derived.by(...) (:61), the time-axis ticks of the player-count chart; positional list (chart ticks)"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/PlayerCountChart.svelte:98::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/PlayerCountChart.svelte:98 '{#each bands as band, index (index)}' keyed by its index binding; bands = $derived.by(...) (:51), the shaded offline intervals of the chart; positional list (chart marks)"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/WorldMap.svelte:320::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/WorldMap.svelte:320 '{#each region.paths as path, index (index)}' keyed by its index binding; region.paths, the SVG path pieces of one map region (inside {#each chart.regions as region (region.id)}); positional list (geometry of one region)"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/WorldMap.svelte:327::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/WorldMap.svelte:327 '{#each region.paths as path, index (index)}' keyed by its index binding; region.paths, the SVG path pieces of one map region (inside {#each chart.regions as region (region.id)}); positional list (geometry of one region)"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/WorldMap.svelte:349::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/WorldMap.svelte:349 '{#each habitatCells as run, index (index)}' keyed by its index binding; habitatCells = $derived(habitatRuns(habitat.maps[mapId], habitat.grid)) (:105), runs of habitat grid cells; positional list (grid cells)"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/WorldMap.svelte:382::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/ui/WorldMap.svelte:382 '{#each wild as pal, index (index)}' keyed by its index binding; wild = $derived((world?.wild ?? []).filter(...).map(...)) (:122), wild pal markers from the live Palworld server data from the API/live feed that changes between polls; runtime records inserted/removed"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/lib/ui/WorldMap.svelte:410::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/ui/WorldMap.svelte:410 '{#each deaths as death, index (index)}' keyed by its index binding; deaths = $derived((world?.deaths ?? []).filter(...).map(...)) (:132), death markers from the live Palworld server data from the API/live feed that changes between polls; runtime records inserted/removed"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/routes/+page.svelte:136::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:136 '{#each player.party as pal, index (index)}' keyed by its index binding; player.party, the online player's party pals from the live Palworld server data from the API/live feed that changes between polls; runtime records"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/routes/guilds/[id]/+page.svelte:161::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/guilds/[id]/+page.svelte:161 '{#each base.worker_pals as pal, index (index)}' keyed by its index binding; base.worker_pals of a guild base from the API; runtime records"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/routes/guilds/[id]/+page.svelte:71::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/guilds/[id]/+page.svelte:71 '{#each roster as entry, index (index)}' keyed by its index binding; roster = $derived(guild?.roster ?? []) (:25), guild members from the API; runtime records"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/routes/players/[id]/+page.svelte:120::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/players/[id]/+page.svelte:120 '{#each party as pal, index (index)}' keyed by its index binding; party = $derived(liveSelf?.party ?? player?.party ?? []) (:27), the player's party from the live Palworld server data from the API/live feed that changes between polls; runtime records"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/routes/players/[id]/+page.svelte:235::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/players/[id]/+page.svelte:235 '{#each player.recent_deaths as death, index (index)}' keyed by its index binding; player.recent_deaths of the player from the API (:25), new deaths enter at the top; runtime records"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/routes/progression/+page.svelte:116::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/progression/+page.svelte:116 '{#each board.players as player, index (index)}' keyed by its index binding; board.players of the progression board from the API (:29), player records ordered by progress; runtime records that reorder"
+  },
+  {
+    "key": "oddessentials/skylark:web::correctness/each-index-key::src/routes/progression/+page.svelte:156::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/progression/+page.svelte:156 '{#each board.players as player, index (index)}' keyed by its index binding; board.players of the progression board from the API (:29), player records ordered by progress; runtime records that reorder"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/indexability::src/routes/watch/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/watch/+page.svelte:31 literal <meta name=\"robots\" content=\"noindex\"> in its svelte:head; noindex as claimed (deliberate for the full-screen /watch display view)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/activity/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/admin/actions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/admin/collector/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/admin/events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/admin/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/admin/players/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/admin/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/guilds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/guilds/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/map/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/players/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/players/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/progression/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/watch/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/json-ld::src/routes/world/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html/hooks: no ld+json/jsonld/schema.org); route renders (hooks only proxy/rate-limit /api and tag /watch) and has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over web/src: hits only +layout.svelte:36-43 and lib/ui/Meta.svelte:13-14): root +layout.svelte:34-49 emits canonical/og:url/og:image/twitter:card but no og:title/og:description; those come only from lib/ui/Meta.svelte:13-14, which this page does not render (repo grep of Meta users: chat, activity, players, world, progression, guilds, admin pages only); hooks (mock/api/watch) answer no page route before resolve; no npm Svelte deps); +page.svelte has no <svelte:head>"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/og-description::src/routes/map/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /map (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over web/src: hits only +layout.svelte:36-43 and lib/ui/Meta.svelte:13-14): root +layout.svelte:34-49 emits canonical/og:url/og:image/twitter:card but no og:title/og:description; those come only from lib/ui/Meta.svelte:13-14, which this page does not render (repo grep of Meta users: chat, activity, players, world, progression, guilds, admin pages only); hooks (mock/api/watch) answer no page route before resolve; no npm Svelte deps); map/+page.svelte:41-43 head is <title> only"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/og-description::src/routes/watch/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /watch (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over web/src: hits only +layout.svelte:36-43 and lib/ui/Meta.svelte:13-14): root +layout.svelte:34-49 emits canonical/og:url/og:image/twitter:card but no og:title/og:description; those come only from lib/ui/Meta.svelte:13-14, which this page does not render (repo grep of Meta users: chat, activity, players, world, progression, guilds, admin pages only); hooks (mock/api/watch) answer no page route before resolve; no npm Svelte deps); watch/+page.svelte:29-32 head is <title> + robots noindex only (noindex does not affect social previews)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over web/src: hits only +layout.svelte:36-43 and lib/ui/Meta.svelte:13-14): root +layout.svelte:34-49 emits canonical/og:url/og:image/twitter:card but no og:title/og:description; those come only from lib/ui/Meta.svelte:13-14, which this page does not render (repo grep of Meta users: chat, activity, players, world, progression, guilds, admin pages only); hooks (mock/api/watch) answer no page route before resolve; no npm Svelte deps); +page.svelte has no <svelte:head>"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/og-title::src/routes/map/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /map (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over web/src: hits only +layout.svelte:36-43 and lib/ui/Meta.svelte:13-14): root +layout.svelte:34-49 emits canonical/og:url/og:image/twitter:card but no og:title/og:description; those come only from lib/ui/Meta.svelte:13-14, which this page does not render (repo grep of Meta users: chat, activity, players, world, progression, guilds, admin pages only); hooks (mock/api/watch) answer no page route before resolve; no npm Svelte deps); map/+page.svelte:41-43 head is <title> only"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/og-title::src/routes/watch/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /watch (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over web/src: hits only +layout.svelte:36-43 and lib/ui/Meta.svelte:13-14): root +layout.svelte:34-49 emits canonical/og:url/og:image/twitter:card but no og:title/og:description; those come only from lib/ui/Meta.svelte:13-14, which this page does not render (repo grep of Meta users: chat, activity, players, world, progression, guilds, admin pages only); hooks (mock/api/watch) answer no page route before resolve; no npm Svelte deps); watch/+page.svelte:29-32 head is <title> + robots noindex only (noindex does not affect social previews)"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/single-h1::/watch::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: /watch is an embed route - the stream overlay for OBS/browser sources (README.md:117), rendered bare by +layout.svelte:30,51-52 (page.route.id === '/watch'), noindex (watch/+page.svelte:30), and nothing in the app links to or opens it on its own (so the ledger's embed-route tp clause does not apply); it shows a SunDial and a 'who is on' card with a <p> headline, no <h1> - the claim holds for an overlay widget that is not a reader page"
+  },
+  {
+    "key": "oddessentials/skylark:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: web/static has a robots.txt (Disallow /admin, /api/ only, no Sitemap line) but no sitemap.xml file or route (literal claim holds); Skylark gives each Palworld server its own public website (README) with crawlable /players/[id], /guilds/[id], /map, /activity pages and no gate, so there are pages to list"
+  }
+]
