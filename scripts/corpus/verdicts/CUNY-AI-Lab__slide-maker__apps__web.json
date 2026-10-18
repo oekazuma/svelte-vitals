@@ -1,0 +1,1072 @@
+[
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/deprecated-attr::src/lib/components/renderers/VideoModule.svelte:86::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read renderers/VideoModule.svelte:86-89: embed <iframe ... frameborder=\"0\">; frameborder is deprecated on <iframe> (CSS border replaces it)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/disallowed-aria-props::src/lib/components/canvas/ZoneDrop.svelte:166::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read canvas/ZoneDrop.svelte:166: <div class=\"zone-drop\" aria-label=\"{zone} zone\" bind:this={zoneEl}> with no role/spread/use:; zoneEl is only measured/observed (:146-154), so the div stays generic and its name is prohibited"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/disallowed-aria-props::src/routes/(app)/+page.svelte:139::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/(app)/+page.svelte:139: loading <div class=\"skeleton-grid\" aria-label=\"Loading decks...\" aria-busy=\"true\">, no role; generic does not take a name"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/gallery/DeckCard.svelte:42::<iframe> is nested inside interactive <div role=\"link\">",
+    "verdict": "tp",
+    "basis": "read gallery/DeckCard.svelte:40-42: element at :42 (thumbnail <iframe tabindex=-1> / card-action <button>) literally inside <div class=\"deck-card\" role=\"link\" tabindex=\"0\"> (:40); docs keep a native interactive descendant flagged regardless of tabindex"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/gallery/DeckCard.svelte:67::<button> is nested inside interactive <div role=\"link\">",
+    "verdict": "tp",
+    "basis": "read gallery/DeckCard.svelte:40-67: element at :67 (thumbnail <iframe tabindex=-1> / card-action <button>) literally inside <div class=\"deck-card\" role=\"link\" tabindex=\"0\"> (:40); docs keep a native interactive descendant flagged regardless of tabindex"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/gallery/DeckCard.svelte:78::<button> is nested inside interactive <div role=\"link\">",
+    "verdict": "tp",
+    "basis": "read gallery/DeckCard.svelte:40-78: element at :78 (thumbnail <iframe tabindex=-1> / card-action <button>) literally inside <div class=\"deck-card\" role=\"link\" tabindex=\"0\"> (:40); docs keep a native interactive descendant flagged regardless of tabindex"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/gallery/DeckCard.svelte:87::<button> is nested inside interactive <div role=\"link\">",
+    "verdict": "tp",
+    "basis": "read gallery/DeckCard.svelte:40-87: element at :87 (thumbnail <iframe tabindex=-1> / card-action <button>) literally inside <div class=\"deck-card\" role=\"link\" tabindex=\"0\"> (:40); docs keep a native interactive descendant flagged regardless of tabindex"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/outline/BlockItem.svelte:120::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read outline/BlockItem.svelte:113-120: delete <button> literally inside <div class=\"block-header\" role=\"button\" tabindex=\"0\" onclick> (:113)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/outline/SlideCard.svelte:169::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read outline/SlideCard.svelte:164-169: rename <input> (in {#if editingTitle}) literally inside <div class=\"card-header\" role=\"button\" tabindex=\"0\"> (:164)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/outline/SlideCard.svelte:190::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read outline/SlideCard.svelte:164-190: delete <button> literally inside <div class=\"card-header\" role=\"button\" tabindex=\"0\"> (:164)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:524::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-524: editor control at :524 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:525::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-525: editor control at :525 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:527::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-527: editor control at :527 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:541::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-541: editor control at :541 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:542::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-542: editor control at :542 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:543::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-543: editor control at :543 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:544::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-544: editor control at :544 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:545::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-545: editor control at :545 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:548::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-548: editor control at :548 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:551::<textarea> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-551: editor control at :551 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:560::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-560: editor control at :560 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:561::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:519-561: editor control at :561 sits in the role=dialog panel inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:519); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:578::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:568-578: picker <button> at :578 sits in the role=dialog picker inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:568); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/interactive-nesting::src/lib/components/renderers/ArtifactModule.svelte:592::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read renderers/ArtifactModule.svelte:568-592: picker <button> at :592 sits in the role=dialog picker inside the click-to-close backdrop <div class=\"editor-overlay\" role=\"button\" tabindex=\"0\"> (:568); literal nesting as reported (ledger overlay-backdrop precedent)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/lib/components/canvas/CanvasToolbar.svelte:411::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/lib/components/canvas/CanvasToolbar.svelte:411 has literal <button> (:406) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/lib/components/canvas/CanvasToolbar.svelte:416::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/lib/components/canvas/CanvasToolbar.svelte:416 has literal <button> (:406) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/routes/(app)/debug/+page.svelte:241::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/routes/(app)/debug/+page.svelte:241 has literal <button> (:240) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/routes/(app)/debug/+page.svelte:248::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/routes/(app)/debug/+page.svelte:248 has literal <button> (:240) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/routes/(app)/debug/+page.svelte:253::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/routes/(app)/debug/+page.svelte:253 has literal <button> (:240) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/routes/(app)/debug/+page.svelte:289::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/routes/(app)/debug/+page.svelte:289 has literal <summary> (:288) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/routes/(app)/debug/+page.svelte:290::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/routes/(app)/debug/+page.svelte:290 has literal <summary> (:288) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/routes/(app)/debug/+page.svelte:291::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/routes/(app)/debug/+page.svelte:291 has literal <summary> (:288) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/routes/(app)/debug/+page.svelte:292::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/routes/(app)/debug/+page.svelte:292 has literal <summary> (:288) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/routes/(app)/debug/+page.svelte:293::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/routes/(app)/debug/+page.svelte:293 has literal <summary> (:288) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::a11y/permitted-contents::src/routes/(app)/debug/+page.svelte:294::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/routes/(app)/debug/+page.svelte:294 has literal <summary> (:288) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/admin/UserApprovalQueue.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/UserApprovalQueue.svelte has 992 physical lines (newline count, trailing newline not counted; 893 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/auth/RegisterForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/auth/RegisterForm.svelte has 235 physical lines (newline count, trailing newline not counted; 202 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/canvas/CanvasToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/canvas/CanvasToolbar.svelte has 1021 physical lines (newline count, trailing newline not counted; 973 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/canvas/FormatToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/canvas/FormatToolbar.svelte has 216 physical lines (newline count, trailing newline not counted; 198 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/canvas/SlideCanvas.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/canvas/SlideCanvas.svelte has 252 physical lines (newline count, trailing newline not counted; 229 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/canvas/SlideRenderer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/canvas/SlideRenderer.svelte has 368 physical lines (newline count, trailing newline not counted; 338 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/canvas/ZoneDrop.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/canvas/ZoneDrop.svelte has 374 physical lines (newline count, trailing newline not counted; 339 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/chat/ChatInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatInput.svelte has 584 physical lines (newline count, trailing newline not counted; 520 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/chat/ChatMessage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatMessage.svelte has 273 physical lines (newline count, trailing newline not counted; 232 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/chat/ChatPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatPanel.svelte has 577 physical lines (newline count, trailing newline not counted; 525 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/chat/ChatRichTextEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatRichTextEditor.svelte has 280 physical lines (newline count, trailing newline not counted; 245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/editor/EditorShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/editor/EditorShell.svelte has 426 physical lines (newline count, trailing newline not counted; 371 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/gallery/DeckCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/gallery/DeckCard.svelte has 260 physical lines (newline count, trailing newline not counted; 233 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/gallery/NewDeckDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/gallery/NewDeckDialog.svelte has 208 physical lines (newline count, trailing newline not counted; 180 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/gallery/ShareDeckDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/gallery/ShareDeckDialog.svelte has 456 physical lines (newline count, trailing newline not counted; 406 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/outline/BlockItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/outline/BlockItem.svelte has 290 physical lines (newline count, trailing newline not counted; 259 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/outline/SlideCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/outline/SlideCard.svelte has 322 physical lines (newline count, trailing newline not counted; 286 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/plan/PlanWizard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/plan/PlanWizard.svelte has 627 physical lines (newline count, trailing newline not counted; 566 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/renderers/ArtifactModule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/renderers/ArtifactModule.svelte has 1003 physical lines (newline count, trailing newline not counted; 943 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/renderers/CardGridModule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/renderers/CardGridModule.svelte has 262 physical lines (newline count, trailing newline not counted; 250 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/renderers/CarouselModule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/renderers/CarouselModule.svelte has 337 physical lines (newline count, trailing newline not counted; 317 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/renderers/FlowModule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/renderers/FlowModule.svelte has 296 physical lines (newline count, trailing newline not counted; 285 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/renderers/ImagePickerOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/renderers/ImagePickerOverlay.svelte has 339 physical lines (newline count, trailing newline not counted; 319 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/renderers/ModuleRenderer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/renderers/ModuleRenderer.svelte has 592 physical lines (newline count, trailing newline not counted; 555 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/renderers/RichTextEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/renderers/RichTextEditor.svelte has 269 physical lines (newline count, trailing newline not counted; 235 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/renderers/StreamListModule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/renderers/StreamListModule.svelte has 203 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/renderers/VideoModule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/renderers/VideoModule.svelte has 202 physical lines (newline count, trailing newline not counted; 190 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/resources/ArtifactsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/resources/ArtifactsTab.svelte has 558 physical lines (newline count, trailing newline not counted; 505 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/resources/FilesTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/resources/FilesTab.svelte has 433 physical lines (newline count, trailing newline not counted; 384 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/lib/components/resources/TemplatesTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/resources/TemplatesTab.svelte has 495 physical lines (newline count, trailing newline not counted; 443 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/routes/(app)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+page.svelte has 411 physical lines (newline count, trailing newline not counted; 360 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/routes/(app)/debug/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/debug/+page.svelte has 368 physical lines (newline count, trailing newline not counted; 336 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/routes/(app)/deck/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/deck/[id]/+page.svelte has 267 physical lines (newline count, trailing newline not counted; 247 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/routes/forgot-password/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/forgot-password/+page.svelte has 206 physical lines (newline count, trailing newline not counted; 176 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/component-size::src/routes/reset-password/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/reset-password/+page.svelte has 249 physical lines (newline count, trailing newline not counted; 214 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/prop-count::src/lib/components/canvas/ZoneDrop.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/canvas/ZoneDrop.svelte has a single destructured $props() with 13 named props (> 6): modules, zone, editable, deckId, slideId, onReorder, onModuleDataChange, onModuleResize, onModuleDelete, onModuleStepChange, onMoveToZone, onEditorReady, onEditorBlur"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/prop-count::src/lib/components/chat/ChatRichTextEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/ChatRichTextEditor.svelte has a single destructured $props() with 7 named props (> 6): placeholder, disabled, isMentionOpen, onsubmit, oninput, onfocuschange, onfiledrop"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/prop-count::src/lib/components/renderers/ModuleRenderer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/renderers/ModuleRenderer.svelte has a single destructured $props() with 9 named props (> 6): module, slideId, editable, onchange, onresize, oneditorready, oneditorblur, ondelete, onstepchange"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::architecture/prop-count::src/lib/components/renderers/RichTextEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/renderers/RichTextEditor.svelte has a single destructured $props() with 8 named props (> 6): content, editable, placeholder, onchange, oneditorready, oneditorblur, initialClickCoords, class"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/admin/UserApprovalQueue.svelte:426::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/UserApprovalQueue.svelte:426 '{#each usageData.byModel as m}' has no key; usageData.byModel of the user usage fetched by api.getUserUsage(userId) (:215), reloaded per selected user; runtime records"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/canvas/CanvasToolbar.svelte:412::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/canvas/CanvasToolbar.svelte:412 '{#each getColors(variant) as color}' has no key; getColors(variant) (:185-189) returns the four fixed theme colours [primary, secondary, accent, bg]; positional list (colour swatches)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/chat/ChatInput.svelte:299::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/ChatInput.svelte:299 '{#each mentionItems.slice(0, 12) as item, i}' has no key; mentionItems = $derived.by(...) (:65) filtered by the @-mention query the user types; runtime list filtered by user input (ledger filter convention)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/chat/ChatInput.svelte:321::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/ChatInput.svelte:321 '{#each activeMentions as m}' has no key; activeMentions = $derived.by(...) (:115), the mentions present in the user's message draft, added and removed as they type; runtime list"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/chat/ChatMessage.svelte:113::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/ChatMessage.svelte:113 '{#each suggestions as s}' has no key; suggestions = $derived.by(...) (:21-25), the [suggest: ...] tags parsed out of one finished assistant message; positional list (parse output of one message)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/chat/ModelSelector.svelte:63::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/ModelSelector.svelte:63 '{#each Object.entries(grouped) as [provider, providerModels]}' has no key; grouped = $derived.by(...) (:15) groups models fetched once from /api/providers on mount (:25-30); the server's fixed model catalog loaded once, never reordered; static list (fixed catalog loaded once)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/chat/ModelSelector.svelte:65::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/ModelSelector.svelte:65 '{#each providerModels as model}' has no key; grouped = $derived.by(...) (:15) groups models fetched once from /api/providers on mount (:25-30); the server's fixed model catalog loaded once, never reordered; static list (fixed catalog loaded once)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/gallery/ShareDeckDialog.svelte:118::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/gallery/ShareDeckDialog.svelte:118 '{#each searchResults as user}' has no key; searchResults = res.users (:45), user search results replaced on every query; runtime records"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/gallery/ShareDeckDialog.svelte:152::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/gallery/ShareDeckDialog.svelte:152 '{#each collaborators as collab}' has no key; collaborators = res.collaborators (:26) of the deck, which the dialog adds to and removes from; runtime records"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/outline/ModulePicker.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/outline/ModulePicker.svelte:56 '{#each moduleTypes as mod}' has no key; moduleTypes = MODULE_REGISTRY_LIST (:18), imported from the workspace package @slide-maker/shared (packages/shared/src/module-registry.ts:33); the docs keep a list from a package reported; static list (fixed module registry)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/plan/PlanWizard.svelte:243::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/plan/PlanWizard.svelte:243 '{#each warnings as w}' has no key; warnings = result.warnings ?? [] (:69) from the AI planning call; runtime validation list (ledger field-error convention)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/plan/PlanWizard.svelte:250::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/plan/PlanWizard.svelte:250 '{#each plan?.slides ?? [] as slide, i}' has no key; plan.slides of the AI-generated deck plan (:68), from which the user removes slides (removedPlanIds, :37); runtime records"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/plan/PlanWizard.svelte:271::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/plan/PlanWizard.svelte:271 '{#each plan.omissions as om}' has no key; plan.omissions of the AI-generated deck plan (:68), replaced on every generation; runtime list (ledger field-error/warnings convention)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/renderers/ArtifactModule.svelte:539::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/renderers/ArtifactModule.svelte:539 '{#each dataEntries as entry, index}' has no key; dataEntries $state rows the user adds (:430) and removes mid-list (:434) in the data editor; editable runtime list"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/renderers/CardGridModule.svelte:68::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/renderers/CardGridModule.svelte:68 '{#each cards as card, i}' has no key; the module's editable items $derived from the data prop; the user adds (append) and removes mid-list (filter by index) through onchange; editable runtime list"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/renderers/CarouselModule.svelte:134::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/renderers/CarouselModule.svelte:134 '{#each items as _, i}' has no key; {#each items as _, i} renders the carousel indicator dots by index only; positional list (indicator slots have no identity beyond position)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/renderers/ComparisonModule.svelte:49::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/renderers/ComparisonModule.svelte:49 '{#each panels as panel, i}' has no key; panels $derived from the slide module's data prop (:18), the user-authored comparison panels edited through onchange (:43-44) and replaced when the slide data changes; runtime list (user-authored content)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/renderers/FlowModule.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/renderers/FlowModule.svelte:58 '{#each nodes as node, i}' has no key; the module's editable items $derived from the data prop; the user adds (append) and removes mid-list (filter by index) through onchange; editable runtime list"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/renderers/StreamListModule.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/renderers/StreamListModule.svelte:58 '{#each items as item, i}' has no key; the module's editable items $derived from the data prop; the user adds (append) and removes mid-list (filter by index) through onchange; editable runtime list"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/lib/components/resources/TemplatesTab.svelte:152::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/resources/TemplatesTab.svelte:152 '{#each grouped as group}' has no key; grouped = $derived.by(...) (:25-34) groups the templates fetched once from /api/templates into the fixed groupOrder sections (:22); static list (fixed group order, catalog loaded once)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/routes/(app)/debug/+page.svelte:237::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/debug/+page.svelte:237 '{#each streamOrder as id}' has no key; streamOrder $state, new stream ids inserted at the top (streamOrder = [id, ...streamOrder], :71) and reordered (:184); runtime list"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/routes/(app)/debug/+page.svelte:268::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/debug/+page.svelte:268 '{#each Array.from(new Set(transcripts.map((t) => t.model))) as m}' has no key; Array.from(new Set(transcripts.map((t) => t.model))) over the transcripts refreshed every 5 s (:201); options enter as new models appear; derived over runtime data"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/each-key::src/routes/(app)/debug/+page.svelte:308::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/debug/+page.svelte:308 '{#each t.mutations as m}' has no key; t.mutations of a debug transcript record from the polled API (:201); runtime records"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/effect-as-derived::src/lib/components/canvas/SlideRenderer.svelte:91::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/canvas/SlideRenderer.svelte:91 the effect only does splitRatio = parseFloat(String(slide.splitRatio ?? '0.45')) from the slide prop; its other write is a wholesale reassignment in the drag handler (:164), the writable-$derived override pattern (svelte 5.55.0 in the lockfile)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/effect-as-onmount::src/lib/components/renderers/ArtifactModule.svelte:291::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/renderers/ArtifactModule.svelte:291 the effect only adds/removes a window message listener bound to the local handleArtifactMessage and reads nothing reactive, so it runs once like onMount"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::correctness/unmutated-state::src/lib/components/renderers/RichTextEditor.svelte:30::$state \"toolbarEl\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/renderers/RichTextEditor.svelte:30 toolbarEl = $state(undefined); the declaration is its only mention in the file (no bind:this, no write); dead state, never written"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::performance/iframe-loading::src/lib/components/renderers/ArtifactModule.svelte:474::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; sandboxed srcdoc artifact frame (buildInlineArtifactSrcdoc, ArtifactModule.svelte:98-106,474) rendered only on the active slide (SlideCanvas.svelte:169-173 renders SlideRenderer for activeSlide alone) - visible when it renders, where the docs keep it eager"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::performance/load-waterfall::src/routes/(app)/debug/+page.ts:8::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/debug/+page.ts:8 (:3-13): the only earlier await is `await import('$lib/api')`, a module the (app) layout already loads statically ((app)/+layout.svelte:5 -> $lib/stores/auth imports $lib/api), so it resolves without a data round trip; the load makes one request (listTranscripts) - a code-chunk import before a single fetch, as the ledger's lazy-import load-waterfall design convention"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::performance/state-raw::src/lib/components/plan/PlanWizard.svelte:28::\"warnings\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"warnings\" in src/lib/components/plan/PlanWizard.svelte: declared :28, whole reassignment :69, read-only uses :241 (.length) and :243 ({#each} whose item is only rendered as text) - no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; $state.raw fits"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/chat/ChatMessage.svelte:98::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/chat/ChatMessage.svelte:98: DOMPurify.sanitize(renderContent(message.content)) on this line (local markdown-like renderContent, then sanitized) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/CardGridModule.svelte:123::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/CardGridModule.svelte:123: the value is renderContent ($lib/utils/markdown.ts:8-14) returns DOMPurify.sanitize(inlineMarkdown(..)) or DOMPurify.sanitize(markdownToHtml(..)) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/CardGridModule.svelte:99::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/CardGridModule.svelte:99: the value is wrapped in DOMPurify.sanitize(...) on this line - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/CardModule.svelte:52::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/CardModule.svelte:52: the value is renderContent ($lib/utils/markdown.ts:8-14) returns DOMPurify.sanitize(inlineMarkdown(..)) or DOMPurify.sanitize(markdownToHtml(..)) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/CardModule.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/CardModule.svelte:55: the value is renderContent ($lib/utils/markdown.ts:8-14) returns DOMPurify.sanitize(inlineMarkdown(..)) or DOMPurify.sanitize(markdownToHtml(..)) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/ComparisonModule.svelte:71::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/ComparisonModule.svelte:71: the value is wrapped in DOMPurify.sanitize(...) on this line - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/ComparisonModule.svelte:94::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/ComparisonModule.svelte:94: the value is renderContent ($lib/utils/markdown.ts:8-14) returns DOMPurify.sanitize(inlineMarkdown(..)) or DOMPurify.sanitize(markdownToHtml(..)) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/ComparisonModule.svelte:98::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/ComparisonModule.svelte:98: the value is renderContent ($lib/utils/markdown.ts:8-14) returns DOMPurify.sanitize(inlineMarkdown(..)) or DOMPurify.sanitize(markdownToHtml(..)) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/FlowModule.svelte:118::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/FlowModule.svelte:118: the value is wrapped in DOMPurify.sanitize(...) on this line - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/FlowModule.svelte:94::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/FlowModule.svelte:94: the value is wrapped in DOMPurify.sanitize(...) on this line - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/FlowModule.svelte:96::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/FlowModule.svelte:96: the value is wrapped in DOMPurify.sanitize(...) on this line - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/HeadingModule.svelte:57::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/renderers/HeadingModule.svelte:57 + :29: the editable preview renders `sanitizedText || text`, so when DOMPurify strips the whole value to '' (e.g. text that is only `<iframe src=javascript:...>` or `<object>`) the raw, unsanitized slide text is injected; slide data comes from LLM chat mutations and deck edits/sharing (apps/api/src/routes/sharing.ts) - the fallback defeats the sanitizer, a real XSS path"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/HeadingModule.svelte:60::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/HeadingModule.svelte:60 + HeadingModule.svelte:29: sanitizedText = stripParagraphs(DOMPurify.sanitize(text)) (only removes <p> tags afterwards) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/LabelModule.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/renderers/LabelModule.svelte:48 + :24: the editable label preview renders `sanitizedText || text`, so when DOMPurify strips the whole value to '' (e.g. text that is only `<iframe src=javascript:...>`) the raw, unsanitized slide text is injected; slide data comes from LLM chat mutations and deck edits/sharing - the fallback defeats the sanitizer, a real XSS path"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/LabelModule.svelte:50::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/LabelModule.svelte:50 + LabelModule.svelte:24: sanitizedText = DOMPurify.sanitize(text) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/StreamListModule.svelte:75::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/StreamListModule.svelte:75: DOMPurify.sanitize(inlineMarkdown(item)) on this line - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/StreamListModule.svelte:77::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/StreamListModule.svelte:77: DOMPurify.sanitize(inlineMarkdown(item)) on this line - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/TextModule.svelte:51::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/TextModule.svelte:51 + TextModule.svelte:17 + packages/shared/src/rich-text.ts:140-157: renderedHtml = renderRichTextData(data, DOMPurify.sanitize) and every return path goes through the sanitizer - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/TextModule.svelte:54::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/TextModule.svelte:54 + TextModule.svelte:17 + packages/shared/src/rich-text.ts:140-157: renderedHtml = renderRichTextData(data, DOMPurify.sanitize) and every return path goes through the sanitizer - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/TipBoxModule.svelte:52::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/TipBoxModule.svelte:52: the value is renderContent ($lib/utils/markdown.ts:8-14) returns DOMPurify.sanitize(inlineMarkdown(..)) or DOMPurify.sanitize(markdownToHtml(..)) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/lib/components/renderers/TipBoxModule.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/renderers/TipBoxModule.svelte:55: the value is renderContent ($lib/utils/markdown.ts:8-14) returns DOMPurify.sanitize(inlineMarkdown(..)) or DOMPurify.sanitize(markdownToHtml(..)) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/routes/(app)/debug/+page.svelte:254::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/debug/+page.svelte:254 + (app)/debug/+page.svelte:153-163: highlightedText escapes only the inside of ```mutation blocks and otherwise returns the live LLM stream text (s.text, streams of every user, shown with s.userEmail) raw with \\n->br - LLM output rendered unsanitized on the debug dashboard"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::security/raw-html::src/routes/(app)/debug/+page.svelte:304::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/debug/+page.svelte:304: renderContent imported from $lib/utils/markdown (debug/+page.svelte:6), which DOMPurify-sanitizes its output (markdown.ts:8-14) - sanitized, reported per docs"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (auth-gated (client-side): (app)/+layout.svelte:10-17 onMount checkAuth() goto()s every visitor without a user to /login and renders only 'Loading...' until then), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/(app)/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (auth-gated (client-side): (app)/+layout.svelte:10-17 onMount checkAuth() goto()s every visitor without a user to /login and renders only 'Loading...' until then), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/(app)/debug/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /debug (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (auth-gated (client-side): (app)/+layout.svelte:10-17 onMount checkAuth() goto()s every visitor without a user to /login and renders only 'Loading...' until then), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/(app)/debug/streams/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /debug/streams (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (auth-gated (client-side): (app)/+layout.svelte:10-17 onMount checkAuth() goto()s every visitor without a user to /login and renders only 'Loading...' until then), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/(app)/deck/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /deck/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (auth-gated (client-side): (app)/+layout.svelte:10-17 onMount checkAuth() goto()s every visitor without a user to /login and renders only 'Loading...' until then), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (an auth-flow page (/forgot-password) of the sign-in-only slide editor (every other page sits behind (app)/+layout.svelte:10-17's client auth check)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (an auth-flow page (/login) of the sign-in-only slide editor (every other page sits behind (app)/+layout.svelte:10-17's client auth check)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /register (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (an auth-flow page (/register) of the sign-in-only slide editor (every other page sits behind (app)/+layout.svelte:10-17's client auth check)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (an auth-flow page (/reset-password) of the sign-in-only slide editor (every other page sits behind (app)/+layout.svelte:10-17's client auth check)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/canonical-url::src/routes/verify/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /verify (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders) but not a search target (an auth-flow page (/verify) of the sign-in-only slide editor (every other page sits behind (app)/+layout.svelte:10-17's client auth check)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/(app)/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/(app)/debug/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/(app)/debug/streams/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/(app)/deck/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login; /forgot-password is one of the account pages that only serve the gated tool"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login; /login is one of the account pages that only serve the gated tool"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login; /register is one of the account pages that only serve the gated tool"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login; /reset-password is one of the account pages that only serve the gated tool"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/description-presence::src/routes/verify/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; route heads carry only <title>) (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login; /verify is one of the account pages that only serve the gated tool"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/(app)/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/(app)/debug/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/(app)/debug/streams/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/(app)/deck/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/json-ld::src/routes/verify/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @slide-maker/shared workspace package: no ld+json/jsonld/schema.org, no svelte:head outside routes); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/(app)/debug/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /debug (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/(app)/debug/streams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /debug/streams (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/(app)/deck/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /deck/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forgot-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-description::src/routes/verify/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /verify (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/(app)/debug/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /debug (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/(app)/debug/streams/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /debug/streams (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/(app)/deck/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /deck/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forgot-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-image::src/routes/verify/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /verify (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/(app)/debug/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /debug (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/(app)/debug/streams/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /debug/streams (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/(app)/deck/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /deck/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forgot-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-title::src/routes/verify/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /verify (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/(app)/debug/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /debug (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/(app)/debug/streams/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /debug/streams (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/(app)/deck/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /deck/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/og-url::src/routes/verify/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /verify (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: apps/web/static has only favicon.png and the logo, no robots.txt file or route (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/single-h1::/debug/streams::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /debug/streams: (app)/debug/streams/+page.svelte is a script-only client redirect stub (onMount goto(base+'/debug')), the (app) layout renders only a Loading <p> or the children - redirect-stub convention"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/single-h1::/deck/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /deck/[id]: the editor page renders PresenceBar and EditorShell, whose chrome has no <h1>; slide headings come from user-authored deck data (HeadingModule <svelte:element this={headingTag}> picked per module by ModuleRenderer at run time) - user content, as the ledger labels user-authored markdown"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: apps/web/static has only favicon.png and the logo, no sitemap.xml file or route (literal claim holds); not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/ssr-disabled::src/routes/(app)/debug/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(app)/debug/+page.ts:1 on the LLM debug dashboard (load imports the client api); deliberate client-only admin/debug page of the login-gated tool, not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/title-length::src/routes/(app)/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> \"Admin Dashboard\" (15) at (app)/admin/+page.svelte:25 in the page's top-level svelte:head, the route's only title, length as reported (the page renders under (app)/+layout.svelte {#if ready}, i.e. after the client auth check; thowerapp precedent: claim holds for the title the browser shows); but not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/title-length::src/routes/(app)/debug/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> \"LLM Debug Dashboard\" (19) at (app)/debug/+page.svelte:207 in the page's top-level svelte:head, the route's only title, length as reported (the page renders under (app)/+layout.svelte {#if ready}, i.e. after the client auth check; thowerapp precedent: claim holds for the title the browser shows); but not a search target: CUNY AI Lab Slide Wiz is an internal chat-driven slide builder (README: log in with a seeded account); (app)/+layout.svelte:9-24 renders pages only after checkAuth() and sends guests to /login"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/title-presence::src/routes/(app)/debug/streams/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "literal claim holds: (app)/debug/streams/+page.svelte has no markup, only onMount(() => goto(`${base}/debug`)); (app)/+layout.svelte and root +layout.svelte have no svelte:head, app.html no <title>; but the page is a client-side redirect shim to /debug (whose debug/+page.svelte:207 has <title>LLM Debug Dashboard</title>; no other <title>/document.title in apps/web/src is above this route), and (app)/+layout.svelte renders it only after a client auth check (server HTML is 'Loading...'), same convention as the shareviz example/[id] redirect shim"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/(app)/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/(app)/debug/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /debug (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/(app)/debug/streams/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /debug/streams (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/(app)/deck/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /deck/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forgot-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  },
+  {
+    "key": "CUNY-AI-Lab/slide-maker:apps/web::seo/twitter-card::src/routes/verify/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /verify (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over apps/web/src incl. app.html + packages/ (workspace @slide-maker/shared): 0 hits): no og:*/twitter:*/rel=canonical anywhere; every head is <title> only; app.html favicon/viewport only; hooks.server.ts only sets security headers; npm Svelte deps (svelte-dnd-action, svelte-moveable) emit no head tags; route renders)"
+  }
+]

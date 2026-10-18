@@ -1,0 +1,97 @@
+[
+  {
+    "key": "Luen/runaround::architecture/component-size::src/lib/components/RaceMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RaceMap.svelte has 572 physical lines (newline count, trailing newline not counted; 534 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Luen/runaround::architecture/prop-count::src/lib/components/Seo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Seo.svelte has a single destructured $props() with 8 named props (> 6): title, description, origin, path, image, type, noindex, jsonLd"
+  },
+  {
+    "key": "Luen/runaround::performance/image-dimensions::src/routes/+layout.svelte:21::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; header logo /runaround-logo.png with class h-10 w-auto (+layout.svelte:21; 13 routes) - fixed-height box, width only varies inside the header row"
+  },
+  {
+    "key": "Luen/runaround::performance/image-dimensions::src/routes/about/+page.svelte:38::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; content image in the about prose article (no class or w-full only; about/+layout.svelte prose-img:h-auto max-w-full) (about/+page.svelte:38) - the natural aspect decides the height"
+  },
+  {
+    "key": "Luen/runaround::performance/image-dimensions::src/routes/about/+page.svelte:40::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; content image in the about prose article (no class or w-full only; about/+layout.svelte prose-img:h-auto max-w-full) (about/+page.svelte:40) - the natural aspect decides the height"
+  },
+  {
+    "key": "Luen/runaround::performance/image-dimensions::src/routes/about/luen-warneke/+page.svelte:26::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; portrait with class max-h-32 only, above the page <h1> (about/luen-warneke/+page.svelte:26); about/+layout.svelte prose sets prose-img:h-auto max-w-full - the natural aspect decides the box up to 8rem and the <h1> below shifts"
+  },
+  {
+    "key": "Luen/runaround::performance/image-dimensions::src/routes/about/sidney-willis/+page.svelte:26::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; portrait with class max-h-32 only, above the page <h1> (about/sidney-willis/+page.svelte:26); about/+layout.svelte prose sets prose-img:h-auto max-w-full - the natural aspect decides the box up to 8rem and the <h1> below shifts"
+  },
+  {
+    "key": "Luen/runaround::performance/image-loading-hint::src/routes/+layout.svelte:21::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo in the root layout header on every route (+layout.svelte:19-23; 13 routes) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Luen/runaround::performance/image-loading-hint::src/routes/about/+page.svelte:38::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; image after the <h1>, three paragraphs and the 'How to enter' section of the about page (about/+page.svelte:38) - offscreen on load"
+  },
+  {
+    "key": "Luen/runaround::performance/image-loading-hint::src/routes/about/+page.svelte:40::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; image after the <h1>, three paragraphs and the 'How to enter' section of the about page (about/+page.svelte:40) - offscreen on load"
+  },
+  {
+    "key": "Luen/runaround::performance/image-loading-hint::src/routes/about/luen-warneke/+page.svelte:26::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; portrait directly above the page <h1>, the first content (about/luen-warneke/+page.svelte:26) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Luen/runaround::performance/image-loading-hint::src/routes/about/sidney-willis/+page.svelte:26::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; portrait directly above the page <h1>, the first content (about/sidney-willis/+page.svelte:26) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Luen/runaround::performance/responsive-image::src/routes/+layout.svelte:21::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /runaround-logo.png raster at 40px high (+layout.svelte:21; 13 routes) - one fixed-size asset"
+  },
+  {
+    "key": "Luen/runaround::performance/responsive-image::src/routes/about/+page.svelte:38::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; raster .webp/.jpg (static or remote photo) (about/+page.svelte:38) - one fixed-size asset for every device"
+  },
+  {
+    "key": "Luen/runaround::performance/responsive-image::src/routes/about/+page.svelte:40::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; raster .webp/.jpg (static or remote photo) (about/+page.svelte:40) - one fixed-size asset for every device"
+  },
+  {
+    "key": "Luen/runaround::performance/responsive-image::src/routes/about/luen-warneke/+page.svelte:26::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; raster .webp/.jpg (static or remote photo) (about/luen-warneke/+page.svelte:26) - one fixed-size asset for every device"
+  },
+  {
+    "key": "Luen/runaround::performance/responsive-image::src/routes/about/sidney-willis/+page.svelte:26::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; raster .webp/.jpg (static or remote photo) (about/sidney-willis/+page.svelte:26) - one fixed-size asset for every device"
+  },
+  {
+    "key": "Luen/runaround::performance/sequential-awaits::src/routes/+page.server.ts:12::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.server.ts:12 + lib/server/db/index.ts:48-49: pastRaces is a drizzle query over postgres.js (package.json postgres ^3.4.9, a network Postgres client) using nothing from the preceding `active` query - independent DB round trips serialized"
+  },
+  {
+    "key": "Luen/runaround::seo/single-h1::/logout::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /logout: logout/+page.svelte renders only <Seo noindex> and <p>Signing out…</p> (GET has no load; the sign-out is the POST action), the root layout header has no heading - transitional stub, redirect-stub convention"
+  }
+]

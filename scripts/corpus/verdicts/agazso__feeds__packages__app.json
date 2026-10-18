@@ -1,0 +1,867 @@
+[
+  {
+    "key": "agazso/feeds:packages/app::a11y/interactive-nesting::src/lib/components/PostCard.svelte:184::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read lib/components/PostCard.svelte:176-187: author-filter <button class=\"avatar\"> literally inside <div class=\"card-parent\" role=\"button\" tabindex=\"0\" onclick> (:176-181)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::a11y/permitted-contents::src/lib/components/PostCard.svelte:192::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_pccheck.py tag-stack walk) + read: literal <div> at src/lib/components/PostCard.svelte:192 has literal <button> (:184) as its nearest non-transparent element parent in the same template, only control-flow blocks between, no component/snippet/svg/{@html} boundary; a category mismatch violation of the HTML content model as the docs claim"
+  },
+  {
+    "key": "agazso/feeds:packages/app::architecture/component-size::src/lib/components/PostCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PostCard.svelte has 447 physical lines (newline count, trailing newline not counted; 397 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "agazso/feeds:packages/app::architecture/component-size::src/routes/discover/[...url]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/discover/[...url]/+page.svelte has 787 physical lines (newline count, trailing newline not counted; 691 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "agazso/feeds:packages/app::architecture/component-size::src/routes/feeds/[...url]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/feeds/[...url]/+page.svelte has 242 physical lines (newline count, trailing newline not counted; 211 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "agazso/feeds:packages/app::architecture/component-size::src/routes/share/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/share/+page.svelte has 263 physical lines (newline count, trailing newline not counted; 233 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "agazso/feeds:packages/app::architecture/component-size::src/routes/share/[...url]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/share/[...url]/+page.svelte has 350 physical lines (newline count, trailing newline not counted; 307 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "agazso/feeds:packages/app::architecture/component-size::src/routes/tags/[...tags]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tags/[...tags]/+page.svelte has 267 physical lines (newline count, trailing newline not counted; 230 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "agazso/feeds:packages/app::architecture/prop-count::src/lib/components/BlurhashImage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/BlurhashImage.svelte has a single destructured $props() with 7 named props (> 6): src, fallbackSrc, blurhash, aspectRatio, alt, class, onload"
+  },
+  {
+    "key": "agazso/feeds:packages/app::correctness/prop-mutation::src/routes/feeds/[...url]/+page.svelte:79::Prop \"data\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/routes/feeds/[...url]/+page.svelte:79 data.feed.tags = editedTags writes into the page's non-bindable data prop (:15), plain load data; the tags list rendered from data.feed.tags (:123-124) is the one written, so the write is the documented untracked prop mutation (ledger page-data convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::correctness/unmutated-state::src/routes/all-posts/+page.svelte:12::$state \"isLoading\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/all-posts/+page.svelte:12 const isLoading = $state(false); its only other mention is the read {#if isLoading} (:32); never written"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/image-dimensions::src/routes/share/+page.svelte:103::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; scoped CSS .feed-icon {width:40px; height:40px} (share/+page.svelte:219-224) - box reserved by CSS"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/image-dimensions::src/routes/share/[...url]/+page.svelte:172::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; scoped CSS .site-icon {width:64px; height:64px} (share/[...url]/+page.svelte:261-266) - box reserved by CSS"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/image-loading-hint::src/routes/share/+page.svelte:103::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; discovered feed's favicon shown {#if discoveredFeed} in the feed header right under the URL form after the user pastes a URL (share/+page.svelte:100-108) - created when shown and then visible"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/image-loading-hint::src/routes/share/[...url]/+page.svelte:172::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; site icon at the top of the success card shown {#if success} after the user saves (share/[...url]/+page.svelte:168-172) - created when shown and then visible"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/responsive-image::src/routes/share/+page.svelte:103::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; discoveredFeed.favicon, the shared site's remote favicon (@feeds/core discover-feed.ts favicon) shown at 40px - raster, one fixed-size asset (ledger favicon convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/responsive-image::src/routes/share/[...url]/+page.svelte:172::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; success.icon = result.post?.icon, the feed's remote favicon (@feeds/core discover-feed.ts:175) shown at 64px - raster, one fixed-size asset (ledger favicon convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/sequential-awaits::src/routes/+page.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/+page.server.ts:9: the flagged and preceding awaits are loadConfig (lib/config.ts:29-33, a JSON file read under dataDir) and loadMyfeedPosts (lib/myfeed.ts:10-16, readFile of the user's posts JSON) - local file reads, not request round trips (ledger local-file-read design convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/sequential-awaits::src/routes/discover/[...url]/+page.server.ts:12::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/discover/[...url]/+page.server.ts:12: the flagged and preceding awaits are loadConfig (lib/config.ts:29-33, a JSON file read under dataDir) and loadMyfeedPosts (lib/myfeed.ts:10-16, readFile of the user's posts JSON) - local file reads, not request round trips (ledger local-file-read design convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/sequential-awaits::src/routes/feeds/[...url]/+page.server.ts:29::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/feeds/[...url]/+page.server.ts:29: the flagged and preceding awaits are loadConfig (lib/config.ts:29-33, a JSON file read under dataDir) and loadMyfeedPosts (lib/myfeed.ts:10-16, readFile of the user's posts JSON) - local file reads, not request round trips (ledger local-file-read design convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/sequential-awaits::src/routes/invite/[name]/+page.server.ts:19::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/invite/[name]/+page.server.ts:19 + lib/server/auth.ts:37-77: the anchored await is keyForUser(name) (a users.json read via loadKeys), after `await requireRootScope(locals)`, the root-only auth gate that itself reads the same key file - auth-before-read ordering over local file reads (ledger auth-gate and local-file-read conventions)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/sequential-awaits::src/routes/myfeed/+page.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/myfeed/+page.server.ts:9: the flagged and preceding awaits are loadConfig (lib/config.ts:29-33, a JSON file read under dataDir) and loadMyfeedPosts (lib/myfeed.ts:10-16, readFile of the user's posts JSON) - local file reads, not request round trips (ledger local-file-read design convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/sequential-awaits::src/routes/share/[...url]/+page.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/share/[...url]/+page.server.ts:11: the flagged and preceding awaits are loadConfig (lib/config.ts:29-33, a JSON file read under dataDir) and loadMyfeedPosts (lib/myfeed.ts:10-16, readFile of the user's posts JSON) - local file reads, not request round trips (ledger local-file-read design convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::performance/sequential-awaits::src/routes/tags/+page.server.ts:8::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/tags/+page.server.ts:8: the flagged and preceding awaits are loadConfig (lib/config.ts:29-33, a JSON file read under dataDir) and loadMyfeedPosts (lib/myfeed.ts:10-16, readFile of the user's posts JSON) - local file reads, not request round trips (ledger local-file-read design convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/all-posts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /all-posts (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/auth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders) but not a search target (the sign-in page (auth/+page.server.ts sets the key cookie)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/discover/[...url]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /discover/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/edit-tags/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /edit-tags/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/feeds/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /feeds (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/feeds/[...url]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /feeds/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/invite/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /invite (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders) but not a search target (root-only admin page: its load calls requireRootScope (lib/server/auth.ts:70-77), which errors 403 unless a root key is set and the visitor is the authenticated root user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/invite/[name]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /invite/[name] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders) but not a search target (root-only admin page: its load calls requireRootScope (lib/server/auth.ts:70-77), which errors 403 unless a root key is set and the visitor is the authenticated root user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/myfeed/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /myfeed (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/share/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /share (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/share/[...url]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /share/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/tags/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tags (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/tags/[...tags]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tags/[...tags] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/canonical-url::src/routes/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /users (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders); publicly reachable rendered route with no auth gate or noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/all-posts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/auth/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); /auth (the key login form) is a publicly reachable, rendered page of the public instance (pages render without a key, only writes need one; no noindex) (login/public-route convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/discover/[...url]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); /discover/[...url] (the feed-discovery write UI (follow a new site)) is a publicly reachable, rendered page of the public instance (pages render without a key, only writes need one; no noindex) (login/public-route convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/edit-tags/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); /edit-tags/[id] (the write UI for a post's tags) is a publicly reachable, rendered page of the public instance (pages render without a key, only writes need one; no noindex) (login/public-route convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/feeds/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/feeds/[...url]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/invite/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); but /invite is the root-only invite page (README: the only page that is not public; requireRootScope 403s others) of the self-hosted reader, not a search target"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/invite/[name]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); but /invite/[name] is the root-only invite result page (requireRootScope 403s others) of the self-hosted reader, not a search target"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/myfeed/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/share/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); /share (the save-a-link write form) is a publicly reachable, rendered page of the public instance (pages render without a key, only writes need one; no noindex) (login/public-route convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/share/[...url]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); /share/[...url] (the save-a-link write form) is a publicly reachable, rendered page of the public instance (pages render without a key, only writes need one; no noindex) (login/public-route convention)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/tags/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/tags/[...tags]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/description-presence::src/routes/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html: no <meta name=description> anywhere; page heads carry only <title>, root layout none) (literal claim holds); public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/duplicate-title::src/routes/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:30 and myfeed/+page.svelte:31 both literal <title>My Feed</title>, duplicate as claimed; both are the public saved-posts page of the instance (same load), indexable, no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/duplicate-title::src/routes/myfeed/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:30 and myfeed/+page.svelte:31 both literal <title>My Feed</title>, duplicate as claimed; both are the public saved-posts page of the instance (same load), indexable, no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/duplicate-title::src/routes/share/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: share/+page.svelte:83 and share/[...url]/+page.svelte:164 both literal <title>Share</title>, duplicate as claimed; both are publicly reachable, rendered pages of the public instance (save-a-link form; only the write needs a key), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/duplicate-title::src/routes/share/[...url]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: share/+page.svelte:83 and share/[...url]/+page.svelte:164 both literal <title>Share</title>, duplicate as claimed; both are publicly reachable, rendered pages of the public instance (save-a-link form; only the write needs a key), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/all-posts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/auth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/discover/[...url]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/edit-tags/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/feeds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/feeds/[...url]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/invite/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/invite/[name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/myfeed/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/share/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/share/[...url]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/tags/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/tags/[...tags]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/json-ld::src/routes/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src incl. app.html and @feeds/core: no ld+json/jsonld/schema.org; only page titles and FeedLinks rss <link>s in svelte:head); route has no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/all-posts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /all-posts (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/auth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/discover/[...url]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /discover/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/edit-tags/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /edit-tags/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/feeds/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /feeds (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/feeds/[...url]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /feeds/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/invite/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /invite (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/invite/[name]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /invite/[name] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/myfeed/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /myfeed (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/share/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /share (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/share/[...url]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /share/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/tags/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tags (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/tags/[...tags]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tags/[...tags] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-description::src/routes/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/all-posts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /all-posts (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/auth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/discover/[...url]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /discover/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/edit-tags/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /edit-tags/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/feeds/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /feeds (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/feeds/[...url]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /feeds/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/invite/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /invite (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/invite/[name]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /invite/[name] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/myfeed/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /myfeed (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/share/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /share (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/share/[...url]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /share/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/tags/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tags (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/tags/[...tags]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tags/[...tags] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-image::src/routes/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/all-posts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /all-posts (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/auth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/discover/[...url]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /discover/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/edit-tags/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /edit-tags/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/feeds/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /feeds (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/feeds/[...url]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /feeds/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/invite/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /invite (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/invite/[name]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /invite/[name] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/myfeed/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /myfeed (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/share/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /share (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/share/[...url]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /share/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/tags/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tags (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/tags/[...tags]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tags/[...tags] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-title::src/routes/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/all-posts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /all-posts (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/auth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/discover/[...url]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /discover/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/edit-tags/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /edit-tags/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/feeds/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /feeds (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/feeds/[...url]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /feeds/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/invite/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invite (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/invite/[name]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invite/[name] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/myfeed/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /myfeed (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/share/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /share (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/share/[...url]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /share/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/tags/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tags (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/tags/[...tags]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tags/[...tags] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/og-url::src/routes/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: packages/app/static has icons, manifest and seed JSON only, no robots.txt file or src/routes/robots.txt endpoint, and hooks.server.ts serves none (literal claim holds); every instance exposes public reading pages (/myfeed, /tags/*, /all-posts) that crawlers reach"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::/all-posts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /all-posts: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::/feeds/[...url]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /feeds/[...url]: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::/myfeed::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /myfeed: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::/share::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /share: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::/tags/[...tags]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /tags/[...tags]: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::src/routes/auth/+page.svelte:21::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /auth: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::src/routes/discover/[...url]/+page.svelte:298::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /discover/[...url]: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::src/routes/invite/+page.svelte:12::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /invite: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::src/routes/invite/[name]/+page.svelte:13::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /invite/[name]: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/single-h1::src/routes/share/[...url]/+page.svelte:177::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders on /share/[...url]: root +layout.svelte renders Topbar, a Loader overlay and <main>{children} with no heading, the page has none (h2 at most), and grep of packages/app/src finds <h1> only in edit-tags, feeds, tags and users pages; the route's load returns data (no always-redirect), hooks.server.ts answers only write methods before resolve()"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ or routes, no generator (literal claim holds); every instance publishes public, crawlable reading pages (/myfeed, /feeds/*, /tags/*, /all-posts, /users; README \"Sharing what you read\") with no gate or noindex, so there are pages to list"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/all-posts/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/all-posts/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/auth/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/auth/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; /auth (the key login form) is a publicly reachable, rendered page of the public instance, no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/discover/[...url]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/discover/[...url]/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; /discover/[...url] (the feed-discovery write UI (follow a new site)) is a publicly reachable, rendered page of the public instance, no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/edit-tags/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/edit-tags/[id]/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; /edit-tags/[id] (the write UI for a post's tags) is a publicly reachable, rendered page of the public instance, no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/feeds/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/feeds/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/invite/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/invite/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; but /invite is the root-only invite page (README: the only page that is not public; requireRootScope 403s others), not a search target"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/myfeed/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/myfeed/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/share/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/share/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; /share (the save-a-link write form) is a publicly reachable, rendered page of the public instance, no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/share/[...url]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/share/[...url]/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; /share/[...url] (the save-a-link write form) is a publicly reachable, rendered page of the public instance, no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-length::src/routes/tags/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/tags/+page.svelte top-level svelte:head, the route's only title (root layout/app.html set none), length as reported; public reading page of a Feeds instance (README \"Sharing what you read\": reading never needs a key, /myfeed, /tags/*, /all-posts are pages anyone can open and are meant to be shared), no noindex"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/title-presence::src/routes/users/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: users/+page.svelte renders an <h1>Users</h1> list with no svelte:head; root +layout.svelte (Topbar/Loader/main) has no head, app.html head has meta/icons but no <title>; only routes that set their own <title> have one (auth, tags, feeds, myfeed...), FeedLinks.svelte head is alternate links only and not used here; route renders (users/+page.server.ts listUsers() catches errors, hooks.server.ts only 404s unknown /@user paths and 401s writes)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/all-posts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /all-posts (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/auth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/discover/[...url]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /discover/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/edit-tags/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /edit-tags/[id] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/feeds/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /feeds (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/feeds/[...url]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /feeds/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/invite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /invite (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/invite/[name]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /invite/[name] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/myfeed/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /myfeed (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/share/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /share (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/share/[...url]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /share/[...url] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/tags/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tags (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/tags/[...tags]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tags/[...tags] (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  },
+  {
+    "key": "agazso/feeds:packages/app::seo/twitter-card::src/routes/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users (script-verified (a1b_grep.py, untruncated scan for og:image|title|url|description, twitter:card, rel=canonical over packages/app/src incl. app.html + workspace packages/core): no emitter; the only hits are @feeds/core's parser of fetched pages (src/utils/opengraph.ts:49-70, providers/reddit.ts) and its tests; heads are <title> plus FeedLinks.svelte rel=alternate feed links; hooks.server.ts only 404s unknown /@user scopes and blocks unauthenticated writes; npm Svelte deps (carbon-icons-svelte) emit none; route renders)"
+  }
+]
