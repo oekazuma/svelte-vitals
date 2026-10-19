@@ -1,0 +1,1657 @@
+[
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/accessible-name::src/routes/(app)/browse/+page.svelte:515::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read routes/(app)/browse/+page.svelte:515: clear-search <button class=clear-search> containing only an <svg> of two <line>s with no <title>, aria-label or text; no accessible name, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/accessible-name::src/routes/(app)/collections/[id]/+page.svelte:442::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read routes/(app)/collections/[id]/+page.svelte:442: clear-search <button class=clear-search> containing only an <svg> of two <line>s with no <title>, aria-label or text; no accessible name, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/accessible-name::src/routes/(app)/collections/[id]/+page.svelte:550::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read routes/(app)/collections/[id]/+page.svelte:550: clear-search <button class=clear-search> containing only an <svg> of two <line>s with no <title>, aria-label or text; no accessible name, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/duplicate-landmark::src/lib/components/AppShell.svelte:77::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:143-146 renders non-/shared/ routes inside <AppShell>, whose <main> (AppShell.svelte:77 / :83 in exclusive {#if isMobile} arms) wraps children, and each of the 12 routes (CLI list) adds its own <main> (page <main class=container>, help/auth-confirm pages, or (settings)/settings/+layout.svelte:84), so two main landmarks render once initialized"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/label-has-control::src/lib/components/ExportModal.svelte:127::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read lib/components/ExportModal.svelte:127: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/label-has-control::src/lib/components/ExportModal.svelte:142::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read lib/components/ExportModal.svelte:142: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/label-has-control::src/lib/components/ExportModal.svelte:169::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read lib/components/ExportModal.svelte:169: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/label-has-control::src/routes/(settings)/settings/account/+page.svelte:543::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read routes/(settings)/settings/account/+page.svelte:543: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/label-has-control::src/routes/(settings)/settings/account/+page.svelte:578::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read routes/(settings)/settings/account/+page.svelte:578: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/label-has-control::src/routes/(settings)/settings/instruments/+page.svelte:242::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read routes/(settings)/settings/instruments/+page.svelte:242: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/no-autofocus::src/routes/(settings)/settings/api-keys/+page.svelte:212::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; key-name input under {#if showGenerateModal} (:187), showGenerateModal = $state(false) (:13) set by the generate button (:55); focus on user action inside an opened modal, not page load"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/ChordSelectionModal.svelte:325::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/ChordSelectionModal.svelte:325 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/ChordSelectionModal.svelte:327::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/ChordSelectionModal.svelte:327 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/ChordSelectionModal.svelte:335::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/ChordSelectionModal.svelte:335 has a literal <p> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/ChordSelectionModal.svelte:339::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/ChordSelectionModal.svelte:339 has a literal <p> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/ChordSelectionModal.svelte:343::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/ChordSelectionModal.svelte:343 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/ChordViewer.svelte:173::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/ChordViewer.svelte:173 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/ChordViewer.svelte:181::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/ChordViewer.svelte:181 has a literal <p> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/ChordViewer.svelte:185::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/ChordViewer.svelte:185 has a literal <p> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/SessionOverlay.svelte:17::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/SessionOverlay.svelte:17 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/SongList.svelte:317::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/SongList.svelte:317 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/SongList.svelte:333::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/SongList.svelte:333 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/SongList.svelte:353::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/SongList.svelte:353 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/SongList.svelte:354::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/SongList.svelte:354 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/lib/components/SongList.svelte:355::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: lib/components/SongList.svelte:355 has a literal <div> whose nearest unclosed ancestor tag is a literal <button> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <button>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/routes/import/+page.svelte:317::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/import/+page.svelte:317 has a literal <div> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/routes/import/+page.svelte:321::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/import/+page.svelte:321 has a literal <div> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/routes/songs/[id]/+page.svelte:1327::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/songs/[id]/+page.svelte:1327 has a literal <div> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::a11y/permitted-contents::src/routes/songs/[id]/+page.svelte:1340::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/songs/[id]/+page.svelte:1340 has a literal <div> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/lib/components/ChordEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ChordEditor.svelte has 296 physical lines (256 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/lib/components/ChordSelectionModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ChordSelectionModal.svelte has 633 physical lines (554 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/lib/components/ChordViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ChordViewer.svelte has 354 physical lines (304 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/lib/components/ExportModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ExportModal.svelte has 295 physical lines (263 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/lib/components/SessionOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SessionOverlay.svelte has 421 physical lines (373 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/lib/components/ShareModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ShareModal.svelte has 275 physical lines (244 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/lib/components/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Sidebar.svelte has 284 physical lines (245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/lib/components/SongList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SongList.svelte has 707 physical lines (617 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/lib/components/SystemChordEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SystemChordEditor.svelte has 439 physical lines (378 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(app)/admin/instruments/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/instruments/+page.svelte has 577 physical lines (506 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(app)/admin/songs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/songs/+page.svelte has 593 physical lines (521 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(app)/admin/system-chords/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/system-chords/+page.svelte has 485 physical lines (426 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(app)/admin/users/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/users/+page.svelte has 728 physical lines (639 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(app)/browse/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/browse/+page.svelte has 1043 physical lines (923 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(app)/collections/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/collections/+page.svelte has 498 physical lines (438 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(app)/collections/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/collections/[id]/+page.svelte has 1213 physical lines (1068 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(app)/help/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/help/+page.svelte has 664 physical lines (569 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(app)/library/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/library/+page.svelte has 528 physical lines (469 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(settings)/settings/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(settings)/settings/account/+page.svelte has 1099 physical lines (962 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(settings)/settings/api-keys/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(settings)/settings/api-keys/+page.svelte has 446 physical lines (400 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(settings)/settings/instruments/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(settings)/settings/instruments/+page.svelte has 547 physical lines (477 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/(settings)/settings/preferences/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(settings)/settings/preferences/+page.svelte has 315 physical lines (278 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/auth/reset-password/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/auth/reset-password/+page.svelte has 267 physical lines (227 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/import/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/import/+page.svelte has 621 physical lines (528 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/ozbcoz/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ozbcoz/+page.svelte has 439 physical lines (376 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/session/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/session/+page.svelte has 952 physical lines (829 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/shared/collection/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/shared/collection/[id]/+page.svelte has 265 physical lines (230 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/shared/song/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/shared/song/[id]/+page.svelte has 436 physical lines (382 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/songs/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/songs/[id]/+page.svelte has 2692 physical lines (2334 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/component-size::src/routes/songs/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/songs/new/+page.svelte has 338 physical lines (295 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/prop-count::src/lib/components/ChordSelectionModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ChordSelectionModal.svelte has a single destructured $props() with 7 named props: songId, chordName, instrumentId, currentOverride, onSelect, onReset, onClose (> 6)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::architecture/prop-count::src/lib/components/ShareModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ShareModal.svelte has a single destructured $props() with 7 named props: type, id, title, visibility, sourceId, onClose, onMadePublic (> 6)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/lib/components/ExportModal.svelte:156::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ExportModal.svelte:156 '{#each customInstruments as instrument}' has no key and is not an exempt shape; customInstruments = $state from CustomInstrumentRepository.getByUser (ExportModal.svelte:33,57); the user's records"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/lib/components/SongList.svelte:344::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SongList.svelte:344 '{#each song.tags.slice(0, 2) as tag}' has no key and is not an exempt shape; song.tags.slice(0, 2) of a song record; runtime list"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/(app)/admin/system-chords/+page.svelte:177::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/system-chords/+page.svelte:177 '{#each availableInstruments as instrument}' has no key and is not an exempt shape; availableInstruments derived from the systemChords DB rows (system-chords/+page.svelte:22-25); runtime list"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/(app)/library/+page.svelte:268::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/library/+page.svelte:268 '{#each collections as collection}' has no key and is not an exempt shape; collections, the user's song collections; runtime records"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/(settings)/settings/account/+page.svelte:467::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(settings)/settings/account/+page.svelte:467 '{#each passwordErrors as err}' has no key and is not an exempt shape; passwordErrors, password validation messages as the user types; runtime list"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/(settings)/settings/account/+page.svelte:626::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(settings)/settings/account/+page.svelte:626 '{#each info.features as feature}' has no key and is not an exempt shape; info.features of TIER_INFO[tier], a constant tier table (account/+page.svelte:614); static marketing list"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/(settings)/settings/instruments/+page.svelte:244::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(settings)/settings/instruments/+page.svelte:244 '{#each COMMON_TUNINGS[newBaseType] as tuning}' has no key and is not an exempt shape; COMMON_TUNINGS[newBaseType], a member of a constant tuning table; static option list"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/(settings)/settings/preferences/+page.svelte:166::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(settings)/settings/preferences/+page.svelte:166 '{#each customInstruments as instrument}' has no key and is not an exempt shape; customInstruments = $state from CustomInstrumentRepository.getByUser (preferences/+page.svelte:31,57); the user's records"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/auth/reset-password/+page.svelte:106::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/auth/reset-password/+page.svelte:106 '{#each passwordErrors as err}' has no key and is not an exempt shape; passwordErrors, password validation messages as the user types; runtime list"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/import/+page.svelte:355::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/import/+page.svelte:355 '{#each collections as collection}' has no key and is not an exempt shape; collections, the user's song collections; runtime records"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/ozbcoz/+page.svelte:219::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/ozbcoz/+page.svelte:219 '{#each searchResults as result}' has no key and is not an exempt shape; searchResults of a search; runtime results"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/shared/collection/[id]/+page.svelte:77::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/shared/collection/[id]/+page.svelte:77 '{#each orderedSongs as song, i}' has no key and is not an exempt shape; orderedSongs of a shared collection; runtime records"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/songs/[id]/+page.svelte:1026::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/songs/[id]/+page.svelte:1026 '{#each arrangements as arr}' has no key and is not an exempt shape; arrangements of the song; runtime records"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/songs/[id]/+page.svelte:1153::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/songs/[id]/+page.svelte:1153 '{#each uniqueChords as chord}' has no key and is not an exempt shape; uniqueChords = extractChordsFromContent(selectedArrangement.content) (songs/[id]/+page.svelte:766-769), changes as the arrangement is edited; runtime list"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/songs/[id]/+page.svelte:1213::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/songs/[id]/+page.svelte:1213 '{#each song.key.includes('m') ? MINOR_KEYS : MAJOR_KEYS as targetKey}' has no key and is not an exempt shape; song.key.includes('m') ? MINOR_KEYS : MAJOR_KEYS, same-file constant key lists (songs/[id]/+page.svelte:651) as transpose options; static option list"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/each-key::src/routes/songs/new/+page.svelte:191::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/songs/new/+page.svelte:191 '{#each customInstruments as custom}' has no key and is not an exempt shape; customInstruments = $state from CustomInstrumentRepository.getByUser (songs/new/+page.svelte:16,48); the user's records"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/effect-as-derived::src/routes/songs/[id]/+page.svelte:905::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: the effect only does rendererInstrument = effectiveInstrument; the renderer's event handler also reassigns it (:912), the writable-$derived override pattern (svelte 5.47 in the lockfile)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/unmutated-state::src/lib/components/ChordEditor.svelte:59::$state \"chordData\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep chordData in the file): chordData = $state<any>({...}) is only read (!chordData at :235); never written, bound, passed or mutated"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/unmutated-state::src/lib/components/SystemChordEditor.svelte:66::$state \"chordData\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep chordData in the file): chordData = $state<any>({...}) is only read (!chordData at :319); never written, bound, passed or mutated"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::correctness/unmutated-state::src/routes/songs/[id]/+page.svelte:116::$state \"peerCount\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w peerCount in the file): let peerCount = $state(0) is declared and never mentioned again; never written, bound or passed"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/image-dimensions::src/routes/(settings)/settings/account/+page.svelte:547::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .avatar-preview img {width:100%;height:100%} inside the 80x80px .avatar-preview (account/+page.svelte style :278-294) - box reserved by CSS"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/image-dimensions::src/routes/session/+page.svelte:228::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; session QR (data: URL) with .qr-code {max-width:250px; padding} only (session style :171-176) - no height reserved, natural size decides the box"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/image-dimensions::src/routes/session/+page.svelte:268::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .participant-avatar {width:40px;height:40px} (session style :464-468) - box reserved by CSS"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/image-loading-hint::src/routes/(settings)/settings/account/+page.svelte:547::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; src avatarPreview prefers URL.createObjectURL of the IndexedDB avatar blob (:171-175) or of the file just picked (:210) - a blob: URL, no network request to defer"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/image-loading-hint::src/routes/session/+page.svelte:228::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; src session.qrDataUrl is an inline data: URL - no network request to defer"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/image-loading-hint::src/routes/session/+page.svelte:268::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; src participant.avatarThumbnail is a base64 data: thumbnail (<5KB, packages/core/src/models/index.ts:297) - no network request to defer"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/responsive-image::src/routes/(settings)/settings/account/+page.svelte:547::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src avatarPreview is preferably a blob: object URL of the stored/picked avatar (:171-175, :210), falling back to the cloud avatarUrl - client blob, no alternate sizes exist"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/responsive-image::src/routes/session/+page.svelte:228::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src session.qrDataUrl is a client-generated QR data: URL - no alternate sizes exist"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/responsive-image::src/routes/session/+page.svelte:268::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src participant.avatarThumbnail is a base64 data: URL (packages/core/src/models/index.ts:297) - no alternate sizes exist"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/state-raw::src/lib/components/ExportModal.svelte:33::\"customInstruments\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"customInstruments\" in src/lib/components/ExportModal.svelte: declared at :33, whole reassignment at :57 (await repository getByUser), read via .length and {#each} rendering <option> (:154-158); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/state-raw::src/routes/(settings)/settings/account/+page.svelte:34::\"passwordErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"passwordErrors\" in src/routes/(settings)/settings/account/+page.svelte: declared at :34, whole reassignments at :60,62,143,405,412, read via .length and {#each} rendering {err} (:465-467,486); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/state-raw::src/routes/(settings)/settings/preferences/+page.svelte:31::\"customInstruments\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"customInstruments\" in src/routes/(settings)/settings/preferences/+page.svelte: declared at :31, whole reassignment at :57, read via .length and {#each} rendering <option> (:164-168); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/state-raw::src/routes/auth/reset-password/+page.svelte:16::\"passwordErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"passwordErrors\" in src/routes/auth/reset-password/+page.svelte: declared at :16, whole reassignments at :27,29, read via .length and {#each} rendering {err} (:104-106,127); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/state-raw::src/routes/import/+page.svelte:25::\"fileImportProgress\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"fileImportProgress\" in src/routes/import/+page.svelte: declared at :25, whole reassignments to fresh literals at :182,194, read as .current/.total (:380); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::performance/state-raw::src/routes/import/+page.svelte:30::\"collections\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"collections\" in src/routes/import/+page.svelte: declared at :30, whole reassignments at :49 and :239 (spread copy [...collections, newSet]), read in {#each} rendering <option> (:355-357); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/admin/instruments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders) but not a search target (client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/admin/songs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders) but not a search target (client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/admin/system-chords/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/system-chords (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders) but not a search target (client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders) but not a search target (client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/browse/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /browse (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/collections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collections (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/collections/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collections/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/help/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /help (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/library/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /library (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(app)/library/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /library/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(settings)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(settings)/settings/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(settings)/settings/api-keys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/api-keys (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders) but not a search target (client auth-gated: settings/api-keys/+page.svelte:137-138 shows \"Sign in from the Account page\" instead of the keys when !isAuthenticated()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(settings)/settings/instruments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/(settings)/settings/preferences/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/preferences (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders) but not a search target (client redirect stub: account/+page.svelte $effect goto('/settings/account') and renders only \"Redirecting...\"), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/auth/confirm/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/confirm (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders) but not a search target (magic-link callback handoff: auth/confirm/+page.svelte verifies token_hash from the email link and goto()s /account), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/auth/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /auth/reset-password (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /import (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/instruments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/ozbcoz/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ozbcoz (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/session/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /session (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/shared/collection/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /shared/collection/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/shared/song/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /shared/song/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/songs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/songs/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /songs/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/canonical-url::src/routes/songs/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /songs/new (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: app.html:7 literal <meta name=\"description\" content=\"Local-first TAB music sharing app\"> (33 chars), the only description of every route (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:7 literal description is the only description of all 28 routes (no svelte:head sets one), duplicate as claimed; but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/heading-level-skip::src/routes/(app)/admin/instruments/+page.svelte:163::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: page <h1> (:157) in the header, then {#if !canManage…} permission-error <h3>Access Denied (:163) with only a badge span between -> h1 to h3"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/heading-level-skip::src/routes/(app)/admin/songs/+page.svelte:174::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: page <h1> (:168) in the header, then {#if !canManage…} permission-error <h3>Access Denied (:174) with only a badge span between -> h1 to h3"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/heading-level-skip::src/routes/(app)/admin/system-chords/+page.svelte:137::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: page <h1> (:131) in the header, then {#if !canManage…} permission-error <h3>Access Denied (:137) with only a badge span between -> h1 to h3"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/heading-level-skip::src/routes/(app)/admin/users/+page.svelte:224::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: page <h1> (:218) in the header, then {#if !canManage…} permission-error <h3>Access Denied (:224) with only a badge span between -> h1 to h3"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/heading-level-skip::src/routes/(settings)/settings/+page.svelte:25::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1>Settings (:13) then the first settings card <h3>Account (:25), only an svg icon between -> h1 to h3"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/heading-level-skip::src/routes/(settings)/settings/instruments/+page.svelte:178::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1>Custom Instruments (:160) then, in the {:else} instruments grid, each card <h3> (:178); no <h2> between -> h1 to h3"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/heading-level-skip::src/routes/auth/reset-password/+page.svelte:82::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1>Reset Password (:78) then {#if success} <h3>Password updated! (:82) -> h1 to h3"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/heading-level-skip::src/routes/session/+page.svelte:227::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1>Sharing Session (:204) then {:else if session.isActive} … <h3>Scan to Join (:227) with no heading between -> h1 to h3"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/heading-level-skip::src/routes/songs/[id]/+page.svelte:1149::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1>{song.title} (:942) then the song view (no <h2> in page markup between; the page's modals with <h2> come later and are closed) to the chord-palette <h3> (:1149) -> h1 to h3"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/admin/instruments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /admin/instruments has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/admin/songs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /admin/songs has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/admin/system-chords/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /admin/system-chords has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /admin/users has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/browse/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /browse has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/collections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /collections has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/collections/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /collections/[id] has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/help/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /help has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/library/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /library has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(app)/library/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /library/[id] has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(settings)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /settings has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(settings)/settings/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /settings/account has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(settings)/settings/api-keys/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /settings/api-keys has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(settings)/settings/instruments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /settings/instruments has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/(settings)/settings/preferences/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /settings/preferences has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): / has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /account has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/auth/confirm/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /auth/confirm has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/auth/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /auth/reset-password has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /import has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/instruments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /instruments has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/ozbcoz/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /ozbcoz has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/session/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /session has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/shared/collection/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /shared/collection/[id] has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/shared/song/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /shared/song/[id] has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/songs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /songs has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/songs/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /songs/[id] has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/json-ld::src/routes/songs/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and the @gigwidget workspace packages: no ld+json/jsonld anywhere, no meta library): /songs/new has no JSON-LD"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/admin/instruments/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/admin/songs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/admin/system-chords/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/system-chords (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/browse/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /browse (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/collections/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collections (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/collections/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collections/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/help/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /help (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(app)/library/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(settings)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(settings)/settings/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(settings)/settings/api-keys/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/api-keys (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client auth-gated: settings/api-keys/+page.svelte:137-138 shows \"Sign in from the Account page\" instead of the keys when !isAuthenticated() (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(settings)/settings/instruments/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/preferences (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client redirect stub: account/+page.svelte $effect goto('/settings/account') and renders only \"Redirecting...\" (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/auth/confirm/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/confirm (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: magic-link callback handoff: auth/confirm/+page.svelte verifies token_hash from the email link and goto()s /account (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/auth/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/reset-password (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /import (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/instruments/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/ozbcoz/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ozbcoz (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/session/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /session (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/shared/collection/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shared/collection/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/shared/song/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shared/song/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/songs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/songs/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /songs/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-description::src/routes/songs/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /songs/new (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/admin/instruments/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/admin/songs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/admin/system-chords/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/system-chords (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/browse/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /browse (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/collections/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collections (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/collections/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collections/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/help/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /help (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /library (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(app)/library/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /library/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(settings)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(settings)/settings/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(settings)/settings/api-keys/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/api-keys (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client auth-gated: settings/api-keys/+page.svelte:137-138 shows \"Sign in from the Account page\" instead of the keys when !isAuthenticated() (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(settings)/settings/instruments/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/preferences (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client redirect stub: account/+page.svelte $effect goto('/settings/account') and renders only \"Redirecting...\" (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/auth/confirm/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/confirm (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: magic-link callback handoff: auth/confirm/+page.svelte verifies token_hash from the email link and goto()s /account (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/auth/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/reset-password (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/import/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /import (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/instruments/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/ozbcoz/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ozbcoz (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/session/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /session (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/shared/collection/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shared/collection/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/shared/song/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shared/song/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/songs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/songs/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /songs/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-image::src/routes/songs/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /songs/new (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/admin/instruments/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/admin/songs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/admin/system-chords/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/system-chords (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/browse/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /browse (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/collections/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collections (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/collections/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collections/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/help/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /help (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /library (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(app)/library/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /library/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(settings)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(settings)/settings/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(settings)/settings/api-keys/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/api-keys (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client auth-gated: settings/api-keys/+page.svelte:137-138 shows \"Sign in from the Account page\" instead of the keys when !isAuthenticated() (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(settings)/settings/instruments/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/preferences (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client redirect stub: account/+page.svelte $effect goto('/settings/account') and renders only \"Redirecting...\" (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/auth/confirm/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/confirm (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: magic-link callback handoff: auth/confirm/+page.svelte verifies token_hash from the email link and goto()s /account (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/auth/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/reset-password (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /import (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/instruments/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/ozbcoz/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ozbcoz (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/session/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /session (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/shared/collection/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shared/collection/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/shared/song/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shared/song/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/songs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/songs/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /songs/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-title::src/routes/songs/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /songs/new (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/admin/instruments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/admin/songs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/admin/system-chords/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/system-chords (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/browse/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /browse (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/collections/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collections (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/collections/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collections/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/help/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /help (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /library (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(app)/library/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /library/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(settings)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(settings)/settings/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(settings)/settings/api-keys/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/api-keys (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client auth-gated: settings/api-keys/+page.svelte:137-138 shows \"Sign in from the Account page\" instead of the keys when !isAuthenticated() (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(settings)/settings/instruments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/preferences (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client redirect stub: account/+page.svelte $effect goto('/settings/account') and renders only \"Redirecting...\" (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/auth/confirm/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/confirm (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: magic-link callback handoff: auth/confirm/+page.svelte verifies token_hash from the email link and goto()s /account (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/auth/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/reset-password (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /import (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/instruments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/ozbcoz/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ozbcoz (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/session/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /session (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/shared/collection/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shared/collection/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/shared/song/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shared/song/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/songs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/songs/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /songs/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/og-url::src/routes/songs/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /songs/new (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: apps/web/static has manifest.json and join/ only, no robots.txt/sitemap.xml route or generator (literal claim holds); but not a website to crawl: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/single-h1::src/lib/components/AppShell.svelte:65::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: key covers 21 routes (local CLI), all with an unconditional page <h1> (e.g. admin/instruments:157, browse:502, settings:13); the app is ssr=false and AppShell renders a brand <h1>Gigwidget in the mobile header (AppShell.svelte:65) or, on desktop, in the expanded Sidebar (Sidebar.svelte:40) -> two <h1>s render together (the counted third, Sidebar in the closed {#if mobileMenuOpen} drawer, inflates the count only)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/single-h1::src/lib/components/Sidebar.svelte:40::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: key covers 7 routes (local CLI); counted are AppShell's mobile-header <h1> (:65) and Sidebar's <h1> (:40) inside the closed {#if mobileMenuOpen} drawer (:68); on 5 routes (/, /account, /instruments, /library/[id], /songs) the page is a goto() redirect stub with no heading, so one <h1> shows; on /shared/* the layout renders the page bare ({:else if isSharedRoute}, +layout.svelte) with one page <h1> - the second counted <h1> is in a closed drawer, per the documented closed-menu over-count"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: apps/web/static has manifest.json and join/ only, no robots.txt/sitemap.xml route or generator (literal claim holds); but not a website to crawl: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/ssr-disabled::src/routes/+layout.ts:3::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:3 (literal claim holds); deliberate and documented in the file: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/ssr-disabled::src/routes/auth/confirm/+page.ts:4::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/auth/confirm/+page.ts:4 (literal claim holds); the email-confirmation callback of a client-only app, not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/(app)/admin/users/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/admin/users/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/(app)/browse/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/browse/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/(app)/collections/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/collections/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/(app)/help/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/help/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/(app)/library/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/library/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/(settings)/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(settings)/settings/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/(settings)/settings/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(settings)/settings/account/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/(settings)/settings/preferences/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(settings)/settings/preferences/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/auth/confirm/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/auth/confirm/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/auth/reset-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/auth/reset-password/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/import/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/import/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/session/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/session/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-length::src/routes/songs/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/songs/new/+page.svelte's top-level svelte:head (e.g. 'Library - Gigwidget'), the route's only title, length as reported (literal claim holds); but not a search target: Gigwidget is a local-first, offline-first TAB-sharing PWA (README) whose root +layout.ts:3 sets ssr = false because it needs IndexedDB/Web Bluetooth; / just goto()s /library and every view reads the visitor's own local library, no public landing content"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-presence::src/routes/(app)/admin/system-chords/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: root +layout.ts:3 ssr = false (client titles would count) but no <title>/document.title on src/routes/(app)/admin/system-chords/+page.svelte or its layouts; workspace @gigwidget/* packages have no .svelte files; Lit components @parent-tobias/chord-component@2.1.2 / chordpro-renderer@2.1.5 (jsDelivr dist) set no title; app.html none; the page renders real content (h1) with no title, unlike sibling pages such as (app)/library/+page.svelte:177"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-presence::src/routes/(app)/library/[id]/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: root +layout.ts:3 ssr = false (client titles would count) but no <title>/document.title on src/routes/(app)/library/[id]/+page.svelte or its layouts; workspace @gigwidget/* packages have no .svelte files; Lit components @parent-tobias/chord-component@2.1.2 / chordpro-renderer@2.1.5 (jsDelivr dist) set no title; app.html none (literal claim holds); but src/routes/(app)/library/[id]/+page.svelte is a client-side redirect shim: its $effect only goto()s with replaceState and renders a \"Redirecting...\"/\"Loading song...\" placeholder (shareviz example/[id] redirect-shim precedent)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-presence::src/routes/(settings)/settings/api-keys/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: root +layout.ts:3 ssr = false (client titles would count) but no <title>/document.title on src/routes/(settings)/settings/api-keys/+page.svelte or its layouts; workspace @gigwidget/* packages have no .svelte files; Lit components @parent-tobias/chord-component@2.1.2 / chordpro-renderer@2.1.5 (jsDelivr dist) set no title; app.html none; the page renders real content (h1) with no title, unlike sibling pages such as (app)/library/+page.svelte:177"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: root +layout.ts:3 ssr = false (client titles would count) but no <title>/document.title on src/routes/+page.svelte or its layouts; workspace @gigwidget/* packages have no .svelte files; Lit components @parent-tobias/chord-component@2.1.2 / chordpro-renderer@2.1.5 (jsDelivr dist) set no title; app.html none (literal claim holds); but src/routes/+page.svelte is a client-side redirect shim: its $effect only goto()s with replaceState and renders a \"Redirecting...\"/\"Loading song...\" placeholder (shareviz example/[id] redirect-shim precedent)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-presence::src/routes/account/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: root +layout.ts:3 ssr = false (client titles would count) but no <title>/document.title on src/routes/account/+page.svelte or its layouts; workspace @gigwidget/* packages have no .svelte files; Lit components @parent-tobias/chord-component@2.1.2 / chordpro-renderer@2.1.5 (jsDelivr dist) set no title; app.html none (literal claim holds); but src/routes/account/+page.svelte is a client-side redirect shim: its $effect only goto()s with replaceState and renders a \"Redirecting...\"/\"Loading song...\" placeholder (shareviz example/[id] redirect-shim precedent)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-presence::src/routes/instruments/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: root +layout.ts:3 ssr = false (client titles would count) but no <title>/document.title on src/routes/instruments/+page.svelte or its layouts; workspace @gigwidget/* packages have no .svelte files; Lit components @parent-tobias/chord-component@2.1.2 / chordpro-renderer@2.1.5 (jsDelivr dist) set no title; app.html none (literal claim holds); but src/routes/instruments/+page.svelte is a client-side redirect shim: its $effect only goto()s with replaceState and renders a \"Redirecting...\"/\"Loading song...\" placeholder (shareviz example/[id] redirect-shim precedent)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-presence::src/routes/shared/collection/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: root +layout.ts:3 ssr = false (client titles would count) but no <title>/document.title on src/routes/shared/collection/[id]/+page.svelte or its layouts; workspace @gigwidget/* packages have no .svelte files; Lit components @parent-tobias/chord-component@2.1.2 / chordpro-renderer@2.1.5 (jsDelivr dist) set no title; app.html none; the page renders real content (h1) with no title, unlike sibling pages such as (app)/library/+page.svelte:177"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-presence::src/routes/shared/song/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: root +layout.ts:3 ssr = false (client titles would count) but no <title>/document.title on src/routes/shared/song/[id]/+page.svelte or its layouts; workspace @gigwidget/* packages have no .svelte files; Lit components @parent-tobias/chord-component@2.1.2 / chordpro-renderer@2.1.5 (jsDelivr dist) set no title; app.html none; the page renders real content (h1) with no title, unlike sibling pages such as (app)/library/+page.svelte:177"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/title-presence::src/routes/songs/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: root +layout.ts:3 ssr = false (client titles would count) but no <title>/document.title on src/routes/songs/+page.svelte or its layouts; workspace @gigwidget/* packages have no .svelte files; Lit components @parent-tobias/chord-component@2.1.2 / chordpro-renderer@2.1.5 (jsDelivr dist) set no title; app.html none (literal claim holds); but src/routes/songs/+page.svelte is a client-side redirect shim: its $effect only goto()s with replaceState and renders a \"Redirecting...\"/\"Loading song...\" placeholder (shareviz example/[id] redirect-shim precedent)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/admin/instruments/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/admin/songs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/admin/system-chords/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/system-chords (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client-gated admin page: the page renders its content only {#if} the signed-in user holds the admin permission (else an access-denied card) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/browse/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /browse (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/collections/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collections (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/collections/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collections/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/help/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /help (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/library/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /library (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(app)/library/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /library/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(settings)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(settings)/settings/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(settings)/settings/api-keys/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/api-keys (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client auth-gated: settings/api-keys/+page.svelte:137-138 shows \"Sign in from the Account page\" instead of the keys when !isAuthenticated() (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(settings)/settings/instruments/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/preferences (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: client redirect stub: account/+page.svelte $effect goto('/settings/account') and renders only \"Redirecting...\" (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/auth/confirm/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/confirm (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: magic-link callback handoff: auth/confirm/+page.svelte verifies token_hash from the email link and goto()s /account (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/auth/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/reset-password (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/import/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /import (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/instruments/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instruments (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/ozbcoz/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ozbcoz (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/session/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /session (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/shared/collection/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shared/collection/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/shared/song/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shared/song/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/songs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /songs (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/songs/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /songs/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "parent-tobias/shared-gigwidget:apps/web::seo/twitter-card::src/routes/songs/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /songs/new (no og:*/twitter:*/rel=canonical anywhere in apps/web/src, app.html or the workspace packages (core/db/sync/ui); ssr=false app-wide (+layout.ts:3) so client heads count and none exist; npm @parent-tobias/* deps are Lit web components with no svelte export (jsDelivr package.json); route renders); route context: publicly reachable rendered route of a local-first SPA: no auth gate, no noindex, no robots.txt"
+  }
+]

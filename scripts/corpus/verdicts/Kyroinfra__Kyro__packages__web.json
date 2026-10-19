@@ -1,0 +1,812 @@
+[
+  {
+    "key": "Kyroinfra/Kyro:packages/web::a11y/duplicate-landmark::src/routes/(app)/+layout.svelte:140::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:14-16 wraps {@render children()} in <main>, and (app)/+layout.svelte:140-142 renders a second <main class=main-content> around its children, so every /dashboard route has two main landmarks; (app)/+layout.server.ts redirects only when !locals.user, so the routes render when signed in"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::a11y/label-has-control::src/routes/(app)/dashboard/keys/+page.svelte:247::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read routes/(app)/dashboard/keys/+page.svelte:247: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::a11y/label-has-control::src/routes/(app)/dashboard/settings/+page.svelte:102::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read routes/(app)/dashboard/settings/+page.svelte:102: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::a11y/label-has-control::src/routes/(app)/dashboard/settings/+page.svelte:106::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read routes/(app)/dashboard/settings/+page.svelte:106: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::a11y/label-has-control::src/routes/(app)/dashboard/settings/+page.svelte:94::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read routes/(app)/dashboard/settings/+page.svelte:94: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::a11y/label-has-control::src/routes/(app)/dashboard/settings/+page.svelte:98::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read routes/(app)/dashboard/settings/+page.svelte:98: <label> with no for= and no nested form control (the following control/sibling is outside it), so it labels nothing, as reported"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::a11y/placeholder-label-option::src/routes/(app)/dashboard/settings/+page.svelte:224::<select required> is missing a placeholder label option",
+    "verdict": "tp",
+    "basis": "read (app)/dashboard/settings/+page.svelte:224-227: unbound <select id=invite-role name=role required> (no bind:value/value/selected) whose first option is <option value=\"member\">; no placeholder label option, so it is submittable unchosen (unbound-select precedent)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::a11y/top-level-landmark::src/routes/(app)/+layout.svelte:140::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:14-16 wraps {@render children()} in <main>, and (app)/+layout.svelte:140-142 renders a second <main class=main-content> around its children, so every /dashboard route has a main nested in main; (app)/+layout.server.ts redirects only when !locals.user, so the routes render when signed in"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::a11y/top-level-landmark::src/routes/(app)/+layout.svelte:79::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/+layout.svelte:79 unlabelled <aside class=sidebar> (unconditional) sits in the root +layout.svelte:14 <main> through divs only (no sectioning ancestor), so it is a complementary landmark nested in main; routes render when signed in ((app)/+layout.server.ts redirects only when !locals.user)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/lib/components/ApiKeyGate.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ApiKeyGate.svelte has 236 physical lines (208 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/(app)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+layout.svelte has 594 physical lines (524 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/(app)/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/+page.svelte has 644 physical lines (557 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/(app)/dashboard/ask/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/ask/+page.svelte has 652 physical lines (574 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/(app)/dashboard/collections/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/collections/+page.svelte has 422 physical lines (377 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/(app)/dashboard/collections/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/collections/[id]/+page.svelte has 686 physical lines (611 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/(app)/dashboard/files/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/files/+page.svelte has 764 physical lines (680 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/(app)/dashboard/keys/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/keys/+page.svelte has 642 physical lines (568 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/(app)/dashboard/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/settings/+page.svelte has 480 physical lines (420 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/(app)/dashboard/usage/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/usage/+page.svelte has 402 physical lines (360 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/component-size::src/routes/health/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/health/+page.svelte has 238 physical lines (209 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 7 named props: variant, size, disabled, loading, type, onclick, children (> 6)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/prop-count::src/lib/components/ui/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/ConfirmDialog.svelte has a single destructured $props() with 8 named props: open, title, message, confirmLabel, cancelLabel, variant, onconfirm, oncancel (> 6)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::architecture/prop-count::src/lib/components/ui/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Input.svelte has a single destructured $props() with 10 named props: name, label, type, placeholder, value, error, disabled, required, oninput, onchange (> 6)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/+layout.svelte:147::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/+layout.svelte:147 '{#each allNavItems as item}' has no key and is not an exempt shape; allNavItems = navSections.flatMap(s => s.items) of the same-file const navSections literal ((app)/+layout.svelte:30-55); static nav list"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/+layout.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/+layout.svelte:91 '{#each section.items as item}' has no key and is not an exempt shape; section.items, a member list of the same-file const navSections literal ((app)/+layout.svelte:30); static nav list"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/+page.svelte:164::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/+page.svelte:164 '{#each data.recentKeys as key}' has no key and is not an exempt shape; data.recentKeys, API keys from the page load; runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/ask/+page.svelte:203::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/ask/+page.svelte:203 '{#each collections as c}' has no key and is not an exempt shape; collections = $state filled by getCollections() (ask/+page.svelte:36,48); runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/ask/+page.svelte:222::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/ask/+page.svelte:222 '{#each messages as msg}' has no key and is not an exempt shape; messages = $state chat log appended and reset (ask/+page.svelte:28,75,82); runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/ask/+page.svelte:245::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/ask/+page.svelte:245 '{#each msg.sources as source, si}' has no key and is not an exempt shape; msg.sources, retrieval sources of a chat answer from the API; runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/collections/+page.svelte:133::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/collections/+page.svelte:133 '{#each collections as collection}' has no key and is not an exempt shape; collections = $state filled by getCollections() (collections/+page.svelte:22,42); runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/collections/[id]/+page.svelte:284::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/collections/[id]/+page.svelte:284 '{#each collectionFiles as file}' has no key and is not an exempt shape; collectionFiles = $state from the API, removed mid-list via filter (collections/[id]/+page.svelte:52,171); items removed"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/collections/[id]/+page.svelte:347::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/collections/[id]/+page.svelte:347 '{#each orgFiles as file}' has no key and is not an exempt shape; orgFiles = $state from the API (collections/[id]/+page.svelte:128); runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/files/+page.svelte:374::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/files/+page.svelte:374 '{#each files as file}' has no key and is not an exempt shape; files = $state paged from the API and appended (files/+page.svelte:78,97); runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/files/+page.svelte:487::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/files/+page.svelte:487 '{#each collections as collection}' has no key and is not an exempt shape; collections = $state from getCollections() (files/+page.svelte:250); runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/keys/+page.svelte:160::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/keys/+page.svelte:160 '{#each filteredKeys() as key}' has no key and is not an exempt shape; filteredKeys() filters data.keys by the active/revoked filter (keys/+page.svelte:56-60), so items leave mid-list; runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/keys/+page.svelte:190::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/keys/+page.svelte:190 '{#each key.scopes as scope}' has no key and is not an exempt shape; key.scopes of an API key record from the load; runtime list"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/keys/+page.svelte:249::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/dashboard/keys/+page.svelte:249 '{#each availableScopes() as scope}' has no key and is not an exempt shape; availableScopes() returns one of two literal scope arrays by role (keys/+page.svelte:49-54); static option list"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/each-key::src/routes/(app)/dashboard/settings/+page.svelte:127::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/settings/+page.svelte:127 '{#each members as member}' has no key and is not an exempt shape; members = $state(data.members), the organisation's members from the load; runtime records"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/effect-as-derived::src/routes/(app)/dashboard/settings/+page.svelte:47::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: the effect only does org = data.org; members = data.members, and neither is written elsewhere (settings/+page.svelte:35-49, reads only), plain $derived values as claimed"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::correctness/unmutated-state::src/routes/(app)/dashboard/files/+page.svelte:36::$state \"hasApiKey\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w hasApiKey in the file): let hasApiKey = $state(data.hasApiKey) is only read ({#if !hasApiKey} :302); never written, bound or passed"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::performance/image-dimensions::src/routes/+page.svelte:7::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> lacks width/height attributes, no spread; .logo-img {width:64px;height:64px} (+page.svelte:31-35) - box reserved by CSS"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::performance/image-loading-hint::src/routes/+page.svelte:7::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; hero logo at the top of the full-height landing, directly above the <h1> - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::performance/state-raw::src/routes/(app)/dashboard/ask/+page.svelte:36::\"collections\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"collections\" in src/routes/(app)/dashboard/ask/+page.svelte: declared at :36, whole reassignment at :48 (await getCollections), read via .length (:196) and {#each} rendering <option> text (:203-205); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(app)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(app)/dashboard/ask/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/ask (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(app)/dashboard/collections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/collections (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(app)/dashboard/collections/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/collections/[id] (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(app)/dashboard/files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/files (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(app)/dashboard/keys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/keys (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(app)/dashboard/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/settings (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(app)/dashboard/usage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/usage (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/canonical-url::src/routes/health/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /health (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /dashboard (src/routes/(app)/dashboard/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(app)/dashboard/ask/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /dashboard/ask (src/routes/(app)/dashboard/ask/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(app)/dashboard/collections/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /dashboard/collections (src/routes/(app)/dashboard/collections/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(app)/dashboard/collections/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /dashboard/collections/[id] (src/routes/(app)/dashboard/collections/[id]/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(app)/dashboard/files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /dashboard/files (src/routes/(app)/dashboard/files/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(app)/dashboard/keys/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /dashboard/keys (src/routes/(app)/dashboard/keys/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(app)/dashboard/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /dashboard/settings (src/routes/(app)/dashboard/settings/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(app)/dashboard/usage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /dashboard/usage (src/routes/(app)/dashboard/usage/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /login (src/routes/(auth)/login/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /register (src/routes/(auth)/register/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on / (src/routes/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/description-presence::src/routes/health/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /health (src/routes/health/+page.svelte head sets only <title> or none, root/group layouts none, app.html none) (literal claim holds); but Kyro is a self-hosted document-storage/RAG dashboard (README) run on the operator's own infrastructure: (app)/+layout.server.ts:5-7 redirects guests to /login, / is the first-run setup landing, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/heading-level-skip::src/routes/(app)/dashboard/collections/[id]/+page.svelte:275::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1 class=\"collection-title\"> (:223) in the header Card, then Badge/Button/section label (no headings; Card/Badge/Button render none), then the empty-state <h3> (:275) -> h1 to h3"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(app)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(app)/dashboard/ask/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(app)/dashboard/collections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(app)/dashboard/collections/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(app)/dashboard/files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(app)/dashboard/keys/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(app)/dashboard/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(app)/dashboard/usage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/json-ld::src/routes/health/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/web/src incl. app.html and the @kyro/shared workspace package: no ld+json/jsonld anywhere, no meta library in deps): the route has no JSON-LD"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(app)/dashboard/ask/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/ask (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(app)/dashboard/collections/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/collections (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(app)/dashboard/collections/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/collections/[id] (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(app)/dashboard/files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/files (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(app)/dashboard/keys/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/keys (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(app)/dashboard/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/settings (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(app)/dashboard/usage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/usage (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-description::src/routes/health/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /health (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(app)/dashboard/ask/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/ask (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(app)/dashboard/collections/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/collections (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(app)/dashboard/collections/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/collections/[id] (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(app)/dashboard/files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/files (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(app)/dashboard/keys/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/keys (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(app)/dashboard/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/settings (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(app)/dashboard/usage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/usage (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-image::src/routes/health/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /health (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(app)/dashboard/ask/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/ask (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(app)/dashboard/collections/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/collections (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(app)/dashboard/collections/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/collections/[id] (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(app)/dashboard/files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/files (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(app)/dashboard/keys/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/keys (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(app)/dashboard/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/settings (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(app)/dashboard/usage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/usage (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-title::src/routes/health/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /health (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(app)/dashboard/ask/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/ask (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(app)/dashboard/collections/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/collections (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(app)/dashboard/collections/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/collections/[id] (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(app)/dashboard/files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/files (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(app)/dashboard/keys/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/keys (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(app)/dashboard/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/settings (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(app)/dashboard/usage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/usage (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/og-url::src/routes/health/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /health (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: packages/web/static has favicon/logo/openapi.yaml only, no robots.txt/sitemap.xml route or generator (literal claim holds); but Kyro is a self-hosted document-storage/RAG API dashboard deployed by each operator via Docker (README), not a public website"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/single-h1::/dashboard/keys::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/keys/+page.svelte has no heading element; no <h1> in root +layout.svelte (Toast + main), (app)/+layout.svelte (sidebar with Logo svg + span, topbar) or $lib components (only Modal <h2>, ConfirmDialog <h3>); grep of src finds <h1> only on /, /health, collections/[id] and +error; (app) layout load redirects only logged-out users, so the route renders"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/single-h1::/dashboard/usage::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/usage/+page.svelte has no heading element; no <h1> in root +layout.svelte (Toast + main), (app)/+layout.svelte (sidebar with Logo svg + span, topbar) or $lib components (only Modal <h2>, ConfirmDialog <h3>); grep of src finds <h1> only on /, /health, collections/[id] and +error; (app) layout load redirects only logged-out users, so the route renders"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/single-h1::/dashboard::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/+page.svelte has no heading element; no <h1> in root +layout.svelte (Toast + main), (app)/+layout.svelte (sidebar with Logo svg + span, topbar) or $lib components (only Modal <h2>, ConfirmDialog <h3>); grep of src finds <h1> only on /, /health, collections/[id] and +error; (app) layout load redirects only logged-out users, so the route renders"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (auth)/login/+page.svelte (Card/Logo/Input) has no heading element; no load, renders; no <h1> in root +layout.svelte (Toast + main), (app)/+layout.svelte (sidebar with Logo svg + span, topbar) or $lib components (only Modal <h2>, ConfirmDialog <h3>); grep of src finds <h1> only on /, /health, collections/[id] and +error; (app) layout load redirects only logged-out users, so the route renders"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/single-h1::/register::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (auth)/register/+page.svelte has no heading element; its load is commented out, renders; no <h1> in root +layout.svelte (Toast + main), (app)/+layout.svelte (sidebar with Logo svg + span, topbar) or $lib components (only Modal <h2>, ConfirmDialog <h3>); grep of src finds <h1> only on /, /health, collections/[id] and +error; (app) layout load redirects only logged-out users, so the route renders"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/single-h1::src/routes/(app)/dashboard/ask/+page.svelte:163::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/ask/+page.svelte only heading is <h3>API Key Required (:163); no <h1> in root +layout.svelte (Toast + main), (app)/+layout.svelte (sidebar with Logo svg + span, topbar) or $lib components (only Modal <h2>, ConfirmDialog <h3>); grep of src finds <h1> only on /, /health, collections/[id] and +error; (app) layout load redirects only logged-out users, so the route renders"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/single-h1::src/routes/(app)/dashboard/collections/+page.svelte:100::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/collections/+page.svelte headings are <h3>s (:100,:123); no <h1> in root +layout.svelte (Toast + main), (app)/+layout.svelte (sidebar with Logo svg + span, topbar) or $lib components (only Modal <h2>, ConfirmDialog <h3>); grep of src finds <h1> only on /, /health, collections/[id] and +error; (app) layout load redirects only logged-out users, so the route renders"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/single-h1::src/routes/(app)/dashboard/files/+page.svelte:306::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/files/+page.svelte headings are <h3>s (:306,:368); no <h1> in root +layout.svelte (Toast + main), (app)/+layout.svelte (sidebar with Logo svg + span, topbar) or $lib components (only Modal <h2>, ConfirmDialog <h3>); grep of src finds <h1> only on /, /health, collections/[id] and +error; (app) layout load redirects only logged-out users, so the route renders"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/single-h1::src/routes/(app)/dashboard/settings/+page.svelte:158::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/settings/+page.svelte only heading is <h2>Danger Zone (:158); no <h1> in root +layout.svelte (Toast + main), (app)/+layout.svelte (sidebar with Logo svg + span, topbar) or $lib components (only Modal <h2>, ConfirmDialog <h3>); grep of src finds <h1> only on /, /health, collections/[id] and +error; (app) layout load redirects only logged-out users, so the route renders"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: packages/web/static has favicon/logo/openapi.yaml only, no robots.txt/sitemap.xml route or generator (literal claim holds); but Kyro is a self-hosted document-storage/RAG API dashboard deployed by each operator via Docker (README), not a public website"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/(app)/dashboard/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/dashboard/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/(app)/dashboard/ask/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/dashboard/ask/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/(app)/dashboard/collections/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/dashboard/collections/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/(app)/dashboard/files/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/dashboard/files/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/(app)/dashboard/keys/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/dashboard/keys/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/(app)/dashboard/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/dashboard/settings/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/(app)/dashboard/usage/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(app)/dashboard/usage/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/(auth)/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(auth)/login/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/(auth)/register/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/(auth)/register/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/+page.svelte's top-level svelte:head (e.g. 'Ask - Kyro'), the route's only title, length as reported (literal claim holds); but a self-hosted RAG dashboard (README), login/setup or (app) route behind (app)/+layout.server.ts redirect, not a search target"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/title-presence::src/routes/health/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title: health/+page.svelte and root +layout.svelte have no <title>, app.html none, no document.title (literal claim holds); but /health is an operator backend-status diagnostics page (onMount getHealth, \"Make sure the backend container is running\") beside health/+server.ts, the JSON healthcheck endpoint, and linked from nowhere in src (tradingstrategy diagnostics / unlinked developer page precedent)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(app)/dashboard/ask/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/ask (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(app)/dashboard/collections/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/collections (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(app)/dashboard/collections/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/collections/[id] (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(app)/dashboard/files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/files (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(app)/dashboard/keys/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/keys (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(app)/dashboard/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/settings (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(app)/dashboard/usage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/usage (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: auth-gated: (app)/+layout.server.ts:5-7 redirects to /login when !locals.user (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  },
+  {
+    "key": "Kyroinfra/Kyro:packages/web::seo/twitter-card::src/routes/health/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /health (no og:*/twitter:*/rel=canonical anywhere in packages/web/src or app.html (page heads are <title> only; root +layout.svelte renders Toast + children); workspace @kyro/shared exports only OpenAPI YAML/JSON; no Svelte npm deps; route renders (no load always redirects)); route context: publicly reachable rendered route: no auth gate, no noindex, no robots.txt (self-hosted, but nothing marks it non-indexable)"
+  }
+]

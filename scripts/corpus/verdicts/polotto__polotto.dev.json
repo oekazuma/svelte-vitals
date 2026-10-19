@@ -1,0 +1,52 @@
+[
+  {
+    "key": "polotto/polotto.dev::architecture/component-size::src/lib/presenter/ui/Mascote.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/presenter/ui/Mascote.svelte has 392 physical lines (369 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "polotto/polotto.dev::architecture/component-size::src/routes/ferramentas/paleta/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ferramentas/paleta/+page.svelte has 418 physical lines (370 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "polotto/polotto.dev::architecture/prop-count::src/lib/presenter/ui/Seo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/presenter/ui/Seo.svelte has a single destructured $props() with 8 named props: titulo, descricao, caminho, tipo, jsonLd, publicado, atualizado, semIndice (> 6)"
+  },
+  {
+    "key": "polotto/polotto.dev::correctness/each-index-key::src/lib/presenter/ui/Mascote.svelte:228::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/presenter/ui/Mascote.svelte:228 '{#each quadros as quadro, i (i)}' is keyed by its index binding; quadros, the two sprite frames of one mascot action built from the constant SPRITES (Mascote.svelte:200); positional list (animation frames)"
+  },
+  {
+    "key": "polotto/polotto.dev::correctness/each-index-key::src/routes/ferramentas/cpf-cnpj/+page.svelte:51::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/ferramentas/cpf-cnpj/+page.svelte:51 '{#each exibidos as doc, i (i)}' is keyed by its index binding; exibidos = the generated test numbers, replaced on each generation (cpf-cnpj/+page.svelte:17-22); each row holds a <BotaoCopiar>, whose copiado $state shows 'copied' for 1.5s (BotaoCopiar.svelte:11-18), so a regenerate within that window leaves the flag on the new number at the same position: element state follows position"
+  },
+  {
+    "key": "polotto/polotto.dev::security/raw-html::src/lib/presenter/ui/CorpoArtigo.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/presenter/ui/CorpoArtigo.svelte:6,17 + routes/artigos/[slug]/+page.server.ts:21: html = renderizarMarkdown(artigo.corpo) of the author's own markdown committed under content/ (prerendered entries) — repo content, reported per docs"
+  },
+  {
+    "key": "polotto/polotto.dev::security/raw-html::src/lib/presenter/ui/Seo.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/presenter/ui/Seo.svelte:48 + lib/presenter/seo.ts:85-87: serializarJsonLd = JSON.stringify(dados).replace(/</g,'\\\\u003c') — script-safe JSON-LD serialization per docs, reported per docs"
+  },
+  {
+    "key": "polotto/polotto.dev::security/raw-html::src/routes/+layout.svelte:22::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:22 + lib/presenter/ui/Mascote.svelte:153-155: HEAD_MASCOTE is a module constant (<style> + inline <script> built from the in-file ACOES list via JSON.stringify) — repo constant, reported per docs"
+  },
+  {
+    "key": "polotto/polotto.dev::security/raw-html::src/routes/ferramentas/mascote/+page.svelte:51::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/ferramentas/mascote/+page.svelte:20-21,51 + lib/domain/ferramentas/gerador-mascote.ts:22-30,176-203: the typed text only seeds hash(); desenhoParaSvg (:186-203) emits <rect> elements from numeric grid coords with fill colours from hsl() of hash-seeded numbers or in-file palettes (:62,70,161-170) — no user text reaches the markup; reported per docs"
+  },
+  {
+    "key": "polotto/polotto.dev::security/raw-html::src/routes/ferramentas/qrcode/+page.svelte:83::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/ferramentas/qrcode/+page.svelte:40,83 + lib/domain/ferramentas/gerador-mascote.ts:186-203: previa = desenhoParaSvg(geradorQrCode.gerar(texto, nivel)); lib/infrastructure/qrcode.ts returns a '#'/'.' module grid from qrcode-generator with fixed #000000/#ffffff colours — <rect> elements from numeric coords, the encoded text never appears in the markup; reported per docs"
+  }
+]
