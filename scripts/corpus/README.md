@@ -575,7 +575,7 @@ Measured on 534 apps, each pinned to a commit:
 - [keplersystems/kepler-chat](https://github.com/keplersystems/kepler-chat/tree/d45e47960bec15d3886d35eb6b7d97bb0edabca5) (`d45e479`)
 - [SecureCloudGroup/SmartBrain_3000/web](https://github.com/SecureCloudGroup/SmartBrain_3000/tree/8d753fdf1e9dd86f4d80fc4916a9234526c42f88/web) (`8d753fd`)
 
-211758 of 211783 corpus findings have a verdict.
+211757 of 211782 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -678,7 +678,7 @@ Measured on 534 apps, each pinned to a commit:
 | [`seo/robots-txt`](../../docs/src/content/docs/rules/seo/robots-txt.md)                                               | 208             | 208  | 84 / 2 / 122 / 0                      | 98% (84/86)        | 59% (122/208)    |
 | [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 3848            | 424  | 3502 / 123 / 192 / 6                  | 97% (3502/3625)    | 5% (192/3823)    |
 | [`seo/sitemap-in-robots`](../../docs/src/content/docs/rules/seo/sitemap-in-robots.md)                                 | 15              | 15   | 14 / 0 / 1 / 0                        | 100% (14/14)       | 7% (1/15)        |
-| [`seo/sitemap-xml`](../../docs/src/content/docs/rules/seo/sitemap-xml.md)                                             | 372             | 372  | 136 / 3 / 233 / 0                     | 98% (136/139)      | 63% (233/372)    |
+| [`seo/sitemap-xml`](../../docs/src/content/docs/rules/seo/sitemap-xml.md)                                             | 371             | 371  | 136 / 2 / 233 / 0                     | 99% (136/138)      | 63% (233/371)    |
 | [`seo/ssr-disabled`](../../docs/src/content/docs/rules/seo/ssr-disabled.md)                                           | 693             | 179  | 145 / 0 / 548 / 0                     | 100% (145/145)     | 79% (548/693)    |
 | [`seo/title-length`](../../docs/src/content/docs/rules/seo/title-length.md)                                           | 3138            | 336  | 2118 / 7 / 1013 / 0                   | 100% (2118/2125)   | 32% (1013/3138)  |
 | [`seo/title-presence`](../../docs/src/content/docs/rules/seo/title-presence.md)                                       | 2501            | 179  | 2387 / 40 / 73 / 1                    | 98% (2387/2427)    | 3% (73/2501)     |
