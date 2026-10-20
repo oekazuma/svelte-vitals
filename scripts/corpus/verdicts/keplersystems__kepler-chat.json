@@ -1,0 +1,952 @@
+[
+  {
+    "key": "keplersystems/kepler-chat::a11y/disallowed-aria-props::src/lib/components/chat/SessionConfigMenu.svelte:267::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/chat/SessionConfigMenu.svelte:267: <span> with aria-label and no role, spread or use: action; a generic element prohibits naming, as reported"
+  },
+  {
+    "key": "keplersystems/kepler-chat::a11y/no-autofocus::src/lib/components/CommandPalette.svelte:138::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; search input inside bits-ui <Dialog.Root bind:open><Dialog.Content> (:128-131), shown only when the palette is opened; focus on user action inside an opened dialog (docs only carve out <dialog>/popover)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::a11y/no-autofocus::src/lib/components/chat/MessageBubble.svelte:114::autofocus on <textarea> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; edit <textarea autofocus> under {#if editing} (:111), editing = $state(false) (:47) set by the edit action (:52); focus on user action, not page load"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/lib/components/chat/ConversationSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ConversationSidebar.svelte has 234 physical lines (221 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/lib/components/chat/MessageBubble.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/MessageBubble.svelte has 309 physical lines (295 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/lib/components/chat/MessageInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/MessageInput.svelte has 470 physical lines (435 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/lib/components/chat/RequestDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/RequestDialog.svelte has 241 physical lines (220 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/lib/components/chat/SessionConfigMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/SessionConfigMenu.svelte has 291 physical lines (268 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/lib/components/chat/parts/ActivityTrail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/parts/ActivityTrail.svelte has 227 physical lines (209 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/lib/components/markdown/MarkdownTokens.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/markdown/MarkdownTokens.svelte has 230 physical lines (200 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/lib/components/mcp/McpServerManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mcp/McpServerManager.svelte has 342 physical lines (316 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/routes/(authenticated)/chat/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authenticated)/chat/[id]/+page.svelte has 392 physical lines (356 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/routes/(authenticated)/chats/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authenticated)/chats/+page.svelte has 214 physical lines (200 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/routes/(authenticated)/customize/connectors/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authenticated)/customize/connectors/+page.svelte has 213 physical lines (199 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/routes/(authenticated)/media/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authenticated)/media/+page.svelte has 206 physical lines (191 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/routes/(authenticated)/projects/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authenticated)/projects/[id]/+page.svelte has 330 physical lines (309 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/component-size::src/routes/(authenticated)/settings/agents/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authenticated)/settings/agents/+page.svelte has 203 physical lines (186 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/prop-count::src/lib/components/chat/MessageBubble.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/MessageBubble.svelte has a single destructured $props() with 7 named props: message, mode, streaming, elapsedLabel, onEdit, onRegenerate, onBranchAt (> 6)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/prop-count::src/lib/components/chat/MessageInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/MessageInput.svelte has a single destructured $props() with 18 named props: onSubmit, disabled, isStreaming, onStop, placeholder, config, modelInfo, onConfigChange, agentId, onAgentChange, mode, onModeSelect, chatModeAvailable, text, contextUsed, contextSize, commands, onCommand (> 6)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/prop-count::src/lib/components/manager/ConfirmDeleteDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/manager/ConfirmDeleteDialog.svelte has a single destructured $props() with 7 named props: open, title, error, deleting, onCancel, onConfirm, description (> 6)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/prop-count::src/lib/components/manager/ManagerFormDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/manager/ManagerFormDialog.svelte has a single destructured $props() with 9 named props: open, title, description, error, saving, submitLabel, onsubmit, contentClass, children (> 6)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/prop-count::src/lib/components/manager/ManagerListShell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/manager/ManagerListShell.svelte has a single destructured $props() with 8 named props: error, loading, empty, emptyText, addLabel, onAdd, onRetry, children (> 6)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props: class, orientation, viewportClass, viewportRef, onViewportScroll, type, children (> 6)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/each-index-key::src/lib/components/chat/RequestDialog.svelte:142::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/RequestDialog.svelte:142 '{#each permission.locations as location, index (index)}' is keyed by its index binding; permission.locations, the file locations of one permission request, read-only; positional list (rows of one result)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/each-index-key::src/lib/components/chat/parts/DiffView.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/parts/DiffView.svelte:85 '{#each lines as line, index (index)}' is keyed by its index binding; lines = computeDiff(old, new), the lines of one diff (DiffView.svelte:71); positional list (diff lines)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/each-index-key::src/lib/components/chat/parts/ToolCallCard.svelte:104::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/parts/ToolCallCard.svelte:104 '{#each diffs as diff, index (index)}' is keyed by its index binding; diffs derived from one tool call's content (ToolCallCard.svelte:27); positional list (parts of one result)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/each-index-key::src/lib/components/chat/parts/ToolCallCard.svelte:89::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/parts/ToolCallCard.svelte:89 '{#each part.locations as location, index (index)}' is keyed by its index binding; part.locations, the file locations of one tool call, read-only; positional list (rows of one result)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/each-index-key::src/routes/(authenticated)/settings/agents/+page.svelte:123::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(authenticated)/settings/agents/+page.svelte:123 '{#each hintSegments(agent.authHint) as segment, index (index)}' is keyed by its index binding; hintSegments(agent.authHint) splits one hint string into text/code runs (agents/+page.svelte:34-39); positional list (segments of one string)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/each-key::src/lib/components/markdown/MarkdownTokens.svelte:14::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/markdown/MarkdownTokens.svelte:14 '{#each row as cell}' has no key and is not an exempt shape; tokens/rows/cells/items of one parsed markdown document (MarkdownTokens.svelte, tokens prop from Markdown.svelte:11); positional list (markdown segments)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/each-key::src/lib/components/markdown/MarkdownTokens.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/markdown/MarkdownTokens.svelte:21 '{#each tokens as token}' has no key and is not an exempt shape; tokens/rows/cells/items of one parsed markdown document (MarkdownTokens.svelte, tokens prop from Markdown.svelte:11); positional list (markdown segments)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/each-key::src/lib/components/markdown/MarkdownTokens.svelte:63::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/markdown/MarkdownTokens.svelte:63 '{#each t.items as item}' has no key and is not an exempt shape; tokens/rows/cells/items of one parsed markdown document (MarkdownTokens.svelte, tokens prop from Markdown.svelte:11); positional list (markdown segments)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/each-key::src/lib/components/markdown/MarkdownTokens.svelte:76::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/markdown/MarkdownTokens.svelte:76 '{#each t.rows as row}' has no key and is not an exempt shape; tokens/rows/cells/items of one parsed markdown document (MarkdownTokens.svelte, tokens prop from Markdown.svelte:11); positional list (markdown segments)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/effect-as-derived::src/lib/components/chat/ChatLayout.svelte:23::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: the effect reads window.localStorage and sets hydrated = true (:24-25); a $derived would read localStorage during SSR, the docs' browser-global-capture and mount-flag limitations"
+  },
+  {
+    "key": "keplersystems/kepler-chat::correctness/effect-as-derived::src/routes/(authenticated)/chat/[id]/+page.svelte:56::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: the effect only does shareToken = data.conversation.share_token; share/unshare reassign it (:78, :90), the writable-$derived override pattern (svelte ^5.38)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::performance/iframe-loading::src/lib/components/chat/ArtifactViewer.svelte:106::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; PDF preview {:else if kind === \"pdf\"} of ArtifactViewer, used only in FilePanel.svelte:146 inside the file-preview <Dialog.Content> opened by the user - the visible content when created, where eager is right per docs"
+  },
+  {
+    "key": "keplersystems/kepler-chat::performance/iframe-loading::src/lib/components/chat/ArtifactViewer.svelte:111::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe srcdoc sandbox> has no loading attribute and no spread; HTML preview tab of ArtifactViewer, rendered only inside the user-opened file-preview Dialog (FilePanel.svelte:131-149) - visible content when created"
+  },
+  {
+    "key": "keplersystems/kepler-chat::performance/iframe-loading::src/lib/components/markdown/InlineVisual.svelte:143::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "unclear",
+    "basis": "read: <iframe srcdoc sandbox=\"allow-scripts\"> has no loading attribute and no spread; inline visual inside rendered chat markdown (MarkdownTokens.svelte:37), so it can sit offscreen in conversation history, and its CSP lets it load chart libraries from CDNs (:95-97); but whether loading=\"lazy\" defers a srcdoc iframe is browser behaviour not decidable from source (ledger treats srcdoc chat embeds as unclear)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::performance/image-dimensions::src/routes/(authenticated)/media/+page.svelte:134::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; class h-10 w-10 shrink-0 object-cover (:134-139) - 40x40 box reserved by CSS"
+  },
+  {
+    "key": "keplersystems/kepler-chat::performance/lcp-image::src/routes/(authenticated)/media/+page.svelte:134::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "read: <img> has literal loading=\"lazy\"; first <img> of the route (layouts render none), but a 40px h-10 w-10 thumbnail in a list row under the Media <h1>, search and tabs - not the LCP candidate, lazy costs no largest paint"
+  },
+  {
+    "key": "keplersystems/kepler-chat::performance/responsive-image::src/routes/(authenticated)/media/+page.svelte:134::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src=/api/media/{id}/raw, the full uploaded image (any image/* mime, typically a raster photo) shown as a 40px thumbnail - one fixed-size asset"
+  },
+  {
+    "key": "keplersystems/kepler-chat::performance/state-raw::src/routes/(authenticated)/settings/agents/+page.svelte:22::\"envVars\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"envVars\" in src/routes/(authenticated)/settings/agents/+page.svelte: declared at :22, whole reassignment at :26 (data.envVars), read in {#each} rendering <option> (:200-202); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "keplersystems/kepler-chat::security/raw-html::src/lib/components/markdown/CodeBlock.svelte:50::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/markdown/CodeBlock.svelte:13-15,50 + lib/markdown/highlight.ts:60-67: html = shiki codeToHtml(code) — shiki escapes the code text, escaped highlighter output, reported per docs"
+  },
+  {
+    "key": "keplersystems/kepler-chat::security/raw-html::src/lib/components/ui/ProviderLogo.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/ui/ProviderLogo.svelte:14-15,24 + lib/providerIcons.ts:1-150: svg = NORMALIZED[providerId], built from @lobehub/icons-static-svg ?raw imports — a provider id not in the map yields null; library constants, reported per docs"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/chat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /chat (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/chat/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /chat/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/chats/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /chats (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/customize/connectors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /customize/connectors (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/customize/permissions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /customize/permissions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/customize/skills/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /customize/skills (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/media/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /media (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/projects/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/settings/agents/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/agents (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/settings/general/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/general (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/settings/instructions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/instructions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/settings/sharing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/sharing (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/(authenticated)/settings/usage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/usage (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); public sign-in page (hooks.server.ts:25-26 PUBLIC_PATHS), no noindex, no robots.txt"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/canonical-url::src/routes/share/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /share/[token] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)) but not a search target (literal <meta name=\"robots\" content=\"noindex\"> at share/[token]/+page.svelte:14), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/chat/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /chat); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/chat/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /chat/[id]); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/chats/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /chats); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/customize/connectors/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /customize/connectors); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/customize/permissions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /customize/permissions); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/customize/skills/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /customize/skills); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/media/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /media); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /projects); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/projects/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /projects/[id]); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/settings/agents/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /settings/agents); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/settings/general/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /settings/general); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/settings/instructions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /settings/instructions); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/settings/sharing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /settings/sharing); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/(authenticated)/settings/usage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /settings/usage); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds on /login); not a search target: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/description-presence::src/routes/share/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: share/[token]/+page.svelte head has only a dynamic <title> and robots noindex, app.html none (literal claim holds); a token-keyed shared transcript of a single-user chat app, deliberately noindex, not a search target"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/heading-level-skip::src/routes/(authenticated)/customize/connectors/+page.svelte:134::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: customize/+layout.svelte renders SectionShell, whose <h1>{title} \"Customize\" (SectionShell.svelte) precedes the page; the page then renders an intro <p> and the preset cards whose <h3>{preset.title} (:134) comes before its only <h2>Custom servers -> h1 to h3"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/indexability::src/routes/share/[token]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: share/[token]/+page.svelte:14 unconditional literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed (deliberate for token-keyed shared transcripts)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /chat has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/chat/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /chat/[id] has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/chats/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /chats has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/customize/connectors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /customize/connectors has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/customize/permissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /customize/permissions has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/customize/skills/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /customize/skills has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/media/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /media has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /projects has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/projects/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /projects/[id] has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/settings/agents/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /settings/agents has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/settings/general/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /settings/general has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/settings/instructions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /settings/instructions has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/settings/sharing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /settings/sharing has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/(authenticated)/settings/usage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /settings/usage has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /login has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/json-ld::src/routes/share/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld, the only svelte:head is share/[token]): /share/[token] has no JSON-LD"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/chat/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /chat (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/chat/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /chat/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/chats/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /chats (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/customize/connectors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /customize/connectors (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/customize/permissions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /customize/permissions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/customize/skills/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /customize/skills (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/media/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /media (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/projects/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/settings/agents/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/agents (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/settings/general/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/general (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/settings/instructions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/instructions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/settings/sharing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/sharing (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/(authenticated)/settings/usage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/usage (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: public sign-in page (hooks.server.ts:25-26 PUBLIC_PATHS), no noindex, no robots.txt"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-description::src/routes/share/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /share/[token] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: literal <meta name=\"robots\" content=\"noindex\"> at share/[token]/+page.svelte:14 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/chat/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /chat (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/chat/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /chat/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/chats/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /chats (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/customize/connectors/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /customize/connectors (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/customize/permissions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /customize/permissions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/customize/skills/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /customize/skills (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/media/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /media (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/projects/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/settings/agents/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/agents (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/settings/general/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/general (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/settings/instructions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/instructions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/settings/sharing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/sharing (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/(authenticated)/settings/usage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/usage (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: public sign-in page (hooks.server.ts:25-26 PUBLIC_PATHS), no noindex, no robots.txt"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-image::src/routes/share/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /share/[token] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: literal <meta name=\"robots\" content=\"noindex\"> at share/[token]/+page.svelte:14 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/chat/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /chat (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/chat/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /chat/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/chats/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /chats (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/customize/connectors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /customize/connectors (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/customize/permissions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /customize/permissions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/customize/skills/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /customize/skills (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/media/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /media (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/projects/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/settings/agents/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/agents (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/settings/general/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/general (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/settings/instructions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/instructions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/settings/sharing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/sharing (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/(authenticated)/settings/usage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/usage (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: public sign-in page (hooks.server.ts:25-26 PUBLIC_PATHS), no noindex, no robots.txt"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-title::src/routes/share/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /share/[token] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: literal <meta name=\"robots\" content=\"noindex\"> at share/[token]/+page.svelte:14 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/chat/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /chat (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/chat/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /chat/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/chats/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /chats (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/customize/connectors/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /customize/connectors (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/customize/permissions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /customize/permissions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/customize/skills/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /customize/skills (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/media/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /media (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/projects/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/settings/agents/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/agents (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/settings/general/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/general (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/settings/instructions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/instructions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/settings/sharing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/sharing (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/(authenticated)/settings/usage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/usage (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: public sign-in page (hooks.server.ts:25-26 PUBLIC_PATHS), no noindex, no robots.txt"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/og-url::src/routes/share/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /share/[token] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: literal <meta name=\"robots\" content=\"noindex\"> at share/[token]/+page.svelte:14 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has only favicon.png, no robots.txt/sitemap.xml route or generator (literal claim holds); not a website: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has only favicon.png, no robots.txt/sitemap.xml route or generator (literal claim holds); not a website: kepler-chat is a single-user, passcode-protected LLM chat app (README); hooks.server.ts:28-40 answers every unauthenticated request outside /login and /share/ with a 303 to /login"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/chat/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/chat/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/chat/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/chat/[id]/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/chats/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/chats/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/customize/connectors/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/customize/connectors/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/customize/permissions/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/customize/permissions/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/customize/skills/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/customize/skills/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/media/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/media/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/projects/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/projects/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/projects/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/projects/[id]/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/settings/agents/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/settings/agents/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/settings/general/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/settings/general/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/settings/instructions/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/settings/instructions/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/settings/sharing/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/settings/sharing/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/(authenticated)/settings/usage/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/(authenticated)/settings/usage/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/title-presence::src/routes/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive $lib/relative imports, <svg> stripped) and whole-src grep for <title/svelte:head/document.title (~670-710 files for (authenticated) routes): no <title> on src/routes/login/+page.svelte or its layouts; the only <title> in src is share/[token]/+page.svelte:13 (other route), app.html none, no document.title; hooks.server.ts only gates unauthenticated non-public requests and (authenticated)/+layout.server.ts errors only on API failure, so the route renders untitled"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/chat/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /chat (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/chat/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /chat/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/chats/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /chats (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/customize/connectors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /customize/connectors (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/customize/permissions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /customize/permissions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/customize/skills/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /customize/skills (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/media/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /media (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/projects/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[id] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/settings/agents/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/agents (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/settings/general/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/general (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/settings/instructions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/instructions (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/settings/sharing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/sharing (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/(authenticated)/settings/usage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/usage (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: auth-gated: hooks.server.ts:29-39 answers every unauthenticated request outside /login and /share/ with a 303 to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: public sign-in page (hooks.server.ts:25-26 PUBLIC_PATHS), no noindex, no robots.txt"
+  },
+  {
+    "key": "keplersystems/kepler-chat::seo/twitter-card::src/routes/share/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /share/[token] (no og:*/twitter:*/rel=canonical anywhere in src or app.html (the only <svelte:head> is share/[token]/+page.svelte: <title> + robots noindex); npm Svelte deps: bits-ui@2.18.0 (bun.lock) scanned on jsDelivr (a1b_npmscan.py, 226 .svelte files) emits no og/twitter/canonical/<svelte:head>, @lucide/svelte is icons only; no dynamic <meta {…}> anywhere in src; route renders for its audience (no load always throws/redirects)); route context: literal <meta name=\"robots\" content=\"noindex\"> at share/[token]/+page.svelte:14 (the og/twitter rules have no search-target exemption)"
+  }
+]

@@ -1,0 +1,1127 @@
+[
+  {
+    "key": "lgriffin/toads:apps/web::a11y/disallowed-aria-props::src/lib/components/ModelPillars.svelte:78::`aria-label` is prohibited on <p> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/ModelPillars.svelte:78: <p> with aria-label and no role, spread or use: action; a generic element prohibits naming, as reported"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/lib/Landing.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/Landing.svelte has 410 physical lines (383 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/lib/Recruit.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/Recruit.svelte has 387 physical lines (358 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/lib/components/BankGrants.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BankGrants.svelte has 311 physical lines (294 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/lib/components/BankLive.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BankLive.svelte has 402 physical lines (377 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/lib/components/BankOfficer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BankOfficer.svelte has 223 physical lines (210 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/lib/components/ReferenceView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReferenceView.svelte has 330 physical lines (315 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/lib/preview/Officers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/preview/Officers.svelte has 404 physical lines (388 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 249 physical lines (243 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/routes/hub/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/hub/+page.svelte has 261 physical lines (247 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/component-size::src/routes/officers/reference/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/officers/reference/+page.svelte has 240 physical lines (224 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::architecture/prop-count::src/lib/components/ReferenceView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ReferenceView.svelte has a single destructured $props() with 7 named props: overview, comparison, openKey, busy, message, error, actions (> 6)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/base-path-navigation::src/lib/MembersOnly.svelte:14::<a href=\"/auth/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/login') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/lib/MembersOnly.svelte:14 root-relative /auth/login or /auth/logout literal in the {:else} arm of an {#if __PREVIEW__} block, so it renders only in the non-preview build; svelte.config.js sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens); BASE_PATH is set only for the PREVIEW=1 GitHub Pages build (.github/workflows/pages.yml:37-38), and the real site (deploy.yml, adapter-node) runs at the root. The literal targets the backend's Discord auth endpoint (vite proxy /auth → :8000) with data-sveltekit-reload, so it never renders under a base"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/base-path-navigation::src/lib/components/BankLive.svelte:182::<a href=\"/auth/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/login') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: <a href=\"/auth/login\" data-sveltekit-reload> in the signed-out view; svelte.config.js sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens); BASE_PATH is set only for the PREVIEW=1 GitHub Pages build (.github/workflows/pages.yml:37-38), and the real site (deploy.yml, adapter-node) runs at the root. The literal targets the backend's Discord auth endpoint (vite proxy /auth → :8000) with data-sveltekit-reload, and in the preview build the bank's signed-out view is never reached because the layout's previewGate shows its own sign-in card for /bank (lib/preview/gate.ts:23-30, +layout.svelte:110-114)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/base-path-navigation::src/routes/+layout.svelte:103::<a href=\"/auth/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/login') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:103 root-relative /auth/login or /auth/logout literal in the {:else} arm of an {#if __PREVIEW__} block, so it renders only in the non-preview build; svelte.config.js sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens); BASE_PATH is set only for the PREVIEW=1 GitHub Pages build (.github/workflows/pages.yml:37-38), and the real site (deploy.yml, adapter-node) runs at the root. The literal targets the backend's Discord auth endpoint (vite proxy /auth → :8000) with data-sveltekit-reload, so it never renders under a base"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/base-path-navigation::src/routes/+layout.svelte:99::<a href=\"/toolkit\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/toolkit') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:99 root-relative /auth/login or /auth/logout literal in the {:else} arm of an {#if __PREVIEW__} block, so it renders only in the non-preview build; svelte.config.js sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens); BASE_PATH is set only for the PREVIEW=1 GitHub Pages build (.github/workflows/pages.yml:37-38), and the real site (deploy.yml, adapter-node) runs at the root. The literal targets the backend's Discord auth endpoint (vite proxy /auth → :8000) with data-sveltekit-reload, so it never renders under a base"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/base-path-navigation::src/routes/hub/+page.svelte:252::<a href=\"/auth/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/login') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/hub/+page.svelte:252 root-relative /auth/login or /auth/logout literal in the {:else} arm of an {#if __PREVIEW__} block, so it renders only in the non-preview build; svelte.config.js sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens); BASE_PATH is set only for the PREVIEW=1 GitHub Pages build (.github/workflows/pages.yml:37-38), and the real site (deploy.yml, adapter-node) runs at the root. The literal targets the backend's Discord auth endpoint (vite proxy /auth → :8000) with data-sveltekit-reload, so it never renders under a base"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/base-path-navigation::src/routes/officers/reference/+page.svelte:212::<a href=\"/auth/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/login') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/officers/reference/+page.svelte:212 root-relative /auth/login or /auth/logout literal in the {:else} arm of an {#if __PREVIEW__} block, so it renders only in the non-preview build; svelte.config.js sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens); BASE_PATH is set only for the PREVIEW=1 GitHub Pages build (.github/workflows/pages.yml:37-38), and the real site (deploy.yml, adapter-node) runs at the root. The literal targets the backend's Discord auth endpoint (vite proxy /auth → :8000) with data-sveltekit-reload, so it never renders under a base"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/AnalyzerWidget.svelte:61::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AnalyzerWidget.svelte:61 '{#each widget.rows ?? [] as row, i (i)}' is keyed by its index binding; widget.rows of a home-page payload widget (ranked table rows from the analyzer API), keyed by index; runtime records"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/AnalyzerWidget.svelte:76::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AnalyzerWidget.svelte:76 '{#each widget.items ?? [] as item, i (i)}' is keyed by its index binding; widget.items of a home-page payload widget from the analyzer API, keyed by index; runtime records"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/AnalyzerWidget.svelte:87::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AnalyzerWidget.svelte:87 '{#each bars as b, i (i)}' is keyed by its index binding; bars = widget.bars rendered as bar-chart rows (AnalyzerWidget.svelte:84-92); positional list (chart bars)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/AnalyzerWidget.svelte:98::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AnalyzerWidget.svelte:98 '{#each widget.holders ?? [] as h, i (i)}' is keyed by its index binding; widget.holders, badge holders of a payload widget from the analyzer API, keyed by index; runtime records"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PayloadChart.svelte:21::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PayloadChart.svelte:21 '{#each l.yTicks as t, i (i)}' is keyed by its index binding; chart geometry of one payload chart (y ticks, x labels, bars, line paths/points, references, legend, notes, categories) keyed by index; positional list (chart geometry)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PayloadChart.svelte:25::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PayloadChart.svelte:25 '{#each l.xLabels as x, i (i)}' is keyed by its index binding; chart geometry of one payload chart (y ticks, x labels, bars, line paths/points, references, legend, notes, categories) keyed by index; positional list (chart geometry)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PayloadChart.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PayloadChart.svelte:28 '{#each l.bars as b, i (i)}' is keyed by its index binding; chart geometry of one payload chart (y ticks, x labels, bars, line paths/points, references, legend, notes, categories) keyed by index; positional list (chart geometry)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PayloadChart.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PayloadChart.svelte:32 '{#each line.paths as d, i (i)}' is keyed by its index binding; chart geometry of one payload chart (y ticks, x labels, bars, line paths/points, references, legend, notes, categories) keyed by index; positional list (chart geometry)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PayloadChart.svelte:35::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PayloadChart.svelte:35 '{#each line.points as p, i (i)}' is keyed by its index binding; chart geometry of one payload chart (y ticks, x labels, bars, line paths/points, references, legend, notes, categories) keyed by index; positional list (chart geometry)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PayloadChart.svelte:39::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PayloadChart.svelte:39 '{#each l.references as r, i (i)}' is keyed by its index binding; chart geometry of one payload chart (y ticks, x labels, bars, line paths/points, references, legend, notes, categories) keyed by index; positional list (chart geometry)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PayloadChart.svelte:47::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PayloadChart.svelte:47 '{#each l.legend as e, i (i)}' is keyed by its index binding; chart geometry of one payload chart (y ticks, x labels, bars, line paths/points, references, legend, notes, categories) keyed by index; positional list (chart geometry)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PayloadChart.svelte:54::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PayloadChart.svelte:54 '{#each chart.notes as note, i (i)}' is keyed by its index binding; chart geometry of one payload chart (y ticks, x labels, bars, line paths/points, references, legend, notes, categories) keyed by index; positional list (chart geometry)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PayloadChart.svelte:68::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PayloadChart.svelte:68 '{#each chart.categories as c, i (i)}' is keyed by its index binding; chart geometry of one payload chart (y ticks, x labels, bars, line paths/points, references, legend, notes, categories) keyed by index; positional list (chart geometry)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-index-key::src/lib/components/PerformanceCard.svelte:25::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PerformanceCard.svelte:25 '{#each entry.recent as r, i (i)}' is keyed by its index binding; entry.recent rendered as trend bars of the member's last raids (PerformanceCard.svelte:23-30); positional list (chart bars)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/Landing.svelte:177::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/Landing.svelte:177 '{#each LANDING.who as para}' has no key and is not an exempt shape; LANDING.who, paragraphs of the imported constant LANDING content ($lib/landing); static authored list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/Recruit.svelte:200::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/Recruit.svelte:200 '{#each errorList as [field, msg]}' has no key and is not an exempt shape; errorList = Object.entries(errors) of the application form's validation errors (Recruit.svelte:46); runtime list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/Recruit.svelte:231::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/Recruit.svelte:231 '{#each CLASSES as c}' has no key and is not an exempt shape; CLASSES = Object.keys(CLASS_SPECS), an imported constant (lib/application.ts:26) as <option>s; static option list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/components/BankOfficer.svelte:200::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/BankOfficer.svelte:200 '{#each preview.warnings as warning}' has no key and is not an exempt shape; preview.warnings of an import preview result; runtime results"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/components/RaidTotals.svelte:120::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/RaidTotals.svelte:120 '{#each stats as s}' has no key and is not an exempt shape; stats = $derived.by returning six fixed stat cards of the latest raid (RaidTotals.svelte:32-45); static stat-card list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/components/RaidTotals.svelte:87::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/RaidTotals.svelte:87 '{#each latest.clear_times as t}' has no key and is not an exempt shape; latest.clear_times of the newest raid headline from the raids prop (RaidTotals.svelte:19-22); runtime data"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/Me.svelte:29::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/preview/Me.svelte:29 '{#each me.characters as c}' has no key and is not an exempt shape; me.characters of the imported static preview sample data ($lib/mock/data, Me.svelte:9); static sample list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/Me.svelte:61::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/preview/Me.svelte:61 '{#each [...history].reverse() as r}' has no key and is not an exempt shape; [...history].reverse() of me.history[selected] from the static preview sample data (Me.svelte:17); static sample list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/Me.svelte:81::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/preview/Me.svelte:81 '{#each me.receipts as r}' has no key and is not an exempt shape; me.receipts of the static preview sample data ($lib/mock/data); static sample list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/Officers.svelte:199::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/preview/Officers.svelte:199 '{#each a.events as ev}' has no key and is not an exempt shape; a.events of an application the officer moves between statuses (move(), Officers.svelte:55-62); runtime list that grows as the user acts"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/Officers.svelte:299::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/preview/Officers.svelte:299 '{#each officerDays as d}' has no key and is not an exempt shape; officerDays = a literal ['Wednesday','Sunday'] or the preview viewer's officer days (Officers.svelte:91); static list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/Raids.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/preview/Raids.svelte:21 '{#each zones as z}' has no key and is not an exempt shape; zones = [...new Set(raids.map(r => r.zone))] of the static preview raids (Raids.svelte:7); static list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/Raids.svelte:53::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/preview/Raids.svelte:53 '{#each shown as raid}' has no key and is not an exempt shape; shown = filterRaids(raids, {zone, raidDay, size, lookbackDays}) (Raids.svelte:12); the user's filters remove items mid-list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/Story.svelte:33::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/preview/Story.svelte:33 '{#each story.story as para}' has no key and is not an exempt shape; story.story paragraphs of the imported static preview content ($lib/mock/community); static authored list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/TrendChart.svelte:23::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/preview/TrendChart.svelte:23 '{#each points as p, i}' has no key and is not an exempt shape; points prop rendered as chart points of a trend chart (TrendChart.svelte:4); positional chart points"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/lib/preview/TrendChart.svelte:28::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/preview/TrendChart.svelte:28 '{#each points as p, i}' has no key and is not an exempt shape; points prop rendered as chart points of a trend chart (TrendChart.svelte:4); positional chart points"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/routes/+layout.svelte:78::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:78 '{#each members as item}' has no key and is not an exempt shape; members = memberNav(officer, admin), the constant MEMBER_NAV filtered by role (+layout.svelte:44, lib/nav.ts:19-33); static nav list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/routes/officers/reference/+page.svelte:224::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/officers/reference/+page.svelte:224 '{#each view.session.officer_days as d}' has no key and is not an exempt shape; view.session.officer_days, the signed-in officer's raid days from the API session (officers/reference/+page.svelte:185); runtime data"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/routes/raids/[id]/+page.svelte:24::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/raids/[id]/+page.svelte:24 '{#each raid.bosses as b}' has no key and is not an exempt shape; raid.bosses of the static preview raid ($lib/mock/data; raids/[id]/+page.ts errors 404 unless __PREVIEW__); static sample list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/routes/raids/[id]/+page.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/raids/[id]/+page.svelte:49 '{#each raid.consumes as c}' has no key and is not an exempt shape; raid.consumes of the static preview raid ($lib/mock/data; raids/[id]/+page.ts errors 404 unless __PREVIEW__); static sample list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/routes/raids/[id]/+page.svelte:66::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/raids/[id]/+page.svelte:66 '{#each raid.interrupts as p}' has no key and is not an exempt shape; raid.interrupts of the static preview raid ($lib/mock/data; raids/[id]/+page.ts errors 404 unless __PREVIEW__); static sample list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/each-key::src/routes/raids/[id]/+page.svelte:72::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/raids/[id]/+page.svelte:72 '{#each raid.cancelledCasts as p}' has no key and is not an exempt shape; raid.cancelledCasts of the static preview raid ($lib/mock/data; raids/[id]/+page.ts errors 404 unless __PREVIEW__); static sample list"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/effect-as-derived::src/lib/Landing.svelte:37::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: $effect(() => { mounted = true; }) is the mount-flag idiom the docs list as a known limitation (must stay false during SSR/first render)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::correctness/effect-as-derived::src/lib/components/BrandLogo.svelte:12::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: $effect(() => { mounted = true; }) gates the <img> (:17); the mount-flag idiom the docs list as a known limitation"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::performance/state-raw::src/lib/components/BankLive.svelte:48::\"view\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"view\" in src/lib/components/BankLive.svelte: declared at :48, whole reassignments to fresh {kind} literals at :77,92,96,98,99, read as view.kind/view.message (:179-186); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::performance/state-raw::src/routes/officers/reference/+page.svelte:36::\"view\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"view\" in src/routes/officers/reference/+page.svelte: declared at :36, whole reassignments to fresh literals at :48,49,177,182,185,195, read as view.kind/message and view.session.officer_days in an <option> {#each} (:206-224); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps) but not a search target (client auth-gated member page (admin/+page.svelte:7-14 renders the console only for an allowed super-admin session; the preview build gates it with previewGate)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/bank/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /bank (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps) but not a search target (client auth-gated member page (BankLive.svelte:181-182 shows \"Sign in with Discord to see the guild bank\" to signed-out visitors; the preview build gates it with previewGate)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/highlights/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /highlights (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/how-we-raid/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /how-we-raid (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/hub/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /hub (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps) but not a search target (client auth-gated member page (hub/+page.svelte shows a signed-out view when the API answers 401; the preview build gates it with previewGate)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt (preview-only page: login/+page.ts:6 errors 404 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/me/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /me (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps) but not a search target (client auth-gated member page (me/+page.svelte:25-26 shows \"Sign in with Discord to see your badges\" on 401; the preview build gates it with previewGate)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/me/claim/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /me/claim (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps) but not a search target (client auth-gated member page (me/claim/+page.svelte loads the member's own claims from the API; the preview build gates it with previewGate)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/me/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /me/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps) but not a search target (client auth-gated member page (me/settings/+page.svelte renders the settings form only once the API returns the member's settings; the preview build gates it with previewGate)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/members-only/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /members-only (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt (preview-only page: members-only/+page.ts:7 errors 403 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/officers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /officers (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps) but not a search target (client auth-gated member page (officers/+page.svelte renders the officer desk only for a session with officer tiers; the preview build gates it with previewGate)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/officers/reference/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /officers/reference (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps) but not a search target (client auth-gated member page (officers/reference/+page.svelte:11-15 shows \"Sign in with Discord to open the officer tools\" to signed-out visitors; the preview build gates it with previewGate)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/raids/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /raids (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/raids/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /raids/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps) but not a search target (client auth-gated member page (raids/[id]/+page.ts:9 errors 404 outside the static preview, and the preview layout gates /raids/* behind its pretend sign-in (+layout.svelte gate, lib/preview/gate.ts); the preview build gates it with previewGate)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/recruit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /recruit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/story/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /story (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/toolkit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /toolkit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt (toolkit/+page.svelte:21 is public by design: signed out it shows every capability locked)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/canonical-url::src/routes/welcome/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /welcome (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); publicly reachable rendered route, no noindex, no robots.txt (members checklist, but rendered statically with no gate in production)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; page heads have only <title>): no description on /, a public front page of the Toads guild site (lib/nav.ts PUBLIC_NAV / the public toolkit page), served by the Node app behind Caddy at the guild domain"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/bank/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /bank (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/highlights/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /highlights (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/how-we-raid/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; page heads have only <title>): no description on /how-we-raid, a public front page of the Toads guild site (lib/nav.ts PUBLIC_NAV / the public toolkit page), served by the Node app behind Caddy at the guild domain"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/hub/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /hub (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /login (literal claim holds); not a search target: the preview's pretend sign-in: login/+page.ts:6 errors 404 unless the PREVIEW=1 static demo build (the real site signs in at /auth/login on the API), ledger convention for routes served only in a dev/demo build"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/me/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /me (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/me/claim/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /me/claim (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/me/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /me/settings (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/members-only/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /members-only (literal claim holds); not a search target: members-only/+page.ts:7 errors 403 unless the PREVIEW=1 static demo build (the message page for non-members), ledger convention for routes served only in a dev/demo build"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/officers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /officers (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/officers/reference/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /officers/reference (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/raids/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /raids (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/raids/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /raids/[id] (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/recruit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; page heads have only <title>): no description on /recruit, a public front page of the Toads guild site (lib/nav.ts PUBLIC_NAV / the public toolkit page), served by the Node app behind Caddy at the guild domain"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/story/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; page heads have only <title>): no description on /story, a public front page of the Toads guild site (lib/nav.ts PUBLIC_NAV / the public toolkit page), served by the Node app behind Caddy at the guild domain"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/toolkit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no <meta name=description> anywhere; page heads have only <title>): no description on /toolkit, a public front page of the Toads guild site (lib/nav.ts PUBLIC_NAV / the public toolkit page), served by the Node app behind Caddy at the guild domain"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/description-presence::src/routes/welcome/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /welcome (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:7 literal <title>Toads Hub</title> is the only title of /bank, /me, /me/claim, /me/settings, /members-only, /raids, /raids/[id] (no svelte:head there), duplicate as claimed; but these are member pages of the guild hub (lib/nav.ts MEMBER_NAV) or preview-only pages, no search competition"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): / has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /admin has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/bank/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /bank has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/highlights/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /highlights has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/how-we-raid/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /how-we-raid has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/hub/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /hub has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /login has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/me/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /me has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/me/claim/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /me/claim has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/me/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /me/settings has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/members-only/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /members-only has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/officers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /officers has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/officers/reference/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /officers/reference has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/raids/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /raids has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/raids/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /raids/[id] has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/recruit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /recruit has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/story/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /story has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/toolkit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /toolkit has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/json-ld::src/routes/welcome/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere, no meta library): /welcome has no JSON-LD"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (admin/+page.svelte:7-14 renders the console only for an allowed super-admin session; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/bank/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /bank (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (BankLive.svelte:181-182 shows \"Sign in with Discord to see the guild bank\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/highlights/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /highlights (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/how-we-raid/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /how-we-raid (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/hub/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /hub (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (hub/+page.svelte shows a signed-out view when the API answers 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: login/+page.ts:6 errors 404 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/me/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /me (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/+page.svelte:25-26 shows \"Sign in with Discord to see your badges\" on 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/me/claim/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /me/claim (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/claim/+page.svelte loads the member's own claims from the API; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/me/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /me/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/settings/+page.svelte renders the settings form only once the API returns the member's settings; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/members-only/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /members-only (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: members-only/+page.ts:7 errors 403 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/officers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /officers (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/+page.svelte renders the officer desk only for a session with officer tiers; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/officers/reference/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /officers/reference (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/reference/+page.svelte:11-15 shows \"Sign in with Discord to open the officer tools\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/raids/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /raids (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/raids/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /raids/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (raids/[id]/+page.ts:9 errors 404 outside the static preview, and the preview layout gates /raids/* behind its pretend sign-in (+layout.svelte gate, lib/preview/gate.ts); the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/recruit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recruit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/story/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /story (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/toolkit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /toolkit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (toolkit/+page.svelte:21 is public by design: signed out it shows every capability locked)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-description::src/routes/welcome/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /welcome (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (members checklist, but rendered statically with no gate in production)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (admin/+page.svelte:7-14 renders the console only for an allowed super-admin session; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/bank/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /bank (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (BankLive.svelte:181-182 shows \"Sign in with Discord to see the guild bank\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/highlights/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /highlights (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/how-we-raid/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /how-we-raid (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/hub/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /hub (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (hub/+page.svelte shows a signed-out view when the API answers 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: login/+page.ts:6 errors 404 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/me/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /me (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/+page.svelte:25-26 shows \"Sign in with Discord to see your badges\" on 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/me/claim/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /me/claim (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/claim/+page.svelte loads the member's own claims from the API; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/me/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /me/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/settings/+page.svelte renders the settings form only once the API returns the member's settings; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/members-only/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /members-only (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: members-only/+page.ts:7 errors 403 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/officers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /officers (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/+page.svelte renders the officer desk only for a session with officer tiers; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/officers/reference/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /officers/reference (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/reference/+page.svelte:11-15 shows \"Sign in with Discord to open the officer tools\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/raids/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /raids (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/raids/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /raids/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (raids/[id]/+page.ts:9 errors 404 outside the static preview, and the preview layout gates /raids/* behind its pretend sign-in (+layout.svelte gate, lib/preview/gate.ts); the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/recruit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recruit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/story/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /story (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/toolkit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /toolkit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (toolkit/+page.svelte:21 is public by design: signed out it shows every capability locked)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-image::src/routes/welcome/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /welcome (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (members checklist, but rendered statically with no gate in production)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (admin/+page.svelte:7-14 renders the console only for an allowed super-admin session; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/bank/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /bank (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (BankLive.svelte:181-182 shows \"Sign in with Discord to see the guild bank\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/highlights/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /highlights (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/how-we-raid/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /how-we-raid (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/hub/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /hub (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (hub/+page.svelte shows a signed-out view when the API answers 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: login/+page.ts:6 errors 404 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/me/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /me (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/+page.svelte:25-26 shows \"Sign in with Discord to see your badges\" on 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/me/claim/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /me/claim (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/claim/+page.svelte loads the member's own claims from the API; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/me/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /me/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/settings/+page.svelte renders the settings form only once the API returns the member's settings; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/members-only/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /members-only (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: members-only/+page.ts:7 errors 403 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/officers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /officers (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/+page.svelte renders the officer desk only for a session with officer tiers; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/officers/reference/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /officers/reference (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/reference/+page.svelte:11-15 shows \"Sign in with Discord to open the officer tools\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/raids/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /raids (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/raids/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /raids/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (raids/[id]/+page.ts:9 errors 404 outside the static preview, and the preview layout gates /raids/* behind its pretend sign-in (+layout.svelte gate, lib/preview/gate.ts); the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/recruit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recruit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/story/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /story (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/toolkit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /toolkit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (toolkit/+page.svelte:21 is public by design: signed out it shows every capability locked)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-title::src/routes/welcome/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /welcome (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (members checklist, but rendered statically with no gate in production)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (admin/+page.svelte:7-14 renders the console only for an allowed super-admin session; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/bank/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /bank (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (BankLive.svelte:181-182 shows \"Sign in with Discord to see the guild bank\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/highlights/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /highlights (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/how-we-raid/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /how-we-raid (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/hub/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /hub (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (hub/+page.svelte shows a signed-out view when the API answers 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: login/+page.ts:6 errors 404 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/me/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /me (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/+page.svelte:25-26 shows \"Sign in with Discord to see your badges\" on 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/me/claim/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /me/claim (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/claim/+page.svelte loads the member's own claims from the API; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/me/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /me/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/settings/+page.svelte renders the settings form only once the API returns the member's settings; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/members-only/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /members-only (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: members-only/+page.ts:7 errors 403 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/officers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /officers (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/+page.svelte renders the officer desk only for a session with officer tiers; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/officers/reference/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /officers/reference (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/reference/+page.svelte:11-15 shows \"Sign in with Discord to open the officer tools\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/raids/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /raids (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/raids/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /raids/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (raids/[id]/+page.ts:9 errors 404 outside the static preview, and the preview layout gates /raids/* behind its pretend sign-in (+layout.svelte gate, lib/preview/gate.ts); the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/recruit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recruit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/story/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /story (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/toolkit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /toolkit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (toolkit/+page.svelte:21 is public by design: signed out it shows every capability locked)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/og-url::src/routes/welcome/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /welcome (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (members checklist, but rendered statically with no gate in production)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: apps/web/static has art/brand/logos only, no robots.txt/sitemap.xml route, Caddy handler (infra/Caddyfile.prod proxies everything else to the web app) or generator (literal claim holds); the guild hub has public front pages (/, /how-we-raid, /story, /recruit)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: apps/web/static has art/brand/logos only, no robots.txt/sitemap.xml route, Caddy handler (infra/Caddyfile.prod proxies everything else to the web app) or generator (literal claim holds); the guild hub has public front pages (/, /how-we-raid, /story, /recruit)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: app.html:7 literal <title>Toads Hub</title> (9 chars) is the title of /bank, /me*, /members-only, /raids* (literal claim holds); but member pages of the guild hub (lib/nav.ts MEMBER_NAV) or preview-only pages, not search targets"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/+page.svelte's top-level svelte:head, length as reported (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/highlights/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/highlights/+page.svelte's top-level svelte:head, length as reported (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/how-we-raid/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/how-we-raid/+page.svelte's top-level svelte:head (e.g. 'Apply · Toads'), the route's only title (layout sets none), length as reported; public front page of the guild site, too short as claimed"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/hub/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/hub/+page.svelte's top-level svelte:head, length as reported (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/login/+page.svelte's top-level svelte:head, length as reported (literal claim holds); not a search target: the preview's pretend sign-in: login/+page.ts:6 errors 404 unless the PREVIEW=1 static demo build (the real site signs in at /auth/login on the API), ledger convention for routes served only in a dev/demo build"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/officers/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/officers/+page.svelte's top-level svelte:head, length as reported (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/officers/reference/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/officers/reference/+page.svelte's top-level svelte:head, length as reported (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/recruit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/recruit/+page.svelte's top-level svelte:head (e.g. 'Apply · Toads'), the route's only title (layout sets none), length as reported; public front page of the guild site, too short as claimed"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/story/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/story/+page.svelte's top-level svelte:head (e.g. 'Apply · Toads'), the route's only title (layout sets none), length as reported; public front page of the guild site, too short as claimed"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/toolkit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in src/routes/toolkit/+page.svelte's top-level svelte:head (e.g. 'Apply · Toads'), the route's only title (layout sets none), length as reported; public front page of the guild site, too short as claimed"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/title-length::src/routes/welcome/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/welcome/+page.svelte's top-level svelte:head, length as reported (literal claim holds); not a search target: a member page of the Toads guild hub (lib/nav.ts MEMBER_NAV/MEMBER_EXTRA: hub, raids, highlights, bank, me, officers, admin, welcome); its data comes from the members-only API and the layout shows it only to a signed-in member"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (admin/+page.svelte:7-14 renders the console only for an allowed super-admin session; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/bank/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /bank (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (BankLive.svelte:181-182 shows \"Sign in with Discord to see the guild bank\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/highlights/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /highlights (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/how-we-raid/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /how-we-raid (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/hub/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /hub (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (hub/+page.svelte shows a signed-out view when the API answers 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: login/+page.ts:6 errors 404 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/me/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /me (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/+page.svelte:25-26 shows \"Sign in with Discord to see your badges\" on 401; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/me/claim/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /me/claim (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/claim/+page.svelte loads the member's own claims from the API; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/me/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /me/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (me/settings/+page.svelte renders the settings form only once the API returns the member's settings; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/members-only/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /members-only (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (preview-only page: members-only/+page.ts:7 errors 403 unless __PREVIEW__; the PREVIEW=1 build is published to GitHub Pages by .github/workflows/pages.yml, where it renders publicly)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/officers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /officers (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/+page.svelte renders the officer desk only for a session with officer tiers; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/officers/reference/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /officers/reference (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (officers/reference/+page.svelte:11-15 shows \"Sign in with Discord to open the officer tools\" to signed-out visitors; the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/raids/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /raids (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (a members-nav page, but the production build renders a public placeholder with no gate; only the preview build gates it)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/raids/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /raids/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: client auth-gated member page (raids/[id]/+page.ts:9 errors 404 outside the static preview, and the preview layout gates /raids/* behind its pretend sign-in (+layout.svelte gate, lib/preview/gate.ts); the preview build gates it with previewGate) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/recruit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recruit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/story/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /story (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/toolkit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /toolkit (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (toolkit/+page.svelte:21 is public by design: signed out it shows every capability locked)"
+  },
+  {
+    "key": "lgriffin/toads:apps/web::seo/twitter-card::src/routes/welcome/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /welcome (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (page heads are <title> only; root +layout.svelte emits none); no Svelte npm deps); route context: publicly reachable rendered route, no noindex, no robots.txt (members checklist, but rendered statically with no gate in production)"
+  }
+]

@@ -28,7 +28,8 @@ describe('scripts/corpus/README.md matches the committed corpus measurement', ()
     expect(missing, REGENERATE).toEqual([]);
   });
 
-  it('was measured against the committed targets and verdicts', () => {
+  // Reads every verdict file of the corpus: about 2s on a busy CI runner at 534 apps, and growing with it.
+  it('was measured against the committed targets and verdicts', { timeout: 20_000 }, () => {
     expect(measurement.targets, REGENERATE).toBe(digest(targets));
     expect(measurement.verdicts, REGENERATE).toBe(digest(readVerdicts(join(corpusDir, 'verdicts'))));
   });

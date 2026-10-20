@@ -1,0 +1,912 @@
+[
+  {
+    "key": "AntiTcb/ygo.tools::a11y/id-duplication::src/routes/damagecalc/Monster.svelte:15::Duplicate id \"atk\"",
+    "verdict": "tp",
+    "basis": "read: damagecalc/+page.svelte:238 and :247 render <Monster> twice unconditionally, and Monster.svelte:15 hardcodes id=\"atk\" outside any {#if}, so the id appears twice on /damagecalc"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/id-duplication::src/routes/damagecalc/Monster.svelte:20::Duplicate id \"def\"",
+    "verdict": "tp",
+    "basis": "read: damagecalc/+page.svelte:238 and :247 render <Monster> twice unconditionally, and Monster.svelte:20 hardcodes id=\"def\" outside any {#if}, so the id appears twice on /damagecalc"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/interactive-nesting::src/lib/components/MonsterCardPicker.svelte:105::<button> is nested inside interactive <li role=\"option\">",
+    "verdict": "tp",
+    "basis": "read MonsterCardPicker.svelte:104-110: <button> directly inside <li role=\"option\"> of the suggestion listbox; an interactive control nested in an interactive option, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/no-autofocus::src/routes/admin/login/+page.svelte:17::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "tp",
+    "basis": "read admin/login/+page.svelte:17: password <input autofocus> in the {:else} (configured) arm of the login form, rendered on page load with no user action (login page-load precedent; author svelte-ignored a11y_autofocus)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/+page.svelte:229::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/+page.svelte:229 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:108::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:108 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:123::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:123 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:139::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:139 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:162::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:162 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:181::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:181 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:204::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:204 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:224::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:224 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:228::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:228 has a literal <div> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <div> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:40::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:40 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:56::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:56 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:68::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:68 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/BattleModifiers.svelte:88::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/BattleModifiers.svelte:88 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/permitted-contents::src/routes/damagecalc/Monster.svelte:31::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: routes/damagecalc/Monster.svelte:31 has a literal <p> whose nearest unclosed ancestor tag is a literal <label> in the same template (no snippet/svelte:element/@html boundary between); <p> is not permitted in <label>'s content model, as reported"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::a11y/top-level-landmark::src/routes/database/+page.svelte:343::complementary landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: root +layout.svelte:36-41 renders {@render children()} inside <section class=p-2> within <main>, so the unlabelled <aside> at database/+page.svelte:343 is scoped by sectioning content and is not a complementary landmark (HTML-AAM; same class as openstate/DevelexGroup/MiniERP ledger fps)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/component-size::src/lib/components/CardFilterRuleEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CardFilterRuleEditor.svelte has 284 physical lines (264 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/component-size::src/lib/components/event-map/EventCalendar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event-map/EventCalendar.svelte has 239 physical lines (214 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/component-size::src/lib/components/event-map/EventMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event-map/EventMap.svelte has 287 physical lines (263 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/component-size::src/routes/damagecalc/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/damagecalc/+page.svelte has 254 physical lines (238 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/component-size::src/routes/damagecalc/BattleModifiers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/damagecalc/BattleModifiers.svelte has 256 physical lines (252 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/component-size::src/routes/database/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/database/+page.svelte has 444 physical lines (403 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/component-size::src/routes/event-map/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/event-map/+page.svelte has 417 physical lines (383 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/component-size::src/routes/gizmekuka/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/gizmekuka/+page.svelte has 234 physical lines (205 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/component-size::src/routes/smallworld/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/smallworld/+page.svelte has 262 physical lines (228 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/prop-count::src/lib/components/MonsterCardPicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MonsterCardPicker.svelte has a single destructured $props() with 7 named props: candidates, label, testIdPrefix, selectedId, disabled, placeholder, hint (> 6)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/prop-count::src/lib/components/RegexSearchField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/RegexSearchField.svelte has a single destructured $props() with 7 named props: label, pattern, useRegex, flags, placeholder, testIdPrefix, rows (> 6)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/prop-count::src/lib/components/event-map/EventDetails.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/event-map/EventDetails.svelte has a single destructured $props() with 9 named props: event, origin, unit, route, routeLoading, routeError, ondirections, onclearroute, onclose (> 6)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/prop-count::src/lib/components/event-map/EventMap.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/event-map/EventMap.svelte has a single destructured $props() with 10 named props: token, area, events, selectedIds, origin, route, fitToEvents, compact, reserveBottom, onselect (> 6)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::architecture/prop-count::src/lib/components/event-map/FilterBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/event-map/FilterBar.svelte has a single destructured $props() with 10 named props: filters, types, formats, states, weekends, unit, hasOrigin, radius, location, onchange (> 6)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::correctness/each-index-key::src/routes/admin/cards/[id]/+page.svelte:39::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/cards/[id]/+page.svelte:39 '{#each effect.triggers as trigger, i (i)}' is keyed by its index binding; effect.triggers of one parsed card effect, read-only display; positional list (parts of one record)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::correctness/each-index-key::src/routes/admin/cards/[id]/+page.svelte:42::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/cards/[id]/+page.svelte:42 '{#each effect.actions as action, i (i)}' is keyed by its index binding; effect.actions of one parsed card effect, numbered by position ({i + 1}., :43), read-only; positional list (parts of one record)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::correctness/each-index-key::src/routes/database/+page.svelte:397::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/database/+page.svelte:397 '{#each (card.effect_text ?? '').split('\\n') as line, lineIdx (lineIdx)}' is keyed by its index binding; (card.effect_text ?? '').split('\\n'), the text lines of one card; positional list (text lines)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::correctness/each-index-key::src/routes/database/+page.svelte:407::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/database/+page.svelte:407 '{#each card.pendulum_text.split('\\n') as line, lineIdx (lineIdx)}' is keyed by its index binding; card.pendulum_text.split('\\n'), the text lines of one card; positional list (text lines)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::correctness/effect-as-derived::src/routes/admin/cards/[id]/+page.svelte:13::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: the $effect.pre only assigns editor (form output or pretty(data.tags.output)); editor is bound to the textarea (:117) and reset by a button (:120), the writable-$derived override pattern (svelte ^5.57)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::correctness/effect-as-derived::src/routes/event-map/+page.svelte:222::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: the effect sets updatedLabel = updated.toLocaleString(undefined, …) after mount while SSR shows updated.toUTCString() (:403); a $derived would format in the server's locale and flip on hydration, the docs' browser-capture limitation"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-dimensions::src/routes/+page.svelte:62::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; class aspect-6/8.5 h-28 object-cover (+page.svelte:62) - fixed 7rem height plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-dimensions::src/routes/database/+page.svelte:370::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; class aspect-6/8.5 max-h-60 only (database/+page.svelte:370) - neither width nor height is set, so the box is the image natural size once loaded and the card text below shifts"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-dimensions::src/routes/gizmekuka/+page.svelte:208::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; class aspect-6/8.5 max-h-60 only (gizmekuka/+page.svelte:208) - neither width nor height is set, so the box is the image natural size once loaded and the card text below shifts"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-dimensions::src/routes/metaltronus/+page.svelte:133::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; class aspect-6/8.5 max-h-60 only (metaltronus/+page.svelte:133) - neither width nor height is set, so the box is the image natural size once loaded and the card text below shifts"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-dimensions::src/routes/smallworld/+page.svelte:206::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; class aspect-6/8.5 max-h-60 only (smallworld/+page.svelte:206) - neither width nor height is set, so the box is the image natural size once loaded and the card text below shifts"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-loading-hint::src/routes/+page.svelte:62::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; helper-tile art in the {#each helperTiles} grid of the second section (Card Helpers, :53-71) below the three tool tiles - later tiles offscreen on load (single column on mobile)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-loading-hint::src/routes/database/+page.svelte:370::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; card art in each card of the {#each} results grid (up to 5 columns, many rows) - later cards offscreen on load"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-loading-hint::src/routes/gizmekuka/+page.svelte:208::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; card art in each card of the {#each} results grid (up to 5 columns, many rows) - later cards offscreen on load"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-loading-hint::src/routes/metaltronus/+page.svelte:133::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; card art in each card of the {#each} results grid (up to 5 columns, many rows) - later cards offscreen on load"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/image-loading-hint::src/routes/smallworld/+page.svelte:206::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; card art in each card of the {#each} results grid (up to 5 columns, many rows) - later cards offscreen on load"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/responsive-image::src/routes/+page.svelte:62::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src={tile.art} = bestArt, a raster card artwork from artworks.ygoresources.com - one fixed-size asset"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/responsive-image::src/routes/database/+page.svelte:370::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src={artworks.getArtwork(card.id)?.bestArt}, a raster card artwork from artworks.ygoresources.com (manifest fetched client-side, lib/assets/yugiohArtwork.svelte.ts:9) - one fixed-size asset"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/responsive-image::src/routes/database/+page.svelte:421::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src=siteFavicon(...) = https://www.google.com/s2/favicons?domain=…&sz=32 (database/+page.svelte:24), a raster favicon - one fixed-size asset"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/responsive-image::src/routes/database/+page.svelte:430::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src=siteFavicon(...) = https://www.google.com/s2/favicons?domain=…&sz=32 (database/+page.svelte:24), a raster favicon - one fixed-size asset"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/responsive-image::src/routes/database/+page.svelte:439::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src=siteFavicon(...) = https://www.google.com/s2/favicons?domain=…&sz=32 (database/+page.svelte:24), a raster favicon - one fixed-size asset"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/responsive-image::src/routes/gizmekuka/+page.svelte:208::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src={artworks.getArtwork(card.id)?.bestArt}, a raster card artwork from artworks.ygoresources.com (manifest fetched client-side, lib/assets/yugiohArtwork.svelte.ts:9) - one fixed-size asset"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/responsive-image::src/routes/metaltronus/+page.svelte:133::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src={artworks.getArtwork(card.id)?.bestArt}, a raster card artwork from artworks.ygoresources.com (manifest fetched client-side, lib/assets/yugiohArtwork.svelte.ts:9) - one fixed-size asset"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::performance/responsive-image::src/routes/smallworld/+page.svelte:206::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src={artworks.getArtwork(card.id)?.bestArt}, a raster card artwork from artworks.ygoresources.com (manifest fetched client-side, lib/assets/yugiohArtwork.svelte.ts:9) - one fixed-size asset"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)) but not a search target (admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/admin/cards/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/cards/[id] (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)) but not a search target (admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/admin/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/login (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)) but not a search target (admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/admin/runs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/runs (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)) but not a search target (admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/admin/suggestions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/suggestions (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)) but not a search target (admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/admin/vocab/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/vocab (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)) but not a search target (admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/database/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /database (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); publicly reachable rendered route, no noindex; static/robots.txt allows all"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin route (admin pages set only <title>, admin/+layout.svelte only robots noindex, app.html none) (literal claim holds); not a search target: hooks.server.ts:37-43 redirects every non-admin request outside /admin/login to the login page, and the whole /admin tree is noindex,nofollow"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/admin/cards/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin route (admin pages set only <title>, admin/+layout.svelte only robots noindex, app.html none) (literal claim holds); not a search target: hooks.server.ts:37-43 redirects every non-admin request outside /admin/login to the login page, and the whole /admin tree is noindex,nofollow"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/admin/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/login (page sets only <title>, app.html none) (literal claim holds); public admin sign-in page under admin/+layout.svelte:16 noindex,nofollow (the hooks.server.ts gate exempts it), not a search target"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/admin/runs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin route (admin pages set only <title>, admin/+layout.svelte only robots noindex, app.html none) (literal claim holds); not a search target: hooks.server.ts:37-43 redirects every non-admin request outside /admin/login to the login page, and the whole /admin tree is noindex,nofollow"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/admin/suggestions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin route (admin pages set only <title>, admin/+layout.svelte only robots noindex, app.html none) (literal claim holds); not a search target: hooks.server.ts:37-43 redirects every non-admin request outside /admin/login to the login page, and the whole /admin tree is noindex,nofollow"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/admin/vocab/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin route (admin pages set only <title>, admin/+layout.svelte only robots noindex, app.html none) (literal claim holds); not a search target: hooks.server.ts:37-43 redirects every non-admin request outside /admin/login to the login page, and the whole /admin tree is noindex,nofollow"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/database/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: src/routes/database/+page.svelte renders no <Seo> or svelte:head (unlike the other tool pages, which pass description to sk-seo), root +layout.svelte/Header.svelte heads carry only an analytics script, app.html has no description; public tool page, claim holds"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/heading-level-skip::src/routes/+page.svelte:41::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:32 <h2 class=\"h4\">Tools, then each tool tile <h5> (:41) with nothing between (root layout renders no heading before the page on /) -> h2 to h5"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/indexability::src/routes/admin/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+layout.svelte:15-17 unconditional <meta name=\"robots\" content=\"noindex, nofollow\"> covers every /admin route; noindex as claimed (deliberate for the admin console)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/indexability::src/routes/admin/cards/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+layout.svelte:15-17 unconditional <meta name=\"robots\" content=\"noindex, nofollow\"> covers every /admin route; noindex as claimed (deliberate for the admin console)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/indexability::src/routes/admin/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+layout.svelte:15-17 unconditional <meta name=\"robots\" content=\"noindex, nofollow\"> covers every /admin route; noindex as claimed (deliberate for the admin console)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/indexability::src/routes/admin/runs/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+layout.svelte:15-17 unconditional <meta name=\"robots\" content=\"noindex, nofollow\"> covers every /admin route; noindex as claimed (deliberate for the admin console)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/indexability::src/routes/admin/suggestions/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+layout.svelte:15-17 unconditional <meta name=\"robots\" content=\"noindex, nofollow\"> covers every /admin route; noindex as claimed (deliberate for the admin console)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/indexability::src/routes/admin/vocab/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+layout.svelte:15-17 unconditional <meta name=\"robots\" content=\"noindex, nofollow\"> covers every /admin route; noindex as claimed (deliberate for the admin console)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no JSON-LD emitter; the page uses sk-seo@0.5.4 <Seo> (jsDelivr SEO.svelte: {@html LdScript} only when schemaOrg, default false) without schemaOrg/jsonld props or page data, so no JSON-LD renders on this public tool route"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: the only ld+json hits are the event scraper parsing third-party HTML and its fixtures; no meta/JSON-LD emitter on admin pages): admin route has no JSON-LD"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/admin/cards/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: the only ld+json hits are the event scraper parsing third-party HTML and its fixtures; no meta/JSON-LD emitter on admin pages): admin route has no JSON-LD"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/admin/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: the only ld+json hits are the event scraper parsing third-party HTML and its fixtures; no meta/JSON-LD emitter on admin pages): admin route has no JSON-LD"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/admin/runs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: the only ld+json hits are the event scraper parsing third-party HTML and its fixtures; no meta/JSON-LD emitter on admin pages): admin route has no JSON-LD"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/admin/suggestions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: the only ld+json hits are the event scraper parsing third-party HTML and its fixtures; no meta/JSON-LD emitter on admin pages): admin route has no JSON-LD"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/admin/vocab/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: the only ld+json hits are the event scraper parsing third-party HTML and its fixtures; no meta/JSON-LD emitter on admin pages): admin route has no JSON-LD"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/damagecalc/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no JSON-LD emitter; the page uses sk-seo@0.5.4 <Seo> (jsDelivr SEO.svelte: {@html LdScript} only when schemaOrg, default false) without schemaOrg/jsonld props or page data, so no JSON-LD renders on this public tool route"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/database/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no JSON-LD emitter; the page uses sk-seo@0.5.4 <Seo> (jsDelivr SEO.svelte: {@html LdScript} only when schemaOrg, default false) without schemaOrg/jsonld props or page data, so no JSON-LD renders on this public tool route"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/event-map/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no JSON-LD emitter; the page uses sk-seo@0.5.4 <Seo> (jsDelivr SEO.svelte: {@html LdScript} only when schemaOrg, default false) without schemaOrg/jsonld props or page data, so no JSON-LD renders on this public tool route"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/gizmekuka/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no JSON-LD emitter; the page uses sk-seo@0.5.4 <Seo> (jsDelivr SEO.svelte: {@html LdScript} only when schemaOrg, default false) without schemaOrg/jsonld props or page data, so no JSON-LD renders on this public tool route"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/metaltronus/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no JSON-LD emitter; the page uses sk-seo@0.5.4 <Seo> (jsDelivr SEO.svelte: {@html LdScript} only when schemaOrg, default false) without schemaOrg/jsonld props or page data, so no JSON-LD renders on this public tool route"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/json-ld::src/routes/smallworld/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no JSON-LD emitter; the page uses sk-seo@0.5.4 <Seo> (jsDelivr SEO.svelte: {@html LdScript} only when schemaOrg, default false) without schemaOrg/jsonld props or page data, so no JSON-LD renders on this public tool route"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/admin/cards/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/cards/[id] (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/login (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/admin/runs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/runs (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/admin/suggestions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/suggestions (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/admin/vocab/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/vocab (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/database/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /database (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: publicly reachable rendered route, no noindex; static/robots.txt allows all"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/admin/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image on /admin only as <meta name=\"og:image\"> at src/app.html:11; Open Graph reads property=, so OG consumers ignore it; no property=\"og:image\" in the page or its layouts; no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/admin/cards/[id]/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image on /admin/cards/[id] only as <meta name=\"og:image\"> at src/app.html:11; Open Graph reads property=, so OG consumers ignore it; no property=\"og:image\" in the page or its layouts; no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/admin/login/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image on /admin/login only as <meta name=\"og:image\"> at src/app.html:11; Open Graph reads property=, so OG consumers ignore it; no property=\"og:image\" in the page or its layouts; no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/admin/runs/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image on /admin/runs only as <meta name=\"og:image\"> at src/app.html:11; Open Graph reads property=, so OG consumers ignore it; no property=\"og:image\" in the page or its layouts; no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/admin/suggestions/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image on /admin/suggestions only as <meta name=\"og:image\"> at src/app.html:11; Open Graph reads property=, so OG consumers ignore it; no property=\"og:image\" in the page or its layouts; no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/admin/vocab/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image on /admin/vocab only as <meta name=\"og:image\"> at src/app.html:11; Open Graph reads property=, so OG consumers ignore it; no property=\"og:image\" in the page or its layouts; no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/database/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image on /database only as <meta name=\"og:image\"> at src/app.html:11; Open Graph reads property=, so OG consumers ignore it; no property=\"og:image\" in the page or its layouts; no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins); route context: publicly reachable rendered route, no noindex; static/robots.txt allows all (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/admin/cards/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/cards/[id] (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/login (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/admin/runs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/runs (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/admin/suggestions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/suggestions (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/admin/vocab/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/vocab (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/database/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /database (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: publicly reachable rendered route, no noindex; static/robots.txt allows all"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/admin/cards/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/cards/[id] (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/login (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/admin/runs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/runs (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/admin/suggestions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/suggestions (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/admin/vocab/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/vocab (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/database/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /database (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: publicly reachable rendered route, no noindex; static/robots.txt allows all"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/single-h1::/admin/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/login/+page.svelte renders only the password form card (no heading); hooks.server.ts:39 exempts /admin/login from the admin gate, so it renders; no <h1> renders: root +layout.svelte (Header.svelte is a logo <a>, Sidebar/Footer are skeleton Navigation tiles, AppUpdateNotifier/Toaster), sk-seo@0.5.4 SEO.svelte (jsDelivr) only writes <svelte:head>; grep of src finds <h1> only on metaltronus/gizmekuka/smallworld/event-map/admin/cards"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/single-h1::/admin/runs::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/runs/+page.svelte renders sections/cards with no heading; route renders for a signed-in admin (hooks.server.ts:39-44 gate); no <h1> renders: root +layout.svelte (Header.svelte is a logo <a>, Sidebar/Footer are skeleton Navigation tiles, AppUpdateNotifier/Toaster), sk-seo@0.5.4 SEO.svelte (jsDelivr) only writes <svelte:head>; grep of src finds <h1> only on metaltronus/gizmekuka/smallworld/event-map/admin/cards"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/single-h1::/admin/suggestions::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/suggestions/+page.svelte renders cluster cards with no heading; route renders for a signed-in admin (hooks.server.ts:39-44 gate); no <h1> renders: root +layout.svelte (Header.svelte is a logo <a>, Sidebar/Footer are skeleton Navigation tiles, AppUpdateNotifier/Toaster), sk-seo@0.5.4 SEO.svelte (jsDelivr) only writes <svelte:head>; grep of src finds <h1> only on metaltronus/gizmekuka/smallworld/event-map/admin/cards"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/single-h1::src/routes/+page.svelte:32::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: +page.svelte headings are <h2 class=\"h4\"> Tools (:32) / Card Helpers (:53) and tile <h5>s; no <h1> renders: root +layout.svelte (Header.svelte is a logo <a>, Sidebar/Footer are skeleton Navigation tiles, AppUpdateNotifier/Toaster), sk-seo@0.5.4 SEO.svelte (jsDelivr) only writes <svelte:head>; grep of src finds <h1> only on metaltronus/gizmekuka/smallworld/event-map/admin/cards"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/single-h1::src/routes/admin/+page.svelte:44::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/+page.svelte has only <h2 class=\"h5\"> (:44), admin +layout.svelte shows the title as <span class=\"h4\">; renders for a signed-in admin; no <h1> renders: root +layout.svelte (Header.svelte is a logo <a>, Sidebar/Footer are skeleton Navigation tiles, AppUpdateNotifier/Toaster), sk-seo@0.5.4 SEO.svelte (jsDelivr) only writes <svelte:head>; grep of src finds <h1> only on metaltronus/gizmekuka/smallworld/event-map/admin/cards"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/single-h1::src/routes/admin/vocab/+page.svelte:22::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/vocab/+page.svelte has only <h2 class=\"h5\"> (:22); renders for a signed-in admin; no <h1> renders: root +layout.svelte (Header.svelte is a logo <a>, Sidebar/Footer are skeleton Navigation tiles, AppUpdateNotifier/Toaster), sk-seo@0.5.4 SEO.svelte (jsDelivr) only writes <svelte:head>; grep of src finds <h1> only on metaltronus/gizmekuka/smallworld/event-map/admin/cards"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/single-h1::src/routes/damagecalc/+page.svelte:235::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: damagecalc/+page.svelte headings are <h4> (:235,:246); Monster/BattleModifiers render none; no <h1> renders: root +layout.svelte (Header.svelte is a logo <a>, Sidebar/Footer are skeleton Navigation tiles, AppUpdateNotifier/Toaster), sk-seo@0.5.4 SEO.svelte (jsDelivr) only writes <svelte:head>; grep of src finds <h1> only on metaltronus/gizmekuka/smallworld/event-map/admin/cards"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/single-h1::src/routes/database/+page.svelte:345::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: database/+page.svelte only heading is <h2> Stat filters (:345); CardFilterBuilder/RegexSearchField render none; no <h1> renders: root +layout.svelte (Header.svelte is a logo <a>, Sidebar/Footer are skeleton Navigation tiles, AppUpdateNotifier/Toaster), sk-seo@0.5.4 SEO.svelte (jsDelivr) only writes <svelte:head>; grep of src finds <h1> only on metaltronus/gizmekuka/smallworld/event-map/admin/cards"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "fp",
+    "basis": "sitemap IS served: src/routes/sitemap[[page]].xml/+server.ts is a super-sitemap GET endpoint whose optional [[page]] param matches /sitemap.xml (static/robots.txt points at https://ygo.tools/sitemap.xml); the analyzer only recognizes a literal sitemap.xml route dir"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /database renders no <Seo>/svelte:head title, so its title is app.html:5 literal <title>YGO Tools</title> (9 chars) as reported; public tool page"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal admin <title> in src/routes/admin/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but admin console route: hooks.server.ts:37-43 redirects non-admins to /admin/login and admin/+layout.svelte is noindex,nofollow, not a search target"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/title-length::src/routes/admin/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>Admin sign in · ygo.tools</title> at admin/login/+page.svelte:6, 25 chars as reported (literal claim holds); public admin sign-in page under admin/+layout.svelte:16 noindex,nofollow, not a search target"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/title-length::src/routes/admin/runs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal admin <title> in src/routes/admin/runs/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but admin console route: hooks.server.ts:37-43 redirects non-admins to /admin/login and admin/+layout.svelte is noindex,nofollow, not a search target"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/admin/cards/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/cards/[id] (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/admin/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/login (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/admin/runs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/runs (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/admin/suggestions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/suggestions (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/admin/vocab/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/vocab (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: admin-gated: hooks.server.ts:37-43 redirects non-admins on /admin/* (except /admin/login) to /admin/login, admin/+layout.server.ts:7 errors 403; literal noindex robots meta at admin/+layout.svelte:16 covers every /admin route incl. /admin/login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/database/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /database (no og:*/twitter:*/rel=canonical on the route: root +layout.svelte and Header.svelte (head = analytics script only) emit none, the page renders no <Seo> (sk-seo is used only by /, /damagecalc, /event-map, /gizmekuka, /metaltronus, /smallworld), app.html has only <meta name=\"og:image\"> (app.html:11); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py: @skeletonlabs/skeleton-svelte@5.0.1, svelte-sonner@1.2.1, svelte-search@2.1.2) emit no og/twitter/canonical/<svelte:head>; no dynamic <meta {…}> anywhere in src; route renders (no load always throws; hooks.server.ts only gates /admin for non-admins)); route context: publicly reachable rendered route, no noindex; static/robots.txt allows all"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route / renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <link rel=\"canonical\"> (SEO.svelte:53, under {#if title !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/damagecalc/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /damagecalc renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <link rel=\"canonical\"> (SEO.svelte:53, under {#if title !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/event-map/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /event-map renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <link rel=\"canonical\"> (SEO.svelte:53, under {#if title !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/gizmekuka/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /gizmekuka renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <link rel=\"canonical\"> (SEO.svelte:53, under {#if title !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/metaltronus/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /metaltronus renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <link rel=\"canonical\"> (SEO.svelte:53, under {#if title !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/canonical-url::src/routes/smallworld/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /smallworld renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <link rel=\"canonical\"> (SEO.svelte:53, under {#if title !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route / renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <meta name=\"description\"> (SEO.svelte:56, under {#if description !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/damagecalc/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /damagecalc renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <meta name=\"description\"> (SEO.svelte:56, under {#if description !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/event-map/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /event-map renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <meta name=\"description\"> (SEO.svelte:56, under {#if description !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/gizmekuka/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /gizmekuka renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <meta name=\"description\"> (SEO.svelte:56, under {#if description !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/metaltronus/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /metaltronus renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <meta name=\"description\"> (SEO.svelte:56, under {#if description !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/description-presence::src/routes/smallworld/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /smallworld renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits <meta name=\"description\"> (SEO.svelte:56, under {#if description !== \"\"}); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the routes that would share app.html's title each set their own <title> through sk-seo@0.5.4 (SEO.svelte:52) with a distinct title prop (YGO Tools, Damage Calculation, Event Map, Gizmek Uka, Metaltronus, Small World helpers), so the title is not duplicated"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route / renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:description (SEO.svelte:74, under openGraph && description); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/damagecalc/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /damagecalc renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:description (SEO.svelte:74, under openGraph && description); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/event-map/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /event-map renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:description (SEO.svelte:74, under openGraph && description); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/gizmekuka/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /gizmekuka renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:description (SEO.svelte:74, under openGraph && description); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/metaltronus/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /metaltronus renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:description (SEO.svelte:74, under openGraph && description); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-description::src/routes/smallworld/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /smallworld renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:description (SEO.svelte:74, under openGraph && description); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): sk-seo@0.5.4 emits og:image only when imageURL is set (SEO.svelte:76), and neither the / <Seo> use nor any load in src sets imageURL, so the route has no og:image"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/damagecalc/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): sk-seo@0.5.4 emits og:image only when imageURL is set (SEO.svelte:76), and neither the /damagecalc <Seo> use nor any load in src sets imageURL, so the route has no og:image"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/event-map/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): sk-seo@0.5.4 emits og:image only when imageURL is set (SEO.svelte:76), and neither the /event-map <Seo> use nor any load in src sets imageURL, so the route has no og:image"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/gizmekuka/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): sk-seo@0.5.4 emits og:image only when imageURL is set (SEO.svelte:76), and neither the /gizmekuka <Seo> use nor any load in src sets imageURL, so the route has no og:image"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/metaltronus/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): sk-seo@0.5.4 emits og:image only when imageURL is set (SEO.svelte:76), and neither the /metaltronus <Seo> use nor any load in src sets imageURL, so the route has no og:image"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-image::src/routes/smallworld/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): sk-seo@0.5.4 emits og:image only when imageURL is set (SEO.svelte:76), and neither the /smallworld <Seo> use nor any load in src sets imageURL, so the route has no og:image"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route / renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:title (SEO.svelte:71, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/damagecalc/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /damagecalc renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:title (SEO.svelte:71, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/event-map/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /event-map renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:title (SEO.svelte:71, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/gizmekuka/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /gizmekuka renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:title (SEO.svelte:71, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/metaltronus/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /metaltronus renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:title (SEO.svelte:71, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-title::src/routes/smallworld/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /smallworld renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:title (SEO.svelte:71, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route / renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:url (SEO.svelte:69, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/damagecalc/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /damagecalc renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:url (SEO.svelte:69, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/event-map/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /event-map renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:url (SEO.svelte:69, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/gizmekuka/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /gizmekuka renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:url (SEO.svelte:69, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/metaltronus/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /metaltronus renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:url (SEO.svelte:69, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/og-url::src/routes/smallworld/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /smallworld renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits og:url (SEO.svelte:69, under openGraph && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route / renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits twitter:card (SEO.svelte:85, under twitter && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/damagecalc/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /damagecalc renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits twitter:card (SEO.svelte:85, under twitter && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/event-map/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /event-map renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits twitter:card (SEO.svelte:85, under twitter && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/gizmekuka/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /gizmekuka renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits twitter:card (SEO.svelte:85, under twitter && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/metaltronus/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /metaltronus renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits twitter:card (SEO.svelte:85, under twitter && title); the page passes a non-empty title and description, so the tag is in its head"
+  },
+  {
+    "key": "AntiTcb/ygo.tools::seo/twitter-card::src/routes/smallworld/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "corpus run only (uninstalled clone, so sk-seo is not followed): the route /smallworld renders <Seo title=… description=…> from sk-seo@0.5.4 (the lockfile version), whose SEO.svelte emits twitter:card (SEO.svelte:85, under twitter && title); the page passes a non-empty title and description, so the tag is in its head"
+  }
+]
