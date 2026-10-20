@@ -30,6 +30,12 @@ describe('collectProjectFacts', () => {
     });
     expect(await collectProjectFacts(nested, '')).toMatchObject({ hasRobotsTxt: false, hasSitemap: false });
   });
+  it('detects a sitemap endpoint whose name takes an optional parameter, which also answers /sitemap.xml', async () => {
+    const paged = createMemoryRuntime({ 'src/routes/sitemap[[page]].xml/+server.ts': 'export function GET(){}' });
+    expect((await collectProjectFacts(paged, '')).hasSitemap).toBe(true);
+    const required = createMemoryRuntime({ 'src/routes/sitemap[page].xml/+server.ts': 'export function GET(){}' });
+    expect((await collectProjectFacts(required, '')).hasSitemap).toBe(false);
+  });
   it('parses <html lang> from app.html', async () => {
     const present = await collectProjectFacts(createMemoryRuntime({ 'src/app.html': '<html lang="en">' }), '');
     expect(present.htmlLang).toEqual({ presence: 'own', value: 'static' });

@@ -19,15 +19,21 @@ export const SITEMAP_SOURCE_PATHS = [
 ] as const;
 
 /** The `+server` endpoints above, wherever (group) directories nest them — filter with `servesRootFile`. */
-export const ROOT_FILE_ENDPOINT_GLOB = 'src/routes/**/{robots.txt,sitemap.xml}/+server.{ts,js}';
+export const ROOT_FILE_ENDPOINT_GLOB = 'src/routes/**/{robots.txt,sitemap*.xml}/+server.{ts,js}';
 
-/** Whether a `+server` endpoint serves `/<file>`: (group) directories add no URL segment. */
+/**
+ * Whether a `+server` endpoint serves `/<file>`: (group) directories add no URL segment, and an optional
+ * parameter in the name (`sitemap[[page]].xml`) still answers the bare name.
+ */
 export function servesRootFile(rel: string, file: 'robots.txt' | 'sitemap.xml'): boolean {
   const segments = rel.split('/');
+  const dot = file.lastIndexOf('.');
+  const optional = new RegExp(`^${file.slice(0, dot)}\\[\\[[^\\]]+\\]\\]\\${file.slice(dot)}$`);
+  const dir = segments.at(-2) ?? '';
   return (
     segments[0] === 'src' &&
     segments[1] === 'routes' &&
-    segments.at(-2) === file &&
+    (dir === file || optional.test(dir)) &&
     /^\+server\.(ts|js)$/.test(segments.at(-1) ?? '') &&
     segments.slice(2, -2).every((s) => /^\(.+\)$/.test(s))
   );

@@ -7,7 +7,7 @@ description: プロジェクトに sitemap.xml を用意しましょう。
 
 ## チェック内容
 
-プロジェクトには `sitemap.xml` を用意すべきです。`static/sitemap.xml` として、または `src/routes/sitemap.xml/+server` エンドポイントを通じて提供します。
+プロジェクトには `sitemap.xml` を用意すべきです。`static/sitemap.xml` として、または `src/routes/sitemap.xml/+server` エンドポイントを通じて提供します（`(group)` ディレクトリの下でも、`/sitemap.xml` にも応答する `sitemap[[page]].xml` のような省略可能なパラメーター付きの名前でもかまいません）。
 
 ## なぜ重要か
 

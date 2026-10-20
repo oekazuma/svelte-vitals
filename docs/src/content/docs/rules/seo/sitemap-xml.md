@@ -7,7 +7,7 @@ description: Your project should provide a sitemap.xml file.
 
 ## What it checks
 
-The project should have a `sitemap.xml`, either at `static/sitemap.xml` or served via a `src/routes/sitemap.xml/+server` endpoint.
+The project should have a `sitemap.xml`, either at `static/sitemap.xml` or served via a `src/routes/sitemap.xml/+server` endpoint (also under `(group)` directories, or named with an optional parameter, such as `sitemap[[page]].xml`, which answers `/sitemap.xml` too).
 
 ## Why it matters
 
