@@ -1,0 +1,217 @@
+[
+  {
+    "key": "the-astrosky-ecosystem/website::a11y/permitted-contents::src/lib/blocks/Button.svelte:18::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/lib/blocks/Button.svelte:18 literal <p> sits in literal <button> opened at :12 (ancestors …a > button), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::architecture/prop-count::src/lib/blocks/Flex.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/blocks/Flex.svelte has a single destructured $props() with 7 named props (> 6): children, justifyContent, flexDirection, flexWrap, alignItems, alignContent, gap"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::architecture/prop-count::src/lib/blocks/ImageWithText.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/blocks/ImageWithText.svelte has a single destructured $props() with 8 named props (> 6): swap, src, caption, alt, style, children, margin, fullHeight"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/each-key::src/lib/components/Footer.svelte:20::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Footer.svelte:20 '{#each Object.entries(socials) as [platform, url]}' has no key; socials is the site's fixed social link config; static list"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/each-key::src/lib/components/Footer.svelte:42::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Footer.svelte:42 '{#each posts as post}' has no key; the recent posts from getPosts() over the committed markdown posts; static list"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/each-key::src/lib/components/PostList.svelte:8::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PostList.svelte:8 '{#each posts as post}' has no key; posts prop = the committed markdown posts of one blog page/category (blog/+layout.svelte:19); static list (ledger blog-route convention)"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/each-key::src/routes/faq/+layout.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: faq/+layout.svelte:118 '{#each Object.keys(feedInfo) as aFeed}' has no key; feedInfo is the committed feed info JSON; static list"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/each-key::src/routes/feeds/+page.svelte:19::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: feeds/+page.svelte:19 '{#each sortedFeeds as feed}' has no key; sortedFeeds = Object.values(getFeedInfoSync()).sort(...) (:7-8) over the committed $lib/assets/json/feedInfo.json (cache.svelte.js:5, :12-14), computed once; static list"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/each-key::src/routes/posts/[slug]/+page.svelte:50::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: posts/[slug]/+page.svelte:50 '{#each categories as category, i}' has no key; categories of one committed post's metadata (:20-23); static list"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/each-key::src/routes/posts/[slug]/+page.svelte:58::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: posts/[slug]/+page.svelte:58 '{#each authorInformation as author, index}' has no key; the authors of one committed post's metadata (:26-29), aligned by index with authorLinks; positional list"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/stale-prop-derivation::src/lib/blocks/Button.svelte:3::\"finalStyle\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "tp",
+    "basis": "read: blocks/Button.svelte:3 finalStyle computed from the short/style props at init and rendered (style={finalStyle}); a reusable block component (no importer in the repo at this sha) whose sibling reads of the alt prop are $derived (:6-8), leaving this one frozen (ledger reusable-component convention)"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/stale-prop-derivation::src/lib/blocks/Image.svelte:5::\"altText\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: blocks/Image.svelte:5 altText = alt ? alt : caption at init (structurally true); every caller passes alt/caption as literals or omits them (Header.svelte:17, about/signup/+page.svelte:43/50, posts/[slug]/+page.svelte:39 alt literal, ImageWithText forwarding the home page's literals), so the frozen value never differs"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/stale-prop-derivation::src/lib/blocks/ImageWithText.svelte:14::\"heightStyle\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: blocks/ImageWithText.svelte:14 heightStyle from fullHeight at init (structurally true); its only caller, routes/+page.svelte, never passes fullHeight (four literal uses), so the frozen value never differs"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/stale-prop-derivation::src/lib/blocks/ImageWithText.svelte:15::\"marginStyle\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: blocks/ImageWithText.svelte:15 marginStyle from fullHeight/margin at init (structurally true); its only caller, routes/+page.svelte, passes margin=\"100px\" literally and no fullHeight, so the frozen value never differs"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::correctness/stale-prop-derivation::src/lib/components/OpenCollectiveDonate.svelte:5::\"queryString\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: OpenCollectiveDonate.svelte:5 queryString from the height prop at init (structurally true); its only use is the literal <OpenCollectiveDonate height=200/> in routes/posts/250908-support-us.md:36 (Footer's use is commented out), so the frozen value never differs"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::performance/image-dimensions::src/routes/feeds/[feed]/+page.svelte:50::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; .feed-avatar sets width:70px only (feeds/[feed]/+page.svelte <style>) - height comes from the image, no box reserved; feedInfo.avatar is a cdn.bsky.app/img/avatar/plain/...@jpeg URL (static/json/feedInfo.json, written by prebuild.js)"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::performance/image-loading-hint::src/routes/feeds/[feed]/+page.svelte:50::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; feed avatar at the very top of the page beside the <h1> (feeds/[feed]/+page.svelte:49-52) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::performance/responsive-image::src/routes/feeds/[feed]/+page.svelte:50::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg; feedInfo.avatar is a cdn.bsky.app/img/avatar/plain/...@jpeg URL (static/json/feedInfo.json, written by prebuild.js), a full-size raster avatar drawn at 70px - one fixed-size asset"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/about/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/signup (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders (blog/+layout.server.js redirects only page<=1 and mixed-case variants)"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/blog/[category]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/[category] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders (blog/+layout.server.js redirects only page<=1 and mixed-case variants)"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/blog/[category]/[page]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/[category]/[page] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders (blog/+layout.server.js redirects only page<=1 and mixed-case variants)"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/faq/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /faq (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/faq/[feed]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /faq/[feed] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/feeds/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /feeds (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/feeds/[feed]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /feeds/[feed] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/canonical-url::src/routes/posts/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /posts/[slug] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): no <link rel=\"canonical\"> anywhere in the repo (src, app.html, static, prebuild.js); root +layout.svelte:66-81 head emits title/description/og:*/twitter:* but no canonical; no hooks; adapter-static, prerender=true (+layout.js)); public prerendered route of a static site, renders"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so / (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /about (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/about/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /about/signup (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /blog (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/blog/[category]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /blog/[category] (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/blog/[category]/[page]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /blog/[category]/[page] (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/faq/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /faq (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/faq/[feed]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /faq/[feed] (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/feeds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /feeds (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/feeds/[feed]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /feeds/[feed] (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/json-ld::src/routes/posts/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src (incl. markdown posts), static or app.html, no meta/JSON-LD package in deps; root +layout.svelte head carries title/description/OG/Twitter only, so /posts/[slug] (renders: no load always redirects on it) has no JSON-LD"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has assets, fonts, json and social-cards only, no robots.txt route, and prebuild.js only pre-queries the feed API and renders social cards; public static site astrosky.eco on GitHub Pages (README), so crawl rules are missing as claimed"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/single-h1::src/routes/+page.svelte:33::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: +page.svelte passes four unconditional <h1>s (:13, :33, :53, :72) as children to ImageWithText, which renders children in one of its arms on every use (lib/blocks/ImageWithText.svelte:21-31) - four <h1>s render"
+  },
+  {
+    "key": "the-astrosky-ecosystem/website::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ or routes, no generator in prebuild.js or the deploy workflow; public static site astrosky.eco (README) with blog posts and feed pages to list"
+  }
+]
