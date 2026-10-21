@@ -1,0 +1,997 @@
+[
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/accessible-name::src/lib/components/Nav.svelte:42::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read Nav.svelte:42-50: mobile menu <button onclick> containing only an <svg> with <path>s (no <title>), no aria-label/title; unnamed as reported"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/accessible-name::src/routes/report/[category]/+page.svelte:238::<a> has no accessible name",
+    "verdict": "tp",
+    "basis": "read report/[category]/+page.svelte:238-240: back <a href=\"/dashboard\"> containing only an arrow <svg> (no <title>), no aria-label/title; unnamed as reported"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/duplicate-landmark::src/routes/analysis/+layout.svelte:207::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: on /analysis and /analysis/[id] the root +layout.svelte <main> (:13/:19), analysis/+layout.svelte:89 <div role=\"main\"> and :207 <main> all render together under {#if loaded}; three main landmarks"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/duplicate-landmark::src/routes/analysis/+layout.svelte:89::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: on /analysis and /analysis/[id] the root +layout.svelte <main> (both {#if $isTauri} arms, :13/:19), analysis/+layout.svelte:89 <div role=\"main\"> and :207 <main> all render together under {#if loaded}; three main landmarks"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/interactive-nesting::src/lib/components/AppSidebar.svelte:132::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read AppSidebar.svelte:123-139: rename <input type=text> under {#if editingIdx === idx} inside the genome row <div role=\"button\" tabindex=\"0\" onclick>; an input nested in a button-role container"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/interactive-nesting::src/lib/components/AppSidebar.svelte:144::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read AppSidebar.svelte:123-150: Remove <button> under {#if $genomes.length > 1} inside the genome row <div role=\"button\" tabindex=\"0\">; a button nested in a button-role container"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/interactive-nesting::src/lib/components/FileUpload.svelte:287::<input> is nested inside interactive <button>",
+    "verdict": "design",
+    "basis": "read FileUpload.svelte:278-287: <input id=file-input type=file class=\"hidden\"> inside the drop-zone <button onclick={handleClick}>; nested as reported, but Tailwind 4 'hidden' (tailwindcss ^4.1.0) is display:none, so it is neither focusable nor exposed (ledger hidden file-input precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/interactive-nesting::src/lib/components/GenomeSwitcher.svelte:49::<button> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read GenomeSwitcher.svelte:39-55: Remove <button> under {#if $genomes.length > 1} inside the genome <button onclick ondblclick>; button nested in button (invalid HTML)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/no-autofocus::src/lib/components/GenomeNamePrompt.svelte:30::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; GenomeNamePrompt.svelte:30 <input autofocus> renders only in FileUpload.svelte:229-231 {#if phase === 'naming'}, reached after the user supplies a genome file; focus on user action, not page load"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/permitted-contents::src/lib/components/FileUpload.svelte:291::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/lib/components/FileUpload.svelte:291 literal <div> sits in literal <button> opened at :278 (ancestors …If > button > If), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/permitted-contents::src/lib/components/FileUpload.svelte:323::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/lib/components/FileUpload.svelte:323 literal <div> sits in literal <button> opened at :278 (ancestors …If > button > If), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/permitted-contents::src/lib/components/VariantList.svelte:38::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/lib/components/VariantList.svelte:38 literal <div> sits in literal <button> opened at :37 (ancestors …div > Each > button), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/permitted-contents::src/routes/analysis/+page.svelte:303::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/routes/analysis/+page.svelte:303 literal <div> sits in literal <button> opened at :302 (ancestors …Each > If > button), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/permitted-contents::src/routes/analysis/+page.svelte:313::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/routes/analysis/+page.svelte:313 literal <div> sits in literal <button> opened at :302 (ancestors …If > button > If), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/permitted-contents::src/routes/analysis/+page.svelte:423::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/routes/analysis/+page.svelte:423 literal <div> sits in literal <button> opened at :422 (ancestors …Each > div > button), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/permitted-contents::src/routes/analysis/[id]/+page.svelte:151::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/routes/analysis/[id]/+page.svelte:151 literal <div> sits in literal <button> opened at :150 (ancestors …div > Each > button), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/permitted-contents::src/routes/report/[category]/+page.svelte:264::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/routes/report/[category]/+page.svelte:264 literal <div> sits in literal <button> opened at :256 (ancestors …div > Each > button), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/permitted-contents::src/routes/report/[category]/+page.svelte:270::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/routes/report/[category]/+page.svelte:270 literal <div> sits in literal <button> opened at :256 (ancestors …div > Each > button), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/top-level-landmark::src/routes/analysis/+layout.svelte:207::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read analysis/+layout.svelte:89/:207: <main> wrapping {@render children()} inside the <div role=\"main\"> (:89), itself inside the root layout's <main> (+layout.svelte:13/:19); main nested in main on /analysis and /analysis/[id]"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/top-level-landmark::src/routes/analysis/+layout.svelte:89::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read analysis/+layout.svelte:88-89: under {#if loaded} a <div role=\"main\"> sits inside the root +layout.svelte <main> that both {#if $isTauri} arms (:13/:19) wrap children in; main nested in main on /analysis and /analysis/[id] (ssr=false, rendered client-side)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::a11y/top-level-landmark::src/routes/analysis/+layout.svelte:91::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read analysis/+layout.svelte:90-91: <aside aria-label=\"Analysis navigation\"> under {#if !$isTauri} inside the <div role=\"main\"> (:89) and the root <main>; complementary nested in main on /analysis and /analysis/[id]"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/lib/components/FileUpload.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FileUpload.svelte has 385 physical lines (newline count, trailing newline not counted; 344 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 321 physical lines (newline count, trailing newline not counted; 303 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/routes/about/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/about/+page.svelte has 354 physical lines (newline count, trailing newline not counted; 327 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/routes/analysis/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/analysis/+layout.svelte has 213 physical lines (newline count, trailing newline not counted; 195 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/routes/analysis/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/analysis/+page.svelte has 485 physical lines (newline count, trailing newline not counted; 451 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/routes/analysis/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/analysis/[id]/+page.svelte has 220 physical lines (newline count, trailing newline not counted; 201 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/routes/blog/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/+page.svelte has 218 physical lines (newline count, trailing newline not counted; 205 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/routes/compare/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/compare/+page.svelte has 290 physical lines (newline count, trailing newline not counted; 267 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/routes/report/[category]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/report/[category]/+page.svelte has 293 physical lines (newline count, trailing newline not counted; 269 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::architecture/component-size::src/routes/snp/[rsid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/snp/[rsid]/+page.svelte has 256 physical lines (newline count, trailing newline not counted; 240 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/lib/components/ChromosomeMap.svelte:8::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ChromosomeMap.svelte:8 '{#each chrList as chr, i}' has no key; chrList = [...Array(22).keys()].map(...).concat(['X','Y']) (:3), the fixed chromosome list built once; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/lib/components/GenomeNamePrompt.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: GenomeNamePrompt.svelte:41 '{#each suggestions as s}' has no key; suggestions = ['Me', 'Partner', ...] (:5), a `let` literal never reassigned (not the exempt const shape); static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/lib/components/LiveResults.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: LiveResults.svelte:58 '{#each Object.entries(categoryCounts()) as [cat, count]}' has no key; counts per category of the user's enriched matches (:37-45), growing while the genome file is processed; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/lib/components/VariantList.svelte:116::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: VariantList.svelte:116 '{#each snp.conditions as c}' has no key; conditions of one entry of the committed SNP database (workspace package @telomere/snp-db); static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/lib/components/VariantList.svelte:125::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: VariantList.svelte:125 '{#each snp.recommendations as rec}' has no key; recommendations of one committed @telomere/snp-db entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/lib/components/VariantList.svelte:134::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: VariantList.svelte:134 '{#each (snp.references || []) as ref}' has no key; references of one committed @telomere/snp-db entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/lib/components/VariantList.svelte:59::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: VariantList.svelte:59 '{#each compareData as member}' has no key; compareData = getCompareData(snp.rsid) maps $genomes (:10-18), the genomes the user loaded and can add or remove; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/lib/components/VariantList.svelte:96::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: VariantList.svelte:96 '{#each Object.entries(snp.populationFrequency) as [gt, freq]}' has no key; population frequencies of one committed @telomere/snp-db entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/+layout.svelte:97::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/+layout.svelte:97 '{#each genomesVal as genome, i}' has no key; genomesVal = $state([]) (:15) mirrors the genomes store the user adds to and removes from; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/+page.svelte:202::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/+page.svelte:202 '{#each searchResults as trait}' has no key; searchResults = $derived.by filter of the user's trait results by the typed query (:88-95); runtime data (search results)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/+page.svelte:246::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/+page.svelte:246 '{#each pgs.slice(0, 3) as result}' has no key; pgs = $state([]) (:23), polygenic scores computed from the user's genome; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/+page.svelte:274::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/+page.svelte:274 '{#each traits.slice(0, 8) as trait}' has no key; traits = $state([]) filled from the traitResults store (:27, :41), the user's trait results; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/+page.svelte:352::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/+page.svelte:352 '{#each currentCategoryTraits as trait}' has no key; $derived.by filter of the user's traits by section, search and risk filter (:100-110); runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/+page.svelte:384::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/+page.svelte:384 '{#each pgs as result}' has no key; pgs = $state([]) (:23), polygenic scores computed from the user's genome; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/+page.svelte:420::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/+page.svelte:420 '{#each chromosomeGroups as group}' has no key; chromosomeGroups = $derived.by grouping of the user's matched variants (:141); runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/+page.svelte:431::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/+page.svelte:431 '{#each group.snps as snp}' has no key; the user's matched variants of one chromosome group; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/+page.svelte:469::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/+page.svelte:469 '{#each allVariants as snp}' has no key; allVariants = $derived.by over the user's matched variants (:122); runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/[id]/+page.svelte:133::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: analysis/[id]/+page.svelte:133 '{#each traitDescription.relatedLinks as link}' has no key; links of the committed trait descriptions ($lib/data/trait-descriptions.js); static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/[id]/+page.svelte:149::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/[id]/+page.svelte:149 '{#each trait.snps as snp}' has no key; trait = traits.find(...) of the user's trait results (:10, :26), so trait.snps are the user's matched variants; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/[id]/+page.svelte:176::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: analysis/[id]/+page.svelte:176 '{#each Object.entries(snp.populationFrequencies) as [pop, freq]}' has no key; population frequencies of one SNP's reference data; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/analysis/[id]/+page.svelte:212::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: analysis/[id]/+page.svelte:212 '{#each trait.genes as gene}' has no key; genes of a trait result computed from the user's genome (trait = traits.find(...), :26); runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/blog/+page.svelte:194::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: blog/+page.svelte:194 '{#each remainingArticles as article}' has no key; filteredArticles.slice(1) (:129), where filteredArticles filters the articles by the category the user picks (:124-125, :160), so items are inserted and removed; runtime filter result"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/blog/[slug]/+page.svelte:70::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: blog/[slug]/+page.svelte:70 '{#each article.content as block}' has no key; content blocks of a committed article (articles[slug], :24); static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/blog/[slug]/+page.svelte:77::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: blog/[slug]/+page.svelte:77 '{#each block.items as item}' has no key; list items of one committed article block; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/blog/[slug]/+page.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: blog/[slug]/+page.svelte:97 '{#each relatedArticles as related}' has no key; relatedArticles = article.relatedSlugs mapped over the committed articles (:27-31); static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/compare/+page.svelte:164::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: compare/+page.svelte:164 '{#each genomesVal as g, i}' has no key; genomesVal = $state([]) (:14), the genomes the user loaded for comparison; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/compare/+page.svelte:196::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: compare/+page.svelte:196 '{#each overlapStats.pairwise as pair}' has no key; overlapStats = $derived.by over the user's genomes (:38); runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/compare/+page.svelte:221::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: compare/+page.svelte:221 '{#each overlapStats.unique as u}' has no key; overlapStats = $derived.by over the user's genomes (:38); runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/compare/+page.svelte:241::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: compare/+page.svelte:241 '{#each categories as cat}' has no key; categories = getCategories() (:10) from the committed @telomere/snp-db; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/compare/+page.svelte:259::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: compare/+page.svelte:259 '{#each genomesVal as g}' has no key; genomesVal = $state([]) (:14), the user's loaded genomes; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/compare/+page.svelte:273::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: compare/+page.svelte:273 '{#each genomesVal as g, i}' has no key; genomesVal = $state([]) (:14), the user's loaded genomes; runtime data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/download/+page.svelte:108::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: download/+page.svelte:108 '{#each platforms.filter(p => !p.primary) as platform}' has no key; a fixed filter of the same-file const literal platforms (:3); static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/download/+page.svelte:81::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: download/+page.svelte:81 '{#each platforms.filter(p => p.primary) as platform}' has no key; a fixed filter of the same-file const literal platforms (:3); static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/explore/+page.svelte:112::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: explore/+page.svelte:112 '{#each snp.categories || [] as cat}' has no key; categories of one committed @telomere/snp-db entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/explore/+page.svelte:79::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: explore/+page.svelte:79 '{#each categories as cat}' has no key; categories = getCategories() (:7) from the committed @telomere/snp-db; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/report/[category]/+page.svelte:144::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: report/[category]/+page.svelte:144 '{#each selected.categories || [] as cat}' has no key; categories of the expanded SNP's committed database entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/report/[category]/+page.svelte:157::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: report/[category]/+page.svelte:157 '{#each selected.conditions as condition}' has no key; conditions of the expanded SNP's committed database entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/report/[category]/+page.svelte:173::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: report/[category]/+page.svelte:173 '{#each Object.entries(selected.populationFrequency) as [pop, freq]}' has no key; population frequencies of the expanded SNP's committed database entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/report/[category]/+page.svelte:192::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: report/[category]/+page.svelte:192 '{#each geneRelated as rel}' has no key; geneRelated = getByGene(selected.gene).filter(...) (:188) over the committed @telomere/snp-db; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/snp/[rsid]/+page.svelte:126::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: snp/[rsid]/+page.svelte:126 '{#each snp.categories || [] as cat}' has no key; categories of a committed @telomere/snp-db entry (lookupSnp); static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/snp/[rsid]/+page.svelte:138::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: snp/[rsid]/+page.svelte:138 '{#each snp.conditions as condition}' has no key; conditions of a committed @telomere/snp-db entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/snp/[rsid]/+page.svelte:152::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: snp/[rsid]/+page.svelte:152 '{#each snp.recommendations as rec}' has no key; recommendations of a committed @telomere/snp-db entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/snp/[rsid]/+page.svelte:167::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: snp/[rsid]/+page.svelte:167 '{#each Object.entries(snp.populationFrequency) as [population, freq]}' has no key; population frequencies of a committed @telomere/snp-db entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/snp/[rsid]/+page.svelte:204::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: snp/[rsid]/+page.svelte:204 '{#each getByGene(snp.gene).filter(s => s.rsid !== rsid) as rel}' has no key; SNPs of the same gene from the committed @telomere/snp-db; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/each-key::src/routes/snp/[rsid]/+page.svelte:227::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: snp/[rsid]/+page.svelte:227 '{#each snp.references as ref}' has no key; references of a committed @telomere/snp-db entry; static list"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/effect-as-derived::src/lib/components/FileUpload.svelte:24::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: FileUpload.svelte:24 the effect only does isTauri = typeof window !== 'undefined' && !!window.__TAURI_INTERNALS__, the docs-listed browser-global capture limitation: a $derived would compute false during SSR and flip on hydration"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::correctness/unmutated-state::src/routes/compare/+page.svelte:16::$state \"viewMode\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: compare/+page.svelte:16 viewMode = $state('traits') is declared and never mentioned again in the file (no write, bind, pass or read), so it is never written, as claimed"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::performance/state-raw::src/routes/+page.svelte:50::\"faqOpen\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"faqOpen\" in src/routes/+page.svelte (d_refs.py) and read each {#each} body over it: reassigned :51 with a spread copy; read faqOpen[i] :296,:300; no member writes, mutating calls, bind:, prop escapes or item edits — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::performance/state-raw::src/routes/analysis/+page.svelte:22::\"byCat\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"byCat\" in src/routes/analysis/+page.svelte (d_refs.py) and read each {#each} body over it: reassigned :37 (get(store)); never otherwise read; no member writes, mutating calls, bind:, prop escapes or item edits — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::performance/state-raw::src/routes/analysis/+page.svelte:24::\"riskSummary\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"riskSummary\" in src/routes/analysis/+page.svelte (d_refs.py) and read each {#each} body over it: reassigned :39 (get(store)); read riskSummary[cat].avgRisk :312-314; no member writes, mutating calls, bind:, prop escapes or item edits — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::performance/state-raw::src/routes/analysis/+page.svelte:26::\"topFindingsVal\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"topFindingsVal\" in src/routes/analysis/+page.svelte (d_refs.py) and read each {#each} body over it: reassigned :40 (get(store)); never otherwise read; no member writes, mutating calls, bind:, prop escapes or item edits — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::security/raw-html::src/lib/components/LiveResults.svelte:62::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read LiveResults.svelte:62 + lib/stores/reports.js:79-85: categoryMeta[cat].iconSvg is a literal SVG string constant — repo constants, reported per docs"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::security/raw-html::src/routes/+page.svelte:15::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/+page.svelte:15-25: SoftwareApplication JSON-LD = JSON.stringify of a fully literal object — a literal reviewed block per docs"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::security/raw-html::src/routes/+page.svelte:26::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/+page.svelte:26-35: FAQPage JSON-LD = JSON.stringify of a fully literal object — a literal reviewed block per docs"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::security/raw-html::src/routes/analysis/+page.svelte:305::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read analysis/+page.svelte:305 + lib/stores/reports.js:79-85: literal categoryMeta iconSvg with width/height replaced — repo constants, reported per docs"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::security/raw-html::src/routes/analysis/[id]/+page.svelte:126::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read analysis/[id]/+page.svelte:31-36,126: regex markdown over traitDescription.details from the repo data module $lib/data/trait-descriptions.js (getTraitDescription) — repo-authored content, reported per docs"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::security/raw-html::src/routes/blog/[slug]/+page.svelte:84::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read blog/[slug]/+page.svelte:18,83-84 + lib/data/blog-articles.js:150,309: block.text with html:true is a literal repo paragraph with fixed <a> links — repo-authored content, reported per docs"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::security/raw-html::src/routes/explore/+page.svelte:47::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read explore/+page.svelte:47-54: Dataset JSON-LD = JSON.stringify of a fully literal object — a literal reviewed block per docs"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::security/raw-html::src/routes/snp/[rsid]/+page.svelte:46::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read snp/[rsid]/+page.svelte:3,10,46-52: JSON-LD of snp.rsid/gene/trait from lookupSnp in the workspace package @telomere/snp-db (packages/snp-db, repo-curated SNP data) — repo-authored constants (ledger repo-data JSON-LD convention), reported per docs"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); public site page, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/analysis/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /analysis (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 15 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route) but not a search target (literal noindex robots meta at analysis/+page.svelte:174; static/robots.txt Disallow: /analysis; onMount goto(/upload) without loaded data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/analysis/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /analysis/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 16 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route) but not a search target (literal noindex robots meta at analysis/[id]/+page.svelte:78; static/robots.txt Disallow: /analysis), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); public site page, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/blog/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 11 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); public site page, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/compare/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /compare (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 12 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route) but not a search target (literal noindex robots meta at compare/+page.svelte:139; static/robots.txt Disallow: /compare), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route) but not a search target (client redirect stub: dashboard/+page.svelte:3 $effect goto(/analysis) unconditionally; static/robots.txt Disallow: /dashboard), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/download/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /download (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); public site page, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/explore/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /explore (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); public site page, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); public site page, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/report/[category]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /report/[category] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 13 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route) but not a search target (literal noindex robots meta at report/[category]/+page.svelte:54; redirects to /upload without loaded genome data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/snp/[rsid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /snp/[rsid] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 14 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); public site page, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/canonical-url::src/routes/upload/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /upload (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); public site page, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/description-length::src/routes/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:3 unconditional top-level literal <meta name=\"description\"> is 202 characters (counted), the route's only description, over 160 as claimed; public home page of telomere.ai (in static/sitemap.xml), shown in search"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/description-presence::src/routes/analysis/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: /analysis svelte:head has only <title> and a literal <meta name=\"robots\" content=\"noindex\">, no description; root layout/app.html none (literal claim holds); but a personal results view over the visitor's locally loaded DNA data, noindex and Disallowed in static/robots.txt, not a search target"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/description-presence::src/routes/analysis/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: /analysis/[id] svelte:head has only <title> and a literal <meta name=\"robots\" content=\"noindex\">, no description; root layout/app.html none (literal claim holds); but a personal results view over the visitor's locally loaded DNA data, noindex and Disallowed in static/robots.txt, not a search target"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/description-presence::src/routes/compare/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: /compare svelte:head has only <title> and a literal <meta name=\"robots\" content=\"noindex\">, no description; root layout/app.html none (literal claim holds); but a personal results view over the visitor's locally loaded DNA data, noindex and Disallowed in static/robots.txt, not a search target"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/description-presence::src/routes/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: dashboard/+page.svelte only calls goto('/analysis') in an $effect, no svelte:head, so no description (literal claim holds); but a client redirect shim to the personal /analysis view, Disallowed in static/robots.txt, not a search target"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/description-presence::src/routes/privacy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: privacy/+page.svelte head is only <title>Privacy Policy — Telomere AI</title>; root +layout.svelte and app.html carry no description, so /privacy has none (literal claim holds); public, indexable privacy policy page listed in static/sitemap.xml"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/heading-level-skip::src/routes/blog/[slug]/+page.svelte:74::Heading level skipped (<h#> to <h#>)",
+    "verdict": "design",
+    "basis": "read: the flagged <h3> renders only {:else if block.type === 'h3'} in {#each article.content} (blog/[slug]/+page.svelte:72-75), and the committed article data has no h3 block at all (lib/data/blog-articles.js: 111 type 'h2', 0 type 'h3') - the element never renders with the shipped data"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/heading-level-skip::src/routes/download/+page.svelte:93::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: download/+page.svelte:75 <h1>, then the platform cards' <h3>{platform.name} (:93) with only inline <svg> icons between; layout Nav renders no <h2> before children -> h1 to h3"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/heading-level-skip::src/routes/snp/[rsid]/+page.svelte:136::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: snp/[rsid]/+page.svelte:71 <h1>{snp.rsid}, then the risk card (RiskGauge, no heading) and the 'Associated Conditions' <h3> (:136) with no <h2> between -> h1 to h3"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/indexability::src/routes/analysis/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: /analysis/+page.svelte unconditional svelte:head literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed (personal genetic-results view, deliberate)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/indexability::src/routes/analysis/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: /analysis/[id]/+page.svelte unconditional svelte:head literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed (personal genetic-results view, deliberate)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/indexability::src/routes/compare/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: /compare/+page.svelte unconditional svelte:head literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed (personal genetic-results view, deliberate)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/indexability::src/routes/report/[category]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: /report/[category]/+page.svelte unconditional svelte:head literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed (personal genetic-results view, deliberate)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /about, its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/analysis/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /analysis, its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/analysis/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /analysis/[id], its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /blog, its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /blog/[slug], its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/compare/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /compare, its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /dashboard, its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/download/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /download, its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /privacy, its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/report/[category]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /report/[category], its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/json-ld::src/routes/upload/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD is emitted only by +page.svelte (/), explore/+page.svelte and snp/[rsid]/+page.svelte; /upload, its root layout and app.html have none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/analysis/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /analysis (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 15 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/+page.svelte:174; static/robots.txt Disallow: /analysis; onMount goto(/upload) without loaded data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/analysis/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /analysis/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 16 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/[id]/+page.svelte:78; static/robots.txt Disallow: /analysis))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/compare/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /compare (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 12 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at compare/+page.svelte:139; static/robots.txt Disallow: /compare))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (client redirect stub: dashboard/+page.svelte:3 $effect goto(/analysis) unconditionally; static/robots.txt Disallow: /dashboard))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/download/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /download (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/explore/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /explore (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /privacy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/report/[category]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /report/[category] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 13 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at report/[category]/+page.svelte:54; redirects to /upload without loaded genome data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-description::src/routes/snp/[rsid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /snp/[rsid] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 14 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/analysis/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /analysis (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 15 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/+page.svelte:174; static/robots.txt Disallow: /analysis; onMount goto(/upload) without loaded data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/analysis/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /analysis/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 16 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/[id]/+page.svelte:78; static/robots.txt Disallow: /analysis))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 11 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/compare/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /compare (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 12 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at compare/+page.svelte:139; static/robots.txt Disallow: /compare))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (client redirect stub: dashboard/+page.svelte:3 $effect goto(/analysis) unconditionally; static/robots.txt Disallow: /dashboard))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/download/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /download (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/explore/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /explore (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /privacy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/report/[category]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /report/[category] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 13 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at report/[category]/+page.svelte:54; redirects to /upload without loaded genome data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/snp/[rsid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /snp/[rsid] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 14 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-image::src/routes/upload/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /upload (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/analysis/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /analysis (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 15 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/+page.svelte:174; static/robots.txt Disallow: /analysis; onMount goto(/upload) without loaded data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/analysis/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /analysis/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 16 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/[id]/+page.svelte:78; static/robots.txt Disallow: /analysis))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/compare/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /compare (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 12 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at compare/+page.svelte:139; static/robots.txt Disallow: /compare))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (client redirect stub: dashboard/+page.svelte:3 $effect goto(/analysis) unconditionally; static/robots.txt Disallow: /dashboard))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/download/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /download (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/explore/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /explore (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /privacy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/report/[category]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /report/[category] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 13 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at report/[category]/+page.svelte:54; redirects to /upload without loaded genome data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-title::src/routes/snp/[rsid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /snp/[rsid] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 14 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/analysis/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /analysis (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 15 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/+page.svelte:174; static/robots.txt Disallow: /analysis; onMount goto(/upload) without loaded data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/analysis/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /analysis/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 16 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/[id]/+page.svelte:78; static/robots.txt Disallow: /analysis))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 11 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/compare/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /compare (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 12 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at compare/+page.svelte:139; static/robots.txt Disallow: /compare))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (client redirect stub: dashboard/+page.svelte:3 $effect goto(/analysis) unconditionally; static/robots.txt Disallow: /dashboard))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/download/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /download (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/explore/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /explore (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /privacy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/report/[category]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /report/[category] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 13 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at report/[category]/+page.svelte:54; redirects to /upload without loaded genome data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/snp/[rsid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /snp/[rsid] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 14 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/og-url::src/routes/upload/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /upload (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/single-h1::/dashboard::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: dashboard/+page.svelte is a script-only stub ($effect goto('/analysis'), :2-3) with no markup; root +layout.svelte renders Nav/Footer or AppSidebar, no <h1> - redirect-stub convention (claim holds)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/single-h1::src/routes/analysis/+page.svelte:195::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: analysis/+page.svelte headings are <h2>/<h3> in every arm (:195-449), no <h1>; root layout (Nav/AppSidebar/Footer) has none - grep of web/src finds <h1> only on other routes"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/ssr-disabled::src/routes/+layout.js:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.js:2 (adapter-static SPA), so the public marketing and content pages (/, /about, /blog/[slug], /explore, /snp/[rsid], each with its own title/description/JSON-LD and listed in static/sitemap.xml) ship as an empty shell to non-JS crawlers, as claimed"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/ssr-disabled::src/routes/compare/+page.js:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at compare/+page.js:1 (redundant under root ssr=false); /compare compares the visitor's locally loaded genomes (noindex, Disallowed in robots.txt), not content for search"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/title-length::src/routes/+page.svelte::Title is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:2 unconditional top-level literal <title>Telomere AI — Free Genetic Analysis | 330+ Health Markers from Your DNA</title> is 71 characters (counted), the route's only title (root +layout.svelte has none), over 60 as claimed; public home page of telomere.ai"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/title-length::src/routes/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /about/+page.svelte top-level unconditional svelte:head literal <title> ('About — Telomere.ai' 19 / 'Blog — Telomere.ai' 18 / 'Privacy Policy — Telomere AI' 28, counted), the route's only title, under 30 as claimed; public page of telomere.ai listed in static/sitemap.xml"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/title-length::src/routes/analysis/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: /analysis/+page.svelte top-level literal <title> ('Analysis — Telomere.ai' 22 / 'Compare Genomes — Telomere.ai' 29, counted), too short as claimed; but a personal results view over the visitor's locally loaded DNA data, literal noindex in the same svelte:head and Disallowed in static/robots.txt, not a search target"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/title-length::src/routes/blog/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /blog/+page.svelte top-level unconditional svelte:head literal <title> ('About — Telomere.ai' 19 / 'Blog — Telomere.ai' 18 / 'Privacy Policy — Telomere AI' 28, counted), the route's only title, under 30 as claimed; public page of telomere.ai listed in static/sitemap.xml"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/title-length::src/routes/compare/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: /compare/+page.svelte top-level literal <title> ('Analysis — Telomere.ai' 22 / 'Compare Genomes — Telomere.ai' 29, counted), too short as claimed; but a personal results view over the visitor's locally loaded DNA data, literal noindex in the same svelte:head and Disallowed in static/robots.txt, not a search target"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/title-length::src/routes/privacy/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /privacy/+page.svelte top-level unconditional svelte:head literal <title> ('About — Telomere.ai' 19 / 'Blog — Telomere.ai' 18 / 'Privacy Policy — Telomere AI' 28, counted), the route's only title, under 30 as claimed; public page of telomere.ai listed in static/sitemap.xml"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/title-presence::src/routes/dashboard/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: dashboard/+page.svelte is a redirect shim ($effect goto('/analysis', {replaceState:true})) with no svelte:head; root +layout.svelte has no svelte:head, app.html has no <title>, grep of src/lib (Nav/Footer/AppSidebar closure) and workspace packages/ finds no svelte:head, <title> or document.title; root +layout.js ssr=false; the page mounts untitled before the client redirect (legacy redirect shim precedent: prejemesi, tanvoid0, grav-admin-next)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/analysis/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /analysis (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 15 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/+page.svelte:174; static/robots.txt Disallow: /analysis; onMount goto(/upload) without loaded data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/analysis/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /analysis/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 16 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at analysis/[id]/+page.svelte:78; static/robots.txt Disallow: /analysis))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/blog/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 11 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/compare/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /compare (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 12 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at compare/+page.svelte:139; static/robots.txt Disallow: /compare))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (client redirect stub: dashboard/+page.svelte:3 $effect goto(/analysis) unconditionally; static/robots.txt Disallow: /dashboard))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/download/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /download (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/explore/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /explore (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /privacy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 10 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/report/[category]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /report/[category] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 13 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route); og/twitter rules carry no search-target exemption (not a search target (literal noindex robots meta at report/[category]/+page.svelte:54; redirects to /upload without loaded genome data))"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/snp/[rsid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /snp/[rsid] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 14 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  },
+  {
+    "key": "vaionex/telomere.ai:apps/web::seo/twitter-card::src/routes/upload/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /upload (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; og/twitter/canonical tags exist only in the home page head (routes/+page.svelte:5-14), og:title/og:description in blog/[slug] ({#if article}) and upload pages; root +layout.svelte has no <svelte:head>; app.html head is charset/viewport/analytics loader; workspace @telomere/* packages ship no .svelte; ssr=false app-wide (+layout.js:2) so client heads count and none emits it on this route)"
+  }
+]

@@ -1,0 +1,367 @@
+[
+  {
+    "key": "owodunni/curarehab:packages/web::architecture/component-size::src/lib/components/NaprapatServiceLogo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NaprapatServiceLogo.svelte has 256 physical lines (newline count, trailing newline not counted; 256 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::architecture/prop-count::src/lib/components/Card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Card.svelte has a single destructured $props() with 8 named props (> 6): link, image, shape, text, t, children, buttons, extra"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::architecture/prop-count::src/lib/components/Footer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Footer.svelte has a single destructured $props() with 9 named props (> 6): t, l, locale, socialLinks, columnLinks, email, location, location2, phone"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::architecture/prop-count::src/lib/components/Image.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Image.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: width, height, alt, lazy, srcPath, class, pictureClass"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::architecture/prop-count::src/lib/widgets/Clinics.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/widgets/Clinics.svelte has a single destructured $props() with 8 named props (> 6): title, description, t, l, images, localized, klinikerList, headingLevel"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::correctness/each-index-key::src/lib/components/EditorJs/BlockRender.svelte:16::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: EditorJs/BlockRender.svelte:16 '{#each block.data.items as { content }, index (index)}' keyed by its index binding; the items of one authored Editor.js list block (export let block); positional list (content of one document block)"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::correctness/each-index-key::src/lib/components/EditorJs/BlockRender.svelte:47::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: EditorJs/BlockRender.svelte:47 '{#each block.data.content[0] as header, index (index)}' keyed by its index binding; header cells of one authored Editor.js table block; positional list (columns)"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::correctness/each-index-key::src/lib/components/EditorJs/BlockRender.svelte:54::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: EditorJs/BlockRender.svelte:54 '{#each block.data.content.slice(1) as row, rowIndex (rowIndex)}' keyed by its index binding; rows of one authored Editor.js table block; positional list (rows of one document block)"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::correctness/each-index-key::src/lib/components/EditorJs/BlockRender.svelte:56::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: EditorJs/BlockRender.svelte:56 '{#each row as cell, cellIndex (cellIndex)}' keyed by its index binding; cells of one table row of an authored Editor.js block; positional list (columns)"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::correctness/each-index-key::src/lib/components/EditorJs/BlocksRender.svelte:8::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: EditorJs/BlocksRender.svelte:8 '{#each blocks as block, index (index)}' keyed by its index binding; the blocks of one authored Editor.js document (export let blocks); positional list (content of one document, ledger article.blocks convention)"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/ArticleCard.svelte:37::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ArticleCard.svelte:37: sammanfattning (article summary) from site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/EditorJs/BlockRender.svelte:10::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EditorJs/BlockRender.svelte:10: editor.js block data (text/caption/items/table cells/code) of site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/EditorJs/BlockRender.svelte:13::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EditorJs/BlockRender.svelte:13: editor.js block data (text/caption/items/table cells/code) of site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/EditorJs/BlockRender.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EditorJs/BlockRender.svelte:18: editor.js block data (text/caption/items/table cells/code) of site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/EditorJs/BlockRender.svelte:32::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EditorJs/BlockRender.svelte:32: editor.js block data (text/caption/items/table cells/code) of site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/EditorJs/BlockRender.svelte:34::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EditorJs/BlockRender.svelte:34: editor.js block data (text/caption/items/table cells/code) of site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/EditorJs/BlockRender.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EditorJs/BlockRender.svelte:39: editor.js block data (text/caption/items/table cells/code) of site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/EditorJs/BlockRender.svelte:49::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EditorJs/BlockRender.svelte:49: editor.js block data (text/caption/items/table cells/code) of site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/EditorJs/BlockRender.svelte:58::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EditorJs/BlockRender.svelte:58: editor.js block data (text/caption/items/table cells/code) of site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/HeroNew.svelte:42::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read HeroNew.svelte:42 + lib/i18n/index.ts: t(\"hem\",\"subtitleParagraph\") is a repo translation string (src/lib/i18n/sv|en), no params — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/components/Seo.svelte:90::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read Seo.svelte:35-90: computedLdJson is the ldJson prop (article/clinic data from Directus, artiklar/kliniker [slug] pages) or a WebPage built from Directus seo.title/description, serialized with JSON.stringify with no < escaping inside <script type=application/ld+json> — docs: non-literal JSON-LD needs script-safe serialization (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/widgets/Clinics.svelte:37::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Clinics.svelte:37: kliniker.description/description_en from site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/widgets/Hero.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Hero.svelte:18 + lib/i18n/index.ts: t(\"hem\",\"subtitleParagraph\") is a repo translation string (src/lib/i18n/sv|en), no params — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/widgets/Terapheuts.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Terapheuts.svelte:28: t(\"common\",\"terapheutsText\") is a repo translation string, no params — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/lib/widgets/Treatments.svelte:29::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Treatments.svelte:29: t(\"common\",\"treatmentsText\") is a repo translation string, no params — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/routes/[[lang]]/artiklar/[slug]/+page.svelte:84::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read artiklar/[slug]/+page.svelte:84: article.sammanfattning from site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::security/raw-html::src/routes/[[lang]]/kliniker/[slug]/+page.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read kliniker/[slug]/+page.svelte:55: clinic.subtitle/subtitle_en from site-owner Directus CMS content (README: statically built clinic site, Directus used only at build time, edited by the clinic staff) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 58 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/artiklar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/artiklar (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 41 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/artiklar/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/artiklar/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 42 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/behandlingar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/behandlingar (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 42 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/behandlingar/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/behandlingar/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/boka/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/boka (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 46 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/hitta/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/hitta (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 45 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/kliniker/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/kliniker (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/kliniker/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/kliniker/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 47 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/kliniker/[slug]/hitta/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/kliniker/[slug]/hitta (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 41 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/kliniker/[slug]/om/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/kliniker/[slug]/om (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/om/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/om (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/om/cookies/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/om/cookies (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/om/personuppgiftspolicy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/om/personuppgiftspolicy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/prislista/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/prislista (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 36 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/skadekompassen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/skadekompassen (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 41 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/terapeuter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/terapeuter (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 41 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/og-url::src/routes/[[lang]]/terapeuter/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang]]/terapeuter/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 47 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/single-h1::/[[lang]]/hitta::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /[[lang]]/hitta: no <h1> in the [[lang]] chain: root +layout.svelte renders Analytics/Header/<slot>/Footer (none has an <h1>), and the page's headings come only from CMS (Directus EditorJs) blocks via BlocksRender -> BlockRender {@html `<h${block.data.level}>…`} (lib/components/EditorJs/BlockRender.svelte:8-10), editor-authored content not in the repo (packages/directus has no content seed) - user-authored content convention"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/single-h1::/[[lang]]/kliniker/[slug]/hitta::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /[[lang]]/kliniker/[slug]/hitta: no <h1> in the [[lang]] chain: root +layout.svelte renders Analytics/Header/<slot>/Footer (none has an <h1>), and the page's headings come only from CMS (Directus EditorJs) blocks via BlocksRender -> BlockRender {@html `<h${block.data.level}>…`} (lib/components/EditorJs/BlockRender.svelte:8-10), editor-authored content not in the repo (packages/directus has no content seed) - user-authored content convention"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/single-h1::/[[lang]]/kliniker/[slug]/om::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /[[lang]]/kliniker/[slug]/om: no <h1> in the [[lang]] chain: root +layout.svelte renders Analytics/Header/<slot>/Footer (none has an <h1>), and the page's headings come only from CMS (Directus EditorJs) blocks via BlocksRender -> BlockRender {@html `<h${block.data.level}>…`} (lib/components/EditorJs/BlockRender.svelte:8-10), editor-authored content not in the repo (packages/directus has no content seed) - user-authored content convention"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/single-h1::/[[lang]]/om/personuppgiftspolicy::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /[[lang]]/om/personuppgiftspolicy: no <h1> in the [[lang]] chain: root +layout.svelte renders Analytics/Header/<slot>/Footer (none has an <h1>), and the page's headings come only from CMS (Directus EditorJs) blocks via BlocksRender -> BlockRender {@html `<h${block.data.level}>…`} (lib/components/EditorJs/BlockRender.svelte:8-10), editor-authored content not in the repo (packages/directus has no content seed) - user-authored content convention"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/single-h1::/[[lang]]/om::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /[[lang]]/om: no <h1> in the [[lang]] chain: root +layout.svelte renders Analytics/Header/<slot>/Footer (none has an <h1>), and the page's headings come only from CMS (Directus EditorJs) blocks via BlocksRender -> BlockRender {@html `<h${block.data.level}>…`} (lib/components/EditorJs/BlockRender.svelte:8-10), editor-authored content not in the repo (packages/directus has no content seed) - user-authored content convention"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/single-h1::/[[lang]]/terapeuter::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /[[lang]]/terapeuter: no <h1> in the [[lang]] chain: root +layout.svelte renders Analytics/Header/<slot>/Footer (none has an <h1>), and the page's headings come only from CMS (Directus EditorJs) blocks via BlocksRender -> BlockRender {@html `<h${block.data.level}>…`} (lib/components/EditorJs/BlockRender.svelte:8-10), editor-authored content not in the repo (packages/directus has no content seed) - user-authored content convention"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/single-h1::src/routes/[[lang]]/behandlingar/[slug]/+page.svelte:17::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: behandlingar/[slug]/+page.svelte titles the treatment with <h3> (:17) inside ContentPage -> TextPage (no heading of its own); no <h1> in the [[lang]] chain: root +layout.svelte renders Analytics/Header/<slot>/Footer (none has an <h1>), and the page's headings come only from CMS (Directus EditorJs) blocks via BlocksRender -> BlockRender {@html `<h${block.data.level}>…`} (lib/components/EditorJs/BlockRender.svelte:8-10), editor-authored content not in the repo (packages/directus has no content seed) - user-authored content convention"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/single-h1::src/routes/[[lang]]/om/cookies/+page.svelte:18::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: om/cookies/+page.svelte renders <h3>/<h4> only (:18-35) inside TextPage; no <h1> in the [[lang]] chain: root +layout.svelte renders Analytics/Header/<slot>/Footer (none has an <h1>), and the page's headings come only from CMS (Directus EditorJs) blocks via BlocksRender -> BlockRender {@html `<h${block.data.level}>…`} (lib/components/EditorJs/BlockRender.svelte:8-10), editor-authored content not in the repo (packages/directus has no content seed) - user-authored content convention"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/single-h1::src/routes/[[lang]]/terapeuter/[slug]/+page.svelte:48::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: terapeuter/[slug]/+page.svelte titles the therapist with <h3> (:48) inside ContentPage; Articles below adds none at level 1; no <h1> in the [[lang]] chain: root +layout.svelte renders Analytics/Header/<slot>/Footer (none has an <h1>), and the page's headings come only from CMS (Directus EditorJs) blocks via BlocksRender -> BlockRender {@html `<h${block.data.level}>…`} (lib/components/EditorJs/BlockRender.svelte:8-10), editor-authored content not in the repo (packages/directus has no content seed) - user-authored content convention"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source (no static/sitemap.xml in the checkout, no sitemap.xml route), but the build writes one: packages/web/vite.config.ts sitemapPlugin (buildStart) runs src/lib/sitemap createSitemap over the CMS GraphQL query and writes static/sitemap.xml (gitignored, packages/web/.gitignore:11), which svelte.config.js prerender entries list and static/robots.txt points at; a generator outside the route source (build-script convention: design)"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 58 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/artiklar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/artiklar (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 41 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/artiklar/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/artiklar/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 42 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/behandlingar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/behandlingar (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 42 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/behandlingar/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/behandlingar/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/boka/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/boka (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 46 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/hitta/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/hitta (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 45 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/kliniker/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/kliniker (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/kliniker/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/kliniker/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 47 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/kliniker/[slug]/hitta/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/kliniker/[slug]/hitta (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 41 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/kliniker/[slug]/om/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/kliniker/[slug]/om (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/om/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/om (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/om/cookies/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/om/cookies (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/om/personuppgiftspolicy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/om/personuppgiftspolicy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 43 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/prislista/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/prislista (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 36 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/skadekompassen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/skadekompassen (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 41 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/terapeuter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/terapeuter (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 41 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  },
+  {
+    "key": "owodunni/curarehab:packages/web::seo/twitter-card::src/routes/[[lang]]/terapeuter/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang]]/terapeuter/[slug] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 47 transitively imported local files incl. app.html/hooks; every [[lang]] page renders src/lib/components/Seo.svelte, which emits canonical, hreflang alternates, <title>, description, og:title, og:description, og:image (when seo.link_photo) and JSON-LD only (Seo.svelte:64-91); no og:url or twitter:card in Seo.svelte, any page/layout, app.html (gtag/icons/fonts) or hooks (transformPageChunk only replaces %lang%/%MEASUREMENT_ID%); npm deps @urql/core, toucan-js ship no components; route renders (root +layout.server.ts redirects only /sv-prefixed paths))"
+  }
+]

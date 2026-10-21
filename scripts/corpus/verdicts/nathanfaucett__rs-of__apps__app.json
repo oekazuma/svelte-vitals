@@ -1,0 +1,982 @@
+[
+  {
+    "key": "nathanfaucett/rs-of:apps/app::a11y/permitted-contents::src/lib/common/components/Notification.svelte:27::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/lib/common/components/Notification.svelte:27 literal <div> sits in literal <button> opened at :19 (ancestors …button), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::a11y/permitted-contents::src/lib/common/components/Notification.svelte:38::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/lib/common/components/Notification.svelte:38 literal <div> sits in literal <button> opened at :19 (ancestors …button), only control-flow between, which <button>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::architecture/component-size::src/routes/(auth)/applications/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/applications/+page.svelte has 205 physical lines (newline count, trailing newline not counted; 185 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::architecture/component-size::src/routes/(auth)/applications/[applicationId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/applications/[applicationId]/+page.svelte has 926 physical lines (newline count, trailing newline not counted; 865 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::architecture/component-size::src/routes/(auth)/authorize/_Authorize.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/authorize/_Authorize.svelte has 368 physical lines (newline count, trailing newline not counted; 351 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::architecture/component-size::src/routes/(auth)/clients/[clientId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/clients/[clientId]/+page.svelte has 335 physical lines (newline count, trailing newline not counted; 313 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::architecture/component-size::src/routes/(auth)/devices/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/devices/+page.svelte has 371 physical lines (newline count, trailing newline not counted; 350 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::architecture/component-size::src/routes/(auth)/users/[userId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/users/[userId]/+page.svelte has 271 physical lines (newline count, trailing newline not counted; 254 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::architecture/component-size::src/routes/setup/installation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/setup/installation/+page.svelte has 403 physical lines (newline count, trailing newline not counted; 395 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/(auth)/authorize/_Authorize.svelte:212::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: authorize/_Authorize.svelte:212 goto(\"/\") is a root-relative literal; svelte.config.js sets kit.paths.base = process.env.VITE_BASE_PATH (computed, so the documented gate opens), but nothing in the repo sets it non-empty (.env.example leaves VITE_BASE_PATH= blank); claim per the docs, not a demonstrated defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/logout/+page.ts:6::redirect(…, '/') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: logout/+page.ts:6 redirect(302, \"/\") root-relative literal; kit.paths.base = process.env.VITE_BASE_PATH (computed), which nothing in the repo sets non-empty (.env.example VITE_BASE_PATH= blank); claim per the docs, not a demonstrated defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/setup/+page.ts:7::redirect(…, '/signin') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/signin') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: setup/+page.ts:7 redirect(302, \"/signin\") root-relative literal; kit.paths.base = process.env.VITE_BASE_PATH (computed), which nothing in the repo sets non-empty (.env.example blank); claim per the docs, not a demonstrated defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/setup/device/+page.ts:6::redirect(…, '/setup/installation') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/setup/installation') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: setup/device/+page.ts:6 redirect(302, \"/setup/installation\") root-relative literal; kit.paths.base = process.env.VITE_BASE_PATH (computed), which nothing in the repo sets non-empty (.env.example blank); claim per the docs, not a demonstrated defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/signin/+page.ts:7::redirect(…, '/setup') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/setup') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: signin/+page.ts:7 redirect(302, \"/setup\") root-relative literal; kit.paths.base = process.env.VITE_BASE_PATH (computed), which nothing in the repo sets non-empty (.env.example blank); claim per the docs, not a demonstrated defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::correctness/each-index-key::src/lib/common/components/Issues.svelte:17::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: common/components/Issues.svelte:17 '{#each issues as issue, index (index)}' keyed by its index binding; issues prop = runtime validation issues of a form (ledger field-error convention)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::performance/image-dimensions::src/routes/(auth)/devices/+page.svelte:271::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; own class h-64 w-64 - box reserved by CSS; publicIdQr is a qrcode toDataURL data: URL (devices/+page.svelte:2), rendered {#if publicIdQr} in the endpoint card"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::performance/image-loading-hint::src/routes/(auth)/devices/+page.svelte:271::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; publicIdQr is a qrcode toDataURL data: URL (devices/+page.svelte:2), rendered {#if publicIdQr} in the endpoint card - no network request for loading to defer"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::performance/responsive-image::src/routes/(auth)/devices/+page.svelte:271::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; publicIdQr is a qrcode toDataURL data: URL (devices/+page.svelte:2), rendered {#if publicIdQr} in the endpoint card - no alternate sizes exist"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::performance/sequential-awaits::src/routes/(auth)/+layout.ts:64::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "fp",
+    "basis": "read (auth)/+layout.ts:24-64 + lib/common/state/idpClient.svelte.ts:19-22,60-66,133-141: idpApi.userinfo() sends to the basePath getter reading idpApiUrl.item, which the preceding await ensureTauriIdpApiUrl() sets from its own awaited result, and it runs only after the guard at :51-60 that reads the awaited installation (:47-49) — the await does depend on earlier results (module state + control dependence, same shape as the ledger fp auth.initialize/graphFlag cases); on the web path no non-parent await precedes it"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::performance/state-raw::src/routes/(auth)/users/[userId]/+page.svelte:22::\"userRoles\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"userRoles\" in src/routes/(auth)/users/[userId]/+page.svelte (d_refs.py) and read each {#each} body over it: reassigned :36 from the API; read .length :169 and in {#each} :185-202 (text reads only); no member writes, mutating calls, bind:, prop escapes or item edits — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/applications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /applications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/applications/[applicationId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /applications/[applicationId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/authorize/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /authorize (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 26 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/clients/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /clients (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/clients/[clientId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /clients/[clientId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/devices/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 24 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /register (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/roles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /roles (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/(auth)/users/[userId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users/[userId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (OAuth callback handoff: callback/+page.svelte onMount exchanges the code then goto()s /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/config/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /config (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); public page outside the (auth) gate, no noindex; routes/robots.txt Allow: /"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/native-callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /native-callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (native OAuth callback handoff: native-callback/+page.svelte onMount calls handleNativeFetchCallback), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/policy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /policy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); public page outside the (auth) gate, no noindex; routes/robots.txt Allow: /"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/setup/device/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup/device (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (desktop-app setup step: setup/device/+page.ts load redirects every non-Tauri visitor to /setup/installation and renders only inside the Tauri app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/setup/installation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup/installation (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders) but not a search target (desktop-app installation wizard: outside Tauri the page renders only \"Installation is available only in the desktop app\" (setup/installation/+page.svelte:183-187)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/signin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /signin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); public page outside the (auth) gate, no noindex; routes/robots.txt Allow: /"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/canonical-url::src/routes/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /terms (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); public page outside the (auth) gate, no noindex; routes/robots.txt Allow: /"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/applications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /applications; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/applications/[applicationId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /applications/[applicationId]; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/authorize/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /authorize; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/clients/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /clients; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/clients/[clientId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /clients/[clientId]; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/devices/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /devices; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /register; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/roles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /roles; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /users; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/(auth)/users/[userId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /users/[userId]; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /callback; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/config/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /config; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/native-callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /native-callback; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/policy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /policy; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/setup/device/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /setup/device; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/setup/installation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /setup/installation; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/signin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /signin; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/description-presence::src/routes/terms/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/app/src or app.html (root +layout.svelte head only favicon/manifest) (literal claim holds) on /terms; but rs-of's app is the UI of a self-hosted offline-first OAuth/OIDC identity provider node (README: every Node hosts IdP/Management/Storage; also shipped in Tauri), an ssr=false SPA whose (auth) group load redirects session-less visits to /signin; not a search target"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; / has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/applications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /applications has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/applications/[applicationId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /applications/[applicationId] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/authorize/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /authorize has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/clients/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /clients has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/clients/[clientId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /clients/[clientId] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/devices/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /devices has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /register has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/roles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /roles has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /users has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/(auth)/users/[userId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /users/[userId] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /callback has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/config/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /config has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/native-callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /native-callback has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/policy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /policy has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/setup/device/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /setup/device has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/setup/installation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /setup/installation has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/signin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /signin has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/json-ld::src/routes/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/app/src or app.html, no meta/JSON-LD package in deps; /terms has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/applications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /applications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/applications/[applicationId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /applications/[applicationId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/authorize/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /authorize (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 26 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/clients/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /clients (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/clients/[clientId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /clients/[clientId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/devices/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 24 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/roles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roles (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/(auth)/users/[userId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users/[userId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (OAuth callback handoff: callback/+page.svelte onMount exchanges the code then goto()s /))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/config/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /config (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/native-callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /native-callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (native OAuth callback handoff: native-callback/+page.svelte onMount calls handleNativeFetchCallback))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/policy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /policy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/setup/device/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup/device (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app setup step: setup/device/+page.ts load redirects every non-Tauri visitor to /setup/installation and renders only inside the Tauri app))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/setup/installation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup/installation (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app installation wizard: outside Tauri the page renders only \"Installation is available only in the desktop app\" (setup/installation/+page.svelte:183-187)))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/signin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-description::src/routes/terms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /terms (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/applications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /applications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/applications/[applicationId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /applications/[applicationId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/authorize/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /authorize (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 26 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/clients/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /clients (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/clients/[clientId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /clients/[clientId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/devices/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 24 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/roles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roles (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/(auth)/users/[userId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users/[userId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (OAuth callback handoff: callback/+page.svelte onMount exchanges the code then goto()s /))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/config/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /config (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/native-callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /native-callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (native OAuth callback handoff: native-callback/+page.svelte onMount calls handleNativeFetchCallback))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/policy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /policy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/setup/device/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup/device (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app setup step: setup/device/+page.ts load redirects every non-Tauri visitor to /setup/installation and renders only inside the Tauri app))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/setup/installation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup/installation (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app installation wizard: outside Tauri the page renders only \"Installation is available only in the desktop app\" (setup/installation/+page.svelte:183-187)))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/signin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-image::src/routes/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /terms (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/applications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /applications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/applications/[applicationId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /applications/[applicationId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/authorize/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /authorize (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 26 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/clients/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /clients (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/clients/[clientId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /clients/[clientId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/devices/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 24 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/roles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roles (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/(auth)/users/[userId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users/[userId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (OAuth callback handoff: callback/+page.svelte onMount exchanges the code then goto()s /))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/config/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /config (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/native-callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /native-callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (native OAuth callback handoff: native-callback/+page.svelte onMount calls handleNativeFetchCallback))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/policy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /policy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/setup/device/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup/device (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app setup step: setup/device/+page.ts load redirects every non-Tauri visitor to /setup/installation and renders only inside the Tauri app))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/setup/installation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup/installation (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app installation wizard: outside Tauri the page renders only \"Installation is available only in the desktop app\" (setup/installation/+page.svelte:183-187)))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/signin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-title::src/routes/terms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /terms (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/applications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /applications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/applications/[applicationId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /applications/[applicationId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/authorize/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /authorize (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 26 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/clients/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /clients (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/clients/[clientId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /clients/[clientId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/devices/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 24 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/roles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roles (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/(auth)/users/[userId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users/[userId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (OAuth callback handoff: callback/+page.svelte onMount exchanges the code then goto()s /))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/config/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /config (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/native-callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /native-callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (native OAuth callback handoff: native-callback/+page.svelte onMount calls handleNativeFetchCallback))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/policy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /policy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/setup/device/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup/device (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app setup step: setup/device/+page.ts load redirects every non-Tauri visitor to /setup/installation and renders only inside the Tauri app))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/setup/installation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup/installation (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app installation wizard: outside Tauri the page renders only \"Installation is available only in the desktop app\" (setup/installation/+page.svelte:183-187)))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/signin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/og-url::src/routes/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /terms (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/single-h1::/callback::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: callback/+page.svelte renders only <p> status text in {#if callbackError}/{:else if}/{:else} arms and goto()s / in onMount; root +layout.svelte renders children, a settings Modal and Notifications, no <h1> - OAuth callback stub, redirect-stub convention (claim holds)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/single-h1::/native-callback::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: native-callback/+page.svelte renders only <p> status text ({#if callbackError}/{:else}); root layout has no <h1> - OAuth callback stub, redirect-stub convention (claim holds)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 (adapter-static SPA, also bundled in a Tauri shell); deliberate SPA for the UI of a self-hosted OAuth/OIDC identity provider node (README), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/ssr-disabled::src/routes/callback/+layout.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/callback/+layout.ts:1 (redundant under root +layout.ts ssr=false); OAuth redirect callback handler of the IdP UI, not content for search"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/ssr-disabled::src/routes/native-callback/+layout.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/native-callback/+layout.ts:1 (redundant under root +layout.ts ssr=false); OAuth redirect callback handler of the IdP UI, not content for search"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/applications/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/applications/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/applications/[applicationId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/applications/[applicationId]/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/authorize/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/authorize/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/clients/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/clients/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/clients/[clientId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/clients/[clientId]/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/devices/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/devices/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/register/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/register/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/roles/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/roles/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/users/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/users/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/(auth)/users/[userId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/(auth)/users/[userId]/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; (auth) routes render after the (auth)/+layout.ts sign-in check (conditional redirect)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/callback/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/callback/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; OIDC callback page renders 'Processing callback...' before an onMount goto (callback precedent)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/config/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/config/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/native-callback/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/native-callback/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; native callback page renders 'Processing native callback...' (callback precedent)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/policy/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/policy/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/setup/device/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/setup/device/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either; setup/device/+page.ts redirects outside Tauri but renders in the Tauri app when stage==='device'"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/setup/installation/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/setup/installation/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/signin/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/signin/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/title-presence::src/routes/terms/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/terms/+page.svelte: no svelte:head; script-verified (grep of apps/app/src and the workspace packages/ for svelte:head/<title/document.title): the only <title> is src/routes/+error.svelte:23; root +layout.svelte:58-65 head is favicon+manifest links only, app.html has no <title>, @aicacia/svelte-forms@0.1.1 ships no .svelte; root +layout.ts ssr=false but no client title either"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/applications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /applications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/applications/[applicationId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /applications/[applicationId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/authorize/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /authorize (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 26 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/clients/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /clients (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/clients/[clientId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /clients/[clientId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/devices/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 24 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/roles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roles (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/(auth)/users/[userId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users/[userId] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (client auth-gated: (auth)/+layout.ts load (ssr=false) redirects every visitor without a stored OIDC token to /signin))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (OAuth callback handoff: callback/+page.svelte onMount exchanges the code then goto()s /))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/config/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /config (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/native-callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /native-callback (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (native OAuth callback handoff: native-callback/+page.svelte onMount calls handleNativeFetchCallback))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/policy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /policy (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/setup/device/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup/device (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app setup step: setup/device/+page.ts load redirects every non-Tauri visitor to /setup/installation and renders only inside the Tauri app))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/setup/installation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup/installation (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders); og/twitter rules carry no search-target exemption (not a search target (desktop-app installation wizard: outside Tauri the page renders only \"Installation is available only in the desktop app\" (setup/installation/+page.svelte:183-187)))"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/signin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /signin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  },
+  {
+    "key": "nathanfaucett/rs-of:apps/app::seo/twitter-card::src/routes/terms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /terms (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository (incl. workspace @aicacia/* packages); root +layout.svelte head is icon/manifest links, +error.svelte <title> only; app.html charset/viewport; hooks transformPageChunk only replaces %lang%/%dir%; npm @aicacia/svelte-forms@0.1.1 ships no .svelte (jsDelivr, a1b_npmscan.py); ssr=false app-wide (routes/+layout.ts:1), no client head emits it; route renders)"
+  }
+]

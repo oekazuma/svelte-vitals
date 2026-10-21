@@ -1,0 +1,977 @@
+[
+  {
+    "key": "ESchouten/ai-detector:web::a11y/disallowed-aria-props::src/routes/(admin)/detections/+page.svelte:296::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/routes/(admin)/detections/+page.svelte:296 <div> carries aria-label with no role, spread or use: action (div[aria-busy=\"true\" aria-label=\"Loading recordings\"]), so its implicit role takes no name and the label is not exposed (ledger bare-element precedent)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::a11y/permitted-contents::src/routes/(admin)/status/+page.svelte:127::`<p>` is not permitted content here — `<dl>` admits only `<dt>`, `<dd>`, `<div>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse): src/routes/(admin)/status/+page.svelte:127 literal <p> sits in literal <dl> opened at :119 (ancestors …C:Collapsible.Content > dl > If), only control-flow between, which <dl>'s content model does not admit (ledger content-model precedent)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/component-size::src/lib/components/camera-add.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/camera-add.svelte has 458 physical lines (newline count, trailing newline not counted; 444 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/component-size::src/lib/components/camera-settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/camera-settings.svelte has 327 physical lines (newline count, trailing newline not counted; 318 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/component-size::src/lib/components/detector-editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/detector-editor.svelte has 514 physical lines (newline count, trailing newline not counted; 496 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/component-size::src/lib/components/import-installation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/import-installation.svelte has 261 physical lines (newline count, trailing newline not counted; 252 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/component-size::src/lib/components/notification-editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/notification-editor.svelte has 221 physical lines (newline count, trailing newline not counted; 219 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/component-size::src/lib/components/setup-finish.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/setup-finish.svelte has 236 physical lines (newline count, trailing newline not counted; 229 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/component-size::src/lib/components/telegram-connection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/telegram-connection.svelte has 351 physical lines (newline count, trailing newline not counted; 348 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/component-size::src/routes/(admin)/detections/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/detections/+page.svelte has 376 physical lines (newline count, trailing newline not counted; 347 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/camera-connection-fields.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/camera-connection-fields.svelte has a single destructured $props() with 7 named props (> 6): manual, streamUri, username, password, disabled, oninput, children"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/camera-discovery.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/camera-discovery.svelte has a single destructured $props() with 9 named props (> 6): candidates, address, finding, discoveryMessage, manualAddress, disabled, onSearch, onSelect, onToggleManual"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/confirm-remove.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/confirm-remove.svelte has a single destructured $props() with 7 named props (> 6): trigger, title, description, keep, confirm, disabled, onConfirm"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/detector-verification.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/detector-verification.svelte has a single destructured $props() with 7 named props (> 6): detector, connectionLabel, connections, disabled, addConnection, selectConnection, onChoose"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/telegram-connection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/telegram-connection.svelte has a single destructured $props() with 7 named props (> 6): initial, token, chat, received, busy, disabled, onRecipient"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) plus a ...rest element: ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6) plus a ...rest element: ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: open, ref, value, title, description, portalProps, children"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, class, sideOffset, alignOffset, align, side, portalProps"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar.svelte has a single destructured $props() with 14 named props (> 6) plus a ...rest element: ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest element: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::correctness/autoplay-muted::src/lib/components/recording-viewer.svelte:118::<video autoplay> without muted — browsers block audible autoplay, so the video silently never starts playing",
+    "verdict": "tp",
+    "basis": "read: recording-viewer.svelte:118-122 <video controls autoplay playsinline> has no muted/bind:muted/spread and no .play() call in the file; it plays a recorded detection clip (recordingMedia(entry, 'video.mp4')) whose audio is unknown, opened in a dialog; Safari/iOS block the audible autoplay (ledger lightbox/user-video convention)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::correctness/each-index-key::src/lib/components/detection-boxes.svelte:15::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: detection-boxes.svelte:15 '{#each frame.boxes as box, index (index)}' keyed by its index binding; SVG <rect>/<text> overlay marks of one preview frame's detection boxes; positional chart geometry"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; shadcn field-error, errors prop = runtime validation errors (ledger exceptionless field-error convention)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::correctness/each-index-key::src/routes/(admin)/status/+page.svelte:120::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: (admin)/status/+page.svelte:120 '{#each runtime.backends ?? [] as backend, index (index)}' keyed by its index binding; runtime.backends of the polled runtime status (useRuntimeStatus(), :15-16); runtime data"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::correctness/each-index-key::src/routes/(admin)/status/+page.svelte:58::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: (admin)/status/+page.svelte:58 '{#each notes as note, index (index)}' keyed by its index binding; notes = the storage warning and issue strings of one status snapshot (:19-21); positional list (messages of one result)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::performance/image-dimensions::src/routes/(admin)/devices/+page.svelte:26::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; own class size-52 (fixed 13rem square) - box reserved by CSS; form.qr = QRCode.toDataURL(...) ((admin)/devices/+page.server.ts:34), a data: URL rendered only {#if form?.qr} after the user submits Connect device ((admin)/devices/+page.svelte:23-29)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::performance/image-loading-hint::src/routes/(admin)/devices/+page.svelte:26::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; form.qr = QRCode.toDataURL(...) ((admin)/devices/+page.server.ts:34), a data: URL rendered only {#if form?.qr} after the user submits Connect device ((admin)/devices/+page.svelte:23-29) at the top of the panel - no network request to defer, visible when shown"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::performance/responsive-image::src/routes/(admin)/devices/+page.svelte:26::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; form.qr = QRCode.toDataURL(...) ((admin)/devices/+page.server.ts:34), a data: URL rendered only {#if form?.qr} after the user submits Connect device ((admin)/devices/+page.svelte:23-29) - no alternate sizes exist"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::security/server-module-state::src/routes/(admin)/browser-errors/+server.ts:21::module-scope variable \"minute\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read (admin)/browser-errors/+server.ts:10-25: module minute/written are a process-wide per-minute cap (PER_MINUTE=20) on browser-error log lines; they hold only a minute number and a counter, no request or user data — deliberate process-wide throttle, docs name a deliberate process-wide state as a suppress case (ledger process-wide flag/cache convention)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::security/server-module-state::src/routes/(admin)/browser-errors/+server.ts:21::module-scope variable \"written\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read (admin)/browser-errors/+server.ts:10-25: module minute/written are a process-wide per-minute cap (PER_MINUTE=20) on browser-error log lines; they hold only a minute number and a counter, no request or user data — deliberate process-wide throttle, docs name a deliberate process-wide state as a suppress case (ledger process-wide flag/cache convention)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::security/server-module-state::src/routes/(admin)/browser-errors/+server.ts:22::module-scope variable \"written\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read (admin)/browser-errors/+server.ts:10-25: module minute/written are a process-wide per-minute cap (PER_MINUTE=20) on browser-error log lines; they hold only a minute number and a counter, no request or user data — deliberate process-wide throttle, docs name a deliberate process-wide state as a suppress case (ledger process-wide flag/cache convention)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/advanced/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /advanced (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 164 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/detections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /detections (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 215 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/detectors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /detectors (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/detectors/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /detectors/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 248 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/devices/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/logs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /logs (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 172 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /notifications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/notifications/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /notifications/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 199 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 171 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 268 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/status/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /status (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 195 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/storage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /storage (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/streams/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /streams (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 212 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/streams/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /streams/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 225 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/streams/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /streams/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 205 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/validator/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /validator (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 167 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/(admin)/validator/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /validator/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 200 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/pair/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /pair (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 90 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/canonical-url::src/routes/recovery/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recovery (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 73 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)) but not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/advanced/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /advanced; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/detections/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /detections; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/detectors/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /detectors; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/detectors/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /detectors/add; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/devices/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /devices; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/logs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /logs; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /notifications; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/notifications/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /notifications/add; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /settings; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /setup; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/status/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /status; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/storage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /storage; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/streams/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /streams; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/streams/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /streams/[id]; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/streams/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /streams/add; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/validator/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /validator; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/(admin)/validator/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /validator/add; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/pair/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /pair; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/description-presence::src/routes/recovery/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in web/src or app.html (literal claim holds) on /recovery; but AI Detector is a local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README: 'Nothing runs on a server of ours'; devices pair with a code via hooks.server.ts authorizeRequest), not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/advanced/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /advanced renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/detections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /detections renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/detectors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /detectors renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/detectors/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /detectors/add renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/devices/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /devices renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/logs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /logs renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /notifications renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/notifications/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /notifications/add renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /settings renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /setup renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/status/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /status renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/storage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /storage renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/streams/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /streams renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/streams/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /streams/[id] renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/streams/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /streams/add renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/validator/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /validator renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/(admin)/validator/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /validator/add renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/pair/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /pair renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/json-ld::src/routes/recovery/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html, no meta/JSON-LD package in deps; /recovery renders and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/advanced/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /advanced (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 164 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/detections/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /detections (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 215 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/detectors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /detectors (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/detectors/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /detectors/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 248 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/devices/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/logs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /logs (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 172 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /notifications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/notifications/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /notifications/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 199 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 171 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 268 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/status/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /status (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 195 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/storage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /storage (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/streams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /streams (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 212 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/streams/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /streams/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 225 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/streams/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /streams/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 205 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/validator/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /validator (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 167 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/(admin)/validator/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /validator/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 200 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/pair/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pair (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 90 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-description::src/routes/recovery/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recovery (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 73 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/advanced/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /advanced (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 164 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/detections/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /detections (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 215 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/detectors/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /detectors (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/detectors/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /detectors/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 248 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/devices/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/logs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /logs (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 172 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /notifications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/notifications/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /notifications/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 199 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 171 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 268 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/status/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /status (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 195 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/storage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /storage (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/streams/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /streams (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 212 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/streams/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /streams/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 225 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/streams/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /streams/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 205 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/validator/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /validator (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 167 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/(admin)/validator/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /validator/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 200 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/pair/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pair (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 90 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-image::src/routes/recovery/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recovery (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 73 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/advanced/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /advanced (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 164 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/detections/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /detections (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 215 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/detectors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /detectors (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/detectors/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /detectors/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 248 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/devices/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/logs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /logs (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 172 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /notifications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/notifications/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /notifications/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 199 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 171 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 268 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/status/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /status (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 195 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/storage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /storage (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/streams/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /streams (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 212 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/streams/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /streams/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 225 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/streams/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /streams/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 205 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/validator/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /validator (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 167 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/(admin)/validator/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /validator/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 200 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/pair/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pair (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 90 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-title::src/routes/recovery/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recovery (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 73 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/advanced/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /advanced (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 164 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/detections/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /detections (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 215 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/detectors/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /detectors (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/detectors/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /detectors/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 248 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/devices/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/logs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /logs (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 172 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /notifications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/notifications/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /notifications/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 199 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 171 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 268 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/status/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /status (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 195 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/storage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /storage (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/streams/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /streams (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 212 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/streams/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /streams/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 225 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/streams/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /streams/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 205 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/validator/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /validator (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 167 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/(admin)/validator/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /validator/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 200 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/pair/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pair (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 90 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/og-url::src/routes/recovery/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recovery (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 73 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: web/static has icons and manifest.webmanifest only, no robots.txt route or generator (literal claim holds); local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README), nothing for crawl rules to steer"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/single-h1::src/lib/components/import-installation.svelte:128::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: /setup's page <h1> renders {#if !importing} ((admin)/setup/+page.svelte:82-84), and ImportInstallation's <h1> (:128) renders only in its {:else} of {#if !opened}, where opened is bound to importing (bind:opened={importing}, :110) - they never co-render; a bound prop leaves both arms counted per docs"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in web/static or routes, no generator (literal claim holds); local desktop/Docker camera-monitoring app served on the user's own computer/LAN (README), nothing public to list"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/title-length::src/routes/(admin)/setup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: (admin)/setup/+page.svelte:73 top-level literal <title>Set up · AI Detector</title> (20), the route's only title, too short as claimed; but the setup wizard of a local camera-monitoring app on the user's own computer, not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/title-length::src/routes/pair/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: pair/+page.svelte:20 top-level literal <title>Connect device · AI Detector</title> (28), the route's only title, too short as claimed; but the device-pairing page of a local camera-monitoring app on the user's own LAN, not a search target"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/advanced/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /advanced (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 164 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/detections/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /detections (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 215 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/detectors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /detectors (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/detectors/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /detectors/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 248 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/devices/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /devices (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/logs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /logs (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 172 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /notifications (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 183 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/notifications/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /notifications/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 199 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 171 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 268 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/status/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /status (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 195 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/storage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /storage (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 177 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/streams/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /streams (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 212 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/streams/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /streams/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 225 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/streams/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /streams/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 205 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/validator/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /validator (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 167 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/(admin)/validator/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /validator/add (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 200 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/pair/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pair (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 90 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  },
+  {
+    "key": "ESchouten/ai-detector:web::seo/twitter-card::src/routes/recovery/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recovery (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 73 transitively imported local files incl. app.html/hooks; repo-wide grep (all files, excl. node_modules/.git) finds no og:*/twitter:card/rel=canonical anywhere in the repository; root +layout.svelte head is the favicon only, page heads are <title> only, app.html theme-color/manifest/icon; hooks transformPageChunk only replaces %lang%; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, formsnap, paneforge, vaul-svelte, layerchart, embla) emit none; route renders (no load on its chain always redirects or errors)); og/twitter rules carry no search-target exemption (not a search target (local camera-monitoring dashboard served from the user's own computer (README:3,19, localhost); hooks.server.ts authorizeRequest (lib/server/access.ts:24-47) trusts only the local dashboard and 303s every unpaired remote browser to /pair (or 401), so no public URL exists for a canonical; cf. CUB-CORR concepts-browser self-hosted precedent))"
+  }
+]

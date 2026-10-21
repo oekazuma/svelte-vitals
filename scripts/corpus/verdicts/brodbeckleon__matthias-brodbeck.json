@@ -1,0 +1,772 @@
+[
+  {
+    "key": "brodbeckleon/matthias-brodbeck::a11y/duplicate-landmark::src/routes/admin/+layout.svelte:46::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: root +layout.svelte renders {@render children()} bare in {#if isAdmin} and inside <main id=main> only in {:else}; isAdmin = $derived(page.route.id?.startsWith('/admin') ?? false), true on all 13 /admin routes, so admin/+layout.svelte:46's <main> is the only main there (route.id .startsWith through ?./?? not decided)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::a11y/id-duplication::src/routes/admin/+layout.svelte:46::Duplicate id \"main\"",
+    "verdict": "fp",
+    "basis": "fp: root +layout.svelte's <main id=\"main\"> renders only in the {:else} of {#if isAdmin}, isAdmin = $derived(page.route.id?.startsWith('/admin') ?? false), so on the 13 /admin routes admin/+layout.svelte:46's main#main is the only #main (route.id .startsWith through ?./?? not decided)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::a11y/top-level-landmark::src/routes/admin/+layout.svelte:46::main landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: root +layout.svelte renders {@render children()} bare in {#if isAdmin} (isAdmin = $derived(page.route.id?.startsWith('/admin') ?? false)) and inside its <main> only in {:else}; on the 13 /admin routes admin/+layout.svelte:46's <main> is not nested in any main"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::a11y/top-level-landmark::src/routes/contact/+page.svelte:21::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read contact/+page.svelte:21: unlabelled <aside> in <div class=layout> at the page top level; root +layout.svelte renders /contact (not /admin) inside <main id=main>, so a complementary landmark nested in main; load only reads data (no redirect)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::architecture/component-size::src/lib/components/ContactForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ContactForm.svelte has 277 physical lines (newline count, trailing newline not counted; 240 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::architecture/component-size::src/lib/components/SiteHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SiteHeader.svelte has 250 physical lines (newline count, trailing newline not counted; 222 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 225 physical lines (newline count, trailing newline not counted; 197 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::architecture/component-size::src/routes/admin/music/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/music/+page.svelte has 201 physical lines (newline count, trailing newline not counted; 183 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::architecture/component-size::src/routes/gallery/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/gallery/+page.svelte has 211 physical lines (newline count, trailing newline not counted; 188 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::correctness/each-index-key::src/lib/components/ui/RhythmGrid.svelte:51::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: RhythmGrid.svelte:51 '{#each steps as hit, i (i)}' keyed by its index binding; steps = [...pattern].map(char => char === 'x') (:15), the step cells of one rhythm pattern string; positional list"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::correctness/each-index-key::src/routes/admin/photos/+page.svelte:67::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: admin/photos/+page.svelte:67 '{#each uploads as item, i (i)}' keyed by its index binding; uploads = one batch of selected files (:16) whose status the code updates by position (uploads[i], :39-42), never reordered or removed; positional list (progress of one batch)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::correctness/each-index-key::src/routes/events/[slug]/+page.svelte:76::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: events/[slug]/+page.svelte:76 '{#each description.value.split(/\\n{2,}/) as paragraph, i (i)}' keyed by its index binding; paragraphs of one event description string; positional list (text segments)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/iframe-loading::src/lib/components/media/YouTubeFacade.svelte:15::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; YouTubeFacade renders it only {#if playing} after the visitor clicks the thumbnail button (:14-22, 'Nothing is requested from YouTube until the visitor asks') - a click-to-load facade, visible when created"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/image-loading-hint::src/routes/admin/music/+page.svelte:102::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: release cover in each row of the Diskografie {#each data.releases} list, the second section below the add-video form and the video list (admin/music/+page.svelte:89-102) - offscreen on load (admin route renders for a signed-in admin)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/image-loading-hint::src/routes/admin/music/+page.svelte:47::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: thumbnail in each row of the {#each data.videos} list below the add-video form (admin/music/+page.svelte:40-47) - later rows offscreen"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/image-loading-hint::src/routes/admin/photos/[id]/+page.svelte:27::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: the photo being edited, directly under the page <h1> 'Foto bearbeiten' (admin/photos/[id]/+page.svelte:24-27) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/lcp-image::src/routes/admin/photos/+page.svelte:89::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route (root +layout.svelte renders only {@render children()} in its {#if isAdmin} arm, :20-21, and admin/+layout.svelte renders no <img>): the first tile of the minmax(12rem,1fr) photo grid (:84-94, .grid img width 100%) right under the <h1> and the upload control - in view on load, yet lazy"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/responsive-image::src/routes/admin/music/+page.svelte:102::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: release.cover.url, an uploaded raster cover from the site's storage - one fixed-size asset"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/responsive-image::src/routes/admin/music/+page.svelte:47::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: video.thumbnailUrl, a stored copy of the YouTube thumbnail (lib/server/music.ts:41-43) - raster, one fixed-size asset"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/responsive-image::src/routes/admin/photos/+page.svelte:89::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: photo.url, the uploaded (client-downscaled) raster photo shown in 12rem+ grid tiles - one fixed-size asset"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/responsive-image::src/routes/admin/photos/[id]/+page.svelte:27::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: photo.url, the uploaded raster photo shown large on the edit page - one fixed-size asset"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/sequential-awaits::src/routes/admin/+layout.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/+layout.server.ts:7-9 + lib/server/messages.ts:54-65: the preceding purgeOldMessages() DELETEs year-old contact messages that countUnread() then counts — deliberate write-then-read ordering, docs Limitations (ledger setup/side-effect convention)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/sequential-awaits::src/routes/admin/events/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/events/+page.server.ts:19,28 + lib/server/events.ts:48-61: listDeleted() is a select independent of the preceding listForAdmin() select (Neon HTTP drizzle, lib/server/db/index.ts:22) — independent remote queries serialized; Promise.all would work"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::performance/sequential-awaits::src/routes/admin/music/releases/[id]/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/music/releases/[id]/+page.server.ts:9-28 + lib/server/photo-options.ts: photoOptions() (listMedia select) uses nothing from the preceding getRelease 404 gate — independent Neon queries serialized (ledger 404-gate convention)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::security/raw-html::src/lib/components/JsonLd.svelte:12::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read JsonLd.svelte:7-12 + lib/seo/jsonld.ts:26-28: serializeJsonLd = JSON.stringify(data).replace(/</g,\"\\u003c\") — script-safe serialization per docs"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/events/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/events (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/events/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/events/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/events/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/events/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/login (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/messages/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/messages (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/messages/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/messages/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/music/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/music (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/music/releases/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/music/releases/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 23 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/music/releases/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/music/releases/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/photos/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/photos (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/photos/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/photos/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/canonical-url::src/routes/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)) but not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/events/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/events (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/events/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/events/[id] (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/events/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/events/new (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/login (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/messages/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/messages (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/messages/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/messages/[id] (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/music/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/music (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/music/releases/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/music/releases/[id] (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/music/releases/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/music/releases/new (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/photos/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/photos (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/photos/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/photos/[id] (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/description-presence::src/routes/admin/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/settings (admin pages set only <title>; admin/+layout.svelte head only robots; the only description emitter is lib/components/Seo.svelte, rendered by public pages only; root layout/app.html none) (literal claim holds); but the site owner's admin area: hooks.server.ts handleAdmin answers session-less requests with a 303 to /admin/login and adds x-robots-tag noindex, literal noindex in admin/+layout.svelte, not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/events/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/events (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/events/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/events/[id] (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/events/new/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/events/new (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/login (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/messages/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/messages (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/messages/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/messages/[id] (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/music/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/music (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/music/releases/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/music/releases/[id] (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/music/releases/new/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/music/releases/new (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/photos/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/photos (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/photos/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/photos/[id] (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/indexability::src/routes/admin/settings/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unconditional top-level svelte:head literal <meta name=\"robots\" content=\"noindex, nofollow\"> covers /admin/settings (no @ reset); noindex as claimed (deliberate for the admin area)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/events renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/events/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/events/[id] renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/events/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/events/new renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/login renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/messages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/messages renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/messages/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/messages/[id] renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/music/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/music renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/music/releases/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/music/releases/[id] renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/music/releases/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/music/releases/new renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/photos/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/photos renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/photos/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/photos/[id] renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /admin/settings renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /contact renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /events renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/gallery/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /gallery renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/impressum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /impressum renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/music/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /music renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /privacy renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/json-ld::src/routes/teaching/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: JSON-LD is rendered only through lib/components/JsonLd.svelte, used by +page.svelte (/), about/+page.svelte and events/[slug]/+page.svelte; /teaching renders <Seo> or admin markup only, root +layout.svelte and app.html carry none, so no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/events/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/events (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/events/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/events/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/events/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/events/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/login (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/messages (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/messages/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/messages/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/music/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/music (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/music/releases/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/music/releases/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 23 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/music/releases/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/music/releases/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/photos/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/photos (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/photos/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/photos/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-description::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/events/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/events (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/events/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/events/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/events/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/events/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/login (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/messages (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/messages/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/messages/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/music/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/music (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/music/releases/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/music/releases/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 23 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/music/releases/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/music/releases/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/photos/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/photos (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/photos/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/photos/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-image::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/events/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/events (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/events/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/events/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/events/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/events/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/login (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/messages (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/messages/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/messages/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/music/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/music (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/music/releases/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/music/releases/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 23 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/music/releases/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/music/releases/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/photos/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/photos (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/photos/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/photos/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-title::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/events/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/events (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/events/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/events/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/events/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/events/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/login (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/messages (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/messages/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/messages/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/music/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/music (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/music/releases/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/music/releases/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 23 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/music/releases/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/music/releases/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/photos/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/photos (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/photos/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/photos/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/og-url::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: /admin/+page.svelte top-level literal <title>'… – Website verwalten'</title> (counted, length as reported), the route's only title, too short as claimed; but the noindex admin area of the portfolio site (hooks.server.ts handleAdmin login gate), not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/title-length::src/routes/admin/events/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: /admin/events/+page.svelte top-level literal <title>'… – Website verwalten'</title> (counted, length as reported), the route's only title, too short as claimed; but the noindex admin area of the portfolio site (hooks.server.ts handleAdmin login gate), not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/title-length::src/routes/admin/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: /admin/login/+page.svelte top-level literal <title>'… – Website verwalten'</title> (counted, length as reported), the route's only title, too short as claimed; but the noindex admin area of the portfolio site (hooks.server.ts handleAdmin login gate), not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/title-length::src/routes/admin/music/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: /admin/music/+page.svelte top-level literal <title>'… – Website verwalten'</title> (counted, length as reported), the route's only title, too short as claimed; but the noindex admin area of the portfolio site (hooks.server.ts handleAdmin login gate), not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/title-length::src/routes/admin/photos/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: /admin/photos/+page.svelte top-level literal <title>'… – Website verwalten'</title> (counted, length as reported), the route's only title, too short as claimed; but the noindex admin area of the portfolio site (hooks.server.ts handleAdmin login gate), not a search target"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/events/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/events (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/events/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/events/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/events/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/events/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/login (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/messages/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/messages (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/messages/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/messages/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/music/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/music (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/music/releases/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/music/releases/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 23 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/music/releases/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/music/releases/new (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 22 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/photos/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/photos (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 21 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/photos/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/photos/[id] (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 20 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  },
+  {
+    "key": "brodbeckleon/matthias-brodbeck::seo/twitter-card::src/routes/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/settings (script-verified (a1b_reach.py, comments stripped): none in page, layout chain and 19 transitively imported local files incl. app.html/hooks; the only emitter is src/lib/components/Seo.svelte (canonical in {:else} of noindex, og:*/twitter:card unconditional), imported by the public pages only; admin pages, admin/+layout.svelte (head = robots noindex,nofollow) and root +layout.svelte (head = font preload; {#if isAdmin} renders children bare) never render it; app.html none; hooks transformPageChunk only replaces %paraglide.lang%; route renders (admin/+layout.server.ts returns on every path; signed-in admin, or guests on /admin/login whose load redirects only a signed-in admin)); og/twitter rules carry no search-target exemption (not a search target (admin area: hooks.server.ts handleAdmin 303s every guest request except /admin/login to /admin/login and sets x-robots-tag noindex; admin/+layout.svelte:21-23 <meta name=\"robots\" content=\"noindex, nofollow\">; robots.txt/+server.ts Disallow: /admin))"
+  }
+]
