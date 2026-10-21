@@ -767,6 +767,7 @@ export function decidedArms(
 ): Map<number, boolean> {
   const out = new Map<number, boolean>();
   if (gates.size === 0 || attributes.some((a) => a.type === 'SpreadAttribute')) return out;
+  type Held = { value: unknown } | { type: string } | { length: number } | 'unknown';
   // Whether the gate's first arm renders, or undefined when the use does not decide it.
   const decide = (gate: PropGate): boolean | undefined => {
     if ('parts' in gate) {
@@ -784,8 +785,25 @@ export function decidedArms(
     );
     if (passed.length > 1 || passed[0]?.type === 'BindDirective') return undefined;
     const attr = passed[0] as AST.Attribute | undefined;
-    // What the prop holds: its literal value, or just its type for an object or template literal.
-    let held: { value: unknown } | { type: string } | { length: number } | 'unknown';
+    type Expr = NonNullable<AST.ExpressionTag['expression']>;
+    // What an expression holds: its literal value, or just its type for an object or template literal.
+    const heldOf = (expr: Expr): Held => {
+      const first = expr.type === 'CallExpression' ? expr.arguments[0] : undefined;
+      if (expr.type === 'ArrayExpression') return arrayLength(expr) ?? { type: 'object' };
+      if (expr.type === 'ObjectExpression') return { type: 'object' };
+      if (expr.type === 'TemplateLiteral') return { type: 'string' };
+      // A translation call given a non-empty key (`t('Title')`, `$_('Title')`) returns non-empty text.
+      if (
+        expr.type === 'CallExpression' &&
+        TRANSLATE_CALL.test(calleeText(expr.callee)) &&
+        first?.type === 'Literal' &&
+        typeof first.value === 'string' &&
+        first.value.trim()
+      )
+        return { type: 'text' };
+      return literalValue(expr);
+    };
+    let held: Held;
     if (!attr) {
       // An absent prop is its default, or `undefined` without one.
       const d = parsed.propDefaults.get(gate.prop);
@@ -796,21 +814,17 @@ export function decidedArms(
     else {
       const tag = Array.isArray(attr.value) ? (attr.value.length === 1 ? attr.value[0] : undefined) : attr.value;
       const expr = tag?.type === 'ExpressionTag' ? tag.expression : undefined;
-      const first = expr?.type === 'CallExpression' ? expr.arguments[0] : undefined;
-      if (expr?.type === 'ArrayExpression') held = arrayLength(expr) ?? { type: 'object' };
-      else if (expr?.type === 'ObjectExpression') held = { type: 'object' };
-      else if (expr?.type === 'TemplateLiteral') held = { type: 'string' };
-      // A translation call given a non-empty key (`t('Title')`, `$_('Title')`) returns non-empty text.
-      else if (
-        expr?.type === 'CallExpression' &&
-        TRANSLATE_CALL.test(calleeText(expr.callee)) &&
-        first?.type === 'Literal' &&
-        typeof first.value === 'string' &&
-        first.value.trim()
-      )
-        held = { type: 'text' };
-      else held = expr ? literalValue(expr) : 'unknown';
+      // `cond ? 'Edit' : 'New'` decides the gate when both arms do, alike.
+      if (expr?.type === 'ConditionalExpression') {
+        const [a, b] = [expr.consequent, expr.alternate].map((e) => judge(gate, heldOf(e as Expr)));
+        return a === b ? a : undefined;
+      }
+      held = expr ? heldOf(expr) : 'unknown';
     }
+    return judge(gate, held);
+  };
+  // Whether the gate's first arm renders for a prop holding `held`, or undefined when that does not decide it.
+  function judge(gate: PropTest, held: Held): boolean | undefined {
     if (held === 'unknown') return undefined;
     if ('type' in held && held.type === 'text') return gate.kind === 'truthy' ? !gate.negate : undefined;
     if ('length' in held) {
@@ -846,7 +860,7 @@ export function decidedArms(
       holds = { '>': n > m, '>=': n >= m, '<': n < m, '<=': n <= m, '===': n === m, '!==': n !== m }[gate.op!]!;
     }
     return holds !== gate.negate;
-  };
+  }
   for (const [group, gate] of gates) {
     const holds = decide(gate);
     if (holds !== undefined) out.set(group, holds);
