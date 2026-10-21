@@ -456,6 +456,27 @@ describe('parseKitModuleFacts — browser-global refs (correctness/server-browse
       { name: 'navigator', line: 4, inHandler: true }
     ]);
   });
+  it("reads G as guarded right of typeof G === 'undefined' ||, and every global only when G is DOM-only", () => {
+    const src = [
+      'export function load() {',
+      "  const a = typeof localStorage === 'undefined' || localStorage.getItem('t');",
+      "  const b = typeof window === 'undefined' || document.title;",
+      "  const c = typeof localStorage === 'undefined' || document.title;",
+      "  const d = typeof window !== 'undefined' || document.title;",
+      '  return { a, b, c, d };',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'document', line: 4, inHandler: true },
+      { name: 'document', line: 5, inHandler: true }
+    ]);
+  });
+  it("does not read typeof window === 'undefined' || … as a guard when the file binds window itself", () => {
+    const src = "const window = globalThis.win;\nexport const t = typeof window === 'undefined' || document.title;";
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'document', line: 2, inHandler: false }
+    ]);
+  });
   it('empties the facts when the file itself exports ssr = false, but not for csr = false', () => {
     const ssrOff =
       'export const ssr = false;\nconst w = window.innerWidth;\nexport function load() {\n  return { t: document.title };\n}';

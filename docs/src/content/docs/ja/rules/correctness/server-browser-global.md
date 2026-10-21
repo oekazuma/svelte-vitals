@@ -14,7 +14,7 @@ description: モジュールスコープや load・ハンドラで window や do
 
 検出対象外:
 
-- `$app/environment`（SvelteKit 3 では `$app/env`）の `browser`（エイリアス込み）や、`typeof window !== 'undefined'`、`typeof matchMedia === 'function'` のような `typeof` チェックでガードされたコード（early-return ガードを含む）。
+- `$app/environment`（SvelteKit 3 では `$app/env`）の `browser`（エイリアス込み）や、`typeof window !== 'undefined'`、`typeof matchMedia === 'function'` のような `typeof` チェックでガードされたコード（early-return ガードを含む）。`typeof G === 'undefined' ||` の右辺では、`G` 自身だけをガード済みとみなします（`typeof localStorage === 'undefined' || localStorage.getItem('t')`）。サーバーでも `G` が定義されている場合があるためです。`G` が `window` か `document` なら右辺全体をガード済みとみなします。
 - `onMount`/`$effect`/通常の関数内。モジュール評価時には実行されません。
 - 裸の `typeof window`（throw しない）。
 - 自分で import/宣言した名前（`const document = …`）。

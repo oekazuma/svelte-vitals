@@ -483,6 +483,21 @@ function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
   return guarded;
 }
 
+/** The tracked global `G` of a `typeof G === 'undefined'` test: the test is false only where `G` is defined. */
+function missingGlobalOf(n: Node): string | undefined {
+  if (n?.type !== 'BinaryExpression' || (n.operator !== '===' && n.operator !== '==')) return undefined;
+  const sides = [n.left, n.right];
+  if (!sides.some((s: Node) => s?.type === 'Literal' && s.value === 'undefined')) return undefined;
+  const t = sides.find(
+    (s: Node) =>
+      s?.type === 'UnaryExpression' &&
+      s.operator === 'typeof' &&
+      s.argument?.type === 'Identifier' &&
+      BROWSER_GLOBALS.has(s.argument.name)
+  );
+  return t?.argument.name;
+}
+
 /**
  * Names of derived guard bindings (one level, no fixpoint chasing): a top-level
  * (export-unwrapped) `const`/`let` declarator whose init passes `isBrowserGuardTest` —
@@ -646,6 +661,14 @@ export function collectBrowserGlobalRefs(
         : n.left?.type === 'UnaryExpression' && n.left.operator === '!' && isBrowserGuardTest(n.left.argument, guards))
     )
       return;
+    // `typeof G === 'undefined' || x` evaluates `x` only where `G` is defined: a browser when `G` is DOM-only,
+    // otherwise perhaps a server that defines `G` too (Node's `localStorage`), so only `G` is safe in `x`.
+    const missing = n.type === 'LogicalExpression' && n.operator === '||' ? missingGlobalOf(n.left) : undefined;
+    if (missing && !bound.has(missing) && !shadowed.has(missing)) {
+      visit(n.left, shadowed);
+      if (!DOM_ONLY_GLOBALS.has(missing)) visit(n.right, new Set([...shadowed, missing]));
+      return;
+    }
 
     const introduced = scopeIntroducedNames(n);
     const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
