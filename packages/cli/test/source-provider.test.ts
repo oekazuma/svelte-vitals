@@ -692,6 +692,24 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(rs.map((r) => r.message)).toEqual(['Heading order']);
   });
 
+  it('decides a prop passed a ternary of two literals when both arms decide it alike', async () => {
+    const skips = async (title: string) => {
+      const modal = `<script>let { title, children } = $props();</script>{#if title}<h2>{title}</h2>{/if}{@render children?.()}`;
+      const page = `<script>import Modal from '$lib/Modal.svelte'; let editing = $state(false);</script><h1>Orders</h1><Modal title={${title}}><h3>Item</h3></Modal>`;
+      const files = { 'src/lib/Modal.svelte': modal, 'src/routes/+page.svelte': page };
+      const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+      const rs = await seoHeadingLevelSkip.check({
+        heads: [],
+        headings,
+        project: defaultProject,
+        config: defaultConfig
+      });
+      return rs.filter((r) => r.message !== 'Heading order').length;
+    };
+    expect(await skips("editing ? 'Edit' : 'New'")).toBe(0);
+    expect(await skips("editing ? 'Edit' : ''")).toBe(1);
+  });
+
   it('keeps a heading before a later heading the selected arm does not reach', async () => {
     const page = `<script>import Title from '$lib/Title.svelte';</script><h1>T</h1>{#if flag}<Title />{#if flag}<p>a</p>{:else}<p>b</p>{/if}{#each items as item}<h3>{item}</h3>{/each}{/if}`;
     const files = { 'src/lib/Title.svelte': '<h2>Schedule</h2>', 'src/routes/+page.svelte': page };
