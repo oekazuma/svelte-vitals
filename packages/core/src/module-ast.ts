@@ -483,6 +483,22 @@ function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
   return guarded;
 }
 
+/** `typeof <tracked-global> === 'undefined'`: true wherever that global is missing. */
+function isMissingGlobalTest(n: Node): boolean {
+  if (n?.type !== 'BinaryExpression' || (n.operator !== '===' && n.operator !== '==')) return false;
+  const sides = [n.left, n.right];
+  return (
+    sides.some((s: Node) => s?.type === 'Literal' && s.value === 'undefined') &&
+    sides.some(
+      (s: Node) =>
+        s?.type === 'UnaryExpression' &&
+        s.operator === 'typeof' &&
+        s.argument?.type === 'Identifier' &&
+        BROWSER_GLOBALS.has(s.argument.name)
+    )
+  );
+}
+
 /**
  * Names of derived guard bindings (one level, no fixpoint chasing): a top-level
  * (export-unwrapped) `const`/`let` declarator whose init passes `isBrowserGuardTest` —
@@ -638,12 +654,16 @@ export function collectBrowserGlobalRefs(
     if (EVAL_SCOPE_BOUNDARIES.has(n.type)) return;
 
     if ((n.type === 'IfStatement' || n.type === 'ConditionalExpression') && isBrowserGuardTest(n.test, guards)) return;
-    // `browser && x` evaluates `x` only in the browser; `!browser || x` likewise. `browser || x` evaluates `x` on the server.
+    // `browser && x` evaluates `x` only in the browser; `!browser || x` and `typeof window === 'undefined' || x`
+    // likewise. `browser || x` evaluates `x` on the server.
     if (
       n.type === 'LogicalExpression' &&
       (n.operator === '&&'
         ? isBrowserGuardTest(n.left, guards)
-        : n.left?.type === 'UnaryExpression' && n.left.operator === '!' && isBrowserGuardTest(n.left.argument, guards))
+        : (n.left?.type === 'UnaryExpression' &&
+            n.left.operator === '!' &&
+            isBrowserGuardTest(n.left.argument, guards)) ||
+          isMissingGlobalTest(n.left))
     )
       return;
 

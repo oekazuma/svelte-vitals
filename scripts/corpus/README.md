@@ -588,7 +588,7 @@ Measured on 547 apps, each pinned to a commit:
 - [schmolldechse/archive/frontend](https://github.com/schmolldechse/archive/tree/fd63cc4c95c33c28c722c905ae5208f97b58c661/frontend) (`fd63cc4`)
 - [lilBunnyRabbit/series-tracker](https://github.com/lilBunnyRabbit/series-tracker/tree/abc4adec0e707c55b12c4fe4c7fca78addc20463) (`abc4ade`)
 
-216565 of 216590 corpus findings have a verdict.
+216564 of 216589 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -638,7 +638,7 @@ Measured on 547 apps, each pinned to a commit:
 | [`correctness/each-key`](../../docs/src/content/docs/rules/correctness/each-key.md)                                   | 19177           | 363  | 13079 / 1 / 6096 / 1                  | 100% (13079/13080) | 32% (6096/19177) |
 | [`correctness/effect-as-derived`](../../docs/src/content/docs/rules/correctness/effect-as-derived.md)                 | 1002            | 258  | 844 / 0 / 158 / 0                     | 100% (844/844)     | 16% (158/1002)   |
 | [`correctness/effect-as-onmount`](../../docs/src/content/docs/rules/correctness/effect-as-onmount.md)                 | 237             | 114  | 165 / 2 / 70 / 0                      | 99% (165/167)      | 30% (70/237)     |
-| [`correctness/instance-browser-global`](../../docs/src/content/docs/rules/correctness/instance-browser-global.md)     | 63              | 35   | 4 / 1 / 58 / 0                        | 80% (4/5)          | 92% (58/63)      |
+| [`correctness/instance-browser-global`](../../docs/src/content/docs/rules/correctness/instance-browser-global.md)     | 62              | 34   | 4 / 0 / 58 / 0                        | 100% (4/4)         | 94% (58/62)      |
 | [`correctness/nonreactive-builtin-state`](../../docs/src/content/docs/rules/correctness/nonreactive-builtin-state.md) | 47              | 31   | 35 / 0 / 12 / 0                       | 100% (35/35)       | 26% (12/47)      |
 | [`correctness/orphan-effect`](../../docs/src/content/docs/rules/correctness/orphan-effect.md)                         | 0               | 0    | —                                     | —                  | —                |
 | [`correctness/orphan-lifecycle`](../../docs/src/content/docs/rules/correctness/orphan-lifecycle.md)                   | 0               | 0    | —                                     | —                  | —                |

@@ -456,6 +456,18 @@ describe('parseKitModuleFacts — browser-global refs (correctness/server-browse
       { name: 'navigator', line: 4, inHandler: true }
     ]);
   });
+  it("reads the right side of typeof G === 'undefined' || … as guarded, but not of !== 'undefined' ||", () => {
+    const src = [
+      'export function load() {',
+      "  const a = typeof localStorage === 'undefined' || localStorage.getItem('t');",
+      "  const b = typeof window !== 'undefined' || document.title;",
+      '  return { a, b };',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'document', line: 3, inHandler: true }
+    ]);
+  });
   it('empties the facts when the file itself exports ssr = false, but not for csr = false', () => {
     const ssrOff =
       'export const ssr = false;\nconst w = window.innerWidth;\nexport function load() {\n  return { t: document.title };\n}';
