@@ -471,6 +471,12 @@ describe('parseKitModuleFacts — browser-global refs (correctness/server-browse
       { name: 'document', line: 5, inHandler: true }
     ]);
   });
+  it("does not read typeof window === 'undefined' || … as a guard when the file binds window itself", () => {
+    const src = "const window = globalThis.win;\nexport const t = typeof window === 'undefined' || document.title;";
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'document', line: 2, inHandler: false }
+    ]);
+  });
   it('empties the facts when the file itself exports ssr = false, but not for csr = false', () => {
     const ssrOff =
       'export const ssr = false;\nconst w = window.innerWidth;\nexport function load() {\n  return { t: document.title };\n}';

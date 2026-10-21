@@ -664,7 +664,7 @@ export function collectBrowserGlobalRefs(
     // `typeof G === 'undefined' || x` evaluates `x` only where `G` is defined: a browser when `G` is DOM-only,
     // otherwise perhaps a server that defines `G` too (Node's `localStorage`), so only `G` is safe in `x`.
     const missing = n.type === 'LogicalExpression' && n.operator === '||' ? missingGlobalOf(n.left) : undefined;
-    if (missing) {
+    if (missing && !bound.has(missing) && !shadowed.has(missing)) {
       visit(n.left, shadowed);
       if (!DOM_ONLY_GLOBALS.has(missing)) visit(n.right, new Set([...shadowed, missing]));
       return;
