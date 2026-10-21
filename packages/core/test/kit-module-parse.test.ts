@@ -456,16 +456,19 @@ describe('parseKitModuleFacts — browser-global refs (correctness/server-browse
       { name: 'navigator', line: 4, inHandler: true }
     ]);
   });
-  it("reads the right side of typeof G === 'undefined' || … as guarded, but not of !== 'undefined' ||", () => {
+  it("reads G as guarded right of typeof G === 'undefined' ||, and every global only when G is DOM-only", () => {
     const src = [
       'export function load() {',
       "  const a = typeof localStorage === 'undefined' || localStorage.getItem('t');",
-      "  const b = typeof window !== 'undefined' || document.title;",
-      '  return { a, b };',
+      "  const b = typeof window === 'undefined' || document.title;",
+      "  const c = typeof localStorage === 'undefined' || document.title;",
+      "  const d = typeof window !== 'undefined' || document.title;",
+      '  return { a, b, c, d };',
       '}'
     ].join('\n');
     expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
-      { name: 'document', line: 3, inHandler: true }
+      { name: 'document', line: 4, inHandler: true },
+      { name: 'document', line: 5, inHandler: true }
     ]);
   });
   it('empties the facts when the file itself exports ssr = false, but not for csr = false', () => {

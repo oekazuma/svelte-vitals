@@ -483,20 +483,19 @@ function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
   return guarded;
 }
 
-/** `typeof <tracked-global> === 'undefined'`: true wherever that global is missing. */
-function isMissingGlobalTest(n: Node): boolean {
-  if (n?.type !== 'BinaryExpression' || (n.operator !== '===' && n.operator !== '==')) return false;
+/** The tracked global `G` of a `typeof G === 'undefined'` test: the test is false only where `G` is defined. */
+function missingGlobalOf(n: Node): string | undefined {
+  if (n?.type !== 'BinaryExpression' || (n.operator !== '===' && n.operator !== '==')) return undefined;
   const sides = [n.left, n.right];
-  return (
-    sides.some((s: Node) => s?.type === 'Literal' && s.value === 'undefined') &&
-    sides.some(
-      (s: Node) =>
-        s?.type === 'UnaryExpression' &&
-        s.operator === 'typeof' &&
-        s.argument?.type === 'Identifier' &&
-        BROWSER_GLOBALS.has(s.argument.name)
-    )
+  if (!sides.some((s: Node) => s?.type === 'Literal' && s.value === 'undefined')) return undefined;
+  const t = sides.find(
+    (s: Node) =>
+      s?.type === 'UnaryExpression' &&
+      s.operator === 'typeof' &&
+      s.argument?.type === 'Identifier' &&
+      BROWSER_GLOBALS.has(s.argument.name)
   );
+  return t?.argument.name;
 }
 
 /**
@@ -654,18 +653,22 @@ export function collectBrowserGlobalRefs(
     if (EVAL_SCOPE_BOUNDARIES.has(n.type)) return;
 
     if ((n.type === 'IfStatement' || n.type === 'ConditionalExpression') && isBrowserGuardTest(n.test, guards)) return;
-    // `browser && x` evaluates `x` only in the browser; `!browser || x` and `typeof window === 'undefined' || x`
-    // likewise. `browser || x` evaluates `x` on the server.
+    // `browser && x` evaluates `x` only in the browser; `!browser || x` likewise. `browser || x` evaluates `x` on the server.
     if (
       n.type === 'LogicalExpression' &&
       (n.operator === '&&'
         ? isBrowserGuardTest(n.left, guards)
-        : (n.left?.type === 'UnaryExpression' &&
-            n.left.operator === '!' &&
-            isBrowserGuardTest(n.left.argument, guards)) ||
-          isMissingGlobalTest(n.left))
+        : n.left?.type === 'UnaryExpression' && n.left.operator === '!' && isBrowserGuardTest(n.left.argument, guards))
     )
       return;
+    // `typeof G === 'undefined' || x` evaluates `x` only where `G` is defined: a browser when `G` is DOM-only,
+    // otherwise perhaps a server that defines `G` too (Node's `localStorage`), so only `G` is safe in `x`.
+    const missing = n.type === 'LogicalExpression' && n.operator === '||' ? missingGlobalOf(n.left) : undefined;
+    if (missing) {
+      visit(n.left, shadowed);
+      if (!DOM_ONLY_GLOBALS.has(missing)) visit(n.right, new Set([...shadowed, missing]));
+      return;
+    }
 
     const introduced = scopeIntroducedNames(n);
     const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
