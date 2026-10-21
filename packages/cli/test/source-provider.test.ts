@@ -661,6 +661,24 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(await counts('', ' as ReadonlySet<string>')).toBe(1);
   });
 
+  it('decides startsWith, endsWith and includes on the route id, through ?. and ?? false', async () => {
+    const counts = async (test: string, route = '/admin/users') => {
+      const layout = `<script lang="ts">import { page } from '$app/state'; let { children } = $props(); const own = $derived(${test});</script>{#if own}{@render children()}{:else}<h1>Site</h1>{@render children()}{/if}`;
+      const files = {
+        'src/routes/+layout.svelte': layout,
+        'src/routes/admin/users/+page.svelte': '<h1>Users</h1>',
+        'src/routes/(shop)/cart/+page.svelte': '<h1>Cart</h1>'
+      };
+      const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+      return headings.find((h) => h.route === route)!.headings.length;
+    };
+    expect(await counts("page.route.id?.startsWith('/admin') ?? false")).toBe(1);
+    expect(await counts("page.route.id?.endsWith('/users') ?? false")).toBe(1);
+    expect(await counts("(page.route.id ?? '').includes('/admin/')")).toBe(1);
+    expect(await counts("page.route.id?.startsWith('/cart') ?? false", '/cart')).toBeGreaterThan(1);
+    expect(await counts("page.route.id?.startsWith('/(shop)') ?? false", '/cart')).toBe(1);
+  });
+
   it('reads a trimmed $derived of a prop, and a translation call passed to it, as deciding its arm', async () => {
     const card = `<script>let { title, children } = $props(); const shown = $derived(title?.trim() ?? '');</script>{#if shown}<h2>{shown}</h2>{/if}{@render children?.()}`;
     const page = `<script>import Card from '$lib/Card.svelte'; import { t } from '$lib/i18n';</script><h1>Crew</h1><Card title={t('Receipts')}><h3>Split</h3></Card>`;

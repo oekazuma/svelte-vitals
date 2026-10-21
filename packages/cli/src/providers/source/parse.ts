@@ -1307,7 +1307,8 @@ function childrenUrlConds(ast: AST.Root, source: string) {
   }
   const strip = (n: Expr): Expr => {
     let cur = n as Expr & { expression?: Expr };
-    while (cur && (cur.type as string).startsWith('TS') && cur.expression) cur = cur.expression as typeof cur;
+    while (cur && ((cur.type as string).startsWith('TS') || cur.type === 'ChainExpression') && cur.expression)
+      cur = cur.expression as typeof cur;
     return cur;
   };
   const text = (n: Expr) => {
@@ -1362,6 +1363,9 @@ function childrenUrlConds(ast: AST.Root, source: string) {
     if (n.type === 'Identifier' && depth < 4 && derived.has(n.name)) return cond(derived.get(n.name)!, depth + 1);
     if (n.type === 'Literal' && typeof n.value === 'boolean') return { k: n.value };
     if (n.type === 'UnaryExpression' && n.operator === '!') return { not: cond(n.argument, depth) };
+    // A page always has a route id, so `page.route.id?.startsWith('/a') ?? false` is the test itself.
+    if (n.type === 'LogicalExpression' && n.operator === '??' && n.right.type === 'Literal')
+      if (typeof n.right.value === 'boolean') return cond(n.left, depth);
     if (n.type === 'LogicalExpression' && n.operator !== '??')
       return n.operator === '&&'
         ? { and: [cond(n.left, depth), cond(n.right, depth)] }
@@ -1371,6 +1375,7 @@ function childrenUrlConds(ast: AST.Root, source: string) {
       const op = ({ startsWith: 'starts', endsWith: 'ends', includes: 'includes' } as const)[name as 'includes'];
       const v = n.arguments.length === 1 ? literal(n.arguments[0] as Expr) : undefined;
       if (op && v !== undefined && isPath(n.callee.object as Expr, depth)) return { op, v };
+      if (op && v !== undefined && isRouteId(n.callee.object as Expr, depth)) return { idOp: op, v };
       // `['/a', '/b'].includes(page.route.id)`, or `.has` on a `new Set([…])` of them
       const ids = stringsOf(n.callee.object as Expr, name === 'has');
       if (

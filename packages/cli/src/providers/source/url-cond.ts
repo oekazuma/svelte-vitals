@@ -3,6 +3,8 @@ export type UrlCond =
   | { op: 'eq' | 'starts' | 'ends' | 'includes'; v: string }
   /** `page.route.id` is one of these. */
   | { id: string[] }
+  /** `page.route.id` starts with, ends with or includes this. */
+  | { idOp: 'starts' | 'ends' | 'includes'; v: string }
   /** A regex `.test()` of the path. */
   | { re: string; flags: string }
   /** The path equals a template literal: a literal segment, or `null` for one built from an expression. */
@@ -36,6 +38,12 @@ export function urlHolds(cond: UrlCond | undefined, route: string, routeId = rou
     return rs.includes(true) ? true : rs.every((r) => r === false) ? false : undefined;
   }
   if ('id' in cond) return cond.id.includes(routeId);
+  if ('idOp' in cond)
+    return cond.idOp === 'starts'
+      ? routeId.startsWith(cond.v)
+      : cond.idOp === 'ends'
+        ? routeId.endsWith(cond.v)
+        : routeId.includes(cond.v);
   if ('re' in cond) {
     if (DYNAMIC.test(route)) return undefined;
     try {
