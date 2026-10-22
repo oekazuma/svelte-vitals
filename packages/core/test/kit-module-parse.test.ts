@@ -584,6 +584,13 @@ describe('parseKitModuleFacts — ssrEnabled (app-wide ssr = false override)', (
     expect(facts('const ssr = false;\nexport { ssr };', 'src/routes/+page.ts').ssrEnabled).toBeUndefined();
     expect(facts('export const csr = true;\nconst ssr = true;', 'src/routes/+page.ts').ssrEnabled).toBeUndefined();
   });
+  it('marks ssrTrue only for a literal true, inline or through a same-file alias', () => {
+    expect(facts('export const ssr = true;', 'src/routes/+page.ts').ssrTrue).toBe(true);
+    expect(facts('const ssr = true;\nexport { ssr };', 'src/routes/+page.server.ts').ssrTrue).toBe(true);
+    expect(facts('export const ssr = !dev;', 'src/routes/+page.ts').ssrTrue).toBeUndefined();
+    expect(facts("export { ssr } from './options';", 'src/routes/+layout.ts').ssrTrue).toBeUndefined();
+    expect(facts('export const ssr = false;', 'src/routes/+page.ts').ssrTrue).toBeUndefined();
+  });
 });
 
 describe('parseKitModuleFacts — answeredPaths (paths the hooks handle answers before resolve)', () => {

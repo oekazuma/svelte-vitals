@@ -121,9 +121,10 @@ function routePattern(dir: string, subtree: boolean): RegExp {
  * file for an `ssr = false` route, but its `<head>` and body only exist once the client renders,
  * so every rendered head/heading/landmark check would report the page as empty. Each page takes the
  * nearest `ssr` export along its own files and its layout chain, resets followed, as the CLI reads it
- * (`routeNeverSsr`), so a page that sets `ssr = true` under a disabled layout is read. An option file
- * that did not parse inherits instead of counting as on, since analyzing a shell would report it
- * empty, and a route no page in `sourceFiles` can match is a shell when any `ssr = false` module's
+ * (`routeNeverSsr`), so a page that sets `ssr = true` under a disabled layout is read. Only a literal
+ * `true` turns SSR back on here: an option file that did not parse, or an `ssr` export the analyzer
+ * cannot read (an imported value), inherits instead, since analyzing a shell would report it empty,
+ * and a route no page in `sourceFiles` can match is a shell when any `ssr = false` module's
  * route covers it. Kit's route precedence is not modelled: a route is a shell when any page whose
  * path can match it is, so `/docs/[slug]` with `ssr = false` also claims a prerendered `/docs/intro`
  * — the warning lists the skipped routes so a wrong skip is visible.
@@ -133,7 +134,9 @@ export function ssrDisabledRouteMatcher(
   sourceFiles: readonly string[]
 ): (route: string) => boolean {
   const scope = {
-    kitModules: kitModules.map((m) => (m.parseFailed ? { ...m, parseFailed: undefined } : m)),
+    kitModules: kitModules.map((m) =>
+      m.parseFailed || (m.ssrEnabled && !m.ssrTrue) ? { ...m, parseFailed: undefined, ssrEnabled: undefined } : m
+    ),
     sourceFiles: [...sourceFiles]
   };
   const pages: { pattern: RegExp; shell: boolean }[] = [];

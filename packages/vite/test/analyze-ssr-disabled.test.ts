@@ -23,8 +23,8 @@ async function fixture(files: Record<string, string>): Promise<{ cwd: string; pa
 }
 
 describe('ssrDisabledRouteMatcher', () => {
-  // The matcher reads only `file`, `kind`, `ssrDisabled`, `ssrEnabled` and `parseFailed`.
-  type Option = 'off' | 'on' | 'unparsed';
+  // The matcher reads only `file`, `kind`, `ssrDisabled`, `ssrEnabled`, `ssrTrue` and `parseFailed`.
+  type Option = 'off' | 'on' | 'unknown' | 'unparsed';
   const facts = (file: string, option: Option = 'off') =>
     ({
       file,
@@ -32,8 +32,10 @@ describe('ssrDisabledRouteMatcher', () => {
       ...(option === 'off'
         ? { ssrDisabled: { line: 0 } }
         : option === 'on'
-          ? { ssrEnabled: true }
-          : { parseFailed: true })
+          ? { ssrEnabled: true, ssrTrue: true }
+          : option === 'unknown'
+            ? { ssrEnabled: true }
+            : { parseFailed: true })
     }) as KitModuleFacts;
   const pages = (...dirs: string[]) => dirs.map((d) => `src/routes/${d ? `${d}/` : ''}+page.svelte`);
 
@@ -97,6 +99,16 @@ describe('ssrDisabledRouteMatcher', () => {
     expect(is('/docs/intro')).toBe(false);
     expect(is('/docs/draft')).toBe(true);
     expect(is('/dashboard')).toBe(true);
+  });
+
+  it('turns SSR back on only for a literal true, and reads an export it cannot evaluate as inheriting', () => {
+    const is = ssrDisabledRouteMatcher(
+      [facts('src/routes/+layout.ts'), facts('src/routes/flagged/+page.ts', 'unknown')],
+      pages('flagged', 'plain')
+    );
+    expect(is('/flagged')).toBe(true);
+    const on = ssrDisabledRouteMatcher([facts('src/routes/flagged/+page.ts', 'unknown')], pages('flagged'));
+    expect(on('/flagged')).toBe(false);
   });
 
   it('places a route in its own (group), and reads an unparsed option file as inheriting', () => {

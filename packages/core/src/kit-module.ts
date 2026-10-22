@@ -48,6 +48,8 @@ export interface KitModuleFacts {
   ssrDisabled?: { line: number };
   /** Set when this file exports `ssr` as anything but a literal `false` (`true`, a computed value, a re-export) — it may turn SSR back on under a layout's `ssr = false` (see `appSsrDisabled`, `routeNeverSsr`). */
   ssrEnabled?: true;
+  /** Set when this file exports `ssr` as the literal `true` (inline or same-file alias export); implies `ssrEnabled`. */
+  ssrTrue?: true;
   /** Set when this file disables client-side rendering via `export const csr = false` (inline or same-file alias export). With no client runtime, a universal load only runs during SSR — performance/load-waterfall's browser-waterfall premise doesn't hold. */
   csrDisabled?: { line: number };
   /** Set when this file exports `csr` as anything but `false` — it may turn CSR back on under a layout's `csr = false` (see `universalNeverCsr`). */
