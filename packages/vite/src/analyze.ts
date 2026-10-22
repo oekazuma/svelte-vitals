@@ -13,6 +13,7 @@ import {
   hasFailureAtOrAbove,
   formatConsoleReport,
   formatJsonReportChunks,
+  routeNeverSsr,
   type KitModuleFacts,
   type Project,
   type SuppressionDirective
@@ -83,12 +84,6 @@ export async function resolveConfig(
   return { config, warnings: loaded?.warnings ?? [] };
 }
 
-/**
- * `ssr` is a page option: only `+page`/`+layout` modules (universal or server) can set it. Same
- * file set as `PAGE_OPTION_FILE_RE` in core's `rules/seo/ssr-disabled.ts`, which reports the fact.
- */
-const PAGE_OPTION_FILE_RE = /^src\/routes\/(.*?)\/?\+(page|layout)(?:\.server)?\.[jt]s$/;
-
 function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -106,29 +101,59 @@ function segmentPattern(segment: string): string {
   );
 }
 
+/** A route's page component, with an optional `@segment` layout reset. */
+const PAGE_FILE_RE = /^src\/routes\/(.*?)\/?\+page(?:@[^/]*)?\.svelte$/;
+/** A module that can set the `ssr` page option (same file set as core's `seo/ssr-disabled`). */
+const PAGE_OPTION_FILE_RE = /^src\/routes\/(.*?)\/?\+(page|layout)(?:\.server)?\.[jt]s$/;
+
+/** A route directory as a pattern over rendered paths: `(group)` directories are not URL segments. */
+function routePattern(dir: string, subtree: boolean): RegExp {
+  const path = dir
+    .split('/')
+    .filter((s) => s !== '' && !/^\(.+\)$/.test(s))
+    .map(segmentPattern)
+    .join('');
+  return new RegExp(subtree ? `^${path}(?:/.*)?$` : `^${path}$`);
+}
+
 /**
  * Routes whose prerendered HTML is the app shell rather than the page: SvelteKit still writes a
  * file for an `ssr = false` route, but its `<head>` and body only exist once the client renders,
- * so every rendered head/heading/landmark check would report the page as empty. A `+layout`
- * covers its whole subtree, a `+page` only its own route; `(group)` directories are not URL
- * segments. Two ceilings: a child route re-enabling `ssr = true` under a disabled layout is not
- * tracked, and Kit's route precedence is not modelled, so a `[param]` route also claims a literal
- * sibling (`/docs/[slug]` matches a prerendered `/docs/intro`) — the warning lists the skipped
- * routes so a wrong skip is visible.
+ * so every rendered head/heading/landmark check would report the page as empty. Each page takes the
+ * nearest `ssr` export along its own files and its layout chain, resets followed, as the CLI reads it
+ * (`routeNeverSsr`), so a page that sets `ssr = true` under a disabled layout is read. Only a literal
+ * `true` turns SSR back on here: an option file that did not parse, or an `ssr` export the analyzer
+ * cannot read (an imported value), inherits instead, since analyzing a shell would report it empty,
+ * and a route no page in `sourceFiles` can match is a shell when any `ssr = false` module's
+ * route covers it. Kit's route precedence is not modelled: a route is a shell when any page whose
+ * path can match it is, so `/docs/[slug]` with `ssr = false` also claims a prerendered `/docs/intro`
+ * — the warning lists the skipped routes so a wrong skip is visible.
  */
-export function ssrDisabledRouteMatcher(kitModules: readonly KitModuleFacts[]): (route: string) => boolean {
-  const patterns: RegExp[] = [];
+export function ssrDisabledRouteMatcher(
+  kitModules: readonly KitModuleFacts[],
+  sourceFiles: readonly string[]
+): (route: string) => boolean {
+  const scope = {
+    kitModules: kitModules.map((m) =>
+      m.parseFailed || (m.ssrEnabled && !m.ssrTrue) ? { ...m, parseFailed: undefined, ssrEnabled: undefined } : m
+    ),
+    sourceFiles: [...sourceFiles]
+  };
+  const pages: { pattern: RegExp; shell: boolean }[] = [];
+  for (const file of sourceFiles) {
+    const match = PAGE_FILE_RE.exec(file);
+    if (match) pages.push({ pattern: routePattern(match[1]!, false), shell: routeNeverSsr(file, scope) });
+  }
+  const disabled: RegExp[] = [];
   for (const m of kitModules) {
     const match = m.ssrDisabled ? PAGE_OPTION_FILE_RE.exec(m.file) : null;
-    if (!match) continue;
-    const segments = match[1]!.split('/').filter((s) => s !== '' && !/^\(.+\)$/.test(s));
-    const path = segments.map(segmentPattern).join('');
-    patterns.push(new RegExp(match[2] === 'layout' ? `^${path}(?:/.*)?$` : `^${path}$`));
+    if (match) disabled.push(routePattern(match[1]!, match[2] === 'layout'));
   }
   // The root route is '' here so every all-optional prefix (root, `[[lang]]`, `[...rest]`) accepts it.
   return (route) => {
     const r = route === '/' ? '' : route;
-    return patterns.some((p) => p.test(r));
+    const matched = pages.filter((p) => p.pattern.test(r));
+    return matched.length > 0 ? matched.some((p) => p.shell) : disabled.some((p) => p.test(r));
   };
 }
 
@@ -165,7 +190,7 @@ export async function analyze(
     dropConstantListEachBlocks(cwd, componentFacts, project.componentAliases ?? project.kitAliases)
   ]);
   // The shell's `<html lang>` is still app.html's, so htmlLang above keeps reading every file.
-  const isShell = project.kitHashRouter ? () => true : ssrDisabledRouteMatcher(kitModules);
+  const isShell = project.kitHashRouter ? () => true : ssrDisabledRouteMatcher(kitModules, sourceFiles);
   const shellCause = project.kitHashRouter ? 'the hash router' : 'ssr = false';
   const keep = <T extends { route: string }>(items: T[]): T[] => items.filter((i) => !isShell(i.route));
   const heads = keep(rendered.heads);
