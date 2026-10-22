@@ -192,6 +192,17 @@ function findFalseOptOut(
 const DEV_NAMES = new Set(['dev']);
 const BUILDING_NAMES = new Set(['building']);
 
+/** Whether the module exports `name` as the literal `true` (inline or same-file alias export). */
+function exportsTrue(program: Node, name: string): boolean {
+  let hit = false;
+  forEachNamedExport(program, (exported, value) => {
+    if (exported !== name) return undefined;
+    hit = value?.type === 'Literal' && value.value === true;
+    return true;
+  });
+  return hit;
+}
+
 /** Whether the module exports a binding named `name` in any form, re-exports and unresolved aliases included. */
 function exportsName(program: Node, name: string): boolean {
   return (program.body ?? []).some((stmt: Node) => {
@@ -1610,6 +1621,7 @@ export function parseKitModuleFacts(
     basePathLinks: byLine(basePathLinks),
     ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
     ...(!ssrOptOut && exportsName(program, 'ssr') ? { ssrEnabled: true as const } : {}),
+    ...(!ssrOptOut && exportsTrue(program, 'ssr') ? { ssrTrue: true as const } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
     ...(!csrOptOut && exportsName(program, 'csr') ? { csrEnabled: true as const } : {}),
     ...(neverRenders ? { loadNeverRenders: true as const } : {}),

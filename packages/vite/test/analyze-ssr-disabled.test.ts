@@ -23,21 +23,34 @@ async function fixture(files: Record<string, string>): Promise<{ cwd: string; pa
 }
 
 describe('ssrDisabledRouteMatcher', () => {
-  // The matcher reads only `file` and `ssrDisabled`.
-  const facts = (file: string, ssrDisabled = true) =>
-    ({ file, kind: 'universal', ...(ssrDisabled ? { ssrDisabled: { line: 0 } } : {}) }) as KitModuleFacts;
+  // The matcher reads only `file`, `kind`, `ssrDisabled`, `ssrEnabled`, `ssrTrue` and `parseFailed`.
+  type Option = 'off' | 'on' | 'unknown' | 'unparsed';
+  const facts = (file: string, option: Option = 'off') =>
+    ({
+      file,
+      kind: file.includes('.server.') ? 'server' : 'universal',
+      ...(option === 'off'
+        ? { ssrDisabled: { line: 0 } }
+        : option === 'on'
+          ? { ssrEnabled: true, ssrTrue: true }
+          : option === 'unknown'
+            ? { ssrEnabled: true }
+            : { parseFailed: true })
+    }) as KitModuleFacts;
+  const pages = (...dirs: string[]) => dirs.map((d) => `src/routes/${d ? `${d}/` : ''}+page.svelte`);
 
   it('a root +layout covers every route, (group) directories are not URL segments', () => {
-    const is = ssrDisabledRouteMatcher([facts('src/routes/(app)/+layout.ts')]);
+    const is = ssrDisabledRouteMatcher([facts('src/routes/(app)/+layout.ts')], pages('(app)', '(app)/about'));
     expect(is('/')).toBe(true);
     expect(is('/about')).toBe(true);
   });
 
   it('a +page covers only its own route, a +layout its subtree', () => {
-    const page = ssrDisabledRouteMatcher([facts('src/routes/spa/+page.server.js')]);
+    const routes = pages('', 'spa', 'spa/child', 'spam');
+    const page = ssrDisabledRouteMatcher([facts('src/routes/spa/+page.server.js')], routes);
     expect(page('/spa')).toBe(true);
     expect(page('/spa/child')).toBe(false);
-    const layout = ssrDisabledRouteMatcher([facts('src/routes/spa/+layout.ts')]);
+    const layout = ssrDisabledRouteMatcher([facts('src/routes/spa/+layout.ts')], routes);
     expect(layout('/spa')).toBe(true);
     expect(layout('/spa/child')).toBe(true);
     expect(layout('/spam')).toBe(false);
@@ -45,31 +58,71 @@ describe('ssrDisabledRouteMatcher', () => {
   });
 
   it('matches concrete rendered paths against [param], [...rest] and [[optional]] segments', () => {
-    const param = ssrDisabledRouteMatcher([facts('src/routes/docs/[slug=word]/+page.ts')]);
+    const param = ssrDisabledRouteMatcher([facts('src/routes/docs/[slug=word]/+page.ts')], pages('docs/[slug=word]'));
     expect(param('/docs/intro')).toBe(true);
     expect(param('/docs/intro/deep')).toBe(false);
-    const rest = ssrDisabledRouteMatcher([facts('src/routes/docs/[...path]/+page.ts')]);
+    const rest = ssrDisabledRouteMatcher([facts('src/routes/docs/[...path]/+page.ts')], pages('docs/[...path]'));
     expect(rest('/docs')).toBe(true);
     expect(rest('/docs/a/b')).toBe(true);
-    const optional = ssrDisabledRouteMatcher([facts('src/routes/[[lang]]/about/+page.ts')]);
+    const optional = ssrDisabledRouteMatcher([facts('src/routes/[[lang]]/about/+page.ts')], pages('[[lang]]/about'));
     expect(optional('/about')).toBe(true);
     expect(optional('/ja/about')).toBe(true);
     expect(optional('/ja/x/about')).toBe(false);
     // SvelteKit's default `entries: ['*']` prerenders `/` for a `[[lang]]` root page.
-    const optionalRoot = ssrDisabledRouteMatcher([facts('src/routes/[[lang]]/+page.ts')]);
+    const optionalRoot = ssrDisabledRouteMatcher([facts('src/routes/[[lang]]/+page.ts')], pages('[[lang]]'));
     expect(optionalRoot('/')).toBe(true);
     expect(optionalRoot('/ja')).toBe(true);
-    expect(ssrDisabledRouteMatcher([facts('src/routes/+page.ts')])('/')).toBe(true);
-    expect(ssrDisabledRouteMatcher([facts('src/routes/+page.ts')])('/about')).toBe(false);
+    const root = ssrDisabledRouteMatcher([facts('src/routes/+page.ts')], pages('', 'about'));
+    expect(root('/')).toBe(true);
+    expect(root('/about')).toBe(false);
   });
 
   it('ignores modules that cannot carry the page option, and modules with SSR on', () => {
-    const is = ssrDisabledRouteMatcher([
-      facts('src/routes/+server.ts'),
-      facts('src/hooks.server.ts'),
-      facts('src/routes/+layout.ts', false)
-    ]);
+    const is = ssrDisabledRouteMatcher(
+      [facts('src/routes/+server.ts'), facts('src/hooks.server.ts'), facts('src/routes/+layout.ts', 'on')],
+      pages('')
+    );
     expect(is('/')).toBe(false);
+  });
+
+  it('reads a page or layout that turns SSR back on under a disabled layout', () => {
+    const is = ssrDisabledRouteMatcher(
+      [
+        facts('src/routes/+layout.ts'),
+        facts('src/routes/+page.ts', 'on'),
+        facts('src/routes/docs/+layout.ts', 'on'),
+        facts('src/routes/docs/draft/+page.ts')
+      ],
+      pages('', 'docs/intro', 'docs/draft', 'dashboard')
+    );
+    expect(is('/')).toBe(false);
+    expect(is('/docs/intro')).toBe(false);
+    expect(is('/docs/draft')).toBe(true);
+    expect(is('/dashboard')).toBe(true);
+  });
+
+  it('turns SSR back on only for a literal true, and reads an export it cannot evaluate as inheriting', () => {
+    const is = ssrDisabledRouteMatcher(
+      [facts('src/routes/+layout.ts'), facts('src/routes/flagged/+page.ts', 'unknown')],
+      pages('flagged', 'plain')
+    );
+    expect(is('/flagged')).toBe(true);
+    const on = ssrDisabledRouteMatcher([facts('src/routes/flagged/+page.ts', 'unknown')], pages('flagged'));
+    expect(on('/flagged')).toBe(false);
+  });
+
+  it('places a route in its own (group), and reads an unparsed option file as inheriting', () => {
+    const is = ssrDisabledRouteMatcher(
+      [
+        facts('src/routes/(app)/+layout.ts'),
+        facts('src/routes/(site)/+layout.ts', 'on'),
+        facts('src/routes/(app)/settings/+page.ts', 'unparsed')
+      ],
+      pages('(app)/dashboard', '(app)/settings', '(site)/about')
+    );
+    expect(is('/dashboard')).toBe(true);
+    expect(is('/settings')).toBe(true);
+    expect(is('/about')).toBe(false);
   });
 });
 
@@ -137,6 +190,28 @@ describe('analyze: routes with ssr = false', () => {
       expect(r.consoleReport).toContain('Analyzed 0 prerendered route(s) (skipped 1 with the hash router).');
     } finally {
       await rm(hash.cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('analyzes a page that turns SSR back on under a disabled root layout', async () => {
+    const back = await fixture({
+      'src/routes/+layout.ts': 'export const ssr = false;\n',
+      'src/routes/+page.ts': 'export const ssr = true;\nexport const prerender = true;\n',
+      'src/routes/+page.svelte': '<h1>Home</h1>',
+      'src/routes/dashboard/+page.svelte': '<h1>Dashboard</h1>',
+      'index.html': `<html lang="en"><head><meta charset="utf-8"/></head><body><main><h1>Home</h1></main></body></html>`,
+      'dashboard.html': SHELL
+    });
+    try {
+      const r = await analyze(back.pages, back.cwd, { report: false });
+      const routes = new Set(r.results.map((x) => x.route).filter((x) => x?.startsWith('/')));
+      expect(routes).toEqual(new Set(['/']));
+      expect(r.results.some((x) => x.route === '/' && x.id === 'seo/title-presence')).toBe(true);
+      expect(r.warnings.some((w) => w.startsWith('skipped 1 prerendered route(s)') && w.endsWith(': /dashboard'))).toBe(
+        true
+      );
+    } finally {
+      await rm(back.cwd, { recursive: true, force: true });
     }
   });
 
