@@ -30,7 +30,7 @@ export default {
 - `outFile`: write the JSON report to a path.
 - `rules` / `metaComponents` / `treatDynamicAs`: same as the CLI/core config.
 - `weights`: per-category weight overrides for the combined Health score.
-- `prerenderDir`: override the prerendered-pages directory.
+- `prerenderDir`: override the prerendered-pages directory (default: `output/prerendered/pages` under `kit.outDir`).
 - `cwd`: project root (defaults to the Vite config root).
 - `ui`: serve the live dev dashboard (default `true`); pass `false` to keep only the build-time gate.
 

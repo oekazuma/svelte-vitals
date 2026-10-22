@@ -45,7 +45,7 @@ export default {
 | `metaComponents` | `string[]`                                                   | —              | 解析が追跡できないヘッドメタデータ出力コンポーネント名（解決できるリポジトリ内のコンポーネントは自動的に追跡される）        |
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`       | 動的に設定されたメタデータの扱い方                                                                                          |
 | `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み                                                                  |
-| `prerenderDir`   | `string`                                                     | —              | プリレンダリングページディレクトリの上書き                                                                                  |
+| `prerenderDir`   | `string`                                                     | —              | プリレンダリングページディレクトリの上書き（既定は `kit.outDir` 配下の `output/prerendered/pages`）                         |
 | `ui`             | `boolean`                                                    | `true`         | `vite dev` 中に[ライブダッシュボード](/ja/guides/dev-dashboard)を配信するかどうか。`false` にするとビルド時ゲートのみになる |
 | `cwd`            | `string`                                                     | Vite のルート  | プロジェクトルート                                                                                                          |
 
