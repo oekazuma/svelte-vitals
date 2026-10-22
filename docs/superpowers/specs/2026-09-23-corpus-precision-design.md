@@ -81,7 +81,9 @@ dropping a verdict is a decision, not a side effect of re-measuring.
    verdicts. An intended change goes through by editing the verdict in the same PR, which puts the
    decision in the diff. `fp` verdicts are kept after the fix for exactly this reason. Whether `gate`
    blocks merging is the ruleset's decision. An app that fails on either side is named and left out of the
-   comparison. Two jobs: the one that runs the PR's code over cloned third-party repos has only
+   comparison, and the gate fails while one does, unless GitHub answers 404 for its repository: no run
+   can measure a deleted or privatized repository again, so the report names it for removal from the
+   targets instead. Two jobs: the one that runs the PR's code over cloned third-party repos has only
    `contents: read`; the comment job holds `pull-requests: write` and runs neither. Fork PRs get the
    report in the job summary only.
 3. **Internal report** `scripts/corpus/README.md`: per rule, corpus findings, apps, verdict counts
