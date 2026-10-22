@@ -1,0 +1,877 @@
+[
+  {
+    "key": "JaakkoLipp/concord:apps/web::a11y/deprecated-aria::src/lib/shell/Composer.svelte:313::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read src/lib/shell/Composer.svelte:313: <div class=\"composer blocked\" aria-disabled=\"true\"> with no role (generic); aria-disabled is deprecated on generic, as reported"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::a11y/disallowed-aria-props::src/lib/people/GroupPanel.svelte:44::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/people/GroupPanel.svelte:44: plain <span aria-label=…> with no role, spread or use: action (generic role); a name is prohibited on generic, as reported"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::a11y/disallowed-aria-props::src/lib/people/TagBadge.svelte:22::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/people/TagBadge.svelte:22: plain <span aria-label=…> with no role, spread or use: action (generic role); a name is prohibited on generic, as reported"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::a11y/disallowed-aria-props::src/lib/shell/Composer.svelte:377::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/shell/Composer.svelte:377: plain <span aria-label=…> with no role, spread or use: action (generic role); a name is prohibited on generic, as reported"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::a11y/disallowed-aria-props::src/routes/(app)/app/channels/@me/bots/+page.svelte:58::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/app/channels/@me/bots/+page.svelte:58: plain <span aria-label=…> with no role, spread or use: action (generic role); a name is prohibited on generic, as reported"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::a11y/duplicate-landmark::src/lib/shell/Shell.svelte:71::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read: the second <main> is SettingsFrame.svelte:154 inside <div role=\"dialog\" aria-modal=\"true\"> (:124), rendered by SettingsHost.svelte:29 only under {#if t} (settingsModal.shown, from shallow page.state.settings), while Shell.svelte:56 makes the shell inert; closed by default, so on the 6 channels routes the two never coexist in the exposed tree (ledger modal <main> precedent)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::a11y/pattern-title::src/routes/(app)/app/login/+page.svelte:124::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/app/login/+page.svelte:124: TOTP <input pattern=\"[0-9 ]*\" required> without title inside <form onsubmit={submitCode}> (:118), so native validation shows a generic mismatch message on submit, as reported"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::a11y/permitted-contents::src/lib/shell/ChannelSidebar.svelte:118::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/shell/ChannelSidebar.svelte:118: `<h2>` is a literal child of a literal <button> in the same template (no component/snippet boundary between them); outside its phrasing content model as reported"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/admin/Roles.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/admin/Roles.svelte has 203 physical lines (split on \\n, trailing newline not counted; 192 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/beta/Invitations.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/beta/Invitations.svelte has 228 physical lines (split on \\n, trailing newline not counted; 214 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/call/CallView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/call/CallView.svelte has 340 physical lines (split on \\n, trailing newline not counted; 328 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/conversation/MessageItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/conversation/MessageItem.svelte has 232 physical lines (split on \\n, trailing newline not counted; 227 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/conversation/MessageList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/conversation/MessageList.svelte has 563 physical lines (split on \\n, trailing newline not counted; 539 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/emoji/EmojiPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/emoji/EmojiPicker.svelte has 230 physical lines (split on \\n, trailing newline not counted; 217 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/people/Friends.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/people/Friends.svelte has 225 physical lines (split on \\n, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/settings/AccountSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/AccountSection.svelte has 223 physical lines (split on \\n, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/settings/SettingsFrame.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/SettingsFrame.svelte has 221 physical lines (split on \\n, trailing newline not counted; 208 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/settings/VoiceSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/VoiceSection.svelte has 395 physical lines (split on \\n, trailing newline not counted; 362 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/shell/ChannelSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/shell/ChannelSidebar.svelte has 264 physical lines (split on \\n, trailing newline not counted; 254 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/shell/Composer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/shell/Composer.svelte has 473 physical lines (split on \\n, trailing newline not counted; 451 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/component-size::src/lib/shell/ServerRail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/shell/ServerRail.svelte has 275 physical lines (split on \\n, trailing newline not counted; 259 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/prop-count::src/lib/admin/PermissionList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/admin/PermissionList.svelte has a single destructured $props() with 7 named props (> 6): context, value, plain, mine, readonly, forbid, onchange"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/prop-count::src/lib/call/CallTile.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/call/CallTile.svelte has a single destructured $props() with 14 named props (> 6): name, avatar, feed, screen, talking, muted, focused, small, states, ontoggle, menu, children, appear, volume"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/prop-count::src/lib/conversation/ActionBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/conversation/ActionBar.svelte has a single destructured $props() with 16 named props (> 6): canReact, onreact, quick, onquick, canEdit, canDelete, canPin, canReply, pinned, onreply, onedit, ondelete, onpin, oncopylink, oncopyid, onmenu"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/prop-count::src/lib/conversation/MessageItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/conversation/MessageItem.svelte has a single destructured $props() with 16 named props (> 6): message, store, server, continuation, highlighted, onjump, pending, onretry, ondiscard, actions, editing, selected, quick, tabbable, canMarkUnread, picking"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/prop-count::src/lib/people/FriendPicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/people/FriendPicker.svelte has a single destructured $props() with 8 named props (> 6): session, open, title, exclude, max, fresh, onclose, onpick"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/prop-count::src/lib/people/ProfileCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/people/ProfileCard.svelte has a single destructured $props() with 7 named props (> 6): store, user, server, variant, session, inDm, preview"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/prop-count::src/lib/settings/SettingsFrame.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/settings/SettingsFrame.svelte has a single destructured $props() with 8 named props (> 6): title, items, active, heading, children, footer, wide, version"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::architecture/prop-count::src/lib/shell/Shell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/shell/Shell.svelte has a single destructured $props() with 7 named props (> 6): store, server, channel, children, panel, panelWidth, panelOpen"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/conversation/MessageItem.svelte:132::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/conversation/MessageItem.svelte:132 '{#each pending.files as f, i (i)}' keyed by its index binding; attachments/embeds of one message; static per view (parts of one record, replaced wholesale)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/conversation/MessageItem.svelte:148::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/conversation/MessageItem.svelte:148 '{#each message.embeds as embed, i (i)}' keyed by its index binding; attachments/embeds of one message; static per view (parts of one record, replaced wholesale)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/conversation/MessageList.svelte:483::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/conversation/MessageList.svelte:483 '{#each row.lines as line, j (j)}' keyed by its index binding; positional list (skeleton placeholder lines/headers)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/markdown/Inline.svelte:21::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/markdown/Inline.svelte:21 '{#each nodes as n, i (i)}' keyed by its index binding; positional list (text/parse segments of one string or input) (markdown parse nodes of one message)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/markdown/Markdown.svelte:13::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/markdown/Markdown.svelte:13 '{#each blocks as b, i (i)}' keyed by its index binding; positional list (text/parse segments of one string or input) (markdown parse nodes of one message)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/markdown/Markdown.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/markdown/Markdown.svelte:22 '{#each b.items as item, j (j)}' keyed by its index binding; positional list (text/parse segments of one string or input) (markdown parse nodes of one message)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/markdown/Markdown.svelte:24::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/markdown/Markdown.svelte:24 '{#each b.items as item, j (j)}' keyed by its index binding; positional list (text/parse segments of one string or input) (markdown parse nodes of one message)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/markdown/Markdown.svelte:31::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/markdown/Markdown.svelte:31 '{#each b.head as cell, j (j)}' keyed by its index binding; positional list (text/parse segments of one string or input) (markdown parse nodes of one message)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/markdown/Markdown.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/markdown/Markdown.svelte:32 '{#each b.rows as row, r (r)}' keyed by its index binding; positional list (text/parse segments of one string or input) (markdown parse nodes of one message)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/markdown/SafeTree.svelte:36::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/markdown/SafeTree.svelte:36 '{#each nodes as n, i (i)}' keyed by its index binding; positional list (text/parse segments of one string or input) (markdown parse nodes of one message)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/settings/TwoFactor.svelte:121::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/settings/TwoFactor.svelte:121 '{#each setup.qr as row, y (y)}' keyed by its index binding; positional list (QR code matrix rows/cells)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/settings/TwoFactor.svelte:122::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/settings/TwoFactor.svelte:122 '{#each row as dark, x (x)}' keyed by its index binding; positional list (QR code matrix rows/cells)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::correctness/each-index-key::src/lib/shell/MemberList.svelte:43::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/shell/MemberList.svelte:43 '{#each headers as title, i (i)}' keyed by its index binding; positional list (skeleton placeholder lines/headers)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::performance/image-loading-hint::src/routes/(app)/app/invite/[code]/+page.svelte:78::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; server icon at the top of the invite card, above its <h1> (:76-83) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::performance/responsive-image::src/routes/(app)/app/invite/[code]/+page.svelte:78::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src fileUrl(preview.icon, {maxSide: 128}) - one fixed 128px raster server icon shown at 80px for every device"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::performance/state-raw::src/lib/composer/GifPicker.svelte:17::\"broken\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"broken\" in src/lib/composer/GifPicker.svelte:17: only a whole reassignment by spread copy (:18) and a member read (:36); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::performance/state-raw::src/lib/conversation/Reactions.svelte:20::\"failed\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"failed\" in src/lib/conversation/Reactions.svelte:20: only a whole reassignment by spread copy (onerror :30) and a member read (:30); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::performance/state-raw::src/lib/markdown/Inline.svelte:13::\"revealed\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"revealed\" in src/lib/markdown/Inline.svelte:13: only a whole reassignment by spread copy (onclick :24) and member reads (:23-24); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::performance/state-raw::src/lib/markdown/Inline.svelte:14::\"failedEmoji\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"failedEmoji\" in src/lib/markdown/Inline.svelte:14: only a whole reassignment by spread copy (onerror :30) and a member read (:29); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/beta/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /app/beta/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); tp: public signed-out page ((app)/app/+layout.svelte:15-21,52 renders it without a session), no noindex, no robots.txt"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/channel-settings/[channel]/[section]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/channel-settings/[channel]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/channels/@me/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/channels/@me: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/channels/@me/[channel]/[[message]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/channels/@me/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/channels/@me/administration/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/channels/@me/administration: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/channels/@me/bots/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/channels/@me/bots: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/channels/@me/invitations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/channels/@me/invitations: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/channels/[server]/[channel]/[[message]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/channels/[server]/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/invite/[code]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /app/invite/[code]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); tp: public signed-out page ((app)/app/+layout.svelte:15-21,52 renders it without a session), no noindex, no robots.txt"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /app/login: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); tp: public signed-out page ((app)/app/+layout.svelte:15-21,52 renders it without a session), no noindex, no robots.txt"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/server-settings/[server]/[section]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/server-settings/[server]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/settings/[section]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/settings/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: (app)/app/+layout.svelte:38-42 goto /app/login when signed out, :52 renders children only when signed in)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/canonical-url::src/routes/(app)/app/welcome/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /app/welcome/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); tp: public signed-out page ((app)/app/+layout.svelte:15-21,52 renders it without a session), no noindex, no robots.txt"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/beta/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/beta/[token] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/channel-settings/[channel]/[section]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/channel-settings/[channel]/[section] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/channels/@me/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/channels/@me through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/channels/@me/[channel]/[[message]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/channels/@me/[channel]/[[message]] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/channels/@me/administration/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/channels/@me/administration through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/channels/@me/bots/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/channels/@me/bots through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/channels/@me/invitations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/channels/@me/invitations through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/channels/[server]/[channel]/[[message]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/channels/[server]/[channel]/[[message]] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/invite/[code]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/invite/[code] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/login through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/server-settings/[server]/[section]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/server-settings/[server]/[section] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/settings/[section]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/settings/[section] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/description-presence::src/routes/(app)/app/welcome/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /app/welcome/[token] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:7 literal <title>Concord</title> is the shell title of all 14 routes (no svelte:head title; (app)/app/+layout.svelte:35 document.title = titleFor(n) gives the same \"Concord\"), duplicate as claimed; but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/beta/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/beta/[token] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/channel-settings/[channel]/[section]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/channel-settings/[channel]/[section] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/channels/@me/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/channels/@me renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/channels/@me/[channel]/[[message]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/channels/@me/[channel]/[[message]] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/channels/@me/administration/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/channels/@me/administration renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/channels/@me/bots/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/channels/@me/bots renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/channels/@me/invitations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/channels/@me/invitations renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/channels/[server]/[channel]/[[message]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/channels/[server]/[channel]/[[message]] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/invite/[code]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/invite/[code] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/login renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/server-settings/[server]/[section]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/server-settings/[server]/[section] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/settings/[section]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/settings/[section] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/json-ld::src/routes/(app)/app/welcome/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /app/welcome/[token] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/beta/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/beta/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/channel-settings/[channel]/[section]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/channel-settings/[channel]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/channels/@me/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/channels/@me: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/channels/@me/[channel]/[[message]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/channels/@me/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/channels/@me/administration/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/channels/@me/administration: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/channels/@me/bots/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/channels/@me/bots: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/channels/@me/invitations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/channels/@me/invitations: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/channels/[server]/[channel]/[[message]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/channels/[server]/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/invite/[code]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/invite/[code]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/login: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/server-settings/[server]/[section]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/server-settings/[server]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/settings/[section]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/settings/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-description::src/routes/(app)/app/welcome/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/welcome/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/beta/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/beta/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/channel-settings/[channel]/[section]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/channel-settings/[channel]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/channels/@me/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/channels/@me: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/channels/@me/[channel]/[[message]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/channels/@me/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/channels/@me/administration/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/channels/@me/administration: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/channels/@me/bots/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/channels/@me/bots: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/channels/@me/invitations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/channels/@me/invitations: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/channels/[server]/[channel]/[[message]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/channels/[server]/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/invite/[code]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/invite/[code]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/login: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/server-settings/[server]/[section]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/server-settings/[server]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/settings/[section]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/settings/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-image::src/routes/(app)/app/welcome/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/welcome/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/beta/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/beta/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/channel-settings/[channel]/[section]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/channel-settings/[channel]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/channels/@me/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/channels/@me: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/channels/@me/[channel]/[[message]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/channels/@me/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/channels/@me/administration/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/channels/@me/administration: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/channels/@me/bots/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/channels/@me/bots: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/channels/@me/invitations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/channels/@me/invitations: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/channels/[server]/[channel]/[[message]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/channels/[server]/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/invite/[code]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/invite/[code]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/login: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/server-settings/[server]/[section]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/server-settings/[server]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/settings/[section]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/settings/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-title::src/routes/(app)/app/welcome/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/welcome/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/beta/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/beta/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/channel-settings/[channel]/[section]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/channel-settings/[channel]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/channels/@me/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/channels/@me: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/channels/@me/[channel]/[[message]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/channels/@me/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/channels/@me/administration/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/channels/@me/administration: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/channels/@me/bots/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/channels/@me/bots: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/channels/@me/invitations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/channels/@me/invitations: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/channels/[server]/[channel]/[[message]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/channels/[server]/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/invite/[code]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/invite/[code]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/login: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/server-settings/[server]/[section]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/server-settings/[server]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/settings/[section]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/settings/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/og-url::src/routes/(app)/app/welcome/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/welcome/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/app has appearance.js and brand icons only, no robots.txt file, route or generator (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/single-h1::/app/channel-settings/[channel]/[section]::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: channel-settings/[channel]/[section]/+page.svelte is a client-side redirect stub ($effect goto/reopen(...) with replaceState, no markup) - claim holds but there is no page content to title (reopen() goes to the channel and opens settings over it, modal.svelte.ts:175-180)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/single-h1::/app/server-settings/[server]/[section]::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: server-settings/[server]/[section]/+page.svelte is a client-side redirect stub ($effect goto/reopen(...) with replaceState, no markup) - claim holds but there is no page content to title (reopen(), modal.svelte.ts:175-180)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/single-h1::/app/settings/[section]::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: settings/[section]/+page.svelte is a client-side redirect stub ($effect goto/reopen(...) with replaceState, no markup) - claim holds but there is no page content to title (reopen(), modal.svelte.ts:175-180)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/single-h1::/app::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: (app)/app/+page.svelte is a client-side redirect stub ($effect goto/reopen(...) with replaceState, no markup) - claim holds but there is no page content to title (goto /app/channels/@me)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/single-h1::src/lib/beta/Administration.svelte:35::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the page renders Administration's one <h1> (:35); the other counted <h1> is SettingsFrame's (lib/settings/SettingsFrame.svelte:157) inside SettingsHost, which the channels layout mounts (channels/+layout.svelte:41) but renders only {#if settingsModal.shown} from page.state.settings (SettingsHost.svelte:17-29) - a settings modal closed by default; script-verified: a copy without <SettingsHost> reports no multiple <h1> on this route"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/single-h1::src/lib/beta/Invitations.svelte:143::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the page renders Invitations' one <h1> (:143); the other counted <h1> is SettingsFrame's (lib/settings/SettingsFrame.svelte:157) inside SettingsHost, which the channels layout mounts (channels/+layout.svelte:41) but renders only {#if settingsModal.shown} from page.state.settings (SettingsHost.svelte:17-29) - a settings modal closed by default; script-verified: a copy without <SettingsHost> reports no multiple <h1> on this route"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/single-h1::src/lib/people/Friends.svelte:105::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the page renders Friends' one <h1> (:105); the other counted <h1> is SettingsFrame's (lib/settings/SettingsFrame.svelte:157) inside SettingsHost, which the channels layout mounts (channels/+layout.svelte:41) but renders only {#if settingsModal.shown} from page.state.settings (SettingsHost.svelte:17-29) - a settings modal closed by default; script-verified: a copy without <SettingsHost> reports no multiple <h1> on this route"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/single-h1::src/lib/settings/SettingsFrame.svelte:157::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: bots/+page.svelte renders its one <h1> (:31); the other counted <h1> is SettingsFrame's (lib/settings/SettingsFrame.svelte:157) inside SettingsHost, which the channels layout mounts (channels/+layout.svelte:41) but renders only {#if settingsModal.shown} from page.state.settings (SettingsHost.svelte:17-29) - a settings modal closed by default; script-verified: a copy without <SettingsHost> reports no multiple <h1> on this route"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/single-h1::src/lib/shell/ChatHeader.svelte:44::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: key covers 2 chat routes; ChatHeader renders one <h1> (:44 in the DM arm, :46 in its {:else}); the other counted <h1> is SettingsFrame's (lib/settings/SettingsFrame.svelte:157) inside SettingsHost, which the channels layout mounts (channels/+layout.svelte:41) but renders only {#if settingsModal.shown} from page.state.settings (SettingsHost.svelte:17-29) - a settings modal closed by default; script-verified: a copy without <SettingsHost> reports no multiple <h1> on this route"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/app has appearance.js and brand icons only, no sitemap.xml file, route or generator (literal claim holds); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/ssr-disabled::src/routes/(app)/app/+layout.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(app)/app/+layout.ts:2 (literal claim holds); deliberate SPA: Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/ssr-disabled::src/routes/+layout.ts:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:2 (literal claim holds); deliberate SPA: Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_titlelen.py: literal <title> in src/app.html at block depth 0, entities decoded, whitespace collapsed, 7 chars as reported; no later title emitter or document.title on the route) (literal claim holds); (app)/app/+layout.svelte:35 sets document.title = titleFor(n), which is the same \"Concord\" (or \"(n) Concord\"); but Concord is the invite-only chat client of one private ~200-person community (README), an ssr=false SPA (routes/+layout.ts:2, (app)/app/+layout.ts:2) that sends signed-out visitors to /app/login, not a search target"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/beta/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/beta/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/channel-settings/[channel]/[section]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/channel-settings/[channel]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/channels/@me/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/channels/@me: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/channels/@me/[channel]/[[message]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/channels/@me/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/channels/@me/administration/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/channels/@me/administration: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/channels/@me/bots/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/channels/@me/bots: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/channels/@me/invitations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/channels/@me/invitations: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/channels/[server]/[channel]/[[message]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/channels/[server]/[channel]/[[message]]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/invite/[code]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/invite/[code]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/login: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/server-settings/[server]/[section]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/server-settings/[server]/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/settings/[section]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/settings/[section]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "JaakkoLipp/concord:apps/web::seo/twitter-card::src/routes/(app)/app/welcome/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/welcome/[token]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. workspace @concord/ui,stoat,domain; app.html charset/viewport/<title>/icons); no meta-tag library; ssr=false SPA (+layout.ts:2), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  }
+]

@@ -1,0 +1,532 @@
+[
+  {
+    "key": "evanxdsouza/mangrove:web::a11y/no-autofocus::src/lib/components/GithubDeployWizard.svelte:127::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; src/lib/components/GithubDeployWizard.svelte:127 filter input inside <Modal title=\"Deploy from GitHub\"> (:94) in the {:else if step === \"repo\"} arm, reached after the user opens the modal and connects; focus follows a user action, not page load (docs only carve out <dialog>/popover)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::a11y/permitted-contents::src/lib/components/TemplateGalleryModal.svelte:186::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/TemplateGalleryModal.svelte:186: `<div>` is a literal child of a literal <button> in the same template (no component/snippet boundary between them); outside its phrasing content model as reported"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::a11y/permitted-contents::src/lib/components/TemplateGalleryModal.svelte:190::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/TemplateGalleryModal.svelte:190: `<p>` is a literal child of a literal <button> in the same template (no component/snippet boundary between them); outside its phrasing content model as reported"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::a11y/permitted-contents::src/lib/components/TemplateGalleryModal.svelte:191::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/TemplateGalleryModal.svelte:191: `<div>` is a literal child of a literal <button> in the same template (no component/snippet boundary between them); outside its phrasing content model as reported"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::a11y/permitted-contents::src/lib/components/simple/AddAppModal.svelte:102::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/simple/AddAppModal.svelte:102: `<p>` is a literal child of a literal <button> in the same template (no component/snippet boundary between them); outside its phrasing content model as reported"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::a11y/permitted-contents::src/lib/components/simple/AddAppModal.svelte:98::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read src/lib/components/simple/AddAppModal.svelte:98: `<div>` is a literal child of a literal <button> in the same template (no component/snippet boundary between them); outside its phrasing content model as reported"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::architecture/component-size::src/lib/components/github/GithubConfigureStep.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/github/GithubConfigureStep.svelte has 270 physical lines (split on \\n, trailing newline not counted; 249 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::architecture/component-size::src/lib/components/projects/CreateDeploymentModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/projects/CreateDeploymentModal.svelte has 213 physical lines (split on \\n, trailing newline not counted; 204 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::architecture/component-size::src/lib/pages/AdminPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/pages/AdminPage.svelte has 383 physical lines (split on \\n, trailing newline not counted; 361 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::architecture/component-size::src/lib/pages/DeploymentDetailPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/pages/DeploymentDetailPage.svelte has 283 physical lines (split on \\n, trailing newline not counted; 266 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::architecture/component-size::src/lib/pages/ProjectDetailPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/pages/ProjectDetailPage.svelte has 301 physical lines (split on \\n, trailing newline not counted; 279 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::architecture/component-size::src/lib/pages/ProjectsPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/pages/ProjectsPage.svelte has 463 physical lines (split on \\n, trailing newline not counted; 434 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::correctness/each-index-key::src/lib/components/LogViewer.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LogViewer.svelte:53 '{#each ticks as t, i (i)}' keyed by its index binding; positional list (chart geometry/bars/segments): items have no identity beyond position (log activity ticks)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::correctness/each-index-key::src/lib/components/LogViewer.svelte:61::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LogViewer.svelte:61 '{#each lines as l, i (i)}' keyed by its index binding; positional list (append-only log lines of one stream; ledger log-lines convention)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::correctness/effect-as-derived::src/lib/components/deployment/PreviewsCard.svelte:30::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: PreviewsCard.svelte:30 the effect only does enabled = productionDeployment.pr_previews_enabled (prop); the other write is a wholesale reassignment (enabled = next :40), the writable-$derived override pattern (svelte ^5.57.2)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::correctness/server-browser-global::src/lib/stores/theme.svelte.ts:33::document is accessed at module scope — it does not exist on the server, so importing this file crashes SSR with \"document is not defined\"",
+    "verdict": "design",
+    "basis": "read: theme.svelte.ts module-scope document/window.matchMedia read in a runes module, unguarded (structurally true); but SSR is off app-wide: src/routes/+layout.ts:3 ssr = false, the only ssr export, adapter-static SPA fallback (ledger SSR-off convention)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::correctness/server-browser-global::src/lib/stores/theme.svelte.ts:54::window is accessed at module scope — it does not exist on the server, so importing this file crashes SSR with \"window is not defined\"",
+    "verdict": "design",
+    "basis": "read: theme.svelte.ts module-scope document/window.matchMedia read in a runes module, unguarded (structurally true); but SSR is off app-wide: src/routes/+layout.ts:3 ssr = false, the only ssr export, adapter-static SPA fallback (ledger SSR-off convention)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::performance/state-raw::src/lib/components/projects/LinkRepoModal.svelte:7::\"pats\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"pats\" in src/lib/components/projects/LinkRepoModal.svelte:7: only whole reassignments in .then/.catch (:18,19) and .length / read-only {#each} rendering <option> (:69,75); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::performance/state-raw::src/lib/pages/ProjectDetailPage.svelte:40::\"workspaces\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"workspaces\" in src/lib/pages/ProjectDetailPage.svelte:40: only a whole reassignment of a mapped API result (:92) and a read-only {#each} rendering <option> (:248); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::security/raw-html::src/lib/components/Icon.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Icon.svelte:18 + src/lib/icons.ts: ICONS[name] is a literal table of authored SVG inner markup, name typed IconName — static SVG, reported per docs"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::security/raw-html::src/lib/components/TemplateIcon.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/TemplateIcon.svelte:18 + src/lib/templateIcons.ts:8-56: templateIconMarkup returns entries of literal SVG glyph tables (TEMPLATE_ICONS/CATEGORY_ICON/GLYPHS) — static SVG, reported per docs"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/[...rest]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[...rest]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/projects/[projectId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects/[projectId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/projects/[projectId]/deployments/[deploymentId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects/[projectId]/deployments/[deploymentId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/projects/[projectId]/deployments/[deploymentId]/history/[historyId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects/[projectId]/deployments/[deploymentId]/history/[historyId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/server-health/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /server-health: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/storage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /storage: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/canonical-url::src/routes/workspaces/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for <link rel=\"canonical\"> outside tests finds nothing); design: not a search target (client auth-gated: +layout.svelte:73-81 renders LoginPage instead of children until /api/auth/me authenticates)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on / through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/[...rest]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /[...rest] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /admin through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/projects/[projectId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /projects/[projectId] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/projects/[projectId]/deployments/[deploymentId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /projects/[projectId]/deployments/[deploymentId] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/projects/[projectId]/deployments/[deploymentId]/history/[historyId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /projects/[projectId]/deployments/[deploymentId]/history/[historyId] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/server-health/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /server-health through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /settings through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/storage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /storage through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/description-presence::src/routes/workspaces/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /workspaces through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:7 literal <title>Mangrove</title> is the only title of all 10 routes (no svelte:head title or document.title anywhere in src), duplicate as claimed; but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): / renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/[...rest]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /[...rest] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /admin renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/projects/[projectId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /projects/[projectId] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/projects/[projectId]/deployments/[deploymentId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /projects/[projectId]/deployments/[deploymentId] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/projects/[projectId]/deployments/[deploymentId]/history/[historyId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /projects/[projectId]/deployments/[deploymentId]/history/[historyId] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/server-health/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /server-health renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /settings renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/storage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /storage renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/json-ld::src/routes/workspaces/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /workspaces renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/[...rest]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[...rest]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/projects/[projectId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[projectId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/projects/[projectId]/deployments/[deploymentId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[projectId]/deployments/[deploymentId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/projects/[projectId]/deployments/[deploymentId]/history/[historyId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[projectId]/deployments/[deploymentId]/history/[historyId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/server-health/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /server-health: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/storage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /storage: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-description::src/routes/workspaces/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /workspaces: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:description outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/[...rest]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[...rest]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/projects/[projectId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/[projectId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/projects/[projectId]/deployments/[deploymentId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/[projectId]/deployments/[deploymentId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/projects/[projectId]/deployments/[deploymentId]/history/[historyId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/[projectId]/deployments/[deploymentId]/history/[historyId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/server-health/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /server-health: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/storage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /storage: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-image::src/routes/workspaces/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /workspaces: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:image outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/[...rest]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[...rest]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/projects/[projectId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[projectId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/projects/[projectId]/deployments/[deploymentId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[projectId]/deployments/[deploymentId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/projects/[projectId]/deployments/[deploymentId]/history/[historyId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[projectId]/deployments/[deploymentId]/history/[historyId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/server-health/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /server-health: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/storage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /storage: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-title::src/routes/workspaces/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /workspaces: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:title outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/[...rest]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[...rest]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/projects/[projectId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/[projectId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/projects/[projectId]/deployments/[deploymentId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/[projectId]/deployments/[deploymentId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/projects/[projectId]/deployments/[deploymentId]/history/[historyId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/[projectId]/deployments/[deploymentId]/history/[historyId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/server-health/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /server-health: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/storage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /storage: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/og-url::src/routes/workspaces/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /workspaces: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for og:url outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has favicon.svg only, no robots.txt file, route or generator (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has favicon.svg only, no sitemap.xml file, route or generator (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/ssr-disabled::src/routes/+layout.ts:3::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:3 (literal claim holds); deliberate SPA: Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_titlelen.py: literal <title> in src/app.html at block depth 0, entities decoded, whitespace collapsed, 8 chars as reported; no later title emitter or document.title on the route) (literal claim holds); but Mangrove is a self-hosted PaaS control plane whose dashboard is an ssr=false SPA embedded in the Go binary (README, routes/+layout.ts:3), every view behind its login, not a search target"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/[...rest]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[...rest]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/projects/[projectId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[projectId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/projects/[projectId]/deployments/[deploymentId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[projectId]/deployments/[deploymentId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/projects/[projectId]/deployments/[deploymentId]/history/[historyId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[projectId]/deployments/[deploymentId]/history/[historyId]: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/server-health/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /server-health: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/storage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /storage: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  },
+  {
+    "key": "evanxdsouza/mangrove:web::seo/twitter-card::src/routes/workspaces/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /workspaces: no og:*/twitter:*/rel=canonical anywhere in the repo (repo-wide grep incl. Go server; app.html icon/viewport/<title>/theme script); no meta-tag library; ssr=false SPA embedded in the Go binary (+layout.ts:3), no client head emits it; route renders; script-verified (a1b_work/a1b_label.py: repo-wide grep for twitter:card outside tests finds nothing)"
+  }
+]
