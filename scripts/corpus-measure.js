@@ -142,6 +142,19 @@ async function checkoutPinned({ repo, sha }, dir) {
   return failure;
 }
 
+/**
+ * Whether GitHub answers 404 for the repository page: it was deleted or made private, which no retry
+ * fixes. git cannot tell that apart from a network failure, since GitHub asks it for credentials instead.
+ */
+async function repositoryGone(repo) {
+  try {
+    const res = await fetch(`https://github.com/${repo}`, { method: 'HEAD', signal: AbortSignal.timeout(30_000) });
+    return res.status === 404;
+  } catch {
+    return false;
+  }
+}
+
 function findingsOf(app, report) {
   const byKey = new Map();
   const add = (issue, route) => {
@@ -170,7 +183,7 @@ async function measureTarget(target, cli, cache) {
   const app = appId(target);
   const dir = join(cache, target.repo.replace('/', '__'));
   const error = await checkoutPinned(target, dir);
-  if (error) return { app, sha: target.sha, error };
+  if (error) return { app, sha: target.sha, error, ...((await repositoryGone(target.repo)) && { gone: true }) };
 
   const path = target.path === '.' ? dir : join(dir, target.path);
   if (!existsSync(path)) return { app, sha: target.sha, error: `${target.path} does not exist at ${target.sha}` };
@@ -365,15 +378,20 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
       `${backFp.length} finding(s) labelled a false positive (\`fp\`) are reported: a fixed false positive came back, or one moved to a new location`
     );
 
-  // An app left out of the comparison is unverified, not passed.
-  if (failed.size) failures.push(`${failed.size} app(s) failed to measure, so the comparison is incomplete`);
+  // An app left out of the comparison is unverified, not passed, unless its repository is gone: no run
+  // can measure it again, so it would fail every PR until it is dropped from the targets.
+  const gone = new Set([...before.apps, ...after.apps].filter((app) => app.gone).map((app) => app.app));
+  const unverified = [...failed].filter((app) => !gone.has(app)).length;
+  if (unverified) failures.push(`${unverified} app(s) failed to measure, so the comparison is incomplete`);
 
+  // The per-rule counts need every app measured; the digests do not, and a gone app lets the gate pass.
   const stale =
     measurement &&
-    !after.apps.some((app) => app.error) &&
     (measurement.targets !== digest(targets) ||
       measurement.verdicts !== digest(readVerdicts(verdictsDir)) ||
-      JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !== JSON.stringify(measurement.rules));
+      (!after.apps.some((app) => app.error) &&
+        JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !==
+          JSON.stringify(measurement.rules)));
   if (stale) failures.push('`scripts/corpus/measurement.json` is out of date: run `pnpm corpus update && pnpm format`');
 
   const out = [`## Corpus findings — ${failures.length ? '❌ gate failed' : '✅ gate passed'}`, ''];
@@ -381,12 +399,18 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
     `Measured on ${targets.length} real SvelteKit apps (\`scripts/corpus/targets.json\`), base vs this PR. Verdicts come from \`scripts/corpus/verdicts/\`: **tp** a real defect, **fp** a false positive, **design** reported as documented but not a defect; a finding without one counts under "unclear or no verdict".`,
     ''
   );
+  for (const app of gone)
+    out.push(
+      `> [!WARNING]`,
+      `> \`${app}\` is left out of the comparison: its repository no longer exists on GitHub. Drop it from \`scripts/corpus/targets.json\` and its file from \`scripts/corpus/verdicts/\`.`,
+      ''
+    );
   for (const [label, measured] of [
     ['base', before],
     ['head', after]
   ])
     for (const app of measured.apps)
-      if (app.error)
+      if (app.error && !gone.has(app.app))
         out.push(
           `> [!WARNING]`,
           `> \`${app.app}\` failed on ${label} and is left out of the comparison: ${escapeHtml(app.error)}`,
