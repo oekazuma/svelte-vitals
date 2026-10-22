@@ -384,12 +384,13 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
   const unverified = [...failed].filter((app) => !gone.has(app)).length;
   if (unverified) failures.push(`${unverified} app(s) failed to measure, so the comparison is incomplete`);
 
+  // The per-rule counts need every app measured; the digests do not, and a gone app lets the gate pass.
   const stale =
     measurement &&
-    !after.apps.some((app) => app.error) &&
     (measurement.targets !== digest(targets) ||
       measurement.verdicts !== digest(readVerdicts(verdictsDir)) ||
-      JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !== JSON.stringify(measurement.rules));
+      (!after.apps.some((app) => app.error) &&
+        JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !== JSON.stringify(measurement.rules)));
   if (stale) failures.push('`scripts/corpus/measurement.json` is out of date: run `pnpm corpus update && pnpm format`');
 
   const out = [`## Corpus findings — ${failures.length ? '❌ gate failed' : '✅ gate passed'}`, ''];
