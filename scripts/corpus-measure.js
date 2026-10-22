@@ -390,7 +390,8 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
     (measurement.targets !== digest(targets) ||
       measurement.verdicts !== digest(readVerdicts(verdictsDir)) ||
       (!after.apps.some((app) => app.error) &&
-        JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !== JSON.stringify(measurement.rules)));
+        JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !==
+          JSON.stringify(measurement.rules)));
   if (stale) failures.push('`scripts/corpus/measurement.json` is out of date: run `pnpm corpus update && pnpm format`');
 
   const out = [`## Corpus findings — ${failures.length ? '❌ gate failed' : '✅ gate passed'}`, ''];
