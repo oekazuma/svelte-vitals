@@ -1,0 +1,897 @@
+[
+  {
+    "key": "ABGEO/maroid:apps/deck::a11y/disallowed-aria-props::src/lib/components/layout/AppShell.svelte:105::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read src/lib/components/layout/AppShell.svelte:105: daisyUI drawer <label for=\"app-drawer\" aria-label=…> (no role/spread/use:); docs name exactly this <label for aria-label=\"close sidebar\"> case as firing while the spec prohibits a name on <label> only when exposed as generic (ledger label precedent)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::a11y/disallowed-aria-props::src/lib/components/layout/Header.svelte:12::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read src/lib/components/layout/Header.svelte:12: daisyUI drawer <label for=\"app-drawer\" aria-label=…> (no role/spread/use:); docs name exactly this <label for aria-label=\"close sidebar\"> case as firing while the spec prohibits a name on <label> only when exposed as generic (ledger label precedent)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::a11y/duplicate-landmark::src/lib/components/layout/AppShell.svelte:91::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:7 wraps {@render children()} in <main>, and (dashboard)/+layout.svelte:8-12 renders AppShell, whose <main> (AppShell.svelte:91) holds the page; two main landmarks on all 17 routes (local run 17, same as first look), no load always redirects (only w/[workspace]/plugins/[plugin]/+page.ts errors conditionally)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::architecture/component-size::src/lib/components/layout/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/Sidebar.svelte has 339 physical lines (split on \\n, trailing newline not counted; 323 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::architecture/component-size::src/lib/components/notifications/ProviderDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/notifications/ProviderDialog.svelte has 202 physical lines (split on \\n, trailing newline not counted; 173 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::architecture/component-size::src/lib/components/providers/AddProviderForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/providers/AddProviderForm.svelte has 233 physical lines (split on \\n, trailing newline not counted; 203 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::architecture/component-size::src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte has 215 physical lines (split on \\n, trailing newline not counted; 189 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::architecture/component-size::src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte has 410 physical lines (split on \\n, trailing newline not counted; 372 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::correctness/each-index-key::src/lib/components/layout/Breadcrumbs.svelte:48::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/Breadcrumbs.svelte:48 '{#each crumbs as crumb, index (index)}' keyed by its index binding; positional list (breadcrumb trail)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::correctness/each-index-key::src/lib/components/plugins/CapabilityPanel.svelte:30::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/plugins/CapabilityPanel.svelte:30 '{#each partsOf(value) as part, index (index)}' keyed by its index binding; positional list (text/parse segments of one string or input)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::correctness/each-index-key::src/lib/components/plugins/CapabilityPanel.svelte:75::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/plugins/CapabilityPanel.svelte:75 '{#each items as item, index (index)}' keyed by its index binding; items of one plugin capability manifest; static per view (parts of one record, replaced wholesale)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::correctness/each-index-key::src/lib/components/widgets/ListWidget.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/widgets/ListWidget.svelte:28 '{#each shown as item, index (index)}' keyed by its index binding; list widget items from the plugin data API (ListData): runtime records (fetched/load data, search results or user-edited rows), items inserted/removed/reordered, so the claim holds"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::performance/load-waterfall::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.ts:32::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.ts:29-32: readEnablement (api.enablements.get) takes workspace.id from `await parent()`; the parent w/[workspace]/+layout.ts fetches api.workspaces.get(params.workspace) in the browser (root +layout.ts ssr=false, CSR on) and reruns when params.workspace changes — two dependent browser round trips on entry (ledger clickclack parent convention)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::performance/sequential-awaits::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.ts:42::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.ts:32-42: canTurnOn(pluginId) is reached only when the earlier `await readEnablement(...)` returned null — an enabled plugin, the normal path, returns at :33-35 — so starting both together would fetch the plugin list on every enabled-plugin visit; deliberate short-circuit on the earlier result (ledger normal-path short-circuit convention, as jdegreef/ochorus getArticle→listArticles)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::performance/state-raw::src/lib/components/settings/SettingsForm.svelte:22::\"missing\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"missing\" in src/lib/components/settings/SettingsForm.svelte:22: only a whole reassignment from missingFields() (:55) and .length reads (:153-157); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/admin/plugins/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/admin/providers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/providers (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/admin/providers/[provider]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/providers/[provider] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/admin/users/[user]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users/[user] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/admin/workspaces/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/workspaces (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/w/[workspace]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[workspace] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/w/[workspace]/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[workspace]/members (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[workspace]/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[workspace]/plugins/[plugin] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/[...path]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[workspace]/plugins/[plugin]/[...path] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[workspace]/plugins/[plugin]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/w/[workspace]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[workspace]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[workspace]/settings/notifications (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/(dashboard)/workspaces/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/new (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/auth/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/callback (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); transient auth-flow page, not a search target (OIDC callback: shows an error for ?error=, otherwise onMount goto('/')); route renders, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/invite/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /invite (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); transient auth-flow page, not a search target (onMount redeems ?token= and leaves via window.location / goto); route renders, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/canonical-url::src/routes/signed-out/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /signed-out (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); public signed-out page with content and a sign-in button (no gate), robots.txt allows all; route renders"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on / through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/admin/plugins/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /admin/plugins through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/admin/providers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /admin/providers through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/admin/providers/[provider]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /admin/providers/[provider] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /admin/users through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/admin/users/[user]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /admin/users/[user] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/admin/workspaces/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /admin/workspaces through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /profile through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/w/[workspace]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /w/[workspace] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/w/[workspace]/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /w/[workspace]/members through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /w/[workspace]/plugins through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /w/[workspace]/plugins/[plugin] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/[...path]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /w/[workspace]/plugins/[plugin]/[...path] through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /w/[workspace]/plugins/[plugin]/settings through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/w/[workspace]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /w/[workspace]/settings through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /w/[workspace]/settings/notifications through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/(dashboard)/workspaces/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /workspaces/new through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/auth/callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /auth/callback through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/invite/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /invite through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/description-presence::src/routes/signed-out/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the whole clone for name=\"description\" in .svelte/.html outside node_modules, plus <meta {…}> spreads): no <meta name=\"description\"> on /signed-out through its page, layouts, components or app.html; no meta-tag package in deps (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): / renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/admin/plugins/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /admin/plugins renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/admin/providers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /admin/providers renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/admin/providers/[provider]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /admin/providers/[provider] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /admin/users renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/admin/users/[user]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /admin/users/[user] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/admin/workspaces/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /admin/workspaces renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /profile renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/w/[workspace]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /w/[workspace] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/w/[workspace]/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /w/[workspace]/members renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /w/[workspace]/plugins renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /w/[workspace]/plugins/[plugin] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/[...path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /w/[workspace]/plugins/[plugin]/[...path] renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /w/[workspace]/plugins/[plugin]/settings renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/w/[workspace]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /w/[workspace]/settings renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /w/[workspace]/settings/notifications renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/(dashboard)/workspaces/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /workspaces/new renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /auth/callback renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/invite/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /invite renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/json-ld::src/routes/signed-out/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone outside node_modules for ld+json|jsonld|json-ld|schema.org in .svelte/.ts/.js/.html: none in the app, its workspace packages or app.html; no meta/JSON-LD package in deps): /signed-out renders and carries no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/admin/plugins/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/admin/providers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/providers (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/admin/providers/[provider]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/providers/[provider] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/admin/users/[user]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users/[user] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/admin/workspaces/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/workspaces (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/w/[workspace]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[workspace] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/w/[workspace]/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[workspace]/members (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[workspace]/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[workspace]/plugins/[plugin] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/[...path]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[workspace]/plugins/[plugin]/[...path] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[workspace]/plugins/[plugin]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/w/[workspace]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[workspace]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[workspace]/settings/notifications (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/(dashboard)/workspaces/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /workspaces/new (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/callback (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (OIDC callback: shows an error for ?error=, otherwise onMount goto('/')); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/invite/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /invite (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (onMount redeems ?token= and leaves via window.location / goto); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-description::src/routes/signed-out/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signed-out (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); public signed-out page with content and a sign-in button (no gate), robots.txt allows all; route renders"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/admin/plugins/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/admin/providers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/providers (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/admin/providers/[provider]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/providers/[provider] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/admin/users/[user]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users/[user] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/admin/workspaces/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/workspaces (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/w/[workspace]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[workspace] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/w/[workspace]/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[workspace]/members (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[workspace]/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[workspace]/plugins/[plugin] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/[...path]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[workspace]/plugins/[plugin]/[...path] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[workspace]/plugins/[plugin]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/w/[workspace]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[workspace]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[workspace]/settings/notifications (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/(dashboard)/workspaces/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /workspaces/new (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/callback (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (OIDC callback: shows an error for ?error=, otherwise onMount goto('/')); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/invite/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /invite (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (onMount redeems ?token= and leaves via window.location / goto); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-image::src/routes/signed-out/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signed-out (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); public signed-out page with content and a sign-in button (no gate), robots.txt allows all; route renders"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/admin/plugins/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/admin/providers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/providers (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/admin/providers/[provider]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/providers/[provider] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/admin/users/[user]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users/[user] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/admin/workspaces/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/workspaces (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/w/[workspace]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[workspace] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/w/[workspace]/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[workspace]/members (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[workspace]/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[workspace]/plugins/[plugin] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/[...path]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[workspace]/plugins/[plugin]/[...path] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[workspace]/plugins/[plugin]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/w/[workspace]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[workspace]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[workspace]/settings/notifications (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/(dashboard)/workspaces/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /workspaces/new (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/callback (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (OIDC callback: shows an error for ?error=, otherwise onMount goto('/')); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/invite/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /invite (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (onMount redeems ?token= and leaves via window.location / goto); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-title::src/routes/signed-out/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signed-out (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); public signed-out page with content and a sign-in button (no gate), robots.txt allows all; route renders"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/admin/plugins/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/admin/providers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/providers (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/admin/providers/[provider]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/providers/[provider] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/admin/users/[user]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users/[user] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/admin/workspaces/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/workspaces (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/w/[workspace]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[workspace] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/w/[workspace]/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[workspace]/members (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[workspace]/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[workspace]/plugins/[plugin] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/[...path]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[workspace]/plugins/[plugin]/[...path] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[workspace]/plugins/[plugin]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/w/[workspace]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[workspace]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[workspace]/settings/notifications (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/(dashboard)/workspaces/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /workspaces/new (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/callback (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (OIDC callback: shows an error for ?error=, otherwise onMount goto('/')); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/invite/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invite (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (onMount redeems ?token= and leaves via window.location / goto); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/og-url::src/routes/signed-out/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signed-out (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); public signed-out page with content and a sign-in button (no gate), robots.txt allows all; route renders"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/single-h1::/auth/callback::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: auth/callback/+page.svelte redirects home in onMount when there is no ?error and otherwise renders only an alert card with a retry button - an OAuth callback stub, claim holds but there is no page content to title"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/single-h1::/invite::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: invite/+page.svelte is a client-side redirect stub (onMount: goto callback or window.location to the redemption address) with no markup - claim holds but there is no page content to title"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has robots.txt but no sitemap.xml file, route or generator (literal claim holds); but Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 (literal claim holds); deliberate SPA: Maroid is self-hosted software (\"a person deploys it\", specs/README) whose deck is an ssr=false SPA (routes/+layout.ts:1) behind the client AuthGate ((dashboard)/+layout.svelte -> AuthGate.svelte loadUser), not a search target"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/admin/plugins/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/admin/providers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/providers (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/admin/providers/[provider]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/providers/[provider] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/admin/users/[user]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users/[user] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/admin/workspaces/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/workspaces (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/w/[workspace]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[workspace] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/w/[workspace]/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[workspace]/members (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/w/[workspace]/plugins/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[workspace]/plugins (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[workspace]/plugins/[plugin] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/[...path]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[workspace]/plugins/[plugin]/[...path] (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/w/[workspace]/plugins/[plugin]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[workspace]/plugins/[plugin]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/w/[workspace]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[workspace]/settings (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/w/[workspace]/settings/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[workspace]/settings/notifications (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/(dashboard)/workspaces/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /workspaces/new (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: not a search target (auth-gated: (dashboard)/+layout.svelte wraps the page in lib/components/AuthGate.svelte, which renders children only after onMount loadUser() finds a user, :10-23) (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/auth/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/callback (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (OIDC callback: shows an error for ?error=, otherwise onMount goto('/')); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/invite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /invite (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); route context: transient auth-flow page, not a search target (onMount redeems ?token= and leaves via window.location / goto); route renders (social-tag absence is tp per ledger convention regardless of search-target status)"
+  },
+  {
+    "key": "ABGEO/maroid:apps/deck::seo/twitter-card::src/routes/signed-out/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /signed-out (script-verified (a1a_label.py + repo-wide grep incl. app.html/hooks/static): repo-wide grep (all of ABGEO/maroid incl. workspace @maroid/ui/theme/plugin-sdk, excl. node_modules/.git) finds no og:*, twitter:card or rel=canonical anywhere; app.html head is charset/viewport/icons/manifest/<title>Maroid</title>; root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks; ssr=false app-wide (routes/+layout.ts:1), so client head tags would count and none exist; no Svelte npm dep is a meta library (UI primitives only; jsDelivr scan of the lockfile versions, a1a_npmscan.py, found no og/twitter/canonical/<svelte:head> in their .svelte files)); public signed-out page with content and a sign-in button (no gate), robots.txt allows all; route renders"
+  }
+]
