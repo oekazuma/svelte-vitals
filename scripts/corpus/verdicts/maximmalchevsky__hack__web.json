@@ -1,0 +1,1347 @@
+[
+  {
+    "key": "maximmalchevsky/hack:web::a11y/accessible-name::src/lib/components/ViewPresetsBar.svelte:133::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read ViewPresetsBar.svelte:133: icon-only <button> containing just <i class=\"ti ti-check\"> with no aria-label/title, so the (save) button has no name, as reported"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/accessible-name::src/lib/components/ViewPresetsBar.svelte:136::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read ViewPresetsBar.svelte:136: icon-only <button> containing just <i class=\"ti ti-x\"> with no aria-label/title, so the (cancel) button has no name, as reported"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/id-duplication::src/lib/components/Modal.svelte:72::Duplicate id \"modal-title\"",
+    "verdict": "design",
+    "basis": "read: h3#modal-title (Modal.svelte:72) renders only under {#if open} (:55); the copies on /dashboard and /scheduler are IncomingInvitesCard's three Modals (open={modalOpen && modalKind === 'accept'|'decline'|'revert'}, exclusive on modalKind) and CreateManualMeetingModal, separate user-opened modals that never open together (Modal precedent); the {#if open} gating is inside Modal itself, so it holds on every route the first look lists (5) though the local run shows /dashboard and /scheduler only"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/interactive-nesting::src/lib/components/ViewPresetsBar.svelte:107::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): ViewPresetsBar.svelte:107 <button type=\"button\" class=\"vpb__del\" aria-label=\"Удалить\" onclick=\"{…> sits inside <div role=\"button\" tabindex=\"0\" class=\"vpb__item\" onclick=\"{() => appl…> at :98 in the same template, no component/snippet boundary; an interactive descendant of a button container, as reported"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/label-has-control::src/routes/(app)/scheduler/+page.svelte:716::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read scheduler/+page.svelte:716: <label class=field__label>Команды</label> used as a group caption for the checkbox list below (each checkbox has its own wrapping label); it has no for and wraps nothing, so it labels no control (fieldset/legend would), as reported"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/no-autofocus::src/lib/components/ViewPresetsBar.svelte:126::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; preset-name <input autofocus> renders only in the {:else} of {#if !savingMode} (:120) inside {#if open} menu (:92), both set by the user's clicks; focus on user action, not page load"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/permitted-contents::src/routes/(app)/dashboard/+page.svelte:873::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): dashboard/+page.svelte:873 <div class=\"ev-full__time\"> is a literal child of <button class=\"ev-full__row\" onclick=\"{() => toggleExpanded(…> at :867 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/permitted-contents::src/routes/(app)/dashboard/+page.svelte:879::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): dashboard/+page.svelte:879 <div class=\"ev-full__body\"> is a literal child of <button class=\"ev-full__row\" onclick=\"{() => toggleExpanded(…> at :867 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/permitted-contents::src/routes/(app)/dashboard/+page.svelte:901::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): dashboard/+page.svelte:901 <div class=\"ev-full__chev\"> is a literal child of <button class=\"ev-full__row\" onclick=\"{() => toggleExpanded(…> at :867 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/permitted-contents::src/routes/(app)/reports/builder/+page.svelte:474::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): builder/+page.svelte:474 <div class=\"preset__name\"> is a literal child of <button type=\"button\" class=\"preset__main\" onclick=\"{() => a…> at :473 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::a11y/permitted-contents::src/routes/(app)/reports/builder/+page.svelte:475::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): builder/+page.svelte:475 <div class=\"preset__meta\"> is a literal child of <button type=\"button\" class=\"preset__main\" onclick=\"{() => a…> at :473 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/lib/components/CreateManualMeetingModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CreateManualMeetingModal.svelte has 871 physical lines (newline count, trailing newline not counted; 819 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/lib/components/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Header.svelte has 282 physical lines (newline count, trailing newline not counted; 258 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/lib/components/IncomingInvitesCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/IncomingInvitesCard.svelte has 441 physical lines (newline count, trailing newline not counted; 414 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/lib/components/NotificationChannelsCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NotificationChannelsCard.svelte has 496 physical lines (newline count, trailing newline not counted; 471 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/lib/components/ProfileHistory.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ProfileHistory.svelte has 244 physical lines (newline count, trailing newline not counted; 233 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/lib/components/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Sidebar.svelte has 246 physical lines (newline count, trailing newline not counted; 236 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/lib/components/TimeBreakdownCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TimeBreakdownCard.svelte has 277 physical lines (newline count, trailing newline not counted; 264 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/lib/components/ViewPresetsBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ViewPresetsBar.svelte has 289 physical lines (newline count, trailing newline not counted; 275 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/admin/rules/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/rules/+page.svelte has 473 physical lines (newline count, trailing newline not counted; 449 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/admin/users/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/users/+page.svelte has 526 physical lines (newline count, trailing newline not counted; 501 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/ai-chat/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/ai-chat/+page.svelte has 1823 physical lines (newline count, trailing newline not counted; 1702 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/analytics/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/analytics/+page.svelte has 1186 physical lines (newline count, trailing newline not counted; 1128 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/+page.svelte has 1577 physical lines (newline count, trailing newline not counted; 1477 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/diagnostics/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/diagnostics/+page.svelte has 289 physical lines (newline count, trailing newline not counted; 273 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/employees/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/employees/[id]/+page.svelte has 325 physical lines (newline count, trailing newline not counted; 305 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/integrations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/integrations/+page.svelte has 526 physical lines (newline count, trailing newline not counted; 498 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/notifications/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/notifications/+page.svelte has 202 physical lines (newline count, trailing newline not counted; 187 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/profile/+page.svelte has 657 physical lines (newline count, trailing newline not counted; 621 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/recommendations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/recommendations/+page.svelte has 365 physical lines (newline count, trailing newline not counted; 339 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/reports/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/reports/+page.svelte has 328 physical lines (newline count, trailing newline not counted; 309 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/reports/builder/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/reports/builder/+page.svelte has 834 physical lines (newline count, trailing newline not counted; 793 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/scheduler/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/scheduler/+page.svelte has 1158 physical lines (newline count, trailing newline not counted; 1102 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/tasks/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/tasks/+page.svelte has 551 physical lines (newline count, trailing newline not counted; 524 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/team-map/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/team-map/+page.svelte has 258 physical lines (newline count, trailing newline not counted; 232 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/teams/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/teams/+page.svelte has 517 physical lines (newline count, trailing newline not counted; 488 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/component-size::src/routes/(app)/workload/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/workload/+page.svelte has 278 physical lines (newline count, trailing newline not counted; 258 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/prop-count::src/lib/components/Card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Card.svelte has a single destructured $props() with 8 named props (> 6): title, subtitle, caption, padded, fill, metricLetter, actions, children"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/prop-count::src/lib/components/Modal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Modal.svelte has a single destructured $props() with 8 named props (> 6): open, title, size, closeOnOverlay, showClose, onClose, children, footer"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::architecture/prop-count::src/lib/components/Stat.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Stat.svelte has a single destructured $props() with 8 named props (> 6): label, value, valueVariant, trend, trendDirection, labelIcon, metricLetter, extra"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/lib/components/CreateManualMeetingModal.svelte:605::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CreateManualMeetingModal.svelte:605 '{#each g.items as c, i (i)}' keyed by its index binding; the conflict items of one participant group, rendered as comma-separated inline text; positional list (parts of one result)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/lib/components/Heatmap.svelte:165::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Heatmap.svelte:165 / Timeline.svelte:128 '{#each hover.text.split('\\n') as line, i (i)}' keyed by its index binding; the text lines of one tooltip; positional text lines"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/lib/components/ProfileHistory.svelte:138::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ProfileHistory.svelte:138 '{#each diffWith(prev, v) as d, j (j)}' keyed by its index binding; the diff strings between two profile versions (:83); positional list (text of one result)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/lib/components/Timeline.svelte:128::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Heatmap.svelte:165 / Timeline.svelte:128 '{#each hover.text.split('\\n') as line, i (i)}' keyed by its index binding; the text lines of one tooltip; positional text lines"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/routes/(app)/analytics/+page.svelte:681::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/analytics/+page.svelte:681/814 keyed by its index binding; meInsights/companyInsights are insight sentences built from the fetched stats (:485, :540); positional text lines"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/routes/(app)/analytics/+page.svelte:814::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/analytics/+page.svelte:681/814 keyed by its index binding; meInsights/companyInsights are insight sentences built from the fetched stats (:485, :540); positional text lines"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/routes/(app)/analytics/+page.svelte:864::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/analytics/+page.svelte:864 '{#each f.weeks as v, i (i)}' keyed by its index binding; weekly counts of one forecast drawn as bars whose title uses the position (:865); positional list (chart bars)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/routes/(app)/analytics/+page.svelte:889::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/analytics/+page.svelte:889 '{#each companyAnomalies.slice(0, 8) as a, i (i)}' keyed by its index binding; companyAnomalies = $state of anomaly records fetched from the API (:246); runtime records"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/routes/(app)/reports/builder/+page.svelte:664::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/reports/builder/+page.svelte:664 '{#each preview.rows.slice(0, 20) as row, i (i)}' keyed by its index binding; a read-only preview of the first rows of one export dataset (preview = ds :194), replaced wholesale; positional list (preview rows)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::correctness/each-index-key::src/routes/(app)/reports/builder/+page.svelte:666::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/reports/builder/+page.svelte:666 '{#each row as cell, j (j)}' keyed by its index binding; the cells of one preview row; positional columns"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::performance/image-dimensions::src/routes/(auth)/login/+page.svelte:34::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.png\"> lacks width/height, no spread; it fills the inline 128px x 128px .header__logo-icon--img box (img 100% x 100%, lib/styles/components.css:432-441) - box reserved by CSS"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::performance/image-dimensions::src/routes/(auth)/register/+page.svelte:39::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.png\"> lacks width/height, no spread; it fills the inline 128px x 128px .header__logo-icon--img box (img 100% x 100%, lib/styles/components.css:432-441) - box reserved by CSS"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::performance/image-loading-hint::src/routes/(auth)/login/+page.svelte:34::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the logo at the top of the centred login card (:34) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::performance/image-loading-hint::src/routes/(auth)/register/+page.svelte:39::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the logo at the top of the centred register card (:39) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::performance/responsive-image::src/routes/(auth)/login/+page.svelte:34::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img src=\"/logo.png\"> has no srcset, no spread; a raster logo shown at 128px - one fixed-size asset to every device"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::performance/responsive-image::src/routes/(auth)/register/+page.svelte:39::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img src=\"/logo.png\"> has no srcset, no spread; a raster logo shown at 128px - one fixed-size asset to every device"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::security/raw-html::src/routes/(app)/ai-chat/+page.svelte:1626::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ai-chat/+page.svelte:43-51,1621-1626: assistant replies in the user's own chat go through renderMd, which HTML-escapes &,<,> before marked — escaped, reported per docs (residual: marked@18 does not filter javascript: link schemes in model output; ledger escaped-copilot-chat convention)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::security/raw-html::src/routes/(app)/analytics/+page.svelte:682::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read analytics/+page.svelte:540-592: meInsights are template strings built only from numbers (toFixed/fmtDays) and the dayNames constant — no user text, reported per docs"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::security/raw-html::src/routes/(app)/analytics/+page.svelte:815::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read analytics/+page.svelte:485-509,815: companyInsights interpolates worstTeam.team_name (free-text team name entered via authed POST /teams, internal/handler/team.go:150,204-214) into a string rendered with {@html} after only a **bold** regex — DB text from other users rendered unescaped"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::security/raw-html::src/routes/(app)/dashboard/+page.svelte:662::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read dashboard/+page.svelte:25-29 + internal/service/weekly_summary.go:204-280: renderMd escapes &,<,> before marked, and ai_text is generated from the viewer's own week numbers/day names (or a rule-based numeric sentence) — escaped, self-only, reported per docs"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::security/raw-html::src/routes/(app)/notifications/+page.svelte:109::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read notifications/+page.svelte:51-55,107-109 + internal/handler/team_digest.go:39-48 + service/team_weekly_digest.go:155-210: n.body is the team digest markdown (rule-based text interpolates employees' FullName, set by each user at /register, or LLM output over that JSON) parsed by marked with no escaping or sanitizer — other users' text injected as HTML"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::security/raw-html::src/routes/(app)/notifications/+page.svelte:147::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read notifications/+page.svelte:51-64,116-120,147 + internal/workers/handlers.go:288-290 + service/meeting_prep.go:45,89-98: briefMd is LLM output over the meeting's organizer-written title and recent titles, parsed by marked with no escaping or sanitizer — other users' text (echoed or prompt-injected) can reach the HTML"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/admin/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/audit (src/routes/(app)/admin/audit/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/admin/rules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/rules (src/routes/(app)/admin/rules/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/admin/sources/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/sources (src/routes/(app)/admin/sources/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/ai-chat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /ai-chat (src/routes/(app)/ai-chat/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/analytics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /analytics (src/routes/(app)/analytics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/conflicts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /conflicts (src/routes/(app)/conflicts/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/diagnostics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /diagnostics (src/routes/(app)/diagnostics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/employees/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /employees/[id] (src/routes/(app)/employees/[id]/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/hr-roadmap/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /hr-roadmap (src/routes/(app)/hr-roadmap/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/integrations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /integrations (src/routes/(app)/integrations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /notifications (src/routes/(app)/notifications/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile (src/routes/(app)/profile/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/recommendations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recommendations (src/routes/(app)/recommendations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/reports/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reports (src/routes/(app)/reports/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/reports/builder/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reports/builder (src/routes/(app)/reports/builder/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/scheduler/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /scheduler (src/routes/(app)/scheduler/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/tasks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /tasks (src/routes/(app)/tasks/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/team-map/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /team-map (src/routes/(app)/team-map/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/teams/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(app)/workload/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workload (src/routes/(app)/workload/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client auth-gated: (app)/+layout.svelte:30-51 goto(\"/login\") without an access token and renders children only {#if ready} (:89-95)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; public auth page ((auth)/+layout.svelte only wraps children; no robots.txt, no noindex)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; public auth page ((auth)/+layout.svelte only wraps children; no robots.txt, no noindex)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders; but not a search target (client redirect stub: +page.svelte onMount goto(\"/dashboard\") or goto(\"/login\") by access token, markup is a loading line), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/admin/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/admin/rules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/admin/sources/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/ai-chat/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/analytics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/conflicts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/diagnostics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/employees/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/hr-roadmap/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/integrations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/recommendations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/reports/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/reports/builder/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/scheduler/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/tasks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/team-map/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/teams/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(app)/workload/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:7 literal <title>Workie</title> is the only title of the 25 routes in the key, duplicate as claimed; but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/admin/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /admin/audit has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/admin/rules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /admin/rules has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/admin/sources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /admin/sources has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /admin/users has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/ai-chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /ai-chat has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/analytics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /analytics has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/conflicts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /conflicts has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /dashboard has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/diagnostics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /diagnostics has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/employees/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /employees/[id] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/hr-roadmap/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /hr-roadmap has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/integrations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /integrations has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /notifications has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /profile has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/recommendations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /recommendations has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/reports/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /reports has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/reports/builder/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /reports/builder has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/scheduler/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /scheduler has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/tasks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /tasks has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/team-map/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /team-map has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/teams/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /teams has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(app)/workload/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /workload has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /login has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; /register has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in web/src; app.html head has only <title>Workie</title>; / has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/admin/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/audit (src/routes/(app)/admin/audit/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/admin/rules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/rules (src/routes/(app)/admin/rules/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/admin/sources/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/sources (src/routes/(app)/admin/sources/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/ai-chat/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ai-chat (src/routes/(app)/ai-chat/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/analytics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /analytics (src/routes/(app)/analytics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/conflicts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /conflicts (src/routes/(app)/conflicts/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/diagnostics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /diagnostics (src/routes/(app)/diagnostics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/employees/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /employees/[id] (src/routes/(app)/employees/[id]/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/hr-roadmap/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /hr-roadmap (src/routes/(app)/hr-roadmap/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/integrations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /integrations (src/routes/(app)/integrations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /notifications (src/routes/(app)/notifications/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile (src/routes/(app)/profile/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/recommendations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recommendations (src/routes/(app)/recommendations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/reports/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reports (src/routes/(app)/reports/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/reports/builder/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reports/builder (src/routes/(app)/reports/builder/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/scheduler/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /scheduler (src/routes/(app)/scheduler/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tasks (src/routes/(app)/tasks/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/team-map/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /team-map (src/routes/(app)/team-map/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/teams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(app)/workload/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /workload (src/routes/(app)/workload/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/admin/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/audit (src/routes/(app)/admin/audit/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/admin/rules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/rules (src/routes/(app)/admin/rules/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/admin/sources/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/sources (src/routes/(app)/admin/sources/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/ai-chat/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ai-chat (src/routes/(app)/ai-chat/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/analytics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /analytics (src/routes/(app)/analytics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/conflicts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /conflicts (src/routes/(app)/conflicts/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/diagnostics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /diagnostics (src/routes/(app)/diagnostics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/employees/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /employees/[id] (src/routes/(app)/employees/[id]/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/hr-roadmap/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /hr-roadmap (src/routes/(app)/hr-roadmap/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/integrations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /integrations (src/routes/(app)/integrations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /notifications (src/routes/(app)/notifications/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile (src/routes/(app)/profile/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/recommendations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recommendations (src/routes/(app)/recommendations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/reports/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reports (src/routes/(app)/reports/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/reports/builder/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reports/builder (src/routes/(app)/reports/builder/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/scheduler/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /scheduler (src/routes/(app)/scheduler/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tasks (src/routes/(app)/tasks/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/team-map/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /team-map (src/routes/(app)/team-map/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/teams/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(app)/workload/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /workload (src/routes/(app)/workload/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/admin/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/audit (src/routes/(app)/admin/audit/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/admin/rules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/rules (src/routes/(app)/admin/rules/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/admin/sources/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/sources (src/routes/(app)/admin/sources/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/ai-chat/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ai-chat (src/routes/(app)/ai-chat/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/analytics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /analytics (src/routes/(app)/analytics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/conflicts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /conflicts (src/routes/(app)/conflicts/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/diagnostics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /diagnostics (src/routes/(app)/diagnostics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/employees/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /employees/[id] (src/routes/(app)/employees/[id]/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/hr-roadmap/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /hr-roadmap (src/routes/(app)/hr-roadmap/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/integrations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /integrations (src/routes/(app)/integrations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /notifications (src/routes/(app)/notifications/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile (src/routes/(app)/profile/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/recommendations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recommendations (src/routes/(app)/recommendations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/reports/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reports (src/routes/(app)/reports/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/reports/builder/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reports/builder (src/routes/(app)/reports/builder/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/scheduler/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /scheduler (src/routes/(app)/scheduler/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tasks (src/routes/(app)/tasks/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/team-map/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /team-map (src/routes/(app)/team-map/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/teams/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(app)/workload/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /workload (src/routes/(app)/workload/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/admin/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/audit (src/routes/(app)/admin/audit/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/admin/rules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/rules (src/routes/(app)/admin/rules/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/admin/sources/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/sources (src/routes/(app)/admin/sources/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/ai-chat/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ai-chat (src/routes/(app)/ai-chat/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/analytics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /analytics (src/routes/(app)/analytics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/conflicts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /conflicts (src/routes/(app)/conflicts/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/diagnostics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /diagnostics (src/routes/(app)/diagnostics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/employees/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /employees/[id] (src/routes/(app)/employees/[id]/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/hr-roadmap/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /hr-roadmap (src/routes/(app)/hr-roadmap/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/integrations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /integrations (src/routes/(app)/integrations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /notifications (src/routes/(app)/notifications/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (src/routes/(app)/profile/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/recommendations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recommendations (src/routes/(app)/recommendations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/reports/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reports (src/routes/(app)/reports/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/reports/builder/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reports/builder (src/routes/(app)/reports/builder/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/scheduler/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /scheduler (src/routes/(app)/scheduler/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tasks (src/routes/(app)/tasks/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/team-map/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /team-map (src/routes/(app)/team-map/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/teams/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(app)/workload/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /workload (src/routes/(app)/workload/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook or generator script (literal claim holds); Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: routes/+page.svelte renders only a \"Загрузка…\" <div> while onMount goto()s /dashboard or /login; the root layout has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (auth)/login/+page.svelte titles the card with <div class=\"text-base font-medium\"> (no heading element), and the (auth)/root layouts render only children - no <h1> on the route"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/single-h1::/register::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (auth)/register/+page.svelte titles the card with <div class=\"text-base font-medium\"> (no heading element), and the (auth)/root layouts render only children - no <h1> on the route"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Workie\" in src/app.html, whitespace collapsed, 6 graphemes as reported) (literal claim holds); but Workie is an internal corporate work-time tool with role dashboards (README); (app) pages need a login, / onMount-redirects to /dashboard or /login; not a search target"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/admin/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/audit (src/routes/(app)/admin/audit/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/admin/rules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/rules (src/routes/(app)/admin/rules/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/admin/sources/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/sources (src/routes/(app)/admin/sources/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/ai-chat/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ai-chat (src/routes/(app)/ai-chat/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/analytics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /analytics (src/routes/(app)/analytics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/conflicts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /conflicts (src/routes/(app)/conflicts/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/diagnostics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /diagnostics (src/routes/(app)/diagnostics/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/employees/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /employees/[id] (src/routes/(app)/employees/[id]/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/hr-roadmap/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /hr-roadmap (src/routes/(app)/hr-roadmap/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/integrations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /integrations (src/routes/(app)/integrations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /notifications (src/routes/(app)/notifications/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile (src/routes/(app)/profile/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/recommendations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recommendations (src/routes/(app)/recommendations/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/reports/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reports (src/routes/(app)/reports/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/reports/builder/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reports/builder (src/routes/(app)/reports/builder/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/scheduler/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /scheduler (src/routes/(app)/scheduler/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/tasks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tasks (src/routes/(app)/tasks/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/team-map/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /team-map (src/routes/(app)/team-map/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/teams/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(app)/workload/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /workload (src/routes/(app)/workload/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  },
+  {
+    "key": "maximmalchevsky/hack:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (git grep of hack web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere and no <svelte:head> in any component; app.html head is charset/icon/viewport/<title>; npm deps echarts/marked/openapi-fetch/html2pdf.js are not Svelte components; no load files, route renders"
+  }
+]

@@ -1,0 +1,1217 @@
+[
+  {
+    "key": "olafkfreund/skill_pool:web::a11y/disallowed-aria-props::src/routes/(authed)/admin/theme/+page.svelte:463::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): theme/+page.svelte:463 <div class=\"space-y-2 pt-2\" aria-label=\"Contrast ratio checks\"> has aria-label with no role, spread or use: action; <div> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::a11y/disallowed-aria-props::src/routes/(public)/marketplace/+page.svelte:128::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): marketplace/+page.svelte:128 <div class=\"mt-2 flex flex-wrap items-center gap-1\" aria-label=\"Tags\"> has aria-label with no role, spread or use: action; <div> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::a11y/disallowed-aria-props::src/routes/(public)/marketplace/+page.svelte:50::`aria-label` is prohibited on <code> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): marketplace/+page.svelte:50 <code class=\"flex-1 overflow-x-auto rounded-[var(--sp-radius)] border …> has aria-label with no role, spread or use: action; <code> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::a11y/disallowed-aria-props::src/routes/(public)/marketplace/[slug]/+page.svelte:180::`aria-label` is prohibited on <pre> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): [slug]/+page.svelte:180 <pre class=\"max-h-72 overflow-auto rounded-[var(--sp-radius)] border b…> has aria-label with no role, spread or use: action; <pre> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::a11y/pattern-title::src/routes/(authed)/admin/plugins/new/+page.svelte:161::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read admin/plugins/new/+page.svelte:161-169: required <input name=slug pattern=\"[a-z0-9]+(-[a-z0-9]+)*\"> with no title in <form method=POST> (:149, no novalidate); the 'Kebab-case' hint is a separate unlinked <span> (:170), so a failed match shows the generic browser message (sibling-hint precedent)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::a11y/pattern-title::src/routes/(authed)/admin/projects/new/+page.svelte:36::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read admin/projects/new/+page.svelte:36-44: required <input name=slug pattern> with no title in <form method=POST> (:31, no novalidate); the format hint is a separate unlinked <span> (:45), so a failed match shows the generic browser message (sibling-hint precedent)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::a11y/pattern-title::src/routes/(authed)/skills/new/+page.svelte:87::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read skills/new/+page.svelte:87-95: required <input name=slug pattern=\"[a-z0-9][a-z0-9-]*\"> with no title or describing hint in <form method=POST> (:66, no novalidate), so a failed match shows the generic browser message"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::a11y/permitted-contents::src/routes/(authed)/admin/sso/+page.svelte:166::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): sso/+page.svelte:166 <div class=\"mt-1 flex gap-2\"> is a literal child of <label class=\"block\"> at :164 (only {#if}/{#each} between, no component/snippet boundary); <label>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/+layout.svelte has 228 physical lines (newline count, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/+page.svelte has 213 physical lines (newline count, trailing newline not counted; 202 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/admin/domain/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/admin/domain/+page.svelte has 437 physical lines (newline count, trailing newline not counted; 417 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/admin/plugins/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/admin/plugins/+page.svelte has 225 physical lines (newline count, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/admin/plugins/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/admin/plugins/[slug]/+page.svelte has 347 physical lines (newline count, trailing newline not counted; 326 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/admin/plugins/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/admin/plugins/new/+page.svelte has 561 physical lines (newline count, trailing newline not counted; 526 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/admin/projects/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/admin/projects/[slug]/+page.svelte has 737 physical lines (newline count, trailing newline not counted; 705 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/admin/sso/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/admin/sso/+page.svelte has 377 physical lines (newline count, trailing newline not counted; 357 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/admin/theme/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/admin/theme/+page.svelte has 606 physical lines (newline count, trailing newline not counted; 565 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/admin/usage/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/admin/usage/+page.svelte has 219 physical lines (newline count, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/drafts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/drafts/+page.svelte has 239 physical lines (newline count, trailing newline not counted; 229 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/profile/+page.svelte has 384 physical lines (newline count, trailing newline not counted; 367 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(authed)/skills/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/skills/[slug]/+page.svelte has 339 physical lines (newline count, trailing newline not counted; 323 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::architecture/component-size::src/routes/(public)/marketplace/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(public)/marketplace/[slug]/+page.svelte has 225 physical lines (newline count, trailing newline not counted; 208 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::correctness/each-key::src/routes/(authed)/admin/theme/+page.svelte:158::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(authed)/admin/theme/+page.svelte:158 '{#each form.contrastFailures as f}' has no key; the contrast failures the action returns for the submitted theme; runtime validation results"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::correctness/each-key::src/routes/(authed)/admin/theme/+page.svelte:499::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(authed)/admin/theme/+page.svelte:499 '{#each liveFailures as f}' has no key; liveFailures = $derived(checkThemeContrast(theme)) (:84) recomputed as the admin edits colours, so items are inserted/removed mid-list; runtime validation results"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/image-dimensions::src/routes/(authed)/admin/theme/+page.svelte:198::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; brand logo preview (class h-12 w-12) - both dimensions fixed by classes, box reserved"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/image-dimensions::src/routes/(authed)/admin/theme/+page.svelte:261::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; favicon preview (class h-8 w-8) - both dimensions fixed by classes, box reserved"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/image-loading-hint::src/routes/(authed)/admin/theme/+page.svelte:198::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; brand logo preview (class h-12 w-12) in the first section of the theme page, right under the <h1> header - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/image-loading-hint::src/routes/(authed)/admin/theme/+page.svelte:261::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; favicon preview (class h-8 w-8) in the second section of the theme page, right under the <h1> header and the logo section - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/responsive-image::src/routes/(authed)/admin/theme/+page.svelte:198::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src /admin/theme/logo serves the tenant's uploaded file, which the page accepts as SVG or raster (SVG, PNG, JPEG, or WEBP, :189) - dynamic, partly SVG, shown at 48px"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/responsive-image::src/routes/(authed)/admin/theme/+page.svelte:261::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src /admin/theme/favicon serves the tenant's uploaded file, which the page accepts as SVG or raster (SVG, PNG, JPEG, WEBP, or ICO, :254) - dynamic, partly SVG, shown at 32px"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/sequential-awaits::src/routes/(authed)/admin/plugins/new/+page.server.ts:52::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/plugins/new/+page.server.ts:46-55: the only preceding await is whoami(auth), whose role feeds requireCurator (error 403 for non-curators, :22-26) — deliberate auth-before-query ordering, docs Limitations (ledger auth-gate convention)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/sequential-awaits::src/routes/(authed)/admin/theme/+page.server.ts:74::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/theme/+page.server.ts:72-88: checkAssetExists(logo) after getTheme — each uses only auth/locals.tenant.slug, nothing from the earlier results, no gate or setup coupling; independent HTTP requests to the API server (checkAssetExists :92-96 fetches {base}; lib/server/api.ts talks HTTP to the separate Rust API server (SKILL_POOL_API_BASE, server/)) serialized"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/sequential-awaits::src/routes/(authed)/admin/theme/+page.server.ts:75::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/theme/+page.server.ts:72-88: checkAssetExists(favicon) after the logo check — each uses only auth/locals.tenant.slug, nothing from the earlier results, no gate or setup coupling; independent HTTP requests to the API server (checkAssetExists :92-96 fetches {base}; lib/server/api.ts talks HTTP to the separate Rust API server (SKILL_POOL_API_BASE, server/)) serialized"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/sequential-awaits::src/routes/(authed)/admin/theme/+page.server.ts:79::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/theme/+page.server.ts:72-88: getFonts(auth) after the asset checks — each uses only auth/locals.tenant.slug, nothing from the earlier results, no gate or setup coupling; independent HTTP requests to the API server (checkAssetExists :92-96 fetches {base}; lib/server/api.ts talks HTTP to the separate Rust API server (SKILL_POOL_API_BASE, server/)) serialized"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/sequential-awaits::src/routes/(authed)/admin/theme/+page.server.ts:85::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/theme/+page.server.ts:72-88: fetchCustomCss(auth) after getFonts — each uses only auth/locals.tenant.slug, nothing from the earlier results, no gate or setup coupling; independent HTTP requests to the API server (checkAssetExists :92-96 fetches {base}; lib/server/api.ts talks HTTP to the separate Rust API server (SKILL_POOL_API_BASE, server/)) serialized"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/sequential-awaits::src/routes/(authed)/drafts/[id]/edit/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read drafts/[id]/edit/+page.server.ts:9-14: getDraftSkillMd(auth, params.id) uses nothing from getDraft, whose only other role is the 404 in the catch (exceptional path) — independent API requests serialized; lib/server/api.ts talks HTTP to the separate Rust API server (SKILL_POOL_API_BASE, server/) (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::performance/sequential-awaits::src/routes/(authed)/profile/+page.server.ts:43::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read profile/+page.server.ts:36-45: listMyTokens(auth) uses nothing from whoami(auth), which is not a gate (null identity is allowed and returned) — independent API requests serialized; lib/server/api.ts talks HTTP to the separate Rust API server (SKILL_POOL_API_BASE, server/)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::security/raw-html::src/routes/(authed)/help/[slug]/+page.svelte:27::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read help/[slug]/+page.server.ts + lib/server/docs.ts:15-28: data.doc.html is marked over the repo's own docs/*.md and docs/examples/*.md bundled with import.meta.glob at build time — repo-authored markdown, reported per docs"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::security/raw-html::src/routes/(public)/marketplace/[slug]/+page.svelte:52::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read marketplace/[slug]/+page.server.ts:9-28,44: data.jsonLd = JSON.stringify of plugin.name/description from the registry API (published plugin metadata) with no '<' escaping, injected inside <script type=application/ld+json> on a public route — docs: non-literal JSON-LD needs script-safe serialization (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::security/raw-html::src/routes/+layout.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read +layout.svelte:12-14,28 + lib/theme.ts:57-70 + server/src/routes/theme.rs:298-345: styleBlock interpolates the tenant theme into <style> via {@html}; the server validates the colours as hex and font_family against an allowlist, but `radius` (form field, admin/theme/+page.server.ts:130) is stored unvalidated, so a tenant admin's `</style><script>` in radius is injected into every page of the tenant for all its users"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/(authed)/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/decay/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/decay (src/routes/(authed)/admin/decay/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/domain/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/domain (src/routes/(authed)/admin/domain/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/members (src/routes/(authed)/admin/members/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/notifications (src/routes/(authed)/admin/notifications/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/plugins/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/plugins (src/routes/(authed)/admin/plugins/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/plugins/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/plugins/[slug] (src/routes/(authed)/admin/plugins/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/plugins/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/plugins/import (src/routes/(authed)/admin/plugins/import/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/plugins/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/plugins/new (src/routes/(authed)/admin/plugins/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/projects (src/routes/(authed)/admin/projects/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/projects/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/projects/[slug] (src/routes/(authed)/admin/projects/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/projects/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/projects/new (src/routes/(authed)/admin/projects/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/sso/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/sso (src/routes/(authed)/admin/sso/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/stack-mappings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/stack-mappings (src/routes/(authed)/admin/stack-mappings/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/theme/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/theme (src/routes/(authed)/admin/theme/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/admin/usage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/usage (src/routes/(authed)/admin/usage/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/drafts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /drafts (src/routes/(authed)/drafts/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/drafts/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /drafts/[id]/edit (src/routes/(authed)/drafts/[id]/edit/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/help/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /help (src/routes/(authed)/help/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/help/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /help/[slug] (src/routes/(authed)/help/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile (src/routes/(authed)/profile/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/skills/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /skills/[slug] (src/routes/(authed)/skills/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); page head (skills/[slug]/+page.svelte:57-62) emits og:* and twitter:card but no <link rel=\"canonical\">; root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(authed)/skills/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /skills/new (src/routes/(authed)/skills/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) but not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(public)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (src/routes/(public)/login/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path); publicly reachable rendered route, no noindex or robots Disallow"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(public)/marketplace/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /marketplace (src/routes/(public)/marketplace/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path); publicly reachable rendered route, no noindex or robots Disallow"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/canonical-url::src/routes/(public)/marketplace/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /marketplace/[slug] (src/routes/(public)/marketplace/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path); publicly reachable rendered route, no noindex or robots Disallow"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/decay/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/domain/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/plugins/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/plugins/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/plugins/import/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/plugins/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/projects/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/projects/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/sso/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/stack-mappings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/theme/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/admin/usage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/drafts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/drafts/[id]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/help/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/help/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(authed)/skills/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(public)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/description-presence::src/routes/(public)/marketplace/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): only skills/[slug] and marketplace/[slug] carry a <meta name=description>; root +layout.svelte head is title/style/fonts, app.html none (other name=\"description\" hits are form fields) (literal claim holds); but skill-pool is a self-hosted team skill registry (README); (authed)/+layout.server.ts:6-8 redirects sessionless requests to /login; not a search target"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; / has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/decay/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/decay has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/domain/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/domain has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/members has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/notifications has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/plugins/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/plugins has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/plugins/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/plugins/[slug] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/plugins/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/plugins/import has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/plugins/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/plugins/new has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/projects has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/projects/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/projects/[slug] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/projects/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/projects/new has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/sso/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/sso has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/stack-mappings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/stack-mappings has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/theme/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/theme has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/admin/usage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /admin/usage has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/drafts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /drafts has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/drafts/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /drafts/[id]/edit has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/help/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /help has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/help/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /help/[slug] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /profile has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/skills/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /skills/[slug] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(authed)/skills/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /skills/new has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(public)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /login has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/json-ld::src/routes/(public)/marketplace/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only JSON-LD is (public)/marketplace/[slug]/+page.svelte:52 ({@html} ld+json, that route only); none in the root layout, this route or app.html; /marketplace has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/(authed)/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/decay/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/decay (src/routes/(authed)/admin/decay/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/domain/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/domain (src/routes/(authed)/admin/domain/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/members (src/routes/(authed)/admin/members/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/notifications (src/routes/(authed)/admin/notifications/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/plugins/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/plugins (src/routes/(authed)/admin/plugins/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/plugins/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/plugins/[slug] (src/routes/(authed)/admin/plugins/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/plugins/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/plugins/import (src/routes/(authed)/admin/plugins/import/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/plugins/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/plugins/new (src/routes/(authed)/admin/plugins/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/projects (src/routes/(authed)/admin/projects/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/projects/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/projects/[slug] (src/routes/(authed)/admin/projects/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/projects/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/projects/new (src/routes/(authed)/admin/projects/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/sso/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/sso (src/routes/(authed)/admin/sso/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/stack-mappings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/stack-mappings (src/routes/(authed)/admin/stack-mappings/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/theme/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/theme (src/routes/(authed)/admin/theme/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/admin/usage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/usage (src/routes/(authed)/admin/usage/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/drafts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /drafts (src/routes/(authed)/drafts/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/drafts/[id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /drafts/[id]/edit (src/routes/(authed)/drafts/[id]/edit/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/help/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /help (src/routes/(authed)/help/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/help/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /help/[slug] (src/routes/(authed)/help/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile (src/routes/(authed)/profile/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(authed)/skills/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /skills/new (src/routes/(authed)/skills/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(public)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (src/routes/(public)/login/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(public)/marketplace/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /marketplace (src/routes/(public)/marketplace/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-description::src/routes/(public)/marketplace/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /marketplace/[slug] (src/routes/(public)/marketplace/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/(authed)/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/decay/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/decay (src/routes/(authed)/admin/decay/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/domain/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/domain (src/routes/(authed)/admin/domain/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/members (src/routes/(authed)/admin/members/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/notifications (src/routes/(authed)/admin/notifications/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/plugins/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/plugins (src/routes/(authed)/admin/plugins/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/plugins/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/plugins/[slug] (src/routes/(authed)/admin/plugins/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/plugins/import/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/plugins/import (src/routes/(authed)/admin/plugins/import/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/plugins/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/plugins/new (src/routes/(authed)/admin/plugins/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/projects (src/routes/(authed)/admin/projects/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/projects/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/projects/[slug] (src/routes/(authed)/admin/projects/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/projects/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/projects/new (src/routes/(authed)/admin/projects/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/sso/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/sso (src/routes/(authed)/admin/sso/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/stack-mappings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/stack-mappings (src/routes/(authed)/admin/stack-mappings/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/theme/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/theme (src/routes/(authed)/admin/theme/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/admin/usage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/usage (src/routes/(authed)/admin/usage/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/drafts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /drafts (src/routes/(authed)/drafts/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/drafts/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /drafts/[id]/edit (src/routes/(authed)/drafts/[id]/edit/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/help/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /help (src/routes/(authed)/help/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/help/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /help/[slug] (src/routes/(authed)/help/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile (src/routes/(authed)/profile/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(authed)/skills/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /skills/new (src/routes/(authed)/skills/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(public)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (src/routes/(public)/login/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(public)/marketplace/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /marketplace (src/routes/(public)/marketplace/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-image::src/routes/(public)/marketplace/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /marketplace/[slug] (src/routes/(public)/marketplace/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/(authed)/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/decay/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/decay (src/routes/(authed)/admin/decay/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/domain/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/domain (src/routes/(authed)/admin/domain/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/members (src/routes/(authed)/admin/members/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/notifications (src/routes/(authed)/admin/notifications/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/plugins/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/plugins (src/routes/(authed)/admin/plugins/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/plugins/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/plugins/[slug] (src/routes/(authed)/admin/plugins/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/plugins/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/plugins/import (src/routes/(authed)/admin/plugins/import/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/plugins/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/plugins/new (src/routes/(authed)/admin/plugins/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/projects (src/routes/(authed)/admin/projects/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/projects/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/projects/[slug] (src/routes/(authed)/admin/projects/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/projects/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/projects/new (src/routes/(authed)/admin/projects/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/sso/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/sso (src/routes/(authed)/admin/sso/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/stack-mappings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/stack-mappings (src/routes/(authed)/admin/stack-mappings/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/theme/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/theme (src/routes/(authed)/admin/theme/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/admin/usage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/usage (src/routes/(authed)/admin/usage/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/drafts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /drafts (src/routes/(authed)/drafts/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/drafts/[id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /drafts/[id]/edit (src/routes/(authed)/drafts/[id]/edit/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/help/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /help (src/routes/(authed)/help/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/help/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /help/[slug] (src/routes/(authed)/help/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile (src/routes/(authed)/profile/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(authed)/skills/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /skills/new (src/routes/(authed)/skills/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(public)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (src/routes/(public)/login/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(public)/marketplace/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /marketplace (src/routes/(public)/marketplace/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-title::src/routes/(public)/marketplace/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /marketplace/[slug] (src/routes/(public)/marketplace/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/(authed)/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/decay/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/decay (src/routes/(authed)/admin/decay/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/domain/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/domain (src/routes/(authed)/admin/domain/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/members (src/routes/(authed)/admin/members/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/notifications (src/routes/(authed)/admin/notifications/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/plugins/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/plugins (src/routes/(authed)/admin/plugins/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/plugins/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/plugins/[slug] (src/routes/(authed)/admin/plugins/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/plugins/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/plugins/import (src/routes/(authed)/admin/plugins/import/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/plugins/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/plugins/new (src/routes/(authed)/admin/plugins/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/projects (src/routes/(authed)/admin/projects/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/projects/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/projects/[slug] (src/routes/(authed)/admin/projects/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/projects/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/projects/new (src/routes/(authed)/admin/projects/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/sso/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/sso (src/routes/(authed)/admin/sso/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/stack-mappings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/stack-mappings (src/routes/(authed)/admin/stack-mappings/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/theme/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/theme (src/routes/(authed)/admin/theme/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/admin/usage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/usage (src/routes/(authed)/admin/usage/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/drafts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /drafts (src/routes/(authed)/drafts/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/drafts/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /drafts/[id]/edit (src/routes/(authed)/drafts/[id]/edit/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/help/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /help (src/routes/(authed)/help/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/help/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /help/[slug] (src/routes/(authed)/help/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (src/routes/(authed)/profile/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(authed)/skills/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /skills/new (src/routes/(authed)/skills/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(public)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (src/routes/(public)/login/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(public)/marketplace/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /marketplace (src/routes/(public)/marketplace/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/og-url::src/routes/(public)/marketplace/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /marketplace/[slug] (src/routes/(public)/marketplace/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook or generator script (literal claim holds); the public (public)/marketplace pages are meant to be indexed (<meta name=\"robots\" content=\"index, follow\">, JSON-LD \"for SEO\" in marketplace/[slug]/+page.server.ts:7), so the instance has public pages to list/steer"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/single-h1::/help/[slug]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: help/[slug]/+page.server.ts loads loadDoc(slug), which marked.parse()s a committed docs/*.md (lib/server/docs.ts:110-116), rendered with {@html data.doc.html} (+page.svelte:27); every docs/*.md and docs/examples/*.md opens with \"# \" (index.md after a comment line) -> the route renders an <h1>"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); the public (public)/marketplace pages are meant to be indexed (<meta name=\"robots\" content=\"index, follow\">, JSON-LD \"for SEO\" in marketplace/[slug]/+page.server.ts:7), so the instance has public pages to list/steer"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/(authed)/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/decay/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/decay (src/routes/(authed)/admin/decay/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/domain/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/domain (src/routes/(authed)/admin/domain/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/members (src/routes/(authed)/admin/members/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/notifications (src/routes/(authed)/admin/notifications/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/plugins/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/plugins (src/routes/(authed)/admin/plugins/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/plugins/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/plugins/[slug] (src/routes/(authed)/admin/plugins/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/plugins/import/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/plugins/import (src/routes/(authed)/admin/plugins/import/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/plugins/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/plugins/new (src/routes/(authed)/admin/plugins/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/projects (src/routes/(authed)/admin/projects/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/projects/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/projects/[slug] (src/routes/(authed)/admin/projects/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/projects/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/projects/new (src/routes/(authed)/admin/projects/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/sso/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/sso (src/routes/(authed)/admin/sso/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/stack-mappings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/stack-mappings (src/routes/(authed)/admin/stack-mappings/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/theme/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/theme (src/routes/(authed)/admin/theme/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/admin/usage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/usage (src/routes/(authed)/admin/usage/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/drafts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /drafts (src/routes/(authed)/drafts/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/drafts/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /drafts/[id]/edit (src/routes/(authed)/drafts/[id]/edit/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/help/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /help (src/routes/(authed)/help/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/help/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /help/[slug] (src/routes/(authed)/help/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile (src/routes/(authed)/profile/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(authed)/skills/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /skills/new (src/routes/(authed)/skills/new/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path) (route context: not a search target (auth-gated: (authed)/+layout.server.ts:6-9 redirects every request without locals.tenant.authed to /login); the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(public)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (src/routes/(public)/login/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(public)/marketplace/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /marketplace (src/routes/(public)/marketplace/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  },
+  {
+    "key": "olafkfreund/skill_pool:web::seo/twitter-card::src/routes/(public)/marketplace/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /marketplace/[slug] (src/routes/(public)/marketplace/[slug]/+page.svelte): script-verified (a1a_label.py: grep of the app src incl. app.html/hooks for the tag finds no emitter on this route's chain, and no dynamic <meta {property}> or property={...} meta anywhere); root +layout.svelte:26-41 head is <title>/theme style/font links; app.html icon/viewport; hooks.server.ts sets tenant/theme only; no meta-tag library (the og hits in ../site/index.html are a separate static landing page); route renders (no load or layout on the chain redirects/throws on every path)"
+  }
+]

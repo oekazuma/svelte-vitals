@@ -1,0 +1,1052 @@
+[
+  {
+    "key": "ianzepp/gofolio-web::a11y/permitted-contents::src/routes/(app)/home/holdings/+page.svelte:194::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): holdings/+page.svelte:194 <div class=\"flex items-start justify-between gap-2\"> is a literal child of <button type=\"button\" class=\"bg-muted/40 hover:bg-muted/60 b…> at :188 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "ianzepp/gofolio-web::a11y/permitted-contents::src/routes/(app)/home/holdings/+page.svelte:203::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): holdings/+page.svelte:203 <div class=\"mt-3\"> is a literal child of <button type=\"button\" class=\"bg-muted/40 hover:bg-muted/60 b…> at :188 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/component-size::src/lib/components/app/PortfolioSummaryView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/PortfolioSummaryView.svelte has 210 physical lines (newline count, trailing newline not counted; 193 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/component-size::src/routes/(app)/account/access/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/account/access/+page.svelte has 203 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/component-size::src/routes/(app)/accounts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/accounts/+page.svelte has 372 physical lines (newline count, trailing newline not counted; 351 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/component-size::src/routes/(app)/home/holdings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/home/holdings/+page.svelte has 290 physical lines (newline count, trailing newline not counted; 271 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/component-size::src/routes/(app)/home/markets/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/home/markets/+page.svelte has 262 physical lines (newline count, trailing newline not counted; 242 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/component-size::src/routes/(app)/home/watchlist/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/home/watchlist/+page.svelte has 328 physical lines (newline count, trailing newline not counted; 305 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/component-size::src/routes/(app)/portfolio/activities/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/portfolio/activities/+page.svelte has 998 physical lines (newline count, trailing newline not counted; 935 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/component-size::src/routes/(app)/portfolio/allocations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/portfolio/allocations/+page.svelte has 371 physical lines (newline count, trailing newline not counted; 350 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/component-size::src/routes/(app)/portfolio/analysis/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/portfolio/analysis/+page.svelte has 258 physical lines (newline count, trailing newline not counted; 245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/prop-count::src/lib/components/app/AccountsTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app/AccountsTable.svelte has a single destructured $props() with 10 named props (> 6): accounts, baseCurrency, totalValue, totalBalance, showActions, canOpenDetails, onTransferBalance, onViewDetails, onUpdateAccount, onDeleteAccount"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/prop-count::src/lib/components/charts/LineChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/charts/LineChart.svelte has a single destructured $props() with 8 named props (> 6): labels, data, yLabel, color, fill, showXAxis, showYAxis, animated"
+  },
+  {
+    "key": "ianzepp/gofolio-web::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "ianzepp/gofolio-web::correctness/effect-as-derived::src/routes/(app)/admin/overview/+page.svelte:13::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/overview/+page.svelte:13 the effect only does systemMessage = data.admin?.settings?.SYSTEM_MESSAGE ?? ''; the other write is bind:value on the whole value (:153), the writable-$derived override pattern (svelte ^5.51.0)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::correctness/stale-prop-derivation::src/routes/(app)/account/membership/+page.svelte:13::\"subscription\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/account/membership/+page.svelte:13 subscription = data.user.subscription at init, rendered (:26-30), never reassigned; the page's redeem form posts with use:enhance (:58), which reruns the load in place, so after a redeem the shown membership stays stale"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (src/routes/(app)/account/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/account/access/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account/access (src/routes/(app)/account/access/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/account/membership/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account/membership (src/routes/(app)/account/membership/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/accounts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /accounts (src/routes/(app)/accounts/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/admin/jobs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/jobs (src/routes/(app)/admin/jobs/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/admin/market-data/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/market-data (src/routes/(app)/admin/market-data/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/admin/overview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/overview (src/routes/(app)/admin/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/settings (src/routes/(app)/admin/settings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/home/holdings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home/holdings (src/routes/(app)/home/holdings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/home/markets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home/markets (src/routes/(app)/home/markets/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/home/overview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home/overview (src/routes/(app)/home/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/home/summary/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home/summary (src/routes/(app)/home/summary/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/home/watchlist/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home/watchlist (src/routes/(app)/home/watchlist/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/portfolio/activities/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /portfolio/activities (src/routes/(app)/portfolio/activities/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/portfolio/allocations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /portfolio/allocations (src/routes/(app)/portfolio/allocations/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/portfolio/analysis/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /portfolio/analysis (src/routes/(app)/portfolio/analysis/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/portfolio/fire/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /portfolio/fire (src/routes/(app)/portfolio/fire/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(app)/portfolio/x-ray/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /portfolio/x-ray (src/routes/(app)/portfolio/x-ray/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; but not a search target (auth-gated: hooks.server.ts:10-14 redirects every request without the gofolio_token cookie outside /auth and /api/ to /auth before resolve()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/canonical-url::src/routes/(auth)/auth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /auth (src/routes/(auth)/auth/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect; public sign-in page (hooks lets guests through, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/account/access/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/account/membership/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/accounts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/admin/jobs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/admin/market-data/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/admin/overview/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/admin/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/home/holdings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/home/markets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/home/overview/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/home/summary/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/home/watchlist/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/portfolio/activities/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/portfolio/allocations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/portfolio/analysis/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/portfolio/fire/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(app)/portfolio/x-ray/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/description-presence::src/routes/(auth)/auth/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /account has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/account/access/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /account/access has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/account/membership/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /account/membership has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/accounts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /accounts has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/admin/jobs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /admin/jobs has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/admin/market-data/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /admin/market-data has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/admin/overview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /admin/overview has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /admin/settings has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /admin/users has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/home/holdings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /home/holdings has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/home/markets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /home/markets has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/home/overview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /home/overview has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/home/summary/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /home/summary has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/home/watchlist/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /home/watchlist has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/portfolio/activities/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /portfolio/activities has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/portfolio/allocations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /portfolio/allocations has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/portfolio/analysis/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /portfolio/analysis has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/portfolio/fire/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /portfolio/fire has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(app)/portfolio/x-ray/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /portfolio/x-ray has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/json-ld::src/routes/(auth)/auth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in src or app.html (root layout head is a favicon link only); /auth has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account (src/routes/(app)/account/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/account/access/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/access (src/routes/(app)/account/access/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/account/membership/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/membership (src/routes/(app)/account/membership/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/accounts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /accounts (src/routes/(app)/accounts/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/admin/jobs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/jobs (src/routes/(app)/admin/jobs/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/admin/market-data/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/market-data (src/routes/(app)/admin/market-data/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/admin/overview/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/overview (src/routes/(app)/admin/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/settings (src/routes/(app)/admin/settings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/home/holdings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home/holdings (src/routes/(app)/home/holdings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/home/markets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home/markets (src/routes/(app)/home/markets/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/home/overview/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home/overview (src/routes/(app)/home/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/home/summary/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home/summary (src/routes/(app)/home/summary/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/home/watchlist/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home/watchlist (src/routes/(app)/home/watchlist/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/portfolio/activities/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /portfolio/activities (src/routes/(app)/portfolio/activities/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/portfolio/allocations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /portfolio/allocations (src/routes/(app)/portfolio/allocations/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/portfolio/analysis/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /portfolio/analysis (src/routes/(app)/portfolio/analysis/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/portfolio/fire/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /portfolio/fire (src/routes/(app)/portfolio/fire/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(app)/portfolio/x-ray/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /portfolio/x-ray (src/routes/(app)/portfolio/x-ray/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-description::src/routes/(auth)/auth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth (src/routes/(auth)/auth/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (src/routes/(app)/account/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/account/access/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/access (src/routes/(app)/account/access/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/account/membership/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/membership (src/routes/(app)/account/membership/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/accounts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /accounts (src/routes/(app)/accounts/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/admin/jobs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/jobs (src/routes/(app)/admin/jobs/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/admin/market-data/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/market-data (src/routes/(app)/admin/market-data/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/admin/overview/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/overview (src/routes/(app)/admin/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/settings (src/routes/(app)/admin/settings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/home/holdings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home/holdings (src/routes/(app)/home/holdings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/home/markets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home/markets (src/routes/(app)/home/markets/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/home/overview/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home/overview (src/routes/(app)/home/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/home/summary/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home/summary (src/routes/(app)/home/summary/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/home/watchlist/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home/watchlist (src/routes/(app)/home/watchlist/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/portfolio/activities/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /portfolio/activities (src/routes/(app)/portfolio/activities/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/portfolio/allocations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /portfolio/allocations (src/routes/(app)/portfolio/allocations/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/portfolio/analysis/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /portfolio/analysis (src/routes/(app)/portfolio/analysis/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/portfolio/fire/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /portfolio/fire (src/routes/(app)/portfolio/fire/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(app)/portfolio/x-ray/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /portfolio/x-ray (src/routes/(app)/portfolio/x-ray/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-image::src/routes/(auth)/auth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth (src/routes/(auth)/auth/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account (src/routes/(app)/account/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/account/access/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/access (src/routes/(app)/account/access/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/account/membership/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/membership (src/routes/(app)/account/membership/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/accounts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /accounts (src/routes/(app)/accounts/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/admin/jobs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/jobs (src/routes/(app)/admin/jobs/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/admin/market-data/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/market-data (src/routes/(app)/admin/market-data/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/admin/overview/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/overview (src/routes/(app)/admin/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/settings (src/routes/(app)/admin/settings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/home/holdings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home/holdings (src/routes/(app)/home/holdings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/home/markets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home/markets (src/routes/(app)/home/markets/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/home/overview/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home/overview (src/routes/(app)/home/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/home/summary/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home/summary (src/routes/(app)/home/summary/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/home/watchlist/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home/watchlist (src/routes/(app)/home/watchlist/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/portfolio/activities/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /portfolio/activities (src/routes/(app)/portfolio/activities/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/portfolio/allocations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /portfolio/allocations (src/routes/(app)/portfolio/allocations/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/portfolio/analysis/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /portfolio/analysis (src/routes/(app)/portfolio/analysis/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/portfolio/fire/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /portfolio/fire (src/routes/(app)/portfolio/fire/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(app)/portfolio/x-ray/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /portfolio/x-ray (src/routes/(app)/portfolio/x-ray/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-title::src/routes/(auth)/auth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth (src/routes/(auth)/auth/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (src/routes/(app)/account/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/account/access/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/access (src/routes/(app)/account/access/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/account/membership/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/membership (src/routes/(app)/account/membership/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/accounts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /accounts (src/routes/(app)/accounts/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/admin/jobs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/jobs (src/routes/(app)/admin/jobs/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/admin/market-data/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/market-data (src/routes/(app)/admin/market-data/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/admin/overview/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/overview (src/routes/(app)/admin/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/settings (src/routes/(app)/admin/settings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/home/holdings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home/holdings (src/routes/(app)/home/holdings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/home/markets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home/markets (src/routes/(app)/home/markets/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/home/overview/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home/overview (src/routes/(app)/home/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/home/summary/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home/summary (src/routes/(app)/home/summary/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/home/watchlist/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home/watchlist (src/routes/(app)/home/watchlist/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/portfolio/activities/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /portfolio/activities (src/routes/(app)/portfolio/activities/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/portfolio/allocations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /portfolio/allocations (src/routes/(app)/portfolio/allocations/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/portfolio/analysis/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /portfolio/analysis (src/routes/(app)/portfolio/analysis/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/portfolio/fire/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /portfolio/fire (src/routes/(app)/portfolio/fire/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(app)/portfolio/x-ray/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /portfolio/x-ray (src/routes/(app)/portfolio/x-ray/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/og-url::src/routes/(auth)/auth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth (src/routes/(auth)/auth/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::/account/membership::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /account/membership; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is an <h2>/<h3> or none - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::/admin/market-data::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /admin/market-data; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is an <h2>/<h3> or none - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::/admin/users::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /admin/users; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is an <h2>/<h3> or none - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::/portfolio/allocations::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /portfolio/allocations; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is an <h2>/<h3> or none - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::/portfolio/fire::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /portfolio/fire; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is an <h2>/<h3> or none - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::src/routes/(app)/account/+page.svelte:24::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /account; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is src/routes/(app)/account/+page.svelte:24 (an <h2>/<h3>) - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::src/routes/(app)/account/access/+page.svelte:24::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /account/access; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is src/routes/(app)/account/access/+page.svelte:24 (an <h2>/<h3>) - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::src/routes/(app)/admin/jobs/+page.svelte:135::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /admin/jobs; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is src/routes/(app)/admin/jobs/+page.svelte:135 (an <h2>/<h3>) - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::src/routes/(app)/admin/overview/+page.svelte:72::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /admin/overview; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is src/routes/(app)/admin/overview/+page.svelte:72 (an <h2>/<h3>) - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::src/routes/(app)/admin/settings/+page.svelte:21::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /admin/settings; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is src/routes/(app)/admin/settings/+page.svelte:21 (an <h2>/<h3>) - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::src/routes/(app)/home/overview/+page.svelte:33::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /home/overview; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is src/routes/(app)/home/overview/+page.svelte:33 (an <h2>/<h3>) - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::src/routes/(app)/portfolio/analysis/+page.svelte:125::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /portfolio/analysis; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is src/routes/(app)/portfolio/analysis/+page.svelte:125 (an <h2>/<h3>) - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/single-h1::src/routes/(app)/portfolio/x-ray/+page.svelte:80::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (layout chain + page + transitive local imports): no <h1>, heading svelte:element or role=heading on /portfolio/x-ray; root/(app)/section layouts render none (h1 only in home/holdings, markets, summary, watchlist, accounts, portfolio/activities, auth pages); the page's first heading is src/routes/(app)/portfolio/x-ray/+page.svelte:80 (an <h2>/<h3>) - claim holds on a login-gated app route that renders"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); gofolio is a self-hosted Ghostfolio-style personal wealth app; hooks.server.ts:9-13 redirects every token-less request outside /auth to /auth; not a search target"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/account/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/account/access/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/account/membership/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/accounts/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/admin/jobs/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/admin/market-data/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/admin/overview/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/admin/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/admin/users/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/home/holdings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/home/markets/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/home/overview/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/home/summary/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/home/watchlist/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/portfolio/activities/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/portfolio/allocations/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/portfolio/analysis/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/portfolio/fire/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(app)/portfolio/x-ray/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); auth-gated app page (hooks.server.ts redirects only token-less requests; ledger convention: gated app pages are tp); page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/title-presence::src/routes/(auth)/auth/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.py: page + layout chain + transitive $lib/relative imports, <svg> stripped, no <title>/document.title; the only <svelte:head> on the chain is root +layout.svelte's favicon link); no <title>/svelte:head title/document.title anywhere in src, app.html has none; npm svelte deps bits-ui/@lucide/svelte not walked (UI primitives/icons, no head title by design); public login page; page load does not redirect (every redirect( in the flagged +page.server.ts files sits after export const actions)"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account (src/routes/(app)/account/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/account/access/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/access (src/routes/(app)/account/access/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/account/membership/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/membership (src/routes/(app)/account/membership/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/accounts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /accounts (src/routes/(app)/accounts/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/admin/jobs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/jobs (src/routes/(app)/admin/jobs/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/admin/market-data/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/market-data (src/routes/(app)/admin/market-data/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/admin/overview/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/overview (src/routes/(app)/admin/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/settings (src/routes/(app)/admin/settings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users (src/routes/(app)/admin/users/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/home/holdings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home/holdings (src/routes/(app)/home/holdings/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/home/markets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home/markets (src/routes/(app)/home/markets/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/home/overview/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home/overview (src/routes/(app)/home/overview/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/home/summary/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home/summary (src/routes/(app)/home/summary/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/home/watchlist/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home/watchlist (src/routes/(app)/home/watchlist/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/portfolio/activities/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /portfolio/activities (src/routes/(app)/portfolio/activities/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/portfolio/allocations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /portfolio/allocations (src/routes/(app)/portfolio/allocations/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/portfolio/analysis/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /portfolio/analysis (src/routes/(app)/portfolio/analysis/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/portfolio/fire/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /portfolio/fire (src/routes/(app)/portfolio/fire/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(app)/portfolio/x-ray/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /portfolio/x-ray (src/routes/(app)/portfolio/x-ray/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  },
+  {
+    "key": "ianzepp/gofolio-web::seo/twitter-card::src/routes/(auth)/auth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth (src/routes/(auth)/auth/+page.svelte): script-verified (git grep of gofolio-web incl. src/app.html and hooks.server.ts): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport; root +layout.svelte:8-10 head is a favicon link only; npm Svelte deps bits-ui/@lucide/svelte emit none; hooks.server.ts has no transformPageChunk; route load does not always redirect"
+  }
+]
