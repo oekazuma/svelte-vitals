@@ -74,7 +74,7 @@ which the install does not populate.
 
 ## Labelling notes
 
-- No route a route-level finding is on never renders. The routes that always redirect (gofolio-web's
+- Every route with a route-level finding renders. The routes that always redirect (gofolio-web's
   `/`, `/home`, `/portfolio` and `/admin`, pure3d's `/about` and `/reviews`, jv's `/guitar`, muelle's
   `/settings`) carry none.
 - The design share is concentrated in `canonical-url` (310), `description-presence` (294), `each-key`
