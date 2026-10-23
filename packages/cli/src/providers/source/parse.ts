@@ -1493,16 +1493,17 @@ function collectHeadings(
   const fullArms = new Map<number, number>();
   // Each block with an `{:else}`: where it sits, and the conditions of each of its arms.
   const fullWhen = new Map<number, { path: BranchStep[]; arms: Cond[][] }>();
-  // `at` is the `{@render}` a snippet body is read from: its content sits there in document order.
+  // `at` is the `{@render}`s a snippet body is read from, outermost first: its content sits there in
+  // document order, a snippet rendered from inside another one at its own `{@render}` within that one.
   const push = (
     level: number,
     node: WalkNode & { start: number },
     path: BranchStep[],
-    at: number | undefined,
+    at: number[] | undefined,
     when: Cond[] | null,
     aria?: true
   ): void => {
-    const order = at === undefined ? [node.start] : [at, node.start];
+    const order = at === undefined ? [node.start] : [...at, node.start];
     const heading = {
       level,
       line: lineOf(source, node.start),
@@ -1551,7 +1552,7 @@ function collectHeadings(
     node: WalkNode | WalkNode[] | null | undefined,
     path: BranchStep[],
     open: AST.SnippetBlock[],
-    at?: number,
+    at?: number[],
     when: Cond[] | null = []
   ): void => {
     if (Array.isArray(node)) {
@@ -1642,25 +1643,31 @@ function collectHeadings(
       const snippet = local(name);
       if (snippet && !open.includes(snippet)) {
         reached.add(snippet);
-        walk(snippet.body, path, [...open, snippet], at ?? node.start, snippet.parameters.length > 0 ? null : when);
+        walk(
+          snippet.body,
+          path,
+          [...open, snippet],
+          [...(at ?? []), node.start],
+          snippet.parameters.length > 0 ? null : when
+        );
       } else if (!snippet && name !== undefined) {
-        if ((props.get(name) ?? name) === 'children') site(path, at ?? node.start, node.start);
+        if ((props.get(name) ?? name) === 'children') site(path, at?.[0] ?? node.start, node.start);
         meet(renderPaths, props.get(name) ?? name, path);
         note(renderWhen, props.get(name) ?? name, when);
-        first(renderOffsets, props.get(name) ?? name, at ?? node.start);
+        first(renderOffsets, props.get(name) ?? name, at?.[0] ?? node.start);
       }
       return;
     }
     if (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) {
-      site(path, at ?? node.start, node.start);
+      site(path, at?.[0] ?? node.start, node.start);
       meet(renderPaths, 'children', path);
       note(renderWhen, 'children', when);
-      first(renderOffsets, 'children', at ?? node.start);
+      first(renderOffsets, 'children', at?.[0] ?? node.start);
     }
     if (node.type === 'Component' || node.type === 'SvelteComponent') {
       meet(componentPaths, node, path);
       note(componentWhen, node, when);
-      first(componentOffsets, node, at ?? node.start);
+      first(componentOffsets, node, at?.[0] ?? node.start);
       for (const child of node.fragment.nodes) {
         const name = child.type === 'SnippetBlock' ? child.expression.name : 'children';
         const scoped = child.type === 'SnippetBlock' && child.parameters.length > 0 ? null : when;
