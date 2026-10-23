@@ -1,0 +1,1722 @@
+[
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/disallowed-aria-props::src/lib/debug/tabs/LogsTab.svelte:112::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): LogsTab.svelte:112 <div class=\"dv-tail\" bind:this aria-label=\"Log tail, click a line to c…> has aria-label with no role, spread or use: action; <div> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/disallowed-aria-props::src/lib/quick-recall/QuickLook.svelte:186::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): QuickLook.svelte:186 <div class=\"rc-strip\" aria-label=\"{frame ? \"Frames 15 s apart\" : \"Tran…> has aria-label with no role, spread or use: action; <div> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/disallowed-aria-props::src/routes/+page.svelte:6671::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): routes/+page.svelte:6671 <div class=\"timeline-rail__audio-lane-wrap\" aria-label=\"Audio segments…> has aria-label with no role, spread or use: action; <div> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/disallowed-aria-props::src/routes/+page.svelte:6753::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): routes/+page.svelte:6753 <div class=\"timeline-rail__audio-lane-wrap\" aria-label=\"Audio segments…> has aria-label with no role, spread or use: action; <div> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/duplicate-landmark::src/routes/access/request/+page.svelte:349::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:401-405 renders {@render children()} inside <main class=app-content> for every route (showChildren only gates /debug), so the page's own <main> at access/request/+page.svelte:349 is a second main landmark, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/duplicate-landmark::src/routes/chat/+page.svelte:79::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:401-405 renders {@render children()} inside <main class=app-content> for every route (showChildren only gates /debug), so the page's own <main> at chat/+page.svelte:79 is a second main landmark, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/duplicate-landmark::src/routes/update/+page.svelte:315::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:401-405 renders {@render children()} inside <main class=app-content> for every route (showChildren only gates /debug), so the page's own <main> at update/+page.svelte:315 is a second main landmark, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/interactive-nesting::src/lib/chat/ChatList.svelte:150::<input> is nested inside interactive <div role=\"link\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): ChatList.svelte:150 <input aria-label=\"Rename chat\" bind:value use:focusSelect onclick=\"{(…> sits inside <div class=\"ch-item\" role=\"link\" tabindex=\"0\" aria-current=\"{c.convers…> at :141 in the same template, no component/snippet boundary; an interactive descendant of a link container, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/interactive-nesting::src/lib/chat/ChatList.svelte:163::<button> is nested inside interactive <div role=\"link\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): ChatList.svelte:163 <button type=\"button\" class=\"mx-btn mx-btn--ghost mx-btn--icon mx-btn-…> sits inside <div class=\"ch-item\" role=\"link\" tabindex=\"0\" aria-current=\"{c.convers…> at :141 in the same template, no component/snippet boundary; an interactive descendant of a link container, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/interactive-nesting::src/lib/chat/ChatList.svelte:173::<button> is nested inside interactive <div role=\"link\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): ChatList.svelte:173 <button type=\"button\" class=\"mx-btn mx-btn--ghost mx-btn--icon mx-btn-…> sits inside <div class=\"ch-item\" role=\"link\" tabindex=\"0\" aria-current=\"{c.convers…> at :141 in the same template, no component/snippet boundary; an interactive descendant of a link container, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/interactive-nesting::src/lib/chat/ChatList.svelte:183::<button> is nested inside interactive <div role=\"link\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): ChatList.svelte:183 <button type=\"button\" class=\"mx-btn mx-btn--ghost mx-btn--icon mx-btn-…> sits inside <div class=\"ch-item\" role=\"link\" tabindex=\"0\" aria-current=\"{c.convers…> at :141 in the same template, no component/snippet boundary; an interactive descendant of a link container, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/interactive-nesting::src/lib/quick-recall/AskPane.svelte:615::<button> is nested inside interactive <div role=\"option\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): AskPane.svelte:615 <button type=\"button\" class=\"mx-btn mx-btn--ghost mx-btn--icon mx-btn-…> sits inside <div class=\"rc-row\" role=\"option\" tabindex=\"-1\" id=\"{`rc-ask-row-${i +…> at :580 in the same template, no component/snippet boundary; an interactive descendant of a option container, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/interactive-nesting::src/lib/quick-recall/BestMoment.svelte:208::<button> is nested inside interactive <div role=\"option\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): BestMoment.svelte:208 <button type=\"button\" class=\"mx-btn mx-btn--sm\" onclick=\"{(event) => { sits inside <div class=\"rc-hero\" id=\"{id}\" role=\"option\" aria-selected=\"{selected}…> at :127 in the same template, no component/snippet boundary; an interactive descendant of a option container, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/interactive-nesting::src/lib/quick-recall/BestMoment.svelte:218::<button> is nested inside interactive <div role=\"option\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): BestMoment.svelte:218 <button type=\"button\" class=\"mx-btn mx-btn--ghost mx-btn--sm\" onclick=…> sits inside <div class=\"rc-hero\" id=\"{id}\" role=\"option\" aria-selected=\"{selected}…> at :127 in the same template, no component/snippet boundary; an interactive descendant of a option container, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/interactive-nesting::src/lib/quick-recall/BestMoment.svelte:228::<button> is nested inside interactive <div role=\"option\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): BestMoment.svelte:228 <button type=\"button\" class=\"mx-btn mx-btn--ghost mx-btn--sm\" onclick=…> sits inside <div class=\"rc-hero\" id=\"{id}\" role=\"option\" aria-selected=\"{selected}…> at :127 in the same template, no component/snippet boundary; an interactive descendant of a option container, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/interactive-nesting::src/lib/quick-recall/SearchResultCard.svelte:79::<button> is nested inside interactive <div role=\"option\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): SearchResultCard.svelte:79 <button type=\"button\" class=\"mx-btn mx-btn--ghost mx-btn--icon mx-btn-…> sits inside <div class=\"rc-row\" id=\"{id}\" role=\"option\" aria-selected=\"{selected}\"…> at :74 in the same template, no component/snippet boundary; an interactive descendant of a option container, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/top-level-landmark::src/routes/+page.svelte:6480::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:6480 <aside aria-label=\"frame metadata\"> (developer overlay under {#if timelineActive && developerOptions.value}) is inside <section class=timeline> :6122, but its aria-label makes it a complementary landmark anyway, and the root layout wraps the page in <main> (:401), as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/top-level-landmark::src/routes/access/request/+page.svelte:349::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:401-405 renders {@render children()} inside <main class=app-content> for every route (showChildren only gates /debug), so the page's <main> at access/request/+page.svelte:349 is nested in the layout <main>, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/top-level-landmark::src/routes/chat/+page.svelte:79::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:401-405 renders {@render children()} inside <main class=app-content> for every route (showChildren only gates /debug), so the page's <main> at chat/+page.svelte:79 is nested in the layout <main>, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::a11y/top-level-landmark::src/routes/update/+page.svelte:315::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:401-405 renders {@render children()} inside <main class=app-content> for every route (showChildren only gates /debug), so the page's <main> at update/+page.svelte:315 is nested in the layout <main>, as reported"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/AnswerProse.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/AnswerProse.svelte has 401 physical lines (newline count, trailing newline not counted; 379 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/LicenseDeepLinkModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/LicenseDeepLinkModal.svelte has 485 physical lines (newline count, trailing newline not counted; 462 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/chat/Chat.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/chat/Chat.svelte has 724 physical lines (newline count, trailing newline not counted; 683 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/chat/ChatList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/chat/ChatList.svelte has 293 physical lines (newline count, trailing newline not counted; 280 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/chat/ChatTurn.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/chat/ChatTurn.svelte has 282 physical lines (newline count, trailing newline not counted; 272 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/chat/ModelPickerMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/chat/ModelPickerMenu.svelte has 509 physical lines (newline count, trailing newline not counted; 484 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/components/AppPrivacyExclusion.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AppPrivacyExclusion.svelte has 226 physical lines (newline count, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/components/ChatgptConnect.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ChatgptConnect.svelte has 329 physical lines (newline count, trailing newline not counted; 311 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/components/Combobox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Combobox.svelte has 384 physical lines (newline count, trailing newline not counted; 348 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/components/DateInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DateInput.svelte has 345 physical lines (newline count, trailing newline not counted; 329 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/components/FrameDetailModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FrameDetailModal.svelte has 856 physical lines (newline count, trailing newline not counted; 808 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/components/FrameOcrOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FrameOcrOverlay.svelte has 257 physical lines (newline count, trailing newline not counted; 244 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/components/Select.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Select.svelte has 335 physical lines (newline count, trailing newline not counted; 303 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/debug/DevStrip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/debug/DevStrip.svelte has 267 physical lines (newline count, trailing newline not counted; 244 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/debug/tabs/CaptureTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/debug/tabs/CaptureTab.svelte has 286 physical lines (newline count, trailing newline not counted; 267 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/debug/tabs/ProcessorView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/debug/tabs/ProcessorView.svelte has 243 physical lines (newline count, trailing newline not counted; 224 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/AppDetailModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/AppDetailModal.svelte has 345 physical lines (newline count, trailing newline not counted; 332 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/CategoryDetailModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/CategoryDetailModal.svelte has 576 physical lines (newline count, trailing newline not counted; 560 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/Context.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/Context.svelte has 574 physical lines (newline count, trailing newline not counted; 551 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/ContextSide.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/ContextSide.svelte has 315 physical lines (newline count, trailing newline not counted; 305 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/ConvictionMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/ConvictionMap.svelte has 349 physical lines (newline count, trailing newline not counted; 343 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/DayTimeline.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/DayTimeline.svelte has 631 physical lines (newline count, trailing newline not counted; 603 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/FocusDetailModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/FocusDetailModal.svelte has 232 physical lines (newline count, trailing newline not counted; 220 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/JournalRiver.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/JournalRiver.svelte has 309 physical lines (newline count, trailing newline not counted; 302 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/Overview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/Overview.svelte has 781 physical lines (newline count, trailing newline not counted; 737 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/OverviewExhibits.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/OverviewExhibits.svelte has 323 physical lines (newline count, trailing newline not counted; 316 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/OverviewFeed.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/OverviewFeed.svelte has 389 physical lines (newline count, trailing newline not counted; 380 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/OverviewLede.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/OverviewLede.svelte has 431 physical lines (newline count, trailing newline not counted; 421 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/ReceiptViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/ReceiptViewer.svelte has 562 physical lines (newline count, trailing newline not counted; 538 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/SubjectDetail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/SubjectDetail.svelte has 586 physical lines (newline count, trailing newline not counted; 553 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/Subjects.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/Subjects.svelte has 705 physical lines (newline count, trailing newline not counted; 669 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/insights/charts/Timeline.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/insights/charts/Timeline.svelte has 288 physical lines (newline count, trailing newline not counted; 274 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/onboarding/AiSetup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/onboarding/AiSetup.svelte has 757 physical lines (newline count, trailing newline not counted; 714 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/onboarding/CaptureSentence.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/onboarding/CaptureSentence.svelte has 337 physical lines (newline count, trailing newline not counted; 323 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/onboarding/ExcludedApps.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/onboarding/ExcludedApps.svelte has 227 physical lines (newline count, trailing newline not counted; 212 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/onboarding/FeatureSwitches.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/onboarding/FeatureSwitches.svelte has 525 physical lines (newline count, trailing newline not counted; 493 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/onboarding/ModelPickers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/onboarding/ModelPickers.svelte has 508 physical lines (newline count, trailing newline not counted; 481 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/onboarding/Providers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/onboarding/Providers.svelte has 213 physical lines (newline count, trailing newline not counted; 200 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/quick-recall/AskPane.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/quick-recall/AskPane.svelte has 745 physical lines (newline count, trailing newline not counted; 711 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/quick-recall/BestMoment.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/quick-recall/BestMoment.svelte has 431 physical lines (newline count, trailing newline not counted; 422 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/quick-recall/EmptyStates.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/quick-recall/EmptyStates.svelte has 239 physical lines (newline count, trailing newline not counted; 226 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/quick-recall/Field.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/quick-recall/Field.svelte has 465 physical lines (newline count, trailing newline not counted; 446 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/quick-recall/QuickLook.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/quick-recall/QuickLook.svelte has 552 physical lines (newline count, trailing newline not counted; 539 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/quick-recall/QuickLookSide.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/quick-recall/QuickLookSide.svelte has 338 physical lines (newline count, trailing newline not counted; 329 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/quick-recall/ResultsList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/quick-recall/ResultsList.svelte has 246 physical lines (newline count, trailing newline not counted; 226 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/SettingsRail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/SettingsRail.svelte has 486 physical lines (newline count, trailing newline not counted; 463 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/about/About.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/about/About.svelte has 357 physical lines (newline count, trailing newline not counted; 326 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/about/License.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/about/License.svelte has 323 physical lines (newline count, trailing newline not counted; 304 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/capture/Capture.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/capture/Capture.svelte has 342 physical lines (newline count, trailing newline not counted; 311 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/capture/Video.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/capture/Video.svelte has 220 physical lines (newline count, trailing newline not counted; 205 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/data/Access.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/data/Access.svelte has 517 physical lines (newline count, trailing newline not counted; 465 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/data/Storage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/data/Storage.svelte has 227 physical lines (newline count, trailing newline not counted; 209 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/general/Shortcuts.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/general/Shortcuts.svelte has 201 physical lines (newline count, trailing newline not counted; 183 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/McpConnectorCatalog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/McpConnectorCatalog.svelte has 227 physical lines (newline count, trailing newline not counted; 216 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/McpConnectorPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/McpConnectorPicker.svelte has 768 physical lines (newline count, trailing newline not counted; 728 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/McpConnectors.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/McpConnectors.svelte has 341 physical lines (newline count, trailing newline not counted; 323 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/McpToolListModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/McpToolListModal.svelte has 352 physical lines (newline count, trailing newline not counted; 335 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/Ocr.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/Ocr.svelte has 326 physical lines (newline count, trailing newline not counted; 312 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/ProviderRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/ProviderRow.svelte has 321 physical lines (newline count, trailing newline not counted; 303 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/Providers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/Providers.svelte has 332 physical lines (newline count, trailing newline not counted; 308 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/SemanticSearch.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/SemanticSearch.svelte has 202 physical lines (newline count, trailing newline not counted; 190 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/Transcription.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/Transcription.svelte has 523 physical lines (newline count, trailing newline not counted; 495 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/panels/intelligence/VoiceEnrollment.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/panels/intelligence/VoiceEnrollment.svelte has 285 physical lines (newline count, trailing newline not counted; 258 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/ui/ModelDownloadRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/ui/ModelDownloadRow.svelte has 246 physical lines (newline count, trailing newline not counted; 228 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/settings/ui/SettingRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/ui/SettingRow.svelte has 209 physical lines (newline count, trailing newline not counted; 186 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/shell/NotificationsPop.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/shell/NotificationsPop.svelte has 234 physical lines (newline count, trailing newline not counted; 218 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/shell/StatusBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/shell/StatusBar.svelte has 446 physical lines (newline count, trailing newline not counted; 423 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/shell/StatusPop.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/shell/StatusPop.svelte has 273 physical lines (newline count, trailing newline not counted; 250 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/timeline/AudioDrawer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/timeline/AudioDrawer.svelte has 755 physical lines (newline count, trailing newline not counted; 703 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/timeline/DrawerHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/timeline/DrawerHeader.svelte has 236 physical lines (newline count, trailing newline not counted; 218 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/timeline/JumperTimeList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/timeline/JumperTimeList.svelte has 208 physical lines (newline count, trailing newline not counted; 198 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/timeline/SpeakerRepairPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/timeline/SpeakerRepairPanel.svelte has 658 physical lines (newline count, trailing newline not counted; 609 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/timeline/TimelineJumper.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/timeline/TimelineJumper.svelte has 633 physical lines (newline count, trailing newline not counted; 590 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/timeline/TranscriptReader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/timeline/TranscriptReader.svelte has 569 physical lines (newline count, trailing newline not counted; 516 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/lib/timeline/WaveformScrubber.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/timeline/WaveformScrubber.svelte has 331 physical lines (newline count, trailing newline not counted; 298 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 978 physical lines (newline count, trailing newline not counted; 861 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 7938 physical lines (newline count, trailing newline not counted; 7442 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/access/request/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/access/request/+page.svelte has 679 physical lines (newline count, trailing newline not counted; 643 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/insights/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/insights/+page.svelte has 391 physical lines (newline count, trailing newline not counted; 374 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/onboarding/screens/ChangeSettingsScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/screens/ChangeSettingsScreen.svelte has 260 physical lines (newline count, trailing newline not counted; 244 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/onboarding/screens/FinaleScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/screens/FinaleScreen.svelte has 453 physical lines (newline count, trailing newline not counted; 430 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/onboarding/screens/PermissionsScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/screens/PermissionsScreen.svelte has 493 physical lines (newline count, trailing newline not counted; 462 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/onboarding/screens/SetupScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/screens/SetupScreen.svelte has 466 physical lines (newline count, trailing newline not counted; 443 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/onboarding/screens/VoiceScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/screens/VoiceScreen.svelte has 400 physical lines (newline count, trailing newline not counted; 374 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/onboarding/screens/WelcomeScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/screens/WelcomeScreen.svelte has 276 physical lines (newline count, trailing newline not counted; 263 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/onboarding/screens/YourSettingsScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/screens/YourSettingsScreen.svelte has 257 physical lines (newline count, trailing newline not counted; 241 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/quick-recall/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/quick-recall/+page.svelte has 528 physical lines (newline count, trailing newline not counted; 484 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 653 physical lines (newline count, trailing newline not counted; 607 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/component-size::src/routes/update/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/update/+page.svelte has 639 physical lines (newline count, trailing newline not counted; 607 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/chat/ChatComposer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/chat/ChatComposer.svelte has a single destructured $props() with 17 named props (> 6): value, docked, streaming, available, off, onoffaction, sendTo, aiRuntime, askAiModelOverride, pinProvider, pinModel, pickerOpen, onselect, onsend, onstop, scope, goesTo"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/chat/ChatTurn.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/chat/ChatTurn.svelte has a single destructured $props() with 8 named props (> 6): turn, trailing, model, where, contextWindow, settings, retryDisabled, onRetry"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/chat/ModelPicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/chat/ModelPicker.svelte has a single destructured $props() with 7 named props (> 6): aiRuntime, askAiModelOverride, pinProvider, pinModel, open, up, onselect"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/chat/ModelPickerMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/chat/ModelPickerMenu.svelte has a single destructured $props() with 27 named props (> 6): label, title, ariaLabel, disabled, block, placeholder, up, glyph, where, modelPool, providers, firstProvider, sentinelLabel, sentinelDetail, sentinelTitle, sentinelSelected, selectedProvider, selectedModel, allowExactId, exactIdPerProvider, loading, failures, onretry, open, onopen, onselect, foot"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/components/Choice.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Choice.svelte has a single destructured $props() with 7 named props (> 6): value, onValueChange, options, disabled, disabledValues, ariaLabel, list"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/components/Combobox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Combobox.svelte has a single destructured $props() with 8 named props (> 6): value, onValueChange, options, placeholder, disabled, label, warn, searchPlaceholder"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/components/DateInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/DateInput.svelte has a single destructured $props() with 10 named props (> 6): mode, unit, value, min, max, today, align, density, onchange, onalltime"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/components/FrameDetailModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FrameDetailModal.svelte has a single destructured $props() with 7 named props (> 6): open, frameId, appName, windowTitle, capturedAt, onClose, onOpenInTimeline"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/components/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Input.svelte has a single destructured $props() with 8 named props (> 6): value, inputmode, placeholder, disabled, invalid, id, ariaLabel, errorId"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/components/Segmented.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Segmented.svelte has a single destructured $props() with 10 named props (> 6): options, value, onValueChange, disabled, disabledValues, icon, ariaLabel, compact, md, mono"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/components/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Select.svelte has a single destructured $props() with 10 named props (> 6): value, onValueChange, options, placeholder, disabled, label, ariaLabel, warn, loading, emptyText"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/components/Slider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Slider.svelte has a single destructured $props() with 10 named props (> 6): value, onValueChange, min, max, step, disabled, label, unit, formatValue, ariaLabel"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/components/Stepper.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Stepper.svelte has a single destructured $props() with 11 named props (> 6): value, min, max, step, unit, placeholder, disabled, invalid, id, ariaLabel, errorId"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/insights/CategoryDetailModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/insights/CategoryDetailModal.svelte has a single destructured $props() with 8 named props (> 6): open, threads, rangeMode, rangeLabel, correctingActivity, onClose, onCorrectCategory, onCorrectFocus"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/insights/ContextSide.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/insights/ContextSide.svelte has a single destructured $props() with 8 named props (> 6): authored, inferred, dismissed, dismissedError, restoringKey, openDismissed, onRestore, onOpenSubject"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/insights/DaySpine.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/insights/DaySpine.svelte has a single destructured $props() with 8 named props (> 6): slots, gaps, runs, pending, nowMs, hot, onHot, onPick"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/insights/JournalRiver.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/insights/JournalRiver.svelte has a single destructured $props() with 13 named props (> 6): rows, pending, meta, failure, dayLabel, nothingWrittenWhy, week, dayStartMs, mix, apps, hot, onHot, onPickDay"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/insights/OverviewExhibits.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/insights/OverviewExhibits.svelte has a single destructured $props() with 16 named props (> 6): unit, scope, capOnly, nothing, columns, categories, focus, heat, apps, usage, engine, onRetryUsage, onRetryEngine, onOpenCategories, onOpenFocus, onOpenApps"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/insights/OverviewFeed.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/insights/OverviewFeed.svelte has a single destructured $props() with 13 named props (> 6): unit, scope, startMs, endMs, conclusions, activities, loading, error, correcting, onRetry, onCorrectCategory, onOpenSubject, onOpenSubjects"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/onboarding/CaptureSentence.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/onboarding/CaptureSentence.svelte has a single destructured $props() with 16 named props (> 6): frameRate, onFrameRateChange, retention, onRetentionChange, saveDirectory, onSaveDirectoryChange, probedPath, probe, probeState, onRecheck, requiredBytes, videoPixels, semanticSearchOn, onDisableSemanticSearch, onError, rows"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/onboarding/FeatureSwitches.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/onboarding/FeatureSwitches.svelte has a single destructured $props() with 11 named props (> 6): features, onToggle, onRestore, onGrant, aiConfigured, onConnectAi, aiNote, models, installed, captureIntervalSeconds, videoPixels"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/onboarding/ModelPickers.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/onboarding/ModelPickers.svelte has a single destructured $props() with 20 named props (> 6): transcriptionFamilies, transcriptionFamily, transcriptionModels, transcriptionModelId, transcriptionEnabled, onTranscriptionFamilyChange, onTranscriptionModelChange, semanticStatus, semanticCatalog, semanticModelId, semanticEnabled, onSemanticModelChange, onSemanticEnabledChange, speakerEnabled, speakerInstalled, speakerBytes, freeBytes, captureIntervalSeconds, videoPixels, transcriptionNote"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/quick-recall/AskPane.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/quick-recall/AskPane.svelte has a single destructured $props() with 11 named props (> 6): view, question, forced, availability, settings, autoMode, focused, onAsk, onLook, streaming, pending"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/settings/panels/intelligence/McpAdvancedFields.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/settings/panels/intelligence/McpAdvancedFields.svelte has a single destructured $props() with 7 named props (> 6): open, kind, name, url, command, args, onInput"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/settings/panels/intelligence/McpConnectorPicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/settings/panels/intelligence/McpConnectorPicker.svelte has a single destructured $props() with 7 named props (> 6): open, onClose, onAdded, onToolsDiscovered, editId, connectId, connectMode"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/settings/panels/intelligence/McpOAuthConnect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/settings/panels/intelligence/McpOAuthConnect.svelte has a single destructured $props() with 8 named props (> 6): stage, label, verb, tools, onConnect, onCancel, onDone, onRetry"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/settings/panels/intelligence/McpOAuthConnectPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/settings/panels/intelligence/McpOAuthConnectPanel.svelte has a single destructured $props() with 7 named props (> 6): connectServer, selected, connectMode, advUrl, overrides, onAdded, onClose"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/settings/ui/ModelDownloadRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/settings/ui/ModelDownloadRow.svelte has a single destructured $props() with 15 named props (> 6): label, description, chip, progress, onCancel, cancelling, cancelLabel, error, warning, status, download, controls, note, info, folder"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/settings/ui/SettingGroup.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/settings/ui/SettingGroup.svelte has a single destructured $props() with 8 named props (> 6): title, hint, id, actions, bare, nested, loading, children"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/settings/ui/SettingRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/settings/ui/SettingRow.svelte has a single destructured $props() with 12 named props (> 6): label, description, control, aside, below, source, labelExtra, id, warn, disabled, full, divider"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/timeline/AudioDrawer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/timeline/AudioDrawer.svelte has a single destructured $props() with 50 named props (> 6): segment, sourceLabel, timeRangeLabel, timeRangeTip, durationLabel, audioSrc, mediaLoading, mediaError, loadError, onMediaError, transcriptStatus, transcriptText, transcriptSegments, transcriptWords, transcriptModelLabel, transcriptError, transcriptRerunLoading, transcriptRerunError, transcriptActionLabel, transcriptActionDisabled, transcriptActionTitle, onRerunTranscript, turns, clusters, profiles, speakerTurnsError, speakerTurnsNotice, speakerAnalysisRunning, speakerAnalysisFailed, speakerRetryDisabled, speakerRetryLoading, speakerProvenance, pendingJob, onRetrySpeakerAnalysis, correctionError, busyClusterId, inlineBusy, developerMode, onClose, onApplyName, onLinkPerson, onConfirmSuggestion, onNotThisPerson, onMergeClusters, onMoveGroup, shortcutFor, pendingSeekMs, repairIndex, drawerEl, transcriptContainerEl"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/timeline/DrawerHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/timeline/DrawerHeader.svelte has a single destructured $props() with 19 named props (> 6): segment, sourceLabel, timeRangeLabel, timeRangeTip, durationLabel, modelLabel, status, actionLabel, actionDisabled, actionTitle, rerunLoading, onRerun, onClose, speakers, marks, selectedClusterId, onlySelected, showTimestamps, expanded"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/timeline/DrawerStatePanels.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/timeline/DrawerStatePanels.svelte has a single destructured $props() with 15 named props (> 6): panel, durationLabel, processingFootnote, provenanceFootnote, noSpeechNotice, transcriptError, speakerTurnsError, rerunDisabled, rerunLoading, speakerRetryDisabled, speakerRetryLoading, onPlayAnyway, onRerun, onRetrySpeakers, onReadWithoutSpeakers"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/timeline/DrawerTransport.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/timeline/DrawerTransport.svelte has a single destructured $props() with 15 named props (> 6): isPlaying, currentTime, duration, playable, mediaLoading, bars, speakers, marks, selectedClusterId, compact, showExpand, onExpand, onToggle, onScrubInput, onScrubChange"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/timeline/JumperTimeList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/timeline/JumperTimeList.svelte has a single destructured $props() with 9 named props (> 6): hasSelection, loading, dayLabel, buckets, maxCount, busy, isHereHour, onCommitHour, onCommitDayLatest"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/timeline/SpeakerRepairPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/timeline/SpeakerRepairPanel.svelte has a single destructured $props() with 23 named props (> 6): group, mark, marks, turns, clusters, profiles, persistedName, unnamed, busy, error, unnamedRemaining, linkedPersonName, suggestionPending, mergeTargetLabel, mergeScoreLabel, clusterOptionLabel, onClose, onApplyName, onLink, onMerge, onNotThisPerson, onMoveGroupTo, onPlaySamples"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/timeline/TimelineJumper.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/timeline/TimelineJumper.svelte has a single destructured $props() with 7 named props (> 6): activeFrame, open, jumping, timelineBusy, showLatest, onJump, onJumpToLatest"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/timeline/TranscriptReader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/timeline/TranscriptReader.svelte has a single destructured $props() with 22 named props (> 6): groups, marks, words, segments, currentMs, activeGroupIndex, showTimestamps, segmentStartMs, fixingIndex, selectedClusterId, onlySelected, speakerName, isUnnamed, needsAttention, repairable, suggestionFor, suggestionBusy, onConfirmSuggestion, onSeekMs, onOpenRepair, followDetached, containerEl"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::architecture/prop-count::src/lib/timeline/WaveformScrubber.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/timeline/WaveformScrubber.svelte has a single destructured $props() with 10 named props (> 6): bars, currentTime, duration, valueText, compact, speakers, marks, selectedClusterId, oninput, onchange"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/chat/ChatTurn.svelte:108::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/chat/ChatTurn.svelte:108/132 '{#each turn.toolActivities as a, i (i)}' keyed by its index binding; the tool activity lines of one chat turn, appended while it streams (the last one is the running one, :133); positional list (append-only lines of one result)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/chat/ChatTurn.svelte:132::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/chat/ChatTurn.svelte:108/132 '{#each turn.toolActivities as a, i (i)}' keyed by its index binding; the tool activity lines of one chat turn, appended while it streams (the last one is the running one, :133); positional list (append-only lines of one result)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/chat/ChatTurn.svelte:151::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/chat/ChatTurn.svelte:151/163 keyed by index; the prose/dossier blocks and their items of one parsed chat answer; positional list (parse output of one answer)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/chat/ChatTurn.svelte:163::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/chat/ChatTurn.svelte:151/163 keyed by index; the prose/dossier blocks and their items of one parsed chat answer; positional list (parse output of one answer)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/components/DateInput.svelte:242::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/DateInput.svelte:242 '{#each ticks as h, i (i)}' keyed by its index binding; heat ticks of the date tape, one per period start (:86), selected by index range; positional list (chart ticks)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/components/FrameOcrOverlay.svelte:78::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/FrameOcrOverlay.svelte:78 '{#each rendered as obs, i (i)}' keyed by its index binding; the OCR observation boxes of one captured frame (:53), a pixel-positioned overlay; positional list (parts of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/debug/tabs/AiTab.svelte:154::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/debug/tabs/AiTab.svelte:154 '{#each cli as row, i (i)}' keyed by its index binding; cli = cliRows(features.cliHistory) (:40), the last four broker audit events reversed (lib/debug/ai-view.ts:146-150), so each new event is inserted at the top and every row's identity shifts; runtime records"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/debug/tabs/LogsTab.svelte:132::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/debug/tabs/LogsTab.svelte:132 '{#each logs.entries as entry, i (i)}' keyed by its index binding (also read as data-i for click-to-copy, :55); the text lines of the polled log tail; positional text lines (log output)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/debug/tabs/LogsTab.svelte:139::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/debug/tabs/LogsTab.svelte:139 '{#each entry.more as more, j (j)}' keyed by its index binding; continuation text lines of one log entry; positional text lines"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/debug/tabs/PipelineTab.svelte:44::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/debug/tabs/PipelineTab.svelte:44 '{#each node.lines as line, i (i)}' keyed by its index binding; the status text lines of one pipeline node (flowNodes(...) :19); positional text lines"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/ConvictionMap.svelte:87::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/ConvictionMap.svelte:87 '{#each r.others as o, k (k)}' keyed by its index binding; tick marks (numbers) placed along one row's track; positional list (chart ticks)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/DayTimeline.svelte:440::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/DayTimeline.svelte:440 / OverviewLede.svelte:339 keyed by index; the number/unit parts of one formatted stat string; positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/OverviewLede.svelte:339::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/DayTimeline.svelte:440 / OverviewLede.svelte:339 keyed by index; the number/unit parts of one formatted stat string; positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/ReceiptViewer.svelte:420::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/ReceiptViewer.svelte:420 / SubjectChart.svelte:95 keyed by index; ticks/dots computed for one chart; positional list (chart marks)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/SubjectChart.svelte:95::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/ReceiptViewer.svelte:420 / SubjectChart.svelte:95 keyed by index; ticks/dots computed for one chart; positional list (chart marks)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/SubjectDetail.svelte:435::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/SubjectDetail.svelte:435 '{#each events as ev, i (i)}' keyed by its index binding; events = buildTimeline(selected, …) (:139), the read-only timeline of the one selected conclusion; positional list (entries of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/charts/Heatmap.svelte:20::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/charts/Heatmap.svelte:20/22 keyed by index; the rows and hour cells of a heatmap chart grid (cells may be null, :23); positional list (chart grid)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/charts/Heatmap.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/charts/Heatmap.svelte:20/22 keyed by index; the rows and hour cells of a heatmap chart grid (cells may be null, :23); positional list (chart grid)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/charts/Sparkline.svelte:71::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/charts/Sparkline.svelte:71 '{#each series as s, i (i)}' keyed by its index binding; the series lines of one sparkline chart; positional list (chart series)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/charts/StackedBar.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/charts/StackedBar.svelte:32/35 keyed by index; ticks = $derived([max, max * 0.75, max / 2, max / 4, 0]) (:22), five fixed axis positions; positional list (chart ticks)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/charts/StackedBar.svelte:35::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/charts/StackedBar.svelte:32/35 keyed by index; ticks = $derived([max, max * 0.75, max / 2, max / 4, 0]) (:22), five fixed axis positions; positional list (chart ticks)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/insights/charts/Timeline.svelte:125::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/insights/charts/Timeline.svelte:125 '{#each intervals as interval, i (i)}' keyed by its index binding; the interval rows of one timeline chart (intervals prop); positional list (chart rows)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/onboarding/CaptureSentence.svelte:225::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/onboarding/CaptureSentence.svelte:225/231 keyed by index; the text segments of one generated sentence (verdict = $derived(...) :106); positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/onboarding/CaptureSentence.svelte:231::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/onboarding/CaptureSentence.svelte:225/231 keyed by index; the text segments of one generated sentence (verdict = $derived(...) :106); positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/AskPane.svelte:529::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/AskPane.svelte:529/543/558/562 keyed by index; the blocks / timeline blocks and their items of one parsed recall answer (turn.blocks); positional list (parse output of one answer)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/AskPane.svelte:543::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/AskPane.svelte:529/543/558/562 keyed by index; the blocks / timeline blocks and their items of one parsed recall answer (turn.blocks); positional list (parse output of one answer)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/AskPane.svelte:558::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/AskPane.svelte:529/543/558/562 keyed by index; the blocks / timeline blocks and their items of one parsed recall answer (turn.blocks); positional list (parse output of one answer)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/AskPane.svelte:562::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/AskPane.svelte:529/543/558/562 keyed by index; the blocks / timeline blocks and their items of one parsed recall answer (turn.blocks); positional list (parse output of one answer)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/AskPane.svelte:577::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/AskPane.svelte:577 '{#each sources as s, i (i)}' keyed by its index binding; the sources cited by one answer, numbered and addressed by position (sources[sel - 1] :379); positional list (citations of one result)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/AskPane.svelte:604::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: AskPane.svelte:604 / RecentRows.svelte:99 / SearchResultCard.svelte:68 keyed by index; the highlighted text segments of one search snippet (parseSearchSnippet / segments(text)); positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/BestMoment.svelte:154::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: BestMoment.svelte:154 / QuickLook.svelte:145 / timeline/RecallMatchBoxes.svelte:50 keyed by index; the match boxes overlaid on one captured frame; positional list (parts of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/BestMoment.svelte:175::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: BestMoment.svelte:175 / QuickLook.svelte:174 / timeline/WaveformScrubber.svelte:75 keyed by index; waveform bars of a fixed count (Array.from({ length: BARS }) / 120); positional list (fixed bars)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/Field.svelte:161::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/Field.svelte:97/161 keyed by index; the plain/live/bad text segments mirrored under the search input; positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/Field.svelte:97::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/Field.svelte:97/161 keyed by index; the plain/live/bad text segments mirrored under the search input; positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/QuickLook.svelte:145::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: BestMoment.svelte:154 / QuickLook.svelte:145 / timeline/RecallMatchBoxes.svelte:50 keyed by index; the match boxes overlaid on one captured frame; positional list (parts of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/QuickLook.svelte:174::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: BestMoment.svelte:175 / QuickLook.svelte:174 / timeline/WaveformScrubber.svelte:75 keyed by index; waveform bars of a fixed count (Array.from({ length: BARS }) / 120); positional list (fixed bars)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/QuickLookSide.svelte:137::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/QuickLookSide.svelte:79/137 keyed by index; the transcript turns / text lines of one capture, the current one marked by position (j === look.k); positional list (lines of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/QuickLookSide.svelte:55::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/QuickLookSide.svelte:55 '{#each segs as seg, i (i)}' keyed by its index binding; highlighted segments of one line; positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/QuickLookSide.svelte:79::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/quick-recall/QuickLookSide.svelte:79/137 keyed by index; the transcript turns / text lines of one capture, the current one marked by position (j === look.k); positional list (lines of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/RecentRows.svelte:99::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: AskPane.svelte:604 / RecentRows.svelte:99 / SearchResultCard.svelte:68 keyed by index; the highlighted text segments of one search snippet (parseSearchSnippet / segments(text)); positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/quick-recall/SearchResultCard.svelte:68::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: AskPane.svelte:604 / RecentRows.svelte:99 / SearchResultCard.svelte:68 keyed by index; the highlighted text segments of one search snippet (parseSearchSnippet / segments(text)); positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/settings/panels/general/Shortcuts.svelte:80::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/settings/panels/general/Shortcuts.svelte:80 '{#each tokens as token, i (i)}' keyed by its index binding; the key tokens of one shortcut binding as <kbd>; positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:71::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:71/94 keyed by its index binding; the user-edited argument / env rows with inputs, added and removed by index (model.args.filter((_, idx) => idx !== i) :78, :102); user-edited list"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:94::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:71/94 keyed by its index binding; the user-edited argument / env rows with inputs, added and removed by index (model.args.filter((_, idx) => idx !== i) :78, :102); user-edited list"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/timeline/JumperCalendar.svelte:54::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/timeline/JumperCalendar.svelte:54/60 keyed by index; weekday header cells and week rows of the calendar grid (cells keyed by date :62); positional list (calendar grid)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/timeline/JumperCalendar.svelte:60::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/timeline/JumperCalendar.svelte:54/60 keyed by index; weekday header cells and week rows of the calendar grid (cells keyed by date :62); positional list (calendar grid)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/timeline/RecallMatchBoxes.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: BestMoment.svelte:154 / QuickLook.svelte:145 / timeline/RecallMatchBoxes.svelte:50 keyed by index; the match boxes overlaid on one captured frame; positional list (parts of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/timeline/TranscriptReader.svelte:198::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/timeline/TranscriptReader.svelte:198 '{#each groups as group, index (index)}' keyed by its index binding; the speaker groups of one recording's transcript, in time order (karaoke[index] :268); positional list (segments of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/timeline/TranscriptReader.svelte:272::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/timeline/TranscriptReader.svelte:272 '{#each wordList as word, wi (wi)}' keyed by its index binding; the words of one transcript paragraph; positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/lib/timeline/WaveformScrubber.svelte:75::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: BestMoment.svelte:175 / QuickLook.svelte:174 / timeline/WaveformScrubber.svelte:75 keyed by index; waveform bars of a fixed count (Array.from({ length: BARS }) / 120); positional list (fixed bars)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/routes/+page.svelte:6417::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:6417 '{#each ocrRenderedObservations as obs, i (i)}' keyed by its index binding; the OCR boxes of the frame on screen (:5319), a pixel-positioned overlay (comment :6418); positional list (parts of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/routes/onboarding/screens/FinaleScreen.svelte:308::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/FinaleScreen.svelte:308 '{#each [...ocrText] as ch, i (i)}' keyed by its index binding; the characters of one OCR line animated by position (--i); positional list (characters)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/routes/onboarding/screens/PermissionsScreen.svelte:320::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/PermissionsScreen.svelte:320 / VoiceScreen.svelte:246 keyed by index; a fixed-count level meter (Array(METER_BARS).fill(0), shifted by one per sample); positional list (fixed bars)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/routes/onboarding/screens/VoiceScreen.svelte:246::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/PermissionsScreen.svelte:320 / VoiceScreen.svelte:246 keyed by index; a fixed-count level meter (Array(METER_BARS).fill(0), shifted by one per sample); positional list (fixed bars)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/routes/onboarding/screens/WelcomeScreen.svelte:111::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/WelcomeScreen.svelte:111/115 keyed by index; FRAMES = Array.from({ length: 30 }, (_, k) => TILES[k % TILES.length]) (:39), a decorative constant film strip and its bar widths (with a mapper, so not the docs' length-only shape); static list"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/routes/onboarding/screens/WelcomeScreen.svelte:115::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/WelcomeScreen.svelte:111/115 keyed by index; FRAMES = Array.from({ length: 30 }, (_, k) => TILES[k % TILES.length]) (:39), a decorative constant film strip and its bar widths (with a mapper, so not the docs' length-only shape); static list"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-index-key::src/routes/update/+page.svelte:421::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/update/+page.svelte:421 '{#each lines as line, i (i)}' keyed by its index binding; lines = $derived(updateWindowLines(status)) (:72), the status text lines of the updater; positional text lines"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-key::src/lib/components/FieldWarning.svelte:17::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FieldWarning.svelte:17 '{#each messages as message, index}' has no key; messages prop, the runtime validation warnings of a settings field, which appear and disappear as the user edits; runtime validation results"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-key::src/lib/components/Slider.svelte:67::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Slider.svelte:67 '{#each thumbItems as { index }}' has no key; the thumb items bits-ui's Slider hands its children snippet, one per value, addressed by index (<BitsSlider.Thumb {index}>); positional list (slider thumbs)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-key::src/lib/settings/panels/capture/Capture.svelte:125::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/settings/panels/capture/Capture.svelte:125 '{#each recValidationErrors as err}' has no key; recValidationErrors = $derived(c.recValidationErrors), recomputed from the edited recording drafts (settings/state/controller.svelte.ts:742); runtime validation results"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-key::src/lib/settings/ui/ModelDownloadRow.svelte:167::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/settings/ui/ModelDownloadRow.svelte:167 '{#each folderPath.split(\"/\") as part, i}' has no key; the path segments of one folder path; positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-key::src/lib/settings/ui/ModelDownloadRow.svelte:188::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/settings/ui/ModelDownloadRow.svelte:188 '{#each info.missingFiles as file}' has no key; the missing file names of one model's info, plain <div>; positional list (parts of one record)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/each-key::src/lib/shell/StatusPop.svelte:149::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/shell/StatusPop.svelte:149 '{#each list as p}' has no key; the string/number parts of one status sentence (snippet parts(list)); positional list (text segments)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/lib/components/FrameDetailModal.svelte:394::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FrameDetailModal.svelte:394 '$effect(() => clearOcrPoll)' only returns the clearOcrPoll function (:256) as its cleanup; nothing is read, an onDestroy equivalent, as claimed"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/lib/debug/tabs/CaptureTab.svelte:36::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/debug/tabs/CaptureTab.svelte:36 '$effect(() => capture.initListeners())' subscribes Tauri event listeners and returns their teardown (debug/state/capture.svelte.ts:218-262); nothing reactive is read synchronously, so it runs once like onMount"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/lib/debug/tabs/LogsTab.svelte:22::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/debug/tabs/LogsTab.svelte:22 '$effect(() => logs.startPolling())'; startPolling calls controller.poll (logs.svelte.ts:81), which runs its first tick inside untrack (controller.svelte.ts:55-58, comment: so nothing becomes the effect's dependency); it runs once, as claimed"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/lib/debug/tabs/PipelineTab.svelte:16::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/debug/tabs/PipelineTab.svelte:16/17 '$effect(() => controller.poll(pipeline.fetch…, ms))'; poll untracks its first tick on purpose (debug/state/controller.svelte.ts:55-58), so the effect reads nothing reactive and runs once, as claimed"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/lib/debug/tabs/PipelineTab.svelte:17::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/debug/tabs/PipelineTab.svelte:16/17 '$effect(() => controller.poll(pipeline.fetch…, ms))'; poll untracks its first tick on purpose (debug/state/controller.svelte.ts:55-58), so the effect reads nothing reactive and runs once, as claimed"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/lib/quick-recall/FilterPicker.svelte:36::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/quick-recall/FilterPicker.svelte:36 the effect only adds a document pointerdown listener and returns its removal; filters is read only inside the listener, so nothing is tracked and it runs once like onMount, as claimed"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/lib/settings/panels/general/Shortcuts.svelte:46::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "design",
+    "basis": "read: src/lib/settings/panels/general/Shortcuts.svelte:46 the effect reads keyboard.shortcutCaptureActionId, a class $state field (settings/state/keyboard.svelte.ts:47) reached through keyboard = getSettingsController().keyboard (:10-11), a plain function return, so the effect does re-run when capture starts; the docs' function-return limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/routes/debug/+page.svelte:35::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/debug/+page.svelte:35 '$effect(() => health.startPolling())'; startPolling calls poll (debug/state/health.svelte.ts:34), whose first tick is untracked (controller.svelte.ts:55-58); nothing reactive is read, it runs once, as claimed"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/routes/debug/+page.svelte:39::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/debug/+page.svelte:39 the effect only adds a window keydown listener and returns its removal; controller/nav are read only inside the listener; runs once like onMount, as claimed"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/effect-as-onmount::src/routes/onboarding/screens/VoiceScreen.svelte:130::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/onboarding/screens/VoiceScreen.svelte:130 '$effect(() => stopTicker)' only returns stopTicker (:126) as cleanup; nothing is read, an onDestroy equivalent, as claimed"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/components/AppPrivacyExclusion.svelte:107::Prop \"controller\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AppPrivacyExclusion.svelte:83/107 'controller.comboboxOpen = …' writes through the controller prop, the object createAppPrivacyExclusionController returns, whose comboboxOpen is a get/set accessor over a $state object (app-privacy-exclusion.svelte.ts:57-66, 306-311); a reactive accessor write, the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/components/AppPrivacyExclusion.svelte:83::Prop \"controller\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AppPrivacyExclusion.svelte:83/107 'controller.comboboxOpen = …' writes through the controller prop, the object createAppPrivacyExclusionController returns, whose comboboxOpen is a get/set accessor over a $state object (app-privacy-exclusion.svelte.ts:57-66, 306-311); a reactive accessor write, the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/onboarding/AiModelPicker.svelte:39::Prop \"ai\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/onboarding/AiModelPicker.svelte:39 'ai.draftAiDefaultModel = …'; the ai prop is the onboarding AI store (AiSetup passes its ai, from flow.controller.ai = createOnboardingAiStore()), whose draftAiDefaultModel is a get/set accessor over $state (routes/onboarding/onboarding-ai.svelte.ts:52, 430-431); the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/onboarding/AiSetup.svelte:223::Prop \"ai\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/onboarding/AiSetup.svelte:223/311 'ai.draftAiDefaultModel = …' on the AiSetupStore prop, which its only caller fills with flow.controller.ai (ChangeSettingsScreen.svelte:52, 180) = createOnboardingAiStore(), a get/set accessor over $state (onboarding-ai.svelte.ts:52, 430-431); the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/onboarding/AiSetup.svelte:311::Prop \"ai\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/onboarding/AiSetup.svelte:223/311 'ai.draftAiDefaultModel = …' on the AiSetupStore prop, which its only caller fills with flow.controller.ai (ChangeSettingsScreen.svelte:52, 180) = createOnboardingAiStore(), a get/set accessor over $state (onboarding-ai.svelte.ts:52, 430-431); the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:102::Prop \"model\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:57/78/86/102/110/141 writes model.transport/args/env/authMode on the model prop (type McpServerConfig, a plain object type, not $bindable); the parent passes model={editServer ?? customModel} without bind (McpConnectorPicker.svelte:561), so the write goes into the parent's $state proxy without ownership, as the docs describe"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:110::Prop \"model\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:57/78/86/102/110/141 writes model.transport/args/env/authMode on the model prop (type McpServerConfig, a plain object type, not $bindable); the parent passes model={editServer ?? customModel} without bind (McpConnectorPicker.svelte:561), so the write goes into the parent's $state proxy without ownership, as the docs describe"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:141::Prop \"model\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:57/78/86/102/110/141 writes model.transport/args/env/authMode on the model prop (type McpServerConfig, a plain object type, not $bindable); the parent passes model={editServer ?? customModel} without bind (McpConnectorPicker.svelte:561), so the write goes into the parent's $state proxy without ownership, as the docs describe"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:57::Prop \"model\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:57/78/86/102/110/141 writes model.transport/args/env/authMode on the model prop (type McpServerConfig, a plain object type, not $bindable); the parent passes model={editServer ?? customModel} without bind (McpConnectorPicker.svelte:561), so the write goes into the parent's $state proxy without ownership, as the docs describe"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:78::Prop \"model\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:57/78/86/102/110/141 writes model.transport/args/env/authMode on the model prop (type McpServerConfig, a plain object type, not $bindable); the parent passes model={editServer ?? customModel} without bind (McpConnectorPicker.svelte:561), so the write goes into the parent's $state proxy without ownership, as the docs describe"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:86::Prop \"model\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/settings/panels/intelligence/McpConnectorCustomForm.svelte:57/78/86/102/110/141 writes model.transport/args/env/authMode on the model prop (type McpServerConfig, a plain object type, not $bindable); the parent passes model={editServer ?? customModel} without bind (McpConnectorPicker.svelte:561), so the write goes into the parent's $state proxy without ownership, as the docs describe"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/routes/onboarding/screens/CaptureStorageScreen.svelte:102::Prop \"flow\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/CaptureStorageScreen.svelte:90/102 'flow.storageProbe = …' writes a $state field of the OnboardingFlow class instance prop (onboarding-flow.svelte.ts:107, 117); reactive class-instance mutation, the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/routes/onboarding/screens/CaptureStorageScreen.svelte:90::Prop \"flow\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/CaptureStorageScreen.svelte:90/102 'flow.storageProbe = …' writes a $state field of the OnboardingFlow class instance prop (onboarding-flow.svelte.ts:107, 117); reactive class-instance mutation, the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/routes/onboarding/screens/ChangeSettingsScreen.svelte:130::Prop \"flow\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/ChangeSettingsScreen.svelte:130 'flow.features = snapshot' writes the features $state field of the OnboardingFlow class instance prop (onboarding-flow.svelte.ts:115); the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/routes/onboarding/screens/PermissionsScreen.svelte:191::Prop \"flow\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/PermissionsScreen.svelte:191/199 'flow.screenNeedsRelaunch = true' writes a $state field of the OnboardingFlow class instance prop (onboarding-flow.svelte.ts:126); the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::correctness/prop-mutation::src/routes/onboarding/screens/PermissionsScreen.svelte:199::Prop \"flow\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/screens/PermissionsScreen.svelte:191/199 'flow.screenNeedsRelaunch = true' writes a $state field of the OnboardingFlow class instance prop (onboarding-flow.svelte.ts:126); the docs' class-instance limitation"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/image-dimensions::src/routes/+page.svelte:6384::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; the timeline__preview-load-sentinel is position:absolute, 0 x 0, opacity 0 (style :7031-7037) - a load sentinel for the background-image preview, takes no layout space"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/image-dimensions::src/routes/+page.svelte:6624::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .tl-group__icon img is 14px x 14px inside an absolute 18px box (style :7511-7530) - box reserved by CSS"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/image-dimensions::src/routes/+page.svelte:6809::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .timeline-rail__tooltip-icon img is 100% x 100% of the 24px x 24px tooltip icon box (style :7824-7851) - box reserved by CSS"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/image-dimensions::src/routes/permission-helper/+page.svelte:64::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/app-icon.png\"> lacks width/height, no spread; .mx-helper__icon is 40px x 40px and its img 100% x 100% (lib/styles/kit.css:590-592) - box reserved by CSS"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/image-loading-hint::src/routes/+page.svelte:6384::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; aria-hidden 0x0 sentinel whose onload/onerror track when the visible stage preview (same URL, background-image) has loaded - deferring it would only delay that signal; a deliberately invisible image in the visible stage"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/image-loading-hint::src/routes/permission-helper/+page.svelte:64::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; bundled /app-icon.png (Tauri app, ssr=false) at the top of the small permission-helper window - in view, read from the app bundle"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/image-loading-hint::src/routes/update/+page.svelte:322::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; bundled /app-icon.png (44x44) in the update window header (:318-322) - above the fold, read from the Tauri app bundle"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/responsive-image::src/routes/+page.svelte:6384::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: local frame preview (previewObjectUrl from the app's own capture store) in a Tauri desktop app (src-tauri, root +layout.ts ssr=false): read locally, no per-device bandwidth for srcset to save"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/responsive-image::src/routes/+page.svelte:6624::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: convertFileSrc(iconPath) of a locally extracted app icon (:2594-2596) in a Tauri desktop app (src-tauri, root +layout.ts ssr=false): read locally, no per-device bandwidth for srcset to save"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/responsive-image::src/routes/+page.svelte:6809::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: convertFileSrc(iconPath) of a locally extracted app icon (:2594-2596, :6788) in a Tauri desktop app (src-tauri, root +layout.ts ssr=false): read locally, no per-device bandwidth for srcset to save"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/responsive-image::src/routes/permission-helper/+page.svelte:64::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: bundled /app-icon.png in a Tauri desktop app (src-tauri, root +layout.ts ssr=false): read locally, no per-device bandwidth for srcset to save"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/responsive-image::src/routes/update/+page.svelte:322::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: bundled /app-icon.png in a Tauri desktop app (src-tauri, root +layout.ts ssr=false): read locally, no per-device bandwidth for srcset to save"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::performance/state-raw::src/lib/timeline/RecallMatchBoxes.svelte:23::\"boxes\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"boxes\" in src/lib/timeline/RecallMatchBoxes.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::security/raw-html::src/lib/AnswerProse.svelte:122::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read AnswerProse.svelte:36-40: html = renderMarkdown(source) — lib/markdown.ts:76-90,265: renderMarkdown is markdown-it with html:false (raw HTML escaped), images stripped and links allowlisted; escaped, reported per docs"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::security/raw-html::src/lib/settings/panels/intelligence/McpConnectorCatalog.svelte:58::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read McpConnectorCatalog.svelte:9,58 + lib/settings/state/mcp-presets.ts:61-63,83,99: p.brandSvg is one of the literal SVG_* string constants of MCP_PRESETS — repo constants, reported per docs"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::security/raw-html::src/routes/update/+page.svelte:386::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read update/+page.svelte:30,84-86: notesHtml = renderMarkdown(status.update.notes) — lib/markdown.ts:76-90,265: renderMarkdown is markdown-it with html:false (raw HTML escaped), images stripped and links allowlisted; escaped, reported per docs"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); Tauri desktop shell with no auth gate or noindex (ledger treats Tauri shells as tp: portal-desktop, claude-code-tool-manager, whispering)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/access/request/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /access/request (src/routes/access/request/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); Tauri desktop shell with no auth gate or noindex (ledger treats Tauri shells as tp: portal-desktop, claude-code-tool-manager, whispering)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/chat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /chat (src/routes/chat/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); Tauri desktop shell with no auth gate or noindex (ledger treats Tauri shells as tp: portal-desktop, claude-code-tool-manager, whispering)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/debug/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /debug (src/routes/debug/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); but not a search target (developer-only route: root +layout.svelte:220-230 goto(\"/\") unless developer options are enabled and hides children (showChildren) until then), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/insights/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /insights (src/routes/insights/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); Tauri desktop shell with no auth gate or noindex (ledger treats Tauri shells as tp: portal-desktop, claude-code-tool-manager, whispering)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/onboarding/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); Tauri desktop shell with no auth gate or noindex (ledger treats Tauri shells as tp: portal-desktop, claude-code-tool-manager, whispering)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/permission-helper/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /permission-helper (src/routes/permission-helper/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); Tauri desktop shell with no auth gate or noindex (ledger treats Tauri shells as tp: portal-desktop, claude-code-tool-manager, whispering)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/quick-recall/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /quick-recall (src/routes/quick-recall/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); Tauri desktop shell with no auth gate or noindex (ledger treats Tauri shells as tp: portal-desktop, claude-code-tool-manager, whispering)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); Tauri desktop shell with no auth gate or noindex (ledger treats Tauri shells as tp: portal-desktop, claude-code-tool-manager, whispering)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/canonical-url::src/routes/update/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /update (src/routes/update/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load); Tauri desktop shell with no auth gate or noindex (ledger treats Tauri shells as tp: portal-desktop, claude-code-tool-manager, whispering)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/access/request/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/chat/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/debug/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/insights/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/onboarding/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/permission-helper/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/quick-recall/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/description-presence::src/routes/update/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html literal <title>capture · mnema</title> is the only title of the 8 routes in the key, duplicate as claimed; but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; / has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/access/request/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; /access/request has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; /chat has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/debug/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; /debug has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/insights/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; /insights has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/onboarding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; /onboarding has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/permission-helper/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; /permission-helper has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/quick-recall/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; /quick-recall has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; /settings has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/json-ld::src/routes/update/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in apps/desktop/src or app.html; /update has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/access/request/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /access/request (src/routes/access/request/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/chat/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /chat (src/routes/chat/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/debug/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /debug (src/routes/debug/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/insights/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /insights (src/routes/insights/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/permission-helper/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /permission-helper (src/routes/permission-helper/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/quick-recall/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /quick-recall (src/routes/quick-recall/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-description::src/routes/update/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /update (src/routes/update/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/access/request/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /access/request (src/routes/access/request/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/chat/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /chat (src/routes/chat/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/debug/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /debug (src/routes/debug/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/insights/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /insights (src/routes/insights/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/permission-helper/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /permission-helper (src/routes/permission-helper/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/quick-recall/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /quick-recall (src/routes/quick-recall/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-image::src/routes/update/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /update (src/routes/update/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/access/request/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /access/request (src/routes/access/request/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/chat/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /chat (src/routes/chat/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/debug/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /debug (src/routes/debug/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/insights/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /insights (src/routes/insights/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/permission-helper/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /permission-helper (src/routes/permission-helper/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/quick-recall/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /quick-recall (src/routes/quick-recall/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-title::src/routes/update/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /update (src/routes/update/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/access/request/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /access/request (src/routes/access/request/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/chat/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /chat (src/routes/chat/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/debug/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /debug (src/routes/debug/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/insights/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /insights (src/routes/insights/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/permission-helper/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /permission-helper (src/routes/permission-helper/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/quick-recall/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /quick-recall (src/routes/quick-recall/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/og-url::src/routes/update/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /update (src/routes/update/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook or generator script (literal claim holds); Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/single-h1::src/lib/LicenseDeepLinkModal.svelte:238::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: key covers /access/request, /settings, /update (local CLI), mixed, majority fp: the second counted <h1> is LicenseDeepLinkModal, which the root layout mounts only {#if isMainWindow} (+layout.svelte:390-399; isMainWindow = !isDedicatedSurfaceWindow() && !isPanelSurface, :68), and /access/request and /update load in their own \"cli-access-request\"/\"update\" windows (src-tauri/src/windows.rs:238-280; lib/surface-windows.ts:208-212), so there the modal is never in the tree and each page renders one <h1> per arm (access/request :373-432 one {#if} chain, update :325) -> one <h1>; on /settings (main window) the modal <h1> renders only {#if open} (design)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/single-h1::src/lib/chat/Chat.svelte:604::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: /chat renders Chat's <h1>{displayTitle} (Chat.svelte:604, {#if mode === \"chat\"}); the other counted <h1>s are FrameDetailModal's (:453, only {#if open}, via ChatSources) and the root layout's LicenseDeepLinkModal (only {#if open}) - modal-only <h1>s"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/single-h1::src/lib/insights/SubjectDetail.svelte:355::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: /insights shows one view at a time ({#if view === \"overview\"}…{:else if} arms, insights/+page.svelte:254-284); with a subject selected, SubjectDetail's <h1> (:355) shows while the Subjects index (SubjectsLede <h1>) stays mounted under style:display=\"none\" by design (:273-276); FrameDetailModal and LicenseDeepLinkModal <h1>s render only {#if open} - one displayed <h1>, deliberate hidden index"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/single-h1::src/routes/onboarding/screens/WelcomeScreen.svelte:95::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: /onboarding renders one screen per step in one {#if flow.step === …} chain (onboarding/+page.svelte:122-152), each with one <h1> per arm (WelcomeScreen :95); the only other counted <h1> is LicenseDeepLinkModal, which the root layout mounts only {#if isMainWindow} (+layout.svelte:390-399), false in the dedicated \"onboarding\" window that loads this route (src-tauri/src/windows.rs:212-213; lib/surface-windows.ts:208-212) -> exactly one <h1> renders"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/ssr-disabled::src/routes/+layout.ts:5::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:5 (literal claim holds); deliberate SPA: Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"capture · mnema\" in src/app.html, whitespace collapsed, 15 graphemes as reported) (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/title-length::src/routes/access/request/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"mnema · CLI Access\" in src/routes/access/request/+page.svelte, whitespace collapsed, 18 graphemes as reported) (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/title-length::src/routes/update/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Mnema · Update\" in src/routes/update/+page.svelte, whitespace collapsed, 14 graphemes as reported) (literal claim holds); but Tauri macOS desktop app (svelte.config.js comment, README), ssr=false SPA (+layout.ts:5); not a website, not a search target"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/access/request/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /access/request (src/routes/access/request/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/chat/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /chat (src/routes/chat/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/debug/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /debug (src/routes/debug/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/insights/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /insights (src/routes/insights/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/onboarding/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/permission-helper/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /permission-helper (src/routes/permission-helper/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/quick-recall/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /quick-recall (src/routes/quick-recall/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  },
+  {
+    "key": "shaik-zeeshan/mnema:apps/desktop::seo/twitter-card::src/routes/update/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /update (src/routes/update/+page.svelte): script-verified (git grep of apps/desktop incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport/<title>; the only <svelte:head> blocks (access/request, update) hold <title>; npm Svelte dep bits-ui emits none; ssr=false Tauri shell (+layout.ts:5) so client heads count and none exist; route renders (no load)"
+  }
+]

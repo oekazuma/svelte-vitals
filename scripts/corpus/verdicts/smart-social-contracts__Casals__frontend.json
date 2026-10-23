@@ -1,0 +1,942 @@
+[
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/disallowed-aria-props::src/lib/components/SubnetFlags.svelte:157::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): SubnetFlags.svelte:157 <span class=\"inline-flex flex-wrap items-center gap-0.5 {flagClass}\" t…> has aria-label with no role, spread or use: action; <span> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/disallowed-aria-props::src/lib/components/SubnetFlags.svelte:96::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): SubnetFlags.svelte:96 <span class=\"subnet-flags-hover absolute left-0 top-full z-20 mt-0.5 h…> has aria-label with no role, spread or use: action; <span> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/disallowed-aria-props::src/lib/components/SubnetWhitelistPanel.svelte:396::`aria-sort` is not supported by role `button`",
+    "verdict": "tp",
+    "basis": "read SubnetWhitelistPanel.svelte:396: <button type=\"button\" class=\"sort-header\" aria-sort=\"{sortKey === 'ava…> is a sort toggle inside <th> at :395; aria-sort belongs on the columnheader (<th>), and role button does not support it, so AT drops it, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/disallowed-aria-props::src/lib/components/SubnetWhitelistPanel.svelte:410::`aria-sort` is not supported by role `button`",
+    "verdict": "tp",
+    "basis": "read SubnetWhitelistPanel.svelte:410: <button type=\"button\" class=\"sort-header\" aria-sort=\"{sortKey === 'sub…> is a sort toggle inside <th> at :409; aria-sort belongs on the columnheader (<th>), and role button does not support it, so AT drops it, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/disallowed-aria-props::src/lib/components/SubnetWhitelistPanel.svelte:421::`aria-sort` is not supported by role `button`",
+    "verdict": "tp",
+    "basis": "read SubnetWhitelistPanel.svelte:421: <button type=\"button\" class=\"sort-header\" aria-sort=\"{sortKey === 'typ…> is a sort toggle inside <th> at :420; aria-sort belongs on the columnheader (<th>), and role button does not support it, so AT drops it, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/disallowed-aria-props::src/lib/components/SubnetWhitelistPanel.svelte:432::`aria-sort` is not supported by role `button`",
+    "verdict": "tp",
+    "basis": "read SubnetWhitelistPanel.svelte:432: <button type=\"button\" class=\"sort-header sort-header-right\" aria-sort=…> is a sort toggle inside <th> at :431; aria-sort belongs on the columnheader (<th>), and role button does not support it, so AT drops it, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/disallowed-aria-props::src/lib/components/SubnetWhitelistPanel.svelte:443::`aria-sort` is not supported by role `button`",
+    "verdict": "tp",
+    "basis": "read SubnetWhitelistPanel.svelte:443: <button type=\"button\" class=\"sort-header sort-header-right\" aria-sort=…> is a sort toggle inside <th> at :442; aria-sort belongs on the columnheader (<th>), and role button does not support it, so AT drops it, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/disallowed-aria-props::src/routes/cycles/+page.svelte:461::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): cycles/+page.svelte:461 <div class=\"card p-5 space-y-3\" aria-label=\"Loading treasury flow\"> has aria-label with no role, spread or use: action; <div> maps to a role that takes no name, so the label is prohibited and not exposed, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/id-duplication::src/lib/components/BatonProposeUpgradeForm.svelte:733::Duplicate id \"baton-bake\"",
+    "verdict": "tp",
+    "basis": "read: on /baton the page renders BatonAdminPanel (:194) and BatonProposeUpgradeForm (:311), both under {#if config}; input#baton-bake is in the admin panel's config section ({#if isTopCommander && open}, BatonAdminPanel.svelte:382/401/405) and in the propose form ({#if open} :507/:730/:734), two inline panels with independent open toggles, so both can be open at once"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/id-duplication::src/lib/components/UploadWasmModal.svelte:190::Duplicate id \"upload-file\"",
+    "verdict": "design",
+    "basis": "read: files/+page.svelte renders <UploadWasmModal> in {#if showUpload} (:507) and in {#if authorizeExisting} (:511), separate blocks; each is a full-screen overlay modal (UploadWasmModal.svelte:164-165, fixed inset-0 backdrop), so the two never open together; separate-blocks convention (#upload-file at :190)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/id-duplication::src/lib/components/UploadWasmModal.svelte:207::Duplicate id \"upload-family\"",
+    "verdict": "design",
+    "basis": "read: files/+page.svelte renders <UploadWasmModal> in {#if showUpload} (:507) and in {#if authorizeExisting} (:511), separate blocks; each is a full-screen overlay modal (UploadWasmModal.svelte:164-165, fixed inset-0 backdrop), so the two never open together; separate-blocks convention (#upload-family at :207)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/id-duplication::src/lib/components/UploadWasmModal.svelte:211::Duplicate id \"upload-version\"",
+    "verdict": "design",
+    "basis": "read: files/+page.svelte renders <UploadWasmModal> in {#if showUpload} (:507) and in {#if authorizeExisting} (:511), separate blocks; each is a full-screen overlay modal (UploadWasmModal.svelte:164-165, fixed inset-0 backdrop), so the two never open together; separate-blocks convention (#upload-version at :211)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/id-duplication::src/lib/components/UploadWasmModal.svelte:217::Duplicate id \"upload-path\"",
+    "verdict": "design",
+    "basis": "read: files/+page.svelte renders <UploadWasmModal> in {#if showUpload} (:507) and in {#if authorizeExisting} (:511), separate blocks; each is a full-screen overlay modal (UploadWasmModal.svelte:164-165, fixed inset-0 backdrop), so the two never open together; separate-blocks convention (#upload-path at :217)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/id-duplication::src/lib/components/UploadWasmModal.svelte:261::Duplicate id \"upload-kind\"",
+    "verdict": "design",
+    "basis": "read: files/+page.svelte renders <UploadWasmModal> in {#if showUpload} (:507) and in {#if authorizeExisting} (:511), separate blocks; each is a full-screen overlay modal (UploadWasmModal.svelte:164-165, fixed inset-0 backdrop), so the two never open together; separate-blocks convention (#upload-kind at :261)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/id-duplication::src/lib/components/UploadWasmModal.svelte:268::Duplicate id \"upload-type\"",
+    "verdict": "design",
+    "basis": "read: files/+page.svelte renders <UploadWasmModal> in {#if showUpload} (:507) and in {#if authorizeExisting} (:511), separate blocks; each is a full-screen overlay modal (UploadWasmModal.svelte:164-165, fixed inset-0 backdrop), so the two never open together; separate-blocks convention (#upload-type at :268)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/id-duplication::src/lib/components/UploadWasmModal.svelte:281::Duplicate id \"upload-memory-keep\"",
+    "verdict": "design",
+    "basis": "read: files/+page.svelte renders <UploadWasmModal> in {#if showUpload} (:507) and in {#if authorizeExisting} (:511), separate blocks; each is a full-screen overlay modal (UploadWasmModal.svelte:164-165, fixed inset-0 backdrop), so the two never open together; separate-blocks convention (#upload-memory-keep at :281)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/permitted-contents::src/lib/components/BatonAdminPanel.svelte:456::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): BatonAdminPanel.svelte:456 <label class=\"flex items-center gap-1 text-xs text-primary-600 ml-2\"> is a literal child of <label class=\"flex flex-wrap items-center gap-2 text-sm\"> at :452 (only {#if}/{#each} between, no component/snippet boundary); <label>'s content model excludes <label>, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/permitted-contents::src/lib/components/CanisterControllersBadge.svelte:103::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): CanisterControllersBadge.svelte:103 <div class=\"absolute left-0 top-full z-40 mt-1 min-w-[18rem] max-w-[24…> is a literal child of <span class=\"relative inline-flex\"> at :91 (only {#if}/{#each} between, no component/snippet boundary); <span>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/permitted-contents::src/lib/components/SubnetFlags.svelte:102::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): SubnetFlags.svelte:102 <div class=\"flex items-center gap-1 min-w-0\"> is a literal child of <span class=\"subnet-flags-hover absolute left-0 top-full z-2…> at :96 (only {#if}/{#each} between, no component/snippet boundary); <span>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::a11y/permitted-contents::src/lib/components/SubnetFlags.svelte:126::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): SubnetFlags.svelte:126 <div class=\"flex flex-wrap items-center gap-0.5 {flagClass}\"> is a literal child of <span class=\"subnet-flags-hover absolute left-0 top-full z-2…> at :96 (only {#if}/{#each} between, no component/snippet boundary); <span>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/BatonAdminPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BatonAdminPanel.svelte has 638 physical lines (newline count, trailing newline not counted; 608 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/BatonProposeUpgradeForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BatonProposeUpgradeForm.svelte has 825 physical lines (newline count, trailing newline not counted; 779 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/CreateCanisterModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CreateCanisterModal.svelte has 282 physical lines (newline count, trailing newline not counted; 261 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/CyclesAdvancedChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CyclesAdvancedChart.svelte has 1126 physical lines (newline count, trailing newline not counted; 1038 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/DeployBundleModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DeployBundleModal.svelte has 202 physical lines (newline count, trailing newline not counted; 184 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/FormModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FormModal.svelte has 206 physical lines (newline count, trailing newline not counted; 191 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/LineChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/LineChart.svelte has 481 physical lines (newline count, trailing newline not counted; 447 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/MultisigProposeForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MultisigProposeForm.svelte has 702 physical lines (newline count, trailing newline not counted; 651 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/OrchestraControlGraph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/OrchestraControlGraph.svelte has 1011 physical lines (newline count, trailing newline not counted; 942 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/OrchestraDiagram.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/OrchestraDiagram.svelte has 328 physical lines (newline count, trailing newline not counted; 310 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/StandReleaseForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/StandReleaseForm.svelte has 222 physical lines (newline count, trailing newline not counted; 207 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/SubnetWhitelistPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SubnetWhitelistPanel.svelte has 606 physical lines (newline count, trailing newline not counted; 562 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/UploadBundleModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UploadBundleModal.svelte has 321 physical lines (newline count, trailing newline not counted; 298 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/lib/components/UploadWasmModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UploadWasmModal.svelte has 312 physical lines (newline count, trailing newline not counted; 289 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 275 physical lines (newline count, trailing newline not counted; 248 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 1229 physical lines (newline count, trailing newline not counted; 1159 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/aliases/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/aliases/+page.svelte has 285 physical lines (newline count, trailing newline not counted; 264 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/baton/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/baton/+page.svelte has 406 physical lines (newline count, trailing newline not counted; 381 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/baton/proposal/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/baton/proposal/[id]/+page.svelte has 595 physical lines (newline count, trailing newline not counted; 567 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/commanders/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/commanders/+page.svelte has 797 physical lines (newline count, trailing newline not counted; 733 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/cycles/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/cycles/+page.svelte has 691 physical lines (newline count, trailing newline not counted; 653 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/files/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/files/+page.svelte has 534 physical lines (newline count, trailing newline not counted; 494 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/multisig/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/multisig/+page.svelte has 312 physical lines (newline count, trailing newline not counted; 293 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/multisig/proposal/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/multisig/proposal/[id]/+page.svelte has 335 physical lines (newline count, trailing newline not counted; 318 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 303 physical lines (newline count, trailing newline not counted; 282 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/prop-count::src/lib/components/BatonAdminPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/BatonAdminPanel.svelte has a single destructured $props() with 7 named props (> 6): canisterId, config, commanders, managed, policy, tree, onsuccess"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/prop-count::src/lib/components/BatonPipelineLog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/BatonPipelineLog.svelte has a single destructured $props() with 7 named props (> 6): lines, status, error, busy, title, maxHeight, showCopy"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/prop-count::src/lib/components/BatonProposeUpgradeForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/BatonProposeUpgradeForm.svelte has a single destructured $props() with 8 named props (> 6): batonCanisterId, config, commanders, managed, tree, blockingAction, casalsDeploy, onsuccess"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/prop-count::src/lib/components/CyclesAdvancedChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CyclesAdvancedChart.svelte has a single destructured $props() with 14 named props (> 6): series, format, height, timeStart, timeEnd, events, toolbar, measureActive, snapToData, isExpanded, measureOverlayVisible, showLegend, variant, barBucketSecs"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/prop-count::src/lib/components/FormModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FormModal.svelte has a single destructured $props() with 10 named props (> 6): title, description, fields, submitLabel, danger, busy, submitDisabled, logLines, onsubmit, oncancel"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/prop-count::src/lib/components/LineChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/LineChart.svelte has a single destructured $props() with 8 named props (> 6): series, format, height, yTickStep, xTickIntervalSecs, timeStart, timeEnd, measureTool"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::architecture/prop-count::src/lib/components/OrchestraDiagram.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/OrchestraDiagram.svelte has a single destructured $props() with 14 named props (> 6): tree, orchestraName, canManage, onCreateStand, onAddSectionCommander, onRenameSection, onDeleteSection, canEditArrangement, onCreateCanister, onRegisterCanister, onUpgradeStand, onAddStandCommander, onRenameStand, onDeleteStand"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-index-key::src/lib/components/CyclesAdvancedChart.svelte:1062::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CyclesAdvancedChart.svelte:960/963/1062/1065 keyed by index; axisLayout.hourLines/dayLines, the x positions of chart grid lines recomputed from the scale (:312-379); positional list (chart gridlines)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-index-key::src/lib/components/CyclesAdvancedChart.svelte:1065::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CyclesAdvancedChart.svelte:960/963/1062/1065 keyed by index; axisLayout.hourLines/dayLines, the x positions of chart grid lines recomputed from the scale (:312-379); positional list (chart gridlines)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-index-key::src/lib/components/CyclesAdvancedChart.svelte:960::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CyclesAdvancedChart.svelte:960/963/1062/1065 keyed by index; axisLayout.hourLines/dayLines, the x positions of chart grid lines recomputed from the scale (:312-379); positional list (chart gridlines)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-index-key::src/lib/components/CyclesAdvancedChart.svelte:963::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CyclesAdvancedChart.svelte:960/963/1062/1065 keyed by index; axisLayout.hourLines/dayLines, the x positions of chart grid lines recomputed from the scale (:312-379); positional list (chart gridlines)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-index-key::src/lib/components/LineChart.svelte:291::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LineChart.svelte:291/303/318 keyed by index; xTicks/yTicks/xLabelTicks derived from the chart scale (:61, :223, :231); positional list (chart ticks)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-index-key::src/lib/components/LineChart.svelte:303::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LineChart.svelte:291/303/318 keyed by index; xTicks/yTicks/xLabelTicks derived from the chart scale (:61, :223, :231); positional list (chart ticks)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-index-key::src/lib/components/LineChart.svelte:318::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LineChart.svelte:291/303/318 keyed by index; xTicks/yTicks/xLabelTicks derived from the chart scale (:61, :223, :231); positional list (chart ticks)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-index-key::src/routes/baton/proposal/[id]/+page.svelte:435::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/baton/proposal/[id]/+page.svelte:435 '{#each relSteps as step, i (i)}' keyed by its index binding; relSteps = releaseSteps(action) (:95), the ordered steps of one release action, read-only; positional list (steps of one record)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-key::src/lib/components/CreateCanisterModal.svelte:245::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CreateCanisterModal.svelte:245 '{#each logLines as line}' has no key; console text lines of one canister creation run (logLines = lines :47), plain <div>; positional text lines"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/each-key::src/lib/components/FormModal.svelte:166::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/FormModal.svelte:166 '{#each logLines as line}' has no key; logLines prop, console text lines of one operation, plain <div>; positional text lines"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/effect-as-derived::src/lib/components/OrchestraControlGraph.svelte:121::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/OrchestraControlGraph.svelte:121 the effect only does frozenViewport = frozenGraphViewport(autoPositions, layoutWidth); the other write is a wholesale reassignment on reset (:153), the writable-$derived override pattern (svelte 5.56.1 in package-lock)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/effect-as-derived::src/lib/components/OrchestraControlGraph.svelte:327::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/components/OrchestraControlGraph.svelte:327 the effect does savedViews = readStoredViews(), which reads localStorage (:297-301); the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::correctness/effect-as-derived::src/lib/components/SubnetWhitelistPanel.svelte:118::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SubnetWhitelistPanel.svelte:118 the effect only does selected = selectionFromWhitelist(whitelist); the other writes replace the Set wholesale (:185, :190, :195), the writable-$derived override pattern (svelte 5.56.1 in package-lock)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::performance/image-loading-hint::src/routes/+layout.svelte:167::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; key covers 13 routes (root layout): the 32px brand logo in the sticky top header (+layout.svelte:144-173) - above the fold on every route, where the docs keep the image eager"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::performance/image-loading-hint::src/routes/+layout.svelte:233::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; key covers 13 routes (root layout): logo in the mobile drawer <aside>, rendered only {#if mobileSidebarOpen} (+layout.svelte:217-233) after the user opens the menu - visible when rendered"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::performance/responsive-image::src/routes/+layout.svelte:167::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img src=\"/logo.png\"> has no srcset, no spread; key covers 13 routes (root layout): static/logo.png is a 433x453 PNG (151 KB) shown at 32px - one oversized fixed asset to every device"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::performance/responsive-image::src/routes/+layout.svelte:233::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img src=\"/logo.png\"> has no srcset, no spread; key covers 13 routes (root layout): static/logo.png is a 433x453 PNG (151 KB) shown at 28px - one oversized fixed asset to every device"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::performance/state-raw::src/lib/components/BatonProposeUpgradeForm.svelte:77::\"bundleNamespaces\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"bundleNamespaces\" in src/lib/components/BatonProposeUpgradeForm.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::performance/state-raw::src/lib/components/CyclesAdvancedChart.svelte:127::\"axisLayout\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"axisLayout\" in src/lib/components/CyclesAdvancedChart.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::performance/state-raw::src/lib/components/OrchestraControlGraph.svelte:60::\"frozenViewport\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"frozenViewport\" in src/lib/components/OrchestraControlGraph.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::performance/state-raw::src/routes/+page.svelte:97::\"canisterCycles\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"canisterCycles\" in src/routes/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; but not a search target (client auth-gated: root +layout.svelte:27-32,246-256 with const publicRead = false renders the \"This orchestra is private\" sign-in card instead of children for guests (lib/readGate.ts:23-25)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/activity/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /activity (src/routes/activity/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; but not a search target (client auth-gated: root +layout.svelte:27-32,246-256 with const publicRead = false renders the \"This orchestra is private\" sign-in card instead of children for guests (lib/readGate.ts:23-25)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/aliases/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /aliases (src/routes/aliases/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; but not a search target (client auth-gated: root +layout.svelte:27-32,246-256 with const publicRead = false renders the \"This orchestra is private\" sign-in card instead of children for guests (lib/readGate.ts:23-25)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/baton/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /baton (src/routes/baton/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; open to anonymous visitors (lib/readGate.ts:8 hasOwnSignIn exempts /baton and /multisig from the layout gate), no robots.txt, no noindex"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/baton/proposal/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /baton/proposal/[id] (src/routes/baton/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; open to anonymous visitors (lib/readGate.ts:8 hasOwnSignIn exempts /baton and /multisig from the layout gate), no robots.txt, no noindex"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/commanders/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /commanders (src/routes/commanders/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; but not a search target (client auth-gated: root +layout.svelte:27-32,246-256 with const publicRead = false renders the \"This orchestra is private\" sign-in card instead of children for guests (lib/readGate.ts:23-25)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/cycles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /cycles (src/routes/cycles/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; but not a search target (client auth-gated: root +layout.svelte:27-32,246-256 with const publicRead = false renders the \"This orchestra is private\" sign-in card instead of children for guests (lib/readGate.ts:23-25)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /files (src/routes/files/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; but not a search target (client auth-gated: root +layout.svelte:27-32,246-256 with const publicRead = false renders the \"This orchestra is private\" sign-in card instead of children for guests (lib/readGate.ts:23-25)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/multisig/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /multisig (src/routes/multisig/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; open to anonymous visitors (lib/readGate.ts:8 hasOwnSignIn exempts /baton and /multisig from the layout gate), no robots.txt, no noindex"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/multisig/proposal/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /multisig/proposal/[id] (src/routes/multisig/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; open to anonymous visitors (lib/readGate.ts:8 hasOwnSignIn exempts /baton and /multisig from the layout gate), no robots.txt, no noindex"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/section/[section]/arrangements/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /section/[section]/arrangements (src/routes/section/[section]/arrangements/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; but not a search target (client auth-gated: root +layout.svelte:27-32,246-256 with const publicRead = false renders the \"This orchestra is private\" sign-in card instead of children for guests (lib/readGate.ts:23-25)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; but not a search target (client auth-gated: root +layout.svelte:27-32,246-256 with const publicRead = false renders the \"This orchestra is private\" sign-in card instead of children for guests (lib/readGate.ts:23-25)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/canonical-url::src/routes/wasms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /wasms (src/routes/wasms/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders; but not a search target (client auth-gated: root +layout.svelte:27-32,246-256 with const publicRead = false renders the \"This orchestra is private\" sign-in card instead of children for guests (lib/readGate.ts:23-25)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/activity/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/aliases/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/baton/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/baton/proposal/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/commanders/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/cycles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/multisig/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/multisig/proposal/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/section/[section]/arrangements/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/description-presence::src/routes/wasms/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; / has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/activity/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /activity has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/aliases/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /aliases has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/baton/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /baton has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/baton/proposal/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /baton/proposal/[id] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/commanders/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /commanders has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/cycles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /cycles has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /files has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/multisig/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /multisig has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/multisig/proposal/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /multisig/proposal/[id] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/section/[section]/arrangements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /section/[section]/arrangements has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /settings has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/json-ld::src/routes/wasms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in frontend/src or app.html; /wasms has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/activity/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /activity (src/routes/activity/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/aliases/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /aliases (src/routes/aliases/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/baton/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /baton (src/routes/baton/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/baton/proposal/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /baton/proposal/[id] (src/routes/baton/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/commanders/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /commanders (src/routes/commanders/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/cycles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /cycles (src/routes/cycles/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /files (src/routes/files/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/multisig/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /multisig (src/routes/multisig/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/multisig/proposal/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /multisig/proposal/[id] (src/routes/multisig/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/section/[section]/arrangements/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /section/[section]/arrangements (src/routes/section/[section]/arrangements/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-description::src/routes/wasms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /wasms (src/routes/wasms/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/activity/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /activity (src/routes/activity/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/aliases/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /aliases (src/routes/aliases/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/baton/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /baton (src/routes/baton/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/baton/proposal/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /baton/proposal/[id] (src/routes/baton/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/commanders/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /commanders (src/routes/commanders/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/cycles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cycles (src/routes/cycles/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /files (src/routes/files/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/multisig/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /multisig (src/routes/multisig/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/multisig/proposal/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /multisig/proposal/[id] (src/routes/multisig/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/section/[section]/arrangements/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /section/[section]/arrangements (src/routes/section/[section]/arrangements/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-image::src/routes/wasms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /wasms (src/routes/wasms/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/activity/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /activity (src/routes/activity/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/aliases/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /aliases (src/routes/aliases/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/baton/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /baton (src/routes/baton/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/baton/proposal/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /baton/proposal/[id] (src/routes/baton/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/commanders/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /commanders (src/routes/commanders/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/cycles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /cycles (src/routes/cycles/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /files (src/routes/files/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/multisig/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /multisig (src/routes/multisig/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/multisig/proposal/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /multisig/proposal/[id] (src/routes/multisig/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/section/[section]/arrangements/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /section/[section]/arrangements (src/routes/section/[section]/arrangements/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-title::src/routes/wasms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /wasms (src/routes/wasms/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/activity/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /activity (src/routes/activity/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/aliases/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /aliases (src/routes/aliases/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/baton/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /baton (src/routes/baton/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/baton/proposal/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /baton/proposal/[id] (src/routes/baton/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/commanders/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /commanders (src/routes/commanders/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/cycles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /cycles (src/routes/cycles/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /files (src/routes/files/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/multisig/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /multisig (src/routes/multisig/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/multisig/proposal/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /multisig/proposal/[id] (src/routes/multisig/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/section/[section]/arrangements/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /section/[section]/arrangements (src/routes/section/[section]/arrangements/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/og-url::src/routes/wasms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /wasms (src/routes/wasms/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook or generator script (literal claim holds); Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Casals · Orchestra\" in src/routes/+page.svelte, whitespace collapsed, 18 graphemes as reported) (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/title-length::src/routes/activity/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Casals · Activity\" in src/routes/activity/+page.svelte, whitespace collapsed, 17 graphemes as reported) (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/title-length::src/routes/aliases/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Casals · Aliases\" in src/routes/aliases/+page.svelte, whitespace collapsed, 16 graphemes as reported) (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/title-length::src/routes/baton/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Baton · Casals\" in src/routes/baton/+page.svelte, whitespace collapsed, 14 graphemes as reported) (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/title-length::src/routes/commanders/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Casals · Operator access\" in src/routes/commanders/+page.svelte, whitespace collapsed, 24 graphemes as reported) (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/title-length::src/routes/cycles/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Casals · Cycles\" in src/routes/cycles/+page.svelte, whitespace collapsed, 15 graphemes as reported) (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/title-length::src/routes/files/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Casals · Files\" in src/routes/files/+page.svelte, whitespace collapsed, 14 graphemes as reported) (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/title-length::src/routes/multisig/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Platform committee · Casals\" in src/routes/multisig/+page.svelte, whitespace collapsed, 27 graphemes as reported) (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Casals · Settings\" in src/routes/settings/+page.svelte, whitespace collapsed, 17 graphemes as reported) (literal claim holds); but Casals dashboard is the operator console of an on-chain canister orchestrator (README: \"thin client\" to the conductor canister), served from an asset canister as an SPA fallback; not a search target"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/activity/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /activity (src/routes/activity/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/aliases/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /aliases (src/routes/aliases/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/baton/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /baton (src/routes/baton/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/baton/proposal/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /baton/proposal/[id] (src/routes/baton/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/commanders/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /commanders (src/routes/commanders/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/cycles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cycles (src/routes/cycles/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /files (src/routes/files/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/multisig/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /multisig (src/routes/multisig/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/multisig/proposal/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /multisig/proposal/[id] (src/routes/multisig/proposal/[id]/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/section/[section]/arrangements/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /section/[section]/arrangements (src/routes/section/[section]/arrangements/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/settings/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  },
+  {
+    "key": "smart-social-contracts/Casals:frontend::seo/twitter-card::src/routes/wasms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /wasms (src/routes/wasms/+page.svelte): script-verified (git grep of Casals frontend/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/icon/viewport; root +layout.svelte:100-102 head is <title> only; npm deps (@dfinity/*, lightweight-charts, monaco-editor) are not Svelte components; postbuild scripts only write version/CSP hashes; no load files, route renders"
+  }
+]
