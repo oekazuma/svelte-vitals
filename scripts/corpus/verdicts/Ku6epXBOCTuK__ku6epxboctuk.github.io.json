@@ -1,0 +1,952 @@
+[
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::architecture/component-size::src/components/HomePage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/HomePage.svelte has 261 physical lines (newline count, trailing newline not counted; 226 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::architecture/component-size::src/components/ProjectDetail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/ProjectDetail.svelte has 252 physical lines (newline count, trailing newline not counted; 218 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang] (src/routes/[lang]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/about (src/routes/[lang]/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/articles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/articles (src/routes/[lang]/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/articles/[slug] (src/routes/[lang]/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/posts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/posts (src/routes/[lang]/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/posts/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/posts/[slug] (src/routes/[lang]/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/projects (src/routes/[lang]/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/projects/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/projects/[slug] (src/routes/[lang]/projects/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/tags/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/tags (src/routes/[lang]/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/weekly/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/weekly (src/routes/[lang]/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/[lang]/weekly/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/weekly/[slug] (src/routes/[lang]/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /about (src/routes/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/articles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /articles (src/routes/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/articles/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /articles/[slug] (src/routes/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/posts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /posts (src/routes/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/posts/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /posts/[slug] (src/routes/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects (src/routes/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/tags/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /tags (src/routes/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/weekly/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /weekly (src/routes/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/canonical-url::src/routes/weekly/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /weekly/[slug] (src/routes/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all; but not a search target (client redirect stub: page renders only $cmp/Redirect.svelte, whose onMount goto(`/${browserLang()}${path}`, {replaceState:true}) (components/Redirect.svelte:5-9) sends every visitor to the [lang] copy (ledger shape of portal-desktop ai/history/[id])), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/, replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/articles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/posts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/posts/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/projects/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/tags/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/weekly/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/[lang]/weekly/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); public, indexable route (personal blog on GitHub Pages (README), robots.txt allows all, /[lang]/* are its content pages)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/about/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/about, replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]/about"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/articles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/articles/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/articles, replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]/articles"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/articles/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/articles/[slug]/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/articles/[slug], replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]/articles/[slug]"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/posts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/posts/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/posts, replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]/posts"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/posts/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/posts/[slug]/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/posts/[slug], replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]/posts/[slug]"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/projects/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/projects, replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]/projects"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/tags/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/tags/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/tags, replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]/tags"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/weekly/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/weekly/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/weekly, replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]/weekly"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/description-presence::src/routes/weekly/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <svelte:head> or <meta name=description> anywhere in src, the content-core package or app.html (app.html head has title + google-site-verification only) (literal claim holds); but src/routes/weekly/[slug]/+page.svelte only renders <Redirect /> (components/Redirect.svelte: onMount goto(/<browserLang>/weekly/[slug], replaceState)), a client redirect stub with no content of its own; the content lives at /[lang]/weekly/[slug]"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:6 literal <title>~ Ku6epXBOCTuK</title> is the only title of all 21 routes (no <svelte:head> anywhere in src), duplicate as claimed; key covers 21 routes, labelled by majority: 11 are public /[lang]/* content pages of the GitHub Pages blog (the other 10 are client redirect stubs)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; / has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/about has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/articles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/articles has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/articles/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/articles/[slug] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/posts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/posts has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/posts/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/posts/[slug] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/projects has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/projects/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/projects/[slug] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/tags/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/tags has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/weekly/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/weekly has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/[lang]/weekly/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /[lang]/weekly/[slug] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /about has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/articles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /articles has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/articles/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /articles/[slug] has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/posts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /posts has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/posts/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /posts/[slug] has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /projects has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/tags/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /tags has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/weekly/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /weekly has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/json-ld::src/routes/weekly/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <svelte:head>, ld+json or JSON-LD anywhere in src, the content-core workspace package or app.html; /weekly/[slug] has no JSON-LD block as claimed (this route is a client redirect stub to /[lang]..., json-ld convention: tp regardless) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang] (src/routes/[lang]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/about (src/routes/[lang]/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/articles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/articles (src/routes/[lang]/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/articles/[slug] (src/routes/[lang]/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/posts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/posts (src/routes/[lang]/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/posts/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/posts/[slug] (src/routes/[lang]/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/projects (src/routes/[lang]/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/projects/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/projects/[slug] (src/routes/[lang]/projects/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/tags/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/tags (src/routes/[lang]/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/weekly/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/weekly (src/routes/[lang]/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/[lang]/weekly/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/weekly/[slug] (src/routes/[lang]/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (src/routes/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/articles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /articles (src/routes/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/articles/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /articles/[slug] (src/routes/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/posts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /posts (src/routes/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/posts/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /posts/[slug] (src/routes/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects (src/routes/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/tags/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tags (src/routes/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/weekly/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /weekly (src/routes/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-description::src/routes/weekly/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /weekly/[slug] (src/routes/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang] (src/routes/[lang]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/about (src/routes/[lang]/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/articles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/articles (src/routes/[lang]/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/articles/[slug] (src/routes/[lang]/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/posts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/posts (src/routes/[lang]/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/posts/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/posts/[slug] (src/routes/[lang]/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/projects (src/routes/[lang]/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/projects/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/projects/[slug] (src/routes/[lang]/projects/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/tags/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/tags (src/routes/[lang]/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/weekly/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/weekly (src/routes/[lang]/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/[lang]/weekly/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/weekly/[slug] (src/routes/[lang]/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (src/routes/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/articles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /articles (src/routes/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/articles/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /articles/[slug] (src/routes/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/posts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /posts (src/routes/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/posts/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /posts/[slug] (src/routes/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects (src/routes/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/tags/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tags (src/routes/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/weekly/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /weekly (src/routes/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-image::src/routes/weekly/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /weekly/[slug] (src/routes/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang] (src/routes/[lang]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/about (src/routes/[lang]/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/articles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/articles (src/routes/[lang]/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/articles/[slug] (src/routes/[lang]/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/posts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/posts (src/routes/[lang]/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/posts/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/posts/[slug] (src/routes/[lang]/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/projects (src/routes/[lang]/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/projects/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/projects/[slug] (src/routes/[lang]/projects/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/tags/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/tags (src/routes/[lang]/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/weekly/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/weekly (src/routes/[lang]/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/[lang]/weekly/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/weekly/[slug] (src/routes/[lang]/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (src/routes/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/articles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /articles (src/routes/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/articles/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /articles/[slug] (src/routes/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/posts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /posts (src/routes/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/posts/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /posts/[slug] (src/routes/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects (src/routes/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/tags/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tags (src/routes/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/weekly/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /weekly (src/routes/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-title::src/routes/weekly/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /weekly/[slug] (src/routes/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang] (src/routes/[lang]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/about (src/routes/[lang]/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/articles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/articles (src/routes/[lang]/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/articles/[slug] (src/routes/[lang]/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/posts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/posts (src/routes/[lang]/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/posts/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/posts/[slug] (src/routes/[lang]/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/projects (src/routes/[lang]/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/projects/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/projects/[slug] (src/routes/[lang]/projects/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/tags/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/tags (src/routes/[lang]/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/weekly/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/weekly (src/routes/[lang]/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/[lang]/weekly/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/weekly/[slug] (src/routes/[lang]/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about (src/routes/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/articles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /articles (src/routes/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/articles/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /articles/[slug] (src/routes/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/posts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /posts (src/routes/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/posts/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /posts/[slug] (src/routes/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects (src/routes/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/tags/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tags (src/routes/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/weekly/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /weekly (src/routes/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/og-url::src/routes/weekly/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /weekly/[slug] (src/routes/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/[lang]/about::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: [lang]/about/+page.svelte renders AboutPage.svelte, whose section headings are SectionTitle.svelte (a styled <div class=section-title>, ::before '# '), and neither it, its card components nor the root layout (Topbar/Footer) render an <h1> (h1 only in HomePage/ContentDetail/ProjectDetail)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/[lang]/articles::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: [lang]/articles/+page.svelte renders ArticlesPage.svelte, whose section headings are SectionTitle.svelte (a styled <div class=section-title>, ::before '# '), and neither it, its card components nor the root layout (Topbar/Footer) render an <h1> (h1 only in HomePage/ContentDetail/ProjectDetail)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/[lang]/posts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: [lang]/posts/+page.svelte renders PostsPage.svelte, whose section headings are SectionTitle.svelte (a styled <div class=section-title>, ::before '# '), and neither it, its card components nor the root layout (Topbar/Footer) render an <h1> (h1 only in HomePage/ContentDetail/ProjectDetail)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/[lang]/projects::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: [lang]/projects/+page.svelte renders ProjectsPage.svelte, whose section headings are SectionTitle.svelte (a styled <div class=section-title>, ::before '# '), and neither it, its card components nor the root layout (Topbar/Footer) render an <h1> (h1 only in HomePage/ContentDetail/ProjectDetail)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/[lang]/tags::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: [lang]/tags/+page.svelte renders TagsPage.svelte, whose section headings are SectionTitle.svelte (a styled <div class=section-title>, ::before '# '), and neither it, its card components nor the root layout (Topbar/Footer) render an <h1> (h1 only in HomePage/ContentDetail/ProjectDetail)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/[lang]/weekly::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: [lang]/weekly/+page.svelte renders WeeklyPage.svelte, whose section headings are SectionTitle.svelte (a styled <div class=section-title>, ::before '# '), and neither it, its card components nor the root layout (Topbar/Footer) render an <h1> (h1 only in HomePage/ContentDetail/ProjectDetail)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/about::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/about/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/articles/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/articles/[slug]/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/articles::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/articles/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/posts/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/posts/[slug]/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/posts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/posts/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/projects::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/projects/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/tags::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/tags/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/weekly/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/weekly/[slug]/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/single-h1::/weekly::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/weekly/+page.svelte renders only <Redirect /> (components/Redirect.svelte: onMount goto(`/${browserLang()}${path}`, no markup) under ssr=false; root layout (Topbar/Footer) has no <h1> - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); public personal blog deployed to GitHub Pages (.github/workflows deploy), static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 (literal claim holds) with prerender = true: the public GitHub Pages blog (posts, articles, projects, weekly) ships empty shells, its content invisible to non-JS crawlers"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> \"~ Ku6epXBOCTuK\" in src/app.html, whitespace collapsed, 14 graphemes as reported); public, indexable route (personal blog on GitHub Pages, robots.txt allows all; key covers 21 routes, labelled by majority: 11 are /[lang]/* content pages, 10 are client redirect stubs)"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang] (src/routes/[lang]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/about (src/routes/[lang]/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/articles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/articles (src/routes/[lang]/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/articles/[slug] (src/routes/[lang]/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/posts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/posts (src/routes/[lang]/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/posts/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/posts/[slug] (src/routes/[lang]/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/projects (src/routes/[lang]/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/projects/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/projects/[slug] (src/routes/[lang]/projects/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/tags/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/tags (src/routes/[lang]/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/weekly/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/weekly (src/routes/[lang]/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/[lang]/weekly/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/weekly/[slug] (src/routes/[lang]/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (src/routes/about/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/articles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /articles (src/routes/articles/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/articles/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /articles/[slug] (src/routes/articles/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/posts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /posts (src/routes/posts/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/posts/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /posts/[slug] (src/routes/posts/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects (src/routes/projects/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/tags/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tags (src/routes/tags/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/weekly/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /weekly (src/routes/weekly/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  },
+  {
+    "key": "Ku6epXBOCTuK/ku6epxboctuk.github.io::seo/twitter-card::src/routes/weekly/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /weekly/[slug] (src/routes/weekly/[slug]/+page.svelte): script-verified (git grep of the repo incl. src/app.html and packages/content-core): no og:*/twitter:*/rel=canonical emitter in the app (only refs/new_design/index.html, a static design mock outside src/); app.html head is charset/viewport/<title>/google-site-verification; no <svelte:head> anywhere in src; vite-plugin-svelte-md runs with headEnabled:false (vite.config.ts); no npm Svelte component deps; ssr=false + prerender (+layout.ts) so client heads count and none exist; public GitHub Pages blog, static/robots.txt allows all"
+  }
+]

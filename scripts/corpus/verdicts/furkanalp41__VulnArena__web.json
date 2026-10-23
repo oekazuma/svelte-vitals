@@ -1,0 +1,1267 @@
+[
+  {
+    "key": "furkanalp41/VulnArena:web::a11y/no-missing-id-ref::src/routes/(app)/forge/new/+page.svelte:237::for=\"forge-preview\" references a missing id",
+    "verdict": "tp",
+    "basis": "read forge/new/+page.svelte:237: <label for=\"forge-preview\"> above <CodeEditor readonly> which is passed no id; grep finds no element with id forge-preview anywhere in web/src, so the label points at nothing, as reported"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::a11y/pattern-title::src/routes/(auth)/register/+page.svelte:106::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read (auth)/register/+page.svelte:106-115: OTP <input pattern=\"[0-9]*\"> with no title in <form onsubmit={handleVerify}> (:98, no novalidate) submitted by a type=submit Button, so native validation shows no format hint (OTP precedent)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::a11y/pattern-title::src/routes/verify/+page.svelte:73::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read verify/+page.svelte:73: OTP <input pattern=\"[0-9]*\"> with no title in <form onsubmit={handleVerify}> (:59, no novalidate), so native validation shows no format hint (OTP precedent)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/lib/components/editor/CodeEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/editor/CodeEditor.svelte has 413 physical lines (newline count, trailing newline not counted; 371 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/lib/components/layout/Navbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/Navbar.svelte has 348 physical lines (newline count, trailing newline not counted; 305 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/lib/components/ui/MarkdownRenderer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/MarkdownRenderer.svelte has 243 physical lines (newline count, trailing newline not counted; 211 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/academy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/academy/+page.svelte has 214 physical lines (newline count, trailing newline not counted; 190 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/academy/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/academy/[id]/+page.svelte has 279 physical lines (newline count, trailing newline not counted; 243 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/+page.svelte has 308 physical lines (newline count, trailing newline not counted; 273 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/admin/challenges/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/challenges/+page.svelte has 435 physical lines (newline count, trailing newline not counted; 381 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/admin/community/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/community/+page.svelte has 212 physical lines (newline count, trailing newline not counted; 186 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/admin/community/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/community/[id]/+page.svelte has 371 physical lines (newline count, trailing newline not counted; 330 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/admin/lessons/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/lessons/+page.svelte has 462 physical lines (newline count, trailing newline not counted; 405 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/arena/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/arena/+page.svelte has 527 physical lines (newline count, trailing newline not counted; 466 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/arena/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/arena/[id]/+page.svelte has 1539 physical lines (newline count, trailing newline not counted; 1385 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/+page.svelte has 395 physical lines (newline count, trailing newline not counted; 348 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/forge/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/forge/+page.svelte has 257 physical lines (newline count, trailing newline not counted; 229 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/forge/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/forge/new/+page.svelte has 441 physical lines (newline count, trailing newline not counted; 391 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/leaderboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/leaderboard/+page.svelte has 488 physical lines (newline count, trailing newline not counted; 438 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/profile/[username]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/profile/[username]/+page.svelte has 390 physical lines (newline count, trailing newline not counted; 344 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/+page.svelte has 489 physical lines (newline count, trailing newline not counted; 438 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/teams/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/teams/+page.svelte has 329 physical lines (newline count, trailing newline not counted; 293 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(app)/teams/[tag]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/teams/[tag]/+page.svelte has 428 physical lines (newline count, trailing newline not counted; 374 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(auth)/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/login/+page.svelte has 250 physical lines (newline count, trailing newline not counted; 221 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/(auth)/register/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/register/+page.svelte has 315 physical lines (newline count, trailing newline not counted; 283 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 535 physical lines (newline count, trailing newline not counted; 511 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/pricing/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/pricing/+page.svelte has 315 physical lines (newline count, trailing newline not counted; 301 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/component-size::src/routes/verify/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/verify/+page.svelte has 211 physical lines (newline count, trailing newline not counted; 198 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/prop-count::src/lib/components/editor/CodeEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/editor/CodeEditor.svelte has a single destructured $props() with 9 named props (> 6): code, language, readonly, height, selectedLines, onLineToggle, remoteCursors, remoteSelections, onCursorMove"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 7 named props (> 6): variant, size, disabled, loading, type, onclick, children"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::architecture/prop-count::src/lib/components/ui/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Input.svelte has a single destructured $props() with 9 named props (> 6): type, placeholder, value, label, error, disabled, name, required, oninput"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/lib/components/dashboard/AchievementShowcase.svelte:55::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/dashboard/AchievementShowcase.svelte:55 '{#each safeAll as achievement}' has no key; safeAll = $derived(all ?? []) of the achievements prop fetched from the API; runtime records"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/lib/components/dashboard/ActivityFeed.svelte:52::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/dashboard/ActivityFeed.svelte:52 '{#each activities as entry}' has no key; activities prop, the user's activity feed from the API; runtime records"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/lib/components/dashboard/SkillRadar.svelte:70::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/dashboard/SkillRadar.svelte:70/79/86 has no key; axis lines, points and labels of a radar chart placed by index (axisEnd(i), labelPos(i)); positional chart elements"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/lib/components/dashboard/SkillRadar.svelte:79::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/dashboard/SkillRadar.svelte:70/79/86 has no key; axis lines, points and labels of a radar chart placed by index (axisEnd(i), labelPos(i)); positional chart elements"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/lib/components/dashboard/SkillRadar.svelte:86::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/dashboard/SkillRadar.svelte:70/79/86 has no key; axis lines, points and labels of a radar chart placed by index (axisEnd(i), labelPos(i)); positional chart elements"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/lib/components/ui/Terminal.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/Terminal.svelte:52 '{#each lines.slice(0, visibleCount) as line, i}' has no key; output text lines of one analysis revealed one by one; positional text lines (append only)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/academy/+page.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/academy/+page.svelte:57 '{#each lessons as lesson}' has no key; lessons = $state filled from the API (:15); runtime records"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/academy/[id]/+page.svelte:66::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/academy/[id]/+page.svelte:66 '{#each lesson.tags as tag}' has no key; the tag strings of the one fetched lesson, plain <span>; positional list (parts of one record)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/admin/challenges/+page.svelte:184::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/challenges/+page.svelte:184 '{#each form.hints as hint, i}' has no key; hints the admin adds (:54) and removes by index (:60); user-edited list"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/admin/community/+page.svelte:72::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/community/+page.svelte:72 '{#each challenges as ch}' has no key; challenges = $state of the moderation queue fetched from the API (:23); runtime records"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/admin/community/[id]/+page.svelte:153::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/admin/community/[id]/+page.svelte:153 '{#each challenge.hints as hint, i}' has no key; the hint strings of the one fetched submission, shown read-only for review; positional list (parts of one record)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/admin/lessons/+page.svelte:151::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/lessons/+page.svelte:151 '{#each form.tags as tag, i}' has no key; tag chips the admin adds (:39) and removes by index (:45); user-edited list"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/arena/+page.svelte:119::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/arena/+page.svelte:119/129 has no key; languages/categories = $state built from the fetched challenges (:30/:32); runtime option list"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/arena/+page.svelte:129::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/arena/+page.svelte:119/129 has no key; languages/categories = $state built from the fetched challenges (:30/:32); runtime option list"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/arena/+page.svelte:184::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/arena/+page.svelte:184 '{#each challenges as challenge}' has no key; challenges = $state of fetched, filtered challenges (:49); runtime records"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/arena/[id]/+page.svelte:305::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/arena/[id]/+page.svelte:305 '{#each coopMembers as member}' has no key; coopMembers follows the live room members store (:108), members join and leave; runtime records"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/arena/[id]/+page.svelte:378::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/arena/[id]/+page.svelte:378 '{#each challenge.description.split('\\n') as line}' has no key; the text lines of one challenge description; positional text lines"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/arena/[id]/+page.svelte:404::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/arena/[id]/+page.svelte:404 '{#each challenge.hints.slice(0, hintsRevealed) as hint, i}' has no key; the fixed hints of one challenge revealed one by one (append only); positional list (parts of one record)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/arena/[id]/+page.svelte:485::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/arena/[id]/+page.svelte:485 '{#each targetLines as line}' has no key; line chips the user adds (:132) and removes (:130, :147); user-edited list"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/arena/[id]/+page.svelte:586::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/arena/[id]/+page.svelte:586/589 has no key; the matched term strings of one evaluation feedback (feedback = result.feedback :195), read-only chips replaced wholesale; positional list (parts of one result)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/arena/[id]/+page.svelte:589::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/arena/[id]/+page.svelte:586/589 has no key; the matched term strings of one evaluation feedback (feedback = result.feedback :195), read-only chips replaced wholesale; positional list (parts of one result)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/forge/+page.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/forge/+page.svelte:70 '{#each challenges as ch}' has no key; the user's submissions fetched from the API (:16) and removed by id (:29); runtime records"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/forge/new/+page.svelte:212::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/forge/new/+page.svelte:212 '{#each form.hints as hint, i}' has no key; hints the user adds (:55) and removes by index (:61); user-edited list"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/teams/+page.svelte:116::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/teams/+page.svelte:116 '{#each teams as team}' has no key; teams = $state from listTeams() (:19, reloaded :38); runtime records"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::correctness/each-key::src/routes/(app)/teams/[tag]/+page.svelte:124::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/teams/[tag]/+page.svelte:124 '{#each team.members as member}' has no key; members of the fetched team, refetched after join/leave (:43, :54); runtime records"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::performance/image-dimensions::src/routes/+page.svelte:63::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/hero.webp\"> lacks width/height, no spread; .visual-img is absolute inset 0, 100% x 100% inside .visual-frame with aspect-ratio 16/11 (+page.svelte style :231-249) - box reserved by CSS"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::performance/image-loading-hint::src/routes/+page.svelte:63::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the hero visual beside the <h1> in the top hero section (+page.svelte:39-63) - above the fold and the likely LCP, where the docs keep the image eager"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::performance/responsive-image::src/routes/+page.svelte:63::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img src=\"/hero.webp\"> has no srcset, no spread; static/hero.webp is 1600x893, sent at full size to every device"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::performance/state-raw::src/routes/(app)/arena/+page.svelte:21::\"languages\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"languages\" in src/routes/(app)/arena/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::performance/state-raw::src/routes/(app)/arena/+page.svelte:22::\"categories\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"categories\" in src/routes/(app)/arena/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::performance/state-raw::src/routes/(app)/arena/+page.svelte:7::\"challenges\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"challenges\" in src/routes/(app)/arena/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::performance/state-raw::src/routes/(app)/teams/+page.svelte:6::\"teams\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"teams\" in src/routes/(app)/teams/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::security/raw-html::src/lib/components/ui/MarkdownRenderer.svelte:64::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read MarkdownRenderer.svelte:13-59 + academy/[id]/+page.svelte:18,78: renderedHtml = marked.parse(lesson.content) with no sanitizer (marked passes raw HTML; the custom renderers also interpolate token.text/href unescaped), content is a lesson stored via the API and shown to every learner — DB content rendered unsanitized"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::security/raw-html::src/routes/(app)/admin/lessons/+page.svelte:172::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read admin/lessons/+page.svelte:6-15,48-54,73-76: getPreviewHtml() = marked(form.content), the admin's own unsaved draft in a create-only form that starts empty and resets after publish — self-only preview, not a cross-user vector (ledger self-only preview convention), reported per docs"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/academy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /academy (src/routes/(app)/academy/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/academy/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /academy/[id] (src/routes/(app)/academy/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (src/routes/(app)/admin/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/admin/challenges/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/challenges (src/routes/(app)/admin/challenges/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/admin/community/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/community (src/routes/(app)/admin/community/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/admin/community/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/community/[id] (src/routes/(app)/admin/community/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/admin/lessons/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/lessons (src/routes/(app)/admin/lessons/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/arena/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /arena (src/routes/(app)/arena/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/arena/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /arena/[id] (src/routes/(app)/arena/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/forge/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /forge (src/routes/(app)/forge/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/forge/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /forge/new (src/routes/(app)/forge/new/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/leaderboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard (src/routes/(app)/leaderboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/profile/[username]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile/[username] (src/routes/(app)/profile/[username]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/teams/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(app)/teams/[tag]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /teams/[tag] (src/routes/(app)/teams/[tag]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (client auth-gated: (app)/+layout.svelte:14-31 goto(\"/login\") for guests and renders children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; public page (static/robots.txt allows all, no noindex, outside the (app) client gate)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; public page (static/robots.txt allows all, no noindex, outside the (app) client gate)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; public page (static/robots.txt allows all, no noindex, outside the (app) client gate)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/auth/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/callback (src/routes/auth/callback/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (OAuth callback transit page: auth/callback/+page.svelte onMount exchanges ?code and goto()s to /dashboard or /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/billing/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /billing/success (src/routes/billing/success/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (post-checkout return page: billing/success/+page.svelte polls getMe() for the subscription after the Lemon Squeezy redirect), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/pricing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /pricing (src/routes/pricing/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; public page (static/robots.txt allows all, no noindex, outside the (app) client gate)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/canonical-url::src/routes/verify/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /verify (src/routes/verify/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on; but not a search target (email-verification step: verify/+page.svelte takes ?email= from the registration flow and posts the emailed code, then goto(\"/login?verified=1\")), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/duplicate-description::src/routes/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: root +layout.svelte:45 literal <meta name=description> is the only description of all 24 routes (local CLI list), duplicate as claimed; mixed, labelled by majority: 17 are (app) routes gated by (app)/+layout.svelte (children only after login, else goto /login); the 7 public ones (/, /login, /register, /pricing, /verify, /auth/callback, /billing/success) share it too"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: root +layout.svelte:44 literal <title>VulnArena - Cybersecurity Training Platform</title> is the only title of the 11 routes in the key (local CLI list: /, /academy, /academy/[id], /admin/community, /admin/community/[id], /arena, /arena/[id], /dashboard, /forge, /forge/new, /settings), duplicate as claimed; mixed, labelled by majority: 10 are (app) routes gated by (app)/+layout.svelte (children only after login, else goto /login), only / is public"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/heading-level-skip::src/routes/(app)/arena/+page.svelte:187::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: arena/+page.svelte:103 <h1>Open audits, filters (no heading), then the {#each challenges} card <h3> (:187), no <h2> between (Navbar and lib/components render no heading) -> h1 to h3"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/heading-level-skip::src/routes/(app)/arena/[id]/+page.svelte:376::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: arena/[id]/+page.svelte <h1>{challenge.title} (:263 / :284, one per layout arm), then the brief tab <h3>Briefing (:376); CodeEditor/Terminal/Card render no heading, no <h2> between (Navbar and lib/components render no heading) -> h1 to h3"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/heading-level-skip::src/routes/(app)/dashboard/+page.svelte:78::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: dashboard/+page.svelte:50 <h1>Dashboard, StatCards, then the section-header <h3>Rank (:78), no <h2> between (Navbar and lib/components render no heading) -> h1 to h3"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/heading-level-skip::src/routes/(app)/forge/+page.svelte:75::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: forge/+page.svelte:47 <h1>Community Forge, then the {#each challenges} Card <h3> (:75), no <h2> between (Navbar and lib/components render no heading) -> h1 to h3"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/heading-level-skip::src/routes/+page.svelte:75::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:39 hero <h1>, hero visual, then the features <h3>The Arena (:75), no <h2> between (Navbar and lib/components render no heading) -> h1 to h3"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/academy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /academy has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/academy/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /academy/[id] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /admin has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/admin/challenges/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /admin/challenges has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/admin/community/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /admin/community has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/admin/community/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /admin/community/[id] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/admin/lessons/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /admin/lessons has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/arena/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /arena has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/arena/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /arena/[id] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /dashboard has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/forge/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /forge has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/forge/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /forge/new has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/leaderboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /leaderboard has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/profile/[username]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /profile/[username] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /settings has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/teams/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /teams has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(app)/teams/[tag]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /teams/[tag] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /login has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /register has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); / has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /auth/callback has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/billing/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /billing/success has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/pricing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /pricing has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/json-ld::src/routes/verify/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html (root layout head has only title + description); /verify has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/academy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /academy (src/routes/(app)/academy/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/academy/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /academy/[id] (src/routes/(app)/academy/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (src/routes/(app)/admin/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/admin/challenges/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/challenges (src/routes/(app)/admin/challenges/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/admin/community/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/community (src/routes/(app)/admin/community/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/admin/community/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/community/[id] (src/routes/(app)/admin/community/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/admin/lessons/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/lessons (src/routes/(app)/admin/lessons/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/arena/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /arena (src/routes/(app)/arena/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/arena/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /arena/[id] (src/routes/(app)/arena/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/forge/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forge (src/routes/(app)/forge/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/forge/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forge/new (src/routes/(app)/forge/new/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/leaderboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard (src/routes/(app)/leaderboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile/[username] (src/routes/(app)/profile/[username]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/teams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(app)/teams/[tag]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /teams/[tag] (src/routes/(app)/teams/[tag]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/callback (src/routes/auth/callback/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/billing/success/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /billing/success (src/routes/billing/success/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/pricing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pricing (src/routes/pricing/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-description::src/routes/verify/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /verify (src/routes/verify/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/academy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /academy (src/routes/(app)/academy/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/academy/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /academy/[id] (src/routes/(app)/academy/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (src/routes/(app)/admin/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/admin/challenges/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/challenges (src/routes/(app)/admin/challenges/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/admin/community/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/community (src/routes/(app)/admin/community/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/admin/community/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/community/[id] (src/routes/(app)/admin/community/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/admin/lessons/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/lessons (src/routes/(app)/admin/lessons/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/arena/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /arena (src/routes/(app)/arena/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/arena/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /arena/[id] (src/routes/(app)/arena/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/forge/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forge (src/routes/(app)/forge/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/forge/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forge/new (src/routes/(app)/forge/new/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/leaderboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard (src/routes/(app)/leaderboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile/[username] (src/routes/(app)/profile/[username]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/teams/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(app)/teams/[tag]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /teams/[tag] (src/routes/(app)/teams/[tag]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/callback (src/routes/auth/callback/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/billing/success/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /billing/success (src/routes/billing/success/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/pricing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pricing (src/routes/pricing/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-image::src/routes/verify/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /verify (src/routes/verify/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/academy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /academy (src/routes/(app)/academy/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/academy/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /academy/[id] (src/routes/(app)/academy/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (src/routes/(app)/admin/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/admin/challenges/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/challenges (src/routes/(app)/admin/challenges/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/admin/community/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/community (src/routes/(app)/admin/community/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/admin/community/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/community/[id] (src/routes/(app)/admin/community/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/admin/lessons/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/lessons (src/routes/(app)/admin/lessons/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/arena/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /arena (src/routes/(app)/arena/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/arena/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /arena/[id] (src/routes/(app)/arena/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/forge/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forge (src/routes/(app)/forge/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/forge/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forge/new (src/routes/(app)/forge/new/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/leaderboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard (src/routes/(app)/leaderboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile/[username] (src/routes/(app)/profile/[username]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/teams/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(app)/teams/[tag]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /teams/[tag] (src/routes/(app)/teams/[tag]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/callback (src/routes/auth/callback/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/billing/success/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /billing/success (src/routes/billing/success/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/pricing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pricing (src/routes/pricing/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-title::src/routes/verify/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /verify (src/routes/verify/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/academy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /academy (src/routes/(app)/academy/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/academy/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /academy/[id] (src/routes/(app)/academy/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (src/routes/(app)/admin/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/admin/challenges/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/challenges (src/routes/(app)/admin/challenges/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/admin/community/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/community (src/routes/(app)/admin/community/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/admin/community/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/community/[id] (src/routes/(app)/admin/community/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/admin/lessons/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/lessons (src/routes/(app)/admin/lessons/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/arena/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /arena (src/routes/(app)/arena/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/arena/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /arena/[id] (src/routes/(app)/arena/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/forge/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forge (src/routes/(app)/forge/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/forge/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forge/new (src/routes/(app)/forge/new/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/leaderboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard (src/routes/(app)/leaderboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile/[username] (src/routes/(app)/profile/[username]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/teams/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(app)/teams/[tag]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /teams/[tag] (src/routes/(app)/teams/[tag]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/callback (src/routes/auth/callback/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/billing/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /billing/success (src/routes/billing/success/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/pricing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pricing (src/routes/pricing/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/og-url::src/routes/verify/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /verify (src/routes/verify/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/single-h1::/auth/callback::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: auth/callback/+page.svelte renders only a spinner and \"Signing you in…\" <p> while onMount exchanges the OAuth code and goto()s /dashboard or /login - a client-side redirect stub, no <h1> renders - redirect-stub convention (ledger majority tp)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/single-h1::src/routes/(app)/admin/community/+page.svelte:49::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/community/+page.svelte:49 titles the page with an <h2>, and neither the (app)/admin layouts (admin banner + nav) nor the root layout's Navbar render an <h1> - claim holds on this admin page"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/single-h1::src/routes/(app)/admin/community/[id]/+page.svelte:78::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/community/[id]/+page.svelte:78 titles the page with an <h2>, and neither the (app)/admin layouts (admin banner + nav) nor the root layout's Navbar render an <h1> - claim holds on this admin page"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); public hosted platform vulnarena.com (svelte.config.js) with public landing, pricing and auth pages, robots.txt allows all"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/title-length::src/routes/(app)/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Admin C2 | VulnArena\" in src/routes/(app)/admin/+page.svelte, whitespace collapsed, 20 graphemes as reported) (literal claim holds); but (app)/+layout.svelte gates this route: children render only after the auth store has a user, else goto(/login) (and admin/+layout.svelte requires role admin); not a search target"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/title-length::src/routes/(app)/leaderboard/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Leaderboard | VulnArena\" in src/routes/(app)/leaderboard/+page.svelte, whitespace collapsed, 23 graphemes as reported) (literal claim holds); but (app)/+layout.svelte gates this route: children render only after the auth store has a user, else goto(/login) (and admin/+layout.svelte requires role admin); not a search target"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/title-length::src/routes/(app)/teams/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Squads | VulnArena\" in src/routes/(app)/teams/+page.svelte, whitespace collapsed, 18 graphemes as reported) (literal claim holds); but (app)/+layout.svelte gates this route: children render only after the auth store has a user, else goto(/login) (and admin/+layout.svelte requires role admin); not a search target"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/title-length::src/routes/(auth)/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> \"Sign in — VulnArena\" in src/routes/(auth)/login/+page.svelte, whitespace collapsed, 19 graphemes as reported); public, indexable route (public page of the hosted vulnarena.com platform (svelte.config.js comment), outside the (app) gate, robots.txt allows all)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/title-length::src/routes/(auth)/register/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> \"Create account — VulnArena\" in src/routes/(auth)/register/+page.svelte, whitespace collapsed, 26 graphemes as reported); public, indexable route (public page of the hosted vulnarena.com platform (svelte.config.js comment), outside the (app) gate, robots.txt allows all)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/title-length::src/routes/auth/callback/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Signing in… — VulnArena\" in src/routes/auth/callback/+page.svelte, whitespace collapsed, 23 graphemes as reported) (literal claim holds); but auth/callback is an OAuth return stub (onMount exchanges ?code and goto()s /dashboard or /login), no content to rank"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/title-length::src/routes/billing/success/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Welcome to Pro — VulnArena\" in src/routes/billing/success/+page.svelte, whitespace collapsed, 26 graphemes as reported) (literal claim holds); but billing/success is the post-checkout landing of a signed-in buyer (polls /users/me for the Pro flag), not a search target"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/title-length::src/routes/pricing/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> \"Pricing — VulnArena\" in src/routes/pricing/+page.svelte, whitespace collapsed, 19 graphemes as reported); public, indexable route (public page of the hosted vulnarena.com platform (svelte.config.js comment), outside the (app) gate, robots.txt allows all)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/title-length::src/routes/verify/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> \"Verify email — VulnArena\" in src/routes/verify/+page.svelte, whitespace collapsed, 24 graphemes as reported); public, indexable route (public page of the hosted vulnarena.com platform (svelte.config.js comment), outside the (app) gate, robots.txt allows all)"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/academy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /academy (src/routes/(app)/academy/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/academy/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /academy/[id] (src/routes/(app)/academy/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (src/routes/(app)/admin/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/admin/challenges/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/challenges (src/routes/(app)/admin/challenges/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/admin/community/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/community (src/routes/(app)/admin/community/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/admin/community/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/community/[id] (src/routes/(app)/admin/community/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/admin/lessons/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/lessons (src/routes/(app)/admin/lessons/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/arena/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /arena (src/routes/(app)/arena/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/arena/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /arena/[id] (src/routes/(app)/arena/[id]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/forge/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forge (src/routes/(app)/forge/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/forge/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forge/new (src/routes/(app)/forge/new/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/leaderboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard (src/routes/(app)/leaderboard/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile/[username] (src/routes/(app)/profile/[username]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/teams/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /teams (src/routes/(app)/teams/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(app)/teams/[tag]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /teams/[tag] (src/routes/(app)/teams/[tag]/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/auth/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/callback (src/routes/auth/callback/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/billing/success/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /billing/success (src/routes/billing/success/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/pricing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pricing (src/routes/pricing/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  },
+  {
+    "key": "furkanalp41/VulnArena:web::seo/twitter-card::src/routes/verify/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /verify (src/routes/verify/+page.svelte): script-verified (git grep of VulnArena web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale/theme script; root +layout.svelte:43-46 head has <title> + description only, page heads <title> only; npm deps marked/monaco-editor/shiki are not Svelte components; no route load files, SSR on"
+  }
+]

@@ -1,0 +1,1032 @@
+[
+  {
+    "key": "muxshed/shed:web::a11y/duplicate-landmark::src/routes/(app)/scenes/+page.svelte:212::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/+layout.svelte:305-307 renders {@render children()} only inside <main> (its other arms loading/setup/login render no children), so on /scenes the page's <main> at scenes/+page.svelte:212 is a second main landmark, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/interactive-nesting::src/routes/(app)/library/+page.svelte:234::<span> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): library/+page.svelte:234 <span onclick=\"{(e) => { sits inside <div class=\"group flex items-center gap-2 rounded-sm border border-bor…> at :225 in the same template, no component/snippet boundary; an interactive descendant of a button container, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/components/VideoPreview.svelte:104::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): VideoPreview.svelte:104 <div class=\"pill pill--live absolute top-2 right-2\"> is a literal child of <button class=\"scanlines-well group relative aspect-video w-…> at :84 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/components/VideoPreview.svelte:97::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): VideoPreview.svelte:97 <div class=\"absolute bottom-0 left-0 right-0 border-t border-border-di…> is a literal child of <button class=\"scanlines-well group relative aspect-video w-…> at :84 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/routes/(app)/+page.svelte:553::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): (app)/+page.svelte:553 <div class=\"scanlines-well flex h-5 w-12 items-end gap-px border borde…> is a literal child of <button onclick=\"{() => setAudioSource(source.id)}\" class=\"r…> at :548 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/routes/(app)/+page.svelte:561::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): (app)/+page.svelte:561 <div class=\"min-w-0 flex-1\"> is a literal child of <button onclick=\"{() => setAudioSource(source.id)}\" class=\"r…> at :548 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/routes/(app)/library/+page.svelte:266::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): library/+page.svelte:266 <div class=\"relative mb-2 flex aspect-video items-center justify-cente…> is a literal child of <button onclick=\"{() => openDetail(asset)}\" class=\"group rou…> at :261 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/routes/(app)/library/+page.svelte:283::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): library/+page.svelte:283 <div class=\"truncate text-sm text-amber\"> is a literal child of <button onclick=\"{() => openDetail(asset)}\" class=\"group rou…> at :261 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/routes/(app)/library/+page.svelte:284::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): library/+page.svelte:284 <div class=\"flex items-center justify-between text-xs text-amber-dim\"> is a literal child of <button onclick=\"{() => openDetail(asset)}\" class=\"group rou…> at :261 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/routes/(app)/library/+page.svelte:305::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): library/+page.svelte:305 <div class=\"flex h-8 w-8 items-center justify-center rounded-sm {typeC…> is a literal child of <button onclick=\"{() => openDetail(asset)}\" class=\"flex w-fu…> at :301 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/routes/(app)/library/+page.svelte:308::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): library/+page.svelte:308 <div class=\"min-w-0 flex-1\"> is a literal child of <button onclick=\"{() => openDetail(asset)}\" class=\"flex w-fu…> at :301 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/permitted-contents::src/routes/popout/audio/+page.svelte:71::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): audio/+page.svelte:71 <div class=\"scanlines-well flex h-6 w-16 items-end gap-px border borde…> is a literal child of <button onclick=\"{() => setAudioSource(source.id)}\" class=\"r…> at :66 (only {#if}/{#each} between, no component/snippet boundary); <button>'s content model excludes <div>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/top-level-landmark::src/routes/(app)/scenes/+page.svelte:182::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/+layout.svelte:305-307 renders {@render children()} only inside <main> (its other arms loading/setup/login render no children), so on /scenes the unlabelled <aside> at :182 sits under div :180 with no sectioning ancestor, so it is a complementary landmark inside main, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::a11y/top-level-landmark::src/routes/(app)/scenes/+page.svelte:212::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/+layout.svelte:305-307 renders {@render children()} only inside <main> (its other arms loading/setup/login render no children), so on /scenes the page's <main> at :212 (under div.mx-auto :180) is nested in the layout <main>, as reported"
+  },
+  {
+    "key": "muxshed/shed:web::architecture/component-size::src/routes/(app)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+layout.svelte has 310 physical lines (newline count, trailing newline not counted; 280 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "muxshed/shed:web::architecture/component-size::src/routes/(app)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+page.svelte has 760 physical lines (newline count, trailing newline not counted; 716 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "muxshed/shed:web::architecture/component-size::src/routes/(app)/channel/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/channel/+page.svelte has 308 physical lines (newline count, trailing newline not counted; 284 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "muxshed/shed:web::architecture/component-size::src/routes/(app)/library/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/library/+page.svelte has 543 physical lines (newline count, trailing newline not counted; 508 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "muxshed/shed:web::architecture/component-size::src/routes/(app)/scenes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/scenes/+page.svelte has 360 physical lines (newline count, trailing newline not counted; 337 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "muxshed/shed:web::architecture/component-size::src/routes/(app)/schedules/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/schedules/+page.svelte has 266 physical lines (newline count, trailing newline not counted; 246 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "muxshed/shed:web::architecture/component-size::src/routes/(app)/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/+page.svelte has 369 physical lines (newline count, trailing newline not counted; 345 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "muxshed/shed:web::architecture/component-size::src/routes/guest/[token]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/guest/[token]/+page.svelte has 253 physical lines (newline count, trailing newline not counted; 228 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "muxshed/shed:web::architecture/component-size::src/routes/watch/[token]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/watch/[token]/+page.svelte has 429 physical lines (newline count, trailing newline not counted; 397 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/(app)/destinations/+page.svelte:72::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/destinations/+page.svelte:72 '{#each Object.entries(platforms) …}' iterates the entries of the same-file constant object platforms (:16), <option>s of a fixed platform set; static list, a key cannot help (not an exempt shape: Object.entries(...) is a call)"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/(app)/library/+page.svelte:195::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/library/+page.svelte:195 '{#each breadcrumbs() …}' has no key; breadcrumbs() (:170) builds the folder path crumbs; positional list (breadcrumb items)"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/(app)/scenes/+page.svelte:260::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/scenes/+page.svelte:260 '{#each $sources as s}' has no key; <option>s of the sources store filled from the API; runtime option list"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/(app)/scenes/+page.svelte:267::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/scenes/+page.svelte:267 '{#each assets as a}' has no key; assets = $state filled by api.listAssets() (:23); runtime option list"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/(app)/schedules/+page.svelte:214::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/schedules/+page.svelte:214 '{#each assets as a}' has no key; assets = $state of fetched video assets (:35); runtime option list"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/(app)/schedules/+page.svelte:240::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/schedules/+page.svelte:240 '{#each standbyAssets as a}' has no key; standbyAssets = $state of fetched image/video assets (:36); runtime option list"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/(app)/schedules/+page.svelte:245::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/schedules/+page.svelte:245 '{#each destinations as d}' has no key; destinations = $state of fetched destination records (:37), checkbox labels; runtime records"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/(app)/settings/+page.svelte:313::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:313 '{#each sources as s}' has no key; sources = $state of fetched sources (:35); runtime option list"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/guest/[token]/+page.svelte:214::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/guest/[token]/+page.svelte:214 '{#each cameras as c, i}' has no key; cameras = $state from enumerateDevices() (:69), which changes as devices are plugged/unplugged; runtime option list"
+  },
+  {
+    "key": "muxshed/shed:web::correctness/each-key::src/routes/guest/[token]/+page.svelte:222::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/guest/[token]/+page.svelte:222 '{#each mics as m, i}' has no key; mics = $state from enumerateDevices() (:70); runtime option list"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-dimensions::src/routes/(app)/channel/+page.svelte:220::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; read: channel logo with only max-h-12 max-w-[160px] object-contain beside the Remove button - no box reserved, the row reflows when it loads"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-dimensions::src/routes/(app)/library/+page.svelte:268::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; read: h-full w-full inside the aspect-video preview box of each library card (:266) - box reserved by CSS"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-dimensions::src/routes/(app)/library/+page.svelte:270::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; read: h-full w-full inside the aspect-video preview box of each library card (:266) - box reserved by CSS"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-dimensions::src/routes/(app)/library/+page.svelte:383::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; read: dialog preview with max-h-64 w-full object-contain - height only capped, and the asset details follow it in the dialog, so they shift on load"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-dimensions::src/routes/watch/[token]/+page.svelte:274::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; read: channel logo in the watch page branding header with only max-h-20 max-w-[260px] - no box reserved, the player below shifts when it loads"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-loading-hint::src/routes/(app)/channel/+page.svelte:220::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; read: logo preview in the first settings panel right after the Title and Accent color fields - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-loading-hint::src/routes/(app)/library/+page.svelte:268::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; read: full-size image file as the preview of each card in the {#each} library grid - cards further down load eagerly while offscreen"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-loading-hint::src/routes/(app)/library/+page.svelte:270::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; read: thumbnail preview of each card in the {#each} library grid - cards further down load eagerly while offscreen"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-loading-hint::src/routes/(app)/library/+page.svelte:383::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; read: preview inside the asset-detail Dialog rendered {#if detailAsset}, only after the user opens an asset - visible when rendered"
+  },
+  {
+    "key": "muxshed/shed:web::performance/image-loading-hint::src/routes/watch/[token]/+page.svelte:274::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; read: channel logo at the top of the watch page branding header (:272-274) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "muxshed/shed:web::performance/responsive-image::src/routes/(app)/channel/+page.svelte:220::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: user-uploaded raster (channel logo / asset file / generated thumbnail) from a dynamic URL - one fixed-size asset to every device"
+  },
+  {
+    "key": "muxshed/shed:web::performance/responsive-image::src/routes/(app)/library/+page.svelte:268::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: user-uploaded raster (channel logo / asset file / generated thumbnail) from a dynamic URL - one fixed-size asset to every device"
+  },
+  {
+    "key": "muxshed/shed:web::performance/responsive-image::src/routes/(app)/library/+page.svelte:270::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: user-uploaded raster (channel logo / asset file / generated thumbnail) from a dynamic URL - one fixed-size asset to every device"
+  },
+  {
+    "key": "muxshed/shed:web::performance/responsive-image::src/routes/(app)/library/+page.svelte:383::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: user-uploaded raster (channel logo / asset file / generated thumbnail) from a dynamic URL - one fixed-size asset to every device"
+  },
+  {
+    "key": "muxshed/shed:web::performance/responsive-image::src/routes/watch/[token]/+page.svelte:274::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: user-uploaded raster (channel logo / asset file / generated thumbnail) from a dynamic URL - one fixed-size asset to every device"
+  },
+  {
+    "key": "muxshed/shed:web::performance/state-raw::src/components/TimezonePicker.svelte:23::\"rect\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"rect\" in src/components/TimezonePicker.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "muxshed/shed:web::performance/state-raw::src/routes/(app)/+page.svelte:42::\"stingers\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"stingers\" in src/routes/(app)/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "muxshed/shed:web::performance/state-raw::src/routes/(app)/scenes/+page.svelte:18::\"assets\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"assets\" in src/routes/(app)/scenes/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "muxshed/shed:web::performance/state-raw::src/routes/(app)/schedules/+page.svelte:11::\"standbyAssets\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"standbyAssets\" in src/routes/(app)/schedules/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "muxshed/shed:web::performance/state-raw::src/routes/guest/[token]/+page.svelte:19::\"cameras\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"cameras\" in src/routes/guest/[token]/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "muxshed/shed:web::performance/state-raw::src/routes/guest/[token]/+page.svelte:20::\"mics\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"mics\" in src/routes/guest/[token]/+page.svelte (d_refs.py) and read the {#each}/{@const} bodies over it: only whole-binding reassignments and read-only template/expression uses (member reads, .length, read-only each items, {@const} reads passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/(app)/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/channel/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /channel (src/routes/(app)/channel/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/destinations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /destinations (src/routes/(app)/destinations/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/guests/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /guests (src/routes/(app)/guests/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/library/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /library (src/routes/(app)/library/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/scenes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /scenes (src/routes/(app)/scenes/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/schedules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /schedules (src/routes/(app)/schedules/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/settings/keys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/keys (src/routes/(app)/settings/keys/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/(app)/sources/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /sources (src/routes/(app)/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (client auth-gated: (app)/+layout.svelte:196-306 renders the setup/login screens and only renders {@render children()} in the {:else} arm once checkSetup() reaches mode \"ready\" with a valid session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/guest/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /guest/[token] (src/routes/guest/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (token-gated WebRTC guest join link (/guest/[token]) handed out by the studio operator, not a public page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/popout/audio/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /popout/audio (src/routes/popout/audio/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (operator popout window: opened by $lib/popout.ts:15 window.open(`/popout/${section}`) from the authenticated studio, its data only via session-token API calls (lib/api.ts:41)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/popout/preview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /popout/preview (src/routes/popout/preview/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (operator popout window: opened by $lib/popout.ts:15 window.open(`/popout/${section}`) from the authenticated studio, its data only via session-token API calls (lib/api.ts:41)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/popout/program/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /popout/program (src/routes/popout/program/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (operator popout window: opened by $lib/popout.ts:15 window.open(`/popout/${section}`) from the authenticated studio, its data only via session-token API calls (lib/api.ts:41)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/popout/sources/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /popout/sources (src/routes/popout/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; but not a search target (operator popout window: opened by $lib/popout.ts:15 window.open(`/popout/${section}`) from the authenticated studio, its data only via session-token API calls (lib/api.ts:41)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muxshed/shed:web::seo/canonical-url::src/routes/watch/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /watch/[token] (src/routes/watch/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects; public route, no auth gate, noindex or robots block"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/channel/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/destinations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/guests/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/library/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/scenes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/schedules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/settings/keys/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/(app)/sources/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/guest/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/popout/audio/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/popout/preview/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/popout/program/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/popout/sources/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/description-presence::src/routes/watch/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere in the app (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/duplicate-title::src/routes/(app)/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: (app)/+layout.svelte:193 literal <title>Muxshed</title> is the only title of the 11 routes in the key, duplicate as claimed; but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; / has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/channel/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /channel has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /dashboard has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/destinations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /destinations has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/guests/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /guests has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/library/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /library has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/scenes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /scenes has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/schedules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /schedules has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /settings has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/settings/keys/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /settings/keys has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/(app)/sources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /sources has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/guest/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /guest/[token] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/popout/audio/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /popout/audio has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/popout/preview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /popout/preview has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/popout/program/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /popout/program has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/popout/sources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /popout/sources has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/json-ld::src/routes/watch/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in web/src or app.html, no meta/JSON-LD package in deps; /watch/[token] has no JSON-LD block as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/(app)/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/channel/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /channel (src/routes/(app)/channel/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/destinations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /destinations (src/routes/(app)/destinations/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/guests/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guests (src/routes/(app)/guests/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library (src/routes/(app)/library/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/scenes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /scenes (src/routes/(app)/scenes/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/schedules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /schedules (src/routes/(app)/schedules/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/settings/keys/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/keys (src/routes/(app)/settings/keys/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/(app)/sources/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sources (src/routes/(app)/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/guest/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guest/[token] (src/routes/guest/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/popout/audio/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /popout/audio (src/routes/popout/audio/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/popout/preview/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /popout/preview (src/routes/popout/preview/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/popout/program/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /popout/program (src/routes/popout/program/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/popout/sources/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /popout/sources (src/routes/popout/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-description::src/routes/watch/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /watch/[token] (src/routes/watch/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/(app)/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/channel/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /channel (src/routes/(app)/channel/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/destinations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /destinations (src/routes/(app)/destinations/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/guests/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guests (src/routes/(app)/guests/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /library (src/routes/(app)/library/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/scenes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /scenes (src/routes/(app)/scenes/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/schedules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /schedules (src/routes/(app)/schedules/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/settings/keys/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/keys (src/routes/(app)/settings/keys/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/(app)/sources/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sources (src/routes/(app)/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/guest/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guest/[token] (src/routes/guest/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/popout/audio/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /popout/audio (src/routes/popout/audio/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/popout/preview/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /popout/preview (src/routes/popout/preview/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/popout/program/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /popout/program (src/routes/popout/program/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/popout/sources/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /popout/sources (src/routes/popout/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-image::src/routes/watch/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /watch/[token] (src/routes/watch/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/(app)/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/channel/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /channel (src/routes/(app)/channel/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/destinations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /destinations (src/routes/(app)/destinations/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/guests/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guests (src/routes/(app)/guests/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /library (src/routes/(app)/library/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/scenes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /scenes (src/routes/(app)/scenes/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/schedules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /schedules (src/routes/(app)/schedules/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/settings/keys/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/keys (src/routes/(app)/settings/keys/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/(app)/sources/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sources (src/routes/(app)/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/guest/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guest/[token] (src/routes/guest/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/popout/audio/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /popout/audio (src/routes/popout/audio/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/popout/preview/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /popout/preview (src/routes/popout/preview/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/popout/program/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /popout/program (src/routes/popout/program/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/popout/sources/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /popout/sources (src/routes/popout/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-title::src/routes/watch/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /watch/[token] (src/routes/watch/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/(app)/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/channel/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /channel (src/routes/(app)/channel/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/destinations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /destinations (src/routes/(app)/destinations/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/guests/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guests (src/routes/(app)/guests/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /library (src/routes/(app)/library/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/scenes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /scenes (src/routes/(app)/scenes/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/schedules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /schedules (src/routes/(app)/schedules/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/settings/keys/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/keys (src/routes/(app)/settings/keys/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/(app)/sources/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sources (src/routes/(app)/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/guest/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guest/[token] (src/routes/guest/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/popout/audio/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /popout/audio (src/routes/popout/audio/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/popout/preview/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /popout/preview (src/routes/popout/preview/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/popout/program/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /popout/program (src/routes/popout/program/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/popout/sources/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /popout/sources (src/routes/popout/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/og-url::src/routes/watch/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /watch/[token] (src/routes/watch/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/single-h1::/guest/[token]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (chain + imports): guest/[token]/+page.svelte has no heading at all (brand line is a <span>/<p>, :156-200); guest and root layouts render only children and Sonner - claim holds"
+  },
+  {
+    "key": "muxshed/shed:web::seo/single-h1::/popout/audio::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (chain + imports): popout/audio/+page.svelte (VideoPreview/mixer popout window) and the popout/root layouts render no heading - claim holds (ssr=false SPA window)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/single-h1::/popout/preview::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (chain + imports): popout/preview/+page.svelte (VideoPreview/mixer popout window) and the popout/root layouts render no heading - claim holds (ssr=false SPA window)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/single-h1::/popout/program::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (chain + imports): popout/program/+page.svelte (VideoPreview/mixer popout window) and the popout/root layouts render no heading - claim holds (ssr=false SPA window)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/single-h1::/popout/sources::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (chain + imports): popout/sources/+page.svelte (VideoPreview/mixer popout window) and the popout/root layouts render no heading - claim holds (ssr=false SPA window)"
+  },
+  {
+    "key": "muxshed/shed:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/ssr-disabled::src/routes/(app)/+layout.ts:3::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(app)/+layout.ts:3 (literal claim holds); deliberate SPA: Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muxshed/shed:web::seo/ssr-disabled::src/routes/+layout.ts:3::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:3 (literal claim holds); deliberate SPA: Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muxshed/shed:web::seo/title-length::src/routes/(app)/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Muxshed\" in src/routes/(app)/+layout.svelte, whitespace collapsed, 7 graphemes as reported) (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/title-length::src/routes/guest/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Join as guest — Muxshed\" in src/routes/guest/[token]/+page.svelte, whitespace collapsed, 23 graphemes as reported) (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/title-length::src/routes/popout/audio/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Audio - Muxshed\" in src/routes/popout/audio/+page.svelte, whitespace collapsed, 15 graphemes as reported) (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/title-length::src/routes/popout/preview/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Preview - Muxshed\" in src/routes/popout/preview/+page.svelte, whitespace collapsed, 17 graphemes as reported) (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/title-length::src/routes/popout/program/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Program - Muxshed\" in src/routes/popout/program/+page.svelte, whitespace collapsed, 17 graphemes as reported) (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/title-length::src/routes/popout/sources/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Sources - Muxshed\" in src/routes/popout/sources/+page.svelte, whitespace collapsed, 17 graphemes as reported) (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/title-length::src/routes/watch/[token]/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> \"Watch — Muxshed\" in src/routes/watch/[token]/+layout.svelte, whitespace collapsed, 15 graphemes as reported) (literal claim holds); but Muxshed is a self-hosted multistream studio (README) served by its own Rust server, ssr=false SPA (+layout.ts:3); /watch and /guest are unlisted token links, not a search target"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/(app)/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/channel/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /channel (src/routes/(app)/channel/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (src/routes/(app)/dashboard/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/destinations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /destinations (src/routes/(app)/destinations/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/guests/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guests (src/routes/(app)/guests/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/library/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /library (src/routes/(app)/library/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/scenes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /scenes (src/routes/(app)/scenes/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/schedules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /schedules (src/routes/(app)/schedules/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/(app)/settings/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/settings/keys/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/keys (src/routes/(app)/settings/keys/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/(app)/sources/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sources (src/routes/(app)/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/guest/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guest/[token] (src/routes/guest/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/popout/audio/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /popout/audio (src/routes/popout/audio/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/popout/preview/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /popout/preview (src/routes/popout/preview/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/popout/program/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /popout/program (src/routes/popout/program/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/popout/sources/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /popout/sources (src/routes/popout/sources/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  },
+  {
+    "key": "muxshed/shed:web::seo/twitter-card::src/routes/watch/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /watch/[token] (src/routes/watch/[token]/+page.svelte): script-verified (git grep of muxshed/shed web/ incl. src/app.html, no hooks): no og:*/twitter:*/rel=canonical emitter anywhere; app.html head is charset/viewport/text-scale; <svelte:head> blocks hold <title> only ((app)/+layout.svelte:192, popout/+layout.svelte:7, watch/[token]/+layout.svelte:7, guest/[token]/+page.svelte:174); npm Svelte deps bits-ui/svelte-sonner emit none; ssr=false SPA (+layout.ts) so client heads count and none exist; no load redirects"
+  }
+]
