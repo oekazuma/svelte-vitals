@@ -52,7 +52,7 @@ out.
 | --------------------------------------------------------------------------------------------------------------- | -------------- | ------------------ | ---------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [muxshed/shed](https://github.com/muxshed/shed/tree/4a8a80c89eb4)                                               | `web`          | 7, 9, 9b           | yes        | yes    | Self-hosted multistream production studio (17 routes) on adapter-static, `ssr = false`, with an `(app)` layout that prerenders its shells.                                     |
 | [PURE3D-EU/pure3d](https://github.com/PURE3D-EU/pure3d/tree/4a39d350b3f8)                                       | `.`            | 5, 6, 7, 10        | no         | no     | 3D heritage collections and editions platform (44 routes) on adapter-static under a computed `paths.base`, with markdown, hooks and `ssr = false`.                             |
-| [johnverrone/jv](https://github.com/johnverrone/jv/tree/6f925f661283)                                           | `johnverrone`  | 1, 7, 8, 9         | no         | yes    | Personal site with an admin for gear, guitar, coffee and photos (28 routes) on Cloudflare with JSON-LD, hooks and form actions, part `ssr = false`.                            |
+| [johnverrone/jv](https://github.com/johnverrone/jv/tree/6f925f661283)                                           | `johnverrone`  | 1, 7, 9            | no         | yes    | Personal site with an admin for gear, guitar, coffee and photos (28 routes) on Cloudflare with JSON-LD, hooks and form actions, part `ssr = false`.                            |
 | [olafkfreund/skill_pool](https://github.com/olafkfreund/skill_pool/tree/e3ea604d46aa)                           | `web`          | 1, 5, 8, 9         | no         | yes    | Self-hosted registry of agent skills for teams (26 routes) on adapter-node with JSON-LD, markdown, hooks and form actions.                                                     |
 | [Ku6epXBOCTuK/ku6epxboctuk.github.io](https://github.com/Ku6epXBOCTuK/ku6epxboctuk.github.io/tree/0f13387dd870) | `.`            | 2, 5, 7, 9, 9b, 11 | yes        | yes    | Personal site with posts, articles and a weekly log in two languages (21 routes) on adapter-static with alternate-language links and markdown, prerendered with `ssr = false`. |
 | [shaik-zeeshan/mnema](https://github.com/shaik-zeeshan/mnema/tree/85dcb9931960)                                 | `apps/desktop` | 5, 7, 9, 10        | no         | yes    | Desktop app for a private, searchable record of screen and audio (10 routes) on adapter-static with markdown, `ssr = false`.                                                   |
@@ -76,7 +76,7 @@ out.
 | 5   | markdown/mdsvex                             | 6    |
 | 6   | `kit.paths.base`                            | 2    |
 | 7   | large SPA/dashboard, `ssr = false`          | 9    |
-| 8   | adapter-node, hooks, form actions           | 3    |
+| 8   | adapter-node, hooks, form actions           | 2    |
 | 9   | likely builds without services              | 13   |
 | 10  | component-resolution shapes                 | 5    |
 | 11  | UI from a workspace package                 | 2    |
