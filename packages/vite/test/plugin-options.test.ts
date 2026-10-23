@@ -105,6 +105,35 @@ describe('svelteVitals options', () => {
     }
   });
 
+  it("reads prerendered pages under the kit.outDir SvelteKit's resolved build.outDir points to", async () => {
+    const custom = await mkdtemp(join(tmpdir(), 'sv-opt-outdir-'));
+    try {
+      const pages = join(custom, '.svelte-kit/build/output/prerendered/pages');
+      await mkdir(pages, { recursive: true });
+      await writeFile(
+        join(pages, 'index.html'),
+        `<html lang="en"><head><title>Home</title></head><body></body></html>`
+      );
+      const routes = async (outDir?: string) => {
+        const p = svelteVitals({ cwd: custom, ui: false, report: false, outFile: 'r.json' }) as Plugin;
+        const configResolved = typeof p.configResolved === 'function' ? p.configResolved : p.configResolved?.handler;
+        (configResolved as (c: unknown) => void).call({}, { root: custom, build: { ssr: true, outDir } });
+        await closeBundleOf(p)().catch(() => {});
+        return (
+          JSON.parse(await readFile(join(custom, 'r.json'), 'utf8')) as { routes: { route: string }[] }
+        ).routes.map((r) => r.route);
+      };
+      expect(await routes('.svelte-kit/build/output/server')).toEqual(['/']);
+      warnSpy.mockClear();
+      expect(await routes()).toEqual([]);
+      expect(warnSpy.mock.calls.map((c: unknown[]) => String(c[0])).join('\n')).toContain(
+        'no prerendered pages found in .svelte-kit/output/prerendered/pages'
+      );
+    } finally {
+      await rm(custom, { recursive: true, force: true });
+    }
+  });
+
   it('respects an absolute outFile path unchanged', async () => {
     const abs = join(cwd, 'absolute-report.json');
     const p = svelteVitals({ cwd, ui: false, report: false, failOn: 'info', outFile: abs }) as Plugin;

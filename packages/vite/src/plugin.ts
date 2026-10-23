@@ -1,7 +1,7 @@
 import { once } from 'node:events';
 import { existsSync } from 'node:fs';
 import { writeFile, mkdir } from 'node:fs/promises';
-import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
+import { join, isAbsolute, dirname, relative, resolve, basename, sep } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
 import type {
   Category,
@@ -91,7 +91,7 @@ export interface SvelteVitalsOptions {
   report?: 'console' | 'json' | false;
   /** Write the JSON report to this path. */
   outFile?: string;
-  /** Override the prerendered-pages directory (default: .svelte-kit/output/prerendered/pages). */
+  /** Override the prerendered-pages directory (default: `output/prerendered/pages` under SvelteKit's `kit.outDir`). */
   prerenderDir?: string;
   /**
    * Serve a live dashboard at /__svelte-vitals/ during `vite dev` (add
@@ -224,6 +224,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
   let minify: unknown;
   let configFile: string | undefined;
   let ssrBuild = false;
+  let prerenderDir = DEFAULT_PRERENDER_DIR;
   const buildPlugin: Plugin = {
     name: 'svelte-vitals',
     apply: 'build',
@@ -240,9 +241,14 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       if (!options.cwd) root = config.root;
       configFile = config.configFile;
       ssrBuild = Boolean(config.build?.ssr);
+      // SvelteKit builds into `${kit.outDir}/output/{server,client}` and prerenders into
+      // `${kit.outDir}/output/prerendered/pages`, so its resolved `outDir` gives `kit.outDir` back
+      // even when svelte.config computes it (`process.env.X || '.svelte-kit'`).
+      const out = config.build?.outDir ? resolve(config.root ?? root, config.build.outDir) : '';
+      if (/[\\/]output[\\/](?:server|client)$/.test(out)) prerenderDir = join(dirname(out), 'prerendered/pages');
     },
     async closeBundle() {
-      const pagesDir = options.prerenderDir ? options.prerenderDir : join(root, DEFAULT_PRERENDER_DIR);
+      const pagesDir = options.prerenderDir ? options.prerenderDir : prerenderDir;
       const resolved = isAbsolute(pagesDir) ? pagesDir : join(root, pagesDir);
 
       // SvelteKit's client build is a nested `vite.build` with its own plugin instance whose
@@ -279,7 +285,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       if (result.routeCount === 0) {
         if (!ssrBuild) return;
         warn(
-          `svelte-vitals: no prerendered pages found in ${options.prerenderDir ?? DEFAULT_PRERENDER_DIR} — route analysis skipped; ` +
+          `svelte-vitals: no prerendered pages found in ${relative(root, resolved) || '.'} — route analysis skipped; ` +
             'the source scan still ran. Prerender routes to check their HTML, or run `npx svelte-vitals` to check every route from source.'
         );
       }

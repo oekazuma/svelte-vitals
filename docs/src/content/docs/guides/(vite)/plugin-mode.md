@@ -45,7 +45,7 @@ export default {
 | `metaComponents` | `string[]`                                                   | —            | Head-metadata components the analyzer cannot resolve; it follows resolvable in-repo components automatically |
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`     | How to treat dynamically-set metadata                                                                        |
 | `weights`        | `Partial<Record<Category, number>>`                          | every `1`    | Per-category weights for the combined Health score in the report                                             |
-| `prerenderDir`   | `string`                                                     | —            | Override the prerendered-pages directory                                                                     |
+| `prerenderDir`   | `string`                                                     | —            | Override the prerendered-pages directory (default: `output/prerendered/pages` under `kit.outDir`)            |
 | `ui`             | `boolean`                                                    | `true`       | Serve the [live dashboard](/guides/dev-dashboard) during `vite dev`; `false` keeps only the build-time gate  |
 | `cwd`            | `string`                                                     | Vite root    | Project root                                                                                                 |
 
