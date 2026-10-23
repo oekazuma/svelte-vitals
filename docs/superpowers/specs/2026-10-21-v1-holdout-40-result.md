@@ -58,7 +58,7 @@ flow-weaver, lab-ztp-provisioner, maroid, controle-financeiro, concord and gofin
 no prerendered page. mangrove's build stopped on the plugin's own gate, as configured: its two critical
 `server-browser-global` findings are at the `critical` threshold. After the plugin ran, vmb's build
 stopped on a `tsconfig.json` that extends a `.svelte-kit/tsconfig.json` its build never generates (it
-builds into `SVELTE_KIT_OUT_DIR=.svelte-kit/build`), SB-Reg-svelte5's on `/static` variables not set,
+builds into `SVELTE_KIT_OUT_DIR=.svelte-kit/build`), SB-Reg-svelte5's on `$env/static` variables not set,
 and Widgetry's on a workspace package not built before the app.
 
 Two plugin limits the run shows, neither a false positive:
