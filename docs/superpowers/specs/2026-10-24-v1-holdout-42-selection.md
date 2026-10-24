@@ -78,7 +78,7 @@ out.
 | 4   | meta-tag library                            | 0    |
 | 5   | markdown/mdsvex                             | 1    |
 | 6   | `kit.paths.base`                            | 0    |
-| 7   | large SPA/dashboard, `ssr = false`          | 9    |
+| 7   | large SPA/dashboard, `ssr = false`          | 8    |
 | 8   | adapter-node, hooks, form actions           | 3    |
 | 9   | likely builds without services              | 10   |
 | 10  | component-resolution shapes                 | 2    |
