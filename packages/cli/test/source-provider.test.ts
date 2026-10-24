@@ -692,6 +692,13 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(rs.map((r) => r.message)).toEqual(['Heading order']);
   });
 
+  it('places a heading of a snippet rendered from inside another snippet at that inner render', async () => {
+    const page = `<h1>Workflow</h1><h2>Queue</h2>{#snippet inner()}<h4>Assigned</h4>{/snippet}{#snippet card()}<h3>Assign</h3>{@render inner()}{/snippet}{@render card()}`;
+    const { headings } = await collectRoutes(createMemoryRuntime({ 'src/routes/+page.svelte': page }), '');
+    const rs = await seoHeadingLevelSkip.check({ heads: [], headings, project: defaultProject, config: defaultConfig });
+    expect(rs.filter((r) => r.message !== 'Heading order')).toEqual([]);
+  });
+
   it('decides a prop passed a ternary of two literals when both arms decide it alike', async () => {
     const skips = async (title: string) => {
       const modal = `<script>let { title, children } = $props();</script>{#if title}<h2>{title}</h2>{/if}{@render children?.()}`;
