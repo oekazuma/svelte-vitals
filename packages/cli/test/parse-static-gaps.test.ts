@@ -101,6 +101,17 @@ describe('parse: image loading/srcset capture (performance/lcp-image, performanc
     expect(svg("<script>import hero from '$lib/hero.png';</script><img src={hero} />")).toBeUndefined();
     expect(svg('<img src={url} />')).toBeUndefined();
   });
+  it('marks a QR code: a src binding or member named for one, not a built URL or a call', () => {
+    const qr = (src: string) => parseFile(src, 'x.svelte').images[0]!.qr;
+    expect(qr('<img src={qrDataUrl} />')).toBe(true);
+    expect(qr('<img src={totpSetupData.qrCode} />')).toBe(true);
+    expect(qr('<img src={setup?.qr} />')).toBe(true);
+    expect(qr('<img src="{twoFAQRDataUrl}" />')).toBe(true);
+    expect(qr('<img src={avatarUrl} />')).toBeUndefined();
+    expect(qr('<img src={`https://api.qrserver.com/v1/create-qr-code/?data=${x}`} />')).toBeUndefined();
+    expect(qr('<img src={qrUrl(address)} />')).toBeUndefined();
+    expect(qr('<img src={cache[qrKey]} />')).toBeUndefined();
+  });
 });
 
 describe('parse: image alt capture (seo/image-alt)', () => {

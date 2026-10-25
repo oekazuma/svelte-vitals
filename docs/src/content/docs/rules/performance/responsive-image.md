@@ -11,6 +11,8 @@ Flags an `<img>` without a `srcset` attribute. An `<img>` that is the fallback o
 
 An SVG is not flagged, since a vector image scales to any size from one file. That covers a `src` path ending in `.svg` (query and fragment ignored), an inline `data:image/svg+xml` URI, and in source analysis an `src={logo}` whose `logo` is imported from a `.svg` file, or a call given a `.svg` path as a string literal (`src={asset('/icons/x.svg')}`).
 
+A QR code is not flagged either, since it is drawn at one fixed size. In source analysis that is an `<img>` whose `src` is a plain name or a dot-access member whose name holds `qr`, in any case (`src={qrDataUrl}`, `src={setup.qrCode}`). A bracket access (`src={setup[qrKey]}`, `src={setup['qrCode']}`), a URL built in the template or a call (`src={qrUrl(address)}`) is still checked, since the name does not fix what it returns.
+
 ## Why it matters
 
 An `<img>` without `srcset` ships one fixed-size asset to every device, wasting bytes on small screens. Static analysis cannot measure the intended display size, so this is advisory.

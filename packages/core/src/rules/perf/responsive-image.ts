@@ -14,6 +14,7 @@ export const performanceResponsiveImage = imageRule({
       '<img src="/hero.jpg" srcset="/hero-800.jpg 800w, /hero-1600.jpg 1600w" sizes="100vw" width="1600" height="900" alt="…" />',
     lang: 'svelte'
   },
-  // A vector image scales to any size from one file, so srcset has nothing to choose between.
-  ok: (img) => img.hasSrcset || img.svg === true
+  // A vector image scales to any size from one file, and a QR code is drawn at one fixed size, so
+  // srcset has nothing to choose between.
+  ok: (img) => img.hasSrcset || img.svg === true || img.qr === true
 });

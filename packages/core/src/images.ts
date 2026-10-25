@@ -15,6 +15,8 @@ export interface ImageInfo {
   hasSrcset: boolean;
   /** True when the <img>'s src is known to be an SVG (`isSvgSrc`; performance/responsive-image). */
   svg?: boolean;
+  /** True when the <img>'s src is a binding named for a QR code (`qrDataUrl`, `setup.qrCode`): drawn at one fixed size (performance/responsive-image). */
+  qr?: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;
   /** Source file the <img> came from. */
