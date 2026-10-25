@@ -1,0 +1,687 @@
+[
+  {
+    "key": "iagolavor/inertia:apps/web::a11y/disallowed-aria-props::src/lib/components/DeliveryTicks.svelte:16::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/DeliveryTicks.svelte:16 element carries aria-label with no role, spread or use: action, so its role is generic/paragraph, which prohibits a name as reported"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::a11y/disallowed-aria-props::src/lib/components/PostComposer.svelte:243::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/PostComposer.svelte:243 element carries aria-label with no role, spread or use: action, so its role is generic/paragraph, which prohibits a name as reported"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::a11y/duplicate-landmark::src/routes/welcome/+layout.svelte:6::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:74-76 always wraps {@render children()} in <main class=container> (no {#if} around it), and welcome/+layout.svelte:6 wraps its children in another <main class=welcome-main>, so /welcome has two main landmarks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::a11y/no-autofocus::src/lib/components/FilesPanel.svelte:383::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; <input autofocus> in the new-folder <form> under {#if creatingFolder} (:375, creatingFolder = $state(false) :38) shown only after the user starts creating a folder; focus on user action, not page load (ledger user-action autofocus precedent)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::a11y/permitted-contents::src/lib/components/DmThreadList.svelte:40::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/DmThreadList.svelte:40 literal div <- button with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::a11y/permitted-contents::src/lib/components/DmThreadList.svelte:48::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/DmThreadList.svelte:48 literal div <- button with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::a11y/permitted-contents::src/lib/components/FeedHomeRail.svelte:120::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/FeedHomeRail.svelte:120 literal div <- button with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::a11y/permitted-contents::src/lib/components/PostCard.svelte:158::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/PostCard.svelte:158 literal div <- button with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::a11y/top-level-landmark::src/routes/welcome/+layout.svelte:6::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:74-76 always wraps {@render children()} in <main class=container>, and welcome/+layout.svelte:6 renders its own <main> inside it, so on /welcome a main is nested inside main"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/AppHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AppHeader.svelte has 390 physical lines (split on \\n, trailing newline not counted; 347 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/ConnectionSettingsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ConnectionSettingsPanel.svelte has 243 physical lines (split on \\n, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/DmThreadList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DmThreadList.svelte has 205 physical lines (split on \\n, trailing newline not counted; 183 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/FeedHistoryPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FeedHistoryPanel.svelte has 215 physical lines (split on \\n, trailing newline not counted; 191 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/FeedHomeRail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FeedHomeRail.svelte has 309 physical lines (split on \\n, trailing newline not counted; 276 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/FilesPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FilesPanel.svelte has 1023 physical lines (split on \\n, trailing newline not counted; 935 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/FriendPresenceHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FriendPresenceHeader.svelte has 219 physical lines (split on \\n, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/P2pStatus.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/P2pStatus.svelte has 263 physical lines (split on \\n, trailing newline not counted; 224 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/PhotoGrid.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PhotoGrid.svelte has 642 physical lines (split on \\n, trailing newline not counted; 566 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/PostCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PostCard.svelte has 690 physical lines (split on \\n, trailing newline not counted; 610 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/PostComposer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PostComposer.svelte has 723 physical lines (split on \\n, trailing newline not counted; 658 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/ProfileEditModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ProfileEditModal.svelte has 282 physical lines (split on \\n, trailing newline not counted; 245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/ProfilePostExpand.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ProfilePostExpand.svelte has 558 physical lines (split on \\n, trailing newline not counted; 501 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/RelayMultiaddrList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RelayMultiaddrList.svelte has 218 physical lines (split on \\n, trailing newline not counted; 193 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/lib/components/WelcomeLogin.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/WelcomeLogin.svelte has 822 physical lines (split on \\n, trailing newline not counted; 746 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 235 physical lines (split on \\n, trailing newline not counted; 208 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/routes/connections/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/connections/+page.svelte has 442 physical lines (split on \\n, trailing newline not counted; 389 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/routes/friends/[contactId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/friends/[contactId]/+page.svelte has 377 physical lines (split on \\n, trailing newline not counted; 336 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/routes/friends/[contactId]/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/friends/[contactId]/profile/+page.svelte has 315 physical lines (split on \\n, trailing newline not counted; 288 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/routes/invite/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/invite/+page.svelte has 242 physical lines (split on \\n, trailing newline not counted; 217 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/component-size::src/routes/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/+page.svelte has 877 physical lines (split on \\n, trailing newline not counted; 548 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/prop-count::src/lib/components/FriendPresenceHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FriendPresenceHeader.svelte has a single destructured $props() with 8 named props (> 6): contact, href, messageHref, backHref, backLabel, detail, cacheAge, avatarSize"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/prop-count::src/lib/components/PhotoGrid.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PhotoGrid.svelte has a single destructured $props() with 17 named props (> 6): photos, disabled, readonly, emptyLabel, photoUrl, authorId, authorName, selectedItemId, selectedPost, selectedPostLoading, ownerContactId, deleteMode, selectedDeleteIds, onuploaded, onselect, oncomment, ontoggledelete"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/prop-count::src/lib/components/ProfileEditModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ProfileEditModal.svelte has a single destructured $props() with 11 named props (> 6): open, displayName, bio, avatarUrl, seed, saving, uploadingPhoto, error, onclose, onsave, onphoto"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/prop-count::src/lib/components/ProfileHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ProfileHeader.svelte has a single destructured $props() with 7 named props (> 6): displayName, seed, avatarUrl, size, online, statusLoading, children"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::architecture/prop-count::src/lib/components/ProfilePostExpand.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ProfilePostExpand.svelte has a single destructured $props() with 15 named props (> 6): post, loading, disabled, draft, compact, previewImageUrl, caption, oncaptionchange, authorId, authorName, showClose, profileItemId, ownerContactId, onclose, oncomment"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::correctness/each-key::src/routes/outbox/+page.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/outbox/+page.svelte:57 '{#each outbox as entry}' has no key; outbox = $state<OutboxEntry[]>([]) filled from the outbox queue at run time; entries are added and removed as messages send"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::correctness/effect-as-derived::src/lib/components/VideoMedia.svelte:19::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/VideoMedia.svelte:19 '$effect(() => {' the effect (:19-21) only does ready = mediaReady (a prop); its other writes are wholesale reassignments (ready = true, :45, :72), the writable-$derived override pattern (svelte 5.56.3 in package-lock.json)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::correctness/stale-prop-derivation::src/lib/components/InertiaLogo.svelte:5::\"height\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/InertiaLogo.svelte:5 'const height = (size * 36) / 50;' height = (size * 36) / 50 at init and rendered (claim structurally true), but every use passes size as a literal (WelcomeLogin.svelte:220 size={44}, :229 size={36}) or omits it (AppHeader.svelte:110), so the prop never changes for a mounted logo"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::performance/image-loading-hint::src/routes/connections/+page.svelte:152::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; src is a client-generated data: URL (QRCode.toDataURL, connections/+page.svelte:74) shown {#if invite} after the user clicks Generate - no network request to defer"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::performance/responsive-image::src/routes/connections/+page.svelte:152::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>, src not a literal .svg/data-svg/.svg import; src is a client-generated PNG data: URL (QRCode.toDataURL width 256, :74) - no alternate sizes exist"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::performance/state-raw::src/lib/components/FilesPanel.svelte:43::\"downloadStatus\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"downloadStatus\" in src/lib/components/FilesPanel.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :43, only whole-binding reassignments (:262,:268,:273,:276,:281,:290,:300,:302); other uses are read-only (member/index reads, .length, {#each} items read as text/option value/href); no member writes, mutating calls, bind:, call-arg/prop escapes or item edits - reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::security/raw-html::src/lib/components/FormattedText.svelte:14::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/FormattedText.svelte:11-14 + src/lib/textFormat.ts formatBasicMarkdown: the text (post/comment/message bodies) is escapeHtml()-ed (&,<,>,\") first, then only fixed <code>/<strong>/<em>/<del>/<br> tags and <a href> limited to ^https?:// with an escaped, double-quoted URL are added - escaped before rendering, reported per docs"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/connections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /connections (src/routes/connections/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/friends/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /friends (src/routes/friends/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/friends/[contactId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /friends/[contactId] (src/routes/friends/[contactId]/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/friends/[contactId]/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /friends/[contactId]/profile (src/routes/friends/[contactId]/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/friends/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /friends/add (src/routes/friends/add/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/invite/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /invite (src/routes/invite/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/messages/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /messages (src/routes/messages/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/outbox/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /outbox (src/routes/outbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile (src/routes/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; but not a search target (client-gated: root +layout.svelte:24-32 $effect goto(\"/welcome\") with replaceState for every visitor without a local identity), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/canonical-url::src/routes/welcome/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /welcome (src/routes/welcome/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks; public onboarding page every visitor lands on (no robots.txt, no noindex)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <meta name=description> in src/app.html outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 38 as reported; no later component description on the route); it is the only description of the 12 routes that set none (literal claim holds); but not a search target: Inertia's web UI is the client of the P2P app each user runs locally against their own Rust API (README; also packaged with Tauri), root +layout.ts ssr=false SPA"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/app.html literal description is the only one on the 12 routes (no page sets its own), duplicate as claimed; but not a search target: Inertia's web UI is the client of the P2P app each user runs locally against their own Rust API (README; also packaged with Tauri), root +layout.ts ssr=false SPA, so no search competition"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/app.html literal <title> is the only one on the 12 routes (no page sets its own), duplicate as claimed; but not a search target: Inertia's web UI is the client of the P2P app each user runs locally against their own Rust API (README; also packaged with Tauri), root +layout.ts ssr=false SPA, so no search competition"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/heading-level-skip::src/routes/connections/+page.svelte:130::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "script-verified (f_arms.py: block stack of each heading): nearest earlier heading in src/routes/connections/+page.svelte is the <h1> at :121, same arm or enclosing, with no <h2> between it and the flagged <h3> (:130); root +layout.svelte (AppHeader, ApiStatusBanner) renders no heading -> h1 to h3"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/heading-level-skip::src/routes/invite/+page.svelte:109::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "script-verified (f_arms.py: block stack of each heading): nearest earlier heading in src/routes/invite/+page.svelte is the <h1> at :102, same arm or enclosing, with no <h2> between it and the flagged <h3> (:109); root +layout.svelte (AppHeader, ApiStatusBanner) renders no heading -> h1 to h3"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on / (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/connections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /connections (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/friends/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /friends (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/friends/[contactId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /friends/[contactId] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/friends/[contactId]/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /friends/[contactId]/profile (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/friends/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /friends/add (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/invite/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /invite (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/messages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /messages (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/outbox/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /outbox (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /profile (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /settings (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/json-ld::src/routes/welcome/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /welcome (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/connections/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /connections (src/routes/connections/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/friends/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /friends (src/routes/friends/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/friends/[contactId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /friends/[contactId] (src/routes/friends/[contactId]/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/friends/[contactId]/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /friends/[contactId]/profile (src/routes/friends/[contactId]/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/friends/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /friends/add (src/routes/friends/add/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/invite/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /invite (src/routes/invite/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/messages/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /messages (src/routes/messages/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/outbox/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /outbox (src/routes/outbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile (src/routes/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-description::src/routes/welcome/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /welcome (src/routes/welcome/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/connections/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /connections (src/routes/connections/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/friends/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /friends (src/routes/friends/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/friends/[contactId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /friends/[contactId] (src/routes/friends/[contactId]/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/friends/[contactId]/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /friends/[contactId]/profile (src/routes/friends/[contactId]/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/friends/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /friends/add (src/routes/friends/add/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/invite/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /invite (src/routes/invite/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/messages/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /messages (src/routes/messages/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/outbox/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /outbox (src/routes/outbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile (src/routes/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-image::src/routes/welcome/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /welcome (src/routes/welcome/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/connections/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /connections (src/routes/connections/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/friends/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /friends (src/routes/friends/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/friends/[contactId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /friends/[contactId] (src/routes/friends/[contactId]/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/friends/[contactId]/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /friends/[contactId]/profile (src/routes/friends/[contactId]/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/friends/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /friends/add (src/routes/friends/add/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/invite/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /invite (src/routes/invite/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/messages/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /messages (src/routes/messages/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/outbox/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /outbox (src/routes/outbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile (src/routes/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-title::src/routes/welcome/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /welcome (src/routes/welcome/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/connections/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /connections (src/routes/connections/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/friends/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /friends (src/routes/friends/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/friends/[contactId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /friends/[contactId] (src/routes/friends/[contactId]/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/friends/[contactId]/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /friends/[contactId]/profile (src/routes/friends/[contactId]/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/friends/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /friends/add (src/routes/friends/add/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/invite/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invite (src/routes/invite/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/messages/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /messages (src/routes/messages/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/outbox/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /outbox (src/routes/outbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (src/routes/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/og-url::src/routes/welcome/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /welcome (src/routes/welcome/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/ or routes, no generator in the repo (literal claim holds); not a search target: Inertia's web UI is the client of the P2P app each user runs locally against their own Rust API (README; also packaged with Tauri), root +layout.ts ssr=false SPA"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/single-h1::/friends/add::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: friends/add/+page.svelte only runs onMount(() => goto('/connections', { replaceState: true })) and renders <p class=\"empty\">Redirecting…</p>; root +layout.svelte (AppHeader, ApiStatusBanner) and friends/+layout.svelte render no heading - no <h1>, as the ledger labels client-redirect stubs"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/single-h1::/friends::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: friends/+page.svelte only runs onMount(() => goto('/connections', { replaceState: true })) and renders <p class=\"empty\">Redirecting…</p>; root +layout.svelte (AppHeader, ApiStatusBanner) and friends/+layout.svelte render no heading - no <h1>, as the ledger labels client-redirect stubs"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, routes or generator (literal claim holds); not a search target: Inertia's web UI is the client of the P2P app each user runs locally against their own Rust API (README; also packaged with Tauri), root +layout.ts ssr=false SPA, nothing to list"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/ssr-disabled::src/routes/+layout.ts:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:2 (literal claim holds); deliberate client-only rendering: not a search target: Inertia's web UI is the client of the P2P app each user runs locally against their own Rust API (README; also packaged with Tauri), root +layout.ts ssr=false SPA"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/app.html outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 7 as reported; no later component title on the route); it is the only title of the 12 routes that set none (literal claim holds); but not a search target: Inertia's web UI is the client of the P2P app each user runs locally against their own Rust API (README; also packaged with Tauri), root +layout.ts ssr=false SPA"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/connections/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /connections (src/routes/connections/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/friends/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /friends (src/routes/friends/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/friends/[contactId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /friends/[contactId] (src/routes/friends/[contactId]/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/friends/[contactId]/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /friends/[contactId]/profile (src/routes/friends/[contactId]/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/friends/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /friends/add (src/routes/friends/add/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/invite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /invite (src/routes/invite/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/messages/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /messages (src/routes/messages/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/outbox/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /outbox (src/routes/outbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile (src/routes/profile/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  },
+  {
+    "key": "iagolavor/inertia:apps/web::seo/twitter-card::src/routes/welcome/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /welcome (src/routes/welcome/+page.svelte): script-verified (a1b_label.py, comments stripped, 76 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/theme-color/description/<title>/font links/theme script; no <svelte:head> anywhere in src; root +layout.ts ssr=false + prerender so client heads count and none emit it; no npm Svelte component deps; no hooks"
+  }
+]

@@ -1,0 +1,712 @@
+[
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::correctness/each-key::src/routes/projects/[slug]/+page.svelte:59::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/projects/[slug]/+page.svelte:59 '{#each data.links as link}' has no key; data.links of one project from committed markdown frontmatter (lib/content/projects.ts:37 import.meta.glob('/src/content/projects/*.md', { eager: true })), prerendered (projects/[slug]/+page.ts prerender = 'auto' with entries); static content fixed at author time"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::performance/image-dimensions::src/routes/photography/exhibitions/+page.svelte:44::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width and/or height, no spread; read: class w-full only (no height, no aspect-ratio) - natural aspect decides the height"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::performance/image-dimensions::src/routes/photography/series/+page.svelte:52::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width and/or height, no spread; read: class w-full only (no height, no aspect-ratio) - natural aspect decides the height"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::performance/lcp-image::src/routes/photography/exhibitions/+page.svelte:44::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "read: first <img> of the route has literal loading=\"lazy\"; full-width exhibition cover photo of the first list item, right under the short header (h1 + one-line lede, exhibitions/+page.svelte:20-49) - in view on load and the largest element, yet lazy"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::performance/lcp-image::src/routes/photography/series/+page.svelte:52::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "read: first <img> of the route has literal loading=\"lazy\"; 16rem series cover of the first row, right under the short header (h1 + lede, series/+page.svelte:25-57) - in view on load, the largest image, yet lazy"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::performance/responsive-image::src/routes/photography/exhibitions/+page.svelte:44::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>, src not a literal .svg/data-svg/.svg import; urlFor(...).width(960) Sanity raster - one fixed 960px asset for every device"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::performance/responsive-image::src/routes/photography/series/+page.svelte:52::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>, src not a literal .svg/data-svg/.svg import; urlFor(...).width(640) Sanity raster - one fixed 640px asset for every device"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (src/routes/about/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/colophon/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /colophon (src/routes/colophon/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/notes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /notes (src/routes/notes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/notes/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /notes/[slug] (src/routes/notes/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/now/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /now (src/routes/now/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/photography/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /photography (src/routes/photography/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/photography/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /photography/[slug] (src/routes/photography/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/photography/exhibitions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /photography/exhibitions (src/routes/photography/exhibitions/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/photography/exhibitions/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /photography/exhibitions/[slug] (src/routes/photography/exhibitions/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/photography/series/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /photography/series (src/routes/photography/series/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/photography/series/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /photography/series/[slug] (src/routes/photography/series/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/projects/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /projects/[slug] (src/routes/projects/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/reading/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reading (src/routes/reading/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/styleguide/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /styleguide (src/routes/styleguide/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; but not a search target (literal <meta name=\"robots\" content=\"noindex\"> at styleguide/+page.svelte:30), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/writing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /writing (src/routes/writing/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/canonical-url::src/routes/writing/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /writing/[slug] (src/routes/writing/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug; public personal site (static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/description-length::src/routes/notes/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=description> in src/routes/notes/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 64 as reported; no later component description on the route); public personal site (prerendered, adapter-cloudflare, static/robots.txt allows all)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/description-length::src/routes/photography/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=description> in src/routes/photography/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 44 as reported; no later component description on the route); public personal site (prerendered, adapter-cloudflare, static/robots.txt allows all)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/description-length::src/routes/projects/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=description> in src/routes/projects/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 47 as reported; no later component description on the route); public personal site (prerendered, adapter-cloudflare, static/robots.txt allows all)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/description-length::src/routes/writing/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=description> in src/routes/writing/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 63 as reported; no later component description on the route); public personal site (prerendered, adapter-cloudflare, static/robots.txt allows all)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/description-presence::src/routes/photography/exhibitions/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: photography/exhibitions/[slug]/+page.svelte head sets only <title> (line 21-23), root +layout.svelte head only favicon, app.html none; public personal site (prerendered, adapter-cloudflare, static/robots.txt allows all), so the missing description is real"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/description-presence::src/routes/styleguide/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (page head only <title>, root +layout.svelte head only favicon, app.html none) (literal claim holds); but not a search target: internal design-token reference page with a literal unconditional <meta name=\"robots\" content=\"noindex\"> (styleguide/+page.svelte:30)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/indexability::src/routes/styleguide/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal unconditional <meta name=\"robots\" content=\"noindex\"> in the route's top-level svelte:head (styleguide/+page.svelte:30); noindex as claimed (intentional: private token link / internal page)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on / (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /about (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/colophon/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /colophon (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/notes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /notes (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/notes/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /notes/[slug] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/now/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /now (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/photography/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /photography (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/photography/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /photography/[slug] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/photography/exhibitions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /photography/exhibitions (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/photography/exhibitions/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /photography/exhibitions/[slug] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/photography/series/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /photography/series (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/photography/series/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /photography/series/[slug] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /projects (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/projects/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /projects/[slug] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/reading/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /reading (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/styleguide/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /styleguide (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/writing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /writing (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/json-ld::src/routes/writing/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /writing/[slug] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (src/routes/about/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/colophon/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /colophon (src/routes/colophon/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/notes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /notes (src/routes/notes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/notes/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /notes/[slug] (src/routes/notes/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/now/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /now (src/routes/now/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/photography/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /photography (src/routes/photography/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/photography/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /photography/[slug] (src/routes/photography/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/photography/exhibitions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /photography/exhibitions (src/routes/photography/exhibitions/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/photography/exhibitions/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /photography/exhibitions/[slug] (src/routes/photography/exhibitions/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/photography/series/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /photography/series (src/routes/photography/series/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/photography/series/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /photography/series/[slug] (src/routes/photography/series/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/projects/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[slug] (src/routes/projects/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/reading/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reading (src/routes/reading/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/styleguide/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /styleguide (src/routes/styleguide/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/writing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /writing (src/routes/writing/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-description::src/routes/writing/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /writing/[slug] (src/routes/writing/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (src/routes/about/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/colophon/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /colophon (src/routes/colophon/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/notes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /notes (src/routes/notes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/notes/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /notes/[slug] (src/routes/notes/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/now/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /now (src/routes/now/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/photography/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /photography (src/routes/photography/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/photography/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /photography/[slug] (src/routes/photography/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/photography/exhibitions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /photography/exhibitions (src/routes/photography/exhibitions/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/photography/exhibitions/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /photography/exhibitions/[slug] (src/routes/photography/exhibitions/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/photography/series/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /photography/series (src/routes/photography/series/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/photography/series/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /photography/series/[slug] (src/routes/photography/series/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/projects/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/[slug] (src/routes/projects/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/reading/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reading (src/routes/reading/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/styleguide/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /styleguide (src/routes/styleguide/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/writing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /writing (src/routes/writing/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-image::src/routes/writing/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /writing/[slug] (src/routes/writing/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (src/routes/about/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/colophon/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /colophon (src/routes/colophon/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/notes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /notes (src/routes/notes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/notes/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /notes/[slug] (src/routes/notes/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/now/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /now (src/routes/now/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/photography/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /photography (src/routes/photography/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/photography/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /photography/[slug] (src/routes/photography/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/photography/exhibitions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /photography/exhibitions (src/routes/photography/exhibitions/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/photography/exhibitions/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /photography/exhibitions/[slug] (src/routes/photography/exhibitions/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/photography/series/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /photography/series (src/routes/photography/series/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/photography/series/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /photography/series/[slug] (src/routes/photography/series/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/projects/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[slug] (src/routes/projects/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/reading/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reading (src/routes/reading/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/styleguide/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /styleguide (src/routes/styleguide/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/writing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /writing (src/routes/writing/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-title::src/routes/writing/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /writing/[slug] (src/routes/writing/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about (src/routes/about/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/colophon/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /colophon (src/routes/colophon/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/notes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /notes (src/routes/notes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/notes/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /notes/[slug] (src/routes/notes/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/now/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /now (src/routes/now/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/photography/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /photography (src/routes/photography/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/photography/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /photography/[slug] (src/routes/photography/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/photography/exhibitions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /photography/exhibitions (src/routes/photography/exhibitions/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/photography/exhibitions/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /photography/exhibitions/[slug] (src/routes/photography/exhibitions/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/photography/series/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /photography/series (src/routes/photography/series/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/photography/series/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /photography/series/[slug] (src/routes/photography/series/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/projects/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/[slug] (src/routes/projects/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/reading/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reading (src/routes/reading/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/styleguide/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /styleguide (src/routes/styleguide/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/writing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /writing (src/routes/writing/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/og-url::src/routes/writing/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /writing/[slug] (src/routes/writing/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no sitemap route, hook or generator anywhere in the repo (literal claim holds); public prerendered personal site with writing/notes/photography/projects pages to list, robots.txt allows all"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 22 as reported; no later component title on the route); public personal site (prerendered, adapter-cloudflare, static/robots.txt allows all)"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (src/routes/about/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/colophon/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /colophon (src/routes/colophon/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/notes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /notes (src/routes/notes/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/notes/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /notes/[slug] (src/routes/notes/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/now/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /now (src/routes/now/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/photography/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /photography (src/routes/photography/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/photography/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /photography/[slug] (src/routes/photography/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/photography/exhibitions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /photography/exhibitions (src/routes/photography/exhibitions/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/photography/exhibitions/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /photography/exhibitions/[slug] (src/routes/photography/exhibitions/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/photography/series/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /photography/series (src/routes/photography/series/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/photography/series/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /photography/series/[slug] (src/routes/photography/series/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/projects/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[slug] (src/routes/projects/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/reading/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reading (src/routes/reading/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/styleguide/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /styleguide (src/routes/styleguide/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/writing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /writing (src/routes/writing/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  },
+  {
+    "key": "NicholasCullenCooper/nicholascullencooper.com:web::seo/twitter-card::src/routes/writing/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /writing/[slug] (src/routes/writing/[slug]/+page.svelte): script-verified (a1b_label.py, comments stripped, 56 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/text-scale/font preconnects+stylesheet/theme script; root +layout.svelte:16-18 head is a favicon link; page heads are <title> + <meta name=\"description\"> only; no hooks; mdsvex content has no <svelte:head>; npm Svelte dep @portabletext/svelte emits no head tags; prerendered, loads only error(404) on an unknown slug"
+  }
+]

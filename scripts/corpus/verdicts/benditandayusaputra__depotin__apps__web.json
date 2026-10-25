@@ -1,0 +1,907 @@
+[
+  {
+    "key": "benditandayusaputra/depotin:apps/web::a11y/disallowed-aria-props::src/routes/app/pesanan/[id]/+page.svelte:215::`aria-label` is prohibited on <p> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/app/pesanan/[id]/+page.svelte:215 element carries aria-label with no role, spread or use: action, so its role is generic/paragraph, which prohibits a name as reported"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::architecture/component-size::src/routes/app/pelanggan/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/pelanggan/[id]/+page.svelte has 521 physical lines (split on \\n, trailing newline not counted; 486 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::architecture/component-size::src/routes/app/pesanan/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/pesanan/[id]/+page.svelte has 437 physical lines (split on \\n, trailing newline not counted; 411 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::architecture/component-size::src/routes/app/pesanan/baru/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/pesanan/baru/+page.svelte has 232 physical lines (split on \\n, trailing newline not counted; 211 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::architecture/component-size::src/routes/d/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/d/[slug]/+page.svelte has 201 physical lines (split on \\n, trailing newline not counted; 187 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::architecture/component-size::src/routes/kurir/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/kurir/+page.svelte has 290 physical lines (split on \\n, trailing newline not counted; 269 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::architecture/component-size::src/routes/p/[token]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/p/[token]/+page.svelte has 222 physical lines (split on \\n, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::architecture/prop-count::src/lib/components/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Button.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest: variant, size, loading, disabled, type, class, children"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::architecture/prop-count::src/lib/components/CustomerForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CustomerForm.svelte has a single destructured $props() with 7 named props (> 6): initial, submitLabel, saving, errors, message, onsubmit, oncancel"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::architecture/prop-count::src/lib/components/PasswordField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PasswordField.svelte has a single destructured $props() with 8 named props (> 6): label, value, error, hint, autocomplete, required, minlength, disabled"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::performance/state-raw::src/routes/app/pengingat/+page.svelte:25::\"rowErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"rowErrors\" in src/routes/app/pengingat/+page.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :25, only whole-binding reassignments (:46,:65,:78,:91); other uses are read-only (member/index reads, .length, {#each} items read as text/option value/href); no member writes, mutating calls, bind:, call-arg/prop escapes or item edits - reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::performance/state-raw::src/routes/app/pesanan/+page.svelte:30::\"couriers\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"couriers\" in src/routes/app/pesanan/+page.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :30, only whole-binding reassignments (:80,:82); other uses are read-only (member/index reads, .length, {#each} items read as text/option value/href); no member writes, mutating calls, bind:, call-arg/prop escapes or item edits - reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); publicly reachable rendered route, not Disallowed in static/robots.txt, no noindex"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/galon/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/galon (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/lainnya/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/lainnya (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/laporan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/laporan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/pelanggan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/pelanggan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/pelanggan/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/pelanggan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/pengaturan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/pengaturan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/pengingat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/pengingat (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/penyiapan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/penyiapan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/pesanan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/pesanan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/pesanan/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/pesanan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/app/pesanan/baru/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /app/pesanan/baru (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/d/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /d/[slug] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); publicly reachable rendered route, not Disallowed in static/robots.txt, no noindex"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/daftar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /daftar (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); publicly reachable rendered route, not Disallowed in static/robots.txt, no noindex"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/kurir/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /kurir (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (client auth-gated SPA: kurir/+layout.ts ssr=false and kurir/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /kurir/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/masuk/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /masuk (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); publicly reachable rendered route, not Disallowed in static/robots.txt, no noindex"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/p/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /p/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (literal noindex robots meta in the page, x-robots-tag noindex in p/[token]/+page.server.ts:12 and static/robots.txt Disallow: /p/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/canonical-url::src/routes/t/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /t/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library) but not a search target (literal noindex robots meta in the page, x-robots-tag noindex in t/[token]/+page.server.ts:12 and static/robots.txt Disallow: /t/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/galon/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/lainnya/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/laporan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/pelanggan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/pelanggan/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/pengaturan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/pengingat/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/penyiapan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/pesanan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/pesanan/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/app/pesanan/baru/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/daftar/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); public page of the hosted Depotin SaaS (Vercel; landing / links /masuk and /daftar; static/robots.txt Allow: / and does not disallow it)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/kurir/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/masuk/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); public page of the hosted Depotin SaaS (Vercel; landing / links /masuk and /daftar; static/robots.txt Allow: / and does not disallow it)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/p/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/description-presence::src/routes/t/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> on the route (only / and d/[slug] set one; root +layout.svelte head is title only; app.html none) (literal claim holds); not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/indexability::src/routes/p/[token]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal unconditional <meta name=\"robots\" content=\"noindex\"> in the route's top-level svelte:head (p/[token]/+page.svelte:98); noindex as claimed (intentional: private token link / internal page)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/indexability::src/routes/t/[token]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal unconditional <meta name=\"robots\" content=\"noindex\"> in the route's top-level svelte:head (t/[token]/+page.svelte:85); noindex as claimed (intentional: private token link / internal page)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on / (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/galon/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/galon (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/lainnya/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/lainnya (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/laporan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/laporan (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/pelanggan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/pelanggan (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/pelanggan/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/pelanggan/[id] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/pengaturan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/pengaturan (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/pengingat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/pengingat (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/penyiapan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/penyiapan (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/pesanan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/pesanan (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/pesanan/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/pesanan/[id] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/app/pesanan/baru/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /app/pesanan/baru (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/d/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /d/[slug] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/daftar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /daftar (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/kurir/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /kurir (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/masuk/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /masuk (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/p/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /p/[token] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/json-ld::src/routes/t/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /t/[token] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/galon/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/galon (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/lainnya/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/lainnya (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/laporan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/laporan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/pelanggan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/pelanggan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/pelanggan/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/pelanggan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/pengaturan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/pengaturan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/pengingat/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/pengingat (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/penyiapan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/penyiapan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/pesanan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/pesanan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/pesanan/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/pesanan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/app/pesanan/baru/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app/pesanan/baru (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/d/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /d/[slug] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/daftar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /daftar (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/kurir/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /kurir (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: kurir/+layout.ts ssr=false and kurir/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /kurir/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/masuk/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /masuk (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/p/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /p/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in p/[token]/+page.server.ts:12 and static/robots.txt Disallow: /p/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-description::src/routes/t/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /t/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in t/[token]/+page.server.ts:12 and static/robots.txt Disallow: /t/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/galon/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/galon (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/lainnya/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/lainnya (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/laporan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/laporan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/pelanggan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/pelanggan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/pelanggan/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/pelanggan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/pengaturan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/pengaturan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/pengingat/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/pengingat (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/penyiapan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/penyiapan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/pesanan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/pesanan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/pesanan/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/pesanan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/app/pesanan/baru/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /app/pesanan/baru (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/d/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /d/[slug] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/daftar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /daftar (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/kurir/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /kurir (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: kurir/+layout.ts ssr=false and kurir/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /kurir/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/masuk/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /masuk (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/p/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /p/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in p/[token]/+page.server.ts:12 and static/robots.txt Disallow: /p/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-image::src/routes/t/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /t/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in t/[token]/+page.server.ts:12 and static/robots.txt Disallow: /t/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/galon/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/galon (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/lainnya/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/lainnya (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/laporan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/laporan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/pelanggan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/pelanggan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/pelanggan/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/pelanggan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/pengaturan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/pengaturan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/pengingat/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/pengingat (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/penyiapan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/penyiapan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/pesanan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/pesanan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/pesanan/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/pesanan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/app/pesanan/baru/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app/pesanan/baru (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/d/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /d/[slug] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/daftar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /daftar (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/kurir/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /kurir (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: kurir/+layout.ts ssr=false and kurir/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /kurir/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/masuk/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /masuk (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/p/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /p/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in p/[token]/+page.server.ts:12 and static/robots.txt Disallow: /p/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-title::src/routes/t/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /t/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in t/[token]/+page.server.ts:12 and static/robots.txt Disallow: /t/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/galon/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/galon (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/lainnya/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/lainnya (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/laporan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/laporan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/pelanggan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/pelanggan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/pelanggan/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/pelanggan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/pengaturan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/pengaturan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/pengingat/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/pengingat (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/penyiapan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/penyiapan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/pesanan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/pesanan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/pesanan/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/pesanan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/app/pesanan/baru/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /app/pesanan/baru (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/d/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /d/[slug] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/daftar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /daftar (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/kurir/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /kurir (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: kurir/+layout.ts ssr=false and kurir/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /kurir/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/masuk/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /masuk (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/p/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /p/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in p/[token]/+page.server.ts:12 and static/robots.txt Disallow: /p/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/og-url::src/routes/t/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /t/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in t/[token]/+page.server.ts:12 and static/robots.txt Disallow: /t/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no sitemap route, hook or generator anywhere in the repo (literal claim holds); hosted SaaS with a public landing, sign-in/up and public /d/[slug] depot order pages to list (static/robots.txt Allow: / without a Sitemap line)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/ssr-disabled::src/routes/app/+layout.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/app/+layout.ts:1 (literal claim holds); deliberate client-only rendering: not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/ssr-disabled::src/routes/kurir/+layout.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/kurir/+layout.ts:1 (literal claim holds); deliberate client-only rendering: not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 7 as reported; no later component title on the route); public page of the hosted Depotin SaaS (Vercel; landing / links /masuk and /daftar; static/robots.txt Allow: / and does not disallow it)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 18 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/galon/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/galon/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 15 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/lainnya/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/lainnya/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 17 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/laporan/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/laporan/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 17 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/pelanggan/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/pelanggan/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 19 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/pengaturan/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/pengaturan/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 20 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/pengingat/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/pengingat/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 19 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/penyiapan/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/penyiapan/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 24 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/pesanan/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/pesanan/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 17 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/app/pesanan/baru/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/app/pesanan/baru/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 22 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/daftar/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/daftar/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 16 as reported; no later component title on the route); public page of the hosted Depotin SaaS (Vercel; landing / links /masuk and /daftar; static/robots.txt Allow: / and does not disallow it)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/kurir/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/kurir/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 15 as reported; no later component title on the route) (literal claim holds); but not a search target: login-gated owner dashboard / courier view of the Depotin SaaS (app/+layout.ts and kurir/+layout.ts ssr=false, +layout.svelte goto('/masuk') when anonymous, static/robots.txt Disallow: /app/ /kurir/ /p/ /t/)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/title-length::src/routes/masuk/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/masuk/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 15 as reported; no later component title on the route); public page of the hosted Depotin SaaS (Vercel; landing / links /masuk and /daftar; static/robots.txt Allow: / and does not disallow it)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/galon/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/galon (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/lainnya/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/lainnya (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/laporan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/laporan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/pelanggan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/pelanggan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/pelanggan/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/pelanggan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/pengaturan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/pengaturan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/pengingat/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/pengingat (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/penyiapan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/penyiapan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/pesanan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/pesanan (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/pesanan/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/pesanan/[id] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/app/pesanan/baru/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /app/pesanan/baru (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: app/+layout.ts ssr=false and app/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /app/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/d/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /d/[slug] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/daftar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /daftar (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/kurir/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /kurir (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (client auth-gated SPA: kurir/+layout.ts ssr=false and kurir/+layout.svelte goto('/masuk') for anonymous sessions, and static/robots.txt Disallow: /kurir/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/masuk/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /masuk (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/p/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /p/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in p/[token]/+page.server.ts:12 and static/robots.txt Disallow: /p/); og/twitter absence holds regardless of search reach (ledger convention)"
+  },
+  {
+    "key": "benditandayusaputra/depotin:apps/web::seo/twitter-card::src/routes/t/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /t/[token] (script-verified (a1a_verify.py, comments stripped, all of src/ incl. app.html and $features/$lib): no og:*/twitter:card/rel=canonical emitter anywhere in apps/web/src (92 files); app.html head is charset/viewport/theme-color/icon; root +layout.svelte:9-11 head is <title> only; no meta-tag library); route renders (literal noindex robots meta in the page, x-robots-tag noindex in t/[token]/+page.server.ts:12 and static/robots.txt Disallow: /t/); og/twitter absence holds regardless of search reach (ledger convention)"
+  }
+]
