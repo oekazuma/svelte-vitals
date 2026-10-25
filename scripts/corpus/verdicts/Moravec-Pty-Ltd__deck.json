@@ -1,0 +1,842 @@
+[
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/disallowed-aria-props::src/lib/components/ContextMeter.svelte:43::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/ContextMeter.svelte:43 element carries aria-label with no role, spread or use: action, so its role is generic/paragraph, which prohibits a name as reported"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/disallowed-aria-props::src/lib/components/DiffView.svelte:298::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/DiffView.svelte:298 element carries aria-label with no role, spread or use: action, so its role is generic/paragraph, which prohibits a name as reported"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/disallowed-aria-props::src/lib/components/RollingCount.svelte:15::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/RollingCount.svelte:15 element carries aria-label with no role, spread or use: action, so its role is generic/paragraph, which prohibits a name as reported"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/disallowed-aria-props::src/lib/components/RunButton.svelte:181::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/RunButton.svelte:181 element carries aria-label with no role, spread or use: action, so its role is generic/paragraph, which prohibits a name as reported"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/disallowed-aria-props::src/lib/components/Sidebar.svelte:181::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/Sidebar.svelte:181 element carries aria-label with no role, spread or use: action, so its role is generic/paragraph, which prohibits a name as reported"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/disallowed-aria-props::src/lib/components/ToolCall.svelte:222::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/ToolCall.svelte:222 element carries aria-label with no role, spread or use: action, so its role is generic/paragraph, which prohibits a name as reported"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/id-duplication::src/lib/components/SkillPicker.svelte:158::Duplicate id \"skill-picker-list\"",
+    "verdict": "design",
+    "basis": "read: id=skill-picker-list sits in SkillPicker.svelte's {#if open} (:135, open = browsing || slashOpen, user-opened, dismissed on outside click); /s/[id]/+page.svelte renders ClaudeView (which holds one SkillPicker, ClaudeView.svelte:1236) at :405 for the beside pane and at :563 for the main pane, so two copies co-render only if both pickers are open at once; counted per the documented co-render model (ledger isOpen-instances precedent)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/no-autofocus::src/lib/components/SessionTitle.svelte:79::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; title-rename <input autofocus> under {#if editing} (:77, editing = $state(false) :20, set true by the user's edit action :33); focus on user action, not page load (ledger user-action autofocus precedent)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/permitted-contents::src/lib/components/NewSessionModal.svelte:1138::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/NewSessionModal.svelte:1138 literal div <- button with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/permitted-contents::src/lib/components/NewSessionModal.svelte:1141::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/NewSessionModal.svelte:1141 literal div <- button with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/permitted-contents::src/lib/components/RunButton.svelte:190::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/RunButton.svelte:190 literal div <- IfBlock <- span with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/permitted-contents::src/lib/components/Sidebar.svelte:443::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/Sidebar.svelte:443 literal div <- button with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/permitted-contents::src/lib/components/Sidebar.svelte:474::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/Sidebar.svelte:474 literal div <- button with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/permitted-contents::src/lib/components/Sidebar.svelte:508::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/Sidebar.svelte:508 literal div <- button with no component/snippet/svelte:element boundary between them; that parent's content model is phrasing, so the block child is spec-invalid as reported (info category mismatch)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/top-level-landmark::src/routes/runs/+page.svelte:368::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:262-270 renders {@render children()} inside <main> in both arms of {#if contained}; runs/+page.svelte:368 <aside> is not inside any section/article/nav, so it is a complementary landmark nested inside main"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::a11y/top-level-landmark::src/routes/s/[id]/+page.svelte:415::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:262-270 renders {@render children()} inside <main> in both arms; s/[id]/+page.svelte:415 <aside> (the {:else} of {#if beside}, under div wrappers only, no sectioning ancestor) is a complementary landmark nested inside main (ssr=false does not change the client DOM)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/ClaudeView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ClaudeView.svelte has 1284 physical lines (split on \\n, trailing newline not counted; 1203 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/CommandPalette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CommandPalette.svelte has 441 physical lines (split on \\n, trailing newline not counted; 414 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/DevConfigForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DevConfigForm.svelte has 243 physical lines (split on \\n, trailing newline not counted; 223 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/DevServers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DevServers.svelte has 249 physical lines (split on \\n, trailing newline not counted; 232 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/DiffView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DiffView.svelte has 327 physical lines (split on \\n, trailing newline not counted; 304 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/FilesView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FilesView.svelte has 330 physical lines (split on \\n, trailing newline not counted; 311 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/IssueSources.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/IssueSources.svelte has 470 physical lines (split on \\n, trailing newline not counted; 437 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/NewSessionModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NewSessionModal.svelte has 1173 physical lines (split on \\n, trailing newline not counted; 1122 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/PrMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PrMenu.svelte has 295 physical lines (split on \\n, trailing newline not counted; 282 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/QuickMessages.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/QuickMessages.svelte has 235 physical lines (split on \\n, trailing newline not counted; 213 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/RunButton.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RunButton.svelte has 248 physical lines (split on \\n, trailing newline not counted; 235 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Sidebar.svelte has 519 physical lines (split on \\n, trailing newline not counted; 490 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/ToolCall.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ToolCall.svelte has 280 physical lines (split on \\n, trailing newline not counted; 265 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/lib/components/VoiceBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/VoiceBar.svelte has 225 physical lines (split on \\n, trailing newline not counted; 211 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 302 physical lines (split on \\n, trailing newline not counted; 274 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 497 physical lines (split on \\n, trailing newline not counted; 461 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/routes/projects/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/+page.svelte has 301 physical lines (split on \\n, trailing newline not counted; 285 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/routes/runs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/runs/+page.svelte has 390 physical lines (split on \\n, trailing newline not counted; 366 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/routes/runs/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/runs/[id]/+page.svelte has 265 physical lines (split on \\n, trailing newline not counted; 243 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/routes/s/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/s/[id]/+page.svelte has 643 physical lines (split on \\n, trailing newline not counted; 603 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/component-size::src/routes/schedules/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/schedules/+page.svelte has 415 physical lines (split on \\n, trailing newline not counted; 383 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/prop-count::src/lib/components/ClaudeView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ClaudeView.svelte has a single destructured $props() with 9 named props (> 6): session, sessions, projects, visible, condensed, controls, flatActions, focusIndex, persistDraft"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/prop-count::src/lib/components/MessageBubble.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MessageBubble.svelte has a single destructured $props() with 9 named props (> 6): text, side, bubbleClass, markdown, streaming, streamId, sessionId, children, onread"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/prop-count::src/lib/components/Modal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Modal.svelte has a single destructured $props() with 9 named props (> 6): open, onclose, title, icon, iconClass, class, dismissible, children, footer"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/prop-count::src/lib/components/Popover.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Popover.svelte has a single destructured $props() with 10 named props (> 6): open, direction, drawer, summaryClass, summaryTitle, summaryLabel, summaryStyle, panelClass, trigger, children"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/prop-count::src/lib/components/PrMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PrMenu.svelte has a single destructured $props() with 8 named props (> 6): id, pr, me, worktree, createdBranch, reviewSession, onMerged, onChange"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/prop-count::src/lib/components/Sidebar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Sidebar.svelte has a single destructured $props() with 11 named props (> 6): projects, sessions, serverStates, reviews, currentId, deletingIds, onQuickAdd, onShellHere, onDelete, onOpenBeside, onChanged"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::architecture/prop-count::src/lib/components/ToolCall.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ToolCall.svelte has a single destructured $props() with 8 named props (> 6): block, result, agent, agentElapsed, steps, open, ontoggle, children"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/AnsiText.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AnsiText.svelte:22 '{#each segments as s, i (i)}<span class=\"ansi-seg\" style={styleFor(s)}><Linked text={s.text} /></span>{/each}' keyed by its index binding; positional list (ANSI/link segments or diff lines of one text, parsed per render): items have no identity beyond position"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/AskQuestion.svelte:68::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AskQuestion.svelte:68 '{#each questions as q, qi (qi)}' keyed by its index binding; parts of one tool-call/chat block or workflow phase shown read-only (its questions/options/labels, images, edits, todos or decisions); positional list of one message, never reordered while mounted"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/AskQuestion.svelte:75::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AskQuestion.svelte:75 '{#each answer?.[qi]?.labels ?? [] as l, li (li)}' keyed by its index binding; parts of one tool-call/chat block or workflow phase shown read-only (its questions/options/labels, images, edits, todos or decisions); positional list of one message, never reordered while mounted"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/AskQuestion.svelte:81::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AskQuestion.svelte:81 '{#each q.options as opt, oi (oi)}' keyed by its index binding; parts of one tool-call/chat block or workflow phase shown read-only (its questions/options/labels, images, edits, todos or decisions); positional list of one message, never reordered while mounted"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/ClaudeView.svelte:1158::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ClaudeView.svelte:1158 '{#each attachments as a, i (i)}' keyed by its index binding; user-edited list: files are appended (:712/:722) and removed mid-list by index (attachments.filter((_, k) => k !== i), :751/:755), so a removal shifts every later row onto another item"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/ClaudeView.svelte:1174::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ClaudeView.svelte:1174 '{#each uploads as f, i (i)}' keyed by its index binding; user-edited list: files are appended (:712/:722) and removed mid-list by index (attachments.filter((_, k) => k !== i), :751/:755), so a removal shifts every later row onto another item"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/ClaudeView.svelte:971::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ClaudeView.svelte:971 '{#each event.images as img, k (k)}' keyed by its index binding; parts of one tool-call/chat block or workflow phase shown read-only (its questions/options/labels, images, edits, todos or decisions); positional list of one message, never reordered while mounted"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/DevConfigForm.svelte:145::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DevConfigForm.svelte:145 '{#each copyFromMain as _, i (i)}' keyed by its index binding; user-edited form rows with bound inputs that the same file appends to, removes mid-list (filter((_, idx) => idx !== i)) and, for setup steps, moves up/down (move(setup, i, ±1), :170-171), so input state follows positions on reorder/remove"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/DevConfigForm.svelte:165::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DevConfigForm.svelte:165 '{#each setup as _, i (i)}' keyed by its index binding; user-edited form rows with bound inputs that the same file appends to, removes mid-list (filter((_, idx) => idx !== i)) and, for setup steps, moves up/down (move(setup, i, ±1), :170-171), so input state follows positions on reorder/remove"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/DevConfigForm.svelte:185::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DevConfigForm.svelte:185 '{#each servers as s, si (si)}' keyed by its index binding; user-edited form rows with bound inputs that the same file appends to, removes mid-list (filter((_, idx) => idx !== i)) and, for setup steps, moves up/down (move(setup, i, ±1), :170-171), so input state follows positions on reorder/remove"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/DevConfigForm.svelte:199::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DevConfigForm.svelte:199 '{#each s.ports ?? [] as p, pi (pi)}' keyed by its index binding; user-edited form rows with bound inputs that the same file appends to, removes mid-list (filter((_, idx) => idx !== i)) and, for setup steps, moves up/down (move(setup, i, ±1), :170-171), so input state follows positions on reorder/remove"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/DevConfigForm.svelte:218::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DevConfigForm.svelte:218 '{#each s.setup ?? [] as _, ssi (ssi)}' keyed by its index binding; user-edited form rows with bound inputs that the same file appends to, removes mid-list (filter((_, idx) => idx !== i)) and, for setup steps, moves up/down (move(setup, i, ±1), :170-171), so input state follows positions on reorder/remove"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/DevServers.svelte:200::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/DevServers.svelte:200 '{#each s.setup as step, i (i)}' keyed by its index binding; s.setup, the ordered setup steps of one dev server shown with their run status (read-only); positional list (steps of one config)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/Diff.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Diff.svelte:27 '{#each shown as ln, i (i)}' keyed by its index binding; positional list (ANSI/link segments or diff lines of one text, parsed per render): items have no identity beyond position"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/Linked.svelte:21::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Linked.svelte:21 '{#each parts as p, i (i)}{#if p.url}<a' keyed by its index binding; positional list (ANSI/link segments or diff lines of one text, parsed per render): items have no identity beyond position"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/ToolCall.svelte:150::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ToolCall.svelte:150 '{#each (input.edits ?? []) as e, i (i)}' keyed by its index binding; parts of one tool-call/chat block or workflow phase shown read-only (its questions/options/labels, images, edits, todos or decisions); positional list of one message, never reordered while mounted"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/ToolCall.svelte:161::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ToolCall.svelte:161 '{#each (input.todos ?? []) as t, i (i)}' keyed by its index binding; parts of one tool-call/chat block or workflow phase shown read-only (its questions/options/labels, images, edits, todos or decisions); positional list of one message, never reordered while mounted"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/lib/components/WorkflowGraph.svelte:134::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/WorkflowGraph.svelte:134 '{#each open.decisions as d, i (i)}' keyed by its index binding; parts of one tool-call/chat block or workflow phase shown read-only (its questions/options/labels, images, edits, todos or decisions); positional list of one message, never reordered while mounted"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/each-index-key::src/routes/runs/[id]/+page.svelte:255::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[id]/+page.svelte:255 '{#each run.findings as f, i (i)}' keyed by its index binding; run.findings of an agent run that is re-fetched every 3 s while visible (pollWhileVisible(load, 3000), run = await api(...)), so the record is replaced while mounted and identity follows position across polls"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/effect-as-onmount::src/lib/components/ZedButton.svelte:14::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ZedButton.svelte:14 '$effect(() => () => copier.stop());' $effect(() => () => copier.stop()) only returns a cleanup and reads nothing reactive; it runs once after mount and acts as onDestroy, as claimed"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/effect-as-onmount::src/lib/markdown/CodeBlock.svelte:19::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/markdown/CodeBlock.svelte:19 '$effect(() => () => copier.stop());' $effect(() => () => copier.stop()) only returns a cleanup and reads nothing reactive; it runs once after mount and acts as onDestroy, as claimed"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/instance-browser-global::src/lib/components/QrModal.svelte:29::location is accessed during component initialisation — during SSR this runs on the server, where location is not defined",
+    "verdict": "design",
+    "basis": "read: src/lib/components/QrModal.svelte:29 'const url = $derived(token ? `${location.origin}/?token=${encodeURIComponent(token)}` : \"\");' location.origin is read inside a lazy $derived only when token is non-empty, and token = $state('') is set only by a fetch inside an $effect (:20-27), so the server never evaluates the read; claim structurally true, not reachable on the server (ledger lazy guarded $derived convention)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/prop-mutation::src/lib/components/DeleteSessionModal.svelte:38::Prop \"flow\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/DeleteSessionModal.svelte:38 'flow.target = null;' flow.target / flow.batch are $state class fields of the DeleteFlow instance the pages pass (lib/delete-flow.svelte.ts:25-29, routes/+page.svelte:497 flow={del}); the write goes through the class's reactive state, the docs' class-instance limitation"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::correctness/prop-mutation::src/lib/components/DeleteSessionModal.svelte:39::Prop \"flow\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/DeleteSessionModal.svelte:39 'flow.batch = null;' flow.target / flow.batch are $state class fields of the DeleteFlow instance the pages pass (lib/delete-flow.svelte.ts:25-29, routes/+page.svelte:497 flow={del}); the write goes through the class's reactive state, the docs' class-instance limitation"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::performance/iframe-loading::src/lib/components/FilesView.svelte:255::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the PDF viewer {:else if viewer === 'pdf'} (h-[75vh] w-full) of the file panel the user opens by picking a file (FilesView.svelte:231-255) - the visible content when created, where eager is right"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::performance/sequential-awaits::src/routes/s/[id]/+page.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/s/[id]/+page.ts:8-23 (line 14): agentGet(agentPath('user'), fetch) is a fetch of the gh login that uses nothing from the preceding session fetch/res.json() (:9-11, whose only coupling is the 404 gate at :10) - independent API requests serialized; Promise.all would work (ledger 404-gate-then-independent-fetch tp convention); ssr=false does not change the client waterfall"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::performance/sequential-awaits::src/routes/s/[id]/+page.ts:20::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/s/[id]/+page.ts:8-23 (line 20): agentGet(sessionPath(params.id, 'zed'), fetch) uses only params.id, nothing from the session fetch (:9-11) or the `me` fetch (:14) - independent API requests serialized; Promise.all would work"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::performance/state-raw::src/lib/components/AddProjectModal.svelte:19::\"groupSuggestions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"groupSuggestions\" in src/lib/components/AddProjectModal.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :19, only whole-binding reassignments (:67,:70); other uses are read-only (member/index reads, .length, {#each} items read as text/option value/href); no member writes, mutating calls, bind:, call-arg/prop escapes or item edits - reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::performance/state-raw::src/lib/components/DevServers.svelte:38::\"busy\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"busy\" in src/lib/components/DevServers.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :38, only whole-binding reassignments (:73,:86); other uses are read-only (member/index reads, .length, {#each} items read as text/option value/href); no member writes, mutating calls, bind:, call-arg/prop escapes or item edits - reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::performance/state-raw::src/lib/components/DevServers.svelte:39::\"openLogs\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"openLogs\" in src/lib/components/DevServers.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :39, only whole-binding reassignments (:100); other uses are read-only (member/index reads, .length, {#each} items read as text/option value/href); no member writes, mutating calls, bind:, call-arg/prop escapes or item edits - reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::performance/state-raw::src/routes/schedules/+page.svelte:22::\"sessions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"sessions\" in src/routes/schedules/+page.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :22, only whole-binding reassignments (:66); other uses are read-only (member/index reads, .length, {#each} items read as text/option value/href); no member writes, mutating calls, bind:, call-arg/prop escapes or item edits - reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::security/raw-html::src/lib/components/FilesView.svelte:272::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/FilesView.svelte:155-157,272 + src/lib/markdown/highlight-core.ts: codeHtml = renderCode() -> Shiki codeToHtml output or an escapeHtml()-ed <pre> fallback (escapes &<>\"') - never the raw file text, reported per docs"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::security/raw-html::src/lib/markdown/CodeBlock.svelte:29::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/markdown/CodeBlock.svelte:16-29 + highlight-core.ts: html = renderCode(text, lang) -> Shiki codeToHtml output or an escapeHtml()-ed fallback - never raw fence text, reported per docs"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; but not a search target (auth-gated: root +layout.server.ts:14-18 and hooks.server.ts:36-54 redirect every unauthenticated request outside PUBLIC_PATHS (/login, /pair) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/inbox/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /inbox (src/routes/inbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; but not a search target (auth-gated: root +layout.server.ts:14-18 and hooks.server.ts:36-54 redirect every unauthenticated request outside PUBLIC_PATHS (/login, /pair) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (src/routes/login/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; public sign-in/pairing page (in PUBLIC_PATHS, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/pair/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /pair (src/routes/pair/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; public sign-in/pairing page (in PUBLIC_PATHS, static/robots.txt allows all, no noindex)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; but not a search target (auth-gated: root +layout.server.ts:14-18 and hooks.server.ts:36-54 redirect every unauthenticated request outside PUBLIC_PATHS (/login, /pair) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/runs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /runs (src/routes/runs/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; but not a search target (auth-gated: root +layout.server.ts:14-18 and hooks.server.ts:36-54 redirect every unauthenticated request outside PUBLIC_PATHS (/login, /pair) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/runs/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[id] (src/routes/runs/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; but not a search target (auth-gated: root +layout.server.ts:14-18 and hooks.server.ts:36-54 redirect every unauthenticated request outside PUBLIC_PATHS (/login, /pair) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/s/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /s/[id] (src/routes/s/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; but not a search target (auth-gated: root +layout.server.ts:14-18 and hooks.server.ts:36-54 redirect every unauthenticated request outside PUBLIC_PATHS (/login, /pair) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/schedules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /schedules (src/routes/schedules/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; but not a search target (auth-gated: root +layout.server.ts:14-18 and hooks.server.ts:36-54 redirect every unauthenticated request outside PUBLIC_PATHS (/login, /pair) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no <link rel=\"canonical\"> emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request; but not a search target (auth-gated: root +layout.server.ts:14-18 and hooks.server.ts:36-54 redirect every unauthenticated request outside PUBLIC_PATHS (/login, /pair) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/inbox/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/pair/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/runs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/runs/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/s/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/schedules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (grep) (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte literal <title> is the only one on the 3 routes (no page sets its own), duplicate as claimed; but not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate, so no search competition"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on / (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/inbox/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /inbox (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /login (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/pair/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /pair (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /projects (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/runs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /runs (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/runs/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /runs/[id] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/s/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /s/[id] (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/schedules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /schedules (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "no JSON-LD on /settings (script-verified: grep of the whole clone outside node_modules for ld+json/jsonld/json-ld/schema.org finds no JSON-LD emitter in the app, app.html or deps; route renders, no load/hook that always redirects) (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/inbox/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inbox (src/routes/inbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (src/routes/login/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/pair/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pair (src/routes/pair/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/runs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs (src/routes/runs/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/runs/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[id] (src/routes/runs/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/s/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /s/[id] (src/routes/s/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/schedules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /schedules (src/routes/schedules/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:description emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/inbox/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /inbox (src/routes/inbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (src/routes/login/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/pair/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pair (src/routes/pair/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/runs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs (src/routes/runs/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/runs/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[id] (src/routes/runs/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/s/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /s/[id] (src/routes/s/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/schedules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /schedules (src/routes/schedules/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:image emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/inbox/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /inbox (src/routes/inbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (src/routes/login/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/pair/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pair (src/routes/pair/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/runs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs (src/routes/runs/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/runs/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[id] (src/routes/runs/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/s/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /s/[id] (src/routes/s/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/schedules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /schedules (src/routes/schedules/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:title emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/inbox/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /inbox (src/routes/inbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (src/routes/login/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/pair/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pair (src/routes/pair/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/runs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs (src/routes/runs/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/runs/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[id] (src/routes/runs/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/s/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /s/[id] (src/routes/s/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/schedules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /schedules (src/routes/schedules/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no og:url emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/single-h1::src/routes/+page.svelte:325::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the session dashboard (+page.svelte) renders only <h2>{g.label} group headings (:325) and toolbar buttons; root +layout.svelte (brand <span>deck</span>, NavLinks, CommandPalette, TranscriptSearch, Popover) and PairApprovals/the modals render no <h1> - no <h1> on /"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, routes or generator (literal claim holds); not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate, nothing to list"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/ssr-disabled::src/routes/s/[id]/+page.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/s/[id]/+page.ts:6 (literal claim holds); deliberate client-only rendering: not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/+layout.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 4 as reported; no later component title on the route); it is the only title of the 3 routes that set none (literal claim holds); but not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/title-length::src/routes/inbox/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/inbox/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 12 as reported; no later component title on the route) (literal claim holds); but not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/title-length::src/routes/projects/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/projects/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 15 as reported; no later component title on the route) (literal claim holds); but not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/title-length::src/routes/runs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/runs/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 11 as reported; no later component title on the route) (literal claim holds); but not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/title-length::src/routes/schedules/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/schedules/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 16 as reported; no later component title on the route) (literal claim holds); but not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/settings/+page.svelte outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 15 as reported; no later component title on the route) (literal claim holds); but not a search target: deck is a single-machine console for driving Claude Code/tmux sessions over a tailnet (README), every route but /login and /pair behind the hooks.server.ts token/cookie gate"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/inbox/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /inbox (src/routes/inbox/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (src/routes/login/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/pair/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pair (src/routes/pair/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects (src/routes/projects/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/runs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs (src/routes/runs/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/runs/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[id] (src/routes/runs/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/s/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /s/[id] (src/routes/s/[id]/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/schedules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /schedules (src/routes/schedules/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/settings/+page.svelte): script-verified (a1b_label.py, comments stripped, 462 .svelte/.ts/.js/.html/.md files of the app incl. app.html/hooks): no twitter:card emitter anywhere; app.html head is charset/viewport/icons/manifest/theme-color/apple-web-app metas; root +layout.svelte:176-178 and page heads hold <title> only; hooks.server.ts has no transformPageChunk; npm Svelte deps (@lucide/svelte, @humanspeak/svelte-markdown, @pierre/diffs) emit no head tags; route renders for an authenticated request"
+  },
+  {
+    "key": "Moravec-Pty-Ltd/deck::seo/single-h1::/s/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "uninstalled-only: no <h1> renders on /s/[id] (ssr=false): the page and its components (ClaudeView, SessionTitle, Sidebar and the rest under src/lib/components) have no <h1>; ClaudeView renders chat messages through @humanspeak/svelte-markdown, whose markdown headings depend on the model's output, not the page (the installed run followed that package and read its heading as one of undetermined level); the ledger labels markdown-rendered chat or user content as no page <h1> (tp)"
+  }
+]
