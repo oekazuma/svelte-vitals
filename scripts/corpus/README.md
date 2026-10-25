@@ -625,7 +625,7 @@ Measured on 584 apps, each pinned to a commit:
 - [edsuwarna/anjungan/frontend](https://github.com/edsuwarna/anjungan/tree/099f7f914716dd14fba2a324a7ce0555a95f31c7/frontend) (`099f7f9`)
 - [DeckDumpster/pokedumpster/frontend](https://github.com/DeckDumpster/pokedumpster/tree/a6c247258fdf0bdef3d93da3a9f7c621d52c14fe/frontend) (`a6c2472`)
 
-227612 of 227637 corpus findings have a verdict.
+227569 of 227594 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share      |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ----------------- |
@@ -695,7 +695,7 @@ Measured on 584 apps, each pinned to a commit:
 | [`performance/preconnect`](../../docs/src/content/docs/rules/performance/preconnect.md)                               | 3               | 3    | 3 / 0 / 0 / 0                         | 100% (3/3)         | 0% (0/3)          |
 | [`performance/preload-missing-as`](../../docs/src/content/docs/rules/performance/preload-missing-as.md)               | 0               | 0    | —                                     | —                  | —                 |
 | [`performance/render-blocking-script`](../../docs/src/content/docs/rules/performance/render-blocking-script.md)       | 7               | 5    | 7 / 0 / 0 / 0                         | 100% (7/7)         | 0% (0/7)          |
-| [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 3404            | 373  | 2863 / 6 / 535 / 0                    | 100% (2863/2869)   | 16% (535/3404)    |
+| [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 3361            | 367  | 2863 / 4 / 494 / 0                    | 100% (2863/2867)   | 15% (494/3361)    |
 | [`performance/sequential-awaits`](../../docs/src/content/docs/rules/performance/sequential-awaits.md)                 | 3180            | 267  | 1743 / 4 / 1431 / 2                   | 100% (1743/1747)   | 45% (1431/3180)   |
 | [`performance/state-raw`](../../docs/src/content/docs/rules/performance/state-raw.md)                                 | 1176            | 271  | 1176 / 0 / 0 / 0                      | 100% (1176/1176)   | 0% (0/1176)       |
 | [`security/handler-state-write`](../../docs/src/content/docs/rules/security/handler-state-write.md)                   | 27              | 10   | 18 / 0 / 9 / 0                        | 100% (18/18)       | 33% (9/27)        |
