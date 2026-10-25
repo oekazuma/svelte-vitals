@@ -74,6 +74,12 @@ describe('performance/responsive-image responsive image', () => {
     );
     expect(fails(rs)).toHaveLength(0);
   });
+  it('passes a QR-code <img> without srcset', async () => {
+    const rs = await performanceResponsiveImage.check(
+      imagesCtx([{ route: '/a', images: [img({ hasSrcset: false, qr: true })] }])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
 });
 
 describe('isSvgSrc', () => {

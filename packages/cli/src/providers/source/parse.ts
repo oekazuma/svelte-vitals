@@ -1085,6 +1085,7 @@ interface ParsedImage {
   lazy: boolean;
   hasSrcset: boolean;
   svg?: boolean;
+  qr?: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;
 }
@@ -1126,6 +1127,25 @@ function isSvgImage(attrs: AST.Attribute[], imports: ImportMap): boolean {
   const arg =
     value && value !== true && value.expression.type === 'CallExpression' ? value.expression.arguments[0] : undefined;
   return arg?.type === 'Literal' && typeof arg.value === 'string' && isSvgSrc(arg.value);
+}
+
+/**
+ * A `src` that is a binding or member named for a QR code (`qrDataUrl`, `setup.qrCode`, `inviteQr`). A
+ * built URL or a call (`api.qrserver.com/…`, `qrUrl(x)`) is not: what it returns is not fixed by the name.
+ */
+function isQrImage(attrs: AST.Attribute[]): boolean {
+  const raw = findAttr(attrs, 'src')?.value;
+  const tag = Array.isArray(raw) ? (raw.length === 1 && raw[0]!.type === 'ExpressionTag' ? raw[0] : undefined) : raw;
+  let expr = tag && tag !== true ? tag.expression : undefined;
+  while (expr?.type === 'ChainExpression') expr = expr.expression;
+  const name =
+    expr?.type === 'Identifier'
+      ? expr.name
+      : expr?.type === 'MemberExpression' && !expr.computed && expr.property.type === 'Identifier'
+        ? expr.property.name
+        : undefined;
+  // Hardly an English word holds "qr", so the letters alone name a QR code (`twoFAQRDataUrl` too).
+  return name !== undefined && /qr/i.test(name);
 }
 
 /** Each name's first `{#snippet}` definition, and every name some `{@render name(…)}` calls. */
@@ -1217,6 +1237,7 @@ function collectImages(
         lazy: attrText(attrs, 'loading') === 'lazy',
         hasSrcset: hasSpread || Boolean(findAttr(attrs, 'srcset')) || picture?.srcset === true,
         ...(isSvgImage(attrs, imports) ? { svg: true } : {}),
+        ...(isQrImage(attrs) ? { qr: true } : {}),
         line: lineOf(source, node.start)
       });
     }
