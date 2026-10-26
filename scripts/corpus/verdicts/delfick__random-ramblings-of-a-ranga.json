@@ -1,0 +1,832 @@
+[
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::a11y/interactive-nesting::src/app/blog/theme_toggle.svelte:60::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read theme_toggle.svelte:52-63: <button aria-label=switch...> inside <div tabindex=0 role=\"button\" onclick={toggleMode}>"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::architecture/component-size::src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte has 541 physical lines (split on \\n, trailing newline not counted; 445 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::architecture/component-size::src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte has 1965 physical lines (split on \\n, trailing newline not counted; 1479 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::architecture/component-size::src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte has 269 physical lines (split on \\n, trailing newline not counted; 249 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::architecture/component-size::src/routes/resume/engineer/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/resume/engineer/+page.svelte has 276 physical lines (split on \\n, trailing newline not counted; 246 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::architecture/prop-count::src/app/blog/posts.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/app/blog/posts.svelte has a single destructured $props() with 7 named props (> 6): base, description, posts, noheading, rss, children, noposts"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::correctness/each-index-key::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte:126::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte:126 '{#each times as time, i (i)}' keyed by its index binding; times = the hour-axis tick positions of the SVG sleep chart; positional list (chart ticks)"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::correctness/each-index-key::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte:131::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte:131 '{#each pairs as pair, i (i)}' keyed by its index binding; pairs parsed from the csv textarea and drawn as one <rect> per row at y = 40 + i * …; positional list (chart bars, no element state)"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::correctness/each-index-key::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte:140::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte:140 '{#each times as time, i (i)}' keyed by its index binding; hour-axis grid lines of the SVG chart; positional list (chart ticks)"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::correctness/each-index-key::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte:145::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte:145 '{#each times as time, i (i)}' keyed by its index binding; bottom hour-axis labels of the SVG chart; positional list (chart ticks)"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::performance/image-dimensions::src/routes/+page.svelte:30::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: avatar <img src={avatar}> (avatar.svg import) lacks width/height but has style:height=256px (+page.svelte:30-35), alone at the top of a centred single column of centred links (m-auto grid) - fixed height, its width moves nothing"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::performance/image-loading-hint::src/routes/+page.svelte:30::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the 256px avatar is the main content of the h-screen landing page (+page.svelte:22-36) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::security/raw-html::src/app/prism/python.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/app/prism/python.svelte:3-4,15-21: atomOneDark/atomOneLight are the svelte-highlight packages' constant <style> strings - library constant markup, reported per docs"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::security/raw-html::src/app/prism/python.svelte:19::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/app/prism/python.svelte:3-4,15-21: atomOneDark/atomOneLight are the svelte-highlight packages' constant <style> strings - library constant markup, reported per docs"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::security/raw-html::src/app/resume/blurb.svelte:20::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/app/resume/blurb.svelte:20 (marked(source)) + routes/resume/engineer/+page.svelte:28-269: every source passed is a literal dedent`` markdown block authored in the repo - repo constant markdown via marked, reported per docs"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::security/raw-html::src/app/resume/resume_section.svelte:45::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/app/resume/resume_section.svelte:45 (marked(source)), used by routes/resume/engineer and app/resume/contact.svelte/summary_points.svelte + routes/resume/engineer/+page.svelte:28-269: every source passed is a literal dedent`` markdown block authored in the repo - repo constant markdown via marked, reported per docs"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::security/raw-html::src/app/resume/sub_resume_section.svelte:54::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/app/resume/sub_resume_section.svelte:54 (marked(source)) + routes/resume/engineer/+page.svelte:28-269: every source passed is a literal dedent`` markdown block authored in the repo - repo constant markdown via marked, reported per docs"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: src/routes/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog: src/routes/blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/posts/2022/june/14-whats-with-the-resume: src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/posts/2022/june/9-decided-to-make-a-blog: src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/posts/2023/february/11-pytest-fixture-factories: src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/posts/2024/november/21-protocol-based-api-design: src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/posts/2026/jan/12-evolving-a-software-janitor-mindset: src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/posts/2026/june/20-what-is-dev-enablement: src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/posts/[year]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/posts/[year]: src/routes/blog/posts/[year]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/posts/[year]/[month]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/posts/[year]/[month]: src/routes/blog/posts/[year]/[month]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/blog/tags/[tag]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/tags/[tag]: src/routes/blog/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/experiments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /experiments: src/routes/experiments/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /experiments/posts/2022/june/11-sleep-data: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/experiments/posts/[year]/+page@experiments.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /experiments/posts/[year]: src/routes/experiments/posts/[year]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /experiments/posts/[year]/[month]: src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/experiments/tags/[tag]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /experiments/tags/[tag]: src/routes/experiments/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/canonical-url::src/routes/resume/engineer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /resume/engineer: src/routes/resume/engineer/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders; public blog route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/description-length::src/routes/resume/+layout.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=\"description\"> in src/routes/resume/+layout.svelte's top-level svelte:head, whitespace collapsed, 9 characters as reported; no later component or document.title override on the route); public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte <svelte:head> has only <title>Random Ramblings of a Ranga</title>; root +layout.svelte head is icons/manifest/rel=me links, app.html none (the Posts component with a description is not rendered on /); public blog home, missing as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/duplicate-title::src/routes/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte top-level svelte:head literal <title>Random Ramblings of a Ranga</title>, the same literal the blog/experiments listing pages get from src/app/blog/posts.svelte (9 routes), duplicate as claimed; public, indexable blog pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/duplicate-title::src/routes/blog/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/routes/blog/+page.svelte renders <Posts> (src/app/blog/posts.svelte top-level svelte:head literal <title>Random Ramblings of a Ranga</title>), the same literal as / and the other blog/experiments listing pages (9 routes), duplicate as claimed; public, indexable blog pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/duplicate-title::src/routes/blog/posts/[year]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/routes/blog/posts/[year]/+page.svelte renders <Posts> (src/app/blog/posts.svelte top-level svelte:head literal <title>Random Ramblings of a Ranga</title>), the same literal as / and the other blog/experiments listing pages (9 routes), duplicate as claimed; public, indexable blog pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/duplicate-title::src/routes/blog/posts/[year]/[month]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/routes/blog/posts/[year]/[month]/+page.svelte renders <Posts> (src/app/blog/posts.svelte top-level svelte:head literal <title>Random Ramblings of a Ranga</title>), the same literal as / and the other blog/experiments listing pages (9 routes), duplicate as claimed; public, indexable blog pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/duplicate-title::src/routes/blog/tags/[tag]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/routes/blog/tags/[tag]/+page.svelte renders <Posts> (src/app/blog/posts.svelte top-level svelte:head literal <title>Random Ramblings of a Ranga</title>), the same literal as / and the other blog/experiments listing pages (9 routes), duplicate as claimed; public, indexable blog pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/duplicate-title::src/routes/experiments/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/routes/experiments/+page.svelte renders <Posts> (src/app/blog/posts.svelte top-level svelte:head literal <title>Random Ramblings of a Ranga</title>), the same literal as / and the other blog/experiments listing pages (9 routes), duplicate as claimed; public, indexable blog pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/duplicate-title::src/routes/experiments/posts/[year]/+page@experiments.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/routes/experiments/posts/[year]/+page@experiments.svelte renders <Posts> (src/app/blog/posts.svelte top-level svelte:head literal <title>Random Ramblings of a Ranga</title>), the same literal as / and the other blog/experiments listing pages (9 routes), duplicate as claimed; public, indexable blog pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/duplicate-title::src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte renders <Posts> (src/app/blog/posts.svelte top-level svelte:head literal <title>Random Ramblings of a Ranga</title>), the same literal as / and the other blog/experiments listing pages (9 routes), duplicate as claimed; public, indexable blog pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/duplicate-title::src/routes/experiments/tags/[tag]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/routes/experiments/tags/[tag]/+page.svelte renders <Posts> (src/app/blog/posts.svelte top-level svelte:head literal <title>Random Ramblings of a Ranga</title>), the same literal as / and the other blog/experiments listing pages (9 routes), duplicate as claimed; public, indexable blog pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/posts/[year]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/posts/[year]/[month]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/blog/tags/[tag]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/experiments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/experiments/posts/[year]/+page@experiments.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/experiments/tags/[tag]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/json-ld::src/routes/resume/engineer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter; the only ld+json hit is the webfinger +server.ts content type); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); public personal blog"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: src/routes/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog: src/routes/blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/posts/2022/june/14-whats-with-the-resume: src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/posts/2022/june/9-decided-to-make-a-blog: src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/posts/2023/february/11-pytest-fixture-factories: src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/posts/2024/november/21-protocol-based-api-design: src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/posts/2026/jan/12-evolving-a-software-janitor-mindset: src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/posts/2026/june/20-what-is-dev-enablement: src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/posts/[year]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/posts/[year]: src/routes/blog/posts/[year]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/posts/[year]/[month]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/posts/[year]/[month]: src/routes/blog/posts/[year]/[month]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/blog/tags/[tag]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/tags/[tag]: src/routes/blog/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/experiments/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /experiments: src/routes/experiments/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /experiments/posts/2022/june/11-sleep-data: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/experiments/posts/[year]/+page@experiments.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /experiments/posts/[year]: src/routes/experiments/posts/[year]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /experiments/posts/[year]/[month]: src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/experiments/tags/[tag]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /experiments/tags/[tag]: src/routes/experiments/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-description::src/routes/resume/engineer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /resume/engineer: src/routes/resume/engineer/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: src/routes/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog: src/routes/blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/posts/2022/june/14-whats-with-the-resume: src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/posts/2022/june/9-decided-to-make-a-blog: src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/posts/2023/february/11-pytest-fixture-factories: src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/posts/2024/november/21-protocol-based-api-design: src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/posts/2026/jan/12-evolving-a-software-janitor-mindset: src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/posts/2026/june/20-what-is-dev-enablement: src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/posts/[year]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/posts/[year]: src/routes/blog/posts/[year]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/posts/[year]/[month]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/posts/[year]/[month]: src/routes/blog/posts/[year]/[month]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/blog/tags/[tag]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/tags/[tag]: src/routes/blog/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/experiments/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /experiments: src/routes/experiments/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /experiments/posts/2022/june/11-sleep-data: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/experiments/posts/[year]/+page@experiments.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /experiments/posts/[year]: src/routes/experiments/posts/[year]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /experiments/posts/[year]/[month]: src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/experiments/tags/[tag]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /experiments/tags/[tag]: src/routes/experiments/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-image::src/routes/resume/engineer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /resume/engineer: src/routes/resume/engineer/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: src/routes/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog: src/routes/blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/posts/2022/june/14-whats-with-the-resume: src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/posts/2022/june/9-decided-to-make-a-blog: src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/posts/2023/february/11-pytest-fixture-factories: src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/posts/2024/november/21-protocol-based-api-design: src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/posts/2026/jan/12-evolving-a-software-janitor-mindset: src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/posts/2026/june/20-what-is-dev-enablement: src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/posts/[year]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/posts/[year]: src/routes/blog/posts/[year]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/posts/[year]/[month]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/posts/[year]/[month]: src/routes/blog/posts/[year]/[month]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/blog/tags/[tag]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/tags/[tag]: src/routes/blog/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/experiments/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /experiments: src/routes/experiments/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /experiments/posts/2022/june/11-sleep-data: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/experiments/posts/[year]/+page@experiments.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /experiments/posts/[year]: src/routes/experiments/posts/[year]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /experiments/posts/[year]/[month]: src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/experiments/tags/[tag]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /experiments/tags/[tag]: src/routes/experiments/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-title::src/routes/resume/engineer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /resume/engineer: src/routes/resume/engineer/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: src/routes/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog: src/routes/blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/posts/2022/june/14-whats-with-the-resume: src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/posts/2022/june/9-decided-to-make-a-blog: src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/posts/2023/february/11-pytest-fixture-factories: src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/posts/2024/november/21-protocol-based-api-design: src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/posts/2026/jan/12-evolving-a-software-janitor-mindset: src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/posts/2026/june/20-what-is-dev-enablement: src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/posts/[year]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/posts/[year]: src/routes/blog/posts/[year]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/posts/[year]/[month]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/posts/[year]/[month]: src/routes/blog/posts/[year]/[month]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/blog/tags/[tag]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/tags/[tag]: src/routes/blog/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/experiments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /experiments: src/routes/experiments/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /experiments/posts/2022/june/11-sleep-data: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/experiments/posts/[year]/+page@experiments.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /experiments/posts/[year]: src/routes/experiments/posts/[year]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /experiments/posts/[year]/[month]: src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/experiments/tags/[tag]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /experiments/tags/[tag]: src/routes/experiments/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/og-url::src/routes/resume/engineer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /resume/engineer: src/routes/resume/engineer/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook or generator script in the app (literal claim holds) (static/ holds two avatars; netlify.toml publishes the build only); public personal blog with posts to list"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the landing page (+page.svelte) renders an avatar <img> and a list of <p><a> links, root +layout.svelte only {@render children()}; LinkedIn component has no heading - no <h1> on /"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/single-h1::/blog/tags/[tag]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1> renders: the page renders <Posts> (app/blog/posts.svelte), whose title is <h2>{@render children()} / the RSS <h2> (:58-61); blog/experiments +layout.svelte render Nav, ThemeToggle, PageTransition (no heading), TagPill's svelte:element is 'a'|'span'; the only <h1> in src is app/blog/heading.svelte, used by post pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/single-h1::/blog::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1> renders: the page renders <Posts> (app/blog/posts.svelte), whose title is <h2>{@render children()} / the RSS <h2> (:58-61); blog/experiments +layout.svelte render Nav, ThemeToggle, PageTransition (no heading), TagPill's svelte:element is 'a'|'span'; the only <h1> in src is app/blog/heading.svelte, used by post pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/single-h1::/experiments/posts/[year]/[month]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1> renders: the page renders <Posts> (app/blog/posts.svelte), whose title is <h2>{@render children()} / the RSS <h2> (:58-61); blog/experiments +layout.svelte render Nav, ThemeToggle, PageTransition (no heading), TagPill's svelte:element is 'a'|'span'; the only <h1> in src is app/blog/heading.svelte, used by post pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/single-h1::/experiments/posts/[year]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1> renders: the page renders <Posts> (app/blog/posts.svelte), whose title is <h2>{@render children()} / the RSS <h2> (:58-61); blog/experiments +layout.svelte render Nav, ThemeToggle, PageTransition (no heading), TagPill's svelte:element is 'a'|'span'; the only <h1> in src is app/blog/heading.svelte, used by post pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/single-h1::/experiments/tags/[tag]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1> renders: the page renders <Posts> (app/blog/posts.svelte), whose title is <h2>{@render children()} / the RSS <h2> (:58-61); blog/experiments +layout.svelte render Nav, ThemeToggle, PageTransition (no heading), TagPill's svelte:element is 'a'|'span'; the only <h1> in src is app/blog/heading.svelte, used by post pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/single-h1::/experiments::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1> renders: the page renders <Posts> (app/blog/posts.svelte), whose title is <h2>{@render children()} / the RSS <h2> (:58-61); blog/experiments +layout.svelte render Nav, ThemeToggle, PageTransition (no heading), TagPill's svelte:element is 'a'|'span'; the only <h1> in src is app/blog/heading.svelte, used by post pages"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script in the app (literal claim holds) (static/ holds two avatars; netlify.toml publishes the build only); public personal blog with posts to list"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/+page.svelte's top-level svelte:head, whitespace collapsed, 27 characters as reported; no later component or document.title override on the route); public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/blog/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/blog/+page.svelte renders <Posts …/> ($blog/posts.svelte = src/app/blog/posts.svelte), whose top-level svelte:head has the literal <title>Random Ramblings of a Ranga</title> (27 characters); it renders after any layout title (blog/posts/+layout.svelte's dynamic one), so it is the route's title; public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/blog/posts/[year]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/blog/posts/[year]/+page.svelte renders <Posts …/> ($blog/posts.svelte = src/app/blog/posts.svelte), whose top-level svelte:head has the literal <title>Random Ramblings of a Ranga</title> (27 characters); it renders after any layout title (blog/posts/+layout.svelte's dynamic one), so it is the route's title; public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/blog/posts/[year]/[month]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/blog/posts/[year]/[month]/+page.svelte renders <Posts …/> ($blog/posts.svelte = src/app/blog/posts.svelte), whose top-level svelte:head has the literal <title>Random Ramblings of a Ranga</title> (27 characters); it renders after any layout title (blog/posts/+layout.svelte's dynamic one), so it is the route's title; public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/blog/tags/[tag]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/blog/tags/[tag]/+page.svelte renders <Posts …/> ($blog/posts.svelte = src/app/blog/posts.svelte), whose top-level svelte:head has the literal <title>Random Ramblings of a Ranga</title> (27 characters); it renders after any layout title (blog/posts/+layout.svelte's dynamic one), so it is the route's title; public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/experiments/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/experiments/+page.svelte renders <Posts …/> ($blog/posts.svelte = src/app/blog/posts.svelte), whose top-level svelte:head has the literal <title>Random Ramblings of a Ranga</title> (27 characters); it renders after any layout title (blog/posts/+layout.svelte's dynamic one), so it is the route's title; public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/experiments/posts/[year]/+page@experiments.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/experiments/posts/[year]/+page@experiments.svelte renders <Posts …/> ($blog/posts.svelte = src/app/blog/posts.svelte), whose top-level svelte:head has the literal <title>Random Ramblings of a Ranga</title> (27 characters); it renders after any layout title (blog/posts/+layout.svelte's dynamic one), so it is the route's title; public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte renders <Posts …/> ($blog/posts.svelte = src/app/blog/posts.svelte), whose top-level svelte:head has the literal <title>Random Ramblings of a Ranga</title> (27 characters); it renders after any layout title (blog/posts/+layout.svelte's dynamic one), so it is the route's title; public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/experiments/tags/[tag]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/experiments/tags/[tag]/+page.svelte renders <Posts …/> ($blog/posts.svelte = src/app/blog/posts.svelte), whose top-level svelte:head has the literal <title>Random Ramblings of a Ranga</title> (27 characters); it renders after any layout title (blog/posts/+layout.svelte's dynamic one), so it is the route's title; public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/title-length::src/routes/resume/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/resume/+layout.svelte's top-level svelte:head, whitespace collapsed, 6 characters as reported; no later component or document.title override on the route); public personal blog, length as claimed"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: src/routes/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog: src/routes/blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/posts/2022/june/14-whats-with-the-resume: src/routes/blog/posts/2022/june/14-whats-with-the-resume/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/posts/2022/june/9-decided-to-make-a-blog: src/routes/blog/posts/2022/june/9-decided-to-make-a-blog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/posts/2023/february/11-pytest-fixture-factories: src/routes/blog/posts/2023/february/11-pytest-fixture-factories/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/posts/2024/november/21-protocol-based-api-design: src/routes/blog/posts/2024/november/21-protocol-based-api-design/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/posts/2026/jan/12-evolving-a-software-janitor-mindset: src/routes/blog/posts/2026/jan/12-evolving-a-software-janitor-mindset/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/posts/2026/june/20-what-is-dev-enablement: src/routes/blog/posts/2026/june/20-what-is-dev-enablement/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/posts/[year]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/posts/[year]: src/routes/blog/posts/[year]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/posts/[year]/[month]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/posts/[year]/[month]: src/routes/blog/posts/[year]/[month]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/blog/tags/[tag]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/tags/[tag]: src/routes/blog/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/experiments/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /experiments: src/routes/experiments/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /experiments/posts/2022/june/11-sleep-data: src/routes/experiments/posts/2022/june/11-sleep-data/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/experiments/posts/[year]/+page@experiments.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /experiments/posts/[year]: src/routes/experiments/posts/[year]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /experiments/posts/[year]/[month]: src/routes/experiments/posts/[year]/[month]/+page@experiments.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/experiments/tags/[tag]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /experiments/tags/[tag]: src/routes/experiments/tags/[tag]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  },
+  {
+    "key": "delfick/random-ramblings-of-a-ranga::seo/twitter-card::src/routes/resume/engineer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /resume/engineer: src/routes/resume/engineer/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in delfick/random-ramblings-of-a-ranga; app.html head is charset/viewport; root +layout.svelte:15-29 head is icons/manifest/theme-color; blog/experiments post layouts add only <title>/description/author; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (mode-watcher 1.1.0, svelte-highlight 7.9.0, prism-svelte 0.5.0); hooks.server.ts only adds a theme class to <body>; route renders"
+  }
+]

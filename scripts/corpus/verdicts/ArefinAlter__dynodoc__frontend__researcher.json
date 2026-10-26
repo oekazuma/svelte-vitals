@@ -1,0 +1,1922 @@
+[
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/disallowed-aria-props::src/lib/components/editor/ModeToggle.svelte:14::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read ModeToggle.svelte:14: plain element with aria-label and no role/spread/use:; generic role prohibits a name"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/disallowed-aria-props::src/lib/components/product/FilePreview.svelte:25::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read FilePreview.svelte:25: plain element with aria-label and no role/spread/use:; generic role prohibits a name"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/disallowed-aria-props::src/lib/components/workspace/SurveyPreview.svelte:47::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read SurveyPreview.svelte:47: plain element with aria-label and no role/spread/use:; generic role prohibits a name"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/disallowed-aria-props::src/routes/workspace/+page.svelte:527::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read +page.svelte:527: plain element with aria-label and no role/spread/use:; generic role prohibits a name"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/id-duplication::src/lib/components/workspace/ChangeRequestReview.svelte:519::Duplicate id \"reviews-title\"",
+    "verdict": "design",
+    "basis": "read: on /projects/[id] ProjectRepository.svelte:1057 renders ChangeRequestReview (h3#reviews-title :519, an aria-modal dialog :306-307) only under {#if review} (set by openReview from the requests/agent tabs), while ReviewList.svelte:37 h4#reviews-title renders via ProjectBranches only in {:else if tab === 'branches'} (:799); separate {#if} blocks that need the review modal open over the branches tab (ledger separate-block convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/interactive-nesting::src/lib/components/editor/ConflictModal.svelte:109::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ConflictModal.svelte:109: <button> inside the overlay <div role=\"button\" tabindex=\"0\"> (:61-67) that wraps the dialog"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/interactive-nesting::src/lib/components/editor/ConflictModal.svelte:110::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ConflictModal.svelte:110: <button> inside the overlay <div role=\"button\" tabindex=\"0\"> (:61-67) that wraps the dialog"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/interactive-nesting::src/lib/components/editor/ConflictModal.svelte:79::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ConflictModal.svelte:79: <button> inside the overlay <div role=\"button\" tabindex=\"0\"> (:61-67) that wraps the dialog"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/interactive-nesting::src/lib/components/editor/ConflictModal.svelte:91::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ConflictModal.svelte:91: <button> inside the overlay <div role=\"button\" tabindex=\"0\"> (:61-67) that wraps the dialog"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/interactive-nesting::src/lib/components/editor/ConflictModal.svelte:98::<input> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read ConflictModal.svelte:98: <input> inside the 'Compose new' <button> (:91)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/pattern-title::src/lib/components/workspace/QuestionnaireEditor.svelte:231::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "design",
+    "basis": "read QuestionnaireEditor.svelte:231: <input pattern> has no title as reported, but it is in no <form> (rendered by WorkspaceEditor.svelte:1307, before its first <form> at :1383; none in the component) and the value is saved onchange with no checkValidity/reportValidity, so no failed-match message is ever shown (ledger no-form convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/pattern-title::src/lib/components/workspace/QuestionnaireEditor.svelte:283::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "design",
+    "basis": "read QuestionnaireEditor.svelte:283: <input pattern> has no title as reported, but it is in no <form> (rendered by WorkspaceEditor.svelte:1307, before its first <form> at :1383; none in the component) and the value is saved onchange with no checkValidity/reportValidity, so no failed-match message is ever shown (ledger no-form convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/lib/components/editor/ConflictModal.svelte:86::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ConflictModal.svelte:86: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/lib/components/editor/ConflictModal.svelte:87::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ConflictModal.svelte:87: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/lib/components/editor/ConflictModal.svelte:97::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ConflictModal.svelte:97: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/lib/components/editor/DocumentView.svelte:62::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read DocumentView.svelte:62: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/lib/components/editor/DocumentView.svelte:74::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read DocumentView.svelte:74: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/lib/components/workspace/ChangeRequestReview.svelte:492::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ChangeRequestReview.svelte:492: literal <p> directly inside a literal <label>; label content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/lib/components/workspace/ChangeRequestReview.svelte:502::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ChangeRequestReview.svelte:502: literal <p> directly inside a literal <label>; label content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/routes/workspace/+page.svelte:481::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:481: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/routes/workspace/+page.svelte:498::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:498: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/permitted-contents::src/routes/workspace/+page.svelte:513::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:513: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::a11y/top-level-landmark::src/routes/(site)/help/+page.svelte:167::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (site)/help/+page.svelte:167: <aside> (TOC) inside the page's own <main id=main> with no sectioning element between; complementary nested in main"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/art/Brachio.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/art/Brachio.svelte has 265 physical lines (split on \\n, trailing newline not counted; 263 non-blank) > 200, matches reported count; file is SVG art generated by scripts/gen-dino-art.mjs ('do not edit by hand'), ledger convention for long SVG/art components is tp"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/art/Dino.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/art/Dino.svelte has 295 physical lines (split on \\n, trailing newline not counted; 281 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/art/Egg.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/art/Egg.svelte has 218 physical lines (split on \\n, trailing newline not counted; 216 non-blank) > 200, matches reported count; file is SVG art generated by scripts/gen-dino-art.mjs ('do not edit by hand'), ledger convention for long SVG/art components is tp"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/art/Fossil.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/art/Fossil.svelte has 230 physical lines (split on \\n, trailing newline not counted; 228 non-blank) > 200, matches reported count; file is SVG art generated by scripts/gen-dino-art.mjs ('do not edit by hand'), ledger convention for long SVG/art components is tp"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/art/Ptero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/art/Ptero.svelte has 273 physical lines (split on \\n, trailing newline not counted; 271 non-blank) > 200, matches reported count; file is SVG art generated by scripts/gen-dino-art.mjs ('do not edit by hand'), ledger convention for long SVG/art components is tp"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/art/Rex.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/art/Rex.svelte has 229 physical lines (split on \\n, trailing newline not counted; 227 non-blank) > 200, matches reported count; file is SVG art generated by scripts/gen-dino-art.mjs ('do not edit by hand'), ledger convention for long SVG/art components is tp"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/art/Stego.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/art/Stego.svelte has 260 physical lines (split on \\n, trailing newline not counted; 258 non-blank) > 200, matches reported count; file is SVG art generated by scripts/gen-dino-art.mjs ('do not edit by hand'), ledger convention for long SVG/art components is tp"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/art/Trike.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/art/Trike.svelte has 269 physical lines (split on \\n, trailing newline not counted; 267 non-blank) > 200, matches reported count; file is SVG art generated by scripts/gen-dino-art.mjs ('do not edit by hand'), ledger convention for long SVG/art components is tp"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/editor/ConflictModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/editor/ConflictModal.svelte has 232 physical lines (split on \\n, trailing newline not counted; 204 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/editor/DocumentView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/editor/DocumentView.svelte has 289 physical lines (split on \\n, trailing newline not counted; 256 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/editor/HistoryPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/editor/HistoryPanel.svelte has 204 physical lines (split on \\n, trailing newline not counted; 180 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/editor/InspectorLive.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/editor/InspectorLive.svelte has 207 physical lines (split on \\n, trailing newline not counted; 183 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/editor/LiveEditorShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/editor/LiveEditorShell.svelte has 228 physical lines (split on \\n, trailing newline not counted; 199 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/editor/ProposalsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/editor/ProposalsPanel.svelte has 261 physical lines (split on \\n, trailing newline not counted; 228 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/home/Editors.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/Editors.svelte has 263 physical lines (split on \\n, trailing newline not counted; 255 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/marketing/LegalPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/marketing/LegalPage.svelte has 403 physical lines (split on \\n, trailing newline not counted; 395 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/marketing/ProductPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/marketing/ProductPage.svelte has 245 physical lines (split on \\n, trailing newline not counted; 242 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/marketing/SiteFooter.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/marketing/SiteFooter.svelte has 296 physical lines (split on \\n, trailing newline not counted; 286 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/marketing/SiteHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/marketing/SiteHeader.svelte has 619 physical lines (split on \\n, trailing newline not counted; 596 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/mock/AddinCanvas.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mock/AddinCanvas.svelte has 205 physical lines (split on \\n, trailing newline not counted; 202 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/mock/AuditMock.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mock/AuditMock.svelte has 268 physical lines (split on \\n, trailing newline not counted; 261 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/mock/RepoMock.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mock/RepoMock.svelte has 321 physical lines (split on \\n, trailing newline not counted; 315 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/mock/ReviewMock.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mock/ReviewMock.svelte has 288 physical lines (split on \\n, trailing newline not counted; 281 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/mock/SyncMock.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mock/SyncMock.svelte has 280 physical lines (split on \\n, trailing newline not counted; 271 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/mock/TimelineMock.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mock/TimelineMock.svelte has 206 physical lines (split on \\n, trailing newline not counted; 201 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/AdminRecords.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/AdminRecords.svelte has 1496 physical lines (split on \\n, trailing newline not counted; 1494 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/AgentProposals.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/AgentProposals.svelte has 252 physical lines (split on \\n, trailing newline not counted; 247 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/DeviceKeyAccess.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/DeviceKeyAccess.svelte has 722 physical lines (split on \\n, trailing newline not counted; 706 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/DeviceKeys.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/DeviceKeys.svelte has 417 physical lines (split on \\n, trailing newline not counted; 413 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/HelpGuide.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/HelpGuide.svelte has 301 physical lines (split on \\n, trailing newline not counted; 299 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/OfficeStructuredPane.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/OfficeStructuredPane.svelte has 375 physical lines (split on \\n, trailing newline not counted; 373 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/ProfileView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/ProfileView.svelte has 424 physical lines (split on \\n, trailing newline not counted; 422 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/ProjectAgentPolicy.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/ProjectAgentPolicy.svelte has 589 physical lines (split on \\n, trailing newline not counted; 570 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/ProjectFile.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/ProjectFile.svelte has 618 physical lines (split on \\n, trailing newline not counted; 617 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/ProjectRepository.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/ProjectRepository.svelte has 1097 physical lines (split on \\n, trailing newline not counted; 1094 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/RepositoryShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/RepositoryShell.svelte has 247 physical lines (split on \\n, trailing newline not counted; 245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/SpaceManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/SpaceManager.svelte has 310 physical lines (split on \\n, trailing newline not counted; 308 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/repo/CommandPalette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/repo/CommandPalette.svelte has 502 physical lines (split on \\n, trailing newline not counted; 496 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/repo/ContributionGraph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/repo/ContributionGraph.svelte has 260 physical lines (split on \\n, trailing newline not counted; 258 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/repo/IssueDetail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/repo/IssueDetail.svelte has 501 physical lines (split on \\n, trailing newline not counted; 489 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/repo/IssueList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/repo/IssueList.svelte has 547 physical lines (split on \\n, trailing newline not counted; 536 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/repo/LabelsManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/repo/LabelsManager.svelte has 304 physical lines (split on \\n, trailing newline not counted; 294 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/product/repo/ProjectBranches.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/product/repo/ProjectBranches.svelte has 495 physical lines (split on \\n, trailing newline not counted; 484 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/ChangeRequestReview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/ChangeRequestReview.svelte has 1179 physical lines (split on \\n, trailing newline not counted; 1176 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/DiscussionThreads.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/DiscussionThreads.svelte has 267 physical lines (split on \\n, trailing newline not counted; 265 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/HistoryRecovery.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/HistoryRecovery.svelte has 389 physical lines (split on \\n, trailing newline not counted; 386 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/NotificationBell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/NotificationBell.svelte has 415 physical lines (split on \\n, trailing newline not counted; 411 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/OfficeDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/OfficeDialog.svelte has 235 physical lines (split on \\n, trailing newline not counted; 232 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/OfficeRibbon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/OfficeRibbon.svelte has 1254 physical lines (split on \\n, trailing newline not counted; 1252 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/PeoplePanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/PeoplePanel.svelte has 666 physical lines (split on \\n, trailing newline not counted; 655 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/PresentationEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/PresentationEditor.svelte has 1088 physical lines (split on \\n, trailing newline not counted; 1078 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/PushFileDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/PushFileDialog.svelte has 570 physical lines (split on \\n, trailing newline not counted; 568 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/QuestionnaireEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/QuestionnaireEditor.svelte has 691 physical lines (split on \\n, trailing newline not counted; 688 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/RebaseDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/RebaseDialog.svelte has 323 physical lines (split on \\n, trailing newline not counted; 321 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/ResearchConnector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/ResearchConnector.svelte has 337 physical lines (split on \\n, trailing newline not counted; 335 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/RichEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/RichEditor.svelte has 1441 physical lines (split on \\n, trailing newline not counted; 1433 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/SheetChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/SheetChart.svelte has 298 physical lines (split on \\n, trailing newline not counted; 296 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/SheetEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/SheetEditor.svelte has 2527 physical lines (split on \\n, trailing newline not counted; 2519 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/SheetRibbon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/SheetRibbon.svelte has 1001 physical lines (split on \\n, trailing newline not counted; 999 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/SlideRibbon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/SlideRibbon.svelte has 664 physical lines (split on \\n, trailing newline not counted; 662 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/lib/components/workspace/WorkspaceEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/workspace/WorkspaceEditor.svelte has 2702 physical lines (split on \\n, trailing newline not counted; 2699 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/add-ins/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/add-ins/+page.svelte has 678 physical lines (split on \\n, trailing newline not counted; 654 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/brand/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/brand/+page.svelte has 624 physical lines (split on \\n, trailing newline not counted; 601 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/changelog/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/changelog/+page.svelte has 394 physical lines (split on \\n, trailing newline not counted; 386 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/compatibility/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/compatibility/+page.svelte has 891 physical lines (split on \\n, trailing newline not counted; 857 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/cookies/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/cookies/+page.svelte has 272 physical lines (split on \\n, trailing newline not counted; 270 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/features/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/features/+page.svelte has 696 physical lines (split on \\n, trailing newline not counted; 668 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/help/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/help/+page.svelte has 760 physical lines (split on \\n, trailing newline not counted; 736 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/licenses/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/licenses/+page.svelte has 204 physical lines (split on \\n, trailing newline not counted; 202 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/open-source/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/open-source/+page.svelte has 531 physical lines (split on \\n, trailing newline not counted; 509 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/privacy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/privacy/+page.svelte has 536 physical lines (split on \\n, trailing newline not counted; 534 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/roadmap/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/roadmap/+page.svelte has 514 physical lines (split on \\n, trailing newline not counted; 500 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/security/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/security/+page.svelte has 325 physical lines (split on \\n, trailing newline not counted; 322 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/support/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/support/+page.svelte has 399 physical lines (split on \\n, trailing newline not counted; 384 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/terms/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/terms/+page.svelte has 329 physical lines (split on \\n, trailing newline not counted; 328 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/(site)/why-dynodoc/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/why-dynodoc/+page.svelte has 583 physical lines (split on \\n, trailing newline not counted; 557 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 885 physical lines (split on \\n, trailing newline not counted; 876 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/connectors/addins/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/connectors/addins/+page.svelte has 266 physical lines (split on \\n, trailing newline not counted; 258 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/connectors/word/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/connectors/word/+page.svelte has 349 physical lines (split on \\n, trailing newline not counted; 347 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 370 physical lines (split on \\n, trailing newline not counted; 368 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/projects/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/+page.svelte has 303 physical lines (split on \\n, trailing newline not counted; 302 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/component-size::src/routes/workspace/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/workspace/+page.svelte has 1479 physical lines (split on \\n, trailing newline not counted; 1476 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/editor/Topbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/editor/Topbar.svelte has a single destructured $props() with 9 named props (> 6): document, mode, suggesting, activityOpen, onModeChange, onToggleSuggesting, onToggleActivity, onOpenConflict, conflictCount"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/product/repo/IssueDetail.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/product/repo/IssueDetail.svelte has a single destructured $props() with 7 named props (> 6): projectId, number, members, labels, labelsFailed, onBack, onChanged"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/product/repo/IssueForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/product/repo/IssueForm.svelte has a single destructured $props() with 7 named props (> 6): projectId, role, members, labels, labelsFailed, onCreated, onCancel"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/product/repo/LabelsManager.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/product/repo/LabelsManager.svelte has a single destructured $props() with 7 named props (> 6): projectId, labels, canManage, failed, onReload, onBack, onShowIssues"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/product/repo/Menu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/product/repo/Menu.svelte has a single destructured $props() with 7 named props (> 6): trigger, children, ariaLabel, title, align, open, triggerClass"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/product/repo/ReviewList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/product/repo/ReviewList.svelte has a single destructured $props() with 9 named props (> 6): groups, branch, required, members, loading, problem, more, skipped, onMore"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/site/Btn.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/site/Btn.svelte has a single destructured $props() with 9 named props (> 6): variant, size, href, arrow, external, type, disabled, class, children; plus a ...rest element (named props still counted per docs)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/site/Section.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/site/Section.svelte has a single destructured $props() with 14 named props (> 6): id, eyebrow, title, lede, tone, rule, layout, align, level, narrow, ..."
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/site/Stat.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/site/Stat.svelte has a single destructured $props() with 7 named props (> 6): value, label, prefix, suffix, decimals, duration, class"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/workspace/ChangeRequestReview.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/workspace/ChangeRequestReview.svelte has a single destructured $props() with 9 named props (> 6): documentId, requestId, team, teamSeq, canMerge, canComment, onClose, onChanged, onOpenDraft"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/workspace/OfficeRibbon.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/workspace/OfficeRibbon.svelte has a single destructured $props() with 20 named props (> 6): editor, editable, tick, tab, settings, onPageChange, onPrint, onComment, onFont, tracking, ..."
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/workspace/PresentationEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/workspace/PresentationEditor.svelte has a single destructured $props() with 7 named props (> 6): documentState, editable, onChange, onSelect, onComment, onUndo, onRedo"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/workspace/RibbonButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/workspace/RibbonButton.svelte has a single destructured $props() with 8 named props (> 6): label, text, icon, onclick, disabled, active, large, size"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/workspace/RichEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/workspace/RichEditor.svelte has a single destructured $props() with 13 named props (> 6): content, editable, onChange, onSelect, revision, onComment, pageSettings, fonts, documentId, onPageChange, ..."
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/workspace/SheetEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/workspace/SheetEditor.svelte has a single destructured $props() with 8 named props (> 6): documentState, editable, onChange, onSelect, onUndo, onRedo, onComment, onEditingChange"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/workspace/SheetRibbon.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/workspace/SheetRibbon.svelte has a single destructured $props() with 11 named props (> 6): tab, editable, format, layout, onFormat, onAction, filter, showFormulas, gridlines, protectedSheet, ..."
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/workspace/SlideRibbon.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/workspace/SlideRibbon.svelte has a single destructured $props() with 10 named props (> 6): tab, editable, slide, shape, theme, size, canComment, canUndo, onAction, onStyle"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/lib/components/workspace/SlideShape.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/workspace/SlideShape.svelte has a single destructured $props() with 8 named props (> 6): shape, theme, box, prompt, hideText, selected, interactive, children"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::architecture/prop-count::src/routes/(site)/features/FeatureRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(site)/features/FeatureRow.svelte has a single destructured $props() with 9 named props (> 6): id, title, chips, body, points, boundary, flip, caption, visual"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-index-key::src/lib/components/marketing/SiteFooter.svelte:74::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/marketing/SiteFooter.svelte:74 keyed by its index binding; letters = 'dynodoc'.split('') (:15), the letters of a fixed word animated by index; static positional list (a call, not the exempt array-literal shape)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-index-key::src/lib/components/mock/AddinCanvas.svelte:35::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/mock/AddinCanvas.svelte:35 '{#each row as cell, c (c)}' keyed by its index binding; row is an element of the same-file const grid literal (:4) of a marketing mockup; static list (cells of a hardcoded grid)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-index-key::src/lib/components/site/DiffCard.svelte:75::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/site/DiffCard.svelte:75 keyed by its index binding; rows = $derived(lines ?? parsePatch(patch)) (:27), the lines of one marketing diff sample; positional list (text lines)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-index-key::src/lib/components/site/Kbd.svelte:15::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/site/Kbd.svelte:15 keyed by its index binding; list = the key parts of one shortcut from the keys prop (:11); positional list (keys of one shortcut), ledger Kbd convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-index-key::src/lib/components/workspace/SlideShape.svelte:83::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SlideShape.svelte:83 keyed by its index binding; lines = $derived(shape.text.split('\\n')) (:38), the text lines of one slide shape; positional list (text lines)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-index-key::src/lib/components/workspace/SlideShape.svelte:87::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SlideShape.svelte:87 keyed by its index binding; lines = $derived(shape.text.split('\\n')) (:38); positional list (text lines)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-index-key::src/routes/(site)/compatibility/+page.svelte:397::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(site)/compatibility/+page.svelte:397 '{#each row.cells as cell, i (i)}' keyed by its index binding; row.cells, the five cells (tuple type [Cell x5], :27) of a row of the page's hardcoded compatibility matrix; static positional list (table cells)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-index-key::src/routes/(site)/compatibility/+page.svelte:411::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(site)/compatibility/+page.svelte:411 '{#each row.cells as cell, i (i)}' keyed by its index binding; the fixed cells of a row of the hardcoded compatibility matrix, labelled columns[i]; static positional list (table cells)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/admin/AdminNav.svelte:78::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/admin/AdminNav.svelte:78 '{#each groups as group}' has no key; groups prop = nav, an author-written $derived literal of admin nav groups (routes/admin/+page.svelte:53); static nav list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/admin/AdminNav.svelte:80::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/admin/AdminNav.svelte:80 '{#each group.items as item}' has no key; the items of an author-written admin nav group (routes/admin/+page.svelte:53 nav literal); static nav list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/ActivityLog.svelte:19::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/ActivityLog.svelte:19 '{#each activity as event}' has no key; activity prop = document.activity, the document's activity events (EditorShell.svelte:72); runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/ConflictModal.svelte:78::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/editor/ConflictModal.svelte:78 '{#each conflict.options as option}' has no key; the resolution options of one conflict record shown as stateless choice buttons (selection held by selectedOptionId); positional list (parts of one record)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/DocumentView.svelte:32::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/DocumentView.svelte:32 '{#each document.sections as section}' has no key; the sections of the edited document (LiveEditorShell: document = $derived(toEditorDocument(store.detail))), which users add, remove and reorder; runtime records (component has no in-repo route importer; reusable editor view)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/DocumentView.svelte:55::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/DocumentView.svelte:55 '{#each section.items as item}' has no key; the questions of a section of the edited document, added/removed/reordered by editing; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/DocumentView.svelte:87::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/DocumentView.svelte:87 '{#each item.choices as choice}' has no key; the answer choices of a question of the edited document, user-edited; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/OutlineView.svelte:16::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/OutlineView.svelte:16 '{#each document.sections as section}' has no key; sections of the edited document; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/OutlineView.svelte:20::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/OutlineView.svelte:20 '{#each section.items as item}' has no key; items of a section of the edited document; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/PreviewView.svelte:31::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/PreviewView.svelte:31 '{#each firstQuestion.choices ?? [] as choice}' has no key; choices of the document's first question (:9), user-edited; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/SpecView.svelte:32::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/SpecView.svelte:32 '{#each document.sections as section}' has no key; sections of the edited document prop; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/editor/SpecView.svelte:36::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/SpecView.svelte:36 '{#each section.items as item}' has no key; items of a section of the edited document; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/AdminRecords.svelte:540::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/AdminRecords.svelte:540 '{#each knownActors as actor}' <option>s; knownActors = $state<string[]>([]) (:106) filled from fetched audit records; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/AdminRecords.svelte:612::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/AdminRecords.svelte:612 '{#each shown as row, index}' has no key; shown = $derived (:118) the admin records list (accounts/documents/audit rows from the API) filtered by the audit filters; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/AdminRecords.svelte:780::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/product/AdminRecords.svelte:780 '{#each detailEntries(row) as [key, value]}' has no key; detailEntries (:393) builds the key/value detail pairs of one record; static list (fixed metadata rows of one record)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/AdminRecords.svelte:921::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/product/AdminRecords.svelte:921 '{#each Object.entries(impact.counts) as [key, value]}' has no key; the per-kind counts of one deletion-impact report; aggregate rows of one result"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/AdminRecords.svelte:926::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/AdminRecords.svelte:926 '{#each impact.blockers as blocker}' has no key; impact = $state<Impact | null> (:89) fetched per selected record, blockers are its validation messages; runtime validation messages (ledger warnings convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/AdminRecords.svelte:959::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/AdminRecords.svelte:959 '{#each recipients as person}' <option>s; recipients = $state<RecordRow[]>([]) (:95) of fetched active accounts; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/ContextMenu.svelte:53::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/product/ContextMenu.svelte:53 '{#each items as item}' has no key; items prop, the menu actions RichEditor/SheetEditor build per right-click (RichEditor.svelte:850, SheetEditor.svelte:1994); static menu entries rebuilt wholesale (ledger context-menu convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/FilePreview.svelte:28::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/FilePreview.svelte:28 '{#each tabs as tab}' has no key; tabs = $derived (:15) the form and document_tab nodes of the document state, which authors add/remove/reorder; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/FilePreview.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/FilePreview.svelte:58 '{#each nodes.filter((n) => n.type !== 'form') as node}' has no key; nodes = $derived (:10) the non-deleted document nodes sorted by position; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/MoveProjectFile.svelte:68::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/MoveProjectFile.svelte:68 '{#each files as file}' <option>s; files = $state<FileChoice[]>([]) (:9) fetched project files; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/ProjectFile.svelte:319::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/ProjectFile.svelte:319 '{#each activeDrafts as draft}' <option>s; activeDrafts = $derived(drafts.filter(…)) (:95) of the file's drafts from the API; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/ProjectRepository.svelte:895::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/ProjectRepository.svelte:895 '{#each members as m}' has no key; members = $state<MemberLite[]>([]) (:85) fetched repository members; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/ProvenancePanel.svelte:137::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/ProvenancePanel.svelte:137 '{#each grants as g}' has no key; grants = $state<Grant[]>([]) (:18) fetched access grants; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/PublicLinkPanel.svelte:107::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/PublicLinkPanel.svelte:107 '{#each spaces.filter(role in owner/manager/editor) as s}' <option>s; spaces = $state<Space[]>([]) (:9) fetched spaces; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/PublicLinkPanel.svelte:80::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/PublicLinkPanel.svelte:80 '{#each links as link}' has no key; links = $state (:10) of the document's public links, created and revoked in the panel; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/RepositoryShell.svelte:148::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/product/RepositoryShell.svelte:148 '{#each crumbs as crumb, i}' has no key; crumbs prop (:35) breadcrumb trail; positional list (breadcrumbs), ledger breadcrumb convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/SpaceManager.svelte:107::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/SpaceManager.svelte:107 '{#each spaces as s}' has no key; spaces prop, the user's spaces from the API (created/renamed/deleted in the manager); runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/SpaceManager.svelte:147::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/SpaceManager.svelte:147 '{#each members as m}' has no key; members = $state (:34) fetched members of the selected space, added and removed in the panel; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/repo/ActivityFeed.svelte:30::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/repo/ActivityFeed.svelte:30 '{#each group.items as item}' has no key; the activity events of one day group (groups = $derived(groupByDay(items, …)) :19, outer each keyed by group.key); new events prepend into the day; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/repo/ContributionGraph.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/product/repo/ContributionGraph.svelte:49 '{#each grid.months as m}' has no key; grid = $derived(buildHeatGrid(year, days)) (:16), the month labels of the contribution heat grid; positional list (calendar cells)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/repo/ContributionGraph.svelte:62::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/product/repo/ContributionGraph.svelte:62 '{#each grid.weeks as week}{#each week as cell}' has no key; the week columns and day cells of the contribution heat grid; positional list (calendar cells)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/repo/ContributionGraph.svelte:80::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/repo/ContributionGraph.svelte:80 '{#each years as y}' has no key; years prop, the years with contributions from the profile load (ProfileView.svelte:340-348); runtime data"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/product/repo/ShortcutHelp.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/product/repo/ShortcutHelp.svelte:46 '{#each keys as k, i}' has no key; keys of one shortcut row of the help sheet ({#each rows as [keys, label]} :43); positional list (keys of one shortcut), ledger Kbd convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/DiffText.svelte:16::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/DiffText.svelte:16 '{#each parts as part}' has no key; parts = $derived (:5) the added/removed/equal text runs of one word diff; positional list (text segments)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/HistoryRecovery.svelte:281::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/HistoryRecovery.svelte:281 '{#each block.ops as op}<small>…</small>{/each}' has no key; the op descriptions of one recoverable block shown as plain text; positional list (parts of one record)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeDialog.svelte:57::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/OfficeDialog.svelte:57 '{#each config.fields as field}' has no key; config is the ToolDialog the editor builds in code when a tool opens (SheetEditor.svelte:1473 fields literal, RichEditor.svelte:891), mounted per open; static config list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeDialog.svelte:64::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/OfficeDialog.svelte:64 '{#each field.options || [] as option}' <option>s of an author-written tool-dialog field config; static option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeDialog.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/OfficeDialog.svelte:91 '{#each field.list as item}' datalist <option>s; field.list is an author-supplied suggestion list (functionNames, SheetEditor.svelte:1473); static option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeDialog.svelte:96::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/OfficeDialog.svelte:96 '{#each config.actions as action}' has no key; the action buttons of an author-written tool-dialog config; static config list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeRibbon.svelte:305::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/OfficeRibbon.svelte:305 '{#each fonts as font}' <option>s; fonts prop = fontChoices from RichEditor (:183, officeFonts plus the document's uploaded font families), which grows when a member uploads a font; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeRibbon.svelte:318::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/OfficeRibbon.svelte:318 '{#each sizes as value}' <option>s; sizes = $derived (:115) a de-duplicated fixed list of font sizes plus the current one; static option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeRibbon.svelte:931::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/OfficeRibbon.svelte:931 '{#each changes as change}' has no key; changes = $derived.by (:163) reviewChanges of the edited document's tracked changes, accepted/rejected in the panel; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeRibbon.svelte:949::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/OfficeRibbon.svelte:949 '{#each importedComments as comment}' has no key; importedComments = $derived.by (:167) the comments of the imported Word file in the document state; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeRibbon.svelte:960::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/OfficeRibbon.svelte:960 '{#each headings as heading}' has no key; headings = $derived.by (:181) the headings of the edited document (navigation pane), changed as the user edits; runtime data"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/OfficeRibbon.svelte:978::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/OfficeRibbon.svelte:978 '{#each issues as issue}' has no key; issues = $derived.by (:190) the accessibility issues found in the edited document; runtime validation results"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/PeoplePanel.svelte:192::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/PeoplePanel.svelte:192 '{#each grantable as r}' <option>s; grantable = ROLES.filter((r) => r.grantable) (:56), the app's constant role definitions; static option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/PeoplePanel.svelte:230::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/PeoplePanel.svelte:230 '{#each grantable as r}' <option>s; grantable = ROLES.filter(…) (:56) of the constant role definitions; static option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/PeoplePanel.svelte:326::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/PeoplePanel.svelte:326 '{#each data.members.filter(…) as m}' <option>s; data = $state<People | null> (:35) fetched document members; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/PushFileDialog.svelte:169::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/PushFileDialog.svelte:169 '{#each prepared.candidates as candidate}' <option>s; prepared = $state<PushPreparation | null> (:31) from the server's push preparation; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/PushFileDialog.svelte:206::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/PushFileDialog.svelte:206 '{#each prepared.plan.warnings as warning}' has no key; warnings of the push plan the server prepares for the uploaded file; runtime validation messages (ledger warnings convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/PushFileDialog.svelte:212::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/PushFileDialog.svelte:212 '{#each prepared.plan.changes.slice(0, 300) as change}' has no key; the planned changes of the push the server prepares; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/QuestionnaireEditor.svelte:177::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/QuestionnaireEditor.svelte:177 '{#each items as n}' has no key; items = $derived (:35) the questionnaire's item/section nodes sorted by position, which the editor adds, deletes and moves; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/QuestionnaireEditor.svelte:194::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/QuestionnaireEditor.svelte:194 '{#each items as n}<section …' has no key; the questionnaire nodes (:35) the user adds/removes/reorders, each rendered with editable inputs; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/QuestionnaireEditor.svelte:226::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/QuestionnaireEditor.svelte:226 '{#each items.filter(section, not self) as g}' <option>s; sections of the edited questionnaire; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/QuestionnaireEditor.svelte:278::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/QuestionnaireEditor.svelte:278 '{#each group.items as [type, label]}' <option>s of a group of questionTypes, the app's constant question-type table ($lib/workspace/question-types); static option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/QuestionnaireEditor.svelte:301::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/QuestionnaireEditor.svelte:301 '{#each choices(n.id) as choice}' has no key; choices (:90) the choice nodes of a question, added/removed/edited with inputs; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/QuestionnaireEditor.svelte:360::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/QuestionnaireEditor.svelte:360 '{#each advancedColumns.filter(…) as key}' has no key; a filter of advancedColumns, the constant column list imported from $lib/workspace/question-types (a filter call, not the exempt bare-list shape); static list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/ResearchConnector.svelte:200::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/ResearchConnector.svelte:200 '{#each projects as item}' <option>s; projects = $state<ResearchChoice[]>([]) (:22) fetched from the research connector; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/ResearchConnector.svelte:206::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/ResearchConnector.svelte:206 '{#each forms as item}' <option>s; forms = $state<ResearchChoice[]>([]) (:23) fetched for the chosen project; runtime option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/RichEditor.svelte:693::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/RichEditor.svelte:693 '{#each notes as note}' has no key; notes = $derived.by (:12) the footnotes/comments of the edited document; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetChart.svelte:123::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetChart.svelte:123 '{#each data.series[0]?.values || [] as value, i}' has no key; pie slice paths of the chart computed from data = $derived(chartData(chart, values)) (:19); positional list (chart geometry)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetChart.svelte:132::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetChart.svelte:132 '{#each data.labels.slice(0, 10) as label, i}' has no key; legend rects of the chart; positional list (chart geometry)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetChart.svelte:140::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetChart.svelte:140 '{#each data.labels as label, i}' has no key; per-category bar groups of the chart; positional list (chart geometry)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetChart.svelte:143::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetChart.svelte:143 '{#each data.series as series, j}' has no key; bars of one category across series; positional list (chart geometry)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetChart.svelte:169::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetChart.svelte:169 '{#each data.series as series, j}' has no key; series lines of the chart; positional list (chart geometry)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetChart.svelte:175::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetChart.svelte:175 '{#each series.values as value, i}' has no key; point circles of one series; positional list (chart geometry)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetChart.svelte:182::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetChart.svelte:182 '{#each series.values as value, i}' has no key; bar rects of one series; positional list (chart geometry)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetChart.svelte:192::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetChart.svelte:192 '{#each data.labels as label, i}' has no key; axis tick labels; positional list (chart ticks)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetChart.svelte:198::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetChart.svelte:198 '{#each data.series.slice(0, 4) as series, i}' has no key; legend entries of the chart; positional list (chart geometry)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetEditor.svelte:1814::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetEditor.svelte:1814 '{#each visibleColumns as c}<col …>' has no key; visibleColumns = $derived(Array.from({ length: columns }, (_, i) => i).filter(not hidden)) (:148), column indexes of the grid rendered as stateless <col>s; positional list (grid columns)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetEditor.svelte:1820::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetEditor.svelte:1820 '{#each visibleColumns as c}<th …>' has no key; the column-index headers of the grid (:148), stateless; positional list (grid columns)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetEditor.svelte:1841::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SheetEditor.svelte:1841 '{#each visibleColumns as c}<td …>' has no key; the cells of one row (rows keyed by n.id at :1827), stateless buttons whose every attribute derives from c; positional list (grid cells)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SheetEditor.svelte:1934::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/SheetEditor.svelte:1934 '{#each sheets as s}' has no key; sheets = $derived (:139) the workbook's sheet nodes sorted by pos, which users add, delete and reorder; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SlideRibbon.svelte:313::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SlideRibbon.svelte:313 '{#each Object.entries(themes) as [name, t]}' has no key; entries of the constant slide theme map; static list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SlideRibbon.svelte:336::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/SlideRibbon.svelte:336 '{#each Object.entries(slideSizes) as [value, s]}' <option>s of the constant slide-size map; static option list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SurveyPreview.svelte:43::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/SurveyPreview.svelte:43 '{#each items as n}' has no key; items = $derived (:9) the questionnaire item/section nodes of the edited document, with answer inputs; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SurveyPreview.svelte:55::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/SurveyPreview.svelte:55 '{#each choices(n) as c}' has no key; choices (:15) the choice nodes of a question of the edited document, rendered as inputs; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/SurveyPreview.svelte:88::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/SurveyPreview.svelte:88 '{#each result.errors[n.id] || [] as message}' has no key; result = $derived(previewSurvey(documentState, answers, checked)) (:8), validation errors that change with the answers; runtime validation messages (ledger errors convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1236::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1236 '{#each textTabs as tab}' has no key; textTabs = $derived (:289) the document_tab section nodes of the local document state, which authors add/remove/reorder; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1402::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1402 '{#each delta.slice(0, 100) as op}' has no key; delta = $derived(compare ? stateChanges(compare, local) : []) (:386), the changes between a version and the local state, recomputed as the user edits; runtime data"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1407::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1407 '{#each versions as v}' has no key; versions = $state<Version[]>([]) (:125) fetched document versions, new ones prepended; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1441::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1441 '{#each drafts.filter((d) => !d.merged_at) as d}' has no key; drafts = $state<Draft[]>([]) (:126) fetched drafts, merged ones drop out mid-list; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1525::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1525 '{#each events …}' has no key; events = $state<EventRow[]>([]) (:127) fetched document events; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1580::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1580 '{#each suggestions as [id, suggestion]}' has no key; suggestions = $derived (:229) the pending suggestions of store.state, accepted/rejected in place; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1622::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1622 '{#each uploads as file}' has no key; uploads = $state (:128) the files the user uploads into the document; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1634::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1634 '{#each file.report?.warnings || [] as warning}' has no key; the import warnings of an uploaded file's report; runtime validation messages (ledger warnings convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1710::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1710 '{#each sync.conflicts as conflict}' has no key; sync = $state<SyncPlan | null> (:146) the sync plan computed against the server; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/lib/components/workspace/WorkspaceEditor.svelte:1734::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:1734 '{#each [...new Set([...sync.ops node ids, ...sync.conflicts node ids])] as id}<label …' has no key; the node ids touched by the runtime sync plan, each with a checkbox; runtime data"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/routes/admin/+page.svelte:214::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/+page.svelte:214 '{#each cards as card}' has no key; cards = $derived([...]) (:43) of author-written stat-card literals over the overview counts; static stat-card list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/routes/admin/+page.svelte:448::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/+page.svelte:448 '{#each data.overview.traffic as row}' has no key; aggregate traffic rows of the admin overview load, read-only table; aggregate rows of one report (ledger convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/routes/admin/+page.svelte:472::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/+page.svelte:472 '{#each data.overview.vitals as row}' has no key; aggregate web-vitals rows of the admin overview load, read-only table; aggregate rows of one report (ledger convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/routes/view/[token]/+page.svelte:56::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/view/[token]/+page.svelte:56 '{#each tabs as tab}' has no key; tabs = $derived (:11) the form/document_tab nodes of the shared document from the load; runtime records (the [token] page is reused across shared documents)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/routes/view/[token]/+page.svelte:82::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/view/[token]/+page.svelte:82 '{#each nodes as node}' has no key; nodes = $derived (:21) the shared document's nodes sorted by position, from the load; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/routes/view/[token]/+page.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/view/[token]/+page.svelte:86 '{#each nodes.filter(choice of node) as choice}' has no key; the choice nodes of a question of the shared document; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/routes/workspace/+page.svelte:592::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/workspace/+page.svelte:592 '{#each visible as doc}' has no key; visible = $derived (:111) the user's documents filtered by the search; runtime records"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/each-key::src/routes/workspace/+page.svelte:720::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/workspace/+page.svelte:720 '{#each importResult.warnings as warning}' has no key; importResult = $state<ImportResult | null> (:65), warnings of the user's import; runtime validation messages (ledger warnings convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/effect-as-derived::src/lib/components/editor/InspectorLive.svelte:19::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/editor/InspectorLive.svelte:19 the effect only resets draftText/draftHint/editingField from the item prop; the drafts are then edited by inputs and editingField reassigned on commit, the writable-$derived override pattern (svelte 5.56.3 in the lockfile)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/effect-as-derived::src/lib/components/workspace/OfficeDialog.svelte:31::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/OfficeDialog.svelte:31 the effect assigns values = Object.fromEntries(config.fields…), which is then deep-written (bind:value={values[field.key]} :62/:70, values[field.key] = … :78/:84); a $derived value is not deeply proxied, so converting would break those writes (ledger convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/effect-as-onmount::src/lib/components/product/HelpGuide.svelte:19::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/product/HelpGuide.svelte:19 the effect only adds and removes a window 'dynodoc:help' listener bound to the local open function; nothing reactive is read, runs once like onMount/onDestroy"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/prop-mutation::src/lib/components/workspace/WorkspaceEditor.svelte:703::Prop \"store\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/workspace/WorkspaceEditor.svelte:703 store.detail!.title = title writes through the store prop, a DocumentStore class instance whose detail is a $state field (lib/stores/documentStore.svelte.ts:40-41); reactive by design: the docs' class-instance limitation"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::correctness/unmutated-state::src/lib/components/product/repo/IssueList.svelte:78::$state \"labelsAttempt\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file): src/lib/components/product/repo/IssueList.svelte:78 labelsAttempt = $state(0) is only read (void labelsAttempt in the labels effect, :168); never written, bound or passed, so a retry bump that would re-run the effect never happens and const would do"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/iframe-loading::src/lib/components/workspace/PrintPreview.svelte:50::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe src=\"/print\"> has no loading attribute and no spread; it fills the print-preview <dialog> that PrintPreview opens with showModal() on mount (PrintPreview.svelte:20-21,46-54) when the user asks for a preview — the visible content when created, not offscreen"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/image-dimensions::src/routes/(site)/brand/+page.svelte:151::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: logo <img> has width={logo.width} but no height, no spread; it sits centred in .stage (min-height:160px, :373-376) and is at most 96px tall (mark 96x96, logos 240x52 from their viewBoxes) - the box is reserved by CSS"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/image-loading-hint::src/routes/(site)/brand/+page.svelte:151::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; logo cards in the {#each logos} grid of the 'Logo and mark' Section after the InfoHero hero (brand/+page.svelte:126-160) — offscreen-capable on load, especially when the cards stack"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/image-loading-hint::src/routes/admin/+page.svelte:163::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; brand logo (day/night pair, 128x28) in the admin top bar (admin/+page.svelte:161-175) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/image-loading-hint::src/routes/admin/+page.svelte:169::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; brand logo (day/night pair, 128x28) in the admin top bar (admin/+page.svelte:161-175) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/image-loading-hint::src/routes/login/+page.svelte:107::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; 52px brand mark at the top of the sign-in card, above the <h1> (login/+page.svelte:105-108) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/image-loading-hint::src/routes/view/[token]/+page.svelte:36::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; brand logo (day/night pair, 145x32) in the shared-view header (view/[token]/+page.svelte:33-47) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/image-loading-hint::src/routes/view/[token]/+page.svelte:42::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; brand logo (day/night pair, 145x32) in the shared-view header (view/[token]/+page.svelte:33-47) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/image-loading-hint::src/routes/workspace/+page.svelte:392::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; 21px brand mark in the workspace app-title header (workspace/+page.svelte:391-393) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/responsive-image::src/routes/(site)/brand/+page.svelte:151::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src \"/brand/{logo.file}\" is always mark.svg/logo.svg/logo-dark.svg (:22-44) — a vector, but a template expression outside the docs' static SVG detection list"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/state-raw::src/lib/components/product/AdminRecords.svelte:106::\"knownActors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): knownActors in AdminRecords.svelte: whole reassignments (:190 spread into new Set + sort, :226 []) and a read-only {#each} rendering <option value={actor}> (:540); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/state-raw::src/lib/components/product/AdminRecords.svelte:95::\"recipients\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): recipients in AdminRecords.svelte: whole reassignments (:245, :308 filtered API items) and a read-only {#each} of <option> (:959); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/state-raw::src/lib/components/product/MoveProjectFile.svelte:9::\"files\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): files in MoveProjectFile.svelte: one whole reassignment (:22 filtered API items) and read-only uses (:68 {#each} <option>, :71 .length); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/state-raw::src/lib/components/product/ProvenancePanel.svelte:18::\"grants\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): grants in ProvenancePanel.svelte: one whole reassignment (:25 API items) and read-only uses (:136 .length, :137-148 {#each} reading g.host/g.id/g.revoked_at); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/state-raw::src/lib/components/product/PublicLinkPanel.svelte:10::\"links\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): links in PublicLinkPanel.svelte: one whole reassignment (:23 API items), a type-only `typeof links`, and a read-only {#each} (:80-97 reading link.id/created_at/revoked_at); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/state-raw::src/lib/components/product/repo/TabNav.svelte:19::\"bar\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): bar in repo/TabNav.svelte: one whole reassignment (:22 new object) and member reads (:39 bar.ready, :58-59 bar.w/bar.x); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/state-raw::src/lib/components/workspace/ResearchConnector.svelte:22::\"projects\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): projects in ResearchConnector.svelte: whole reassignments (:69 list, :89 []) and read-only uses (:198 .length, :200 {#each} <option>); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::performance/state-raw::src/lib/components/workspace/WorkspaceEditor.svelte:128::\"uploads\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): uploads in WorkspaceEditor.svelte: one whole reassignment (:695 API items), a type-only `typeof uploads`, and a read-only {#each} (:1622+ reading file.filename/id/report); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/raw-html::src/lib/components/marketing/LegalPage.svelte:105::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read marketing/LegalPage.svelte:105 + lib/seo/structured-data.ts:106-108: scriptTag = JSON.stringify(data).replace(/</g,'\\\\u003c') inside <script type=application/ld+json> - script-safe serialization per docs; the graph is built from pageMeta(path) constants and canonicalUrl(path) - reported per docs"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/raw-html::src/lib/components/marketing/SiteHeader.svelte:182::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read marketing/SiteHeader.svelte:23-35,182: noscript is a literal '<noscript><style>' string built from repo CSS constants (no data) - repo constant markup, reported per docs"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/raw-html::src/routes/(site)/+page.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/+page.svelte:24 + lib/seo/structured-data.ts:106-108: scriptTag = JSON.stringify(data).replace(/</g,'\\\\u003c') inside <script type=application/ld+json> - script-safe serialization per docs; structuredDataScript graph is repo constants (organization/website/application/FAQ) - reported per docs"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/raw-html::src/routes/(site)/add-ins/+page.svelte:203::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/add-ins/+page.svelte:150,203 + lib/seo/structured-data.ts:106-108: scriptTag = JSON.stringify(data).replace(/</g,'\\\\u003c') inside <script type=application/ld+json> - script-safe serialization per docs; FAQ built from in-file constant entries - reported per docs"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/raw-html::src/routes/(site)/features/+page.svelte:151::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/features/+page.svelte:43,151 + lib/seo/structured-data.ts:106-108: scriptTag = JSON.stringify(data).replace(/</g,'\\\\u003c') inside <script type=application/ld+json> - script-safe serialization per docs; FAQ built from in-file constant answers - reported per docs"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/raw-html::src/routes/(site)/support/+page.svelte:97::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/support/+page.svelte:77,97 + lib/seo/structured-data.ts:106-108: scriptTag = JSON.stringify(data).replace(/</g,'\\\\u003c') inside <script type=application/ld+json> - script-safe serialization per docs; FAQ built from in-file constant entries - reported per docs"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/raw-html::src/routes/(site)/why-dynodoc/+page.svelte:138::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/why-dynodoc/+page.svelte:118,138 + lib/seo/structured-data.ts:106-108: scriptTag = JSON.stringify(data).replace(/</g,'\\\\u003c') inside <script type=application/ld+json> - script-safe serialization per docs; FAQ built from in-file constant answers - reported per docs"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/server-module-state::src/routes/api/google-forms/+server.ts:153::module-scope variable \"active\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read api/google-forms/+server.ts:13,45-47,148-154: `active` is a process-wide concurrency counter (429 at >=3 imports) incremented before try and decremented in finally - a global limiter, no per-user data (ledger concurrency-limiter design convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/server-module-state::src/routes/api/google-forms/+server.ts:47::module-scope variable \"active\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read api/google-forms/+server.ts:13,45-47,148-154: `active` is a process-wide concurrency counter (429 at >=3 imports) incremented before try and decremented in finally - a global limiter, no per-user data (ledger concurrency-limiter design convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/server-module-state::src/routes/api/research/+server.ts:17::module-scope variable \"active\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read api/research/+server.ts:6,12-17,36-38: `active` is a process-wide concurrency counter (429 at >=4 imports) incremented before try and decremented in finally - a global limiter, no per-user data (ledger concurrency-limiter design convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/server-module-state::src/routes/api/research/+server.ts:37::module-scope variable \"active\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read api/research/+server.ts:6,12-17,36-38: `active` is a process-wide concurrency counter (429 at >=4 imports) incremented before try and decremented in finally - a global limiter, no per-user data (ledger concurrency-limiter design convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/server-module-state::src/routes/auth/[...action]/+server.ts:28::module-scope variable \"configuration\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read auth/[...action]/+server.ts:19-34: `configuration` memoises the openid-client discovery promise for accounts.google.com (configuration ??= ...), reset to undefined on failure for retry - a process-wide lazy singleton of public provider metadata, no request data (ledger lazy-singleton convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/server-module-state::src/routes/auth/[...action]/+server.ts:31::module-scope variable \"configuration\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read auth/[...action]/+server.ts:19-34: `configuration` memoises the openid-client discovery promise for accounts.google.com (configuration ??= ...), reset to undefined on failure for retry - a process-wide lazy singleton of public provider metadata, no request data (ledger lazy-singleton convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/server-module-state::src/routes/integrations/google/[action]/+server.ts:15::module-scope variable \"configuration\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read integrations/google/[action]/+server.ts:6-21: `configuration` memoises the openid-client Google discovery promise (??=), reset to undefined on failure - process-wide lazy singleton of public provider metadata, no request data (ledger lazy-singleton convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::security/server-module-state::src/routes/integrations/google/[action]/+server.ts:18::module-scope variable \"configuration\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read integrations/google/[action]/+server.ts:6-21: `configuration` memoises the openid-client Google discovery promise (??=), reset to undefined on failure - process-wide lazy singleton of public provider metadata, no request data (ledger lazy-singleton convention)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /admin (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/app-signin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /app-signin (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/app-signin/finish/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /app-signin/finish (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/connectors/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /connectors (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/connectors/addins/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /connectors/addins (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/connectors/authorize/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /connectors/authorize (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/connectors/excel/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /connectors/excel (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/connectors/powerpoint/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /connectors/powerpoint (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/connectors/word/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /connectors/word (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/documents/[documentId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /documents/[documentId] (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is a signed-in workspace page: hooks.server.ts redirects session-less requests to /login (requiresSignIn, $lib/auth-next.ts:4-13) and sets x-robots-tag noindex on it (not in INDEXABLE_PAGES), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /login (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/print/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /print (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /profile (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is a signed-in workspace page: hooks.server.ts redirects session-less requests to /login (requiresSignIn, $lib/auth-next.ts:4-13) and sets x-robots-tag noindex on it (not in INDEXABLE_PAGES), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/profiles/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /profiles/[id] (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is a signed-in workspace page: hooks.server.ts redirects session-less requests to /login (requiresSignIn, $lib/auth-next.ts:4-13) and sets x-robots-tag noindex on it (not in INDEXABLE_PAGES), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /projects (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is a signed-in workspace page: hooks.server.ts redirects session-less requests to /login (requiresSignIn, $lib/auth-next.ts:4-13) and sets x-robots-tag noindex on it (not in INDEXABLE_PAGES), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/projects/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /projects/[id] (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/projects/[id]/files/[fileId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /projects/[id]/files/[fileId] (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is a signed-in workspace page: hooks.server.ts redirects session-less requests to /login (requiresSignIn, $lib/auth-next.ts:4-13) and sets x-robots-tag noindex on it (not in INDEXABLE_PAGES), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/view/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /view/[token] (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/description-presence::src/routes/workspace/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on /workspace (its head has only title/robots; root +layout.svelte and app.html none) (literal claim holds); but the route is deliberately noindex (literal robots noindex in its head, and hooks.server.ts sets x-robots-tag noindex on every non-public path), not a search target"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/heading-level-skip::src/routes/(site)/add-ins/+page.svelte:273::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "read: no skip renders: the flagged <h3> (src/routes/(site)/add-ins/+page.svelte:273) is content of a <Section> given a literal title and no level (opened above it, no </Section> between), and Section (lib/components/site/Section.svelte:78-82) renders <svelte:element this={`h${level}`}> with level = 2 by default before {@render children()} — so the page goes h1 -> h2 (Section title) -> h3; the analyzer drops that component heading because it sits behind Section's own {#if hasHead}/{#if hasTitle}, which the literal title makes true"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/heading-level-skip::src/routes/(site)/brand/+page.svelte:157::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "read: no skip renders: the flagged <h3> (src/routes/(site)/brand/+page.svelte:157) is content of a <Section> given a literal title and no level (opened above it, no </Section> between), and Section (lib/components/site/Section.svelte:78-82) renders <svelte:element this={`h${level}`}> with level = 2 by default before {@render children()} — so the page goes h1 -> h2 (Section title) -> h3; the analyzer drops that component heading because it sits behind Section's own {#if hasHead}/{#if hasTitle}, which the literal title makes true"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/heading-level-skip::src/routes/(site)/changelog/+page.svelte:282::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "read: no skip renders: the flagged <h3> (src/routes/(site)/changelog/+page.svelte:282) is content of a <Section> given a literal title and no level (opened above it, no </Section> between), and Section (lib/components/site/Section.svelte:78-82) renders <svelte:element this={`h${level}`}> with level = 2 by default before {@render children()} — so the page goes h1 -> h2 (Section title) -> h3; the analyzer drops that component heading because it sits behind Section's own {#if hasHead}/{#if hasTitle}, which the literal title makes true"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/heading-level-skip::src/routes/(site)/compatibility/+page.svelte:409::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "read: no skip renders: the flagged <h3> (src/routes/(site)/compatibility/+page.svelte:409) is content of a <Section> given a literal title and no level (opened above it, no </Section> between), and Section (lib/components/site/Section.svelte:78-82) renders <svelte:element this={`h${level}`}> with level = 2 by default before {@render children()} — so the page goes h1 -> h2 (Section title) -> h3; the analyzer drops that component heading because it sits behind Section's own {#if hasHead}/{#if hasTitle}, which the literal title makes true"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/heading-level-skip::src/routes/(site)/open-source/+page.svelte:122::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "read: no skip renders: the flagged <h3> (src/routes/(site)/open-source/+page.svelte:122) is content of a <Section> given a literal title and no level (opened above it, no </Section> between), and Section (lib/components/site/Section.svelte:78-82) renders <svelte:element this={`h${level}`}> with level = 2 by default before {@render children()} — so the page goes h1 -> h2 (Section title) -> h3; the analyzer drops that component heading because it sits behind Section's own {#if hasHead}/{#if hasTitle}, which the literal title makes true"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/heading-level-skip::src/routes/(site)/roadmap/+page.svelte:285::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "read: no skip renders: the flagged <h3> (src/routes/(site)/roadmap/+page.svelte:285) is content of a <Section> given a literal title and no level (opened above it, no </Section> between), and Section (lib/components/site/Section.svelte:78-82) renders <svelte:element this={`h${level}`}> with level = 2 by default before {@render children()} — so the page goes h1 -> h2 (Section title) -> h3; the analyzer drops that component heading because it sits behind Section's own {#if hasHead}/{#if hasTitle}, which the literal title makes true"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/heading-level-skip::src/routes/(site)/support/+page.svelte:174::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "read: no skip renders: the flagged <h3> (src/routes/(site)/support/+page.svelte:174) is content of a <Section> given a literal title and no level (opened above it, no </Section> between), and Section (lib/components/site/Section.svelte:78-82) renders <svelte:element this={`h${level}`}> with level = 2 by default before {@render children()} — so the page goes h1 -> h2 (Section title) -> h3; the analyzer drops that component heading because it sits behind Section's own {#if hasHead}/{#if hasTitle}, which the literal title makes true"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/heading-level-skip::src/routes/(site)/why-dynodoc/+page.svelte:175::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "read: no skip renders: the flagged <h3> (src/routes/(site)/why-dynodoc/+page.svelte:175) is content of a <Section> given a literal title and no level (opened above it, no </Section> between), and Section (lib/components/site/Section.svelte:78-82) renders <svelte:element this={`h${level}`}> with level = 2 by default before {@render children()} — so the page goes h1 -> h2 (Section title) -> h3; the analyzer drops that component heading because it sits behind Section's own {#if hasHead}/{#if hasTitle}, which the literal title makes true"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/admin/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex…\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/connectors/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/connectors/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex…\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/connectors/addins/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/connectors/addins/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex…\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/connectors/authorize/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/connectors/authorize/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex…\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/connectors/excel/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: the page renders <OfficeStructuredPane host=\"excel\"/> whose top-level <svelte:head> (OfficeStructuredPane.svelte:230) has a literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/connectors/powerpoint/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: the page renders <OfficeStructuredPane host=\"powerpoint\"/> whose top-level <svelte:head> (OfficeStructuredPane.svelte:230) has a literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/connectors/word/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/connectors/word/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex…\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/login/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex…\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/print/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/print/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex…\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/projects/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: projects/[id]/+page.svelte renders <ProjectRepository/> whose top-level <svelte:head> (ProjectRepository.svelte:401-405) has a literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/view/[token]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/view/[token]/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex…\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/indexability::src/routes/workspace/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/workspace/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex…\">; noindex as claimed, intentional (app/add-in/sign-in page; hooks.server.ts also sends x-robots-tag noindex for every non-public path)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/(site)/add-ins/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/(site)/add-ins/+page.svelte top-level <svelte:head> has an unconditional {@html faqScript}, where faqScript = scriptTag({'@context':'https://schema.org','@type':'FAQPage',...}) and scriptTag ($lib/seo/structured-data.ts:106-109, re-exported by $lib/seo/index.ts) returns '<script type=\"application/ld+json\">…</script>'; the analyzer does not read a binding built by a function not named for JSON-LD"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/(site)/brand/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/(site)/brand/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/(site)/changelog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/(site)/changelog/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/(site)/compatibility/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/(site)/compatibility/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/(site)/help/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/(site)/help/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/(site)/open-source/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/(site)/open-source/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/(site)/roadmap/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/(site)/roadmap/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/(site)/support/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/(site)/support/+page.svelte top-level <svelte:head> has an unconditional {@html faqScript}, where faqScript = scriptTag({'@context':'https://schema.org','@type':'FAQPage',...}) and scriptTag ($lib/seo/structured-data.ts:106-109, re-exported by $lib/seo/index.ts) returns '<script type=\"application/ld+json\">…</script>'; the analyzer does not read a binding built by a function not named for JSON-LD"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/admin/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/app-signin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/app-signin/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/app-signin/finish/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/app-signin/finish/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/connectors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/connectors/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/connectors/addins/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/connectors/addins/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/connectors/authorize/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/connectors/authorize/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/connectors/excel/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/connectors/excel/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/connectors/powerpoint/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/connectors/powerpoint/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/connectors/word/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/connectors/word/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/documents/[documentId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/documents/[documentId]/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/login/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/print/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/print/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/profile/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/profiles/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/profiles/[id]/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/projects/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/projects/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/projects/[id]/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/projects/[id]/files/[fileId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/projects/[id]/files/[fileId]/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/view/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/view/[token]/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/json-ld::src/routes/workspace/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitters in the app are {@html} blocks in (site)/+page.svelte, why-dynodoc, features, add-ins, support and LegalPage.svelte (legal pages); src/routes/workspace/+page.svelte renders none of them (no JsonLd/scriptTag/structured-data use on the route, layouts emit none), route renders; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin: src/routes/admin/+page.svelte:153 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/app-signin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app-signin: src/routes/app-signin/+page.svelte:32 head is meta[referrer]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/app-signin/finish/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /app-signin/finish: src/routes/app-signin/finish/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/connectors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /connectors: src/routes/connectors/+page.svelte:30 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/connectors/addins/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /connectors/addins: src/routes/connectors/addins/+page.svelte:20 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/connectors/authorize/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /connectors/authorize: src/routes/connectors/authorize/+page.svelte:64 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/connectors/excel/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /connectors/excel: src/routes/connectors/excel/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/connectors/powerpoint/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /connectors/powerpoint: src/routes/connectors/powerpoint/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/connectors/word/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /connectors/word: src/routes/connectors/word/+page.svelte:204 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/documents/[documentId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /documents/[documentId]: src/routes/documents/[documentId]/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login: src/routes/login/+page.svelte:98 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/print/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /print: src/routes/print/+page.svelte:68 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile: src/routes/profile/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/profiles/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profiles/[id]: src/routes/profiles/[id]/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects: src/routes/projects/+page.svelte:113 head is title; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[id]: src/routes/projects/[id]/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/projects/[id]/files/[fileId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[id]/files/[fileId]: src/routes/projects/[id]/files/[fileId]/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/view/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /view/[token]: src/routes/view/[token]/+page.svelte:28 head is title, meta[robots], meta[referrer]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-description::src/routes/workspace/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /workspace: src/routes/workspace/+page.svelte:379 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin: src/routes/admin/+page.svelte:153 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/app-signin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app-signin: src/routes/app-signin/+page.svelte:32 head is meta[referrer]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/app-signin/finish/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /app-signin/finish: src/routes/app-signin/finish/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/connectors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /connectors: src/routes/connectors/+page.svelte:30 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/connectors/addins/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /connectors/addins: src/routes/connectors/addins/+page.svelte:20 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/connectors/authorize/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /connectors/authorize: src/routes/connectors/authorize/+page.svelte:64 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/connectors/excel/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /connectors/excel: src/routes/connectors/excel/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/connectors/powerpoint/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /connectors/powerpoint: src/routes/connectors/powerpoint/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/connectors/word/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /connectors/word: src/routes/connectors/word/+page.svelte:204 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/documents/[documentId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /documents/[documentId]: src/routes/documents/[documentId]/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login: src/routes/login/+page.svelte:98 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/print/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /print: src/routes/print/+page.svelte:68 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile: src/routes/profile/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/profiles/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profiles/[id]: src/routes/profiles/[id]/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects: src/routes/projects/+page.svelte:113 head is title; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[id]: src/routes/projects/[id]/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/projects/[id]/files/[fileId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[id]/files/[fileId]: src/routes/projects/[id]/files/[fileId]/+page.svelte has no <svelte:head>; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/view/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /view/[token]: src/routes/view/[token]/+page.svelte:28 head is title, meta[robots], meta[referrer]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/og-title::src/routes/workspace/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /workspace: src/routes/workspace/+page.svelte:379 head is title, meta[robots]; og:title/og:description are emitted only by lib/components/marketing/ProductPage.svelte:12-16 and LegalPage.svelte:96-102, rendered solely by (site)/ pages; root +layout.svelte:70-110 head ({#if seo && canonical} at :84) adds og:url/og:image/twitter:card/canonical but never og:title/og:description; app.html none; this route is outside (site)/ and not in lib/seo/site.ts:34 INDEXABLE_PAGES, so the layout emits robots noindex,nofollow (private app page); hooks.server.ts redirects (adminSite, workspace host, sign-in) are config- or session-conditional, so the route renders; og/twitter on noindex routes labelled tp per ledger convention"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/single-h1::/documents/[documentId]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, the page and WorkspaceEditor's components finds no <h1> (only <h2>/<h3> in panels/dialogs); ssr=false (+page.ts:3) editor shell; the document body the editor shows is user content"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/single-h1::/print::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: claim holds (no <h1>: print/+page.svelte renders a status bar and an empty <main> that pagedjs fills with the user's document sent by postMessage), but /print is the noindex print-preview frame PrintPreview.svelte loads in its <iframe> and does nothing on its own — a utility frame, not a page that needs a primary heading"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/ssr-disabled::src/routes/documents/[documentId]/+page.ts:3::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/documents/[documentId]/+page.ts:3 (claim holds); but /documents/* is a signed-in document editor (requiresSignIn in $lib/auth-next.ts; hooks.server.ts redirects session-less requests and sets x-robots-tag noindex), deliberate client-only rendering, not search content"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/title-length::src/routes/(site)/brand/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/(site)/brand/+page.svelte's top-level svelte:head, whitespace collapsed, 15 characters as reported; no later component or document.title override on the route); public marketing page of the hosted Dynodoc site, length as claimed"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/title-length::src/routes/(site)/changelog/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/(site)/changelog/+page.svelte's top-level svelte:head, whitespace collapsed, 19 characters as reported; no later component or document.title override on the route); public marketing page of the hosted Dynodoc site, length as claimed"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/title-length::src/routes/(site)/features/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/(site)/features/+page.svelte's top-level svelte:head, whitespace collapsed, 18 characters as reported; no later component or document.title override on the route); public marketing page of the hosted Dynodoc site, length as claimed"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/title-length::src/routes/(site)/roadmap/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/(site)/roadmap/+page.svelte's top-level svelte:head, whitespace collapsed, 17 characters as reported; no later component or document.title override on the route); public marketing page of the hosted Dynodoc site, length as claimed"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/title-length::src/routes/connectors/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/connectors/+page.svelte's top-level svelte:head, whitespace collapsed, 25 characters as reported; no later component or document.title override on the route) (literal claim holds); but the route is not a search target: deliberately noindex (literal robots noindex in its head; hooks.server.ts x-robots-tag noindex on non-public paths)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/title-length::src/routes/connectors/authorize/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/connectors/authorize/+page.svelte's top-level svelte:head, whitespace collapsed, 29 characters as reported; no later component or document.title override on the route) (literal claim holds); but the route is not a search target: deliberately noindex (literal robots noindex in its head; hooks.server.ts x-robots-tag noindex on non-public paths) and sign-in gated"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/title-length::src/routes/connectors/word/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/connectors/word/+page.svelte's top-level svelte:head, whitespace collapsed, 16 characters as reported; no later component or document.title override on the route) (literal claim holds); but the route is not a search target: deliberately noindex (literal robots noindex in its head; hooks.server.ts x-robots-tag noindex on non-public paths)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/title-length::src/routes/print/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/print/+page.svelte's top-level svelte:head, whitespace collapsed, 23 characters as reported; no later component or document.title override on the route) (literal claim holds); but the route is not a search target: deliberately noindex (literal robots noindex in its head; hooks.server.ts x-robots-tag noindex on non-public paths)"
+  },
+  {
+    "key": "ArefinAlter/dynodoc:frontend/researcher::seo/title-length::src/routes/projects/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/projects/+page.svelte's top-level svelte:head, whitespace collapsed, 23 characters as reported; no later component or document.title override on the route) (literal claim holds); but /projects is not a search target: a signed-in workspace page (requiresSignIn, $lib/auth-next.ts; hooks.server.ts redirects session-less requests to /login and sets x-robots-tag noindex), and root +layout.svelte:110 renders <meta name=\"robots\" content=\"noindex,nofollow\"> in the {:else} taken for paths outside INDEXABLE_PAGES"
+  }
+]

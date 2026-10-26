@@ -1,0 +1,372 @@
+[
+  {
+    "key": "Axellum/vigie-web::a11y/top-level-landmark::src/routes/+page.svelte:400::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read +page.svelte:400: <aside class=rail aria-label=...> with no sectioning ancestor, rendered in root +layout.svelte:59-61 <main id=main>; complementary nested in main"
+  },
+  {
+    "key": "Axellum/vigie-web::architecture/component-size::src/lib/components/MapView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MapView.svelte has 738 physical lines (split on \\n, trailing newline not counted; 711 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Axellum/vigie-web::architecture/component-size::src/lib/components/PointWeather.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PointWeather.svelte has 327 physical lines (split on \\n, trailing newline not counted; 314 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Axellum/vigie-web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 217 physical lines (split on \\n, trailing newline not counted; 212 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Axellum/vigie-web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 746 physical lines (split on \\n, trailing newline not counted; 720 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Axellum/vigie-web::architecture/component-size::src/routes/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/+page.svelte has 226 physical lines (split on \\n, trailing newline not counted; 214 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Axellum/vigie-web::architecture/component-size::src/routes/account/zones/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/zones/new/+page.svelte has 243 physical lines (split on \\n, trailing newline not counted; 228 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Axellum/vigie-web::architecture/component-size::src/routes/near/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/near/+page.svelte has 458 physical lines (split on \\n, trailing newline not counted; 430 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Axellum/vigie-web::architecture/prop-count::src/lib/components/MapView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MapView.svelte has a single destructured $props() with 14 named props (> 6): lang, hazards, zones, selected, frame, globe, label, place, drawing, forecast, ..."
+  },
+  {
+    "key": "Axellum/vigie-web::correctness/each-index-key::src/lib/components/ForecastDetails.svelte:111::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ForecastDetails.svelte:111 '{#each arrivals as a, i (i)}' keyed by its index binding; arrivals = $derived (:29) the ETA rows of one fetched forecast sorted by time, a read-only table; parts of one fetched record shown read-only (ledger convention)"
+  },
+  {
+    "key": "Axellum/vigie-web::correctness/each-index-key::src/lib/components/ForecastDetails.svelte:60::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ForecastDetails.svelte:60 '{#each positions as p, i (i)}' keyed by its index binding; positions = $derived (:27) the forecast track points of one cyclone sorted by lead time, a read-only table; parts of one fetched record shown read-only"
+  },
+  {
+    "key": "Axellum/vigie-web::correctness/each-index-key::src/lib/components/HazardFacts.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/HazardFacts.svelte:37 '{#each hazard.nearPlaces as place, i (i)}' keyed by its index binding; the nearby places of one hazard record shown read-only; positional list (parts of one record)"
+  },
+  {
+    "key": "Axellum/vigie-web::correctness/each-index-key::src/lib/components/PointWeather.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PointWeather.svelte:82 '{#each steps as mm, i (i)}' keyed by its index binding; steps = weather.rain.mmPerStep (:22), rain per 15-minute step drawn as bars labelled by (i + 1) * stepMinutes; positional list (chart bars)"
+  },
+  {
+    "key": "Axellum/vigie-web::performance/sequential-awaits::src/routes/+page.server.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.server.ts:11-17 + lib/server/vigie.ts:1-2,34-44,77-140 + cache.ts: each getter is an HTTP call to the Vigie API behind an in-memory TtlCache (60-600 s); servedCodes (countries, 600 s) uses nothing from getHazards (60 s) - on a cold cache two independent API requests serialized (ledger short-TTL cache tp convention)"
+  },
+  {
+    "key": "Axellum/vigie-web::performance/sequential-awaits::src/routes/countries/+page.server.ts:12::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read countries/+page.server.ts:11-12 + lib/server/vigie.ts:84-101: getServed and getUncovered both read getCountries() under the one cache key 'served', so after getServed resolves getUncovered returns the cached answer and issues no request - nothing serialized (ledger in-process cache warm-path design convention)"
+  },
+  {
+    "key": "Axellum/vigie-web::performance/sequential-awaits::src/routes/country/[cc]/+page.server.ts:30::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read country/[cc]/+page.server.ts:8-30 + lib/server/vigie.ts:1-2,34-44,77-140 + cache.ts: each getter is an HTTP call to the Vigie API behind an in-memory TtlCache (60-600 s); getHazards uses nothing from isServed (404 gate) or getWarnings(cc) - independent API requests serialized on a cold cache; could start with getWarnings"
+  },
+  {
+    "key": "Axellum/vigie-web::performance/sequential-awaits::src/routes/near/+page.server.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read near/+page.server.ts:11-18 + lib/server/vigie.ts:1-2,34-44,77-140 + cache.ts: each getter is an HTTP call to the Vigie API behind an in-memory TtlCache (60-600 s); servedCodes (countries) uses nothing from getHazards - independent API requests serialized on a cold cache"
+  },
+  {
+    "key": "Axellum/vigie-web::performance/sequential-awaits::src/routes/near/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read near/+page.server.ts:18-22 + lib/server/vigie.ts:84-112: getUncovered reads the same getCountries() 'served' cache entry servedCodes just filled - no request is issued (ledger in-process cache warm-path design convention)"
+  },
+  {
+    "key": "Axellum/vigie-web::performance/sequential-awaits::src/routes/sources/+page.server.ts:16::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read sources/+page.server.ts:8-16 + lib/server/vigie.ts:1-2,34-44,77-140 + cache.ts: each getter is an HTTP call to the Vigie API behind an in-memory TtlCache (60-600 s); getHazards uses nothing from getProviders - independent API requests serialized on a cold cache"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account: src/routes/account/+page.svelte:68 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set), but not a search target (literal <meta name=\"robots\" content=\"noindex\"> in the route head; the page deliberately skips Seo.svelte), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/canonical-url::src/routes/account/zones/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account/zones/[id]: src/routes/account/zones/[id]/+page.svelte:24 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set), but not a search target (literal <meta name=\"robots\" content=\"noindex\"> in the route head; the page deliberately skips Seo.svelte), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/canonical-url::src/routes/account/zones/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account/zones/new: src/routes/account/zones/new/+page.svelte:82 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set), but not a search target (literal <meta name=\"robots\" content=\"noindex\"> in the route head; the page deliberately skips Seo.svelte), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/canonical-url::src/routes/join/[code]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /join/[code]: src/routes/join/[code]/+page.svelte:33 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set), but not a search target (literal <meta name=\"robots\" content=\"noindex\"> in the route head; the page deliberately skips Seo.svelte), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /login: src/routes/login/+page.svelte:29 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set), but not a search target (literal <meta name=\"robots\" content=\"noindex\"> in the route head; the page deliberately skips Seo.svelte), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/description-presence::src/routes/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/+page.svelte <svelte:head> has only <title> and literal <meta name=\"robots\" content=\"noindex\">, no Seo component, root layout/app.html no description (literal claim holds); but the route is deliberately noindex (account/login/join page), so a search snippet is moot"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/description-presence::src/routes/account/zones/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/zones/[id]/+page.svelte <svelte:head> has only <title> and literal <meta name=\"robots\" content=\"noindex\">, no Seo component, root layout/app.html no description (literal claim holds); but the route is deliberately noindex (account/login/join page), so a search snippet is moot"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/description-presence::src/routes/account/zones/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/zones/new/+page.svelte <svelte:head> has only <title> and literal <meta name=\"robots\" content=\"noindex\">, no Seo component, root layout/app.html no description (literal claim holds); but the route is deliberately noindex (account/login/join page), so a search snippet is moot"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/description-presence::src/routes/join/[code]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/join/[code]/+page.svelte <svelte:head> has only <title> and literal <meta name=\"robots\" content=\"noindex\">, no Seo component, root layout/app.html no description (literal claim holds); but the route is deliberately noindex (account/login/join page), so a search snippet is moot"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/login/+page.svelte <svelte:head> has only <title> and literal <meta name=\"robots\" content=\"noindex\">, no Seo component, root layout/app.html no description (literal claim holds); but the route is deliberately noindex (account/login/join page), so a search snippet is moot"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/indexability::src/routes/account/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex\"> (account/login/join page of the public Vigie site); noindex as claimed, intentional"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/indexability::src/routes/account/zones/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/zones/[id]/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex\"> (account/login/join page of the public Vigie site); noindex as claimed, intentional"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/indexability::src/routes/account/zones/new/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/zones/new/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex\"> (account/login/join page of the public Vigie site); noindex as claimed, intentional"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/indexability::src/routes/join/[code]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/join/[code]/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex\"> (account/login/join page of the public Vigie site); noindex as claimed, intentional"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/indexability::src/routes/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/login/+page.svelte top-level <svelte:head> carries a literal <meta name=\"robots\" content=\"noindex\"> (account/login/join page of the public Vigie site); noindex as claimed, intentional"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/account/zones/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/account/zones/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/alert/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/countries/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/country/[cc]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/country/[cc]/[area]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/join/[code]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/near/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/sources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/json-ld::src/routes/warning/[cc]/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account: src/routes/account/+page.svelte:68 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-description::src/routes/account/zones/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/zones/[id]: src/routes/account/zones/[id]/+page.svelte:24 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-description::src/routes/account/zones/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/zones/new: src/routes/account/zones/new/+page.svelte:82 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-description::src/routes/join/[code]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /join/[code]: src/routes/join/[code]/+page.svelte:33 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login: src/routes/login/+page.svelte:29 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account: src/routes/account/+page.svelte:68 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-image::src/routes/account/zones/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/zones/[id]: src/routes/account/zones/[id]/+page.svelte:24 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-image::src/routes/account/zones/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/zones/new: src/routes/account/zones/new/+page.svelte:82 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-image::src/routes/join/[code]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /join/[code]: src/routes/join/[code]/+page.svelte:33 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login: src/routes/login/+page.svelte:29 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account: src/routes/account/+page.svelte:68 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-title::src/routes/account/zones/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/zones/[id]: src/routes/account/zones/[id]/+page.svelte:24 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-title::src/routes/account/zones/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/zones/new: src/routes/account/zones/new/+page.svelte:82 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-title::src/routes/join/[code]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /join/[code]: src/routes/join/[code]/+page.svelte:33 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login: src/routes/login/+page.svelte:29 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account: src/routes/account/+page.svelte:68 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-url::src/routes/account/zones/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/zones/[id]: src/routes/account/zones/[id]/+page.svelte:24 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-url::src/routes/account/zones/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/zones/new: src/routes/account/zones/new/+page.svelte:82 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-url::src/routes/join/[code]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /join/[code]: src/routes/join/[code]/+page.svelte:33 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login: src/routes/login/+page.svelte:29 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account: src/routes/account/+page.svelte:68 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/twitter-card::src/routes/account/zones/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/zones/[id]: src/routes/account/zones/[id]/+page.svelte:24 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/twitter-card::src/routes/account/zones/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/zones/new: src/routes/account/zones/new/+page.svelte:82 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/twitter-card::src/routes/join/[code]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /join/[code]: src/routes/join/[code]/+page.svelte:33 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  },
+  {
+    "key": "Axellum/vigie-web::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login: src/routes/login/+page.svelte:29 head is title, meta[robots]; the only og/twitter/canonical emitter is lib/components/Seo.svelte:19-30, rendered by the public pages (/, about, countries, country, near, alert, warning, sources, privacy) but not by this route; root +layout.svelte and app.html have none; hooks.server.ts only fills %vigie.lang% and sets headers; route renders when accounts are enabled (DATABASE_URL set)"
+  }
+]

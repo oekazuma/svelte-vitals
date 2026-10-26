@@ -1,0 +1,1032 @@
+[
+  {
+    "key": "esek/kvitto::a11y/pattern-title::src/components/ui/e-numeric-input.svelte:87::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "design",
+    "basis": "read e-numeric-input.svelte:87-103: <input pattern=\"[0-9]*\"> has no title as reported, but oninput (:55-72) reverts any non-digit to the last valid value through bind:value, so the value always matches and the failed-match message can never appear"
+  },
+  {
+    "key": "esek/kvitto::architecture/component-size::src/components/ui/e-input.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/ui/e-input.svelte has 238 physical lines (split on \\n, trailing newline not counted; 220 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "esek/kvitto::architecture/component-size::src/routes/admin/vouchers/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/vouchers/[id]/+page.svelte has 448 physical lines (split on \\n, trailing newline not counted; 430 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "esek/kvitto::architecture/component-size::src/routes/resultat/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/resultat/+page.svelte has 552 physical lines (split on \\n, trailing newline not counted; 542 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/kvitto/accounting-entry.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/kvitto/accounting-entry.svelte has a single destructured $props() with 10 named props (> 6): entry, id, className, errors, accounts, disabled, profitCenters, projects, onchange, ondelete"
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/kvitto/accounting-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/kvitto/accounting-table.svelte has a single destructured $props() with 10 named props (> 6): id, accounts, profitCenters, projects, accounting, errors, disabled, wantedTotalInCents, generate, className"
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/kvitto/crowns-and-cents.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/kvitto/crowns-and-cents.svelte has a single destructured $props() with 10 named props (> 6): id, totalCents, disabled, className, roundRight, roundLeft, isInvalid, onchange, isRequired, label"
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/kvitto/ware-entry.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/kvitto/ware-entry.svelte has a single destructured $props() with 9 named props (> 6): ware, id, className, errors, accounts, disabled, onchange, ondelete, quantities"
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/kvitto/wares-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/kvitto/wares-table.svelte has a single destructured $props() with 9 named props (> 6): id, accounts, errors, wares, disabled, waresTotalInCents, quantities, wantedTotalInCents, onchange"
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/ui/e-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/e-button.svelte has a single destructured $props() with 15 named props (> 6): type, href, label, isLoading, isSubmit, className, target, rel, padding, disabled, ..."
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/ui/e-date-picker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/e-date-picker.svelte has a single destructured $props() with 10 named props (> 6): value, placeholder, label, name, id, isInvalid, isRequired, format, className, disabled"
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/ui/e-input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/e-input.svelte has a single destructured $props() with 23 named props (> 6): value, placeholder, label, name, id, disabled, isRequired, isInvalid, isValidCallback, type, ..."
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/ui/e-numeric-input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/e-numeric-input.svelte has a single destructured $props() with 20 named props (> 6): value, placeholder, label, name, id, disabled, isRequired, isInvalid, ref, isLoading, ..."
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/ui/e-textarea.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/e-textarea.svelte has a single destructured $props() with 10 named props (> 6): value, placeholder, label, name, id, disabled, isRequired, isInvalid, oninput, className"
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/ui/typography/e-heading.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/typography/e-heading.svelte has a single destructured $props() with 8 named props (> 6): as, isLarge, isSmall, isBold, flex, isSecondary, className, children"
+  },
+  {
+    "key": "esek/kvitto::architecture/prop-count::src/components/ui/typography/e-text.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/typography/e-text.svelte has a single destructured $props() with 10 named props (> 6): flex, isHuge, isLarge, isSmall, isBold, isSecondary, isMono, color, className, children"
+  },
+  {
+    "key": "esek/kvitto::correctness/effect-as-derived::src/routes/admin/vouchers/[id]/+page.svelte:49::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/vouchers/[id]/+page.svelte:49 the effect assigns voucher = structuredClone(data.voucher), which is then deep-written (voucher.accounting = voucher.accounting.concat(…) :79, and the voucher form edits it in place); a $derived value is not deeply proxied, so converting would break those writes (ledger convention)"
+  },
+  {
+    "key": "esek/kvitto::correctness/stale-prop-derivation::src/components/ui/e-button.svelte:39::\"classes\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/components/ui/e-button.svelte:39 classes from the padding/className props at init (structurally true), but every caller passes literals or nothing for them (script-verified over all <EButton> uses in src), so the frozen value never differs for an instance (flat-grep-verified: every className=/padding=/color=/isSecondary=/flex= {…} in src was listed; the only E* one is wares-table.svelte:55, whose quantities every <WaresTable> use passes literally or omits)"
+  },
+  {
+    "key": "esek/kvitto::correctness/stale-prop-derivation::src/components/ui/typography/e-heading.svelte:26::\"classes\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/components/ui/typography/e-heading.svelte:26 classes from flex/className/isSecondary at init (structurally true), but every <EHeading> use passes literals or nothing for them (script-verified over all uses in src), so the frozen value never differs (flat-grep-verified: every className=/padding=/color=/isSecondary=/flex= {…} in src was listed; the only E* one is wares-table.svelte:55, whose quantities every <WaresTable> use passes literally or omits)"
+  },
+  {
+    "key": "esek/kvitto::correctness/stale-prop-derivation::src/components/ui/typography/e-text.svelte:28::\"classes\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/components/ui/typography/e-text.svelte:28 classes from flex/color/isSecondary/className at init (structurally true); the only non-literal use is wares-table.svelte:55 className={quantities ? … : …}, where quantities is a prop every <WaresTable> use passes as a literal or omits, so the frozen value never differs (script-verified over all <EText> uses) (flat-grep-verified: every className=/padding=/color=/isSecondary=/flex= {…} in src was listed; the only E* one is wares-table.svelte:55, whose quantities every <WaresTable> use passes literally or omits)"
+  },
+  {
+    "key": "esek/kvitto::correctness/unmutated-state::src/components/kvitto/sum-total.svelte:21::$state \"warnForWanted\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file): src/components/kvitto/sum-total.svelte:21 'let warnForWanted = $state(wantedTotalInCents !== undefined)' is only read at :27; never written, bound or passed, so const would do"
+  },
+  {
+    "key": "esek/kvitto::performance/image-dimensions::src/routes/admin/vouchers/[id]/+page.svelte:179::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img src={voucher.attachmentUrl}> (admin/vouchers/[id]/+page.svelte:179) has no width/height, no spread, no CSS size — the receipt's natural size decides its grid row, content in that row/below shifts"
+  },
+  {
+    "key": "esek/kvitto::performance/image-loading-hint::src/routes/admin/vouchers/[id]/+page.svelte:179::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; receipt attachment in the grid after the voucher form's AccountingTable EBox (:122-163) — offscreen-capable on load"
+  },
+  {
+    "key": "esek/kvitto::performance/responsive-image::src/routes/admin/vouchers/[id]/+page.svelte:179::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not .svg (PDFs take the other arm, :166); voucher.attachmentUrl is the uploaded receipt photo served as stored - raster, one fixed-size asset (ledger: uploaded receipt photo is tp)"
+  },
+  {
+    "key": "esek/kvitto::performance/sequential-awaits::src/routes/admin/vouchers/[id]/+page.server.ts:34::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/vouchers/[id]/+page.server.ts:28-37 + src/lib/prisma.ts:432-475: getAccounts/getProfitCenters/getProjects/getSuppliers are Prisma findMany on PostgreSQL (prisma/schema.prisma:2); getAccounts uses nothing from getVoucher, whose result only feeds the 404 throw (exceptional path) - independent Postgres queries serialized (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "esek/kvitto::performance/sequential-awaits::src/routes/admin/vouchers/[id]/+page.server.ts:35::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/vouchers/[id]/+page.server.ts:34-37 + src/lib/prisma.ts:432-475: getAccounts/getProfitCenters/getProjects/getSuppliers are Prisma findMany on PostgreSQL (prisma/schema.prisma:2); each findMany takes no input from the previous ones - independent Postgres queries serialized; Promise.all would work"
+  },
+  {
+    "key": "esek/kvitto::performance/sequential-awaits::src/routes/admin/vouchers/[id]/+page.server.ts:36::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/vouchers/[id]/+page.server.ts:34-37 + src/lib/prisma.ts:432-475: getAccounts/getProfitCenters/getProjects/getSuppliers are Prisma findMany on PostgreSQL (prisma/schema.prisma:2); each findMany takes no input from the previous ones - independent Postgres queries serialized; Promise.all would work"
+  },
+  {
+    "key": "esek/kvitto::performance/sequential-awaits::src/routes/admin/vouchers/[id]/+page.server.ts:37::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/vouchers/[id]/+page.server.ts:34-37 + src/lib/prisma.ts:432-475: getAccounts/getProfitCenters/getProjects/getSuppliers are Prisma findMany on PostgreSQL (prisma/schema.prisma:2); each findMany takes no input from the previous ones - independent Postgres queries serialized; Promise.all would work"
+  },
+  {
+    "key": "esek/kvitto::performance/sequential-awaits::src/routes/resultat/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read resultat/+page.server.ts:16-28: the getProjects/getProfitCenters Promise.all (Prisma/Postgres) uses nothing from getResultatConnection or the Fortnox years() HTTP call, which only gate the setup/502 paths - independent of them, could run alongside years() (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "esek/kvitto::performance/sequential-awaits::src/routes/vouchers/+layout.server.ts:6::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read vouchers/+layout.server.ts:4-8 + src/lib/prisma.ts:432-475: getAccounts/getProfitCenters/getProjects/getSuppliers are Prisma findMany on PostgreSQL (prisma/schema.prisma:2); three independent no-argument findMany queries awaited one after another - Postgres round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "esek/kvitto::performance/sequential-awaits::src/routes/vouchers/+layout.server.ts:7::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read vouchers/+layout.server.ts:4-8 + src/lib/prisma.ts:432-475: getAccounts/getProfitCenters/getProjects/getSuppliers are Prisma findMany on PostgreSQL (prisma/schema.prisma:2); three independent no-argument findMany queries awaited one after another - Postgres round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/admin/accounts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/accounts: src/routes/admin/accounts/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/admin/fortnox/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/fortnox: src/routes/admin/fortnox/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/admin/info/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/info: src/routes/admin/info/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/admin/profitcenters/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/profitcenters: src/routes/admin/profitcenters/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/admin/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/projects: src/routes/admin/projects/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/admin/vouchers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/vouchers: src/routes/admin/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/admin/vouchers/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/vouchers/[id]: src/routes/admin/vouchers/[id]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/admin/vouchers/archive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/vouchers/archive: src/routes/admin/vouchers/archive/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/resultat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /resultat: src/routes/resultat/+page.svelte:253 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/vouchers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /vouchers: src/routes/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/vouchers/accountingorder/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /vouchers/accountingorder: src/routes/vouchers/accountingorder/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/vouchers/driversexpense/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /vouchers/driversexpense: src/routes/vouchers/driversexpense/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/vouchers/expenseclaim/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /vouchers/expenseclaim: src/routes/vouchers/expenseclaim/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/vouchers/expensereport/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /vouchers/expensereport: src/routes/vouchers/expensereport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/vouchers/internalinvoice/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /vouchers/internalinvoice: src/routes/vouchers/internalinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/vouchers/ledreport/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /vouchers/ledreport: src/routes/vouchers/ledreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/vouchers/salesreport/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /vouchers/salesreport: src/routes/vouchers/salesreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/canonical-url::src/routes/vouchers/supplierinvoice/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /vouchers/supplierinvoice: src/routes/vouchers/supplierinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member, but not a search target (auth-gated: root +layout.server.ts:11-13 redirects every guest to /auth/log-in, :15-17 errors 401 for unverified users; admin/+layout.server.ts:7 errors 401 for non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/admin/accounts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /admin/accounts) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/admin/fortnox/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /admin/fortnox) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/admin/info/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /admin/info) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/admin/profitcenters/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /admin/profitcenters) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/admin/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /admin/projects) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/admin/vouchers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /admin/vouchers) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/admin/vouchers/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /admin/vouchers/[id]) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/admin/vouchers/archive/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /admin/vouchers/archive) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/resultat/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /resultat) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/vouchers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /vouchers) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/vouchers/accountingorder/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /vouchers/accountingorder) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/vouchers/driversexpense/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /vouchers/driversexpense) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/vouchers/expenseclaim/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /vouchers/expenseclaim) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/vouchers/expensereport/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /vouchers/expensereport) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/vouchers/internalinvoice/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /vouchers/internalinvoice) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/vouchers/ledreport/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /vouchers/ledreport) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/vouchers/salesreport/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /vouchers/salesreport) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/description-presence::src/routes/vouchers/supplierinvoice/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /vouchers/supplierinvoice) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte literal title is the only title of the 18 routes in this key (local CLI list), duplicate as claimed; but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target, so no search competition"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/admin/accounts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/admin/fortnox/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/admin/info/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/admin/profitcenters/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/admin/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/admin/vouchers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/admin/vouchers/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/admin/vouchers/archive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/resultat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/vouchers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/vouchers/accountingorder/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/vouchers/driversexpense/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/vouchers/expenseclaim/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/vouchers/expensereport/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/vouchers/internalinvoice/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/vouchers/ledreport/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/vouchers/salesreport/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/json-ld::src/routes/vouchers/supplierinvoice/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/admin/accounts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/accounts: src/routes/admin/accounts/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/admin/fortnox/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/fortnox: src/routes/admin/fortnox/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/admin/info/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/info: src/routes/admin/info/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/admin/profitcenters/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/profitcenters: src/routes/admin/profitcenters/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/admin/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/projects: src/routes/admin/projects/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/admin/vouchers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/vouchers: src/routes/admin/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/admin/vouchers/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/vouchers/[id]: src/routes/admin/vouchers/[id]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/admin/vouchers/archive/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/vouchers/archive: src/routes/admin/vouchers/archive/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/resultat/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /resultat: src/routes/resultat/+page.svelte:253 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/vouchers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vouchers: src/routes/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/vouchers/accountingorder/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vouchers/accountingorder: src/routes/vouchers/accountingorder/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/vouchers/driversexpense/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vouchers/driversexpense: src/routes/vouchers/driversexpense/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/vouchers/expenseclaim/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vouchers/expenseclaim: src/routes/vouchers/expenseclaim/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/vouchers/expensereport/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vouchers/expensereport: src/routes/vouchers/expensereport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/vouchers/internalinvoice/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vouchers/internalinvoice: src/routes/vouchers/internalinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/vouchers/ledreport/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vouchers/ledreport: src/routes/vouchers/ledreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/vouchers/salesreport/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vouchers/salesreport: src/routes/vouchers/salesreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-description::src/routes/vouchers/supplierinvoice/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vouchers/supplierinvoice: src/routes/vouchers/supplierinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/admin/accounts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/accounts: src/routes/admin/accounts/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/admin/fortnox/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/fortnox: src/routes/admin/fortnox/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/admin/info/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/info: src/routes/admin/info/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/admin/profitcenters/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/profitcenters: src/routes/admin/profitcenters/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/admin/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/projects: src/routes/admin/projects/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/admin/vouchers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/vouchers: src/routes/admin/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/admin/vouchers/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/vouchers/[id]: src/routes/admin/vouchers/[id]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/admin/vouchers/archive/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/vouchers/archive: src/routes/admin/vouchers/archive/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/resultat/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /resultat: src/routes/resultat/+page.svelte:253 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/vouchers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vouchers: src/routes/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/vouchers/accountingorder/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vouchers/accountingorder: src/routes/vouchers/accountingorder/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/vouchers/driversexpense/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vouchers/driversexpense: src/routes/vouchers/driversexpense/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/vouchers/expenseclaim/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vouchers/expenseclaim: src/routes/vouchers/expenseclaim/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/vouchers/expensereport/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vouchers/expensereport: src/routes/vouchers/expensereport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/vouchers/internalinvoice/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vouchers/internalinvoice: src/routes/vouchers/internalinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/vouchers/ledreport/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vouchers/ledreport: src/routes/vouchers/ledreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/vouchers/salesreport/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vouchers/salesreport: src/routes/vouchers/salesreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-image::src/routes/vouchers/supplierinvoice/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vouchers/supplierinvoice: src/routes/vouchers/supplierinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/admin/accounts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/accounts: src/routes/admin/accounts/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/admin/fortnox/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/fortnox: src/routes/admin/fortnox/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/admin/info/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/info: src/routes/admin/info/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/admin/profitcenters/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/profitcenters: src/routes/admin/profitcenters/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/admin/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/projects: src/routes/admin/projects/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/admin/vouchers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/vouchers: src/routes/admin/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/admin/vouchers/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/vouchers/[id]: src/routes/admin/vouchers/[id]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/admin/vouchers/archive/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/vouchers/archive: src/routes/admin/vouchers/archive/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/resultat/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /resultat: src/routes/resultat/+page.svelte:253 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/vouchers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vouchers: src/routes/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/vouchers/accountingorder/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vouchers/accountingorder: src/routes/vouchers/accountingorder/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/vouchers/driversexpense/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vouchers/driversexpense: src/routes/vouchers/driversexpense/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/vouchers/expenseclaim/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vouchers/expenseclaim: src/routes/vouchers/expenseclaim/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/vouchers/expensereport/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vouchers/expensereport: src/routes/vouchers/expensereport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/vouchers/internalinvoice/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vouchers/internalinvoice: src/routes/vouchers/internalinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/vouchers/ledreport/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vouchers/ledreport: src/routes/vouchers/ledreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/vouchers/salesreport/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vouchers/salesreport: src/routes/vouchers/salesreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-title::src/routes/vouchers/supplierinvoice/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vouchers/supplierinvoice: src/routes/vouchers/supplierinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/admin/accounts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/accounts: src/routes/admin/accounts/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/admin/fortnox/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/fortnox: src/routes/admin/fortnox/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/admin/info/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/info: src/routes/admin/info/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/admin/profitcenters/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/profitcenters: src/routes/admin/profitcenters/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/admin/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/projects: src/routes/admin/projects/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/admin/vouchers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/vouchers: src/routes/admin/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/admin/vouchers/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/vouchers/[id]: src/routes/admin/vouchers/[id]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/admin/vouchers/archive/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/vouchers/archive: src/routes/admin/vouchers/archive/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/resultat/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /resultat: src/routes/resultat/+page.svelte:253 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/vouchers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vouchers: src/routes/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/vouchers/accountingorder/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vouchers/accountingorder: src/routes/vouchers/accountingorder/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/vouchers/driversexpense/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vouchers/driversexpense: src/routes/vouchers/driversexpense/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/vouchers/expenseclaim/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vouchers/expenseclaim: src/routes/vouchers/expenseclaim/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/vouchers/expensereport/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vouchers/expensereport: src/routes/vouchers/expensereport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/vouchers/internalinvoice/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vouchers/internalinvoice: src/routes/vouchers/internalinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/vouchers/ledreport/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vouchers/ledreport: src/routes/vouchers/ledreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/vouchers/salesreport/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vouchers/salesreport: src/routes/vouchers/salesreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/og-url::src/routes/vouchers/supplierinvoice/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vouchers/supplierinvoice: src/routes/vouchers/supplierinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook or generator script in the app (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/admin/accounts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/admin/fortnox::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/admin/info::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/admin/profitcenters::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/admin/projects::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/admin/vouchers/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/admin/vouchers/archive::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/admin/vouchers::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/resultat::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/vouchers/accountingorder::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/vouchers/driversexpense::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/vouchers/expenseclaim::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/vouchers/expensereport::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/vouchers/internalinvoice::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/vouchers/ledreport::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/vouchers/salesreport::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/vouchers/supplierinvoice::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/single-h1::/vouchers::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte renders nav links and {@render children()} only; the page's titles use EHeading, whose `as` defaults to 'h2' (components/ui/typography/e-heading.svelte:16) and no use passes as=\"h1\"; grep finds no other <h1>, {@html} or svelte:element in src; route renders for a verified user (layout load redirects/401s only without one)"
+  },
+  {
+    "key": "esek/kvitto::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script in the app (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/title-length::src/routes/resultat/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/resultat/+page.svelte's top-level svelte:head, whitespace collapsed, 17 characters as reported; no later component or document.title override on the route) (literal claim holds); but Kvitto is the student section's receipt/bookkeeping submission site: root +layout.server.ts redirects every session-less request to /auth/log-in (members only), not a search target"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/admin/accounts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/accounts: src/routes/admin/accounts/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/admin/fortnox/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/fortnox: src/routes/admin/fortnox/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/admin/info/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/info: src/routes/admin/info/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/admin/profitcenters/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/profitcenters: src/routes/admin/profitcenters/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/admin/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/projects: src/routes/admin/projects/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/admin/vouchers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/vouchers: src/routes/admin/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/admin/vouchers/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/vouchers/[id]: src/routes/admin/vouchers/[id]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/admin/vouchers/archive/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/vouchers/archive: src/routes/admin/vouchers/archive/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/resultat/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /resultat: src/routes/resultat/+page.svelte:253 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/vouchers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vouchers: src/routes/vouchers/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/vouchers/accountingorder/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vouchers/accountingorder: src/routes/vouchers/accountingorder/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/vouchers/driversexpense/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vouchers/driversexpense: src/routes/vouchers/driversexpense/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/vouchers/expenseclaim/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vouchers/expenseclaim: src/routes/vouchers/expenseclaim/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/vouchers/expensereport/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vouchers/expensereport: src/routes/vouchers/expensereport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/vouchers/internalinvoice/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vouchers/internalinvoice: src/routes/vouchers/internalinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/vouchers/ledreport/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vouchers/ledreport: src/routes/vouchers/ledreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/vouchers/salesreport/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vouchers/salesreport: src/routes/vouchers/salesreport/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  },
+  {
+    "key": "esek/kvitto::seo/twitter-card::src/routes/vouchers/supplierinvoice/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vouchers/supplierinvoice: src/routes/vouchers/supplierinvoice/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in esek/kvitto; app.html head is charset/viewport; root +layout.svelte:27-30 head is icon + <title>; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (@esek/auth-client 6.0.0 ships no .svelte; lucide-svelte is icons); route renders for a verified member"
+  }
+]

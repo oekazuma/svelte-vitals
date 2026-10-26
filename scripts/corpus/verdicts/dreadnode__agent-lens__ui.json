@@ -1,0 +1,767 @@
+[
+  {
+    "key": "dreadnode/agent-lens:ui::a11y/permitted-contents::src/lib/components/chat/InputDiff.svelte:22::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read InputDiff.svelte:22: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::a11y/permitted-contents::src/lib/components/chat/ThinkingBlock.svelte:14::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ThinkingBlock.svelte:14: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::a11y/permitted-contents::src/routes/runs/[runName]/changelog/+page.svelte:19::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:19: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::a11y/permitted-contents::src/routes/runs/[runName]/changelog/+page.svelte:32::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:32: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::architecture/component-size::src/lib/components/chat/MessageEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/MessageEditor.svelte has 348 physical lines (split on \\n, trailing newline not counted; 314 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::architecture/component-size::src/lib/components/chat/ResamplePanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ResamplePanel.svelte has 242 physical lines (split on \\n, trailing newline not counted; 220 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::architecture/component-size::src/lib/components/chat/StepGroup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/StepGroup.svelte has 322 physical lines (split on \\n, trailing newline not counted; 297 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 260 physical lines (split on \\n, trailing newline not counted; 242 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::architecture/component-size::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte has 638 physical lines (split on \\n, trailing newline not counted; 588 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::architecture/prop-count::src/lib/components/chat/StepGroup.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/StepGroup.svelte has a single destructured $props() with 7 named props (> 6): items, stepIds, runName, sessionIndex, requestIndex, canResample, existingResampleCount"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/ChatView.svelte:152::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/ChatView.svelte:152 '{#each groups as group, i}' has no key; groups = $derived.by (:87) builds the user/agent turn groups from the steps prop of the session transcript, replaced when the user navigates to another session ([sessionIndex] route reuses the component); runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/InputDiff.svelte:30::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/InputDiff.svelte:30 '{#each edits as edit}' has no key; edits prop, the path/original/replacement triples of one edit set shown read-only as text; positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/MessageEditor.svelte:185::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/MessageEditor.svelte:185 '{#each msg.content as block, blockIdx}' has no key; the content blocks of one transcript message, whose order the editor never changes (edits are recorded by path messages[i].content[j], :70-90); positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/MessageEditor.svelte:265::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/MessageEditor.svelte:265 '{#each responseContent as block}' has no key; responseContent prop, the text/tool_use blocks of one model response shown read-only; positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/MessageEditor.svelte:292::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/MessageEditor.svelte:292 '{#each prevMessages as msg, i}' has no key; prevMessages = $derived(messages.slice(prevStart, lastAssistantIdx)) (:44), a window of the conversation messages prop that shifts with lastN and the messages passed; runtime records rendered with editable textareas"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/MessageEditor.svelte:310::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/MessageEditor.svelte:310 '{#each afterMessages as msg, i}' has no key; afterMessages = $derived(messages.slice(lastAssistantIdx + 1)) (:40) of the messages prop; runtime records rendered with editable textareas"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/ResamplePanel.svelte:126::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/ResamplePanel.svelte:126 '{#each variants as variant}' has no key; variants = $derived(rawVariants ?? []) (:53), the resample variants the user creates with edits (VariantData id/label/edits/samples); runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/ResamplePanel.svelte:155::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/ResamplePanel.svelte:155 '{#each activeSamples as _, i}' has no key; the item is unused and each button is the numbered sample tab i (onclick activeTab = i); positional list (tabs by index)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/ResamplePanel.svelte:185::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/ResamplePanel.svelte:185 '{#each getBlocks(activeSample) as block, blockIdx}' has no key; getBlocks returns sample.content (:81), the content blocks of one sample shown read-only; positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/StepGroup.svelte:193::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/StepGroup.svelte:193 '{#each stepIds.slice(1) as sid}<span id=\"step-{sid}\"></span>{/each}' has no key; empty deep-link anchor spans for the step ids of one group, stateless; positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/chat/StepGroup.svelte:195::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/StepGroup.svelte:195 '{#each items as item}' has no key; items prop, the thinking/text/tool items of one step group of a recorded transcript (the outer ChatView list owns the group identity); positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/lib/components/diff/DiffBlock.svelte:48::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/diff/DiffBlock.svelte:48 '{#each lines as line}' has no key; lines = $derived(content.split('\\n')) (:3); positional list (text lines)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/+page.svelte:191::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:191 '{#each run.tags.filter(t => t !== 'replay') as tag}' has no key; the tag strings of one run shown as pills; positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/+page.svelte:234::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:234 '{#each filtered as group}' has no key; filtered = $derived (:70) the run groups from the load filtered by the user's search; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/+page.svelte:250::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:250 '{#each group.replays as replay}' has no key; the replay runs of a run group from the load; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/+layout.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/runs/[runName]/+layout.svelte:43 '{#each meta.tags as tag}' has no key; the tag strings of one run's metadata shown as pills; positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/+layout.svelte:55::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/runs/[runName]/+layout.svelte:55 '{#each tabs as tab}' has no key; tabs = $derived([...]) (:14) of author-written nav tab literals (overview/analysis/memory/changelog/config); static list"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/+layout.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[runName]/+layout.svelte:70 '{#each meta.sessions as session}' has no key; the sessions of the run from the load (data.meta), replaced on navigation between runs; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/+page.svelte:102::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/runs/[runName]/+page.svelte:102 '{#each metrics as m}' has no key; metrics = $derived([...]) (:45) of six fixed label/value literals over the run metadata; static stat-tile list"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/+page.svelte:112::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[runName]/+page.svelte:112 '{#each sessionGroups as group, gi}' has no key; sessionGroups = $derived.by (:16) groups the run's sessions from the load; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/+page.svelte:114::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[runName]/+page.svelte:114 '{#each group.replicates as rep}' has no key; the replicate sessions of one session group from the load; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/changelog/+page.svelte:14::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[runName]/changelog/+page.svelte:14 '{#each data.entries as entry, i}' has no key; the run's file-change entries from the load, expandable by index (expandedEntry = i); runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/+layout.svelte:47::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/+layout.svelte:47 '{#each sessions as session}' has no key; sessions = $derived(data.meta.sessions) (:11), the run's sessions from the load; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/+layout.svelte:58::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/+layout.svelte:58 '{#each subTabs as tab}' has no key; subTabs = $derived([...]) (:31) of author-written sub-nav tab literals; static list"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/+layout.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/+layout.svelte:70 '{#each subagentFiles as f}' has no key; subagentFiles = $derived(data.subagentFiles) (:8), the session's subagent transcript files from the load; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte:38::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte:38 '{#each data.captures as cap}' has no key; the session's captured API requests from the load; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte:80::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte:80 '{#each cap.tools as tool}' has no key; the tool names of one captured request shown read-only; positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:314::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:314 '{#each resampleGroups as group}' has no key; resampleGroups = $derived(data.resampleGroups) (:10) from the load, with collapse state per group; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:474::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:474 '{#each loadedSamples as _, i}' has no key; the item is unused and each button is the numbered sample tab i (setActiveTab('vanilla', i)); positional list (tabs by index)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:504::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:504 '{#each loadedVariants as variant}' has no key; loadedVariants = $state<VariantData[]>([]) (:64) filled from fetched resample variants; runtime records"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:536::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:536 '{#each variant.samples as _, i}' has no key; the item is unused and each button is the numbered sample tab i (setActiveTab(variant.id, i)); positional list (tabs by index)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/each-key::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:586::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:586 '{#each getBlocks(sample) as block, blockIdx}' has no key; getBlocks returns the content blocks of one sample (:155) shown read-only; positional list (parts of one record)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/effect-as-derived::src/lib/components/chat/InputDiff.svelte:12::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/InputDiff.svelte:12 the effect only does isExpanded = expanded (prop); the other write is the click toggle isExpanded = !isExpanded (:19), the writable-$derived override pattern (svelte ^5.51)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::correctness/unmutated-state::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:152::$state \"isLoadingEditor\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file): src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:152 'let isLoadingEditor = $state(false);' is its only mention; never written, read, bound or passed (dead state)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::performance/sequential-awaits::src/routes/runs/[runName]/+layout.server.ts:16::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read ui/src/lib/server/fs.ts:9-34 + runs.ts:68-69: the flagged readTextFile(config.yaml) follows loadRunMeta (readJsonFile of run_meta.json) - both are local fs reads of the run directory, no network round trip (ledger local-file-read design convention)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::performance/sequential-awaits::src/routes/runs/[runName]/+layout.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read ui/src/lib/server/fs.ts:9-34 + runs.ts:68-69: the flagged fileExists(analysis.md) follows local readJsonFile/readTextFile of the run directory - local fs stat/reads, no network round trip (ledger local-file-read design convention)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::performance/sequential-awaits::src/routes/runs/[runName]/sessions/[sessionIndex]/+page.server.ts:116::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read sessions/[sessionIndex]/+page.server.ts:104-118 + lib/server/fs.ts: readTextFile(config.yaml) after readJsonFile(trajectory.json) - local fs reads of the run directory, no network round trip (ledger local-file-read design convention)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::security/raw-html::src/lib/components/chat/ResamplePanel.svelte:194::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/ResamplePanel.svelte:189-194 + lib/utils/markdown.ts:3-10: renderMarkdown = new Marked({breaks,gfm}).parse with no sanitizer (raw HTML passes through); block.text is resampled LLM assistant text from the agent trajectories - LLM output rendered unsanitized (ledger LLM-output-through-marked tp convention)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::security/raw-html::src/lib/components/chat/StepGroup.svelte:204::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/StepGroup.svelte:199-204 + lib/utils/markdown.ts:3-10: renderMarkdown = new Marked({breaks,gfm}).parse with no sanitizer (raw HTML passes through); item.content is the agent's (Claude Code/Codex) message text from the captured ATIF trajectory - LLM output rendered unsanitized (ledger LLM-output tp convention)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::security/raw-html::src/routes/runs/[runName]/analysis/+page.svelte:111::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read runs/[runName]/analysis/+page.svelte:5,111 + +page.server.ts (readTextFile analysis.md) + lib/utils/markdown.ts:3-10: renderMarkdown = new Marked({breaks,gfm}).parse with no sanitizer (raw HTML passes through); analysis.md is written by the Claude Code /experiment command (.claude/commands/experiment.md:44) - LLM-authored markdown rendered unsanitized (ledger LLM-output tp convention)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::security/raw-html::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:595::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read sessions/[sessionIndex]/resamples/+page.svelte:590-595 + lib/utils/markdown.ts:3-10: renderMarkdown = new Marked({breaks,gfm}).parse with no sanitizer (raw HTML passes through); block.text is resampled LLM response text - LLM output rendered unsanitized (ledger LLM-output tp convention)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::security/raw-html::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte:74::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read sessions/[sessionIndex]/subagents/[filename]/+page.svelte:67-74 + lib/utils/markdown.ts:3-10: renderMarkdown = new Marked({breaks,gfm}).parse with no sanitizer (raw HTML passes through); returnValue is a subagent's return text from its trajectory - LLM output rendered unsanitized (ledger LLM-output tp convention)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]: src/routes/runs/[runName]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/analysis/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]/analysis: src/routes/runs/[runName]/analysis/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/changelog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]/changelog: src/routes/runs/[runName]/changelog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/config/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]/config: src/routes/runs/[runName]/config/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/memory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]/memory: src/routes/runs/[runName]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]/sessions/[sessionIndex]: src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]/sessions/[sessionIndex]/api: src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]/sessions/[sessionIndex]/memory: src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]/sessions/[sessionIndex]/resamples: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/canonical-url::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /runs/[runName]/sessions/[sessionIndex]/subagents/[filename]: src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session); local run-viewer UI (adapter-node) with no auth gate or noindex, static/robots.txt allows all (ledger convention for localhost dashboards without a server-enforced loopback gate, e.g. gopherstack/awsim: tp)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/analysis/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]/analysis) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/changelog/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]/changelog) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/config/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]/config) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/memory/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]/memory) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]/sessions/[sessionIndex]) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]/sessions/[sessionIndex]/api) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]/sessions/[sessionIndex]/memory) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]/sessions/[sessionIndex]/resamples) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/description-presence::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /runs/[runName]/sessions/[sessionIndex]/subagents/[filename]) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte literal title is the only title of the 11 routes in this key (local CLI list), duplicate as claimed; but AgentLens is a local research harness UI over the user's own run files (README), not a search target, so no search competition"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/analysis/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/changelog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/config/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/memory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/json-ld::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]: src/routes/runs/[runName]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/analysis/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]/analysis: src/routes/runs/[runName]/analysis/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/changelog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]/changelog: src/routes/runs/[runName]/changelog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/config/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]/config: src/routes/runs/[runName]/config/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/memory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]/memory: src/routes/runs/[runName]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]/sessions/[sessionIndex]: src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]/sessions/[sessionIndex]/api: src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]/sessions/[sessionIndex]/memory: src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]/sessions/[sessionIndex]/resamples: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-description::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs/[runName]/sessions/[sessionIndex]/subagents/[filename]: src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]: src/routes/runs/[runName]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/analysis/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]/analysis: src/routes/runs/[runName]/analysis/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/changelog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]/changelog: src/routes/runs/[runName]/changelog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/config/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]/config: src/routes/runs/[runName]/config/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/memory/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]/memory: src/routes/runs/[runName]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]/sessions/[sessionIndex]: src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]/sessions/[sessionIndex]/api: src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]/sessions/[sessionIndex]/memory: src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]/sessions/[sessionIndex]/resamples: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-image::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs/[runName]/sessions/[sessionIndex]/subagents/[filename]: src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]: src/routes/runs/[runName]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/analysis/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]/analysis: src/routes/runs/[runName]/analysis/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/changelog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]/changelog: src/routes/runs/[runName]/changelog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/config/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]/config: src/routes/runs/[runName]/config/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/memory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]/memory: src/routes/runs/[runName]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]/sessions/[sessionIndex]: src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]/sessions/[sessionIndex]/api: src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]/sessions/[sessionIndex]/memory: src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]/sessions/[sessionIndex]/resamples: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-title::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs/[runName]/sessions/[sessionIndex]/subagents/[filename]: src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]: src/routes/runs/[runName]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/analysis/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]/analysis: src/routes/runs/[runName]/analysis/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/changelog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]/changelog: src/routes/runs/[runName]/changelog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/config/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]/config: src/routes/runs/[runName]/config/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/memory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]/memory: src/routes/runs/[runName]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]/sessions/[sessionIndex]: src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]/sessions/[sessionIndex]/api: src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]/sessions/[sessionIndex]/memory: src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]/sessions/[sessionIndex]/resamples: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/og-url::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs/[runName]/sessions/[sessionIndex]/subagents/[filename]: src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::/runs/[runName]/analysis::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> in the Svelte chain (root header link text, run layout breadcrumb/meta, page); the page renders {@html} of the run's analysis.md (analysis/+page.svelte:111), a file the user/agent writes into the run directory at run time (README:531 'if created') - user content, not committed markdown"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::/runs/[runName]/sessions/[sessionIndex]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, runs/[runName]/+layout.svelte (breadcrumb span, meta pills, tab nav) and the sessions layout finds no <h1>; the page titles itself with an <h2>/<h3> or none (no heading); {@html} blocks are chat-message markdown from run data"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::/runs/[runName]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, runs/[runName]/+layout.svelte (breadcrumb span, meta pills, tab nav) and the sessions layout finds no <h1>; the page titles itself with an <h2>/<h3> or none (no heading); {@html} blocks are chat-message markdown from run data"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::src/routes/runs/[runName]/changelog/+page.svelte:8::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, runs/[runName]/+layout.svelte (breadcrumb span, meta pills, tab nav) and the sessions layout finds no <h1>; the page titles itself with an <h2>/<h3> or none (src/routes/runs/[runName]/changelog/+page.svelte); {@html} blocks are chat-message markdown from run data"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::src/routes/runs/[runName]/config/+page.svelte:5::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, runs/[runName]/+layout.svelte (breadcrumb span, meta pills, tab nav) and the sessions layout finds no <h1>; the page titles itself with an <h2>/<h3> or none (src/routes/runs/[runName]/config/+page.svelte); {@html} blocks are chat-message markdown from run data"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::src/routes/runs/[runName]/memory/+page.svelte:7::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, runs/[runName]/+layout.svelte (breadcrumb span, meta pills, tab nav) and the sessions layout finds no <h1>; the page titles itself with an <h2>/<h3> or none (src/routes/runs/[runName]/memory/+page.svelte); {@html} blocks are chat-message markdown from run data"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte:16::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, runs/[runName]/+layout.svelte (breadcrumb span, meta pills, tab nav) and the sessions layout finds no <h1>; the page titles itself with an <h2>/<h3> or none (src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte); {@html} blocks are chat-message markdown from run data"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte:16::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, runs/[runName]/+layout.svelte (breadcrumb span, meta pills, tab nav) and the sessions layout finds no <h1>; the page titles itself with an <h2>/<h3> or none (src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte); {@html} blocks are chat-message markdown from run data"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte:400::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, runs/[runName]/+layout.svelte (breadcrumb span, meta pills, tab nav) and the sessions layout finds no <h1>; the page titles itself with an <h2>/<h3> or none (src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte); {@html} blocks are chat-message markdown from run data"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/single-h1::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte:41::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte, runs/[runName]/+layout.svelte (breadcrumb span, meta pills, tab nav) and the sessions layout finds no <h1>; the page titles itself with an <h2>/<h3> or none (src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte); {@html} blocks are chat-message markdown from run data"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script in the app (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/+layout.svelte's top-level svelte:head, whitespace collapsed, 9 characters as reported; no later component or document.title override on the route; key covers 11 routes (local CLI list), all taking this layout's title) (literal claim holds); but AgentLens is a local research harness UI over the user's own run files (README), not a search target"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]: src/routes/runs/[runName]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/analysis/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]/analysis: src/routes/runs/[runName]/analysis/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/changelog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]/changelog: src/routes/runs/[runName]/changelog/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/config/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]/config: src/routes/runs/[runName]/config/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/memory/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]/memory: src/routes/runs/[runName]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]/sessions/[sessionIndex]: src/routes/runs/[runName]/sessions/[sessionIndex]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]/sessions/[sessionIndex]/api: src/routes/runs/[runName]/sessions/[sessionIndex]/api/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]/sessions/[sessionIndex]/memory: src/routes/runs/[runName]/sessions/[sessionIndex]/memory/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]/sessions/[sessionIndex]/resamples: src/routes/runs/[runName]/sessions/[sessionIndex]/resamples/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  },
+  {
+    "key": "dreadnode/agent-lens:ui::seo/twitter-card::src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs/[runName]/sessions/[sessionIndex]/subagents/[filename]: src/routes/runs/[runName]/sessions/[sessionIndex]/subagents/[filename]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in dreadnode/agent-lens; app.html head is charset/viewport; root +layout.svelte:13-15 head is <title> only; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.py) emit none (bits-ui 1.0.0-next.98); no hooks; route renders (server loads error(404) only for a missing run/session)"
+  }
+]
