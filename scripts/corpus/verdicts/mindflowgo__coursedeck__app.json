@@ -1,0 +1,982 @@
+[
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/duplicate-landmark::src/lib/components/SyncMcpSettings.svelte:530::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read settings/+page.svelte:781 <main> has class 'hidden' unless activeTab==='settings', and SyncMcpSettings.svelte:530 <main> sits in the div at :1657 that is 'hidden' unless activeTab is integrations/sync_mcp; both always in the DOM (counted as documented, the analyzer does not read CSS), but Tailwind hidden is display:none so at most one main is ever exposed"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/id-duplication::src/lib/components/SyncScheduleModal.svelte:507::Duplicate id \"google-client-id\"",
+    "verdict": "design",
+    "basis": "read: two SyncScheduleModal instances on the route, courses/.../+page.svelte:3284 (isOpen={isSyncModalOpen}) and ScheduleViewer.svelte:224 (isOpen={showSyncModal}), each id under the modal's own {#if isOpen} (SyncScheduleModal.svelte:355); separate {#if} blocks that need two modals open at once (ledger separate-block convention)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/id-duplication::src/lib/components/SyncScheduleModal.svelte:519::Duplicate id \"google-client-secret\"",
+    "verdict": "design",
+    "basis": "read: two SyncScheduleModal instances on the route, courses/.../+page.svelte:3284 (isOpen={isSyncModalOpen}) and ScheduleViewer.svelte:224 (isOpen={showSyncModal}), each id under the modal's own {#if isOpen} (SyncScheduleModal.svelte:355); separate {#if} blocks that need two modals open at once (ledger separate-block convention)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/id-duplication::src/lib/components/SyncScheduleModal.svelte:598::Duplicate id \"sync-target-calendar\"",
+    "verdict": "design",
+    "basis": "read: two SyncScheduleModal instances on the route, courses/.../+page.svelte:3284 (isOpen={isSyncModalOpen}) and ScheduleViewer.svelte:224 (isOpen={showSyncModal}), each id under the modal's own {#if isOpen} (SyncScheduleModal.svelte:355); separate {#if} blocks that need two modals open at once (ledger separate-block convention)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:280::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:280: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:309::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:309: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:326::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:326: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:341::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:341: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:392::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:392: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:409::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:409: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:423::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:423: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:440::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:440: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:457::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:457: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/+page.svelte:474::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:474: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/interactive-nesting::src/routes/checkpoints/+page.svelte:391::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/checkpoints/+page.svelte:391: literal <button> inside the clickable card <div role=\"button\" tabindex=\"0\"> of the same template"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/DeviceSyncDropdown.svelte:110::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read DeviceSyncDropdown.svelte:110: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/DeviceSyncDropdown.svelte:116::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read DeviceSyncDropdown.svelte:116: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/DeviceSyncDropdown.svelte:122::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read DeviceSyncDropdown.svelte:122: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/DeviceSyncDropdown.svelte:139::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read DeviceSyncDropdown.svelte:139: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/DeviceSyncDropdown.svelte:145::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read DeviceSyncDropdown.svelte:145: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/DeviceSyncDropdown.svelte:151::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read DeviceSyncDropdown.svelte:151: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/DeviceSyncDropdown.svelte:168::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read DeviceSyncDropdown.svelte:168: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/LessonSelector.svelte:136::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read LessonSelector.svelte:136: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/LessonSelector.svelte:178::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read LessonSelector.svelte:178: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/LessonSelector.svelte:203::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read LessonSelector.svelte:203: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/QuizRunner.svelte:564::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read QuizRunner.svelte:564: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/QuizRunner.svelte:577::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read QuizRunner.svelte:577: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/ReparsePromptsModal.svelte:281::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ReparsePromptsModal.svelte:281: literal <div> directly inside a literal <label>; label content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/ReparsePromptsModal.svelte:288::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ReparsePromptsModal.svelte:288: literal <div> directly inside a literal <label>; label content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/SchedulePreferencesModal.svelte:402::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read SchedulePreferencesModal.svelte:402: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/lib/components/UploadModal.svelte:267::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read UploadModal.svelte:267: literal <div> directly inside a literal <label>; label content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2233::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2233: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2503::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2503: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2518::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2518: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2533::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2533: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2548::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2548: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2564::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2564: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2579::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2579: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2595::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2595: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2612::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2612: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2627::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2627: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2642::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2642: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::a11y/permitted-contents::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2658::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read +page.svelte:2658: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/AIQueuePopover.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AIQueuePopover.svelte has 333 physical lines (split on \\n, trailing newline not counted; 304 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/CheckpointModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CheckpointModal.svelte has 280 physical lines (split on \\n, trailing newline not counted; 260 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/ConfigureLLMModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ConfigureLLMModal.svelte has 337 physical lines (split on \\n, trailing newline not counted; 309 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/InitialSyncModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/InitialSyncModal.svelte has 297 physical lines (split on \\n, trailing newline not counted; 269 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/LessonSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/LessonSelector.svelte has 225 physical lines (split on \\n, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/MarkdownViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MarkdownViewer.svelte has 835 physical lines (split on \\n, trailing newline not counted; 741 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/PromptCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PromptCard.svelte has 291 physical lines (split on \\n, trailing newline not counted; 262 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/PromptsManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PromptsManager.svelte has 414 physical lines (split on \\n, trailing newline not counted; 383 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/QuizRunner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/QuizRunner.svelte has 737 physical lines (split on \\n, trailing newline not counted; 696 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/ReparsePromptsModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReparsePromptsModal.svelte has 363 physical lines (split on \\n, trailing newline not counted; 335 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/ScanDesktopModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ScanDesktopModal.svelte has 326 physical lines (split on \\n, trailing newline not counted; 296 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/SchedulePreferencesModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SchedulePreferencesModal.svelte has 565 physical lines (split on \\n, trailing newline not counted; 526 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/ScheduleViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ScheduleViewer.svelte has 228 physical lines (split on \\n, trailing newline not counted; 213 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/SelectionToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SelectionToolbar.svelte has 229 physical lines (split on \\n, trailing newline not counted; 200 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/SyncMcpSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SyncMcpSettings.svelte has 1163 physical lines (split on \\n, trailing newline not counted; 1088 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/SyncScheduleModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SyncScheduleModal.svelte has 894 physical lines (split on \\n, trailing newline not counted; 833 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/lib/components/UploadModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UploadModal.svelte has 316 physical lines (split on \\n, trailing newline not counted; 290 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 511 physical lines (split on \\n, trailing newline not counted; 478 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/routes/checkpoints/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/checkpoints/+page.svelte has 413 physical lines (split on \\n, trailing newline not counted; 376 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte has 3292 physical lines (split on \\n, trailing newline not counted; 3000 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte has 342 physical lines (split on \\n, trailing newline not counted; 312 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/routes/schedules/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/schedules/+page.svelte has 359 physical lines (split on \\n, trailing newline not counted; 340 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 1668 physical lines (split on \\n, trailing newline not counted; 1531 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/prop-count::src/lib/components/CheckpointMarker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CheckpointMarker.svelte has a single destructured $props() with 8 named props (> 6): checkpoint, isOpen, isActive, side, onToggle, onEdit, onDelete, onClick"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/prop-count::src/lib/components/Header.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Header.svelte has a single destructured $props() with 7 named props (> 6): courseId, courseCode, courseTitle, lessonId, lessonCode, lessonTitle, onLessonUpdated"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/prop-count::src/lib/components/PromptCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PromptCard.svelte has a single destructured $props() with 12 named props (> 6): prompt, tabName, isGenerating, defaultPrompt, courseId, lessonId, activeTab, initialAttachment, onChangePrompt, onRegenerate, ..."
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/prop-count::src/lib/components/QuizRunner.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/QuizRunner.svelte has a single destructured $props() with 15 named props (> 6): testMarkdown, onSaveMarkdown, isPopQuiz, isUnitTest, lastAttemptDate, lastScore, lastTotal, lastPercentage, countdownSeconds, supervisorMessage, ..."
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/prop-count::src/lib/components/SchedulePreferencesModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SchedulePreferencesModal.svelte has a single destructured $props() with 8 named props (> 6): isOpen, onClose, onGenerate, promptTemplate, defaultPromptTemplate, courseTitle, lessonCount, course"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::architecture/prop-count::src/lib/components/UploadModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/UploadModal.svelte has a single destructured $props() with 7 named props (> 6): isOpen, presetCourseId, mode, targetLessonId, targetLessonTitle, onClose, onUploaded"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:115::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Header.svelte:115 goto('/') from $app/navigation with a root-relative literal; svelte.config.js:16 sets kit.paths.base = process.env.BASE_PATH ?? '' and the GitHub Pages deploy (.github/workflows/deploy-pages.yml:40) builds with BASE_PATH='/<repo name>', so the navigation leaves the base and 404s there"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:128::goto('/checkpoints') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/checkpoints')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Header.svelte:128 goto('/checkpoints') root-relative literal; kit.paths.base = process.env.BASE_PATH ?? '' (svelte.config.js:16), set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:141::goto('/schedules') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/schedules')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Header.svelte:141 goto('/schedules') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:170::goto('/settings') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Header.svelte:170 goto('/settings') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:79::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Header.svelte:79 goto('/') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/SyncScheduleModal.svelte:586::goto('/settings/sync-mcp?provider=google') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings/sync-mcp?provider=google')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SyncScheduleModal.svelte:586 goto('/settings/sync-mcp?provider=google') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/SyncScheduleModal.svelte:701::goto('/settings/sync-mcp?provider=arc') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings/sync-mcp?provider=arc')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SyncScheduleModal.svelte:701 goto('/settings/sync-mcp?provider=arc') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/SyncScheduleModal.svelte:726::goto('/settings/sync-mcp?provider=arc') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings/sync-mcp?provider=arc')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SyncScheduleModal.svelte:726 goto('/settings/sync-mcp?provider=arc') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/routes/prompts/+page.svelte:8::goto('/settings?tab=prompts') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings?tab=prompts')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/prompts/+page.svelte:8 goto('/settings?tab=prompts') is root-relative under the BASE_PATH base, but the page's own load (src/routes/prompts/+page.ts:4) throws redirect on every call, so this component never renders; the claim holds for code that never runs (ledger convention for component findings on always-redirecting pages)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/routes/prompts/+page.ts:4::redirect(…, '/settings?tab=prompts') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/settings?tab=prompts') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/prompts/+page.ts:4 throw redirect(307, '/settings?tab=prompts') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40), so the Location leaves the base"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/routes/settings/llm/+page.svelte:6::goto('/settings?tab=llm') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings?tab=llm')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/llm/+page.svelte:6 goto('/settings?tab=llm', { replaceState: true }) in onMount, root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/LessonSelector.svelte:159::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/LessonSelector.svelte:159 '{#each filteredUnits as unit}' has no key; filteredUnits = $derived (:78) the course's units filtered by the search query, so units drop out mid-list as the user types; runtime data"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/LessonSelector.svelte:171::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/LessonSelector.svelte:171 '{#each unit.lessons as lesson}' has no key; the lessons of a unit filtered by the search (:81), dropping out mid-list as the user types; runtime data"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/QuizRunner.svelte:371::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/QuizRunner.svelte:371 '{#each parsedQuiz.questions as q}' has no key; parsedQuiz = $derived.by(QuestionParser.parseMarkdown(testMarkdown)) (:161), the questions parsed from one quiz text, answers held in maps by q.number; positional list (parse output of one text)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/QuizRunner.svelte:463::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/QuizRunner.svelte:463 '{#each ev.parts as part}' has no key; the graded parts of one question's evaluation shown read-only; positional list (parts of one result)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/QuizRunner.svelte:545::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/QuizRunner.svelte:545 '{#each q.options as opt}' has no key; the lettered options of one parsed question (selection held as userPick === opt.letter); positional list (parse output of one text)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/SchedulePreferencesModal.svelte:421::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SchedulePreferencesModal.svelte:421 '{#each prefs.blackoutDates …}' has no key; the user appends blackout dates (:160) and removes them by index (prefs.blackoutDates.filter((_, i) => i !== index), :174); editable list"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/SyncScheduleModal.svelte:606::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SyncScheduleModal.svelte:606 '{#each calendars as cal}' has no key; calendars = $state (:56) fetched from the connected calendar provider; runtime data"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/SyncScheduleModal.svelte:649::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SyncScheduleModal.svelte:649 '{#each dayGroups as group}' has no key; dayGroups = $derived.by (:70) groups the runtime scheduleEvents by date; runtime data"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/SyncScheduleModal.svelte:660::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SyncScheduleModal.svelte:660 '{#each group.events as e}' has no key; the schedule events of one day group, from the runtime schedule; runtime data"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/SyncScheduleModal.svelte:772::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SyncScheduleModal.svelte:772 '{#each dayGroups as group}' has no key; dayGroups = $derived.by (:70) over the runtime scheduleEvents; runtime data"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/SyncScheduleModal.svelte:783::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SyncScheduleModal.svelte:783 '{#each group.events as e}' has no key; the schedule events of one day group; runtime data"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/SyncScheduleModal.svelte:837::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SyncScheduleModal.svelte:837 '{#each syncResult.errors.slice(0, 3) as err}' has no key; syncResult = $state (:133) of the sync run, errors per failed event; runtime validation messages (ledger errors convention)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/lib/components/UploadModal.svelte:250::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/UploadModal.svelte:250 '{#each selectedFiles as f}' has no key; selectedFiles = $state<File[]> (:26) replaced from each file pick or drop (:46, :54); runtime data"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/routes/+page.svelte:253::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:253 '{#each filteredCourses as course}' has no key; filteredCourses = $derived.by (:159) the user's courses filtered/sorted; runtime records"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/each-key::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2925::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2925 '{#each scheduleWarnings as w}' has no key; scheduleWarnings = $derived.by (:1135) recomputed from the course schedule; runtime validation messages (ledger warnings convention)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/effect-as-derived::src/lib/components/PromptCard.svelte:74::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PromptCard.svelte:74 the effect only does selectedAttachment = normalizeAttachment(initialAttachment, activeTab, lessonId) from props; the other writes are top-level reassignments (:117, :121, :144), the writable-$derived override pattern (svelte 5.57.2 in bun.lock)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::correctness/effect-as-derived::src/lib/components/PromptCard.svelte:78::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PromptCard.svelte:78 the effect only copies the prompt prop into localPrompt/initialPrompt; localPrompt is then reassigned by the editor (:136, :142), the writable-$derived override pattern (svelte 5.57.2 in bun.lock)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::performance/iframe-loading::src/lib/components/DocumentViewerModal.svelte:136::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe src={url}> has no loading attribute and no spread; it is the full-size document viewer of DocumentViewerModal (non-image documents, :136-141), created when the user opens a document - the visible content, not offscreen"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::performance/state-raw::src/lib/components/QuizRunner.svelte:71::\"submittedAnswers\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): submittedAnswers in QuizRunner.svelte: whole reassignments (:150 {}, :219 spread copy, :242 {}) and indexed reads (:372); no member writes, delete, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::performance/state-raw::src/lib/components/SelectionToolbar.svelte:17::\"toolbarCoords\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): toolbarCoords in SelectionToolbar.svelte: one whole reassignment (:59 new object) and member reads in a style attribute (:120); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::performance/state-raw::src/lib/components/SyncMcpSettings.svelte:74::\"arcStatus\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): arcStatus in SyncMcpSettings.svelte: one whole reassignment (:148 data.providers.arc) and member reads in {#if}/text (:565-828); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/lib/components/MarkdownViewer.svelte:682::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/MarkdownViewer.svelte:378,419-433: renderedHtml is marked output passed through sanitizeRenderedHtml = DOMPurify.sanitize (default profile plus details/summary/mark and data-* attrs); routes/+layout.ts:1 `export const ssr = false` (adapter-static SPA), so the component only renders in the browser, where the DOMPurify branch always runs - sanitized, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/lib/components/QuizRunner.svelte:399::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/QuizRunner.svelte:62-68: mathHtml = DOMPurify.sanitize(renderTextWithMath(text), {ADD_TAGS:['details','summary','mark']}) whenever window exists; routes/+layout.ts:1 `export const ssr = false` (adapter-static SPA), so the component only renders in the browser, where the sanitizer always runs - sanitized quiz/LLM feedback text, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/lib/components/QuizRunner.svelte:484::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/QuizRunner.svelte:62-68: mathHtml = DOMPurify.sanitize(renderTextWithMath(text), {ADD_TAGS:['details','summary','mark']}) whenever window exists; routes/+layout.ts:1 `export const ssr = false` (adapter-static SPA), so the component only renders in the browser, where the sanitizer always runs - sanitized quiz/LLM feedback text, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/lib/components/QuizRunner.svelte:493::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/QuizRunner.svelte:62-68: mathHtml = DOMPurify.sanitize(renderTextWithMath(text), {ADD_TAGS:['details','summary','mark']}) whenever window exists; routes/+layout.ts:1 `export const ssr = false` (adapter-static SPA), so the component only renders in the browser, where the sanitizer always runs - sanitized quiz/LLM feedback text, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/lib/components/QuizRunner.svelte:530::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/QuizRunner.svelte:62-68: mathHtml = DOMPurify.sanitize(renderTextWithMath(text), {ADD_TAGS:['details','summary','mark']}) whenever window exists; routes/+layout.ts:1 `export const ssr = false` (adapter-static SPA), so the component only renders in the browser, where the sanitizer always runs - sanitized quiz/LLM feedback text, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/lib/components/QuizRunner.svelte:578::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/QuizRunner.svelte:62-68: mathHtml = DOMPurify.sanitize(renderTextWithMath(text), {ADD_TAGS:['details','summary','mark']}) whenever window exists; routes/+layout.ts:1 `export const ssr = false` (adapter-static SPA), so the component only renders in the browser, where the sanitizer always runs - sanitized quiz/LLM feedback text, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/lib/components/QuizRunner.svelte:591::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/QuizRunner.svelte:62-68: mathHtml = DOMPurify.sanitize(renderTextWithMath(text), {ADD_TAGS:['details','summary','mark']}) whenever window exists; routes/+layout.ts:1 `export const ssr = false` (adapter-static SPA), so the component only renders in the browser, where the sanitizer always runs - sanitized quiz/LLM feedback text, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/lib/components/ScheduleViewer.svelte:203::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/ScheduleViewer.svelte:203,211 + lib/parser/scheduleParser.ts:336-358: renderInlineMarkdown escapes & < > \" ' before marked.parseInline - escaped inline markdown, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/lib/components/ScheduleViewer.svelte:211::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/ScheduleViewer.svelte:203,211 + lib/parser/scheduleParser.ts:336-358: renderInlineMarkdown escapes & < > \" ' before marked.parseInline - escaped inline markdown, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/routes/schedules/+page.svelte:243::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/schedules/+page.svelte:243,320 + lib/parser/scheduleParser.ts:336-358: renderInlineMarkdown escapes & < > \" ' before marked.parseInline - escaped inline markdown, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::security/raw-html::src/routes/schedules/+page.svelte:320::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/schedules/+page.svelte:243,320 + lib/parser/scheduleParser.ts:336-358: renderInlineMarkdown escapes & < > \" ' before marked.parseInline - escaped inline markdown, reported per docs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; Tauri/local app shell with no auth gate or noindex (ledger convention for Tauri shells: tp)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/canonical-url::src/routes/checkpoints/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /checkpoints: src/routes/checkpoints/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; Tauri/local app shell with no auth gate or noindex (ledger convention for Tauri shells: tp)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/canonical-url::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /courses/[course_id]/[[lesson]]/[[tab]]: src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; Tauri/local app shell with no auth gate or noindex (ledger convention for Tauri shells: tp)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/canonical-url::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /courses/[course_id]/[lesson]/popquiz/[timestamp]: src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; Tauri/local app shell with no auth gate or noindex (ledger convention for Tauri shells: tp)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/canonical-url::src/routes/schedules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /schedules: src/routes/schedules/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; Tauri/local app shell with no auth gate or noindex (ledger convention for Tauri shells: tp)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings: src/routes/settings/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; Tauri/local app shell with no auth gate or noindex (ledger convention for Tauri shells: tp)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/canonical-url::src/routes/settings/integrations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/integrations: src/routes/settings/integrations/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell, but not a search target (client redirect stub: settings/integrations/+page.svelte:5-11 onMount goto(\"/settings?tab=integrations…\", replaceState), no markup), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/canonical-url::src/routes/settings/llm/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/llm: src/routes/settings/llm/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell, but not a search target (client redirect stub: settings/llm/+page.svelte:5-7 onMount goto(\"/settings?tab=llm\", replaceState), no markup), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /) (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/description-presence::src/routes/checkpoints/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /checkpoints) (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/description-presence::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /courses/[course_id]/[[lesson]]/[[tab]]) (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/description-presence::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /courses/[course_id]/[lesson]/popquiz/[timestamp]) (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/description-presence::src/routes/schedules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /schedules) (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /settings) (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/description-presence::src/routes/settings/integrations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /settings/integrations) (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/description-presence::src/routes/settings/llm/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src, app.html and every svelte:head: no <meta name=\"description\"> on /settings/llm) (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/heading-level-skip::src/routes/+page.svelte:228::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte: page <h1>Active Courses (:184), then the {:else if filteredCourses.length === 0} empty-state arm's <h3>No courses available (:228) with only an icon between; Header renders no heading -> h1 to h3"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/json-ld::src/routes/checkpoints/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/json-ld::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/json-ld::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/json-ld::src/routes/schedules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/json-ld::src/routes/settings/integrations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/json-ld::src/routes/settings/llm/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-description::src/routes/checkpoints/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /checkpoints: src/routes/checkpoints/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-description::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /courses/[course_id]/[[lesson]]/[[tab]]: src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-description::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /courses/[course_id]/[lesson]/popquiz/[timestamp]: src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-description::src/routes/schedules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /schedules: src/routes/schedules/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings: src/routes/settings/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-description::src/routes/settings/integrations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/integrations: src/routes/settings/integrations/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-description::src/routes/settings/llm/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/llm: src/routes/settings/llm/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-image::src/routes/checkpoints/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /checkpoints: src/routes/checkpoints/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-image::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /courses/[course_id]/[[lesson]]/[[tab]]: src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-image::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /courses/[course_id]/[lesson]/popquiz/[timestamp]: src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-image::src/routes/schedules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /schedules: src/routes/schedules/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings: src/routes/settings/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-image::src/routes/settings/integrations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/integrations: src/routes/settings/integrations/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-image::src/routes/settings/llm/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/llm: src/routes/settings/llm/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-title::src/routes/checkpoints/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /checkpoints: src/routes/checkpoints/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-title::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /courses/[course_id]/[[lesson]]/[[tab]]: src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-title::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /courses/[course_id]/[lesson]/popquiz/[timestamp]: src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-title::src/routes/schedules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /schedules: src/routes/schedules/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings: src/routes/settings/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-title::src/routes/settings/integrations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/integrations: src/routes/settings/integrations/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-title::src/routes/settings/llm/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/llm: src/routes/settings/llm/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-url::src/routes/checkpoints/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /checkpoints: src/routes/checkpoints/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-url::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /courses/[course_id]/[[lesson]]/[[tab]]: src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-url::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /courses/[course_id]/[lesson]/popquiz/[timestamp]: src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-url::src/routes/schedules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /schedules: src/routes/schedules/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings: src/routes/settings/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-url::src/routes/settings/integrations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/integrations: src/routes/settings/integrations/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/og-url::src/routes/settings/llm/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/llm: src/routes/settings/llm/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook or generator script in the app (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/single-h1::/settings/integrations::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte (modals, ZoomIndicator) and the page finds no <h1>, {@html} or svelte:element heading; the settings page has no <h1>; ssr=false app"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/single-h1::/settings/llm::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte (modals, ZoomIndicator) and the page finds no <h1>, {@html} or svelte:element heading; the settings page has no <h1>; ssr=false app"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk of +layout.svelte (modals, ZoomIndicator) and the page finds no <h1>, {@html} or svelte:element heading; the settings page has no <h1>; ssr=false app"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/single-h1::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte:2961::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk finds no <h1> (only <h2>/<h3>); the lesson/quiz text comes from the user's course markdown at run time ({@html renderedHtml} in MarkdownViewer, QuizRunner) - user content, not committed markdown, so the claim holds"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/single-h1::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte:290::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: transitive walk finds no <h1> (only <h2>/<h3>); the lesson/quiz text comes from the user's course markdown at run time ({@html renderedHtml} in MarkdownViewer, QuizRunner) - user content, not committed markdown, so the claim holds"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script in the app (literal claim holds); but CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 (claim holds); but deliberate SPA: CourseDeck is a personal study tool (README; also shipped as a Tauri desktop app, adapter-static SPA, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of app/src for svelte:head/<title/document.title: none in any .svelte; only a regex in lib/parser/extractor.ts:461 and an HTML string in lib/server/api.ts:163) + read: root +layout.ts ssr=false (client titles would count, but there are none), root +layout.svelte has no svelte:head, app.html head has no <title>, hooks.server.ts only maps errors after resolve(); only Svelte npm dep lucide-svelte (icons); Tauri/web SPA renders / untitled"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/title-presence::src/routes/checkpoints/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of app/src for svelte:head/<title/document.title: none in any .svelte; only a regex in lib/parser/extractor.ts:461 and an HTML string in lib/server/api.ts:163) + read: root +layout.ts ssr=false (client titles would count, but there are none), root +layout.svelte has no svelte:head, app.html head has no <title>, hooks.server.ts only maps errors after resolve(); only Svelte npm dep lucide-svelte (icons); Tauri/web SPA renders /checkpoints untitled"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/title-presence::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of app/src for svelte:head/<title/document.title: none in any .svelte; only a regex in lib/parser/extractor.ts:461 and an HTML string in lib/server/api.ts:163) + read: root +layout.ts ssr=false (client titles would count, but there are none), root +layout.svelte has no svelte:head, app.html head has no <title>, hooks.server.ts only maps errors after resolve(); only Svelte npm dep lucide-svelte (icons); Tauri/web SPA renders /courses/[course_id]/[[lesson]]/[[tab]] untitled"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/title-presence::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of app/src for svelte:head/<title/document.title: none in any .svelte; only a regex in lib/parser/extractor.ts:461 and an HTML string in lib/server/api.ts:163) + read: root +layout.ts ssr=false (client titles would count, but there are none), root +layout.svelte has no svelte:head, app.html head has no <title>, hooks.server.ts only maps errors after resolve(); only Svelte npm dep lucide-svelte (icons); Tauri/web SPA renders /courses/[course_id]/[lesson]/popquiz/[timestamp] untitled"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/title-presence::src/routes/schedules/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of app/src for svelte:head/<title/document.title: none in any .svelte; only a regex in lib/parser/extractor.ts:461 and an HTML string in lib/server/api.ts:163) + read: root +layout.ts ssr=false (client titles would count, but there are none), root +layout.svelte has no svelte:head, app.html head has no <title>, hooks.server.ts only maps errors after resolve(); only Svelte npm dep lucide-svelte (icons); Tauri/web SPA renders /schedules untitled"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/title-presence::src/routes/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of app/src for svelte:head/<title/document.title: none in any .svelte; only a regex in lib/parser/extractor.ts:461 and an HTML string in lib/server/api.ts:163) + read: root +layout.ts ssr=false (client titles would count, but there are none), root +layout.svelte has no svelte:head, app.html head has no <title>, hooks.server.ts only maps errors after resolve(); only Svelte npm dep lucide-svelte (icons); Tauri/web SPA renders /settings untitled"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/title-presence::src/routes/settings/integrations/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of app/src for svelte:head/<title/document.title: none in any .svelte; only a regex in lib/parser/extractor.ts:461 and an HTML string in lib/server/api.ts:163) + read: root +layout.ts ssr=false (client titles would count, but there are none), root +layout.svelte has no svelte:head, app.html head has no <title>, hooks.server.ts only maps errors after resolve(); only Svelte npm dep lucide-svelte (icons); Tauri/web SPA renders /settings/integrations untitled (src/routes/settings/integrations/+page.svelte is an onMount goto(..., replaceState) shim that renders nothing; ledger majority convention for client goto shims is tp)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/title-presence::src/routes/settings/llm/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of app/src for svelte:head/<title/document.title: none in any .svelte; only a regex in lib/parser/extractor.ts:461 and an HTML string in lib/server/api.ts:163) + read: root +layout.ts ssr=false (client titles would count, but there are none), root +layout.svelte has no svelte:head, app.html head has no <title>, hooks.server.ts only maps errors after resolve(); only Svelte npm dep lucide-svelte (icons); Tauri/web SPA renders /settings/llm untitled (src/routes/settings/llm/+page.svelte is an onMount goto(..., replaceState) shim that renders nothing; ledger majority convention for client goto shims is tp)"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/twitter-card::src/routes/checkpoints/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /checkpoints: src/routes/checkpoints/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/twitter-card::src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /courses/[course_id]/[[lesson]]/[[tab]]: src/routes/courses/[course_id]/[[lesson]]/[[tab]]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/twitter-card::src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /courses/[course_id]/[lesson]/popquiz/[timestamp]: src/routes/courses/[course_id]/[lesson]/popquiz/[timestamp]/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/twitter-card::src/routes/schedules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /schedules: src/routes/schedules/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings: src/routes/settings/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/twitter-card::src/routes/settings/integrations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/integrations: src/routes/settings/integrations/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "mindflowgo/coursedeck:app::seo/twitter-card::src/routes/settings/llm/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/llm: src/routes/settings/llm/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in mindflowgo/coursedeck (excl. built tauripad assets); app.html head is charset/icon/viewport/stylesheets/theme script; no <svelte:head> in root +layout.svelte; ssr=false (+layout.ts:1) so client heads count and none emit it; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only maps PathValidationError to 400; Tauri/local study app shell; route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  }
+]

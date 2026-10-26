@@ -1,0 +1,1167 @@
+[
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/disallowed-aria-props::src/lib/components/dao/shared/FeeFlowDiagram.svelte:7::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read FeeFlowDiagram.svelte:7: plain <div aria-label=...> with no role/spread/use:; generic role prohibits a name"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/duplicate-landmark::../../packages/bm-market/src/lib/MarketContainer.svelte:195::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: market/[marketId]/[marketType]/+page.svelte:111-112 renders <MarketContainer> (workspace pkg bm-market, MarketContainer.svelte:195 <main>, inside {#if market}) inside root +layout.svelte:123 <main>, so two main landmarks once the market loads"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/id-duplication::src/routes/+layout.svelte:104::Duplicate id \"splash-screen\" — also defined by the src/app.html shell (line #)",
+    "verdict": "tp",
+    "basis": "read: SSR shell src/app.html:32 has div#splash-screen in <body>, and root +layout.svelte:102-105 renders a second div#splash-screen while !ready (ready set only in onMount, so always in the server HTML); both are in the DOM until app.html's inline DOMContentLoaded handler removes the first; 19 routes (local run = first look)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/interactive-nesting::src/lib/components/template/SlotModal.svelte:44::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read SlotModal.svelte:16-49: close <button> (:44) inside the modal dialog div, inside the backdrop <div role=\"button\" tabindex=\"0\"> (:16-28); role=button is children-presentational (backdrop pattern is tp in the ledger)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/lib/components/dao/shared/FeeFlowDiagram.svelte:22::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read FeeFlowDiagram.svelte:22: <div class='flex justify-center'> arrow separator is a direct child of <ol> (:8) between <li>s"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/lib/components/dao/shared/FeeFlowDiagram.svelte:39::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read FeeFlowDiagram.svelte:39: <div class='flex justify-center'> arrow separator is a direct child of <ol> (:8) between <li>s"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/lib/components/dao/shared/FeeFlowDiagram.svelte:54::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read FeeFlowDiagram.svelte:54: <div class='flex justify-center'> arrow separator is a direct child of <ol> (:8) between <li>s"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/lib/components/template/ConnectMenuDropdown.svelte:428::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ConnectMenuDropdown.svelte:428: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/lib/components/template/ConnectMenuDropdown.svelte:452::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read ConnectMenuDropdown.svelte:452: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/lib/components/vault/VaultDeposit.svelte:34::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read VaultDeposit.svelte:34: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/lib/components/vault/VaultDeposit.svelte:72::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read VaultDeposit.svelte:72: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/lib/components/vault/VaultWithdraw.svelte:46::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read VaultWithdraw.svelte:46: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/lib/components/vault/VaultWithdraw.svelte:82::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read VaultWithdraw.svelte:82: literal <div> directly inside a literal <button>; button content model is phrasing"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/permitted-contents::src/routes/reputation/+page.svelte:364::`<span>` is not permitted content here — `<dl>` admits only `<dt>`, `<dd>`, `<div>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read reputation/+page.svelte:363-364: <span>Connect wallet</span> in the {:else} arm sits directly in <dl> (:366 </dl>), not in a <dt>/<dd>/<div>"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/top-level-landmark::src/routes/docs/+layout.svelte:53::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read docs/+layout.svelte:53: <aside> (no sectioning ancestor) in the non-legal arm, rendered via root +layout.svelte:123 <main>{@render children()}, so a complementary landmark nested in main on /docs, /docs/[section], /docs/[section]/[page] (local run = first look)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/top-level-landmark::src/routes/docs/+layout.svelte:79::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read docs/+layout.svelte:79: <aside> (no sectioning ancestor) in the non-legal arm, rendered via root +layout.svelte:123 <main>{@render children()}, so a complementary landmark nested in main on /docs, /docs/[section], /docs/[section]/[page] (local run = first look) (:79 is the mobile drawer under {#if mobileOpen})"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/top-level-landmark::src/routes/docs/[section]/[page]/+page.svelte:100::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read docs/[section]/[page]/+page.svelte:100: <aside class='hidden ... xl:block'> after the <article> closes (:97), in docs/+layout.svelte's div inside root +layout.svelte:123 <main>; complementary nested in main"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/use-list::src/routes/market-mgt/+page.svelte:862::Text starts with a bullet character ('•') — use a list element",
+    "verdict": "tp",
+    "basis": "read market-mgt/+page.svelte:862: <p>• example question</p> paragraphs stacked in a div as a two-item example list; a prose bullet list, not an inline separator"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/use-list::src/routes/market-mgt/+page.svelte:863::Text starts with a bullet character ('•') — use a list element",
+    "verdict": "tp",
+    "basis": "read market-mgt/+page.svelte:863: <p>• example question</p> paragraphs stacked in a div as a two-item example list; a prose bullet list, not an inline separator"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/use-list::src/routes/market-mgt/+page.svelte:875::Text starts with a bullet character ('•') — use a list element",
+    "verdict": "tp",
+    "basis": "read market-mgt/+page.svelte:875: <p>• example question</p> paragraphs stacked in a div as a two-item example list; a prose bullet list, not an inline separator"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/use-list::src/routes/market-mgt/+page.svelte:876::Text starts with a bullet character ('•') — use a list element",
+    "verdict": "tp",
+    "basis": "read market-mgt/+page.svelte:876: <p>• example question</p> paragraphs stacked in a div as a two-item example list; a prose bullet list, not an inline separator"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/use-list::src/routes/market-mgt/+page.svelte:890::Text starts with a bullet character ('•') — use a list element",
+    "verdict": "tp",
+    "basis": "read market-mgt/+page.svelte:890: <p>• example question</p> paragraphs stacked in a div as a two-item example list; a prose bullet list, not an inline separator"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::a11y/use-list::src/routes/market-mgt/+page.svelte:891::Text starts with a bullet character ('•') — use a list element",
+    "verdict": "tp",
+    "basis": "read market-mgt/+page.svelte:891: <p>• example question</p> paragraphs stacked in a div as a two-item example list; a prose bullet list, not an inline separator"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/dao/DaoWithSaleIntro.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dao/DaoWithSaleIntro.svelte has 245 physical lines (split on \\n, trailing newline not counted; 229 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/dao/liquidity/ProvideLiquidity.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dao/liquidity/ProvideLiquidity.svelte has 259 physical lines (split on \\n, trailing newline not counted; 243 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/dao/proposals/dao-voting/ballot-box/DaoVotingActiveNew.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dao/proposals/dao-voting/ballot-box/DaoVotingActiveNew.svelte has 286 physical lines (split on \\n, trailing newline not counted; 259 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/dao/token-sale/TokenSaleV3.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dao/token-sale/TokenSaleV3.svelte has 323 physical lines (split on \\n, trailing newline not counted; 304 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/my-markets/UserStakingHistory.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/my-markets/UserStakingHistory.svelte has 330 physical lines (split on \\n, trailing newline not counted; 316 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/reputation/ReputationClaims.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reputation/ReputationClaims.svelte has 212 physical lines (split on \\n, trailing newline not counted; 197 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/template/ConnectLanes.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/template/ConnectLanes.svelte has 214 physical lines (split on \\n, trailing newline not counted; 199 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/template/ConnectMenuDropdown.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/template/ConnectMenuDropdown.svelte has 464 physical lines (split on \\n, trailing newline not counted; 426 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/template/Footer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/template/Footer.svelte has 208 physical lines (split on \\n, trailing newline not counted; 193 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/template/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/template/Header.svelte has 309 physical lines (split on \\n, trailing newline not counted; 287 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/vault/ManageFunds.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vault/ManageFunds.svelte has 297 physical lines (split on \\n, trailing newline not counted; 266 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/vault/StacksVaultPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vault/StacksVaultPanel.svelte has 404 physical lines (split on \\n, trailing newline not counted; 375 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/vault/VaultBalanceSummary.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vault/VaultBalanceSummary.svelte has 276 physical lines (split on \\n, trailing newline not counted; 253 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/vault/VaultDepositBridge.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vault/VaultDepositBridge.svelte has 313 physical lines (split on \\n, trailing newline not counted; 292 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/vault/VaultRelayAdmin.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vault/VaultRelayAdmin.svelte has 225 physical lines (split on \\n, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/vault/VaultWithdrawBridge.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vault/VaultWithdrawBridge.svelte has 269 physical lines (split on \\n, trailing newline not counted; 251 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/vault/VaultWithdrawBridgeOut.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vault/VaultWithdrawBridgeOut.svelte has 264 physical lines (split on \\n, trailing newline not counted; 247 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/lib/components/vault/VaultWithdrawStacks.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vault/VaultWithdrawStacks.svelte has 303 physical lines (split on \\n, trailing newline not counted; 281 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/routes/market-mgt/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/market-mgt/+page.svelte has 949 physical lines (split on \\n, trailing newline not counted; 910 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/market/analysis/[marketId]/[marketType]/+page.svelte has 210 physical lines (split on \\n, trailing newline not counted; 193 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/routes/my-markets/[address]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/my-markets/[address]/+page.svelte has 550 physical lines (split on \\n, trailing newline not counted; 524 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/routes/reputation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/reputation/+page.svelte has 493 physical lines (split on \\n, trailing newline not counted; 475 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/routes/reputation/leader-board/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/reputation/leader-board/+page.svelte has 251 physical lines (split on \\n, trailing newline not counted; 233 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 308 physical lines (split on \\n, trailing newline not counted; 299 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::architecture/prop-count::src/lib/components/vault/DepositAction.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/vault/DepositAction.svelte has a single destructured $props() with 7 named props (> 6): maxBalance, canDeposit, busy, txHash, explorerUrl, errorMsg, onDeposit"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/each-index-key::src/lib/components/settings/ContractBalanceTable.svelte:61::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/ContractBalanceTable.svelte:61 keyed by its index binding; balances = $state filled once in onMount from the contracts prop (:28) and never reassigned, a read-only table; parts of one fetched record shown read-only, loaded once per mount (ledger convention)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/effect-as-derived::src/lib/components/template/ConnectMenuDropdown.svelte:101::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/template/ConnectMenuDropdown.svelte:101 the effect only does blockHeight = $chainStore.stacks.burn_block_height ?? 0; blockHeight is never written elsewhere (only its $state init :84) and is read at :439, so $derived fits (svelte ^5.55.2)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/effect-as-derived::src/lib/components/template/ConnectMenuDropdown.svelte:97::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/template/ConnectMenuDropdown.svelte:97 the effect only does showStacksAddress = !$bitcoinMode; nothing else writes showStacksAddress (reads at :167, :267, :358), so $derived fits"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/effect-as-derived::src/routes/docs/[section]/[page]/+page.svelte:18::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/docs/[section]/[page]/+page.svelte:18 '$effect.pre(() => { activeId = sectionIds[0] ?? null; })' only derives from data; the other write is the top-level reassignment in the scroll handler (activeId = current, :35), the writable-$derived override pattern (svelte ^5.55.2)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/lib/components/dao/disputes/DisputeGridItem.svelte:13::$state \"errorMessage\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/lib/components/dao/disputes/DisputeGridItem.svelte:13 errorMessage = $state(undefined) is only read (:64-65); never written, bound or passed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/lib/components/dao/proposals/MakeProposal.svelte:23::$state \"txId\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/lib/components/dao/proposals/MakeProposal.svelte:23 txId = $state(undefined) is only read (:68, :128); never written, bound or passed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/lib/components/dao/proposals/dao-voting/VotingPower.svelte:17::$state \"errorMessage\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/lib/components/dao/proposals/dao-voting/VotingPower.svelte:17 errorMessage = $state(undefined) is only read (:50-52); never written, bound or passed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/lib/components/dao/token-sale/TokenSaleV3.svelte:33::$state \"stacksLeading\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/lib/components/dao/token-sale/TokenSaleV3.svelte:33 stacksLeading = $state(true) is only read (:57, :59, :84); never written, bound or passed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/lib/components/dao/token-sale/TokenSaleV3.svelte:34::$state \"currentStage\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/lib/components/dao/token-sale/TokenSaleV3.svelte:34 currentStage = $state(…) is only read (:38, :128); never written, bound or passed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/lib/components/dao/token-sale/TokenSaleV3.svelte:35::$state \"walletConnected\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/lib/components/dao/token-sale/TokenSaleV3.svelte:35 walletConnected = $state(isLoggedIn()) is only read (:146); never written, bound or passed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/lib/components/template/ConnectMenuDropdown.svelte:87::$state \"bigAllowed\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/lib/components/template/ConnectMenuDropdown.svelte:87 bigAllowed = $state(false) is only read (:364); never written, bound or passed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/lib/components/vault/StacksVaultPanel.svelte:44::$state \"tokenSymbol\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/lib/components/vault/StacksVaultPanel.svelte:44 tokenSymbol = $state('USDC') is only read (:247); never written, bound or passed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/routes/dao/+page.svelte:25::$state \"error\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/routes/dao/+page.svelte:25 error = $state(null) is only read (:87, :92; the other matches are console.error calls); never written, bound or passed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::correctness/unmutated-state::src/routes/my-markets/[address]/+page.svelte:36::$state \"componentKey\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/routes/my-markets/[address]/+page.svelte:36 componentKey = $state(0) is only read ({#key componentKey} :457); never written, so the key block never re-keys and const would do"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/image-dimensions::src/routes/+layout.svelte:108::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: splash <img src=/splash.png> lacks width/height, no spread; class h-[120%] w-full inside the fixed inset-0 #splash-screen overlay (+layout.svelte:104-108) - box sized by CSS, and the overlay moves no content"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/image-dimensions::src/routes/+page.svelte:37::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: empty-state <img src=/splash.png> lacks width/height, no spread; class max-w-md only (+page.svelte:37-41) - the natural 1:1 size decides the height, the layout footer below shifts"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/image-loading-hint::src/routes/+layout.svelte:108::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the splash image is the whole screen while the app boots ({#if !ready || ...}, +layout.svelte:102-110, ready set in onMount) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/image-loading-hint::src/routes/+page.svelte:37::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; empty-state image shown {:else} (no markets) right under the 'No markets available' line as the page's only content (+page.svelte:32-42) - above the fold"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/responsive-image::src/routes/+layout.svelte:108::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; static/splash.png is a 1024x1024, 1.1 MB PNG shown full-screen (w-full) on every device - raster, one fixed-size asset"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/responsive-image::src/routes/+page.svelte:37::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /splash.png is a 1024x1024 1.1 MB PNG shown at max-w-md (448px) - raster, one fixed-size asset"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/sequential-awaits::src/routes/market/[marketId]/[marketType]/+page.server.ts:34::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read market/[marketId]/[marketType]/+page.server.ts:13,34 + lib/core/server/loaders/marketLoaders.ts:11-28: getPredictionMarketSSR (HTTP to the BigMarket API) uses only params/appConfig, nothing from loadMarketsAndLeaderboard (two HTTP fetches behind a 3-minute cache) - independent requests serialized"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/sequential-awaits::src/routes/market/[marketId]/[marketType]/+page.server.ts:46::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read market/[marketId]/[marketType]/+page.server.ts:34-50: fetchMarketStakesSSR uses only marketId/marketType, nothing from the market lookup (redirect gate on the exceptional path) or loadThread - independent HTTP requests serialized; could run alongside loadThread"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/state-raw::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte:101::\"categories\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): categories in market/analysis/[marketId]/[marketType]/+page.svelte: one whole reassignment (:106 mapToMinMaxStrings result) and reads (:120 truthiness, :142 categories[index]); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::performance/state-raw::src/routes/reputation/+page.svelte:35::\"mergedRepData\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference (d_refs.py): mergedRepData in reputation/+page.svelte: one whole reassignment (:171 meta.map) and a keyed read-only {#each} (:443-455 rendering item fields as text); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::security/raw-html::src/lib/components/dao/DaoHero.svelte:21::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/dao/DaoHero.svelte:21 + routes/settings/+page.svelte:108-111 (its only use): subtitle is the literal 'Up to date market fees and treasury balances are displayed here' - repo constant, reported per docs"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::security/raw-html::src/lib/components/my-markets/UserClaimHistory.svelte:50::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read lib/components/my-markets/UserClaimHistory.svelte:50 + packages/bm-utilities/src/lib/categories.ts:35-62: getCategoryLabel returns the market's category string unescaped for categorical markets with >2 options; categories are the creator-supplied (list 10 (string-ascii 64)) of create-market (contracts/.../bme023-0-market-predicting.clar:200), also LLM-generated from user suggestions (api-v1 agent/create-market-helper.ts:86) - third-party text rendered raw"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::security/raw-html::src/lib/components/my-markets/UserStakingHistory.svelte:303::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read lib/components/my-markets/UserStakingHistory.svelte:303 + packages/bm-utilities/src/lib/categories.ts:35-62: getCategoryLabel returns the market's category string unescaped for categorical markets with >2 options; categories are the creator-supplied (list 10 (string-ascii 64)) of create-market (contracts/.../bme023-0-market-predicting.clar:200), also LLM-generated from user suggestions (api-v1 agent/create-market-helper.ts:86) - third-party text rendered raw"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::security/raw-html::src/lib/components/settings/ContractBalanceTable.svelte:66::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/settings/ContractBalanceTable.svelte:19-26,66: formatCryptoValue wraps the decimal digits of a numeric fmtMicroToStx balance in a constant <span> - numeric data with constant markup, reported per docs"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::security/raw-html::src/lib/components/template/TxModal.svelte:62::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/template/TxModal.svelte:24-41,62 + packages/bm-common/src/lib/stores/watchTxResult.ts:51-67: txMessage is built from constant strings, a seconds counter and lookupError, which maps a matched (err uNNN) code to the constant errorCodes table or 'unknown error' - constant markup, reported per docs"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: src/routes/+page.svelte:21 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/auth/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/callback: src/routes/auth/callback/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market), but not a search target (OAuth callback handoff: auth/callback/+page.svelte:11-18 onMount restores the OAuth session then goto(\"/\")), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/dao/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dao: src/routes/dao/+page.svelte:78 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/dao/proposals/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dao/proposals/[slug]: src/routes/dao/proposals/[slug]/+page.svelte:68 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/dao/token-sale/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dao/token-sale: src/routes/dao/token-sale/+page.svelte:11 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/docs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /docs: src/routes/docs/+page.svelte:16 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/docs/[section]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /docs/[section]: src/routes/docs/[section]/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/docs/[section]/[page]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /docs/[section]/[page]: src/routes/docs/[section]/[page]/+page.svelte:60 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/docs/license/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /docs/license: src/routes/docs/license/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/docs/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /docs/privacy: src/routes/docs/privacy/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/docs/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /docs/terms: src/routes/docs/terms/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/market-mgt/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /market-mgt: src/routes/market-mgt/+page.svelte:221 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/market/[marketId]/[marketType]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /market/[marketId]/[marketType]: src/routes/market/[marketId]/[marketType]/+page.svelte:104 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /market/analysis/[marketId]/[marketType]: src/routes/market/analysis/[marketId]/[marketType]/+page.svelte:113 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/my-markets/[address]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /my-markets/[address]: src/routes/my-markets/[address]/+page.svelte:162 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/reputation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reputation: src/routes/reputation/+page.svelte:185 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/reputation/leader-board/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reputation/leader-board: src/routes/reputation/leader-board/+page.svelte:34 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings: src/routes/settings/+page.svelte:102 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/canonical-url::src/routes/vault/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /vault: src/routes/vault/+page.svelte:23 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); public dapp route, no auth gate or noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/description-length::src/routes/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=\"description\"> in src/routes/+page.svelte's top-level svelte:head, whitespace collapsed, 63 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/description-length::src/routes/market-mgt/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=\"description\"> in src/routes/market-mgt/+page.svelte's top-level svelte:head, whitespace collapsed, 41 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/description-length::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=\"description\"> in src/routes/market/analysis/[marketId]/[marketType]/+page.svelte's top-level svelte:head, whitespace collapsed, 22 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/description-length::src/routes/settings/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=\"description\"> in src/routes/settings/+page.svelte's top-level svelte:head, whitespace collapsed, 43 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/description-presence::src/routes/auth/callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: auth/callback/+page.svelte has no svelte:head and no layout/app.html description (literal claim holds); but it is the OAuth return page that restores the session in onMount and goto('/'), not a search target"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/description-presence::src/routes/docs/[section]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: docs/[section]/+page.svelte <svelte:head> has only <title>{data.section.title} | BigMarket Docs</title>; docs/+layout.svelte, root +layout.svelte (head: favicon only), app.html and the bm-ui components it renders emit no description; public docs page, missing as claimed"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/duplicate-description::src/routes/dao/token-sale/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: dao/token-sale, my-markets/[address] and reputation +page.svelte top-level svelte:heads carry the same literal description 'DAO Governance tokens to participate in BigMarket prediction markets on Bitcoin', duplicate as claimed; public dApp pages (set client-side: root layout renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/duplicate-description::src/routes/my-markets/[address]/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: dao/token-sale, my-markets/[address] and reputation +page.svelte top-level svelte:heads carry the same literal description 'DAO Governance tokens to participate in BigMarket prediction markets on Bitcoin', duplicate as claimed; public dApp pages (set client-side: root layout renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/duplicate-description::src/routes/reputation/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: dao/token-sale, my-markets/[address] and reputation +page.svelte top-level svelte:heads carry the same literal description 'DAO Governance tokens to participate in BigMarket prediction markets on Bitcoin', duplicate as claimed; public dApp pages (set client-side: root layout renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/heading-level-skip::src/routes/market-mgt/+page.svelte:396::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: market-mgt/+page.svelte: <h1>Create Your Own Prediction Market (:288) in the right sidebar, then the quick-templates card (title is a <span>, :313) and the AI generator card's <h3> (:396) with no heading between -> h1 to h3"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/heading-level-skip::src/routes/my-markets/[address]/+page.svelte:536::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: my-markets/[address]/+page.svelte: page <h1>My Markets (:174), then the {:else} (wallet not connected) arm of {#if ... isLoggedIn() && myMarketData} (:191/:533) renders <h3>Connect Your Wallet (:536) with nothing between -> h1 to h3"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/dao/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/dao/proposals/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/dao/token-sale/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/docs/[section]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/docs/[section]/[page]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/docs/license/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/docs/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/docs/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/market-mgt/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/market/[marketId]/[marketType]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/my-markets/[address]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/reputation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/reputation/leader-board/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/json-ld::src/routes/vault/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter in apps/frontend-c1 or packages/* (hits are Clarity contracts and SIP-018 signing types only)); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating); root +layout.svelte renders the page only after onMount, so the server HTML has no head tags from the page either"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: src/routes/+page.svelte:21 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/callback: src/routes/auth/callback/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/dao/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dao: src/routes/dao/+page.svelte:78 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/dao/proposals/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dao/proposals/[slug]: src/routes/dao/proposals/[slug]/+page.svelte:68 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/dao/token-sale/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dao/token-sale: src/routes/dao/token-sale/+page.svelte:11 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/docs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs: src/routes/docs/+page.svelte:16 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/docs/[section]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/[section]: src/routes/docs/[section]/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/docs/[section]/[page]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/[section]/[page]: src/routes/docs/[section]/[page]/+page.svelte:60 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/docs/license/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/license: src/routes/docs/license/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/docs/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/privacy: src/routes/docs/privacy/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/docs/terms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs/terms: src/routes/docs/terms/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/market-mgt/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /market-mgt: src/routes/market-mgt/+page.svelte:221 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/market/[marketId]/[marketType]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /market/[marketId]/[marketType]: src/routes/market/[marketId]/[marketType]/+page.svelte:104 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /market/analysis/[marketId]/[marketType]: src/routes/market/analysis/[marketId]/[marketType]/+page.svelte:113 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/my-markets/[address]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /my-markets/[address]: src/routes/my-markets/[address]/+page.svelte:162 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/reputation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reputation: src/routes/reputation/+page.svelte:185 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/reputation/leader-board/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reputation/leader-board: src/routes/reputation/leader-board/+page.svelte:34 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings: src/routes/settings/+page.svelte:102 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-description::src/routes/vault/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /vault: src/routes/vault/+page.svelte:23 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: src/routes/+page.svelte:21 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/callback: src/routes/auth/callback/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/dao/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dao: src/routes/dao/+page.svelte:78 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/dao/proposals/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dao/proposals/[slug]: src/routes/dao/proposals/[slug]/+page.svelte:68 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/dao/token-sale/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dao/token-sale: src/routes/dao/token-sale/+page.svelte:11 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/docs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs: src/routes/docs/+page.svelte:16 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/docs/[section]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/[section]: src/routes/docs/[section]/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/docs/[section]/[page]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/[section]/[page]: src/routes/docs/[section]/[page]/+page.svelte:60 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/docs/license/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/license: src/routes/docs/license/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/docs/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/privacy: src/routes/docs/privacy/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/docs/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs/terms: src/routes/docs/terms/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/market-mgt/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /market-mgt: src/routes/market-mgt/+page.svelte:221 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/market/[marketId]/[marketType]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /market/[marketId]/[marketType]: src/routes/market/[marketId]/[marketType]/+page.svelte:104 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /market/analysis/[marketId]/[marketType]: src/routes/market/analysis/[marketId]/[marketType]/+page.svelte:113 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/my-markets/[address]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /my-markets/[address]: src/routes/my-markets/[address]/+page.svelte:162 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/reputation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reputation: src/routes/reputation/+page.svelte:185 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/reputation/leader-board/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reputation/leader-board: src/routes/reputation/leader-board/+page.svelte:34 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings: src/routes/settings/+page.svelte:102 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-image::src/routes/vault/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /vault: src/routes/vault/+page.svelte:23 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: src/routes/+page.svelte:21 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/callback: src/routes/auth/callback/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/dao/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dao: src/routes/dao/+page.svelte:78 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/dao/proposals/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dao/proposals/[slug]: src/routes/dao/proposals/[slug]/+page.svelte:68 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/dao/token-sale/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dao/token-sale: src/routes/dao/token-sale/+page.svelte:11 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/docs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs: src/routes/docs/+page.svelte:16 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/docs/[section]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/[section]: src/routes/docs/[section]/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/docs/[section]/[page]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/[section]/[page]: src/routes/docs/[section]/[page]/+page.svelte:60 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/docs/license/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/license: src/routes/docs/license/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/docs/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/privacy: src/routes/docs/privacy/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/docs/terms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs/terms: src/routes/docs/terms/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/market-mgt/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /market-mgt: src/routes/market-mgt/+page.svelte:221 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/market/[marketId]/[marketType]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /market/[marketId]/[marketType]: src/routes/market/[marketId]/[marketType]/+page.svelte:104 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /market/analysis/[marketId]/[marketType]: src/routes/market/analysis/[marketId]/[marketType]/+page.svelte:113 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/my-markets/[address]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /my-markets/[address]: src/routes/my-markets/[address]/+page.svelte:162 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/reputation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reputation: src/routes/reputation/+page.svelte:185 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/reputation/leader-board/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reputation/leader-board: src/routes/reputation/leader-board/+page.svelte:34 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings: src/routes/settings/+page.svelte:102 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-title::src/routes/vault/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /vault: src/routes/vault/+page.svelte:23 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: src/routes/+page.svelte:21 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/callback: src/routes/auth/callback/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/dao/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dao: src/routes/dao/+page.svelte:78 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/dao/proposals/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dao/proposals/[slug]: src/routes/dao/proposals/[slug]/+page.svelte:68 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/dao/token-sale/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dao/token-sale: src/routes/dao/token-sale/+page.svelte:11 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/docs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs: src/routes/docs/+page.svelte:16 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/docs/[section]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/[section]: src/routes/docs/[section]/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/docs/[section]/[page]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/[section]/[page]: src/routes/docs/[section]/[page]/+page.svelte:60 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/docs/license/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/license: src/routes/docs/license/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/docs/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/privacy: src/routes/docs/privacy/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/docs/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs/terms: src/routes/docs/terms/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/market-mgt/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /market-mgt: src/routes/market-mgt/+page.svelte:221 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/market/[marketId]/[marketType]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /market/[marketId]/[marketType]: src/routes/market/[marketId]/[marketType]/+page.svelte:104 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /market/analysis/[marketId]/[marketType]: src/routes/market/analysis/[marketId]/[marketType]/+page.svelte:113 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/my-markets/[address]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /my-markets/[address]: src/routes/my-markets/[address]/+page.svelte:162 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/reputation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reputation: src/routes/reputation/+page.svelte:185 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/reputation/leader-board/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reputation/leader-board: src/routes/reputation/leader-board/+page.svelte:34 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings: src/routes/settings/+page.svelte:102 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/og-url::src/routes/vault/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /vault: src/routes/vault/+page.svelte:23 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/single-h1::src/lib/components/dao/proposals/dao-voting/VotingResults.svelte:45::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two <h1>s render for a proposal in or after voting: DaoHeading's unconditional <h1>DAO Proposals (dao/proposals/[slug]/+page.svelte:78, DaoHeading.svelte:16) and VotingResults' <h1>Proposal: … (VotingResults.svelte:45) in the {:else if isPostVoting(proposal) || isVoting(proposal)} arm (:113-114)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/single-h1::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte:125::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: market/analysis/.../+page.svelte renders <h1>Market Information, <h1>Stakes, <h1>Liquidity inside {#if categories} (:120-149) and an unconditional <h1>Claims (:186) — four <h1>s"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/single-h1::src/routes/settings/+page.svelte:180::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: settings/+page.svelte renders an unconditional <h1> (:113) plus the <h1>s at :180/:218 in the {:else} arm of {#if !data} (and :235 for coordinators) — several <h1>s render"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script in the app (literal claim holds); static/robots.txt allows all crawling, and bigmarket.ai is a public prediction-market dApp with public markets, DAO and docs pages to list"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/+page.svelte's top-level svelte:head, whitespace collapsed, 26 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/dao/token-sale/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/dao/token-sale/+page.svelte's top-level svelte:head, whitespace collapsed, 26 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/docs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/docs/+page.svelte's top-level svelte:head, whitespace collapsed, 25 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/market-mgt/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/market-mgt/+page.svelte's top-level svelte:head, whitespace collapsed, 25 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/market/analysis/[marketId]/[marketType]/+page.svelte's top-level svelte:head, whitespace collapsed, 14 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/settings/+page.svelte's top-level svelte:head, whitespace collapsed, 18 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/vault/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/vault/+page.svelte's top-level svelte:head, whitespace collapsed, 17 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-presence::src/routes/auth/callback/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: auth/callback/+page.svelte has no svelte:head (onMount restoreOAuthSession then goto, 'Completing sign-in...'), root +layout.svelte head is only a favicon link, its Header/Footer/banners and bm-ui/bm-common/bm-design workspace packages have no <title>/svelte:head (grep), app.html has no <title>, no document.title in the repo, root +layout.server.ts load and hooks.server.ts never redirect; the <title>s in lib/components (dao/legal) and bm-market are not on this route; OAuth callback page renders untitled (callback precedent: tp)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: src/routes/+page.svelte:21 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/auth/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/callback: src/routes/auth/callback/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market); route is a client redirect/OAuth handoff stub, og/twitter labelled tp per ledger convention for stubs"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/dao/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dao: src/routes/dao/+page.svelte:78 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/dao/proposals/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dao/proposals/[slug]: src/routes/dao/proposals/[slug]/+page.svelte:68 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/dao/token-sale/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dao/token-sale: src/routes/dao/token-sale/+page.svelte:11 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/docs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs: src/routes/docs/+page.svelte:16 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/docs/[section]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/[section]: src/routes/docs/[section]/+page.svelte:19 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/docs/[section]/[page]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/[section]/[page]: src/routes/docs/[section]/[page]/+page.svelte:60 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/docs/license/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/license: src/routes/docs/license/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/docs/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/privacy: src/routes/docs/privacy/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/docs/terms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs/terms: src/routes/docs/terms/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/market-mgt/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /market-mgt: src/routes/market-mgt/+page.svelte:221 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/market/[marketId]/[marketType]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /market/[marketId]/[marketType]: src/routes/market/[marketId]/[marketType]/+page.svelte:104 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/market/analysis/[marketId]/[marketType]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /market/analysis/[marketId]/[marketType]: src/routes/market/analysis/[marketId]/[marketType]/+page.svelte:113 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/my-markets/[address]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /my-markets/[address]: src/routes/my-markets/[address]/+page.svelte:162 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/reputation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reputation: src/routes/reputation/+page.svelte:185 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/reputation/leader-board/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reputation/leader-board: src/routes/reputation/leader-board/+page.svelte:34 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings: src/routes/settings/+page.svelte:102 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/twitter-card::src/routes/vault/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /vault: src/routes/vault/+page.svelte:23 head is title, meta[description]; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in BigMarketDao/bigmarket-mr (incl. the workspace @bigmarket/* packages under packages/); app.html head is charset/icon/font/viewport/scripts; root +layout.svelte:101 head is the favicon only; npm Svelte deps are lucide-svelte icons only; hooks.server.ts only resolves; route renders (loads error only on a missing section/page/market)"
+  }
+]

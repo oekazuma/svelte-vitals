@@ -1,0 +1,487 @@
+[
+  {
+    "key": "erlend-sh/atmo-board::a11y/no-autofocus::src/lib/components/Post.svelte:80::autofocus on <textarea> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; Post.svelte:80 textarea is in {:else if editing}, editing = $state(false) (:29) set by the Edit button (:159); focus follows a user action, not page load"
+  },
+  {
+    "key": "erlend-sh/atmo-board::a11y/top-level-landmark::src/routes/t/[key=key]/[...rest]/+page.svelte:109::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read t/[key=key]/[...rest]/+page.svelte:109: <aside class=rail aria-label=Timeline> after the posts <section> closes, rendered in root +layout.svelte:107 <main>{@render children()}; complementary nested in main (load redirects only for channel/stale slug)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::architecture/component-size::src/lib/components/Post.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Post.svelte has 222 physical lines (split on \\n, trailing newline not counted; 214 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "erlend-sh/atmo-board::architecture/prop-count::src/lib/components/Composer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Composer.svelte has a single destructured $props() with 11 named props (> 6): action, placeholder, title, titleHint, submit, hidden, channels, above, onposted, onactive, ..."
+  },
+  {
+    "key": "erlend-sh/atmo-board::architecture/prop-count::src/lib/components/Post.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Post.svelte has a single destructured $props() with 9 named props (> 6): post, threadHref, compact, viewer, canReact, perms, title, deleteTo, onreply"
+  },
+  {
+    "key": "erlend-sh/atmo-board::architecture/prop-count::src/lib/components/TopBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/TopBar.svelte has a single destructured $props() with 7 named props (> 6): icon, emoji, title, href, description, pills, actions"
+  },
+  {
+    "key": "erlend-sh/atmo-board::correctness/each-key::src/lib/components/Composer.svelte:39::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Composer.svelte:39 '{#each Object.entries(hidden) as [k, v]}<input type=\"hidden\" …>' has no key; hidden prop defaults to {} and its only caller passes an object literal ({ parent: ch.key }, routes/events/+page.svelte:56); stateless hidden inputs; static list"
+  },
+  {
+    "key": "erlend-sh/atmo-board::correctness/each-key::src/routes/t/[key=key]/[...rest]/+page.svelte:63::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/t/[key=key]/[...rest]/+page.svelte:63 '{#each t.tags as tag}' has no key; the tag strings of one thread rendered as links; positional list (parts of one record)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::correctness/each-key::src/routes/u/[actor]/+page.svelte:18::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/u/[actor]/+page.svelte:18 '{#each m.roles as r}<span>{r}</span>' has no key; the role strings of one member shown as plain spans; positional list (parts of one record)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::correctness/effect-as-derived::src/lib/components/TopBar.svelte:18::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/TopBar.svelte:18 the effect only does query = (page.url.pathname === '/search' ? searchParams q : ''); the other write is bind:value={query} on the search input (:53), the writable-$derived override pattern (svelte ^5.56.10)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::security/raw-html::src/lib/components/Icon.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Icon.svelte:1-28: icon[1] comes from the module constant ICONS table of literal SVG bodies, name typed IconName - repo constant markup, reported per docs"
+  },
+  {
+    "key": "erlend-sh/atmo-board::security/raw-html::src/lib/components/Post.svelte:88::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Post.svelte:22,88 + lib/markdown.ts:3-27: renderMarkdown is marked with a custom renderer that escapes raw HTML tokens, allowlists http(s)/mailto/relative links and https images, escaping attributes - escaped member markdown, reported per docs"
+  },
+  {
+    "key": "erlend-sh/atmo-board::security/raw-html::src/lib/components/Post.svelte:98::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Post.svelte:98 + lib/markdown.ts:3-27: renderMarkdown is marked with a custom renderer that escapes raw HTML tokens, allowlists http(s)/mailto/relative links and https images, escaping attributes - escaped member markdown, reported per docs"
+  },
+  {
+    "key": "erlend-sh/atmo-board::security/raw-html::src/routes/search/+page.svelte:65::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/search/+page.svelte:12-22,65: snippet() HTML-escapes the post text and the query words, then only wraps matches in <mark> - escaped text with constant markup, reported per docs"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders; public forum route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/[dir=dir]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[dir=dir]: src/routes/[dir=dir]/+page.svelte:18 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders; public forum route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin: src/routes/admin/+page.svelte:12 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders, but not a search target (admin-gated: admin/+page.server.ts:10 errors 403 unless viewer.permissions.admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/c/[key=key]/[...rest]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /c/[key=key]/[...rest]: src/routes/c/[key=key]/[...rest]/+page.svelte:28 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders; public forum route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/events/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /events: src/routes/events/+page.svelte:34 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders; public forum route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login: src/routes/login/+page.svelte:8 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders; public forum route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /review: src/routes/review/+page.svelte:13 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders, but not a search target (staff-gated: review/+page.server.ts:11 getReviewQueue fails for non-staff (appview/lua/getReviewQueue.lua:5 \"staff only\"), pageError turns that into 403), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /search: src/routes/search/+page.svelte:35 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders; public forum route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/t/[key=key]/[...rest]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /t/[key=key]/[...rest]: src/routes/t/[key=key]/[...rest]/+page.svelte:44 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders; public forum route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/canonical-url::src/routes/u/[actor]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /u/[actor]: src/routes/u/[actor]/+page.svelte:9 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders; public forum route, no auth gate, noindex or robots.txt"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte head has only <title>{data.forum.name}</title>): none on /; atmo-board forum pages are server-rendered and readable without a session (hooks.server.ts only reads the session), public as claimed"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/[dir=dir]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte head has only <title>{data.forum.name}</title>): none on /[dir=dir]; atmo-board forum pages are server-rendered and readable without a session (hooks.server.ts only reads the session), public as claimed"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds); but /admin is admin/+page.server.ts errors 403 unless viewer.permissions.admin, not a search target"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/c/[key=key]/[...rest]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte head has only <title>{data.forum.name}</title>): none on /c/[key=key]/[...rest]; atmo-board forum pages are server-rendered and readable without a session (hooks.server.ts only reads the session), public as claimed"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/events/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte head has only <title>{data.forum.name}</title>): none on /events; atmo-board forum pages are server-rendered and readable without a session (hooks.server.ts only reads the session), public as claimed"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte head has only <title>{data.forum.name}</title>): none on /login; atmo-board forum pages are server-rendered and readable without a session (hooks.server.ts only reads the session), public as claimed"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/review/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html) (literal claim holds); but /review is the staff flag queue (Discourse's /review), answered from getReviewQueue for moderators, not a search target"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte head has only <title>{data.forum.name}</title>): none on /search; atmo-board forum pages are server-rendered and readable without a session (hooks.server.ts only reads the session), public as claimed"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/t/[key=key]/[...rest]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte head has only <title>{data.forum.name}</title>): none on /t/[key=key]/[...rest]; atmo-board forum pages are server-rendered and readable without a session (hooks.server.ts only reads the session), public as claimed"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/description-presence::src/routes/u/[actor]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte head has only <title>{data.forum.name}</title>): none on /u/[actor]; atmo-board forum pages are server-rendered and readable without a session (hooks.server.ts only reads the session), public as claimed"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/[dir=dir]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/c/[key=key]/[...rest]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/t/[key=key]/[...rest]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/json-ld::src/routes/u/[actor]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html, hooks and workspace packages for ld+json|schema.org|jsonld|json-ld|structured data: no JSON-LD emitter); route renders (no load/hook that always redirects or throws), so no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/[dir=dir]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[dir=dir]: src/routes/[dir=dir]/+page.svelte:18 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin: src/routes/admin/+page.svelte:12 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/c/[key=key]/[...rest]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /c/[key=key]/[...rest]: src/routes/c/[key=key]/[...rest]/+page.svelte:28 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/events/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events: src/routes/events/+page.svelte:34 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login: src/routes/login/+page.svelte:8 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /review: src/routes/review/+page.svelte:13 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /search: src/routes/search/+page.svelte:35 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/t/[key=key]/[...rest]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /t/[key=key]/[...rest]: src/routes/t/[key=key]/[...rest]/+page.svelte:44 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-description::src/routes/u/[actor]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /u/[actor]: src/routes/u/[actor]/+page.svelte:9 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/[dir=dir]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[dir=dir]: src/routes/[dir=dir]/+page.svelte:18 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin: src/routes/admin/+page.svelte:12 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/c/[key=key]/[...rest]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /c/[key=key]/[...rest]: src/routes/c/[key=key]/[...rest]/+page.svelte:28 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/events/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events: src/routes/events/+page.svelte:34 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login: src/routes/login/+page.svelte:8 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/review/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /review: src/routes/review/+page.svelte:13 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /search: src/routes/search/+page.svelte:35 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/t/[key=key]/[...rest]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /t/[key=key]/[...rest]: src/routes/t/[key=key]/[...rest]/+page.svelte:44 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-image::src/routes/u/[actor]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /u/[actor]: src/routes/u/[actor]/+page.svelte:9 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/[dir=dir]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[dir=dir]: src/routes/[dir=dir]/+page.svelte:18 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin: src/routes/admin/+page.svelte:12 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/c/[key=key]/[...rest]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /c/[key=key]/[...rest]: src/routes/c/[key=key]/[...rest]/+page.svelte:28 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/events/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events: src/routes/events/+page.svelte:34 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login: src/routes/login/+page.svelte:8 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/review/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /review: src/routes/review/+page.svelte:13 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /search: src/routes/search/+page.svelte:35 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/t/[key=key]/[...rest]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /t/[key=key]/[...rest]: src/routes/t/[key=key]/[...rest]/+page.svelte:44 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-title::src/routes/u/[actor]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /u/[actor]: src/routes/u/[actor]/+page.svelte:9 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/[dir=dir]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[dir=dir]: src/routes/[dir=dir]/+page.svelte:18 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin: src/routes/admin/+page.svelte:12 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/c/[key=key]/[...rest]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /c/[key=key]/[...rest]: src/routes/c/[key=key]/[...rest]/+page.svelte:28 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/events/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events: src/routes/events/+page.svelte:34 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login: src/routes/login/+page.svelte:8 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/review/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /review: src/routes/review/+page.svelte:13 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /search: src/routes/search/+page.svelte:35 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/t/[key=key]/[...rest]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /t/[key=key]/[...rest]: src/routes/t/[key=key]/[...rest]/+page.svelte:44 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/og-url::src/routes/u/[actor]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /u/[actor]: src/routes/u/[actor]/+page.svelte:9 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook or generator script in the app (literal claim holds) (no static/ dir); atmo-board forums are public, server-rendered and readable without a session, with channel/thread pages to list"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/single-h1::src/lib/components/TopBar.svelte:34::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two <h1>s render: TopBar's unconditional <h1>{title} (TopBar.svelte:34), used at the top of /login, /u/[actor] and /t/... (login/+page.svelte:10, u/[actor]/+page.svelte:11, t/.../+page.svelte:47-50), plus each page's own <h1> (login :12, u/[actor] :16, t/... :60)"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script in the app (literal claim holds) (no static/ dir); atmo-board forums are public, server-rendered and readable without a session, with channel/thread pages to list"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: src/routes/+page.svelte has no <svelte:head>; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/[dir=dir]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[dir=dir]: src/routes/[dir=dir]/+page.svelte:18 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin: src/routes/admin/+page.svelte:12 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/c/[key=key]/[...rest]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /c/[key=key]/[...rest]: src/routes/c/[key=key]/[...rest]/+page.svelte:28 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/events/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events: src/routes/events/+page.svelte:34 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login: src/routes/login/+page.svelte:8 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/review/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /review: src/routes/review/+page.svelte:13 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /search: src/routes/search/+page.svelte:35 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/t/[key=key]/[...rest]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /t/[key=key]/[...rest]: src/routes/t/[key=key]/[...rest]/+page.svelte:44 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  },
+  {
+    "key": "erlend-sh/atmo-board::seo/twitter-card::src/routes/u/[actor]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /u/[actor]: src/routes/u/[actor]/+page.svelte:9 head is title; repo-wide grep (all file types, excl. node_modules/.git/lockfiles) finds no og:*, twitter:* or rel=canonical emitter anywhere in erlend-sh/atmo-board; app.html head is charset/viewport/generator; root +layout.svelte:40 head is <title> only; npm deps ship no .svelte (@happyview/oauth-client 1.4.2 checked on jsDelivr, a1b_npmscan.py); hooks.server.ts only reads the session; route renders"
+  }
+]
