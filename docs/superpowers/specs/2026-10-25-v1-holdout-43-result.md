@@ -100,8 +100,8 @@ stopped on its workspace package `@bigmarket/sdk`, whose `dist` is not built, an
     `duplicate-landmark`, though the ledger labels class-hidden duplicates `tp` for `id-duplication`.
   - A desktop shell's missing canonical is `design` for Electron and `tp` for Tauri.
   - A redirect stub's missing canonical is `design` while its missing `og:*` tags are `tp`.
-  - `performance/state-raw` still accepts a `{@const}` alias read only by a function call (AidLog), which
-    the rule's docs say rules a candidate out; the claim holds, so it is `tp`.
+  - `performance/state-raw` still accepts a candidate with a `{@const}` alias whose only use is a
+    function argument (AidLog), though the rule's docs say any aliasing reference rules a candidate out; the claim holds, so it is `tp`.
 
 ## Next
 
