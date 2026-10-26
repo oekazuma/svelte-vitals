@@ -424,6 +424,17 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(await h1s('embedded', '')).not.toEqual(['Heading hierarchy']);
   });
 
+  it('decides a component arm on a double negation of a prop test', async () => {
+    const h1s = async (derived: string, attrs: string) => {
+      const thread = `<script>let { title, heading } = $props(); const embedded = $derived(${derived});</script>{#if embedded}<h2>Discussion</h2>{:else}<h1>Thread</h1>{/if}`;
+      const page = `<script>import Thread from '$lib/Thread.svelte';</script><h1>Session</h1><Thread ${attrs} />`;
+      return singleH1({ 'src/lib/Thread.svelte': thread, 'src/routes/+page.svelte': page });
+    };
+    expect(await h1s('!!(title || heading)', 'title="Notes"')).toEqual(['Heading hierarchy']);
+    expect(await h1s('!!title', 'title="Notes"')).toEqual(['Heading hierarchy']);
+    expect(await h1s('!!title', '')).not.toEqual(['Heading hierarchy']);
+  });
+
   it('counts a component in one {#if} arm against the <h1> of the other arm', async () => {
     const page = `<script>import Header from '$lib/Header.svelte';</script>{#if a}<h1>Own</h1>{:else}<Header />{/if}`;
     expect(await singleH1({ 'src/routes/+page.svelte': page, 'src/lib/Header.svelte': header })).toEqual([
