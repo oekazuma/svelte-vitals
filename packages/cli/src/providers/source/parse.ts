@@ -679,6 +679,8 @@ function propGate(
   depth = 0
 ): PropGate | undefined {
   if (depth > 4) return undefined;
+  if (test.type === 'UnaryExpression' && test.operator === '!' && test.argument.type === 'UnaryExpression')
+    if (test.argument.operator === '!') return propGate(test.argument.argument, props, reassigned, depth);
   const propOf = (n: AST.IfBlock['test'] | { type: 'Super' }): string | undefined => {
     if (n.type === 'Identifier') return reassigned.has(n.name) ? undefined : props.get(n.name);
     // `props.title` on `let props = $props()`.
