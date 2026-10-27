@@ -639,7 +639,7 @@ Measured on 598 apps, each pinned to a commit:
 - [BigMarketDao/bigmarket-mr/apps/frontend-c1](https://github.com/BigMarketDao/bigmarket-mr/tree/2665069b40a446d8c53346263bebc1ef60b387a4/apps/frontend-c1) (`2665069`)
 - [FlorianGross/AidLog/apps/web](https://github.com/FlorianGross/AidLog/tree/defb6fb3a1e080bb2f2a643f9dea960f99f62b69/apps/web) (`defb6fb`)
 
-231307 of 231332 corpus findings have a verdict.
+231305 of 231330 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share      |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ----------------- |
@@ -728,7 +728,7 @@ Measured on 598 apps, each pinned to a commit:
 | [`seo/html-lang`](../../docs/src/content/docs/rules/seo/html-lang.md)                                                 | 5               | 5    | 4 / 0 / 1 / 0                         | 100% (4/4)         | 20% (1/5)         |
 | [`seo/image-alt`](../../docs/src/content/docs/rules/seo/image-alt.md)                                                 | 26              | 6    | 26 / 0 / 0 / 0                        | 100% (26/26)       | 0% (0/26)         |
 | [`seo/indexability`](../../docs/src/content/docs/rules/seo/indexability.md)                                           | 1570            | 131  | 1566 / 4 / 0 / 0                      | 100% (1566/1570)   | 0% (0/1570)       |
-| [`seo/json-ld`](../../docs/src/content/docs/rules/seo/json-ld.md)                                                     | 17462           | 542  | 17383 / 60 / 19 / 0                   | 100% (17383/17443) | 0% (19/17462)     |
+| [`seo/json-ld`](../../docs/src/content/docs/rules/seo/json-ld.md)                                                     | 17460           | 542  | 17383 / 58 / 19 / 0                   | 100% (17383/17441) | 0% (19/17460)     |
 | [`seo/json-ld-date-format`](../../docs/src/content/docs/rules/seo/json-ld-date-format.md)                             | 0               | 0    | —                                     | —                  | —                 |
 | [`seo/json-ld-deprecated-type`](../../docs/src/content/docs/rules/seo/json-ld-deprecated-type.md)                     | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)          |
 | [`seo/json-ld-placeholder`](../../docs/src/content/docs/rules/seo/json-ld-placeholder.md)                             | 0               | 0    | —                                     | —                  | —                 |
