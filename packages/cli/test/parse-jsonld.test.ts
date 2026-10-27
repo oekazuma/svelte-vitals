@@ -55,6 +55,18 @@ describe('parse: {@html} JSON-LD in <svelte:head>', () => {
     ]);
   });
 
+  it('reads a binding built by a call given a schema.org graph as JSON-LD', () => {
+    const tags = (init: string) =>
+      parseHeadTags(`<script>const faq = ${init};</script>` + head('{@html faq}'), 'x.svelte').filter(
+        (t) => t.kind === 'jsonld'
+      );
+    expect(tags(`scriptTag({ '@context': 'https://schema.org', '@type': 'FAQPage' })`)).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+    expect(tags(`JSON.stringify({ '@context': 'https://schema.org' })`)).toEqual([]);
+    expect(tags(`scriptTag({ type: 'FAQPage' })`)).toEqual([]);
+  });
+
   it('leaves an unrelated {@html} injection unmatched', () => {
     expect(jsonldTags("{@html '<style>body{margin:0}</style>'}")).toEqual([]);
     expect(jsonldTags('{@html themeCss}')).toEqual([]);
