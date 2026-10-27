@@ -137,6 +137,12 @@ function jsonLdBindings(ast: AST.Root): Set<string> {
         const callee = e.callee as (Node & { name?: string; property?: { name?: string } }) | undefined;
         const name = callee?.type === 'Identifier' ? callee.name : callee?.property?.name;
         if (name === '$derived') return producedByJsonLdCall((e.arguments as unknown[])[0]);
+        // `scriptTag({ '@context': 'https://schema.org', … })`: a helper handed a schema.org graph.
+        const graph = (e.arguments as Node[])[0];
+        if (name !== 'stringify' && graph?.type === 'ObjectExpression') {
+          const keys = (graph.properties as (Node & { key?: Node & { value?: unknown } })[]).map((p) => p.key?.value);
+          if (keys.includes('@context')) return true;
+        }
         return !!name && JSONLD_WORDS.test(name);
       }
       case 'AwaitExpression':
