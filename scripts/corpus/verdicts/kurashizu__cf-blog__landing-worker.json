@@ -1,0 +1,1042 @@
+[
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/no-autofocus::src/lib/components/chrome/CommandConsole.svelte:248::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; CommandConsole.svelte:248 input in CommandConsole, mounted only by routes/+layout.svelte:381-399 under {#if $consoleOverlayOpen}, a writable(false) (lib/stores/chrome.ts:8) toggled by a hotkey/onboarding action; focus moves on a user action, not page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/no-autofocus::src/lib/components/synth/PresetMenu.svelte:616::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; PresetMenu.svelte:616 input under {#if savingAs} (:611), savingAs = $state(false) (:169) set by the save-as action (:174); focus moves on a user action, not page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/no-autofocus::src/lib/components/synth/patch/PatchCanvas.svelte:1441::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; PatchCanvas.svelte:1441 input under {#if renamingGroup === g.id} (:1439), renamingGroup = $state(null) (:659) set on double-click (:1437); focus moves on a user action, not page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/no-autofocus::src/lib/components/synth/patch/PatchCanvas.svelte:1685::autofocus on <textarea> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; PatchCanvas.svelte:1685 textarea under {#if editingNote === n.id} (:1683), editingNote = $state(null) (:607) set on double-click (:1681); focus moves on a user action, not page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/no-autofocus::src/lib/components/synth/patch/PatchCanvas.svelte:1908::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; PatchCanvas.svelte:1908 input under {#if dropSearch} (:1892), dropSearch = $state(null) (:864) set when the user drops a cable on empty canvas (:856); focus moves on a user action, not page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/pattern-title::src/lib/components/synth/piano-roll/PianoRoll.svelte:803::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "design",
+    "basis": "read synth/piano-roll/PianoRoll.svelte:803-812: page-number <input type=text inputmode=numeric pattern=\"[0-9]*\"> without title as reported, but it is in no <form> and nothing calls checkValidity/reportValidity (handled by oninput/onblur/onkeydown), so no failed-match message is ever shown (no-form pattern precedent)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/chrome/Sidebar.svelte:287::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/chrome/Sidebar.svelte:287: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/chrome/Sidebar.svelte:303::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/chrome/Sidebar.svelte:303: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/chrome/Sidebar.svelte:319::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/chrome/Sidebar.svelte:319: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/chrome/Sidebar.svelte:326::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/chrome/Sidebar.svelte:326: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/projects/ProjectsView.svelte:57::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/projects/ProjectsView.svelte:57: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/projects/ProjectsView.svelte:73::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/projects/ProjectsView.svelte:73: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/synth/settings/AudioHwTab.svelte:85::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/synth/settings/AudioHwTab.svelte:85: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/synth/settings/AudioHwTab.svelte:86::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/synth/settings/AudioHwTab.svelte:86: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/synth/settings/VoiceTab.svelte:150::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/synth/settings/VoiceTab.svelte:150: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/synth/settings/VoiceTab.svelte:151::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/synth/settings/VoiceTab.svelte:151: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/utilities/ScreenTest.svelte:343::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/utilities/ScreenTest.svelte:343: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/utilities/ScreenTest.svelte:351::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/utilities/ScreenTest.svelte:351: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/utilities/UtilitiesView.svelte:167::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/utilities/UtilitiesView.svelte:167: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::a11y/permitted-contents::src/lib/components/utilities/UtilitiesView.svelte:173::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/utilities/UtilitiesView.svelte:173: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chatbot/ChatbotView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chatbot/ChatbotView.svelte has 1535 physical lines (newline count, trailing newline not counted; 1454 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chatbot/RichReply.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chatbot/RichReply.svelte has 416 physical lines (newline count, trailing newline not counted; 400 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/AsciiArt.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/AsciiArt.svelte has 260 physical lines (newline count, trailing newline not counted; 243 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/BootSequence.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/BootSequence.svelte has 330 physical lines (newline count, trailing newline not counted; 308 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/CommandConsole.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/CommandConsole.svelte has 268 physical lines (newline count, trailing newline not counted; 252 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/CreditsDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/CreditsDialog.svelte has 306 physical lines (newline count, trailing newline not counted; 295 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/GlobalSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/GlobalSettings.svelte has 500 physical lines (newline count, trailing newline not counted; 471 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/Onboarding.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/Onboarding.svelte has 459 physical lines (newline count, trailing newline not counted; 426 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/Sidebar.svelte has 345 physical lines (newline count, trailing newline not counted; 332 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/TabBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/TabBar.svelte has 346 physical lines (newline count, trailing newline not counted; 328 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/TelemetryFooter.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/TelemetryFooter.svelte has 222 physical lines (newline count, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/chrome/ThemeBackgroundVideo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chrome/ThemeBackgroundVideo.svelte has 286 physical lines (newline count, trailing newline not counted; 267 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/guestbook/FootprintWall.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/guestbook/FootprintWall.svelte has 352 physical lines (newline count, trailing newline not counted; 328 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/guestbook/GuestbookForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/guestbook/GuestbookForm.svelte has 771 physical lines (newline count, trailing newline not counted; 726 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/hardware/RotaryKnob.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/hardware/RotaryKnob.svelte has 240 physical lines (newline count, trailing newline not counted; 227 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/krsz-vm/KrszVmView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/krsz-vm/KrszVmView.svelte has 1616 physical lines (newline count, trailing newline not counted; 1523 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/krsz-vm/VirtualKeyboard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/krsz-vm/VirtualKeyboard.svelte has 271 physical lines (newline count, trailing newline not counted; 249 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/leaderboard/LeaderboardView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/leaderboard/LeaderboardView.svelte has 619 physical lines (newline count, trailing newline not counted; 583 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/lm-space/LmSpaceView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/lm-space/LmSpaceView.svelte has 1330 physical lines (newline count, trailing newline not counted; 1309 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/PatchManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/PatchManager.svelte has 391 physical lines (newline count, trailing newline not counted; 359 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/PresetMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/PresetMenu.svelte has 715 physical lines (newline count, trailing newline not counted; 675 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/TransportBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/TransportBar.svelte has 492 physical lines (newline count, trailing newline not counted; 463 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/WaveDrawDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/WaveDrawDialog.svelte has 267 physical lines (newline count, trailing newline not counted; 250 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/WaveMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/WaveMenu.svelte has 376 physical lines (newline count, trailing newline not counted; 361 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/keyboard/PianoKeyboard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/keyboard/PianoKeyboard.svelte has 596 physical lines (newline count, trailing newline not counted; 557 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/modules/Module1Oscillators.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/modules/Module1Oscillators.svelte has 300 physical lines (newline count, trailing newline not counted; 290 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/modules/Module4Envelopes.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/modules/Module4Envelopes.svelte has 268 physical lines (newline count, trailing newline not counted; 256 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/modules/Module6FxEq.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/modules/Module6FxEq.svelte has 413 physical lines (newline count, trailing newline not counted; 403 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/modules/Visualizers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/modules/Visualizers.svelte has 407 physical lines (newline count, trailing newline not counted; 376 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/patch/CurveDrawDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/patch/CurveDrawDialog.svelte has 234 physical lines (newline count, trailing newline not counted; 220 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/patch/ModuleCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/patch/ModuleCard.svelte has 640 physical lines (newline count, trailing newline not counted; 606 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/patch/PatchCanvas.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/patch/PatchCanvas.svelte has 2158 physical lines (newline count, trailing newline not counted; 2039 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/patch/ProbeDisplay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/patch/ProbeDisplay.svelte has 250 physical lines (newline count, trailing newline not counted; 234 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/piano-roll/LaneStrip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/piano-roll/LaneStrip.svelte has 393 physical lines (newline count, trailing newline not counted; 374 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/piano-roll/PianoRoll.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/piano-roll/PianoRoll.svelte has 994 physical lines (newline count, trailing newline not counted; 947 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/synth/piano-roll/PianoRollRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/synth/piano-roll/PianoRollRow.svelte has 232 physical lines (newline count, trailing newline not counted; 224 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/AudioOutTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/AudioOutTest.svelte has 450 physical lines (newline count, trailing newline not counted; 427 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/CameraTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/CameraTest.svelte has 229 physical lines (newline count, trailing newline not counted; 216 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/ColorTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/ColorTest.svelte has 423 physical lines (newline count, trailing newline not counted; 399 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/GamepadTester.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/GamepadTester.svelte has 497 physical lines (newline count, trailing newline not counted; 474 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/GpuTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/GpuTest.svelte has 538 physical lines (newline count, trailing newline not counted; 505 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/KeyboardTester.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/KeyboardTester.svelte has 245 physical lines (newline count, trailing newline not counted; 231 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/MicTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/MicTest.svelte has 656 physical lines (newline count, trailing newline not counted; 598 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/MidiMonitor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/MidiMonitor.svelte has 523 physical lines (newline count, trailing newline not counted; 492 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/MouseTester.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/MouseTester.svelte has 264 physical lines (newline count, trailing newline not counted; 248 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/NetPowerInfo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/NetPowerInfo.svelte has 370 physical lines (newline count, trailing newline not counted; 355 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/ScreenTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/ScreenTest.svelte has 501 physical lines (newline count, trailing newline not counted; 471 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/SensorsTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/SensorsTest.svelte has 539 physical lines (newline count, trailing newline not counted; 499 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/SpeedTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/SpeedTest.svelte has 316 physical lines (newline count, trailing newline not counted; 289 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/TouchTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/TouchTest.svelte has 211 physical lines (newline count, trailing newline not counted; 196 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/TypingTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/TypingTest.svelte has 219 physical lines (newline count, trailing newline not counted; 205 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/UsbHidTest.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/UsbHidTest.svelte has 456 physical lines (newline count, trailing newline not counted; 434 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/lib/components/utilities/UtilitiesView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/utilities/UtilitiesView.svelte has 237 physical lines (newline count, trailing newline not counted; 226 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 427 physical lines (newline count, trailing newline not counted; 392 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/component-size::src/routes/synth/audit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/synth/audit/+page.svelte has 919 physical lines (newline count, trailing newline not counted; 880 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/chrome/BoxHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chrome/BoxHeader.svelte has a single destructured $props() with 7 named props (> 6): title, short, class, style, titleClass, rightClass, children"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/chrome/Dropdown.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chrome/Dropdown.svelte has a single destructured $props() with 8 named props (> 6): value, options, color, placeholder, title, disabled, width, onchange"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/hardware/HardwareFader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/hardware/HardwareFader.svelte has a single destructured $props() with 13 named props (> 6): label, value, min, max, step, unit, color, height, description, reset, showValue, fill, onChange"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/hardware/HorizontalHardwareFader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/hardware/HorizontalHardwareFader.svelte has a single destructured $props() with 13 named props (> 6): label, value, min, max, step, unit, color, width, showValue, bipolar, description, reset, onChange"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/hardware/RotaryKnob.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/hardware/RotaryKnob.svelte has a single destructured $props() with 12 named props (> 6): label, value, min, max, step, unit, color, size, description, reset, scale, onChange"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/synth/AdsrVisualizer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/synth/AdsrVisualizer.svelte has a single destructured $props() with 8 named props (> 6): attack, decay, sustain, release, color, compact, values, stages"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/synth/WaveMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/synth/WaveMenu.svelte has a single destructured $props() with 10 named props (> 6): label, value, color, params, onPick, onParam, onDraw, onEdit, sections, compact"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/synth/patch/ModuleCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/synth/patch/ModuleCard.svelte has a single destructured $props() with 12 named props (> 6): spec, nodeId, params, waves, labels, inlet, claimed, wired, onParam, onWave, onLabel, onDrawWave"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/synth/piano-roll/LaneStrip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/synth/piano-roll/LaneStrip.svelte has a single destructured $props() with 8 named props (> 6): steps, startStep, snapSteps, colsPerPage, spc, effColsPerBar, effColsPerBeat, rollHeight"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::architecture/prop-count::src/lib/components/synth/piano-roll/PianoRollRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/synth/piano-roll/PianoRollRow.svelte has a single destructured $props() with 12 named props (> 6): nInfo, actualIdx, visibleTracks, viewportStartCol, timeMeter, snapDiv, selected, percussion, isActiveKey, isCustomKey, onResetKey, onAudition"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/chatbot/ChatbotView.svelte:1269::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: landing-worker/src/lib/components/chatbot/ChatbotView.svelte:1269 '{#each turns as turn, i (i)}' keyed by its index binding; turns = $state chat turns (:81), runtime AI chat messages replaced wholesale on compaction (:331) and reset (:513); runtime records, identity follows position (ledger chat-turns convention; the author's comment :1270-1273 relies on append-only growth)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/chrome/CommandConsole.svelte:178::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: landing-worker/src/lib/components/chrome/CommandConsole.svelte:178 '{#each $consoleBuffer as line, i (i)}' keyed by index; consoleBuffer is the console's runtime log store, appended and trimmed from the front with .slice(-MAX_LINES) (lib/stores/console.ts:88-98), so every line shifts position once it is full; runtime records"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/chrome/Dropdown.svelte:92::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/chrome/Dropdown.svelte:92 '{#each options as option, i (i)}' keyed by index, a documented choice (comment :90-91: device lists hand back empty deviceIds before a permission grant, so values are not unique); stateless option buttons, a position key is the only key available"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/chrome/Onboarding.svelte:408::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/chrome/Onboarding.svelte:408 '{#each STEPS as s, i (i)}' keyed by index (comment :406-407: steps may share an anchor); STEPS = steps ?? SITE_STEPS (:141), the authored onboarding steps; static list fixed at author time"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/synth/PatchManager.svelte:386::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/synth/PatchManager.svelte:386 '{#each report.slice(1) as line, i (i)}' keyed by index; the text lines of one import/render report shown as plain divs; positional list (text lines)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/synth/PresetMenu.svelte:521::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: landing-worker/src/lib/components/synth/PresetMenu.svelte:521/555/581 '{#each $userKits / $userPresets … (i)}' keyed by index; the user's saved kits/presets, which the menu deletes mid-list and renames inline through editRow (:278-290, rename input shown when editing.i === i); user-edited list, identity follows position"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/synth/PresetMenu.svelte:555::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "src/lib/components/synth/PresetMenu.svelte:555 {#each $userPresets as p, i (i)} — read: landing-worker/src/lib/components/synth/PresetMenu.svelte:521/555/581 '{#each $userKits / $userPresets … (i)}' keyed by index; the user's saved kits/presets, which the menu deletes mid-list and renames inline through editRow (:278-290, rename input shown when editing.i === i); user-edited list, identity follows position"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/synth/PresetMenu.svelte:581::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "src/lib/components/synth/PresetMenu.svelte:581 {#each $userKits as kit, i (i)} — read: landing-worker/src/lib/components/synth/PresetMenu.svelte:521/555/581 '{#each $userKits / $userPresets … (i)}' keyed by index; the user's saved kits/presets, which the menu deletes mid-list and renames inline through editRow (:278-290, rename input shown when editing.i === i); user-edited list, identity follows position"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/synth/patch/PatchCanvas.svelte:1510::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: landing-worker/src/lib/components/synth/patch/PatchCanvas.svelte:1510 '{#each graph.cables as c, i (i)}' keyed by index; graph.cables, the patch's cables the user connects and removes; user-edited runtime records"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/synth/piano-roll/PianoRollRow.svelte:211::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/synth/piano-roll/PianoRollRow.svelte:211 '{#each noteSegments(t, colStart) as seg, si (si)}' keyed by index; note bar segments computed for one track row (:75); positional geometry"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/GamepadTester.svelte:436::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/utilities/GamepadTester.svelte:436/467 '{#each pad.buttons / pad.axes … (i)}' keyed by index; the polled gamepad's buttons and axes, which the Gamepad API identifies by index; positional list (hardware indices)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/GamepadTester.svelte:467::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "src/lib/components/utilities/GamepadTester.svelte:467 {#each pad.axes as a, i (i)} — read: landing-worker/src/lib/components/utilities/GamepadTester.svelte:436/467 '{#each pad.buttons / pad.axes … (i)}' keyed by index; the polled gamepad's buttons and axes, which the Gamepad API identifies by index; positional list (hardware indices)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/KeyboardTester.svelte:205::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/utilities/KeyboardTester.svelte:205/223 '{#each row as k, ki (ki)}' keyed by index; the keys of one row of the constant keyboard layout ({#each MAIN_ROWS as row, ri (ri)} :203); static list fixed at author time"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/KeyboardTester.svelte:223::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "src/lib/components/utilities/KeyboardTester.svelte:223 {#each row as k, ki (ki)} — read: landing-worker/src/lib/components/utilities/KeyboardTester.svelte:205/223 '{#each row as k, ki (ki)}' keyed by index; the keys of one row of the constant keyboard layout ({#each MAIN_ROWS as row, ri (ri)} :203); static list fixed at author time"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/MidiMonitor.svelte:467::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/utilities/MidiMonitor.svelte:467 '{#each channelActivity as ts, i (i)}' keyed by index; channelActivity = new Array(16).fill(0) (:50), one cell per MIDI channel; positional list (fixed-length cells)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/MouseTester.svelte:224::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/utilities/MouseTester.svelte:224 '{#each BUTTON_NAMES as name, i (i)}' keyed by index; BUTTON_NAMES = BUTTON_NAME_KEYS.map($t) (:17), the fixed mouse-button labels; static list"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/TypingTest.svelte:205::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/utilities/TypingTest.svelte:205 '{#each w.split('') as ch, ci (ci)}' keyed by index; the characters of one word; positional list (text segments)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/UsbHidTest.svelte:301::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: landing-worker/src/lib/components/utilities/UsbHidTest.svelte:301/368/443 '{#each usbDevices / hidDevices / serialPorts … (i)}' keyed by index; $state lists of the devices/ports the browser grants (:139-141), refreshed as devices connect and disconnect, with per-device monitor toggles; runtime records"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/UsbHidTest.svelte:328::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/utilities/UsbHidTest.svelte:328/390 '{#each d.configurations / d.collections … (ci)}' keyed by index; the fixed descriptor configurations/collections of one device, shown as text; positional list (parts of one fixed descriptor)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/UsbHidTest.svelte:368::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "src/lib/components/utilities/UsbHidTest.svelte:368 {#each hidDevices as d, i (i)} — read: landing-worker/src/lib/components/utilities/UsbHidTest.svelte:301/368/443 '{#each usbDevices / hidDevices / serialPorts … (i)}' keyed by index; $state lists of the devices/ports the browser grants (:139-141), refreshed as devices connect and disconnect, with per-device monitor toggles; runtime records"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/UsbHidTest.svelte:390::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "src/lib/components/utilities/UsbHidTest.svelte:390 {#each d.collections as c, ci (ci)} — read: landing-worker/src/lib/components/utilities/UsbHidTest.svelte:328/390 '{#each d.configurations / d.collections … (ci)}' keyed by index; the fixed descriptor configurations/collections of one device, shown as text; positional list (parts of one fixed descriptor)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/each-index-key::src/lib/components/utilities/UsbHidTest.svelte:443::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "src/lib/components/utilities/UsbHidTest.svelte:443 {#each serialPorts as p, i (i)} — read: landing-worker/src/lib/components/utilities/UsbHidTest.svelte:301/368/443 '{#each usbDevices / hidDevices / serialPorts … (i)}' keyed by index; $state lists of the devices/ports the browser grants (:139-141), refreshed as devices connect and disconnect, with per-device monitor toggles; runtime records"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/effect-as-derived::src/lib/components/chrome/ThemeBackgroundVideo.svelte:59::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/chrome/ThemeBackgroundVideo.svelte:59 mounted = true, the mount-flag idiom the docs list as a known limitation (comment :53-57: deliberately client-only, the server can't know the theme)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::correctness/instance-browser-global::src/lib/components/utilities/GpuTest.svelte:356::document is accessed during component initialisation — during SSR this runs on the server, where document is not defined",
+    "verdict": "design",
+    "basis": "read: landing-worker/src/lib/components/utilities/GpuTest.svelte:356 document.addEventListener at instance top level (structurally true, root +layout.ts ssr = true), but its only render site is UtilitiesView.svelte:213 {:else if activeTool === 'gpu'}, where activeTool = $state('keyboard') (:98) changes only in the click handler select() (:100-102), so it never renders during SSR (ledger user-toggled render-site convention)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/chatbot/ChatbotView.svelte:139::\"fileProgress\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"fileProgress\" in src/lib/components/chatbot/ChatbotView.svelte: declared :139 and only ever reassigned, never read or mutated (dead state) — the claim (reassigned, never mutated) holds; $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/chrome/LanguageMenu.svelte:14::\"anchor\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"anchor\" in src/lib/components/chrome/LanguageMenu.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :14, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/leaderboard/LeaderboardView.svelte:185::\"cardPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"cardPos\" in src/lib/components/leaderboard/LeaderboardView.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :185, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/synth/WaveMenu.svelte:93::\"anchor\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"anchor\" in src/lib/components/synth/WaveMenu.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :93, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/synth/patch/PickMenu.svelte:32::\"anchor\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"anchor\" in src/lib/components/synth/patch/PickMenu.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :32, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/AudioOutTest.svelte:19::\"info\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"info\" in src/lib/components/utilities/AudioOutTest.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :19, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/CameraTest.svelte:13::\"settings\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"settings\" in src/lib/components/utilities/CameraTest.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :13, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/ColorTest.svelte:53::\"caps\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"caps\" in src/lib/components/utilities/ColorTest.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :53, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/GpuTest.svelte:160::\"fillResults\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"fillResults\" in src/lib/components/utilities/GpuTest.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :160, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/GpuTest.svelte:17::\"webglRows\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"webglRows\" in src/lib/components/utilities/GpuTest.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :17, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/GpuTest.svelte:18::\"webglExtensions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"webglExtensions\" in src/lib/components/utilities/GpuTest.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :18, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/GpuTest.svelte:87::\"webgpuRows\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"webgpuRows\" in src/lib/components/utilities/GpuTest.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :87, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/GpuTest.svelte:88::\"webgpuFeatures\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"webgpuFeatures\" in src/lib/components/utilities/GpuTest.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :88, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/MicTest.svelte:24::\"settings\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"settings\" in src/lib/components/utilities/MicTest.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :24, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/MidiMonitor.svelte:37::\"inputs\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"inputs\" in src/lib/components/utilities/MidiMonitor.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :37, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/MidiMonitor.svelte:38::\"outputs\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"outputs\" in src/lib/components/utilities/MidiMonitor.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :38, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::performance/state-raw::src/lib/components/utilities/MouseTester.svelte:28::\"pos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"pos\" in src/lib/components/utilities/MouseTester.svelte (d_refs.py) and read each {#each} body over it (d_each.py): declared :28, only whole-binding reassignments; other uses are read-only (member reads, .length, {#each} items read as text/attributes/option values or passed on as primitives/read-only props); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::security/raw-html::src/lib/components/chatbot/ChatbotView.svelte:1195::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ChatbotView.svelte:1195-1198: $t('chatbot.idle.pitch') with params that are literal <span> wrappers around other $t messages — repo i18n content, reported per docs"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::security/raw-html::src/lib/components/chatbot/RichReply.svelte:217::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read RichReply.svelte:38,217 + chatbot/markdown.ts:19-50,154-322: renderMarkdown HTML-escapes the model reply before adding tags, links only https?:// — escaped, reported per docs"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/guestbook/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guestbook (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/krsz-vm/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /krsz-vm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/lifelab/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /lifelab (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/lm-space/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /lm-space (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/modules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /modules (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/synth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /synth (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/synth/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /synth/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production) but not a search target (dev-only test bench: synth/audit/+layout.ts:11-13 load throws error(404) whenever !dev), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/synth/audit/probe/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /synth/audit/probe (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production) but not a search target (dev-only test bench: synth/audit/+layout.ts:11-13 load throws error(404) whenever !dev), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/utils/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /utils (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/canonical-url::src/routes/web-lm/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /web-lm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "key covers 9 routes (local CLI list: /, /guestbook, /krsz-vm, /lm-space, /modules, /synth, /synth/audit, /synth/audit/probe, /utils), labelled by majority: src/app.html:17-20 literal description is their only description (only web-lm and lifelab set their own), duplicate as claimed; 7 are public pages of the landing site (the 2 /synth/audit routes 404 outside dev)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); / has no JSON-LD; public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/guestbook/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /guestbook has no JSON-LD; public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/krsz-vm/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /krsz-vm has no JSON-LD; public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/lifelab/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /lifelab has no JSON-LD; public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/lm-space/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /lm-space has no JSON-LD; public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/modules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /modules has no JSON-LD; public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/synth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /synth has no JSON-LD; public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/synth/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /synth/audit has no JSON-LD (synth/audit/+layout.ts load errors 404 unless dev; dev-gated convention: tp for JSON-LD); public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/synth/audit/probe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /synth/audit/probe has no JSON-LD (synth/audit/+layout.ts load errors 404 unless dev; dev-gated convention: tp for JSON-LD); public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/utils/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /utils has no JSON-LD; public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/json-ld::src/routes/web-lm/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of landing-worker incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); /web-lm has no JSON-LD; public personal landing site (apex krsz.in per shared/site-config.ts)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/guestbook/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guestbook (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/krsz-vm/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /krsz-vm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/lifelab/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /lifelab (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/lm-space/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /lm-space (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/modules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /modules (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/synth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /synth (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/synth/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /synth/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/synth/audit/probe/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /synth/audit/probe (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/utils/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /utils (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-description::src/routes/web-lm/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /web-lm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/guestbook/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guestbook (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/krsz-vm/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /krsz-vm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/lifelab/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /lifelab (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/lm-space/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /lm-space (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/modules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /modules (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/synth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /synth (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/synth/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /synth/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/synth/audit/probe/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /synth/audit/probe (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/utils/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /utils (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-image::src/routes/web-lm/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /web-lm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/guestbook/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guestbook (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/krsz-vm/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /krsz-vm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/lifelab/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /lifelab (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/lm-space/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /lm-space (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/modules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /modules (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/synth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /synth (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/synth/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /synth/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/synth/audit/probe/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /synth/audit/probe (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/utils/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /utils (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-title::src/routes/web-lm/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /web-lm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/guestbook/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guestbook (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/krsz-vm/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /krsz-vm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/lifelab/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /lifelab (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/lm-space/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /lm-space (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/modules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /modules (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/synth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /synth (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/synth/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /synth/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/synth/audit/probe/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /synth/audit/probe (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/utils/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /utils (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/og-url::src/routes/web-lm/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /web-lm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/single-h1::src/lib/components/chrome/Welcome.svelte:121::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: key covers /synth/audit and /synth/audit/probe, whose synth/audit/+layout.ts load throws error(404) unless dev - dev-only test benches; the second <h1> is Welcome.svelte's first-visit overlay, rendered by +layout.svelte:417 only {#if $welcomeActive} (enqueued client-side after the boot sequence) - each page itself has one <h1>"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: landing-worker has no sitemap.xml in static/ (robots.txt has no Sitemap line), routes or generator; the repo's sitemap is the Next.js blog's app/sitemap.ts on blog.krsz.in, a different host (shared/site-config.ts); landing worker serves the public apex krsz.in"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/guestbook/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guestbook (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/krsz-vm/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /krsz-vm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/lifelab/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /lifelab (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/lm-space/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /lm-space (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/modules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /modules (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/synth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /synth (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/synth/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /synth/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/synth/audit/probe/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /synth/audit/probe (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders only in dev (synth/audit/+layout.ts:11-13 throws error(404) whenever !dev, so it 404s in production), dev-only route convention: og/twitter tp"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/utils/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /utils (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "kurashizu/cf-blog:landing-worker::seo/twitter-card::src/routes/web-lm/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /web-lm (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere in landing-worker (or the repo); app.html head is icons/viewport/description/manifest/fonts; root +layout.svelte:308-310 and pages set <title> (+description on lifelab/web-lm) only; hooks.server.ts only serves 404.html for unmatched routes; no build script writes head tags; no Svelte component deps); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  }
+]

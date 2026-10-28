@@ -1,0 +1,812 @@
+[
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/deprecated-aria::src/routes/admin/settings/+page.svelte:715::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "script-verified (e_tags.py) + read admin/settings/+page.svelte:715: aria-disabled on a bare <div>/<span> with no role, spread or use: action (role generic), where ARIA 1.3 deprecates it, as reported"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/disallowed-aria-props::src/lib/components/artifacts/ArtifactCard.svelte:65::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (e_tags.py: full start tag at the line) + read lib/components/artifacts/ArtifactCard.svelte:65: literal <span> carrying aria-label with no role, spread or use: action, so its implicit role is generic and the name is prohibited as reported (no drag-and-drop action anywhere in the clones)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/disallowed-aria-props::src/lib/components/thread/PlanExecutionCard.svelte:162::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (e_tags.py: full start tag at the line) + read lib/components/thread/PlanExecutionCard.svelte:162: literal <span> carrying aria-label with no role, spread or use: action, so its implicit role is generic and the name is prohibited as reported (no drag-and-drop action anywhere in the clones)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/duplicate-landmark::src/lib/components/thread/ConversationalWorkspace.svelte:80::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:390-392 wraps children in an unconditional <main>, and chat/[threadId]/+page.svelte:1100 renders ConversationalWorkspace, whose root has <main class=\"min-w-0\"> (:80); the load (+page.ts, ssr=false) errors only without a tenant/thread, so the route has two mains"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/permitted-contents::src/lib/components/thread/TemplateInputsForm.svelte:197::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/thread/TemplateInputsForm.svelte:197: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/permitted-contents::src/lib/components/thread/TemplateInputsForm.svelte:214::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/thread/TemplateInputsForm.svelte:214: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/permitted-contents::src/lib/components/thread/TemplateInputsForm.svelte:249::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/thread/TemplateInputsForm.svelte:249: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/permitted-contents::src/lib/components/thread/TemplateInputsForm.svelte:319::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/thread/TemplateInputsForm.svelte:319: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/permitted-contents::src/lib/components/thread/TemplatePickerCard.svelte:21::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/thread/TemplatePickerCard.svelte:21: `<p>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/permitted-contents::src/lib/components/thread/TemplatePickerCard.svelte:25::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/thread/TemplatePickerCard.svelte:25: `<p>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/permitted-contents::src/lib/components/thread/TemplatePickerCard.svelte:29::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read lib/components/thread/TemplatePickerCard.svelte:29: `<p>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/permitted-contents::src/routes/login/+page.svelte:163::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read login/+page.svelte:163: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported (in the {#if devLoginEnabled} dev-login list, lib/auth.ts:20-22; the markup is the same whenever it renders)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::a11y/top-level-landmark::src/routes/chat/[threadId]/+page.svelte:1137::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:390-392 wraps the page in <main>, and chat/[threadId]/+page.svelte:1137 is an <aside aria-label=...> (named, so complementary even inside its <section> :974), nested in main as reported"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/AgentCatalogDetail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AgentCatalogDetail.svelte has 363 physical lines (newline count, trailing newline not counted; 348 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/ArtifactPreview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArtifactPreview.svelte has 304 physical lines (newline count, trailing newline not counted; 284 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/OverseerBindingPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/OverseerBindingPanel.svelte has 251 physical lines (newline count, trailing newline not counted; 232 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/PlanPoliciesForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PlanPoliciesForm.svelte has 233 physical lines (newline count, trailing newline not counted; 218 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/artifacts/ArtifactPreviewSheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/artifacts/ArtifactPreviewSheet.svelte has 381 physical lines (newline count, trailing newline not counted; 364 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/thread/ApprovalRefCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/ApprovalRefCard.svelte has 306 physical lines (newline count, trailing newline not counted; 290 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/thread/BindingMatrixCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/BindingMatrixCard.svelte has 438 physical lines (newline count, trailing newline not counted; 417 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/thread/ConversationalBindingCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/ConversationalBindingCard.svelte has 365 physical lines (newline count, trailing newline not counted; 347 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/thread/ConversationalOverseerCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/ConversationalOverseerCard.svelte has 282 physical lines (newline count, trailing newline not counted; 266 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/thread/ConversationalPoliciesCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/ConversationalPoliciesCard.svelte has 274 physical lines (newline count, trailing newline not counted; 253 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/thread/PlanExecutionCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/PlanExecutionCard.svelte has 308 physical lines (newline count, trailing newline not counted; 295 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/thread/PlanProposalCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/PlanProposalCard.svelte has 702 physical lines (newline count, trailing newline not counted; 670 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/thread/TemplateInputsForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/TemplateInputsForm.svelte has 338 physical lines (newline count, trailing newline not counted; 319 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/lib/components/thread/ThreadMessage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/ThreadMessage.svelte has 214 physical lines (newline count, trailing newline not counted; 209 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 394 physical lines (newline count, trailing newline not counted; 366 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/routes/admin/agents/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/agents/+page.svelte has 273 physical lines (newline count, trailing newline not counted; 257 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/routes/admin/audit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/audit/+page.svelte has 506 physical lines (newline count, trailing newline not counted; 470 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/routes/admin/integrations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/integrations/+page.svelte has 749 physical lines (newline count, trailing newline not counted; 714 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/routes/admin/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/settings/+page.svelte has 865 physical lines (newline count, trailing newline not counted; 814 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/routes/chat/[threadId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/chat/[threadId]/+page.svelte has 1248 physical lines (newline count, trailing newline not counted; 1192 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/routes/plans/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/plans/+page.svelte has 295 physical lines (newline count, trailing newline not counted; 281 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/routes/plans/[templateId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/plans/[templateId]/+page.svelte has 229 physical lines (newline count, trailing newline not counted; 221 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/component-size::src/routes/runs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/runs/+page.svelte has 323 physical lines (newline count, trailing newline not counted; 304 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/ArtifactPreview.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ArtifactPreview.svelte has a single destructured $props() with 7 named props (> 6): tenantId, artifactId, artifactVersionId, constrained, preview, loading, error"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/PlanThreadTopBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PlanThreadTopBar.svelte has a single destructured $props() with 7 named props (> 6): planName, statusLabel, cost, onOpenSchedule, canRun, running, onRun"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/artifacts/ArtifactCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/artifacts/ArtifactCard.svelte has a single destructured $props() with 7 named props (> 6): tenantId, artifact, compact, active, generating, iterationNumber, onOpen"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/artifacts/ArtifactPreviewSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/artifacts/ArtifactPreviewSheet.svelte has a single destructured $props() with 8 named props (> 6): open, onClose, tenantId, artifact, artifactVersionId, artifactLoading, generating, executionOrdinal"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/thread/ApprovalRefCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/thread/ApprovalRefCard.svelte has a single destructured $props() with 9 named props (> 6): message, approvalRequestId, subjectArtifactRef, tenantId, messages, inputArtifactId, onOpenArtifact, onDecided, stepTitleFor"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/thread/ConversationalWorkspace.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/thread/ConversationalWorkspace.svelte has a single destructured $props() with 11 named props (> 6): tenantId, configurationId, messages, artifacts, onOpenArtifact, existingConfigurationFor, stepTitleFor, onApprovalDecided, activeArtifactId, generatingArtifactId, iterationNumberFor"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/thread/ExecutionTurnCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/thread/ExecutionTurnCard.svelte has a single destructured $props() with 7 named props (> 6): turn, currentStep, tenantId, onOpenArtifact, onDecided, onRetry, onRunAgain"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/thread/PlanExecutionCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/thread/PlanExecutionCard.svelte has a single destructured $props() with 9 named props (> 6): vm, initiallyCollapsed, tenantId, onOpenArtifact, onApprovalDecided, onRetry, onRunAgain, activeArtifactId, generatingStepKey"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/thread/SystemEventCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/thread/SystemEventCard.svelte has a single destructured $props() with 8 named props (> 6): message, tenantId, artifacts, onOpenArtifact, stepTitleFor, activeArtifactId, generatingArtifactId, iterationNumberFor"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::architecture/prop-count::src/lib/components/thread/ThreadMessage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/thread/ThreadMessage.svelte has a single destructured $props() with 14 named props (> 6): message, configurationId, tenantId, artifacts, onOpenArtifact, isLive, isAnswered, existingConfiguration, stepTitleFor, messages, onApprovalDecided, activeArtifactId, generatingArtifactId, iterationNumberFor"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::correctness/each-index-key::src/lib/components/ArtifactPreview.svelte:122::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: frontend/src/lib/components/ArtifactPreview.svelte:122/145 '{#each preview.linkedInPost.slides … (index)}' / '{#each preview.listSummary.titles … (i)}' keyed by index; the ordered slides/titles of one artifact's read-only preview, fixed per artifact version and shown without per-item state; static ordered list"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::correctness/each-index-key::src/lib/components/ArtifactPreview.svelte:145::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "src/lib/components/ArtifactPreview.svelte:145 {#each preview.listSummary.titles as title, i (i)} — read: frontend/src/lib/components/ArtifactPreview.svelte:122/145 '{#each preview.linkedInPost.slides … (index)}' / '{#each preview.listSummary.titles … (i)}' keyed by index; the ordered slides/titles of one artifact's read-only preview, fixed per artifact version and shown without per-item state; static ordered list"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::correctness/unmutated-state::src/lib/components/thread/ApprovalRefCard.svelte:75::$state \"loadedArtifactVersionId\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: frontend/src/lib/components/thread/ApprovalRefCard.svelte:75 loadedArtifactVersionId = $state('') is never written or bound; its only use is the read inside onOpenArtifact(…, subjectArtifactRef?.artifactVersionId || loadedArtifactVersionId || undefined) (:253-258), which hands the callee a copy of a primitive string, so nothing can mutate it; the claim holds (the analyzer counts f(x) as an escape but not x inside ||, which only matters for a state holding an object)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::performance/iframe-loading::src/lib/components/ArtifactPreview.svelte:92::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; sandboxed srcdoc={preview.html} artifact preview in the ArtifactPreviewSheet the user opens - visible content, and a srcdoc frame fetches no document"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::security/raw-html::src/lib/components/ArtifactPreview.svelte:101::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ArtifactPreview.svelte:101 + artifacts/markdown.ts:11-43: renderMarkdown HTML-escapes the whole source before formatting, links only http(s)/mailto — escaped, reported per docs"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/admin/agents/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/agents (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/admin/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/admin/integrations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/integrations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/auth/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/callback (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (OAuth callback handoff: auth/callback/+page.svelte $effect exchanges ?code then goto(\"/\")), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/chat/[threadId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /chat/[threadId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/discover/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /discover (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/inbox/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /inbox (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); public sign-in page (root +layout.server.ts:5 PUBLIC_ROUTES), rendered, no noindex"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /new (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/plans/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /plans (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/plans/[templateId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /plans/[templateId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/canonical-url::src/routes/runs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /runs (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (auth-gated: root +layout.server.ts:31-34 redirects every guest outside /login and /auth/callback to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); / renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/admin/agents/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin/agents renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/admin/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin/audit renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/admin/integrations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin/integrations renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin/settings renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /auth/callback renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/chat/[threadId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /chat/[threadId] renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/discover/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /discover renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/inbox/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /inbox renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /login renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /new renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/plans/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /plans renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/plans/[templateId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /plans/[templateId] renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/json-ld::src/routes/runs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /runs renders (its guards redirect/error only some users) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/admin/agents/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/agents (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/admin/integrations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/integrations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/callback (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/chat/[threadId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /chat/[threadId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/discover/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /discover (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/inbox/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inbox (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /new (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/plans/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /plans (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/plans/[templateId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /plans/[templateId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-description::src/routes/runs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /runs (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/admin/agents/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/agents (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/admin/integrations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/integrations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/callback (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/chat/[threadId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /chat/[threadId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/discover/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /discover (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/inbox/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /inbox (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /new (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/plans/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /plans (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/plans/[templateId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /plans/[templateId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-image::src/routes/runs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /runs (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/admin/agents/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/agents (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/admin/integrations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/integrations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/callback (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/chat/[threadId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /chat/[threadId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/discover/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /discover (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/inbox/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /inbox (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /new (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/plans/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /plans (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/plans/[templateId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /plans/[templateId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-title::src/routes/runs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /runs (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/admin/agents/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/agents (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/admin/integrations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/integrations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/callback (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/chat/[threadId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /chat/[threadId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/discover/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /discover (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/inbox/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /inbox (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /new (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/plans/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /plans (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/plans/[templateId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /plans/[templateId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/og-url::src/routes/runs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /runs (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: frontend/static has brand/ and fonts/ only, no robots.txt route or generator (literal claim holds); but not a search target: Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/single-h1::/chat/[threadId]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: chat/[threadId] (ssr=false) renders the thread workspace components; grep finds <h1>/HarpyHeading tag=h1 only in other routes, MilestoneStub, +error and auth/callback, and the root layout renders none - no <h1>"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte renders BrandLockup (wordmark in a <span>/<div>), a <p> and the sign-in buttons; no <h1>/HarpyHeading, root layout renders none - no <h1>"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes (literal claim holds); but nothing public to list beyond /login: Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/ssr-disabled::src/routes/admin/agents/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/agents/+page.ts:2; a signed-in client view (inbox/chat/runs/new/discover/admin) of the Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login, not content for search"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/ssr-disabled::src/routes/admin/audit/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/audit/+page.ts:2; a signed-in client view (inbox/chat/runs/new/discover/admin) of the Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login, not content for search"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/ssr-disabled::src/routes/admin/integrations/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/integrations/+page.ts:2; a signed-in client view (inbox/chat/runs/new/discover/admin) of the Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login, not content for search"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/ssr-disabled::src/routes/admin/settings/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/settings/+page.ts:2; a signed-in client view (inbox/chat/runs/new/discover/admin) of the Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login, not content for search"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/ssr-disabled::src/routes/chat/[threadId]/+page.ts:10::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/chat/[threadId]/+page.ts:10; a signed-in client view (inbox/chat/runs/new/discover/admin) of the Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login, not content for search"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/ssr-disabled::src/routes/discover/+page.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/discover/+page.ts:6; a signed-in client view (inbox/chat/runs/new/discover/admin) of the Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login, not content for search"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/ssr-disabled::src/routes/inbox/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/inbox/+page.ts:2; a signed-in client view (inbox/chat/runs/new/discover/admin) of the Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login, not content for search"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/ssr-disabled::src/routes/new/+page.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/new/+page.ts:6; a signed-in client view (inbox/chat/runs/new/discover/admin) of the Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login, not content for search"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/ssr-disabled::src/routes/runs/+page.ts:11::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/runs/+page.ts:11; a signed-in client view (inbox/chat/runs/new/discover/admin) of the Harpia/AIUNA is a multi-tenant AI task-management platform (README) whose root +layout.server.ts redirects every session-less request outside /login and /auth/callback to /login, not content for search"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/admin/agents/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/agents (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/admin/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/audit (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/admin/integrations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/integrations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/auth/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/callback (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/chat/[threadId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /chat/[threadId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/discover/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /discover (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/inbox/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /inbox (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /new (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/plans/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /plans (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/plans/[templateId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /plans/[templateId] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "thbertoldi/harpia:frontend::seo/twitter-card::src/routes/runs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /runs (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is viewport/description/icon/fonts/<title>; root +layout.svelte:184-215 head is title/description/icon/theme script; hooks.server.ts only redirects removed prefixes; no meta-tag library (bits-ui/lucide/mode-watcher emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  }
+]
