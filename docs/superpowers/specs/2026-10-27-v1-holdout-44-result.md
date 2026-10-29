@@ -8,7 +8,7 @@ verdicts: `scripts/corpus/holdout-44-2026-10-27-verdicts.json` (6,690 distinct k
 labelled by checks over the source at the pinned commit).
 
 **Result: every deciding criterion passes.** No crash in either mode, no false critical finding, C4 at
-99.09% and C5 at 99.77%, no false-positive class reaches two apps, no rule is judged under C7, and no key is
+99.09% and C5 at 99.73%, no false-positive class reaches two apps, no rule is judged under C7, and no key is
 `unclear`. C8, published without deciding the result, is 38.1%. The release decision stays with the owner,
 as the criteria say.
 
@@ -18,7 +18,7 @@ as the criteria say.
 | C2  | Build-mode crashes                 | 0, on ≥ 3 apps | 0; the plugin ran on 10 apps, 8 of which built | pass     | pass   | pass   | pass  | pass   | pass  | pass   | pass  | pass  | pass  | pass  | pass  | pass  | pass   | pass   | pass  | pass  | pass  | fail  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass   | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  |
 | C3  | `fp` from critical rules           | 0              | 0                                              | pass     | 0      | 0      | 0     | 0      | 0     | 0      | 0     | 0     | 0     | 0     | 1     | 0     | 0      | 0      | 0     | 0     | 0     | 1     | 8     | 0     | 1     | 0     | 0     | 0     | 0     | 0     | 0     | 5      | 0     | 2     | 0     | 0     | 62    | 13    | 0     | 1     | 0     | 29    | 31    | 147   | 19    | 0     | 95    |
 | C4  | Warning precision                  | ≥ 98%          | 99.09% (2,388 / 2,410)                         | pass     | 99.69% | 99.95% | 99.9% | 100.0% | 99.6% | 99.9%  | 99.6% | 99.6% | 92.8% | 99.9% | 99.5% | 99.7% | 99.4%  | 100.0% | 99.8% | 99.8% | 98.0% | 99.2% | 93.9% | 99.2% | 99.7% | 99.8% | 98.2% | 99.8% | 98.7% | 98.4% | 99.3% | 99.95% | 99.0% | 97.7% | 99.2% | 98.7% | 99.7% | 99.6% | 99.0% | 99.6% | 97.0% | 90.7% | 99.7% | 82.9% | 97.5% | 92.1% | 71.3% |
-| C5  | Info precision                     | ≥ 95%          | 99.77% (2,622 / 2,628)                         | pass     | 99.4%  | 99.9%  | 99.8% | 100.0% | 99.9% | 100.0% | 99.6% | 99.9% | 97.0% | 99.9% | 99.7% | 99.9% | 100.0% | 99.6%  | 99.8% | 99.9% | 98.9% | 99.6% | 95.6% | 98.5% | 99.8% | 99.9% | 99.1% | 99.8% | 98.9% | 99.8% | 99.6% | 99.9%  | 99.2% | 99.2% | 99.9% | 99.0% | 99.8% | 99.7% | 98.5% | 98.5% | 97.1% | 97.3% | 93.5% | 92.8% | 97.8% | 96.2% | 90.2% |
+| C5  | Info precision                     | ≥ 95%          | 99.73% (2,621 / 2,628)                         | pass     | 99.4%  | 99.9%  | 99.8% | 100.0% | 99.9% | 100.0% | 99.6% | 99.9% | 97.0% | 99.9% | 99.7% | 99.9% | 100.0% | 99.6%  | 99.8% | 99.9% | 98.9% | 99.6% | 95.6% | 98.5% | 99.8% | 99.9% | 99.1% | 99.8% | 98.9% | 99.8% | 99.6% | 99.9%  | 99.2% | 99.2% | 99.9% | 99.0% | 99.8% | 99.7% | 98.5% | 98.5% | 97.1% | 97.3% | 93.5% | 92.8% | 97.8% | 96.2% | 90.2% |
 | C6  | fp class shared by ≥ 2 apps        | none           | none                                           | pass     | none   | none   | none  | none   | none  | none   | none  | none  | none  | none  | none  | none  | none   | none   | none  | none  | 1     | none  | 1     | 1     | 1     | 1     | 1     | none  | 2     | none  | 1     | none   | 2     | 2     | none  | 2     | 1     | 2     | 2     | 1     | 1     | 2     | none  | 2     | 2     | 1     | 5     |
 | C7  | Per-rule precision                 | ≥ 90%          | none judged (2 below 90% by the earlier one)   | pass     | none   | none   | none  | none   | none  | none   | none  | 1     | none  | none  | none  | none  | none   | none   | none  | none  | none  | none  | 2     | none  | none  | none  | none  | none  | 1     | 1     | 2     | 1      | 5     | 4     | 1     | 3     | 3     | 1     | 4     | 4     | 2     | 5     | 4     | 11    | 2     | 9     | 12    |
 | C8  | Design share of critical + warning | reported       | 38.1% (1,513 / 3,968)                          | reported | 35.0%  | 26.2%  | 36.8% | 38.7%  | 32.6% | 31.5%  | 33.5% | 34.0% | 26.6% | 30.4% | 27.3% | 26.8% | 31.5%  | 30.5%  | 36.9% | 36.5% | 30.8% | 26.7% | 30.9% | 27.8% | 26.6% | 31.4% | 28.4% | 32.8% | 29.6% | 36.3% | 20.1% | 27.3%  | 28.2% | 26.6% | 35.0% | 30.1% | 35.1% | 33.6% | 42.7% | 37.8% | 34.4% | 33.4% | 35.6% | 23.3% | 22.7% | 33.0% | 25.3% |
@@ -29,7 +29,7 @@ The C7 history columns from holdout 18 on are the current definition, which appl
 earlier ones are the earlier definition, as published (`2026-10-03-c7-multi-app.md` has those holdouts
 under the current one).
 
-Verdicts (distinct keys): tp 5,055, fp 28, design 1,607, unclear 0.
+Verdicts (distinct keys): tp 5,054, fp 29, design 1,607, unclear 0.
 
 C7 judges no rule: every rule's false positives come from one app. By the earlier definition two rules fall
 under 90%: `a11y/id-duplication`, whose 23 findings are 16 `fp` (all restless-core) and 7 `design`, and
@@ -43,13 +43,13 @@ throws `error(404)` unless `dev`.
 
 ## False-positive classes
 
-| Class                                                                                                                                               | Findings | Apps | Rules                                                    |
-| --------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---- | -------------------------------------------------------- |
-| A component's arms tested by a literal prop joined with `&&` to a value the component holds itself, left undecided, so each use counts the same arm | 16       | 1    | id-duplication                                           |
-| JSON-LD from `{@html}` of a concatenation of bindings, one of which holds the opening `<script type="application/ld+json">` tag                     | 4        | 1    | json-ld                                                  |
-| A page whose `load` redirects on every request through a condition on a config constant                                                             | 5        | 1    | og-title, og-description, og-image, og-url, twitter-card |
-| A layout passes the page as children of a component that renders them in one `{#if}` arm, and another arm's `<main>` is counted beside the page's   | 2        | 1    | duplicate-landmark                                       |
-| `autofocus` in content passed to a component that renders it inside a native `<dialog>`                                                             | 1        | 1    | no-autofocus                                             |
+| Class                                                                                                                                               | Findings | Apps | Rules                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---- | ----------------------------------------------------------------- |
+| A component's arms tested by a literal prop joined with `&&` to a value the component holds itself, left undecided, so each use counts the same arm | 16       | 1    | id-duplication                                                    |
+| JSON-LD from `{@html}` of a concatenation of bindings, one of which holds the opening `<script type="application/ld+json">` tag                     | 4        | 1    | json-ld                                                           |
+| A page whose `load` redirects on every request through a condition on a config constant                                                             | 6        | 1    | json-ld, og-title, og-description, og-image, og-url, twitter-card |
+| A layout passes the page as children of a component that renders them in one `{#if}` arm, and another arm's `<main>` is counted beside the page's   | 2        | 1    | duplicate-landmark                                                |
+| `autofocus` in content passed to a component that renders it inside a native `<dialog>`                                                             | 1        | 1    | no-autofocus                                                      |
 
 The first is restless-core's `/[companyId]/company/resources`, which renders `<CompanyLimits>` with a
 different literal `section` each time (`spend`, `authority`, `computer`). CompanyLimits chooses its section

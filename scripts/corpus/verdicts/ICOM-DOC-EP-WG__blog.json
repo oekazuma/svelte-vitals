@@ -96,8 +96,8 @@
   },
   {
     "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/auteurs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /auteurs (adapter-static, GitHub Pages deploy) has no JSON-LD"
+    "verdict": "fp",
+    "basis": "never renders: auteurs/+page.ts:22-24 throws redirect(307) when exactly one Zotero profile has a local href, and $lib/config.ts:29-38 zoteroProfiles is a constant with exactly one profile (icomwg, no href, so href = resolve(\"/auteurs/[slug]\") starts with \"/\"); the load redirects on every request, so route-level claims on it are false"
   },
   {
     "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/auteurs/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
