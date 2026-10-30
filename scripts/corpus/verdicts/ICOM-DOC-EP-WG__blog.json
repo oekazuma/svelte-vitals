@@ -1,0 +1,467 @@
+[
+  {
+    "key": "ICOM-DOC-EP-WG/blog::a11y/disallowed-aria-props::src/routes/membres/+page.svelte:46::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (e_tags.py: full start tag at the line) + read membres/+page.svelte:46: literal <div> carrying aria-label with no role, spread or use: action, so its implicit role is generic and the name is prohibited as reported (no drag-and-drop action anywhere in the clones)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::a11y/duplicate-landmark::src/routes/publications/+page.svelte:281::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:35-40 wraps children in <main>, and publications/+page.svelte:281 renders <main class=\"bib-results\"> unconditionally (load only fetches Zotero data, prerendered), so /publications has two main landmarks"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::a11y/top-level-landmark::src/routes/publications/+page.svelte:281::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:35-40 wraps the page in <main>, and publications/+page.svelte:281 renders <main class=\"bib-results\"> inside it, as reported"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::architecture/component-size::src/routes/mapping/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/mapping/+page.svelte has 505 physical lines (newline count, trailing newline not counted; 467 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::architecture/component-size::src/routes/membres/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/membres/+page.svelte has 413 physical lines (newline count, trailing newline not counted; 360 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::architecture/component-size::src/routes/publications/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/publications/+page.svelte has 764 physical lines (newline count, trailing newline not counted; 679 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::architecture/prop-count::src/lib/components/ProjectCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ProjectCard.svelte has a single destructured $props() with 7 named props (> 6): slug, title, date, authors, repo, link, tags"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::correctness/each-key::src/routes/mapping/+page.svelte:323::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/mapping/+page.svelte:323 '{#each allCountries as country}' has no key; allCountries is derived (:174) from projects, a $state filled at run time by loadProjects() fetching Wikidata from an $effect and a Retry button (:81, 114-166, 281); runtime data"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::correctness/each-key::src/routes/mapping/+page.svelte:371::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/mapping/+page.svelte:371 '{#each p.subjects.split(', ')… as subject}' has no key; subject tags of a project record fetched at run time from Wikidata (projects $state, :81/126); runtime tags of a record (ledger split-tags convention)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::correctness/each-key::src/routes/mapping/+page.svelte:409::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/mapping/+page.svelte:409 '{#each Array.from({ length: maxYear - minYear + 1 }, …).filter(…) as year}' has no key; the timeline's year axis labels positioned by year; positional list (chart ticks)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::correctness/each-key::src/routes/publications/+page.svelte:204::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/publications/+page.svelte:204/232 '{#each allTypes / allTags …}' has no key; facets derived (:38-48) from data.zoteroPublications, loaded by +page.server.ts at build time on a prerendered site (routes/+layout.ts prerender = true, adapter-static); static list (build-time content), never reorders while mounted"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::correctness/each-key::src/routes/publications/+page.svelte:232::{#each} block has no key",
+    "verdict": "design",
+    "basis": "src/routes/publications/+page.svelte:232 {#each allTags as tag} — read: src/routes/publications/+page.svelte:204/232 '{#each allTypes / allTags …}' has no key; facets derived (:38-48) from data.zoteroPublications, loaded by +page.server.ts at build time on a prerendered site (routes/+layout.ts prerender = true, adapter-static); static list (build-time content), never reorders while mounted"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::correctness/each-key::src/routes/publications/+page.svelte:297::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/publications/+page.svelte:297 '{#each publication.tags as tag}' has no key; tags of one publication inside the keyed {#each filtered as publication (publication.key)}, build-time Zotero data on a prerendered site (routes/+layout.ts prerender = true); static list"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::performance/sequential-awaits::src/routes/tags/+page.server.ts:32::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/tags/+page.server.ts:32: loadZoteroTaggedPublications after the posts/projects Promise.all, but the route is prerendered (src/routes/+layout.ts prerender = true, adapter-static) — runs once at build time, not per visit (ledger prerender convention)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::performance/sequential-awaits::src/routes/tags/[tag]/+page.server.ts:48::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/tags/[tag]/+page.server.ts:48: loadZoteroTaggedPublications after the posts/projects Promise.all, but the route is prerendered (src/routes/+layout.ts prerender = true, adapter-static) — runs once at build time, not per visit (ledger prerender convention)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::security/raw-html::src/lib/components/ZoteroReference.svelte:45::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ZoteroReference.svelte:45 + lib/utilities/loadZoteroPublications.ts:96-188,405-425: formattedCitation is the Zotero API format=bib output of the working group's own Zotero user/group library (config.ts:33-35), fetched only at build time (routes/+layout.ts prerender = true, adapter-static) — Zotero-formatted citations of the site owners' own library baked into the static build, not visitor input; reported per docs"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/description-length::src/routes/tags/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/tags/+page.svelte:12 literal unconditional <meta name=\"description\" content=\"Index des tags des billets et des publications\"> (46 chars as reported), the page's own description after the layout's dynamic one; public blog page"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/heading-level-skip::src/routes/publications/+page.svelte:192::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the <h1>Bibliography (:142) is followed by <h3 class=bib-filter-heading> in the {#if showFilters} filter panel (:190-192) with no <h2> between - a real h1->h3 skip when the panel is open"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route / (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/auteurs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "never renders: auteurs/+page.ts:22-24 throws redirect(307) when exactly one Zotero profile has a local href, and $lib/config.ts:29-38 zoteroProfiles is a constant with exactly one profile (icomwg, no href, so href = resolve(\"/auteurs/[slug]\") starts with \"/\"); the load redirects on every request, so route-level claims on it are false"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/auteurs/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /auteurs/[slug] (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /blog (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /blog/[slug] (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/mapping/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /mapping (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/membres/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /membres (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /projects (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/projects/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /projects/[slug] (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/publications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /publications (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/tags/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /tags (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/json-ld::src/routes/tags/[tag]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole clone incl. app.html for ld+json/jsonld/schema.org: none; no meta library in deps); root +layout.svelte head has title/description/canonical/RSS only; public prerendered blog route /tags/[tag] (adapter-static, GitHub Pages deploy) has no JSON-LD"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/auteurs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "never renders: auteurs/+page.ts:22-24 throws redirect(307) when exactly one Zotero profile has a local href, and $lib/config.ts:29-38 zoteroProfiles is a constant with exactly one profile (icomwg, no href, so href = resolve(\"/auteurs/[slug]\") starts with \"/\"); the load redirects on every request, so route-level claims on it are false"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/auteurs/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auteurs/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/mapping/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /mapping (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/membres/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /membres (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/projects/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/publications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /publications (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/tags/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tags (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-description::src/routes/tags/[tag]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tags/[tag] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/auteurs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "never renders: auteurs/+page.ts:22-24 throws redirect(307) when exactly one Zotero profile has a local href, and $lib/config.ts:29-38 zoteroProfiles is a constant with exactly one profile (icomwg, no href, so href = resolve(\"/auteurs/[slug]\") starts with \"/\"); the load redirects on every request, so route-level claims on it are false"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/auteurs/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auteurs/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/mapping/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /mapping (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/membres/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /membres (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/projects/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/publications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /publications (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/tags/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tags (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-image::src/routes/tags/[tag]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tags/[tag] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/auteurs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "never renders: auteurs/+page.ts:22-24 throws redirect(307) when exactly one Zotero profile has a local href, and $lib/config.ts:29-38 zoteroProfiles is a constant with exactly one profile (icomwg, no href, so href = resolve(\"/auteurs/[slug]\") starts with \"/\"); the load redirects on every request, so route-level claims on it are false"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/auteurs/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auteurs/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/mapping/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /mapping (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/membres/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /membres (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/projects/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/publications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /publications (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/tags/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tags (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-title::src/routes/tags/[tag]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tags/[tag] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/auteurs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "never renders: auteurs/+page.ts:22-24 throws redirect(307) when exactly one Zotero profile has a local href, and $lib/config.ts:29-38 zoteroProfiles is a constant with exactly one profile (icomwg, no href, so href = resolve(\"/auteurs/[slug]\") starts with \"/\"); the load redirects on every request, so route-level claims on it are false"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/auteurs/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auteurs/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/mapping/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /mapping (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/membres/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /membres (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/projects/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/publications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /publications (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/tags/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tags (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/og-url::src/routes/tags/[tag]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tags/[tag] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/single-h1::/blog/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: blog/[slug]/+page.svelte renders meta, Toc and the post's mdsvex <Content/> (picked from import.meta.glob) with no title heading; root +layout.svelte renders Nav/Breadcrumb/Footer, no <h1>; 3 of the 4 committed posts have no '# ' line (src/posts/2026-01-01/-01-30/-06-23.md), only 2026-07-20.md:10 opens with one - no <h1> on most posts"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/single-h1::/projects/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: projects/[slug]/+page.svelte renders only the project's mdsvex <Content/>; none of src/projects/*.md has a '# ' heading or <h1>, and the root layout renders none - no <h1>"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has css/images/robots.txt (allow all), no sitemap.xml file, route or generator; only rss.xml/+server.ts; public prerendered blog deployed to GitHub Pages (.github/workflows) with posts/projects/authors to list"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/auteurs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "never renders: auteurs/+page.ts:22-24 throws redirect(307) when exactly one Zotero profile has a local href, and $lib/config.ts:29-38 zoteroProfiles is a constant with exactly one profile (icomwg, no href, so href = resolve(\"/auteurs/[slug]\") starts with \"/\"); the load redirects on every request, so route-level claims on it are false"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/auteurs/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auteurs/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/blog/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/mapping/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /mapping (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/membres/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /membres (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/projects/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[slug] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/publications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /publications (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/tags/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tags (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "ICOM-DOC-EP-WG/blog::seo/twitter-card::src/routes/tags/[tag]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tags/[tag] (script-verified: repo-wide grep (incl. .md/.svx posts): the only Open Graph tag in the app is og:type at blog/[slug]/+page.svelte:33; root +layout.svelte:23-28 head is title/description/canonical/RSS alternate only; app.html has css/icon only; no og:title/og:description/og:image/og:url/twitter:card anywhere; no meta-tag library, no mdsvex layout, no hooks); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  }
+]

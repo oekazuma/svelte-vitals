@@ -1,0 +1,1342 @@
+[
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/disallowed-aria-props::src/routes/(auth_required)/book-appointment/+page.svelte:293::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (e_tags.py: full start tag at the line) + read (auth_required)/book-appointment/+page.svelte:293: literal <div> carrying aria-label with no role, spread or use: action, so its implicit role is generic and the name is prohibited as reported (no drag-and-drop action anywhere in the clones)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/disallowed-aria-props::src/routes/search/+page.svelte:235::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (e_tags.py: full start tag at the line) + read search/+page.svelte:235: literal <div> carrying aria-label with no role, spread or use: action, so its implicit role is generic and the name is prohibited as reported (no drag-and-drop action anywhere in the clones)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/disallowed-aria-props::src/routes/search/+page.svelte:333::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (e_tags.py: full start tag at the line) + read search/+page.svelte:333: literal <div> carrying aria-label with no role, spread or use: action, so its implicit role is generic and the name is prohibited as reported (no drag-and-drop action anywhere in the clones)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/duplicate-landmark::src/routes/(auth_required)/appointment/+page.svelte:135::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:86-88 wraps {@render children()} in an unconditional <main>, and (auth_required)/appointment/+page.svelte:135 renders its own <main> at the page top level (no {#if} around it; no layout load or hooks that stop the route), so the route has two main landmarks"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/duplicate-landmark::src/routes/(auth_required)/book-appointment/+page.svelte:194::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:86-88 wraps {@render children()} in an unconditional <main>, and (auth_required)/book-appointment/+page.svelte:194 renders its own <main> at the page top level (no {#if} around it; no layout load or hooks that stop the route), so the route has two main landmarks"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/permitted-contents::src/routes/(auth_required)/calendar/+page.svelte:298::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read (auth_required)/calendar/+page.svelte:298: `<p>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/permitted-contents::src/routes/(auth_required)/calendar/+page.svelte:300::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read (auth_required)/calendar/+page.svelte:300: `<p>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/permitted-contents::src/routes/(auth_required)/calendar/+page.svelte:301::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_parent.py: nearest non-transparent element ancestor in the template is the named parent) + read (auth_required)/calendar/+page.svelte:301: `<div>` is not permitted content here as a literal child of the reported parent in the same template, outside its content model, as reported"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/top-level-landmark::src/routes/(auth_required)/appointment/+page.svelte:135::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:86-88 wraps the page in an unconditional <main>, and (auth_required)/appointment/+page.svelte:135 renders a page-level <main>, so a main sits inside the layout main as reported"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::a11y/top-level-landmark::src/routes/(auth_required)/book-appointment/+page.svelte:194::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:86-88 wraps the page in an unconditional <main>, and (auth_required)/book-appointment/+page.svelte:194 renders a page-level <main>, so a main sits inside the layout main as reported"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/lib/components/booking/TherapistCalendar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/booking/TherapistCalendar.svelte has 265 physical lines (newline count, trailing newline not counted; 229 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/lib/components/layout/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/Header.svelte has 216 physical lines (newline count, trailing newline not counted; 210 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth)/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/login/+page.svelte has 201 physical lines (newline count, trailing newline not counted; 188 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth)/signup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/signup/+page.svelte has 255 physical lines (newline count, trailing newline not counted; 238 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte has 647 physical lines (newline count, trailing newline not counted; 571 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte has 725 physical lines (newline count, trailing newline not counted; 652 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte has 524 physical lines (newline count, trailing newline not counted; 471 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth_required)/appointment/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth_required)/appointment/+page.svelte has 291 physical lines (newline count, trailing newline not counted; 256 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth_required)/book-appointment/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth_required)/book-appointment/+page.svelte has 443 physical lines (newline count, trailing newline not counted; 398 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth_required)/calendar/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth_required)/calendar/+page.svelte has 443 physical lines (newline count, trailing newline not counted; 399 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth_required)/therapist-dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth_required)/therapist-dashboard/+page.svelte has 480 physical lines (newline count, trailing newline not counted; 430 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/(auth_required)/therapist/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth_required)/therapist/[id]/+page.svelte has 381 physical lines (newline count, trailing newline not counted; 335 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/component-size::src/routes/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/search/+page.svelte has 408 physical lines (newline count, trailing newline not counted; 358 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest: variant, size, href, type, disabled, class, ref, children"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::correctness/each-key::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte:415::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: front-end/src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte:415 '{#each therapists() as therapist}<option' has no key; therapists (:64-72) collects the unique therapists of the fetched appointments, which change as appointments reload; runtime records"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::correctness/unmutated-state::src/routes/(auth_required)/dashboard/components/Sidebar.svelte:5::$state \"image\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: front-end/src/routes/(auth_required)/dashboard/components/Sidebar.svelte:5 let image = $state(false) is only read by {#if image} (:21); never written, bound or passed"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::performance/image-dimensions::src/routes/(auth_required)/book-appointment/+page.svelte:283::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; therapist avatar with class h-16 w-16 in a h-16 w-16 frame - box reserved by CSS"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::performance/image-dimensions::src/routes/(auth_required)/empty-appointment/+page.svelte:23::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; class w-172 h-102 md:w-96 md:h-96 object-contain (Tailwind 4 numeric sizes) - box reserved by CSS"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::performance/image-dimensions::src/routes/search/+page.svelte:323::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; therapist avatar with class h-16 w-16 in a h-16 w-16 frame - box reserved by CSS"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::performance/image-loading-hint::src/routes/(auth_required)/empty-appointment/+page.svelte:23::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the empty-state illustration centred under the page header in the h-[60vh] main block - above the fold"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::performance/lcp-image::src/routes/(auth_required)/book-appointment/+page.svelte:283::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "read: <img> has literal loading=\"lazy\"; first <img> of the route templates (the root layout's Header logo, a child component, renders first), but a 64px avatar inside each therapist card of the {#each} grid - not the LCP candidate"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::performance/lcp-image::src/routes/search/+page.svelte:323::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "read: <img> has literal loading=\"lazy\"; first <img> of the route templates (the root layout's Header logo, a child component, renders first), but a 64px avatar inside each therapist card of the {#each} grid - not the LCP candidate"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::performance/responsive-image::src/routes/(auth_required)/book-appointment/+page.svelte:283::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; therapist.avatar_url is a remote raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::performance/responsive-image::src/routes/(auth_required)/empty-appointment/+page.svelte:23::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src is $lib/assets/emptyState.png, a raster - one fixed-size asset"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::performance/responsive-image::src/routes/search/+page.svelte:323::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; therapist.avatar_url is a remote raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth)/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth)/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth)/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /signup (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth)/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /verify-email (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/admin-dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin-dashboard/appointment-operations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/admin-dashboard/platform-settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin-dashboard/platform-settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/admin-dashboard/reports/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin-dashboard/reports (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin-dashboard/therapist-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (client auth-gated: the page onMount calls apiClient.get(/admin/therapists/) through the axios client, whose endpoint requires a session (back-end DRF IsAuthenticated/admin), and lib/api/client.ts:129-133 goto(\"/login\") on the 401 a guest gets), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin-dashboard/user-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/appointment/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (client auth-gated: the page onMount calls listAppointments through the axios client, whose endpoint requires a session (back-end DRF IsAuthenticated/admin), and lib/api/client.ts:129-133 goto(\"/login\") on the 401 a guest gets), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/book-appointment/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /book-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/calendar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /calendar (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (client auth-gated: the page onMount calls listAppointments through the axios client, whose endpoint requires a session (back-end DRF IsAuthenticated/admin), and lib/api/client.ts:129-133 goto(\"/login\") on the 401 a guest gets), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/empty-appointment/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /empty-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /notifications (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/reschedule-appointment/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reschedule-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/reschedule-appointment/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reschedule-appointment/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (client auth-gated: the page onMount calls getAppointment through the axios client, whose endpoint requires a session (back-end DRF IsAuthenticated/admin), and lib/api/client.ts:129-133 goto(\"/login\") on the 401 a guest gets), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/therapist-dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /therapist-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request) but not a search target (client auth-gated: the page onMount calls getCurrentTherapistProfile through the axios client, whose endpoint requires a session (back-end DRF IsAuthenticated/admin), and lib/api/client.ts:129-133 goto(\"/login\") on the 401 a guest gets), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(auth_required)/therapist/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /therapist/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); rendered route with no gate in code: the (auth_required) group has no +layout, no hooks, and this page makes no session-only API call through the redirecting client (static placeholder, raw fetch without redirect, or AllowAny therapist endpoints); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/(category)/[category]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[category] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/blog/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/post/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /post/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/profile/[username]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /profile/[username] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /search (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /forgot-password; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /login; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth)/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /reset-password; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth)/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /signup; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth)/verify-email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /verify-email; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/admin-dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /admin-dashboard (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /admin-dashboard/appointment-operations (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/admin-dashboard/platform-settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /admin-dashboard/platform-settings (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/admin-dashboard/reports/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /admin-dashboard/reports (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /admin-dashboard/therapist-management (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /admin-dashboard/user-management (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/appointment/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /appointment (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/book-appointment/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /book-appointment (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/calendar/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /calendar (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /dashboard (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/empty-appointment/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /empty-appointment (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /notifications (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/reschedule-appointment/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /reschedule-appointment (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/reschedule-appointment/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /reschedule-appointment/[id] (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/therapist-dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /therapist-dashboard (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(auth_required)/therapist/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /therapist/[id] (literal claim holds); but it is a signed-in user/therapist/admin view (route group (auth_required); no server gate, the page shows the visitor's own data fetched client-side and lib/api/client.ts:132/163 sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/(category)/[category]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /[category]; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/blog/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /blog/[slug]; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/post/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /post/[slug]; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/profile/[username]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /profile/[username]; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/description-presence::src/routes/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src: no name=\"description\" anywhere, app.html and root +layout.svelte have none, svelte:head only in pages with <title>): no description on /search; a public page of the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/duplicate-title::src/routes/(auth_required)/reschedule-appointment/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: (auth_required)/reschedule-appointment/+page.svelte:7 and reschedule-appointment/[id]/+page.svelte:109 both literal <title>Reschedule Appointment - Online Therapy</title>, duplicate as claimed; but both are a signed-in patient's rescheduling flow (route group (auth_required), client-fetched data, lib/api/client.ts sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/duplicate-title::src/routes/(auth_required)/reschedule-appointment/[id]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: (auth_required)/reschedule-appointment/+page.svelte:7 and reschedule-appointment/[id]/+page.svelte:109 both literal <title>Reschedule Appointment - Online Therapy</title>, duplicate as claimed; but both are a signed-in patient's rescheduling flow (route group (auth_required), client-fetched data, lib/api/client.ts sends a 401 to /login), not a search target"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth)/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /forgot-password renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /login renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth)/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /reset-password renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth)/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /signup renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth)/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /verify-email renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/admin-dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin-dashboard renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin-dashboard/appointment-operations renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/admin-dashboard/platform-settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin-dashboard/platform-settings renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/admin-dashboard/reports/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin-dashboard/reports renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin-dashboard/therapist-management renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /admin-dashboard/user-management renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/appointment/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /appointment renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/book-appointment/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /book-appointment renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/calendar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /calendar renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /dashboard renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/empty-appointment/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /empty-appointment renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /notifications renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/reschedule-appointment/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /reschedule-appointment renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/reschedule-appointment/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /reschedule-appointment/[id] renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/therapist-dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /therapist-dashboard renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(auth_required)/therapist/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /therapist/[id] renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/(category)/[category]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /[category] renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); / renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /blog/[slug] renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/post/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /post/[slug] renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/profile/[username]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /profile/[username] renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of front-end/src incl. app.html: no ld+json/jsonld/schema.org, no meta library); /search renders (no load redirects; no layout loads) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forgot-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signup (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /verify-email (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/admin-dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin-dashboard/appointment-operations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/admin-dashboard/platform-settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin-dashboard/platform-settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/admin-dashboard/reports/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin-dashboard/reports (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin-dashboard/therapist-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin-dashboard/user-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/appointment/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/book-appointment/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /book-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/calendar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calendar (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/empty-appointment/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /empty-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /notifications (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/reschedule-appointment/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reschedule-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/reschedule-appointment/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reschedule-appointment/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/therapist-dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /therapist-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(auth_required)/therapist/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /therapist/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/(category)/[category]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[category] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/post/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /post/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/profile/[username]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile/[username] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-description::src/routes/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /search (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forgot-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signup (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /verify-email (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/admin-dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin-dashboard/appointment-operations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/admin-dashboard/platform-settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin-dashboard/platform-settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/admin-dashboard/reports/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin-dashboard/reports (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin-dashboard/therapist-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin-dashboard/user-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/appointment/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/book-appointment/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /book-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/calendar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calendar (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/empty-appointment/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /empty-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /notifications (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/reschedule-appointment/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reschedule-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/reschedule-appointment/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reschedule-appointment/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/therapist-dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /therapist-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(auth_required)/therapist/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /therapist/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/(category)/[category]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[category] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/post/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /post/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/profile/[username]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile/[username] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /search (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forgot-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signup (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /verify-email (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/admin-dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin-dashboard/appointment-operations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/admin-dashboard/platform-settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin-dashboard/platform-settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/admin-dashboard/reports/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin-dashboard/reports (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin-dashboard/therapist-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin-dashboard/user-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/appointment/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/book-appointment/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /book-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/calendar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calendar (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/empty-appointment/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /empty-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /notifications (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/reschedule-appointment/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reschedule-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/reschedule-appointment/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reschedule-appointment/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/therapist-dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /therapist-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(auth_required)/therapist/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /therapist/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/(category)/[category]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[category] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/post/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /post/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/profile/[username]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile/[username] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-title::src/routes/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /search (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signup (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /verify-email (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/admin-dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin-dashboard/appointment-operations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/admin-dashboard/platform-settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin-dashboard/platform-settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/admin-dashboard/reports/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin-dashboard/reports (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin-dashboard/therapist-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin-dashboard/user-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/appointment/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/book-appointment/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /book-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/calendar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calendar (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/empty-appointment/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /empty-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /notifications (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/reschedule-appointment/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reschedule-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/reschedule-appointment/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reschedule-appointment/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/therapist-dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /therapist-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(auth_required)/therapist/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /therapist/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/(category)/[category]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[category] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/post/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /post/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/profile/[username]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile/[username] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /search (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/single-h1::src/lib/components/landing/DoctorsSection.svelte:7::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: / renders AboutSection, DoctorsSection and BlogsSection unconditionally (routes/+page.svelte:9-13), each with its own <h1> (AboutSection:6, DoctorsSection:7, BlogsSection:9) - three <h1>s render"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/single-h1::src/routes/(auth_required)/dashboard/components/Sidebar.svelte:28::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the counted second <h1> is the user dashboard Sidebar's (:28), which routes/+layout.svelte renders only {#if isUserDashboardRoute} (pathname.startsWith('/dashboard')); on /[category] the page's own <h1>Category is the only one for every real slug (/about, /doctors... ; /dashboard itself is a static route) - only a slug starting with 'dashboard' would render both, so it is counted per the docs' 'path cannot satisfy' reading, but not a demonstrable defect"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/single-h1::src/routes/(auth_required)/dashboard/components/WelcomeBlock.svelte:9::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: on /dashboard the root layout renders the user Sidebar ({#if isUserDashboardRoute}, path-only) with <h1>{first_name ?? 'Patient'}</h1> (Sidebar.svelte:28), and dashboard/+page.svelte:8 renders <WelcomeBlock/> unconditionally with its own <h1> (:9) - two <h1>s render"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/single-h1::src/routes/(auth_required)/therapist-dashboard/components/Sidebar.svelte:27::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: key covers 8 routes, majority design: on the 6 /admin-dashboard/* routes and /calendar the second <h1> is a role sidebar (AdminSidebar/TherapistSidebar <h1>{first_name}</h1> :27) that routes/+layout.svelte renders only once $authStore.user?.user_type resolves, and authStore.initialize() runs in onMount - client-only, the server HTML has the page's one <h1> (forgot-password client-only <h1> precedent); only /therapist-dashboard (path-only test) ships two <h1>s"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: front-end/static has images/ and robots.txt (allow all, no Sitemap line), no sitemap.xml file, route or generator (literal claim holds); the public online-therapy platform (README; therapist search, blog, posts, categories and profiles are public, robots.txt allows all) with pages to list"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-length::src/routes/(auth)/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/login/+page.svelte:86 literal <title>Log In — Online Therapy</title> in a top-level svelte:head (23 chars as reported), the route's only title (root layout and app.html set none); too short as claimed (length rules tp regardless of gating, ledger convention)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-length::src/routes/(auth)/verify-email/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/verify-email/+page.svelte:2 literal <title>Verify Email — Online Therapy</title> in a top-level svelte:head (29 chars as reported), the route's only title (root layout and app.html set none); too short as claimed (length rules tp regardless of gating, ledger convention)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-length::src/routes/(auth_required)/appointment/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth_required)/appointment/+page.svelte:120 literal <title>My Appointments</title> in a top-level svelte:head (15 chars as reported), the route's only title (root layout and app.html set none); too short as claimed (length rules tp regardless of gating, ledger convention)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-length::src/routes/(category)/[category]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(category)/[category]/+page.svelte:10 literal <title>Category — Online Therapy</title> in a top-level svelte:head (25 chars as reported), the route's only title (root layout and app.html set none); too short as claimed (length rules tp regardless of gating, ledger convention)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-length::src/routes/post/[slug]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/post/[slug]/+page.svelte:10 literal <title>Post — Online Therapy</title> in a top-level svelte:head (21 chars as reported), the route's only title (root layout and app.html set none); too short as claimed (length rules tp regardless of gating, ledger convention)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-length::src/routes/profile/[username]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/profile/[username]/+page.svelte:22 literal <title>Profile — Online Therapy</title> in a top-level svelte:head (24 chars as reported), the route's only title (root layout and app.html set none); too short as claimed (length rules tp regardless of gating, ledger convention)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-presence::src/routes/(auth_required)/dashboard/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "(auth_required)/dashboard/+page.svelte has no svelte:head (no group layout; auth is client-side only); script-verified (a2c_closure.py incl. @/ alias: page + root +layout.svelte + transitive local imports have no <title>/svelte:head/document.title) + read: root +layout.svelte (Toaster from svelte-sonner@1.1.0 per bun.lock, no <title>: ledger read 1.0.7/1.1.1 on jsDelivr; Header, sidebars) has no svelte:head, app.html has no <title>, no hooks or layout load, only other route pages carry <title>"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-presence::src/routes/(auth_required)/empty-appointment/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "(auth_required)/empty-appointment/+page.svelte has no svelte:head (no group layout); script-verified (a2c_closure.py incl. @/ alias: page + root +layout.svelte + transitive local imports have no <title>/svelte:head/document.title) + read: root +layout.svelte (Toaster from svelte-sonner@1.1.0 per bun.lock, no <title>: ledger read 1.0.7/1.1.1 on jsDelivr; Header, sidebars) has no svelte:head, app.html has no <title>, no hooks or layout load, only other route pages carry <title>"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "+page.svelte renders landing sections (Hero/About/Doctors/Blogs/Footer) with no svelte:head; script-verified (a2c_closure.py incl. @/ alias: page + root +layout.svelte + transitive local imports have no <title>/svelte:head/document.title) + read: root +layout.svelte (Toaster from svelte-sonner@1.1.0 per bun.lock, no <title>: ledger read 1.0.7/1.1.1 on jsDelivr; Header, sidebars) has no svelte:head, app.html has no <title>, no hooks or layout load, only other route pages carry <title>"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/title-presence::src/routes/blog/[slug]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "blog/[slug]/+page.svelte renders only <h1>{data.title}</h1> (+page.js load returns {title: params.slug}, no title tag); script-verified (a2c_closure.py incl. @/ alias: page + root +layout.svelte + transitive local imports have no <title>/svelte:head/document.title) + read: root +layout.svelte (Toaster from svelte-sonner@1.1.0 per bun.lock, no <title>: ledger read 1.0.7/1.1.1 on jsDelivr; Header, sidebars) has no svelte:head, app.html has no <title>, no hooks or layout load, only other route pages carry <title>"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forgot-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth)/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth)/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /signup (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth)/verify-email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /verify-email (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/admin-dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin-dashboard/appointment-operations (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/admin-dashboard/platform-settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin-dashboard/platform-settings (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/admin-dashboard/reports/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin-dashboard/reports (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/admin-dashboard/therapist-management/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin-dashboard/therapist-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin-dashboard/user-management (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/appointment/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/book-appointment/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /book-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/calendar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calendar (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/empty-appointment/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /empty-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /notifications (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/reschedule-appointment/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reschedule-appointment (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/reschedule-appointment/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reschedule-appointment/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/therapist-dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /therapist-dashboard (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(auth_required)/therapist/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /therapist/[id] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/(category)/[category]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[category] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/blog/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/post/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /post/[slug] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/profile/[username]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile/[username] (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::seo/twitter-card::src/routes/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /search (script-verified: repo-wide grep (any file type): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/font-awesome css, root +layout.svelte has no <svelte:head>, pages set <title> only; no hooks, no meta-tag library (bits-ui/splide/superforms/sonner emit none)); route renders (no load/layout/hooks path that redirects or throws on every request)"
+  }
+]
