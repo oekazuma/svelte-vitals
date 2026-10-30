@@ -653,7 +653,7 @@ Measured on 612 apps, each pinned to a commit:
 - [nuin/popgenesjs](https://github.com/nuin/popgenesjs/tree/6d3098f51d45e4974ed203c172183a80d4d277a8) (`6d3098f`)
 - [mixeme/wynd/web](https://github.com/mixeme/wynd/tree/0f04d476ce5371641588b72508c1867e8855fdeb/web) (`0f04d47`)
 
-237994 of 238019 corpus findings have a verdict.
+237990 of 238015 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share      |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ----------------- |
@@ -742,7 +742,7 @@ Measured on 612 apps, each pinned to a commit:
 | [`seo/html-lang`](../../docs/src/content/docs/rules/seo/html-lang.md)                                                 | 5               | 5    | 4 / 0 / 1 / 0                         | 100% (4/4)         | 20% (1/5)         |
 | [`seo/image-alt`](../../docs/src/content/docs/rules/seo/image-alt.md)                                                 | 26              | 6    | 26 / 0 / 0 / 0                        | 100% (26/26)       | 0% (0/26)         |
 | [`seo/indexability`](../../docs/src/content/docs/rules/seo/indexability.md)                                           | 1680            | 135  | 1676 / 4 / 0 / 0                      | 100% (1676/1680)   | 0% (0/1680)       |
-| [`seo/json-ld`](../../docs/src/content/docs/rules/seo/json-ld.md)                                                     | 18047           | 556  | 17965 / 63 / 19 / 0                   | 100% (17965/18028) | 0% (19/18047)     |
+| [`seo/json-ld`](../../docs/src/content/docs/rules/seo/json-ld.md)                                                     | 18043           | 556  | 17965 / 59 / 19 / 0                   | 100% (17965/18024) | 0% (19/18043)     |
 | [`seo/json-ld-date-format`](../../docs/src/content/docs/rules/seo/json-ld-date-format.md)                             | 0               | 0    | —                                     | —                  | —                 |
 | [`seo/json-ld-deprecated-type`](../../docs/src/content/docs/rules/seo/json-ld-deprecated-type.md)                     | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)          |
 | [`seo/json-ld-placeholder`](../../docs/src/content/docs/rules/seo/json-ld-placeholder.md)                             | 0               | 0    | —                                     | —                  | —                 |
