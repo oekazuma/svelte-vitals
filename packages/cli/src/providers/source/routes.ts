@@ -15,7 +15,7 @@ import type {
 } from '@svelte-vitals/core/internal';
 import { defaultConfig, foldOccurrences, hasRel, isTopFragment } from '@svelte-vitals/core/internal';
 import type { A11yNode, ChildrenSite, ParsedFile, ParsedTag } from './parse.js';
-import { commonPrefix, decidedArms, flagArms, unsatisfiable, type Cond } from './parse.js';
+import { commonPrefix, flagArms, ruledOutArms, unsatisfiable, type Cond } from './parse.js';
 import { urlHolds, type UrlCond } from './url-cond.js';
 import { enumerateRoutePages } from './project.js';
 import {
@@ -213,8 +213,8 @@ async function composeA11y(
   depth: number,
   visited: Set<string>,
   chain: boolean,
-  // The use's decisions on this file's prop-gated `{#if}` groups: true keeps the first arm only.
-  decided?: ReadonlyMap<number, boolean>,
+  // The use's decisions on this file's gated `{#if}` groups (see `ruledOut`).
+  decided?: ReadonlyMap<number, Decided>,
   // Filled with where each component renders the content this file passes it (`readdress`).
   expanded: Map<number, BranchStep[][]> = new Map()
 ): Promise<ComposedNode[]> {
@@ -261,7 +261,7 @@ async function composeA11y(
       const childParsed = parsedFiles[branch]!;
       const gates = childParsed.a11y.gates;
       const childDecided =
-        gates && node.attributes ? decidedArms(childParsed, node.attributes, gates, node.snippets) : undefined;
+        gates && node.attributes ? ruledOutArms(childParsed, node.attributes, gates, node.snippets) : undefined;
       const childBase = state.nextGroup;
       const childExpanded = new Map<number, BranchStep[][]>();
       const child = await composeA11y(
@@ -327,9 +327,15 @@ function readdress(
   return sites.map((site) => [...site, ...rest]);
 }
 
-/** Whether `path` runs through an arm `decided` (see `decidedArms`) rules out. */
-function ruledOut(path: readonly BranchStep[], decided: ReadonlyMap<number, boolean>): boolean {
-  return path.some((s) => decided.has(s.group) && (decided.get(s.group) ? s.branch !== 0 : s.branch === 0));
+/** A group's decision: true keeps the first arm only and false drops it (`flagArms`, `urlArms`), or the arms ruled out (`ruledOutArms`). */
+type Decided = boolean | ReadonlySet<number>;
+
+/** Whether `path` runs through an arm `decided` rules out. */
+function ruledOut(path: readonly BranchStep[], decided: ReadonlyMap<number, Decided>): boolean {
+  return path.some((s) => {
+    const d = decided.get(s.group);
+    return d === undefined ? false : typeof d === 'boolean' ? d === (s.branch !== 0) : d.has(s.branch);
+  });
 }
 
 /**

@@ -35,6 +35,11 @@
     "basis": "mixed, labelled by occurrence majority (first look 89 findings = local 21 routes): Icon.svelte:15-89 is one {#if name === 'home'}{:else if …} chain with id=svg_1 only in the wechat (:53) and discord (:55) arms; every <Icon> in (dev)/+layout.svelte and the (dev) pages passes a literal name (horz3, refresh, setting, info, chart-bar…) selecting an id-less arm, yet the analyzer decides only the chain's first test (parse.ts decidedArms: 'false when its first arm never does') and folds the rest to the svg_1 arm, which the docs say a literal prop does not do (scratch fixture: two <Icon name=\"x\"/> flagged, <Icon name=\"home\"/> not); real only on / (dev)/+page.svelte:61/:84 wechat+discord (1 of its 9), and the 10 /dash routes are the documented fold over an undecidable ternary name"
   },
   {
+    "key": "banbox/banbot:web/ui::a11y/id-duplication::src/lib/Icon.svelte:55::Duplicate id \"svg_#\"",
+    "verdict": "tp",
+    "basis": "read: Icon.svelte:15-90 is one {#if name === 'home'}{:else if …} chain with id=svg_1 only in the wechat (:53) and discord (:55) arms; / ((dev)/+page.svelte:61 and :84) renders <Icon name=\"wechat\"/> and <Icon name=\"discord\"/> outside any {#if}, so two svg_1 co-render; the other literal-name uses select id-less arms and are no longer counted"
+  },
+  {
     "key": "banbox/banbot:web/ui::a11y/id-duplication::src/lib/kline/Icon.svelte:16::Duplicate id \"svg_#\"",
     "verdict": "fp",
     "basis": "read: on /data/item (11 local findings) the DOM holds one svg_1, from <Icon2 name=\"indicator\"> (data/item/+page.svelte:187 -> kline/Icon.svelte:131-132); every <Icon> there passes a literal id-less name (info, link-slash, chart-bar, the (dev) layout icons), but lib/Icon.svelte's {#if name === 'home'}{:else if …} chain is decided only on its first test and the rest folds to the svg_1 arm (:53), so each literal <Icon> adds a phantom svg_1 that collides with this anchor; contradicts the docs' literal-prop arm selection"

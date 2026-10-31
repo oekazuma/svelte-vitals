@@ -160,6 +160,11 @@
     "basis": "read: mixed, labelled by occurrence majority (workflow 2, /test-voyager 1). On /editions/[slug]/workflow the VoyagerPreview copies sit in separate viewMode blocks that never co-render (design). On /test-voyager the claim is false (fp): <voyager-explorer id=voyager> (:1389/:1746, one if/else) lives only in the {:else if direct} arm (:1362) and the first use passes direct={false} literally (test-voyager/+page.svelte:72), so only the direct={true} use renders it; the analyzer does not decide a prop test in an {:else if}"
   },
   {
+    "key": "PURE3D-EU/pure3d::a11y/id-duplication::src/lib/components/voyager/VoyagerViewer.svelte:1746::Duplicate id \"voyager\"",
+    "verdict": "design",
+    "basis": "read: reported only on /editions/[slug]/workflow, where the VoyagerPreview copies sit in separate viewMode blocks that never co-render (design); <voyager-explorer id=voyager> (:1389/:1746, one if/else) is the same element as the :1389 key, located in the other arm now that the direct={false} use on /test-voyager is decided"
+  },
+  {
     "key": "PURE3D-EU/pure3d::a11y/id-duplication::src/lib/components/workflow/AlphaReviewProgress.svelte:28::Duplicate id \"alpha-review-progress\"",
     "verdict": "design",
     "basis": "read: on /editions/[slug]/workflow EditionWorkflowPage.svelte renders it in separate {#if viewMode === …} blocks on one $derived viewMode (:248): concept-form draft (:1487) and status-view AlphaReview arm (:2193); never together; separate-blocks convention"

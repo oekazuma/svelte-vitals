@@ -1226,10 +1226,23 @@ describe('collectRoutes a11y composition', () => {
     };
     expect(await ids("showcase && layout === 'cover'")).toBe(0);
     expect(await ids("showcase || layout === 'cover'")).toBe(1);
-    // An operand no prop decides leaves the arm counted.
-    expect(await ids("open && layout === 'cover'")).toBe(2);
+    // An operand no prop decides leaves the arm counted unless the other operand settles the test.
+    expect(await ids("open && layout === 'cover'")).toBe(1);
+    expect(await ids("open || layout === 'cover'")).toBe(2);
     // A long chain of prop tests is decided like a short one.
     expect(await ids("showcase && layout === 'cover' && !showcase && !showcase && !showcase && !showcase")).toBe(0);
+  });
+
+  it('decides each {:else if} arm of a component on the props its use passes', async () => {
+    const { a11y } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/Limits.svelte': `<script>let { section = 'spend' } = $props();</script>{#if !limits}<p>Loading</p>{:else if section === 'spend'}<input id="spend" />{:else if section === 'authority' && view}<input id="authority" />{:else}<input id="other" />{/if}`,
+        'src/routes/+page.svelte': `<script>import Limits from '$lib/Limits.svelte';</script><Limits /><Limits section="authority" /><Limits section="computer" />`
+      }),
+      ''
+    );
+    const ids = a11y[0]!.ids;
+    expect([ids.spend?.length, ids.authority?.length, ids.other?.length]).toEqual([1, 1, 2]);
   });
 
   it('keeps a component arm its tag content supplies the snippet prop for', async () => {

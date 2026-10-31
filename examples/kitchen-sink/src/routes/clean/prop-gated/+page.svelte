@@ -8,6 +8,7 @@
   import Panel from '$lib/clean/prop-gated/Panel.svelte';
   import ReturnedDraft from '$lib/clean/ReturnedDraft.svelte';
   import Card from '$lib/clean/forward/Card.svelte';
+  import Limits from '$lib/clean/prop-gated/Limits.svelte';
 </script>
 
 <svelte:head>
@@ -42,3 +43,6 @@
 <Panel size="compact" />
 <ReturnedDraft />
 <Card view="compact" />
+<Limits />
+<Limits section="authority" />
+<Limits section="computer" />
