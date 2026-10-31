@@ -538,7 +538,7 @@ function literalArgs(attributes: AST.Component['attributes']): PropArgs {
  * An `{#if}` whose test one prop decides (`{#if prop}`, `{#if !prop}`, `{#if prop === 'x'}`): its
  * first arm renders exactly when this holds for the value the component receives.
  */
-export type PropGate = PropTest | { kind: 'and' | 'or'; parts: [PropGate, PropGate] };
+export type PropGate = PropTest | { kind: 'and' | 'or'; parts: [PropGate, PropGate] } | { kind: 'opaque' };
 
 /** One prop's test: `{#if prop}`, `prop === x`, `typeof prop === 't'`, `prop.length > n` (and the negations). */
 export interface PropTest {
@@ -700,11 +700,13 @@ function propGate(
   test: AST.IfBlock['test'],
   props: ReadonlyMap<string, string>,
   reassigned: ReadonlySet<string>,
-  depth = 0
+  depth = 0,
+  // Whether an operand no prop decides joins as `opaque` (`prop === 'x' && open`) rather than undoing the gate.
+  partial = false
 ): PropGate | undefined {
   if (depth > 4) return undefined;
   if (test.type === 'UnaryExpression' && test.operator === '!' && test.argument.type === 'UnaryExpression')
-    if (test.argument.operator === '!') return propGate(test.argument.argument, props, reassigned, depth);
+    if (test.argument.operator === '!') return propGate(test.argument.argument, props, reassigned, depth, partial);
   const propOf = (n: AST.IfBlock['test'] | { type: 'Super' }): string | undefined => {
     if (n.type === 'Identifier') return reassigned.has(n.name) ? undefined : props.get(n.name);
     // `props.title` on `let props = $props()`.
@@ -720,20 +722,22 @@ function propGate(
   };
   // `{#if embedded}` on `const embedded = $derived(variant === 'embedded')`.
   const derived = test.type === 'Identifier' ? derivedTests.get(props)?.get(test.name) : undefined;
-  if (derived) return propGate(derived, props, reassigned, depth + 1);
+  if (derived) return propGate(derived, props, reassigned, depth + 1, partial);
   const negated =
     test.type === 'UnaryExpression' && test.operator === '!' && test.argument.type === 'Identifier'
       ? derivedTests.get(props)?.get(test.argument.name)
       : undefined;
   if (negated) {
     const gate = propGate(negated, props, reassigned, depth + 1);
-    return gate && !('parts' in gate) ? { ...gate, negate: !gate.negate } : undefined;
+    return gate && 'prop' in gate ? { ...gate, negate: !gate.negate } : undefined;
   }
-  // `{#if title || header}`: decided only when every operand is a prop's test.
+  // `{#if title || header}`: decided only when every operand is a prop's test, unless `partial`.
   if (test.type === 'LogicalExpression' && test.operator !== '??') {
-    const left = propGate(test.left, props, reassigned, depth);
-    const right = left && propGate(test.right, props, reassigned, depth);
-    return right ? { kind: test.operator === '&&' ? 'and' : 'or', parts: [left!, right] } : undefined;
+    const left = propGate(test.left, props, reassigned, depth, partial);
+    const right = (left || partial) && propGate(test.right, props, reassigned, depth, partial);
+    if (!(left && right) && !(partial && (left || right))) return undefined;
+    const opaque = { kind: 'opaque' } as const;
+    return { kind: test.operator === '&&' ? 'and' : 'or', parts: [left || opaque, right || opaque] };
   }
   if (test.type === 'Identifier' || test.type === 'MemberExpression') {
     const prop = propOf(test);
@@ -784,18 +788,19 @@ function propGate(
  * when its first arm never does. A prop the use passes literally, a boolean shorthand, or the
  * default (undefined without one) decides it; an expression, a spread or `bind:` does not.
  */
-export function decidedArms(
+export function decidedArms<K = number>(
   parsed: ParsedFile,
   attributes: AST.Component['attributes'],
-  gates: ReadonlyMap<number, PropGate> = parsed.headingGates,
+  gates: ReadonlyMap<K, PropGate> = parsed.headingGates as ReadonlyMap<K, PropGate>,
   // Snippet props the tag's content supplies, which no attribute names.
   supplied: readonly string[] = []
-): Map<number, boolean> {
-  const out = new Map<number, boolean>();
+): Map<K, boolean> {
+  const out = new Map<K, boolean>();
   if (gates.size === 0 || attributes.some((a) => a.type === 'SpreadAttribute')) return out;
   type Held = { value: unknown } | { type: string } | { length: number } | 'unknown';
   // Whether the gate's first arm renders, or undefined when the use does not decide it.
   const decide = (gate: PropGate): boolean | undefined => {
+    if (gate.kind === 'opaque') return undefined;
     if ('parts' in gate) {
       const [a, b] = gate.parts.map(decide);
       const short = gate.kind === 'or';
@@ -890,6 +895,32 @@ export function decidedArms(
   for (const [group, gate] of gates) {
     const holds = decide(gate);
     if (holds !== undefined) out.set(group, holds);
+  }
+  return out;
+}
+
+/**
+ * For each `{#if}` chain of `chains` (a gate per test, in order), the arms a use rules out: one
+ * whose own test it decides false, and every arm after a test it decides true (`{:else}` included).
+ */
+export function ruledOutArms(
+  parsed: ParsedFile,
+  attributes: AST.Component['attributes'],
+  chains: ReadonlyMap<number, readonly (PropGate | undefined)[]>,
+  supplied: readonly string[] = []
+): Map<number, Set<number>> {
+  const all = [...chains.values()].flat().filter((g) => g !== undefined);
+  const decided = decidedArms(parsed, attributes, new Map(all.map((g) => [g, g])), supplied);
+  const out = new Map<number, Set<number>>();
+  for (const [group, tests] of chains) {
+    const ruled = new Set<number>();
+    let taken = false;
+    for (let arm = 0; arm <= tests.length; arm++) {
+      const holds = tests[arm] && decided.get(tests[arm]!);
+      if (taken || holds === false) ruled.add(arm);
+      else if (holds) taken = true;
+    }
+    if (ruled.size > 0) out.set(group, ruled);
   }
   return out;
 }
@@ -2112,8 +2143,8 @@ export interface A11yNode {
 
 export interface ParsedA11y {
   nodes: A11yNode[];
-  /** `{#if}` groups one prop decides, for `decidedArms` at each use of this file. */
-  gates?: ReadonlyMap<number, PropGate>;
+  /** Each `{#if}` chain's gate per test, where a prop decides one, for `ruledOutArms` at each use of this file. */
+  gates?: ReadonlyMap<number, readonly (PropGate | undefined)[]>;
   /** `{#if}` groups an imported flag decides, for `flagArms`. */
   flagGates?: ReadonlyMap<number, FlagGate>;
   /** `{#if}` groups whose first test reads the request path or route id, decided per route. */
@@ -2193,7 +2224,7 @@ function collectA11y(
   urlBlocks: ReadonlyMap<number, UrlCond> = new Map(),
   name: (reference: string) => string = (reference) => reference
 ): ParsedA11y {
-  const gates = new Map<number, PropGate>();
+  const gates = new Map<number, (PropGate | undefined)[]>();
   const flagGates = new Map<number, FlagGate>();
   const urlGates = new Map<number, UrlCond>();
   const nodes: A11yNode[] = [];
@@ -2260,8 +2291,8 @@ function collectA11y(
         return;
       case 'IfBlock': {
         const group = groups++;
-        const gate = propGate(node.test, props, reassigned);
-        if (gate) gates.set(group, gate);
+        const chain = ifTests(node).map((t) => propGate(t, props, reassigned, 0, true));
+        if (chain.some(Boolean)) gates.set(group, chain);
         const flag = flagGate(node.test, flags);
         if (flag) flagGates.set(group, flag);
         const url = urlBlocks.get(node.start);
@@ -2548,7 +2579,8 @@ export function parseFile(raw: string, filename: string): ParsedFile {
   const bound = templateBindings(ast.fragment);
   const flags = new Set([...imports.keys()].filter((name) => !bound.has(name)));
   const reassigned = reassignedLocals(ast);
-  const headingAcc = collectHeadings(ast.fragment, source, props, reassigned, urls.sites, flags, urls.blocks);
+  const ungated = new Set([...reassigned, ...bound]);
+  const headingAcc = collectHeadings(ast.fragment, source, props, ungated, urls.sites, flags, urls.blocks);
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc);
   const jsonLdNames = jsonLdBindings(ast);
@@ -2581,7 +2613,7 @@ export function parseFile(raw: string, filename: string): ParsedFile {
       source,
       urls.sites,
       props,
-      reassigned,
+      ungated,
       flags,
       urls.blocks,
       chainNames(ast, imports, reassigned, filename)

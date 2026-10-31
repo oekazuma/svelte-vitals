@@ -25,6 +25,11 @@
     "basis": "read: every Banner* pattern root div carries explicit role=\"banner\" (BannerCurve:279, BannerSquare:247, BannerBlob:279, BannerPolygon:223); root +layout.svelte:36 renders <Footer>, whose banner layer picks one in every arm (Footer.svelte:30-38), and / renders <Hero banner=\"spinner\"> (+page.svelte:20 -> Hero.svelte:74-75 BannerCurve), so two banner landmarks co-render"
   },
   {
+    "key": "vizchitra/website::a11y/duplicate-landmark::src/lib/components/patterns/BannerPolygon.svelte:213::Duplicate banner landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: every Banner* pattern root div carries explicit role=\"banner\" (BannerPolygon:213-223); the layout Footer renders one in every arm (Footer.svelte:30-38) and /2025 renders <Hero banner=\"polygon\"> (2025/+page.svelte:107), whose chain selects BannerPolygon, so two banner landmarks co-render"
+  },
+  {
     "key": "vizchitra/website::a11y/duplicate-landmark::src/lib/components/patterns/BannerSquare.svelte:237::Duplicate banner landmark (# of #)",
     "verdict": "tp",
     "basis": "read: every Banner* pattern root div carries explicit role=\"banner\" (BannerSquare:247, BannerPolygon:223, BannerCurve:279, BannerBlob:279); the layout Footer renders one in every arm (Footer.svelte:30-38) and /2025/schedule renders <Header banner=\"polygon\"> (+page.svelte:5 -> Header.svelte:37-45), so two banner landmarks co-render; the location names the arm the fold picked, the duplicate holds in every arm"
