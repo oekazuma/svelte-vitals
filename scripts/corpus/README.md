@@ -38,7 +38,7 @@ change adds or removes.
 
 <!-- rule-reliability:start -->
 
-Measured on 612 apps, each pinned to a commit:
+Measured on 611 apps, each pinned to a commit:
 
 - [huntabyte/bits-ui/docs](https://github.com/huntabyte/bits-ui/tree/4ece1256a548a3f23aec3131477cbc4077556dfd/docs) (`4ece125`)
 - [huntabyte/bits-ui/tests](https://github.com/huntabyte/bits-ui/tree/4ece1256a548a3f23aec3131477cbc4077556dfd/tests) (`4ece125`)
@@ -578,7 +578,6 @@ Measured on 612 apps, each pinned to a commit:
 - [the-astrosky-ecosystem/website](https://github.com/the-astrosky-ecosystem/website/tree/3ef773f4590f80f0219b5732a670281e38673cff) (`3ef773f`)
 - [nathanfaucett/rs-of/apps/app](https://github.com/nathanfaucett/rs-of/tree/9cfad4be26ffaf3dd8f749a97dc5feededd7012c/apps/app) (`9cfad4b`)
 - [vaionex/telomere.ai/apps/web](https://github.com/vaionex/telomere.ai/tree/24df3ba9b908e71ccc0b9f5c99665d19f0b26fa2/apps/web) (`24df3ba`)
-- [thoutmose/axon/web](https://github.com/thoutmose/axon/tree/890413101f4b078ba1d6147084cbc202b15f4914/web) (`8904131`)
 - [gr8monk3ys/finance-owl/packages/frontend](https://github.com/gr8monk3ys/finance-owl/tree/7df2911db61df33021a4b0b760706718803a7439/packages/frontend) (`7df2911`)
 - [b4its/kepin-official/frontend](https://github.com/b4its/kepin-official/tree/8c3be5a99252781f5c9a42384f5a0a9a5e7d6da8/frontend) (`8c3be5a`)
 - [schmolldechse/archive/frontend](https://github.com/schmolldechse/archive/tree/fd63cc4c95c33c28c722c905ae5208f97b58c661/frontend) (`fd63cc4`)
@@ -653,17 +652,17 @@ Measured on 612 apps, each pinned to a commit:
 - [nuin/popgenesjs](https://github.com/nuin/popgenesjs/tree/6d3098f51d45e4974ed203c172183a80d4d277a8) (`6d3098f`)
 - [mixeme/wynd/web](https://github.com/mixeme/wynd/tree/0f04d476ce5371641588b72508c1867e8855fdeb/web) (`0f04d47`)
 
-237954 of 237979 corpus findings have a verdict.
+237187 of 237212 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share      |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ----------------- |
 | [`a11y/abbr-title`](../../docs/src/content/docs/rules/a11y/abbr-title.md)                                             | 2               | 2    | 0 / 0 / 2 / 0                         | —                  | 100% (2/2)        |
 | [`a11y/accessible-name`](../../docs/src/content/docs/rules/a11y/accessible-name.md)                                   | 430             | 89   | 375 / 0 / 55 / 0                      | 100% (375/375)     | 13% (55/430)      |
 | [`a11y/aria-hidden-focus`](../../docs/src/content/docs/rules/a11y/aria-hidden-focus.md)                               | 134             | 31   | 93 / 0 / 41 / 0                       | 100% (93/93)       | 31% (41/134)      |
-| [`a11y/deprecated-aria`](../../docs/src/content/docs/rules/a11y/deprecated-aria.md)                                   | 76              | 51   | 76 / 0 / 0 / 0                        | 100% (76/76)       | 0% (0/76)         |
+| [`a11y/deprecated-aria`](../../docs/src/content/docs/rules/a11y/deprecated-aria.md)                                   | 75              | 50   | 75 / 0 / 0 / 0                        | 100% (75/75)       | 0% (0/75)         |
 | [`a11y/deprecated-attr`](../../docs/src/content/docs/rules/a11y/deprecated-attr.md)                                   | 155             | 64   | 154 / 0 / 1 / 0                       | 100% (154/154)     | 1% (1/155)        |
 | [`a11y/deprecated-element`](../../docs/src/content/docs/rules/a11y/deprecated-element.md)                             | 33              | 6    | 33 / 0 / 0 / 0                        | 100% (33/33)       | 0% (0/33)         |
-| [`a11y/disallowed-aria-props`](../../docs/src/content/docs/rules/a11y/disallowed-aria-props.md)                       | 2060            | 310  | 2003 / 2 / 55 / 0                     | 100% (2003/2005)   | 3% (55/2060)      |
+| [`a11y/disallowed-aria-props`](../../docs/src/content/docs/rules/a11y/disallowed-aria-props.md)                       | 2050            | 309  | 1993 / 2 / 55 / 0                     | 100% (1993/1995)   | 3% (55/2050)      |
 | [`a11y/disallowed-element`](../../docs/src/content/docs/rules/a11y/disallowed-element.md)                             | 0               | 0    | —                                     | —                  | —                 |
 | [`a11y/doctype`](../../docs/src/content/docs/rules/a11y/doctype.md)                                                   | 0               | 0    | —                                     | —                  | —                 |
 | [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 724             | 171  | 687 / 5 / 32 / 0                      | 99% (687/692)      | 4% (32/724)       |
@@ -673,25 +672,25 @@ Measured on 612 apps, each pinned to a commit:
 | [`a11y/invalid-role`](../../docs/src/content/docs/rules/a11y/invalid-role.md)                                         | 0               | 0    | —                                     | —                  | —                 |
 | [`a11y/label-has-control`](../../docs/src/content/docs/rules/a11y/label-has-control.md)                               | 1858            | 66   | 1858 / 0 / 0 / 0                      | 100% (1858/1858)   | 0% (0/1858)       |
 | [`a11y/no-accesskey`](../../docs/src/content/docs/rules/a11y/no-accesskey.md)                                         | 0               | 0    | —                                     | —                  | —                 |
-| [`a11y/no-autofocus`](../../docs/src/content/docs/rules/a11y/no-autofocus.md)                                         | 236             | 96   | 27 / 1 / 208 / 0                      | 96% (27/28)        | 88% (208/236)     |
+| [`a11y/no-autofocus`](../../docs/src/content/docs/rules/a11y/no-autofocus.md)                                         | 235             | 95   | 26 / 1 / 208 / 0                      | 96% (26/27)        | 89% (208/235)     |
 | [`a11y/no-duplicate-dt`](../../docs/src/content/docs/rules/a11y/no-duplicate-dt.md)                                   | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)          |
 | [`a11y/no-missing-id-ref`](../../docs/src/content/docs/rules/a11y/no-missing-id-ref.md)                               | 29              | 10   | 29 / 0 / 0 / 0                        | 100% (29/29)       | 0% (0/29)         |
 | [`a11y/pattern-title`](../../docs/src/content/docs/rules/a11y/pattern-title.md)                                       | 123             | 65   | 104 / 0 / 19 / 0                      | 100% (104/104)     | 15% (19/123)      |
-| [`a11y/permitted-contents`](../../docs/src/content/docs/rules/a11y/permitted-contents.md)                             | 8527            | 473  | 8521 / 6 / 0 / 0                      | 100% (8521/8527)   | 0% (0/8527)       |
+| [`a11y/permitted-contents`](../../docs/src/content/docs/rules/a11y/permitted-contents.md)                             | 8526            | 472  | 8520 / 6 / 0 / 0                      | 100% (8520/8526)   | 0% (0/8526)       |
 | [`a11y/placeholder-label-option`](../../docs/src/content/docs/rules/a11y/placeholder-label-option.md)                 | 150             | 38   | 58 / 0 / 92 / 0                       | 100% (58/58)       | 61% (92/150)      |
 | [`a11y/positive-tabindex`](../../docs/src/content/docs/rules/a11y/positive-tabindex.md)                               | 6               | 2    | 6 / 0 / 0 / 0                         | 100% (6/6)         | 0% (0/6)          |
 | [`a11y/require-datetime`](../../docs/src/content/docs/rules/a11y/require-datetime.md)                                 | 21              | 2    | 21 / 0 / 0 / 0                        | 100% (21/21)       | 0% (0/21)         |
 | [`a11y/required-aria-props`](../../docs/src/content/docs/rules/a11y/required-aria-props.md)                           | 4               | 4    | 4 / 0 / 0 / 0                         | 100% (4/4)         | 0% (0/4)          |
 | [`a11y/required-element`](../../docs/src/content/docs/rules/a11y/required-element.md)                                 | 0               | 0    | —                                     | —                  | —                 |
-| [`a11y/top-level-landmark`](../../docs/src/content/docs/rules/a11y/top-level-landmark.md)                             | 1037            | 196  | 1016 / 13 / 8 / 0                     | 99% (1016/1029)    | 1% (8/1037)       |
+| [`a11y/top-level-landmark`](../../docs/src/content/docs/rules/a11y/top-level-landmark.md)                             | 1033            | 195  | 1012 / 13 / 8 / 0                     | 99% (1012/1025)    | 1% (8/1033)       |
 | [`a11y/unknown-aria-attribute`](../../docs/src/content/docs/rules/a11y/unknown-aria-attribute.md)                     | 0               | 0    | —                                     | —                  | —                 |
 | [`a11y/unverified-id-ref`](../../docs/src/content/docs/rules/a11y/unverified-id-ref.md)                               | 0               | 0    | —                                     | —                  | —                 |
 | [`a11y/use-list`](../../docs/src/content/docs/rules/a11y/use-list.md)                                                 | 83              | 15   | 77 / 0 / 6 / 0                        | 100% (77/77)       | 7% (6/83)         |
-| [`architecture/component-size`](../../docs/src/content/docs/rules/architecture/component-size.md)                     | 22122           | 596  | 22122 / 0 / 0 / 0                     | 100% (22122/22122) | 0% (0/22122)      |
+| [`architecture/component-size`](../../docs/src/content/docs/rules/architecture/component-size.md)                     | 22038           | 595  | 22038 / 0 / 0 / 0                     | 100% (22038/22038) | 0% (0/22038)      |
 | [`architecture/directory-naming`](../../docs/src/content/docs/rules/architecture/directory-naming.md)                 | 0               | 0    | —                                     | —                  | —                 |
 | [`architecture/doc-link-target`](../../docs/src/content/docs/rules/architecture/doc-link-target.md)                   | 0               | 0    | —                                     | —                  | —                 |
 | [`architecture/private-scope-import`](../../docs/src/content/docs/rules/architecture/private-scope-import.md)         | 0               | 0    | —                                     | —                  | —                 |
-| [`architecture/prop-count`](../../docs/src/content/docs/rules/architecture/prop-count.md)                             | 8836            | 552  | 8836 / 0 / 0 / 0                      | 100% (8836/8836)   | 0% (0/8836)       |
+| [`architecture/prop-count`](../../docs/src/content/docs/rules/architecture/prop-count.md)                             | 8835            | 551  | 8835 / 0 / 0 / 0                      | 100% (8835/8835)   | 0% (0/8835)       |
 | [`architecture/reserved-directory-names`](../../docs/src/content/docs/rules/architecture/reserved-directory-names.md) | 0               | 0    | —                                     | —                  | —                 |
 | [`architecture/reserved-name-placement`](../../docs/src/content/docs/rules/architecture/reserved-name-placement.md)   | 0               | 0    | —                                     | —                  | —                 |
 | [`architecture/route-component-import`](../../docs/src/content/docs/rules/architecture/route-component-import.md)     | 105             | 39   | 4 / 0 / 101 / 0                       | 100% (4/4)         | 96% (101/105)     |
@@ -699,11 +698,11 @@ Measured on 612 apps, each pinned to a commit:
 | [`correctness/autoplay-muted`](../../docs/src/content/docs/rules/correctness/autoplay-muted.md)                       | 25              | 19   | 14 / 0 / 11 / 0                       | 100% (14/14)       | 44% (11/25)       |
 | [`correctness/base-path-navigation`](../../docs/src/content/docs/rules/correctness/base-path-navigation.md)           | 223             | 31   | 82 / 0 / 141 / 0                      | 100% (82/82)       | 63% (141/223)     |
 | [`correctness/checkable-bind-value`](../../docs/src/content/docs/rules/correctness/checkable-bind-value.md)           | 0               | 0    | —                                     | —                  | —                 |
-| [`correctness/each-index-key`](../../docs/src/content/docs/rules/correctness/each-index-key.md)                       | 4509            | 382  | 1967 / 0 / 2542 / 0                   | 100% (1967/1967)   | 56% (2542/4509)   |
+| [`correctness/each-index-key`](../../docs/src/content/docs/rules/correctness/each-index-key.md)                       | 4468            | 381  | 1957 / 0 / 2511 / 0                   | 100% (1957/1957)   | 56% (2511/4468)   |
 | [`correctness/each-key`](../../docs/src/content/docs/rules/correctness/each-key.md)                                   | 20275           | 397  | 13799 / 1 / 6474 / 1                  | 100% (13799/13800) | 32% (6474/20275)  |
-| [`correctness/effect-as-derived`](../../docs/src/content/docs/rules/correctness/effect-as-derived.md)                 | 1021            | 279  | 854 / 0 / 167 / 0                     | 100% (854/854)     | 16% (167/1021)    |
+| [`correctness/effect-as-derived`](../../docs/src/content/docs/rules/correctness/effect-as-derived.md)                 | 1019            | 278  | 852 / 0 / 167 / 0                     | 100% (852/852)     | 16% (167/1019)    |
 | [`correctness/effect-as-onmount`](../../docs/src/content/docs/rules/correctness/effect-as-onmount.md)                 | 269             | 122  | 187 / 2 / 80 / 0                      | 99% (187/189)      | 30% (80/269)      |
-| [`correctness/instance-browser-global`](../../docs/src/content/docs/rules/correctness/instance-browser-global.md)     | 64              | 36   | 4 / 0 / 60 / 0                        | 100% (4/4)         | 94% (60/64)       |
+| [`correctness/instance-browser-global`](../../docs/src/content/docs/rules/correctness/instance-browser-global.md)     | 63              | 35   | 4 / 0 / 59 / 0                        | 100% (4/4)         | 94% (59/63)       |
 | [`correctness/nonreactive-builtin-state`](../../docs/src/content/docs/rules/correctness/nonreactive-builtin-state.md) | 44              | 30   | 32 / 0 / 12 / 0                       | 100% (32/32)       | 27% (12/44)       |
 | [`correctness/orphan-effect`](../../docs/src/content/docs/rules/correctness/orphan-effect.md)                         | 0               | 0    | —                                     | —                  | —                 |
 | [`correctness/orphan-lifecycle`](../../docs/src/content/docs/rules/correctness/orphan-lifecycle.md)                   | 0               | 0    | —                                     | —                  | —                 |
@@ -714,8 +713,8 @@ Measured on 612 apps, each pinned to a commit:
 | [`performance/font-preload-crossorigin`](../../docs/src/content/docs/rules/performance/font-preload-crossorigin.md)   | 0               | 0    | —                                     | —                  | —                 |
 | [`performance/heavy-import`](../../docs/src/content/docs/rules/performance/heavy-import.md)                           | 112             | 9    | 112 / 0 / 0 / 0                       | 100% (112/112)     | 0% (0/112)        |
 | [`performance/iframe-loading`](../../docs/src/content/docs/rules/performance/iframe-loading.md)                       | 378             | 175  | 88 / 0 / 285 / 5                      | 100% (88/88)       | 75% (285/378)     |
-| [`performance/image-dimensions`](../../docs/src/content/docs/rules/performance/image-dimensions.md)                   | 3449            | 377  | 1036 / 2 / 2411 / 0                   | 100% (1036/1038)   | 70% (2411/3449)   |
-| [`performance/image-loading-hint`](../../docs/src/content/docs/rules/performance/image-loading-hint.md)               | 3157            | 394  | 1163 / 2 / 1992 / 0                   | 100% (1163/1165)   | 63% (1992/3157)   |
+| [`performance/image-dimensions`](../../docs/src/content/docs/rules/performance/image-dimensions.md)                   | 3446            | 376  | 1033 / 2 / 2411 / 0                   | 100% (1033/1035)   | 70% (2411/3446)   |
+| [`performance/image-loading-hint`](../../docs/src/content/docs/rules/performance/image-loading-hint.md)               | 3149            | 393  | 1160 / 2 / 1987 / 0                   | 100% (1160/1162)   | 63% (1987/3149)   |
 | [`performance/lcp-image`](../../docs/src/content/docs/rules/performance/lcp-image.md)                                 | 277             | 102  | 113 / 6 / 158 / 0                     | 95% (113/119)      | 57% (158/277)     |
 | [`performance/load-waterfall`](../../docs/src/content/docs/rules/performance/load-waterfall.md)                       | 314             | 55   | 151 / 0 / 163 / 0                     | 100% (151/151)     | 52% (163/314)     |
 | [`performance/minify-disabled`](../../docs/src/content/docs/rules/performance/minify-disabled.md)                     | 0               | 0    | —                                     | —                  | —                 |
@@ -723,44 +722,44 @@ Measured on 612 apps, each pinned to a commit:
 | [`performance/preconnect`](../../docs/src/content/docs/rules/performance/preconnect.md)                               | 3               | 3    | 3 / 0 / 0 / 0                         | 100% (3/3)         | 0% (0/3)          |
 | [`performance/preload-missing-as`](../../docs/src/content/docs/rules/performance/preload-missing-as.md)               | 0               | 0    | —                                     | —                  | —                 |
 | [`performance/render-blocking-script`](../../docs/src/content/docs/rules/performance/render-blocking-script.md)       | 7               | 5    | 7 / 0 / 0 / 0                         | 100% (7/7)         | 0% (0/7)          |
-| [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 3402            | 381  | 2891 / 4 / 507 / 0                    | 100% (2891/2895)   | 15% (507/3402)    |
+| [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 3394            | 380  | 2885 / 4 / 505 / 0                    | 100% (2885/2889)   | 15% (505/3394)    |
 | [`performance/sequential-awaits`](../../docs/src/content/docs/rules/performance/sequential-awaits.md)                 | 3232            | 278  | 1764 / 4 / 1462 / 2                   | 100% (1764/1768)   | 45% (1462/3232)   |
-| [`performance/state-raw`](../../docs/src/content/docs/rules/performance/state-raw.md)                                 | 1229            | 283  | 1229 / 0 / 0 / 0                      | 100% (1229/1229)   | 0% (0/1229)       |
+| [`performance/state-raw`](../../docs/src/content/docs/rules/performance/state-raw.md)                                 | 1217            | 282  | 1217 / 0 / 0 / 0                      | 100% (1217/1217)   | 0% (0/1217)       |
 | [`security/handler-state-write`](../../docs/src/content/docs/rules/security/handler-state-write.md)                   | 27              | 10   | 18 / 0 / 9 / 0                        | 100% (18/18)       | 33% (9/27)        |
 | [`security/javascript-url`](../../docs/src/content/docs/rules/security/javascript-url.md)                             | 48              | 4    | 48 / 0 / 0 / 0                        | 100% (48/48)       | 0% (0/48)         |
-| [`security/raw-html`](../../docs/src/content/docs/rules/security/raw-html.md)                                         | 4690            | 416  | 441 / 0 / 4249 / 0                    | 100% (441/441)     | 91% (4249/4690)   |
+| [`security/raw-html`](../../docs/src/content/docs/rules/security/raw-html.md)                                         | 4681            | 415  | 441 / 0 / 4240 / 0                    | 100% (441/441)     | 91% (4240/4681)   |
 | [`security/server-module-state`](../../docs/src/content/docs/rules/security/server-module-state.md)                   | 224             | 69   | 4 / 2 / 218 / 0                       | 67% (4/6)          | 97% (218/224)     |
 | [`security/shared-state-import`](../../docs/src/content/docs/rules/security/shared-state-import.md)                   | 64              | 12   | 49 / 0 / 15 / 0                       | 100% (49/49)       | 23% (15/64)       |
-| [`seo/canonical-url`](../../docs/src/content/docs/rules/seo/canonical-url.md)                                         | 15898           | 507  | 5250 / 83 / 10565 / 0                 | 98% (5250/5333)    | 66% (10565/15898) |
+| [`seo/canonical-url`](../../docs/src/content/docs/rules/seo/canonical-url.md)                                         | 15826           | 506  | 5246 / 83 / 10497 / 0                 | 98% (5246/5329)    | 66% (10497/15826) |
 | [`seo/charset`](../../docs/src/content/docs/rules/seo/charset.md)                                                     | 0               | 0    | —                                     | —                  | —                 |
 | [`seo/description-length`](../../docs/src/content/docs/rules/seo/description-length.md)                               | 594             | 162  | 532 / 0 / 62 / 0                      | 100% (532/532)     | 10% (62/594)      |
-| [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 12364           | 418  | 1268 / 91 / 11005 / 0                 | 93% (1268/1359)    | 89% (11005/12364) |
+| [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 12292           | 417  | 1267 / 91 / 10934 / 0                 | 93% (1267/1358)    | 89% (10934/12292) |
 | [`seo/duplicate-description`](../../docs/src/content/docs/rules/seo/duplicate-description.md)                         | 179             | 95   | 113 / 0 / 66 / 0                      | 100% (113/113)     | 37% (66/179)      |
 | [`seo/duplicate-title`](../../docs/src/content/docs/rules/seo/duplicate-title.md)                                     | 400             | 193  | 73 / 3 / 324 / 0                      | 96% (73/76)        | 81% (324/400)     |
 | [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 1567            | 291  | 1520 / 41 / 6 / 0                     | 97% (1520/1561)    | 0% (6/1567)       |
 | [`seo/hreflang`](../../docs/src/content/docs/rules/seo/hreflang.md)                                                   | 0               | 0    | —                                     | —                  | —                 |
 | [`seo/html-lang`](../../docs/src/content/docs/rules/seo/html-lang.md)                                                 | 5               | 5    | 4 / 0 / 1 / 0                         | 100% (4/4)         | 20% (1/5)         |
 | [`seo/image-alt`](../../docs/src/content/docs/rules/seo/image-alt.md)                                                 | 26              | 6    | 26 / 0 / 0 / 0                        | 100% (26/26)       | 0% (0/26)         |
-| [`seo/indexability`](../../docs/src/content/docs/rules/seo/indexability.md)                                           | 1680            | 135  | 1676 / 4 / 0 / 0                      | 100% (1676/1680)   | 0% (0/1680)       |
-| [`seo/json-ld`](../../docs/src/content/docs/rules/seo/json-ld.md)                                                     | 18043           | 556  | 17965 / 59 / 19 / 0                   | 100% (17965/18024) | 0% (19/18043)     |
+| [`seo/indexability`](../../docs/src/content/docs/rules/seo/indexability.md)                                           | 1679            | 134  | 1675 / 4 / 0 / 0                      | 100% (1675/1679)   | 0% (0/1679)       |
+| [`seo/json-ld`](../../docs/src/content/docs/rules/seo/json-ld.md)                                                     | 17971           | 555  | 17893 / 59 / 19 / 0                   | 100% (17893/17952) | 0% (19/17971)     |
 | [`seo/json-ld-date-format`](../../docs/src/content/docs/rules/seo/json-ld-date-format.md)                             | 0               | 0    | —                                     | —                  | —                 |
 | [`seo/json-ld-deprecated-type`](../../docs/src/content/docs/rules/seo/json-ld-deprecated-type.md)                     | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)          |
 | [`seo/json-ld-placeholder`](../../docs/src/content/docs/rules/seo/json-ld-placeholder.md)                             | 0               | 0    | —                                     | —                  | —                 |
 | [`seo/json-ld-relative-url`](../../docs/src/content/docs/rules/seo/json-ld-relative-url.md)                           | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)          |
 | [`seo/json-ld-required-props`](../../docs/src/content/docs/rules/seo/json-ld-required-props.md)                       | 0               | 0    | —                                     | —                  | —                 |
 | [`seo/json-ld-validity`](../../docs/src/content/docs/rules/seo/json-ld-validity.md)                                   | 45              | 11   | 45 / 0 / 0 / 0                        | 100% (45/45)       | 0% (0/45)         |
-| [`seo/og-description`](../../docs/src/content/docs/rules/seo/og-description.md)                                       | 15238           | 474  | 15143 / 95 / 0 / 0                    | 99% (15143/15238)  | 0% (0/15238)      |
-| [`seo/og-image`](../../docs/src/content/docs/rules/seo/og-image.md)                                                   | 15354           | 481  | 15289 / 65 / 0 / 0                    | 100% (15289/15354) | 0% (0/15354)      |
-| [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 15071           | 473  | 14977 / 94 / 0 / 0                    | 99% (14977/15071)  | 0% (0/15071)      |
-| [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 15568           | 481  | 15511 / 55 / 2 / 0                    | 100% (15511/15566) | 0% (2/15568)      |
-| [`seo/robots-txt`](../../docs/src/content/docs/rules/seo/robots-txt.md)                                               | 244             | 244  | 94 / 2 / 148 / 0                      | 98% (94/96)        | 61% (148/244)     |
+| [`seo/og-description`](../../docs/src/content/docs/rules/seo/og-description.md)                                       | 15166           | 473  | 15071 / 95 / 0 / 0                    | 99% (15071/15166)  | 0% (0/15166)      |
+| [`seo/og-image`](../../docs/src/content/docs/rules/seo/og-image.md)                                                   | 15282           | 480  | 15217 / 65 / 0 / 0                    | 100% (15217/15282) | 0% (0/15282)      |
+| [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 14999           | 472  | 14905 / 94 / 0 / 0                    | 99% (14905/14999)  | 0% (0/14999)      |
+| [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 15496           | 480  | 15439 / 55 / 2 / 0                    | 100% (15439/15494) | 0% (2/15496)      |
+| [`seo/robots-txt`](../../docs/src/content/docs/rules/seo/robots-txt.md)                                               | 243             | 243  | 94 / 2 / 147 / 0                      | 98% (94/96)        | 60% (147/243)     |
 | [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 4283            | 483  | 3863 / 123 / 266 / 6                  | 97% (3863/3986)    | 6% (266/4258)     |
 | [`seo/sitemap-in-robots`](../../docs/src/content/docs/rules/seo/sitemap-in-robots.md)                                 | 16              | 16   | 15 / 0 / 1 / 0                        | 100% (15/15)       | 6% (1/16)         |
-| [`seo/sitemap-xml`](../../docs/src/content/docs/rules/seo/sitemap-xml.md)                                             | 443             | 443  | 158 / 2 / 283 / 0                     | 99% (158/160)      | 64% (283/443)     |
-| [`seo/ssr-disabled`](../../docs/src/content/docs/rules/seo/ssr-disabled.md)                                           | 777             | 217  | 148 / 0 / 629 / 0                     | 100% (148/148)     | 81% (629/777)     |
+| [`seo/sitemap-xml`](../../docs/src/content/docs/rules/seo/sitemap-xml.md)                                             | 442             | 442  | 158 / 2 / 282 / 0                     | 99% (158/160)      | 64% (282/442)     |
+| [`seo/ssr-disabled`](../../docs/src/content/docs/rules/seo/ssr-disabled.md)                                           | 775             | 216  | 148 / 0 / 627 / 0                     | 100% (148/148)     | 81% (627/775)     |
 | [`seo/title-length`](../../docs/src/content/docs/rules/seo/title-length.md)                                           | 3444            | 393  | 2150 / 7 / 1287 / 0                   | 100% (2150/2157)   | 37% (1287/3444)   |
 | [`seo/title-presence`](../../docs/src/content/docs/rules/seo/title-presence.md)                                       | 2738            | 197  | 2612 / 40 / 86 / 0                    | 98% (2612/2652)    | 3% (86/2738)      |
-| [`seo/twitter-card`](../../docs/src/content/docs/rules/seo/twitter-card.md)                                           | 15435           | 478  | 15351 / 84 / 0 / 0                    | 99% (15351/15435)  | 0% (0/15435)      |
+| [`seo/twitter-card`](../../docs/src/content/docs/rules/seo/twitter-card.md)                                           | 15363           | 477  | 15279 / 84 / 0 / 0                    | 99% (15279/15363)  | 0% (0/15363)      |
 | [`seo/viewport`](../../docs/src/content/docs/rules/seo/viewport.md)                                                   | 0               | 0    | —                                     | —                  | —                 |
 
 <!-- rule-reliability:end -->
