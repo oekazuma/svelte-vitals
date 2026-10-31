@@ -1,5 +1,19 @@
 # svelte-vitals
 
+## 0.55.4
+
+### Patch Changes
+
+- c5013e0: `a11y/duplicate-landmark` and `a11y/id-duplication` now place content a layout or component passes to another component (`<Shell>{@render children()}</Shell>`) in the `{#if}` arm where that component renders its children, so a `<main>` or id the component renders only in another arm (a loading or sign-in screen) is no longer counted together with the page's. A component that also hands `children` to another component as a prop keeps the content beside its arms, as before.
+- 254fa3e: In source analysis, a component's `{#if}` whose test is a double negation of a prop test (`$derived(!!(title || heading))`) is decided by the use as the test it wraps, as `{#if title || heading}` already was. `seo/single-h1`, `seo/heading-level-skip`, `a11y/duplicate-landmark` and `a11y/id-duplication` used to count both arms there, so a section title rendered by `<Section title="…">` was missed and the `<h3>` passed into it was reported as a skip from the page's `<h1>`.
+- 0c2e5d4: `a11y/id-duplication` and `a11y/duplicate-landmark` now decide each `{:else if}` arm of a component on the props its use passes, so `<Limits section="spend" />` and `<Limits section="authority" />` no longer count each other's arms. A test joining a prop test with something else (`section === 'authority' && view`) is decided when the prop test settles it.
+- 0fafa1e: In source analysis, `seo/json-ld` reads `{@html open + json + close}` as JSON-LD when one part of the string concatenation or template literal is a script binding already read as building a JSON-LD block (`const open = '<script type="application/ld+json">'`). Such a page used to be reported for missing JSON-LD, since only `{@html x}` of a single binding was followed. A call given such a binding (`{@html ldTag(item)}`) is still not followed.
+- aaf5749: In source analysis, `seo/json-ld` reads `{@html x}` as JSON-LD when `x` is built by a call given an object literal with an `@context` key (`const faq = scriptTag({ '@context': 'https://schema.org', '@type': 'FAQPage', … })`), whatever the function is named; `JSON.stringify` stays excluded. Such a page used to be reported for missing JSON-LD unless the helper's or the binding's name said JSON-LD.
+- 394fe8b: `seo/heading-level-skip` places a heading of a snippet rendered only from inside another snippet at that inner `{@render}`, after the outer snippet's own headings before it. It used to sit at its definition's place within the outer snippet's render, so an `<h4>` in a snippet defined above the one that renders it after an `<h3>` was compared with the heading before the outer snippet instead, and reported as a skip.
+- 1beaefe: `performance/responsive-image` no longer reports a QR code: in source analysis, an `<img>` whose `src` is a plain name or a dot-access member whose name holds `qr`, in any case (`src={qrDataUrl}`, `src={totpSetupData.qrCode}`). A QR code is drawn at one fixed size, so a `srcset` has nothing to choose between, and one built at runtime (often an inline SVG data URI from a TOTP setup) is invisible to static analysis. A bracket access (`src={setup[qrKey]}`), a URL built in the template or a call (`src={qrUrl(address)}`) is still checked.
+- Updated dependencies [1beaefe]
+  - @svelte-vitals/core@0.55.4
+
 ## 0.55.3
 
 ### Patch Changes
