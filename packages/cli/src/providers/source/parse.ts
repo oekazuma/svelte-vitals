@@ -186,14 +186,33 @@ function jsonLdBindings(ast: AST.Root): Set<string> {
   return names;
 }
 
-/** `names` plus an `{#each}` item that is JSON-LD: the item of a list named for it (`{#each jsonLdScripts as script}`) or held in a JSON-LD binding. */
+/** Whether `expr` is one of `names`, or a string concatenation or template literal with one as a part (`open + json + close`). */
+function concatenates(expr: unknown, names: ReadonlySet<string>): boolean {
+  const e = expr as {
+    type?: string;
+    name?: string;
+    operator?: string;
+    left?: unknown;
+    right?: unknown;
+    expressions?: unknown[];
+  };
+  if (e?.type === 'Identifier') return names.has(e.name ?? '');
+  if (e?.type === 'BinaryExpression' && e.operator === '+')
+    return concatenates(e.left, names) || concatenates(e.right, names);
+  return e?.type === 'TemplateLiteral' && (e.expressions ?? []).some((part) => concatenates(part, names));
+}
+
+/** `names` plus an `{#each}` item that is JSON-LD: the item of a list named for it (`{#each jsonLdScripts as script}`) or held in a JSON-LD binding; any other item shadows a binding of its name. */
 function eachItemJsonLd(node: WalkNode, source: string, names: ReadonlySet<string>): ReadonlySet<string> {
   if (node.type !== 'EachBlock' || node.context?.type !== 'Identifier') return names;
   const list = node.expression;
   // Svelte's AST carries offsets on every expression node; estree's types leave them out.
   const { start, end } = list as typeof list & { start: number; end: number };
   const named = JSONLD_WORDS.test(source.slice(start, end)) || (list.type === 'Identifier' && names.has(list.name));
-  return named ? new Set([...names, node.context.name]) : names;
+  const inner = new Set(names);
+  if (named) inner.add(node.context.name);
+  else inner.delete(node.context.name);
+  return inner;
 }
 
 function tagsFromNodes(
@@ -233,8 +252,7 @@ function tagsFromNodes(
       // A JSON-LD <script> built as a string (`{@html jsonLd(data)}`) is invisible as an element, so
       // the expression's wording, or the initializer of the binding it names, is the only signal;
       // other injections (`{@html css}`) stay unmatched.
-      const named = node.expression.type === 'Identifier' && jsonLdNames.has(node.expression.name);
-      if (named || JSONLD_WORDS.test(source.slice(node.start, node.end)))
+      if (concatenates(node.expression, jsonLdNames) || JSONLD_WORDS.test(source.slice(node.start, node.end)))
         tags.push({ kind: 'jsonld', value: 'dynamic' });
       continue;
     }
