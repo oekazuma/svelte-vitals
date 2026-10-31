@@ -1040,6 +1040,40 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.landmarks.main).toHaveLength(2);
   });
 
+  it('places content a layout passes a component in the arm the component renders it in', async () => {
+    const shell = (arms: string) => ({
+      'src/routes/+layout.svelte': `<script>import Shell from '$lib/Shell.svelte'; let { children } = $props();</script><Shell>{@render children()}</Shell>`,
+      'src/routes/+page.svelte': '<main id="m">page</main>',
+      'src/lib/Shell.svelte': `<script>let { children } = $props();</script>${arms}`
+    });
+    const apart = await a11yOf(shell('{#if !ready}<main id="m">Loading</main>{:else}{@render children()}{/if}'));
+    expect(apart.landmarks.main).toHaveLength(1);
+    expect(apart.ids.m).toHaveLength(1);
+    const together = await a11yOf(
+      shell('{#if !ready}<p>Loading</p>{:else}<main id="m">x</main>{@render children()}{/if}')
+    );
+    expect(together.landmarks.main).toHaveLength(2);
+    expect(together.ids.m).toHaveLength(2);
+    const own = await a11yOf({
+      ...shell('{#if !ready}<main>Loading</main>{:else}{@render children()}{/if}'),
+      'src/routes/+layout.svelte': `<script>import Shell from '$lib/Shell.svelte'; let { children } = $props();</script><Shell><main>{@render children()}</main></Shell>`,
+      'src/routes/+page.svelte': '<p>page</p>'
+    });
+    expect(own.landmarks.main).toHaveLength(1);
+    const nested = await a11yOf({
+      ...shell('{#if !ready}<main>Loading</main>{:else}<Gate>{@render children()}</Gate>{/if}'),
+      'src/lib/Shell.svelte': `<script>import Gate from './Gate.svelte'; let { children } = $props();</script>{#if !ready}<main>Loading</main>{:else}<Gate>{@render children()}</Gate>{/if}`,
+      'src/lib/Gate.svelte': `<script>let { children } = $props();</script>{#if ok}{@render children()}{:else}<main>Denied</main>{/if}`
+    });
+    expect(nested.landmarks.main).toHaveLength(1);
+    const passed = await a11yOf({
+      ...shell('{#if mobile}<Items {children} />{:else}{@render children()}{/if}'),
+      'src/lib/Shell.svelte': `<script>import Items from './Items.svelte'; let { children } = $props();</script>{#if mobile}<Items {children} />{:else}{@render children()}{/if}`,
+      'src/lib/Items.svelte': `<script>let { children } = $props();</script><main id="m">{@render children()}</main>`
+    });
+    expect(passed.landmarks.main).toHaveLength(2);
+  });
+
   it('counts <header> only from a chain file at top level', async () => {
     const a11y = await a11yOf({
       'src/routes/+layout.svelte': `<script>import Bar from '$lib/Bar.svelte';</script><header>site</header><Bar /><slot />`,
