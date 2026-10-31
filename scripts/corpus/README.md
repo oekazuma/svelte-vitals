@@ -653,7 +653,7 @@ Measured on 612 apps, each pinned to a commit:
 - [nuin/popgenesjs](https://github.com/nuin/popgenesjs/tree/6d3098f51d45e4974ed203c172183a80d4d277a8) (`6d3098f`)
 - [mixeme/wynd/web](https://github.com/mixeme/wynd/tree/0f04d476ce5371641588b72508c1867e8855fdeb/web) (`0f04d47`)
 
-237990 of 238015 corpus findings have a verdict.
+237982 of 238007 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share      |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ----------------- |
@@ -666,8 +666,8 @@ Measured on 612 apps, each pinned to a commit:
 | [`a11y/disallowed-aria-props`](../../docs/src/content/docs/rules/a11y/disallowed-aria-props.md)                       | 2060            | 310  | 2003 / 2 / 55 / 0                     | 100% (2003/2005)   | 3% (55/2060)      |
 | [`a11y/disallowed-element`](../../docs/src/content/docs/rules/a11y/disallowed-element.md)                             | 0               | 0    | —                                     | —                  | —                 |
 | [`a11y/doctype`](../../docs/src/content/docs/rules/a11y/doctype.md)                                                   | 0               | 0    | —                                     | —                  | —                 |
-| [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 728             | 174  | 686 / 10 / 32 / 0                     | 99% (686/696)      | 4% (32/728)       |
-| [`a11y/id-duplication`](../../docs/src/content/docs/rules/a11y/id-duplication.md)                                     | 1315            | 168  | 352 / 45 / 918 / 0                    | 89% (352/397)      | 70% (918/1315)    |
+| [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 723             | 171  | 686 / 5 / 32 / 0                      | 99% (686/691)      | 4% (32/723)       |
+| [`a11y/id-duplication`](../../docs/src/content/docs/rules/a11y/id-duplication.md)                                     | 1312            | 167  | 352 / 42 / 918 / 0                    | 89% (352/394)      | 70% (918/1312)    |
 | [`a11y/interactive-nesting`](../../docs/src/content/docs/rules/a11y/interactive-nesting.md)                           | 1268            | 211  | 1225 / 4 / 39 / 0                     | 100% (1225/1229)   | 3% (39/1268)      |
 | [`a11y/invalid-aria-value`](../../docs/src/content/docs/rules/a11y/invalid-aria-value.md)                             | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)          |
 | [`a11y/invalid-role`](../../docs/src/content/docs/rules/a11y/invalid-role.md)                                         | 0               | 0    | —                                     | —                  | —                 |

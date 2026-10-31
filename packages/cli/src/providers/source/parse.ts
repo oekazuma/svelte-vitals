@@ -2106,6 +2106,8 @@ export interface A11yNode {
   snippets?: string[];
   /** The conditions of the `{#if}` arms above it, with references the route's chain shares named alike (`chainNames`). */
   when?: Cond[];
+  /** `nodes` index of the component whose content holds it, outside any snippet */
+  enclosing?: number;
 }
 
 export interface ParsedA11y {
@@ -2125,6 +2127,10 @@ export interface ParsedA11y {
    * arms is placed in both, where the arms fold it as one. Absent: no slot.
    */
   slotPaths?: BranchStep[][];
+  /** `slotPaths`' enclosing component, by index: the `nodes` index of the component whose content holds the position. */
+  slotEnclosing?: (number | undefined)[];
+  /** `children` is handed to a component as a prop, which renders it at places `slotPaths` does not hold. */
+  childrenPassed?: true;
   /** `slotPaths`' request-path tests, by index (`ChildrenSite.url`). */
   slotUrls?: (UrlCond | undefined)[];
   /** `slotPaths`' enclosing landmarks, by index (`slotInLandmark`, `slotInFixedLandmark`), when `slotUrls` is set. */
@@ -2168,6 +2174,8 @@ interface A11yCtx {
   elementDepth: number;
   /** open `ASIDE_DEMOTING_TAGS` ancestors — an `<aside>` below one needs a name to be a landmark */
   asideDemoting: number;
+  /** `nodes` index of the component whose content this is, outside any snippet */
+  enclosing?: number;
 }
 
 /**
@@ -2193,6 +2201,8 @@ function collectA11y(
   let slotInLandmark: string | undefined;
   let slotInFixedLandmark: string | undefined;
   const slotPaths: BranchStep[][] = [];
+  const slotEnclosing: (number | undefined)[] = [];
+  let childrenPassed = false;
   const slotUrls: (UrlCond | undefined)[] = [];
   const slotLandmarks: { landmark?: string; fixed?: string }[] = [];
   const slotWhens: { when: Cond[]; landmark?: string; fixed?: string }[] = [];
@@ -2202,8 +2212,9 @@ function collectA11y(
       slotInFixedLandmark = ctx.fixedLandmark;
     }
     const same = (p: BranchStep[]) => p.length === ctx.path.length && p.every((s, i) => sameStep(s, ctx.path[i]!));
-    if (!slotPaths.some(same)) {
+    if (!slotPaths.some((p, i) => same(p) && slotEnclosing[i] === ctx.enclosing)) {
       slotPaths.push(ctx.path);
+      slotEnclosing.push(ctx.enclosing);
       slotUrls.push(urls.get(start));
       slotLandmarks.push({ landmark: ctx.landmarks.at(-1), fixed: ctx.fixedLandmark });
       slotWhens.push({ when: ctx.when, landmark: ctx.landmarks.at(-1), fixed: ctx.fixedLandmark });
@@ -2221,7 +2232,8 @@ function collectA11y(
       path: ctx.path,
       ...(ctx.when.length > 0 ? { when: ctx.when } : {}),
       ...(inLandmark ? { inLandmark } : {}),
-      ...(ctx.fixedLandmark ? { inFixedLandmark: ctx.fixedLandmark } : {})
+      ...(ctx.fixedLandmark ? { inFixedLandmark: ctx.fixedLandmark } : {}),
+      ...(ctx.enclosing !== undefined ? { enclosing: ctx.enclosing } : {})
     });
   };
 
@@ -2279,7 +2291,7 @@ function collectA11y(
         walk(node.fallback, ctx);
         return;
       case 'SnippetBlock':
-        walk(node.body, { ...ctx, repeatable: true, frozen: true });
+        walk(node.body, { ...ctx, repeatable: true, frozen: true, enclosing: undefined });
         return;
       // <svelte:element>'s tag may be dynamic (then no tag-derived landmark) but its literal
       // id/idref attributes are real — dropping them would make no-missing-id-ref report
@@ -2300,6 +2312,11 @@ function collectA11y(
       case 'SvelteComponent':
       case 'SvelteSelf':
         noteSpread(node);
+        for (const attr of node.attributes) {
+          const value = attr.type === 'Attribute' && !Array.isArray(attr.value) ? attr.value : undefined;
+          const e = value && value !== true ? value.expression : undefined;
+          if (e?.type === 'Identifier' && (props.get(e.name) ?? e.name) === 'children') childrenPassed = true;
+        }
         emit(ctx, {
           kind: 'component',
           key: componentName(node),
@@ -2308,7 +2325,7 @@ function collectA11y(
             ? { attributes: node.attributes, snippets: suppliedSnippets(node.fragment) }
             : {})
         });
-        walk(node.fragment, { ...ctx, elementDepth: ctx.elementDepth + 1 });
+        walk(node.fragment, { ...ctx, elementDepth: ctx.elementDepth + 1, enclosing: nodes.length - 1 });
         return;
       case 'SlotElement':
         noteSpread(node);
@@ -2414,6 +2431,8 @@ function collectA11y(
     ...(slotInLandmark ? { slotInLandmark } : {}),
     ...(slotInFixedLandmark ? { slotInFixedLandmark } : {}),
     ...(slotPaths.length > 0 ? { slotPaths } : {}),
+    ...(slotEnclosing.some((i) => i !== undefined) ? { slotEnclosing } : {}),
+    ...(childrenPassed ? { childrenPassed: true as const } : {}),
     ...(gates.size > 0 ? { gates } : {}),
     ...(flagGates.size > 0 ? { flagGates } : {}),
     ...(urlGates.size > 0 ? { urlGates } : {}),

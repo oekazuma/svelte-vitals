@@ -214,7 +214,9 @@ async function composeA11y(
   visited: Set<string>,
   chain: boolean,
   // The use's decisions on this file's prop-gated `{#if}` groups: true keeps the first arm only.
-  decided?: ReadonlyMap<number, boolean>
+  decided?: ReadonlyMap<number, boolean>,
+  // Filled with where each component renders the content this file passes it (`readdress`).
+  expanded: Map<number, BranchStep[][]> = new Map()
 ): Promise<ComposedNode[]> {
   const { rt, cwd, state } = ctx;
   if (parsed.a11y.unknowable.length > 0) {
@@ -226,10 +228,13 @@ async function composeA11y(
   const base = state.nextGroup;
   state.nextGroup += groupSpan(parsed.a11y);
 
+  const wrapping = new Set([...parsed.a11y.nodes.map((n) => n.enclosing), ...(parsed.a11y.slotEnclosing ?? [])]);
   const composed: ComposedNode[] = [];
-  for (const node of parsed.a11y.nodes) {
+  for (const [index, node] of parsed.a11y.nodes.entries()) {
     if (decided && ruledOut(node.path, decided)) continue;
-    const path = offsetPath(node.path, base);
+    // Content rendered at several places would be counted once per place; it stays beside the component.
+    const paths = readdress(parsed.a11y, node.path, node.enclosing, base, expanded);
+    const path = paths.length === 1 ? paths[0]! : offsetPath(node.path, base);
     if (node.kind !== 'component') {
       composed.push({ ...node, path, file: fileRel, chain });
       continue;
@@ -249,11 +254,16 @@ async function composeA11y(
     }
     const group = files.length > 1 ? state.nextGroup++ : undefined;
     const parsedFiles = read.filter((p) => p !== undefined);
+    const wraps = found?.complete && files.length === found.files.length && wrapping.has(index);
+    const sites: BranchStep[][] = [];
+    let placed = !!wraps && files.length > 0;
     for (const [branch, childRel] of files.entries()) {
       const childParsed = parsedFiles[branch]!;
       const gates = childParsed.a11y.gates;
       const childDecided =
         gates && node.attributes ? decidedArms(childParsed, node.attributes, gates, node.snippets) : undefined;
+      const childBase = state.nextGroup;
+      const childExpanded = new Map<number, BranchStep[][]>();
       const child = await composeA11y(
         ctx,
         childRel,
@@ -261,9 +271,29 @@ async function composeA11y(
         depth - 1,
         new Set(visited).add(childRel),
         false,
-        childDecided
+        childDecided,
+        childExpanded
       );
       const at = group === undefined ? path : [...path, { group, branch }];
+      if (childParsed.a11y.childrenPassed) placed = false;
+      if (placed) {
+        const kept =
+          childParsed.a11y.slotPaths?.flatMap((p, i) => (childDecided && ruledOut(p, childDecided) ? [] : [i])) ?? [];
+        const apart = exclusiveSites(kept.map((i) => childParsed.a11y.slotPaths![i]!));
+        if (!apart?.length) placed = false;
+        else if (apart.length < kept.length) sites.push([...at, ...offsetPath(apart[0]!, childBase)]);
+        else
+          for (const i of kept)
+            sites.push(
+              ...readdress(
+                childParsed.a11y,
+                childParsed.a11y.slotPaths![i]!,
+                childParsed.a11y.slotEnclosing?.[i],
+                childBase,
+                childExpanded
+              ).map((s) => [...at, ...s])
+            );
+      }
       for (const inner of child) {
         const when = [...(node.when ?? []), ...(inner.when ?? [])];
         composed.push({
@@ -274,8 +304,27 @@ async function composeA11y(
         });
       }
     }
+    if (placed) expanded.set(index, sites);
   }
   return composed;
+}
+
+/**
+ * `path` in a file composed at group `base`, in the content of the component at `nodes[enclosing]`:
+ * the places that component renders its content (`expanded`), so the content sits in the
+ * component's arm that renders it, not beside the arms that don't.
+ */
+function readdress(
+  a11y: ParsedFile['a11y'],
+  path: BranchStep[],
+  enclosing: number | undefined,
+  base: number,
+  expanded: ReadonlyMap<number, BranchStep[][]>
+): BranchStep[][] {
+  const sites = enclosing === undefined ? undefined : expanded.get(enclosing);
+  if (!sites) return [offsetPath(path, base)];
+  const rest = offsetPath(path.slice(a11y.nodes[enclosing!]!.path.length), base);
+  return sites.map((site) => [...site, ...rest]);
 }
 
 /** Whether `path` runs through an arm `decided` (see `decidedArms`) rules out. */
@@ -438,9 +487,10 @@ async function resolveRoute(
     const open = (path: readonly BranchStep[] | undefined) => !path || !ruledOut(path, headingDecided);
 
     const base = a11yCtx.state.nextGroup;
+    const expanded = new Map<number, BranchStep[][]>();
     const contributed = unreached
       ? []
-      : await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true, a11yDecided);
+      : await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true, a11yDecided, expanded);
     // The layout's main/aside is this file's sectioning ancestor, so a <header>/<footer> here is no
     // landmark (HTML-AAM) — for any rule, not just nesting — nor the landmark its content sits in.
     const scoped = slotLandmark === 'main' || slotLandmark === 'complementary';
@@ -483,7 +533,16 @@ async function resolveRoute(
     const slotIndices = kept.length > 0 ? kept : (parsed.a11y.slotPaths?.map((_, i) => i) ?? []);
     const slotPaths = slotIndices.map((i) => parsed.a11y.slotPaths![i]!);
     const slotSites = exclusiveSites(slotPaths.length > 0 ? slotPaths : undefined);
-    const slots = slotSites?.map((p) => offsetPath(p, base));
+    const split = slotSites?.length === slotPaths.length;
+    const slots = slotSites?.flatMap((p, j) =>
+      (split
+        ? readdress(parsed.a11y, p, parsed.a11y.slotEnclosing?.[slotIndices[j]!], base, expanded)
+        : [offsetPath(p, base)]
+      ).map((path) => ({
+        path,
+        j
+      }))
+    );
     if (slots) {
       // A file without arm conditions at its positions, or whose positions merge into one, keeps the
       // landmark it always had (`slotLandmark`) and no arm of its own.
@@ -492,7 +551,7 @@ async function resolveRoute(
           ? slotIndices.map((i) => parsed.a11y.slotWhens![i]!)
           : undefined;
       const next = slotPrefixes.flatMap((prefix, i) =>
-        slots.map((slot, j) => {
+        slots.map(({ path: slot, j }) => {
           const outer = slotWhens[i] ?? { when: [] };
           const inner = own?.[j];
           return {
