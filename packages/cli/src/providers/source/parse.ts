@@ -202,14 +202,17 @@ function concatenates(expr: unknown, names: ReadonlySet<string>): boolean {
   return e?.type === 'TemplateLiteral' && (e.expressions ?? []).some((part) => concatenates(part, names));
 }
 
-/** `names` plus an `{#each}` item that is JSON-LD: the item of a list named for it (`{#each jsonLdScripts as script}`) or held in a JSON-LD binding. */
+/** `names` plus an `{#each}` item that is JSON-LD: the item of a list named for it (`{#each jsonLdScripts as script}`) or held in a JSON-LD binding; any other item shadows a binding of its name. */
 function eachItemJsonLd(node: WalkNode, source: string, names: ReadonlySet<string>): ReadonlySet<string> {
   if (node.type !== 'EachBlock' || node.context?.type !== 'Identifier') return names;
   const list = node.expression;
   // Svelte's AST carries offsets on every expression node; estree's types leave them out.
   const { start, end } = list as typeof list & { start: number; end: number };
   const named = JSONLD_WORDS.test(source.slice(start, end)) || (list.type === 'Identifier' && names.has(list.name));
-  return named ? new Set([...names, node.context.name]) : names;
+  const inner = new Set(names);
+  if (named) inner.add(node.context.name);
+  else inner.delete(node.context.name);
+  return inner;
 }
 
 function tagsFromNodes(

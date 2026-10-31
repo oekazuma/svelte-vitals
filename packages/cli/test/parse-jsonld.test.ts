@@ -44,7 +44,7 @@ describe('parse: {@html} JSON-LD in <svelte:head>', () => {
     ]);
   });
 
-  it('reads {@html} of a concatenation or template with a JSON-LD binding as a part, but not a call given one', () => {
+  it('reads {@html} of a concatenation or template with a JSON-LD binding as a part, but not a call given one or a shadowing {#each} item', () => {
     const tags = (use: string) =>
       parseHeadTags(
         `<script>let { data } = $props(); const open = '<script type="application/ld+json">'; const close = '<' + '/script>'; const json = $derived(JSON.stringify(data)); const ldTag = (x) => open + JSON.stringify(x) + close;</script>` +
@@ -55,6 +55,13 @@ describe('parse: {@html} JSON-LD in <svelte:head>', () => {
     expect(tags('`${open}${json}${close}`')).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
     expect(tags('json + close')).toEqual([]);
     expect(tags('ldTag(data)')).toEqual([]);
+    expect(
+      parseHeadTags(
+        `<script>const open = '<script type="application/ld+json">';</script>` +
+          head(`{#each items as open}{@html open + '</div>'}{/each}`),
+        'x.svelte'
+      ).filter((t) => t.kind === 'jsonld')
+    ).toEqual([]);
   });
 
   it('reads a binding a function named for JSON-LD builds, and a list named for structured data', () => {
