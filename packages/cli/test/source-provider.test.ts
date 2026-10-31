@@ -1060,6 +1060,11 @@ describe('collectRoutes a11y composition', () => {
       'src/routes/+page.svelte': '<p>page</p>'
     });
     expect(own.landmarks.main).toHaveLength(1);
+    const twice = await a11yOf({
+      ...shell('{#if !ready}<main>Loading</main>{:else}{@render children()}{/if}'),
+      'src/routes/+layout.svelte': `<script>import Shell from '$lib/Shell.svelte'; let { children } = $props();</script><Shell>{@render children()}</Shell>{@render children()}`
+    });
+    expect(twice.landmarks.main).toHaveLength(2);
     const nested = await a11yOf({
       ...shell('{#if !ready}<main>Loading</main>{:else}<Gate>{@render children()}</Gate>{/if}'),
       'src/lib/Shell.svelte': `<script>import Gate from './Gate.svelte'; let { children } = $props();</script>{#if !ready}<main>Loading</main>{:else}<Gate>{@render children()}</Gate>{/if}`,

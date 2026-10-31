@@ -2212,7 +2212,7 @@ function collectA11y(
       slotInFixedLandmark = ctx.fixedLandmark;
     }
     const same = (p: BranchStep[]) => p.length === ctx.path.length && p.every((s, i) => sameStep(s, ctx.path[i]!));
-    if (!slotPaths.some(same)) {
+    if (!slotPaths.some((p, i) => same(p) && slotEnclosing[i] === ctx.enclosing)) {
       slotPaths.push(ctx.path);
       slotEnclosing.push(ctx.enclosing);
       slotUrls.push(urls.get(start));
