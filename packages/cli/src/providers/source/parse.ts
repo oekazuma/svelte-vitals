@@ -2579,7 +2579,8 @@ export function parseFile(raw: string, filename: string): ParsedFile {
   const bound = templateBindings(ast.fragment);
   const flags = new Set([...imports.keys()].filter((name) => !bound.has(name)));
   const reassigned = reassignedLocals(ast);
-  const headingAcc = collectHeadings(ast.fragment, source, props, reassigned, urls.sites, flags, urls.blocks);
+  const ungated = new Set([...reassigned, ...bound]);
+  const headingAcc = collectHeadings(ast.fragment, source, props, ungated, urls.sites, flags, urls.blocks);
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc);
   const jsonLdNames = jsonLdBindings(ast);
@@ -2612,7 +2613,7 @@ export function parseFile(raw: string, filename: string): ParsedFile {
       source,
       urls.sites,
       props,
-      reassigned,
+      ungated,
       flags,
       urls.blocks,
       chainNames(ast, imports, reassigned, filename)

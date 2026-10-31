@@ -1245,6 +1245,17 @@ describe('collectRoutes a11y composition', () => {
     expect([ids.spend?.length, ids.authority?.length, ids.other?.length]).toEqual([1, 1, 2]);
   });
 
+  it('does not decide a component arm on a template binding that shadows a prop', async () => {
+    const { a11y } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/Row.svelte': `<script>let { open, load } = $props();</script>{#await load then open}{#if open}<input id="row" />{/if}{/await}`,
+        'src/routes/+page.svelte': `<script>import Row from '$lib/Row.svelte';</script><Row /><Row />`
+      }),
+      ''
+    );
+    expect(a11y[0]!.ids.row).toHaveLength(2);
+  });
+
   it('keeps a component arm its tag content supplies the snippet prop for', async () => {
     const { a11y } = await collectRoutes(
       createMemoryRuntime({
