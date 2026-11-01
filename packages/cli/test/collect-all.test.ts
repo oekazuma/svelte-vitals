@@ -522,6 +522,7 @@ describe('collectAll — a component behind a flag only onMount sets', () => {
         '',
         defaultConfig
       );
+      expect(titles(facts, '/spa')).toEqual(['dynamic']);
       expect(titles(facts, '/ssr')).toEqual([]);
     }
   });
