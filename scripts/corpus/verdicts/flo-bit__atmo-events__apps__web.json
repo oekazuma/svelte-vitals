@@ -455,6 +455,11 @@
     "basis": "read: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html (embed/+layout.svelte head only a <style>, page head only theme/sdk scripts; EventView.svelte's description is not rendered here); publicly reachable SSR embed route, no noindex (PauseAI embed precedent)"
   },
   {
+    "key": "flo-bit/atmo-events:apps/web::seo/description-presence::src/routes/embed/full/[actor]/[rkey]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: embed/full/[actor]/[rkey]/+page.svelte svelte:head has only theme/sdk <script>s, embed/+layout.svelte head only a <style>, root layout none, app.html none; EventView (the only <meta name=\"description\"> emitter) renders in the {:else} of {#if !ready}, and ready is only set true inside onMount, so the server-rendered HTML of this public SSR iframe-embed route has no <meta name=\"description\">"
+  },
+  {
     "key": "flo-bit/atmo-events:apps/web::seo/description-presence::src/routes/embed/p/[actor]/e/[rkey]/+page.svelte::Missing <meta name=\"description\">",
     "verdict": "tp",
     "basis": "read: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html (embed/+layout.svelte head only a <style>, page head only theme/sdk scripts; EventView.svelte's description is not rendered here); publicly reachable SSR embed route, no noindex (PauseAI embed precedent)"
@@ -680,6 +685,11 @@
     "basis": "script-verified + read (a1_reach.py, comments stripped, barrel-inclusive reach over page + 2 layout(s) + 79 files): the only match is @atmo-dev/events-ui EventView.svelte, reached through the package barrel (index.ts) but not rendered by this page (it renders EventEditor or its own markup); embed/+layout.svelte head holds only a <style>; this embed page's <svelte:head> holds only theme/SDK <script>s; @atmo-dev/events-ui EventView (the only og emitter there, :203-212) has no og:image/og:url/canonical"
   },
   {
+    "key": "flo-bit/atmo-events:apps/web::seo/og-description::src/routes/embed/full/[actor]/[rkey]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "read: embed/full/[actor]/[rkey]/+page.svelte svelte:head has only theme/sdk <script>s, embed/+layout.svelte head only a <style>, root layout none, app.html none; EventView (the only og:description emitter) renders in the {:else} of {#if !ready}, and ready is only set true inside onMount, so the server-rendered HTML of this public SSR iframe-embed route has no og:description"
+  },
+  {
     "key": "flo-bit/atmo-events:apps/web::seo/og-description::src/routes/embed/p/[actor]/e/[rkey]/+page.svelte::Missing <meta property=\"og:description\">",
     "verdict": "tp",
     "basis": "script-verified + read (a1_reach.py, comments stripped, barrel-inclusive reach over page + 2 layout(s) + 65 files): the only match is @atmo-dev/events-ui EventView.svelte, reached through the package barrel (index.ts) but not rendered by this page (it renders EventEditor or its own markup); embed/+layout.svelte head holds only a <style>; this embed page's <svelte:head> holds only theme/SDK <script>s; @atmo-dev/events-ui EventView (the only og emitter there, :203-212) has no og:image/og:url/canonical"
@@ -898,6 +908,11 @@
     "key": "flo-bit/atmo-events:apps/web::seo/og-title::src/routes/embed/create/+page.svelte::Missing <meta property=\"og:title\">",
     "verdict": "tp",
     "basis": "script-verified + read (a1_reach.py, comments stripped, barrel-inclusive reach over page + 2 layout(s) + 79 files): the only match is @atmo-dev/events-ui EventView.svelte, reached through the package barrel (index.ts) but not rendered by this page (it renders EventEditor or its own markup); embed/+layout.svelte head holds only a <style>; this embed page's <svelte:head> holds only theme/SDK <script>s; @atmo-dev/events-ui EventView (the only og emitter there, :203-212) has no og:image/og:url/canonical"
+  },
+  {
+    "key": "flo-bit/atmo-events:apps/web::seo/og-title::src/routes/embed/full/[actor]/[rkey]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "read: embed/full/[actor]/[rkey]/+page.svelte svelte:head has only theme/sdk <script>s, embed/+layout.svelte head only a <style>, root layout none, app.html none; EventView (the only og:title emitter) renders in the {:else} of {#if !ready}, and ready is only set true inside onMount, so the server-rendered HTML of this public SSR iframe-embed route has no og:title"
   },
   {
     "key": "flo-bit/atmo-events:apps/web::seo/og-title::src/routes/embed/p/[actor]/e/[rkey]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -1125,6 +1140,11 @@
     "basis": "read: embed/create/+page.svelte svelte:head has only theme/sdk <script>s, embed/+layout.svelte head only a <style>, root layout none, EventEditor (packages/ui) emits no <title> (only EventView.svelte:204 does, not rendered here), app.html none; public SSR iframe-embed route renders untitled"
   },
   {
+    "key": "flo-bit/atmo-events:apps/web::seo/title-presence::src/routes/embed/full/[actor]/[rkey]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: embed/full/[actor]/[rkey]/+page.svelte svelte:head has only theme/sdk <script>s, embed/+layout.svelte head only a <style>, root layout none, app.html none; EventView (the only <title> emitter) renders in the {:else} of {#if !ready}, and ready is only set true inside onMount, so the server-rendered HTML of this public SSR iframe-embed route has no <title>"
+  },
+  {
     "key": "flo-bit/atmo-events:apps/web::seo/title-presence::src/routes/embed/p/[actor]/e/[rkey]/+page.svelte::Missing <title>",
     "verdict": "tp",
     "basis": "read: embed/p/[actor]/e/[rkey]/+page.svelte svelte:head has only theme/sdk <script>s, embed/+layout.svelte head only a <style>, root layout none, no EventView render, app.html none; public SSR iframe-embed route renders untitled"
@@ -1223,6 +1243,11 @@
     "key": "flo-bit/atmo-events:apps/web::seo/twitter-card::src/routes/embed/create/+page.svelte::Missing <meta name=\"twitter:card\">",
     "verdict": "tp",
     "basis": "script-verified + read (a1_reach.py, comments stripped, barrel-inclusive reach over page + 2 layout(s) + 79 files): the only match is @atmo-dev/events-ui EventView.svelte, reached through the package barrel (index.ts) but not rendered by this page (it renders EventEditor or its own markup); embed/+layout.svelte head holds only a <style>; this embed page's <svelte:head> holds only theme/SDK <script>s; @atmo-dev/events-ui EventView (the only og emitter there, :203-212) has no og:image/og:url/canonical"
+  },
+  {
+    "key": "flo-bit/atmo-events:apps/web::seo/twitter-card::src/routes/embed/full/[actor]/[rkey]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "read: embed/full/[actor]/[rkey]/+page.svelte svelte:head has only theme/sdk <script>s, embed/+layout.svelte head only a <style>, root layout none, app.html none; EventView (the only twitter:card emitter) renders in the {:else} of {#if !ready}, and ready is only set true inside onMount, so the server-rendered HTML of this public SSR iframe-embed route has no twitter:card"
   },
   {
     "key": "flo-bit/atmo-events:apps/web::seo/twitter-card::src/routes/embed/p/[actor]/e/[rkey]/+page.svelte::Missing <meta name=\"twitter:card\">",

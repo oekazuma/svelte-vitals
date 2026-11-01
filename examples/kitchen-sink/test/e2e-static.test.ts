@@ -159,6 +159,12 @@ describe('kitchen-sink e2e (static mode)', () => {
     }
   });
 
+  it('reports a title only a component behind an onMount-set flag renders on a server-rendered route', () => {
+    const route = report.routes.find((r) => r.route === '/gallery/seo/ready-title');
+    expect(route).toBeDefined();
+    expect(route!.issues.map((i) => i.id)).toEqual(['seo/title-presence']);
+  });
+
   it('gives a page whose load, layout load or script always redirects or errors no route-level findings', () => {
     expect(report.routes.map((r) => r.route)).toContain('/clean');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect');

@@ -476,6 +476,73 @@ describe('collectAll — a component loaded with import()', () => {
   });
 });
 
+describe('collectAll — a component behind a flag only onMount sets', () => {
+  const tree = (layout: string) => ({
+    'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+    'src/routes/+layout.svelte': layout,
+    'src/lib/Meta.svelte': `<svelte:head><title>Site</title></svelte:head>`,
+    'src/routes/spa/+page.svelte': `<p>spa</p>`,
+    'src/routes/spa/+page.ts': `export const ssr = false;\n`,
+    'src/routes/ssr/+page.svelte': `<p>ssr</p>`
+  });
+  const script = (extra = '') => `<script>
+  import { onMount } from 'svelte';
+  import Meta from '$lib/Meta.svelte';
+  let { children } = $props();
+  let ready = $state(false);
+  onMount(() => {
+    ready = true;
+  });${extra}
+</script>`;
+  const titles = (facts: Awaited<ReturnType<typeof collectAll>>, route: string) =>
+    facts.heads
+      .find((h) => h.route === route)!
+      .tags.filter((t) => t.kind === 'title')
+      .map((t) => t.value);
+
+  it('credits its tags only on routes that are never server-rendered', async () => {
+    for (const markup of [
+      '{#if ready}<Meta />{/if}{@render children()}',
+      '{#if ready && children}<Meta />{/if}{@render children()}',
+      '{#if !ready || !children}<p>Loading</p>{:else}<Meta />{/if}{@render children()}'
+    ]) {
+      const facts = await collectAll(createMemoryRuntime(tree(script() + markup)), '', defaultConfig);
+      expect(titles(facts, '/spa')).toEqual(['dynamic']);
+      expect(titles(facts, '/ssr')).toEqual([]);
+    }
+  });
+
+  it('treats a known meta component in such an arm the same way', async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        ...tree(
+          script().replace("import Meta from '$lib/Meta.svelte';", "import { MetaTags } from 'svelte-meta-tags';") +
+            '{#if ready}<MetaTags title="Site" />{/if}{@render children()}'
+        ),
+        'package.json': JSON.stringify({ dependencies: { 'svelte-meta-tags': '^4.0.0' } })
+      }),
+      '',
+      defaultConfig
+    );
+    expect(titles(facts, '/spa')).toEqual(['dynamic']);
+    expect(titles(facts, '/ssr')).toEqual([]);
+  });
+
+  it('keeps them on server-rendered routes when anything else sets the flag', async () => {
+    for (const extra of [
+      '\n  const show = () => (ready = true);',
+      '\n  let other = $state(false);\n  $effect(() => { ready = other; });'
+    ]) {
+      const facts = await collectAll(
+        createMemoryRuntime(tree(script(extra) + '{#if ready}<Meta />{/if}{@render children()}')),
+        '',
+        defaultConfig
+      );
+      expect(titles(facts, '/ssr')).toEqual(['dynamic']);
+    }
+  });
+});
+
 describe('collectAll — a kit.alias above the project root', () => {
   const TREE = {
     // The memory runtime globs from its root, so the project sits there and the plugins above it.
