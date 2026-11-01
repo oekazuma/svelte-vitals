@@ -2315,6 +2315,11 @@
     "basis": "read: lib/features/catalog/presentation/Catalogue.svelte:46 literal <title>Каталог — Qmanga</title> (16 chars as reported) in the top-level svelte:head of the component /catalog renders, the route's shipped title; public catalogue page of Qmanga, the public Kazakh-language manga platform (README) with public catalogue, title, reader, team and update pages"
   },
   {
+    "key": "QmangaTeam/qmanga:apps/web::seo/title-presence::src/routes/offline-reader/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: offline-reader/+page.svelte has no svelte:head; OfflineReader (the <title> emitter) renders only under {#if ready}, and ready is only set true inside onMount, so the server-rendered page has no <title>; app.html has none; plugin build (holdout 44) confirms the prerendered/SSR HTML is untitled"
+  },
+  {
     "key": "QmangaTeam/qmanga:apps/web::seo/title-presence::src/routes/studio/stats/+page.svelte::Missing <title>",
     "verdict": "tp",
     "basis": "studio/stats/+page.svelte renders only <Metrics gateway={createMetrics()}/>; lib/features/metrics/presentation/Metrics.svelte has no svelte:head (sibling AdminWorkQueue.svelte:21 has a title but is not rendered here); studio/+layout.svelte only renders children, root +layout.svelte and app.html have no <title>; hooks.server.ts resolves every request (transformPageChunk only swaps lang); script-verified (a2c_closure.py: 93-file closure has no <title>/svelte:head/document.title); only npm dep is pdfjs-dist"

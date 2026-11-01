@@ -496,8 +496,13 @@ export async function resolveFileTags(
     const adapter = info ? findAdapter(info) : undefined;
     if (adapter) {
       const result = adapter.resolve(use);
-      tags.push(...(use.conditional ? result.tags.map(maybeTag) : result.tags));
-      broad = broad || result.broad;
+      const adapted = [...result.tags, ...(use.clientOnly && result.broad ? BROAD_KINDS : [])];
+      tags.push(
+        ...(use.conditional ? adapted.map(maybeTag) : adapted).map((t) =>
+          use.clientOnly ? { ...t, clientOnly: true as const } : t
+        )
+      );
+      broad = broad || (result.broad && !use.clientOnly);
       continue;
     }
 
@@ -532,7 +537,7 @@ export async function resolveFileTags(
           childHead,
           attributes
         );
-        const clientOnly = found.clientOnly?.has(childRel) === true;
+        const clientOnly = use.clientOnly === true || found.clientOnly?.has(childRel) === true;
         // An opaque source it renders is client-only too, so it becomes may-render tags, not route-wide broad.
         const childTags = clientOnly
           ? [...child.tags, ...(child.broad ? BROAD_KINDS : [])].map((t) => ({ ...t, clientOnly: true as const }))

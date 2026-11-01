@@ -485,6 +485,11 @@
     "basis": "script-verified (a2_len.py: literal <meta name=\"description\"> in src/routes/+page.svelte's top-level svelte:head, whitespace collapsed, 63 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
   },
   {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/description-length::src/routes/dao/proposals/[slug]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:68 svelte:head is <title>BigMarket DAO - Voting</title> (22 chars) and a 67-char description; DaoConcluded, whose head would replace them, renders only under {#if inited && proposal}, and inited is only set true inside onMount, so the page head is what the server-rendered HTML carries"
+  },
+  {
     "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/description-length::src/routes/market-mgt/+page.svelte::Description is too short (# chars; aim for #–#)",
     "verdict": "tp",
     "basis": "script-verified (a2_len.py: literal <meta name=\"description\"> in src/routes/market-mgt/+page.svelte's top-level svelte:head, whitespace collapsed, 41 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
@@ -1033,6 +1038,11 @@
     "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
     "verdict": "tp",
     "basis": "script-verified (a2_len.py: literal <title> in src/routes/+page.svelte's top-level svelte:head, whitespace collapsed, 26 characters as reported; no later component or document.title override on the route); public page of the bigmarket.ai dApp, length as claimed (the tag is set client-side only: root +layout.svelte renders children after onMount)"
+  },
+  {
+    "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/dao/proposals/[slug]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:68 svelte:head is <title>BigMarket DAO - Voting</title> (22 chars) and a 67-char description; DaoConcluded, whose head would replace them, renders only under {#if inited && proposal}, and inited is only set true inside onMount, so the page head is what the server-rendered HTML carries"
   },
   {
     "key": "BigMarketDao/bigmarket-mr:apps/frontend-c1::seo/title-length::src/routes/dao/token-sale/+page.svelte::Title is too short (# chars; aim for #–#)",

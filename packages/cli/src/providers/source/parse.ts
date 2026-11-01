@@ -463,6 +463,8 @@ export interface ComponentUse {
   conditional?: true;
   /** Inside `<svelte:head>`: its markup renders into the head. */
   inHead?: true;
+  /** Inside an arm a flag only `onMount`/`$effect` sets decides (see `mountFlags`): it renders only in the browser. */
+  clientOnly?: true;
   /** The `{#if}`/`{#await}`/`<svelte:boundary>` arms of its file it sits in, numbered as the file's heading paths. */
   path: BranchStep[];
   /** Snippet prop name (`children` for loose content) → the id of the `HOLE` step content passed in it sits below. */
@@ -490,10 +492,11 @@ function collectComponents(
   node: WalkNode | WalkNode[] | null | undefined,
   acc: ComponentUse[],
   heading: Pick<ReturnType<typeof collectHeadings>, 'componentPaths' | 'componentOffsets' | 'holes'>,
-  at: Pick<ComponentUse, 'conditional' | 'inHead'> = {}
+  mounts: ReadonlySet<string>,
+  at: Pick<ComponentUse, 'conditional' | 'inHead' | 'clientOnly'> = {}
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectComponents(child, acc, heading, at);
+    for (const child of node) collectComponents(child, acc, heading, mounts, at);
     return;
   }
   if (!node || typeof node !== 'object') return;
@@ -516,8 +519,18 @@ function collectComponents(
       : node.type === 'SvelteHead'
         ? { ...at, inHead: true as const }
         : at;
+  // On the server the flag is false: `{#if ready && …}` renders its alternate, `{#if !ready || …}` its consequent.
+  const mount = node.type === 'IfBlock' ? flagGate(node.test, mounts) : undefined;
+  const browserArm = mount && (mount.negate ? 'alternate' : 'consequent');
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectComponents(childOf(node, key), acc, heading, inner);
+    if (key in node)
+      collectComponents(
+        childOf(node, key),
+        acc,
+        heading,
+        mounts,
+        key === browserArm ? { ...inner, clientOnly: true } : inner
+      );
   }
 }
 
@@ -568,6 +581,78 @@ function flagGate(test: AST.IfBlock['test'], flags: ReadonlySet<string>): FlagGa
   const negate = test.type === 'UnaryExpression' && test.operator === '!';
   const id = test.type === 'UnaryExpression' && negate ? test.argument : test;
   return id.type === 'Identifier' && flags.has(id.name) ? { name: id.name, negate } : undefined;
+}
+
+/**
+ * Locals declared `false` (`let ready = $state(false)`) whose only assignments are `= true` inside an
+ * `onMount`/`$effect`/`$effect.pre` callback: false on the server, which runs neither.
+ */
+function mountFlags(ast: AST.Root, bound: ReadonlySet<string>, imports: ImportMap): Set<string> {
+  const flags = new Set<string>();
+  for (const stmt of ast.instance?.content.body ?? []) {
+    if (stmt.type !== 'VariableDeclaration' || stmt.kind !== 'let') continue;
+    for (const d of stmt.declarations) {
+      const init =
+        d.init?.type === 'CallExpression' && calleeText(d.init.callee) === '$state' ? d.init.arguments[0] : d.init;
+      if (d.id.type === 'Identifier' && !bound.has(d.id.name) && init?.type === 'Literal' && init.value === false)
+        flags.add(d.id.name);
+    }
+  }
+  if (flags.size === 0) return flags;
+  const set = new Set<string>();
+  const visit = (node: unknown, inMount: boolean): void => {
+    if (Array.isArray(node)) return node.forEach((n) => visit(n, inMount));
+    if (!node || typeof node !== 'object') return;
+    type Expr = { type: string; name?: string; value?: unknown };
+    const n = node as Expr & {
+      operator?: string;
+      left?: Expr;
+      right?: Expr;
+      argument?: Expr;
+      expression?: Expr;
+      callee?: Expr;
+    };
+    const target =
+      n.type === 'AssignmentExpression'
+        ? n.left
+        : n.type === 'UpdateExpression'
+          ? n.argument
+          : n.type === 'BindDirective'
+            ? n.expression
+            : (n.type === 'ForOfStatement' || n.type === 'ForInStatement') && n.left?.type !== 'VariableDeclaration'
+              ? n.left
+              : undefined;
+    const names = new Set<string>();
+    patternNames(target, names);
+    const setsTrue =
+      inMount &&
+      target?.type === 'Identifier' &&
+      n.operator === '=' &&
+      n.right?.type === 'Literal' &&
+      n.right.value === true;
+    for (const name of names) {
+      if (!flags.has(name)) continue;
+      if (setsTrue) set.add(name);
+      else flags.delete(name);
+    }
+    const callee = n.type === 'CallExpression' ? calleeText(n.callee!) : '';
+    const svelteImport = imports.get(callee);
+    const mountCall =
+      callee === '$effect' ||
+      callee === '$effect.pre' ||
+      (svelteImport?.source === 'svelte' && svelteImport.imported === 'onMount');
+    for (const [key, value] of Object.entries(n)) {
+      if (key === 'parent' || !value || typeof value !== 'object') continue;
+      // Only a function passed directly is deferred to the browser: any other argument is evaluated on the server too.
+      if (mountCall && key === 'arguments')
+        for (const arg of value as Expr[])
+          visit(arg, inMount || arg.type === 'ArrowFunctionExpression' || arg.type === 'FunctionExpression');
+      else visit(value, inMount);
+    }
+  };
+  visit(ast.instance?.content, false);
+  visit(ast.fragment, false);
+  return new Set([...flags].filter((name) => set.has(name)));
 }
 
 /** For each group `gates` holds whose flag is in `falses`, whether only its first arm renders (see `decidedArms`). */
@@ -2579,10 +2664,11 @@ export function parseFile(raw: string, filename: string): ParsedFile {
   const bound = templateBindings(ast.fragment);
   const flags = new Set([...imports.keys()].filter((name) => !bound.has(name)));
   const reassigned = reassignedLocals(ast);
+  const mounts = mountFlags(ast, bound, imports);
   const ungated = new Set([...reassigned, ...bound]);
   const headingAcc = collectHeadings(ast.fragment, source, props, ungated, urls.sites, flags, urls.blocks);
   const components: ComponentUse[] = [];
-  collectComponents(ast.fragment, components, headingAcc);
+  collectComponents(ast.fragment, components, headingAcc, mounts);
   const jsonLdNames = jsonLdBindings(ast);
   const calls = importedCalls(ast, imports);
   return {
