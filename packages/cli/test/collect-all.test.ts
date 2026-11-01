@@ -504,10 +504,24 @@ describe('collectAll — a component behind a flag only onMount sets', () => {
     for (const markup of [
       '{#if ready}<Meta />{/if}{@render children()}',
       '{#if ready && children}<Meta />{/if}{@render children()}',
+      '{#if !ready}<p>Loading</p>{:else}<Meta />{/if}{@render children()}',
       '{#if !ready || !children}<p>Loading</p>{:else}<Meta />{/if}{@render children()}'
     ]) {
       const facts = await collectAll(createMemoryRuntime(tree(script() + markup)), '', defaultConfig);
       expect(titles(facts, '/spa')).toEqual(['dynamic']);
+      expect(titles(facts, '/ssr')).toEqual([]);
+    }
+    for (const source of [
+      script()
+        .replace("import { onMount } from 'svelte';", "import { onMount as mounted } from 'svelte';")
+        .replace('onMount(', 'mounted('),
+      script().replace('onMount(', '$effect.pre(')
+    ]) {
+      const facts = await collectAll(
+        createMemoryRuntime(tree(source + '{#if ready}<Meta />{/if}{@render children()}')),
+        '',
+        defaultConfig
+      );
       expect(titles(facts, '/ssr')).toEqual([]);
     }
   });
@@ -529,12 +543,16 @@ describe('collectAll — a component behind a flag only onMount sets', () => {
   });
 
   it('keeps them on server-rendered routes when anything else sets the flag', async () => {
-    for (const extra of [
-      '\n  const show = () => (ready = true);',
-      '\n  let other = $state(false);\n  $effect(() => { ready = other; });'
+    for (const source of [
+      script('\n  const show = () => (ready = true);'),
+      script('\n  let other = $state(false);\n  $effect(() => { ready = other; });'),
+      script('\n  for (ready of [true]) {}'),
+      script('\n  [ready] = [true];'),
+      script('\n  onMount((() => { ready = true; return () => {}; })());'),
+      script().replace("import { onMount } from 'svelte';", 'const onMount = (fn) => fn();')
     ]) {
       const facts = await collectAll(
-        createMemoryRuntime(tree(script(extra) + '{#if ready}<Meta />{/if}{@render children()}')),
+        createMemoryRuntime(tree(source + '{#if ready}<Meta />{/if}{@render children()}')),
         '',
         defaultConfig
       );

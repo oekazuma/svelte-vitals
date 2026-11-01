@@ -585,9 +585,9 @@ function flagGate(test: AST.IfBlock['test'], flags: ReadonlySet<string>): FlagGa
 
 /**
  * Locals declared `false` (`let ready = $state(false)`) whose only assignments are `= true` inside an
- * `onMount`/`$effect` callback: false on the server, which runs neither.
+ * `onMount`/`$effect`/`$effect.pre` callback: false on the server, which runs neither.
  */
-function mountFlags(ast: AST.Root, bound: ReadonlySet<string>): Set<string> {
+function mountFlags(ast: AST.Root, bound: ReadonlySet<string>, imports: ImportMap): Set<string> {
   const flags = new Set<string>();
   for (const stmt of ast.instance?.content.body ?? []) {
     if (stmt.type !== 'VariableDeclaration' || stmt.kind !== 'let') continue;
@@ -619,17 +619,36 @@ function mountFlags(ast: AST.Root, bound: ReadonlySet<string>): Set<string> {
           ? n.argument
           : n.type === 'BindDirective'
             ? n.expression
-            : undefined;
-    const name = target?.type === 'Identifier' ? target.name : undefined;
-    if (name && flags.has(name)) {
-      if (inMount && n.operator === '=' && n.right?.type === 'Literal' && n.right.value === true) set.add(name);
+            : (n.type === 'ForOfStatement' || n.type === 'ForInStatement') && n.left?.type !== 'VariableDeclaration'
+              ? n.left
+              : undefined;
+    const names = new Set<string>();
+    patternNames(target, names);
+    const setsTrue =
+      inMount &&
+      target?.type === 'Identifier' &&
+      n.operator === '=' &&
+      n.right?.type === 'Literal' &&
+      n.right.value === true;
+    for (const name of names) {
+      if (!flags.has(name)) continue;
+      if (setsTrue) set.add(name);
       else flags.delete(name);
     }
+    const callee = n.type === 'CallExpression' ? calleeText(n.callee!) : '';
+    const svelteImport = imports.get(callee);
     const mountCall =
-      n.type === 'CallExpression' && ['onMount', '$effect', '$effect.pre'].includes(calleeText(n.callee!));
-    for (const [key, value] of Object.entries(n))
-      if (key !== 'parent' && value && typeof value === 'object')
-        visit(value, inMount || (mountCall && key === 'arguments'));
+      callee === '$effect' ||
+      callee === '$effect.pre' ||
+      (svelteImport?.source === 'svelte' && svelteImport.imported === 'onMount');
+    for (const [key, value] of Object.entries(n)) {
+      if (key === 'parent' || !value || typeof value !== 'object') continue;
+      // Only a function passed directly is deferred to the browser: any other argument is evaluated on the server too.
+      if (mountCall && key === 'arguments')
+        for (const arg of value as Expr[])
+          visit(arg, inMount || arg.type === 'ArrowFunctionExpression' || arg.type === 'FunctionExpression');
+      else visit(value, inMount);
+    }
   };
   visit(ast.instance?.content, false);
   visit(ast.fragment, false);
@@ -2645,7 +2664,7 @@ export function parseFile(raw: string, filename: string): ParsedFile {
   const bound = templateBindings(ast.fragment);
   const flags = new Set([...imports.keys()].filter((name) => !bound.has(name)));
   const reassigned = reassignedLocals(ast);
-  const mounts = mountFlags(ast, bound);
+  const mounts = mountFlags(ast, bound, imports);
   const ungated = new Set([...reassigned, ...bound]);
   const headingAcc = collectHeadings(ast.fragment, source, props, ungated, urls.sites, flags, urls.blocks);
   const components: ComponentUse[] = [];
