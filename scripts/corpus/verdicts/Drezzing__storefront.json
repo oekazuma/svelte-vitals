@@ -1,0 +1,672 @@
+[
+  {
+    "key": "Drezzing/storefront::a11y/permitted-contents::src/lib/checkout/shipping/ParcelSelector/ParcelSelector.svelte:172::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <div> at src/lib/checkout/shipping/ParcelSelector/ParcelSelector.svelte:172 has literal <button> as its nearest element ancestor (only block nodes between, no component/snippet/svg boundary); not in that parent's content model as reported"
+  },
+  {
+    "key": "Drezzing/storefront::a11y/permitted-contents::src/lib/checkout/shipping/ParcelSelector/ParcelSelector.svelte:97::`<button>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <button> at src/lib/checkout/shipping/ParcelSelector/ParcelSelector.svelte:97 has literal <ul> as its nearest element ancestor (only block nodes between, no component/snippet/svg boundary); not in that parent's content model as reported"
+  },
+  {
+    "key": "Drezzing/storefront::architecture/component-size::src/lib/checkout/shipping/HomeShipping.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/checkout/shipping/HomeShipping.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Drezzing/storefront::architecture/component-size::src/lib/checkout/shipping/ParcelSelector/ParcelSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/checkout/shipping/ParcelSelector/ParcelSelector.svelte has 244 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Drezzing/storefront::architecture/component-size::src/routes/legal/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/legal/+page.svelte has 252 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Drezzing/storefront::architecture/prop-count::src/lib/components/StateButton/StateButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/StateButton/StateButton.svelte has a single destructured $props() with 9 named props (> 6): state, class, type, disabled, onclick, idle, updating, success, fail"
+  },
+  {
+    "key": "Drezzing/storefront::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "Drezzing/storefront::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-dimensions::src/routes/+page.svelte:59::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; partner logo (INP) class h-32 object-scale-down in a flex-wrap justify-center row of three logos (:58) - only the height is reserved, so its natural width moves the sibling logos and the wrap when it loads"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-dimensions::src/routes/+page.svelte:60::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; partner logo (ISIMA) class h-32 object-scale-down in a flex-wrap justify-center row of three logos (:58) - only the height is reserved, so its natural width moves the sibling logos and the wrap when it loads"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-dimensions::src/routes/+page.svelte:61::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; partner logo (Epopey) class h-20 object-scale-down in a flex-wrap justify-center row of three logos (:58) - only the height is reserved, so its natural width moves the sibling logos and the wrap when it loads"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-dimensions::src/routes/products/[id]/+page.svelte:85::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; class size-[min(90vw,600px)] sets both dimensions (:88) - box reserved by CSS"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-loading-hint::src/routes/+page.svelte:59::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; partner logo (INP) in the last section, after two ProductDisplay grids and a separator (:45-61) - offscreen on load"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-loading-hint::src/routes/+page.svelte:60::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; partner logo (ISIMA) in the last section, after two ProductDisplay grids and a separator (:45-61) - offscreen on load"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-loading-hint::src/routes/+page.svelte:61::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; partner logo (Epopey) in the last section, after two ProductDisplay grids and a separator (:45-61) - offscreen on load"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-loading-hint::src/routes/collection/isima/guide-taille/+page.svelte:23::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the 400px size-pattern image directly under the <h1> and the short measuring intro - the page's main image, above the fold"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-loading-hint::src/routes/collection/promo2024/guide-taille/+page.svelte:26::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the 400px size-pattern image directly under the <h1> and the short measuring intro - the page's main image, above the fold"
+  },
+  {
+    "key": "Drezzing/storefront::performance/image-loading-hint::src/routes/collection/promo2025/guide-taille/+page.svelte:26::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the 400px size-pattern image directly under the <h1> and the short measuring intro - the page's main image, above the fold"
+  },
+  {
+    "key": "Drezzing/storefront::performance/responsive-image::src/routes/+page.svelte:59::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster JPG imported from $lib/images/partners (:5-7) - one fixed-size asset"
+  },
+  {
+    "key": "Drezzing/storefront::performance/responsive-image::src/routes/+page.svelte:60::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster JPG imported from $lib/images/partners (:5-7) - one fixed-size asset"
+  },
+  {
+    "key": "Drezzing/storefront::performance/responsive-image::src/routes/+page.svelte:61::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster JPG imported from $lib/images/partners (:5-7) - one fixed-size asset"
+  },
+  {
+    "key": "Drezzing/storefront::performance/responsive-image::src/routes/collection/isima/guide-taille/+page.svelte:23::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; PatronTaille is a raster .webp import - one fixed-size asset"
+  },
+  {
+    "key": "Drezzing/storefront::performance/responsive-image::src/routes/collection/promo2024/guide-taille/+page.svelte:26::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; PatronTaille is a raster .webp import - one fixed-size asset"
+  },
+  {
+    "key": "Drezzing/storefront::performance/responsive-image::src/routes/collection/promo2025/guide-taille/+page.svelte:26::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; PatronTaille is a raster .webp import - one fixed-size asset"
+  },
+  {
+    "key": "Drezzing/storefront::performance/responsive-image::src/routes/products/[id]/+page.svelte:85::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; image.url remote raster product photo at up to 600px - one fixed-size asset"
+  },
+  {
+    "key": "Drezzing/storefront::performance/sequential-awaits::src/routes/checkout/+page.server.ts:50::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "checkout/+page.server.ts:50: flagged await is superValidate(...), in-process form building — no request to parallelize (ledger superValidate convention)"
+  },
+  {
+    "key": "Drezzing/storefront::security/raw-html::src/lib/cart/CartDeleteButton.svelte:33::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "CartDeleteButton.svelte:3 trash.svg?raw: raw SVG imported with ?raw from $lib/images — repo constant, reported per docs"
+  },
+  {
+    "key": "Drezzing/storefront::security/raw-html::src/lib/components/Footer.svelte:14::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "Footer.svelte:2 discord.svg?raw: raw SVG imported with ?raw from $lib/images — repo constant, reported per docs"
+  },
+  {
+    "key": "Drezzing/storefront::security/raw-html::src/lib/components/Footer.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "Footer.svelte:3 instagram.svg?raw: raw SVG imported with ?raw from $lib/images — repo constant, reported per docs"
+  },
+  {
+    "key": "Drezzing/storefront::security/raw-html::src/lib/components/Header.svelte:45::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "Header.svelte:6 cart.svg?raw: raw SVG imported with ?raw from $lib/images — repo constant, reported per docs"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — public storefront route allowed by static/robots.txt (Allow: /$, /collection, /collections, /category, /categories, /products), no noindex"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /about (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: / with an allowlist that omits this path)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/cart/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /cart (script-verified: comments stripped, none in page, layout chain and 45 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (literal noindex,nofollow at cart/+page.svelte:20 and static/robots.txt Disallow: /)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/cart/complete/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /cart/complete (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: / with an allowlist that omits this path)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/categories/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /categories (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — public storefront route allowed by static/robots.txt (Allow: /$, /collection, /collections, /category, /categories, /products), no noindex"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/category/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /category/[id] (script-verified: comments stripped, none in page, layout chain and 29 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — public storefront route allowed by static/robots.txt (Allow: /$, /collection, /collections, /category, /categories, /products), no noindex"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/cgv/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /cgv (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: / with an allowlist that omits this path)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/checkout/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /checkout (script-verified: comments stripped, none in page, layout chain and 68 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: / with an allowlist that omits this path)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/collection/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collection/[id] (script-verified: comments stripped, none in page, layout chain and 29 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — public storefront route allowed by static/robots.txt (Allow: /$, /collection, /collections, /category, /categories, /products), no noindex"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/collection/isima/guide-taille/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /collection/isima/guide-taille (script-verified: comments stripped, none in page, layout chain and 28 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: /collection/*/cpv and /collection/*/guide-taille)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/collection/promo2024/cpv/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /collection/promo2024/cpv (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: /collection/*/cpv and /collection/*/guide-taille)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/collection/promo2024/guide-taille/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /collection/promo2024/guide-taille (script-verified: comments stripped, none in page, layout chain and 28 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: /collection/*/cpv and /collection/*/guide-taille)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/collection/promo2025/cpv/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /collection/promo2025/cpv (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: /collection/*/cpv and /collection/*/guide-taille)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/collection/promo2025/guide-taille/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /collection/promo2025/guide-taille (script-verified: comments stripped, none in page, layout chain and 28 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: /collection/*/cpv and /collection/*/guide-taille)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/collections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collections (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — public storefront route allowed by static/robots.txt (Allow: /$, /collection, /collections, /category, /categories, /products), no noindex"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/contact/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /contact (script-verified: comments stripped, none in page, layout chain and 38 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: / with an allowlist that omits this path)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/faq/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /faq (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: / with an allowlist that omits this path)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/legal/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /legal (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — not a search target (static/robots.txt Disallow: / with an allowlist that omits this path)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/canonical-url::src/routes/products/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /products/[id] (script-verified: comments stripped, none in page, layout chain and 35 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders) — public storefront route allowed by static/robots.txt (Allow: /$, /collection, /collections, /category, /categories, /products), no noindex"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/about/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <meta name=description> \"Découvrez qui nous sommes, notre objectif et notre équipe\" in src/routes/about/+page.svelte, 57 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/cart/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <meta name=description> \"Voir le contenu de mon panier\" in src/routes/cart/+page.svelte, 29 chars as reported (literal claim holds); but literal noindex at src/routes/cart/+page.svelte:20 and robots.txt Disallow: not shown in search results"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/categories/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: literal <meta name=description> \"Explorez toutes les catégories disponibles.\" in src/routes/categories/+page.svelte, whitespace collapsed, 43 chars as reported; public page static/robots.txt allows, no noindex, claim holds"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/checkout/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <meta name=description> \"Finalisez votre commande.\" in src/routes/checkout/+page.svelte, 25 chars as reported (literal claim holds); but literal noindex at src/routes/checkout/+page.svelte:48 and robots.txt Disallow: not shown in search results"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/collection/isima/guide-taille/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <meta name=description> \"Guide des tailles de la collection Isima\" in src/routes/collection/isima/guide-taille/+page.svelte, 40 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/collection/promo2024/guide-taille/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <meta name=description> \"Guide des tailles de la collection Promo 2024\" in src/routes/collection/promo2024/guide-taille/+page.svelte, 45 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/collection/promo2025/guide-taille/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <meta name=description> \"Guide des tailles de la collection Promo 2025\" in src/routes/collection/promo2025/guide-taille/+page.svelte, 45 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/collections/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: literal <meta name=description> \"Explorez toutes les collections disponibles.\" in src/routes/collections/+page.svelte, whitespace collapsed, 44 chars as reported; public page static/robots.txt allows, no noindex, claim holds"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/faq/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <meta name=description> \"Vous trouverez ici les réponses aux questions fréquemment posées sur DreZZing, incluant les délais de livraison, les retours, les modes de paiement et plus encore.\" in src/routes/faq/+page.svelte, 163 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/description-length::src/routes/legal/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <meta name=description> \"Découvrez les mentions légales du site DreZZing, incluant les informations sur l'éditeur, l'hébergeur, la propriété intellectuelle, les données personnelles et les cookies.\" in src/routes/legal/+page.svelte, 172 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/indexability::src/routes/cart/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=\"robots\" content=\"noindex,nofollow\"> at src/routes/cart/+page.svelte:20 top-level svelte:head; noindex as claimed (deliberate for cart/checkout)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/indexability::src/routes/cart/complete/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=\"robots\" content=\"noindex,nofollow\"> at src/routes/cart/complete/+page.svelte:43 top-level svelte:head; noindex as claimed (deliberate for cart/checkout)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/indexability::src/routes/checkout/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=\"robots\" content=\"noindex,nofollow\"> at src/routes/checkout/+page.svelte:48 top-level svelte:head; noindex as claimed (deliberate for cart/checkout)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /about; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/cart/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /cart; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/cart/complete/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /cart/complete; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/categories/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /categories; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/category/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /category/[id]; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/cgv/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /cgv; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/checkout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /checkout; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/collection/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /collection/[id]; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/collection/isima/guide-taille/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /collection/isima/guide-taille; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/collection/promo2024/cpv/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /collection/promo2024/cpv; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/collection/promo2024/guide-taille/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /collection/promo2024/guide-taille; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/collection/promo2025/cpv/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /collection/promo2025/cpv; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/collection/promo2025/guide-taille/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /collection/promo2025/guide-taille; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/collections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /collections; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /contact; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/faq/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /faq; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/legal/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /legal; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/json-ld::src/routes/products/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /products/[id]; public storefront (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-description::src/routes/legal/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /legal (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; legal/+page.svelte:2-12 has og:title and name=\"description\" twice, no og:description; root layout has none)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/cart/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cart (script-verified: comments stripped, none in page, layout chain and 45 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/cart/complete/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cart/complete (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/categories/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /categories (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/cgv/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cgv (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/checkout/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /checkout (script-verified: comments stripped, none in page, layout chain and 68 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/collection/isima/guide-taille/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/isima/guide-taille (script-verified: comments stripped, none in page, layout chain and 28 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/collection/promo2024/cpv/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/promo2024/cpv (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/collection/promo2024/guide-taille/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/promo2024/guide-taille (script-verified: comments stripped, none in page, layout chain and 28 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/collection/promo2025/cpv/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/promo2025/cpv (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/collection/promo2025/guide-taille/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/promo2025/guide-taille (script-verified: comments stripped, none in page, layout chain and 28 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/collections/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collections (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/contact/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /contact (script-verified: comments stripped, none in page, layout chain and 38 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/faq/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /faq (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/og-image::src/routes/legal/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /legal (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/single-h1::/cart/complete::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: cart/complete/+page.svelte renders a payment status <p> in its arms, no heading; Header/Footer have none - no <h1> (status stub, claim holds)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/single-h1::src/routes/+page.svelte:45::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: home page sections open with <h2> (:45,51,57); root layout Header/Footer and ProductDisplay have no <h1> - no <h1>"
+  },
+  {
+    "key": "Drezzing/storefront::seo/single-h1::src/routes/collections/+page.svelte:17::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: collections page title is <h2> (:17), ProductDisplay and root layout have no <h1> - no <h1>"
+  },
+  {
+    "key": "Drezzing/storefront::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has fonts, icon, robots.txt only, no sitemap route or generator in the repo; public storefront whose robots.txt allows /collection, /category, /products to list, claim holds"
+  },
+  {
+    "key": "Drezzing/storefront::seo/ssr-disabled::src/routes/cart/complete/+page.server.ts:5::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/cart/complete/+page.server.ts:5 (claim holds); but the payment status page of a cart, with literal noindex at cart/complete/+page.svelte:43 and robots.txt Disallow, not content for search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: literal <title> \"Accueil\" in src/routes/+page.svelte, whitespace collapsed, 7 chars as reported; public page static/robots.txt allows, no noindex, claim holds"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"À propos\" in src/routes/about/+page.svelte, 8 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/cart/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Panier\" in src/routes/cart/+page.svelte, 6 chars as reported (literal claim holds); but literal noindex at src/routes/cart/+page.svelte:20 and robots.txt Disallow: not shown in search results"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/cart/complete/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Panier - Status\" in src/routes/cart/complete/+page.svelte, 15 chars as reported (literal claim holds); but literal noindex at src/routes/cart/complete/+page.svelte:43 and robots.txt Disallow: not shown in search results"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/categories/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: literal <title> \"Catégories\" in src/routes/categories/+page.svelte, whitespace collapsed, 10 chars as reported; public page static/robots.txt allows, no noindex, claim holds"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/cgv/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Conditions Générales de vente\" in src/routes/cgv/+page.svelte, 29 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/checkout/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Commander\" in src/routes/checkout/+page.svelte, 9 chars as reported (literal claim holds); but literal noindex at src/routes/checkout/+page.svelte:48 and robots.txt Disallow: not shown in search results"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/collection/isima/guide-taille/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Isima - Guide des tailles\" in src/routes/collection/isima/guide-taille/+page.svelte, 25 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/collections/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: literal <title> \"Collections\" in src/routes/collections/+page.svelte, whitespace collapsed, 11 chars as reported; public page static/robots.txt allows, no noindex, claim holds"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/contact/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Contact\" in src/routes/contact/+page.svelte, 7 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/faq/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"FAQ\" in src/routes/faq/+page.svelte, 3 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/title-length::src/routes/legal/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Mentions légales\" in src/routes/legal/+page.svelte, 16 chars as reported (literal claim holds); but static/robots.txt closes this path to crawlers (Disallow: / with an Allow list of /collection, /category, /products, or Disallow: /collection/*/guide-taille), so the tag is never read by search"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/cart/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cart (script-verified: comments stripped, none in page, layout chain and 45 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/cart/complete/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cart/complete (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/categories/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /categories (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/category/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /category/[id] (script-verified: comments stripped, none in page, layout chain and 29 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/cgv/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cgv (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/checkout/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /checkout (script-verified: comments stripped, none in page, layout chain and 68 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/collection/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/[id] (script-verified: comments stripped, none in page, layout chain and 29 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/collection/isima/guide-taille/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/isima/guide-taille (script-verified: comments stripped, none in page, layout chain and 28 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/collection/promo2024/cpv/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/promo2024/cpv (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/collection/promo2024/guide-taille/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/promo2024/guide-taille (script-verified: comments stripped, none in page, layout chain and 28 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/collection/promo2025/cpv/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/promo2025/cpv (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/collection/promo2025/guide-taille/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/promo2025/guide-taille (script-verified: comments stripped, none in page, layout chain and 28 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/collections/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collections (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/contact/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /contact (script-verified: comments stripped, none in page, layout chain and 38 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/faq/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /faq (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/legal/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /legal (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  },
+  {
+    "key": "Drezzing/storefront::seo/twitter-card::src/routes/products/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /products/[id] (script-verified: comments stripped, none in page, layout chain and 35 reached local/workspace files; no emitter in page, root +layout.svelte:14-19 (only og:url/og:type/og:site_name/og:locale) or app.html; repo-wide grep of src finds no twitter:* or rel=canonical at all, and og:image only in collection/[id], category/[id], products/[id]; npm Svelte deps (bits-ui, formsnap, vaul-svelte, etc.) render none; load is conditional, route renders)"
+  }
+]

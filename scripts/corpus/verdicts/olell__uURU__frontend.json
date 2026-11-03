@@ -1,0 +1,727 @@
+[
+  {
+    "key": "olell/uURU:frontend::a11y/placeholder-label-option::src/routes/media/+page.svelte:229::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read src/routes/media/+page.svelte:229: <select required bind:value={uploadType}> with uploadType = $state<MediaType>('raw') (:39), set from the chosen file's type (:45-49) and reset to 'raw' (:96); always holds a valid value, so a preselected default is intentional (revel precedent)"
+  },
+  {
+    "key": "olell/uURU:frontend::architecture/component-size::src/components/webphone.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/webphone.svelte has 311 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "olell/uURU:frontend::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "olell/uURU:frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 232 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "olell/uURU:frontend::architecture/component-size::src/routes/admin/dialplan/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/dialplan/+page.svelte has 400 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "olell/uURU:frontend::architecture/component-size::src/routes/admin/federation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/federation/+page.svelte has 490 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "olell/uURU:frontend::architecture/component-size::src/routes/admin/invites/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/invites/+page.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "olell/uURU:frontend::architecture/component-size::src/routes/extension_edit.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/extension_edit.svelte has 465 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "olell/uURU:frontend::architecture/component-size::src/routes/extensions/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/extensions/+page.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "olell/uURU:frontend::architecture/component-size::src/routes/media/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/media/+page.svelte has 274 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "olell/uURU:frontend::correctness/each-key::src/components/schemaForm.svelte:15::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/components/schemaForm.svelte:15 Object.keys(schema.properties): fields of one server-defined JSON schema; static config per form (ledger field-definition convention)"
+  },
+  {
+    "key": "olell/uURU:frontend::correctness/each-key::src/components/schemaFormInput.svelte:105::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/schemaFormInput.svelte:105 value $bindable array rows with nested SchemaFormInput, push (:45) and splice mid-list (:52); user-edited list"
+  },
+  {
+    "key": "olell/uURU:frontend::correctness/each-key::src/components/schemaFormInput.svelte:118::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/schemaFormInput.svelte:118 objectEntries $state rows with inputs, push (:75) and removeKey mid-list; user-edited list"
+  },
+  {
+    "key": "olell/uURU:frontend::correctness/each-key::src/components/schemaFormInput.svelte:123::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/components/schemaFormInput.svelte:123 prop.propertyNames.enum: <option>s of one schema field; static config"
+  },
+  {
+    "key": "olell/uURU:frontend::correctness/each-key::src/components/schemaFormInput.svelte:89::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/components/schemaFormInput.svelte:89 prop.enum: <option>s of one schema field; static config"
+  },
+  {
+    "key": "olell/uURU:frontend::correctness/each-key::src/components/schemaFormInput.svelte:96::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/components/schemaFormInput.svelte:96 prop.anyOf: type <option>s of one schema field; static config"
+  },
+  {
+    "key": "olell/uURU:frontend::correctness/each-key::src/routes/+layout.svelte:182::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+layout.svelte:182 Object.keys(pages.val): page titles fetched from the backend API (:75), server-managed runtime data"
+  },
+  {
+    "key": "olell/uURU:frontend::performance/image-dimensions::src/routes/media/+page.svelte:202::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; .gallery-image only max-width/max-height 280px (:270-273) - the natural size decides the box in the gallery"
+  },
+  {
+    "key": "olell/uURU:frontend::performance/image-dimensions::src/routes/media/+page.svelte:253::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; style max-width:100% only in the image Modal (:246-257) - the natural size decides the box and the ModalFooter shifts"
+  },
+  {
+    "key": "olell/uURU:frontend::performance/image-loading-hint::src/routes/+layout.svelte:147::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; 30x24 favicon.svg in the navbar brand (:145-147) - above the fold; key covers 13 routes (same element)"
+  },
+  {
+    "key": "olell/uURU:frontend::performance/image-loading-hint::src/routes/media/+page.svelte:202::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; gallery tile in {#each images}, after the upload form and the audio and raw-file tables (:129-202) - offscreen on load"
+  },
+  {
+    "key": "olell/uURU:frontend::performance/image-loading-hint::src/routes/media/+page.svelte:253::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; in the image Modal opened by clicking a tile (isOpen={imageOpen}, :246-257) - visible content when created"
+  },
+  {
+    "key": "olell/uURU:frontend::performance/responsive-image::src/routes/media/+page.svelte:202::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /api/v1/media/byid/… serves the uploaded raster at one size - one fixed-size asset"
+  },
+  {
+    "key": "olell/uURU:frontend::performance/responsive-image::src/routes/media/+page.svelte:253::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /api/v1/media/byid/… serves the uploaded raster at one size - one fixed-size asset"
+  },
+  {
+    "key": "olell/uURU:frontend::performance/state-raw::src/components/webphone.svelte:67::\"onlineExtensions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"onlineExtensions\" in src/components/webphone.svelte and read each {#each} body over it: declared at :67, only whole-binding reassignments and read-only uses; no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "olell/uURU:frontend::security/raw-html::src/routes/pages/+page.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "pages/+page.svelte:17 + app/api/pages.py:26-40: HTML is mistune output of operator-authored pages/*.md files in the repo, served by a GET only; the query param only picks a key — operator content, reported per docs"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; public phonebook/map/pages route, no gate, no noindex"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/admin/dialplan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /admin/dialplan (src/routes/admin/dialplan/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/admin/federation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /admin/federation (src/routes/admin/federation/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/admin/invites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /admin/invites (src/routes/admin/invites/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/admin/user/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /admin/user (src/routes/admin/user/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/admin/user/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /admin/user/edit (src/routes/admin/user/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/extensions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /extensions (src/routes/extensions/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/extensions/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /extensions/edit (src/routes/extensions/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/extensions/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /extensions/new (src/routes/extensions/new/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/map/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /map (src/routes/map/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; public phonebook/map/pages route, no gate, no noindex"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/media/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /media (src/routes/media/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/pages/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /pages (src/routes/pages/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; public phonebook/map/pages route, no gate, no noindex"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/canonical-url::src/routes/user/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /user/settings (src/routes/user/settings/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders; route renders for guests with no redirect or guard (no user_info test or goto gate in the page; the layout only hides the nav link, API errors show a toast), no noindex, ledger convention for no client/server route gate: tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on / (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/admin/dialplan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/dialplan (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/admin/federation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/federation (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/admin/invites/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/invites (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/admin/user/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/user (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/admin/user/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/user/edit (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/extensions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /extensions (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/extensions/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /extensions/edit (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/extensions/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /extensions/new (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/map/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /map (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/media/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /media (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/pages/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /pages (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/description-presence::src/routes/user/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /user/settings (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/heading-level-skip::src/routes/admin/dialplan/+page.svelte:310::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h2>Dialplan Editor (:265) then <h4>Entries (:310) with no heading between - h2 to h4"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/heading-level-skip::src/routes/extensions/+page.svelte:142::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:77) then, in the isMobile list arm (:137-142), <h5>{extension.name} with no heading between - h1 to h5 on mobile"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/admin/dialplan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/dialplan; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/admin/federation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/federation; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/admin/invites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/invites; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/admin/user/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/user; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/admin/user/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/user/edit; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/extensions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /extensions; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/extensions/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /extensions/edit; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/extensions/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /extensions/new; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/map/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /map; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/media/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /media; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/pages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /pages; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/json-ld::src/routes/user/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /user/settings; self-hosted SPA (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/admin/dialplan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /admin/dialplan (src/routes/admin/dialplan/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/admin/federation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /admin/federation (src/routes/admin/federation/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/admin/invites/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /admin/invites (src/routes/admin/invites/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/admin/user/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /admin/user (src/routes/admin/user/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/admin/user/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /admin/user/edit (src/routes/admin/user/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/extensions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /extensions (src/routes/extensions/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/extensions/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /extensions/edit (src/routes/extensions/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/extensions/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /extensions/new (src/routes/extensions/new/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/map/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /map (src/routes/map/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/media/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /media (src/routes/media/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/pages/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /pages (src/routes/pages/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-description::src/routes/user/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /user/settings (src/routes/user/settings/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/admin/dialplan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /admin/dialplan (src/routes/admin/dialplan/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/admin/federation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /admin/federation (src/routes/admin/federation/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/admin/invites/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /admin/invites (src/routes/admin/invites/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/admin/user/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /admin/user (src/routes/admin/user/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/admin/user/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /admin/user/edit (src/routes/admin/user/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/extensions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /extensions (src/routes/extensions/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/extensions/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /extensions/edit (src/routes/extensions/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/extensions/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /extensions/new (src/routes/extensions/new/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/map/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /map (src/routes/map/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/media/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /media (src/routes/media/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/pages/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /pages (src/routes/pages/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-image::src/routes/user/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /user/settings (src/routes/user/settings/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/admin/dialplan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /admin/dialplan (src/routes/admin/dialplan/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/admin/federation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /admin/federation (src/routes/admin/federation/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/admin/invites/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /admin/invites (src/routes/admin/invites/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/admin/user/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /admin/user (src/routes/admin/user/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/admin/user/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /admin/user/edit (src/routes/admin/user/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/extensions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /extensions (src/routes/extensions/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/extensions/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /extensions/edit (src/routes/extensions/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/extensions/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /extensions/new (src/routes/extensions/new/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/map/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /map (src/routes/map/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/media/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /media (src/routes/media/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/pages/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /pages (src/routes/pages/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-title::src/routes/user/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /user/settings (src/routes/user/settings/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/admin/dialplan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /admin/dialplan (src/routes/admin/dialplan/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/admin/federation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /admin/federation (src/routes/admin/federation/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/admin/invites/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /admin/invites (src/routes/admin/invites/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/admin/user/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /admin/user (src/routes/admin/user/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/admin/user/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /admin/user/edit (src/routes/admin/user/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/extensions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /extensions (src/routes/extensions/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/extensions/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /extensions/edit (src/routes/extensions/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/extensions/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /extensions/new (src/routes/extensions/new/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/map/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /map (src/routes/map/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/media/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /media (src/routes/media/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/pages/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /pages (src/routes/pages/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/og-url::src/routes/user/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /user/settings (src/routes/user/settings/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::/admin/user/edit::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/user/edit/+page.svelte is a form with no heading; root +layout.svelte has none - no <h1>"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::/map::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: map/+page.svelte renders only the Leaflet Map; root +layout.svelte has no heading - no <h1>"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::/pages::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: pages/+page.svelte renders {@html} of operator-authored markdown; the committed pages/ dir holds only .gitkeep (docs/features/pages.md) - no committed <h1>, user-authored leaves it tp"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::src/routes/+page.svelte:131::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: home page headings are <h5>/<h6> (:131,169,194,204); Webphone and root layout add no <h1> - no <h1>"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::src/routes/admin/dialplan/+page.svelte:265::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page tops out at <h2>Dialplan Editor (:265); root layout has no heading - no <h1>"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::src/routes/admin/federation/+page.svelte:275::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page tops out at <h2>Federation (:275); root layout has no heading - no <h1>"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::src/routes/admin/invites/+page.svelte:109::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page tops out at <h2>Invites (:109); root layout has no heading - no <h1>"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::src/routes/extension_edit.svelte:319::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /extensions/new renders <h1>New Extension (new/+page.svelte:5) and extension_edit <h1>Media (:398) for a phone type with media (callgroup, sip, iot, app/telephoning/phonetypes); two really render together, though the counted :319 arm needs an extension that this use omits"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::src/routes/extension_edit.svelte:398::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /extensions/edit on desktop renders <h1>Edit Extension (:319) and <h1>Media (:398) for a phone type with media (callgroup, sip, iot, app/telephoning/phonetypes) - two <h1>s"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::src/routes/media/+page.svelte:129::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: five unconditional <h1>s at the top level (:119,129,132,165,191) - multiple <h1>"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/single-h1::src/routes/user/settings/+page.svelte:47::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two unconditional <h1>s, Account Settings (:44) and Change Password (:47) - multiple <h1>"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has robots.txt only, no sitemap route or generator (literal claim holds); but µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 (claim holds); deliberate: µURU is a self-hosted telephone registration utility for events and small communities (README), served under /app as an ssr = false SPA, not a search target"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/admin/dialplan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /admin/dialplan (src/routes/admin/dialplan/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/admin/federation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /admin/federation (src/routes/admin/federation/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/admin/invites/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /admin/invites (src/routes/admin/invites/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/admin/user/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /admin/user (src/routes/admin/user/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/admin/user/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /admin/user/edit (src/routes/admin/user/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/extensions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /extensions (src/routes/extensions/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/extensions/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /extensions/edit (src/routes/extensions/edit/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/extensions/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /extensions/new (src/routes/extensions/new/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/map/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /map (src/routes/map/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/media/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /media (src/routes/media/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/pages/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /pages (src/routes/pages/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  },
+  {
+    "key": "olell/uURU:frontend::seo/twitter-card::src/routes/user/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /user/settings (src/routes/user/settings/+page.svelte): no og/twitter/canonical emitter anywhere in frontend/src incl. app.html (charset/viewport/icons css only); root +layout.svelte:139-142 head is icon+<title>; ssr=false (+layout.ts:1) so client heads count and none emit it; npm @sveltestrap/sveltestrap@7.1.0 (only Styles stylesheet head) and sveaflet@0.1.4 scanned on jsDelivr emit none; backend has no injection (repo grep); route renders"
+  }
+]

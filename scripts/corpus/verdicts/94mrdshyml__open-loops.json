@@ -1,0 +1,1457 @@
+[
+  {
+    "key": "94mrdshyml/open-loops::a11y/accessible-name::src/lib/components/blog/TabStrip.svelte:119::<button> has no accessible name",
+    "verdict": "design",
+    "basis": "read src/lib/components/blog/TabStrip.svelte:119: empty-of-text next-arrow <button tabindex=\"-1\" aria-hidden=\"true\"> with only an svg; unnamed as reported, but aria-hidden and tabindex=-1 keep it out of the AT tree and tab order (comment at :96-97 says keyboard/AT users have the tab links; ledger hidden-button precedent)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/accessible-name::src/lib/components/blog/TabStrip.svelte:99::<button> has no accessible name",
+    "verdict": "design",
+    "basis": "read src/lib/components/blog/TabStrip.svelte:99: empty-of-text prev-arrow <button tabindex=\"-1\" aria-hidden=\"true\"> with only an svg; unnamed as reported, but aria-hidden and tabindex=-1 keep it out of the AT tree and tab order (comment at :96-97 says keyboard/AT users have the tab links; ledger hidden-button precedent)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/deprecated-aria::src/routes/(public)/categories/[slug]/+page.svelte:43::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read src/routes/(public)/categories/[slug]/+page.svelte:43: <span class=\"page-btn page-btn-disabled\" aria-disabled=\"true\"> with no role, spread or use: action (role generic); ARIA 1.2+ deprecates aria-disabled on generic, as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/deprecated-aria::src/routes/(public)/categories/[slug]/+page.svelte:51::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read src/routes/(public)/categories/[slug]/+page.svelte:51: <span class=\"page-btn page-btn-disabled\" aria-disabled=\"true\"> with no role, spread or use: action (role generic); ARIA 1.2+ deprecates aria-disabled on generic, as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/disallowed-aria-props::src/routes/newsletter/setup/+page.svelte:150::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <span> at src/routes/newsletter/setup/+page.svelte:150 carries aria-label with no role attribute, spread or use: action; its implicit role (generic) takes no name, so the name is not exposed as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/disallowed-aria-props::src/routes/newsletter/setup/+page.svelte:164::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <span> at src/routes/newsletter/setup/+page.svelte:164 carries aria-label with no role attribute, spread or use: action; its implicit role (generic) takes no name, so the name is not exposed as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/disallowed-aria-props::src/routes/newsletter/setup/+page.svelte:166::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <span> at src/routes/newsletter/setup/+page.svelte:166 carries aria-label with no role attribute, spread or use: action; its implicit role (generic) takes no name, so the name is not exposed as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/disallowed-aria-props::src/routes/register/+page.svelte:169::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <span> at src/routes/register/+page.svelte:169 carries aria-label with no role attribute, spread or use: action; its implicit role (generic) takes no name, so the name is not exposed as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/disallowed-aria-props::src/routes/register/+page.svelte:183::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <span> at src/routes/register/+page.svelte:183 carries aria-label with no role attribute, spread or use: action; its implicit role (generic) takes no name, so the name is not exposed as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/disallowed-aria-props::src/routes/register/+page.svelte:213::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <span> at src/routes/register/+page.svelte:213 carries aria-label with no role attribute, spread or use: action; its implicit role (generic) takes no name, so the name is not exposed as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/disallowed-aria-props::src/routes/register/+page.svelte:227::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <span> at src/routes/register/+page.svelte:227 carries aria-label with no role attribute, spread or use: action; its implicit role (generic) takes no name, so the name is not exposed as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/disallowed-aria-props::src/routes/register/+page.svelte:229::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <span> at src/routes/register/+page.svelte:229 carries aria-label with no role attribute, spread or use: action; its implicit role (generic) takes no name, so the name is not exposed as reported"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/id-duplication::src/lib/components/admin/ConfirmModal.svelte:44::Duplicate id \"modal-title\"",
+    "verdict": "design",
+    "basis": "read: (admin)/dashboard/users/+page.svelte:209/:221 renders two ConfirmModal, each with its own open={pendingRole/pendingDelete !== null}; #modal-title (ConfirmModal.svelte:44) sits under {#if open} (:35), separate blocks of two user-opened fixed modals (backdrop blocks the other trigger), so they never render together (documented separate-block counting)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::a11y/id-duplication::src/lib/components/admin/ConfirmModal.svelte:45::Duplicate id \"modal-desc\"",
+    "verdict": "design",
+    "basis": "read: (admin)/dashboard/users/+page.svelte:209/:221 renders two ConfirmModal, each with its own open={pendingRole/pendingDelete !== null}; #modal-desc (ConfirmModal.svelte:45) sits under {#if open} (:35), separate blocks of two user-opened fixed modals (backdrop blocks the other trigger), so they never render together (documented separate-block counting)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/admin/CoverImageUploader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/CoverImageUploader.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/admin/EditorTitleFields.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/EditorTitleFields.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/admin/PublishControls.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/PublishControls.svelte has 519 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/admin/SeoPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/SeoPanel.svelte has 552 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/admin/TagInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/TagInput.svelte has 336 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/admin/TiptapEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/TiptapEditor.svelte has 688 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/admin/TldrPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/TldrPanel.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/blog/AuthorCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/AuthorCard.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/blog/CarouselHero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/CarouselHero.svelte has 651 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/blog/CategorySection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/CategorySection.svelte has 265 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/blog/Navbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/Navbar.svelte has 747 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/blog/NewsletterForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/NewsletterForm.svelte has 367 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/lib/components/blog/TabStrip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/TabStrip.svelte has 310 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/+layout.svelte has 839 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/+page.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/account/+page.svelte has 571 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/authors/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/authors/+page.svelte has 741 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/categories/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/categories/+page.svelte has 879 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/comments/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/comments/+page.svelte has 495 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/emails/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/emails/+page.svelte has 863 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/emails/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/emails/[id]/+page.svelte has 488 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/newsletter/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/newsletter/+page.svelte has 360 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/posts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/posts/+page.svelte has 949 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte has 408 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/posts/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/posts/new/+page.svelte has 340 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/settings/+page.svelte has 746 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/tags/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/tags/+page.svelte has 793 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/users/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/users/+page.svelte has 532 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(admin)/dashboard/users/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/dashboard/users/[id]/+page.svelte has 427 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(public)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(public)/+page.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(public)/about/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(public)/about/+page.svelte has 878 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(public)/posts/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(public)/posts/[slug]/+page.svelte has 779 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(public)/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(public)/profile/+page.svelte has 794 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(public)/profile/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(public)/profile/edit/+page.svelte has 436 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(public)/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(public)/search/+page.svelte has 391 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/(public)/tags/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(public)/tags/+page.svelte has 363 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/newsletter/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/newsletter/+page.svelte has 440 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/newsletter/setup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/newsletter/setup/+page.svelte has 472 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/component-size::src/routes/register/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/register/+page.svelte has 439 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/prop-count::src/lib/components/admin/ConfirmModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/ConfirmModal.svelte has a single destructured $props() with 7 named props (> 6): open, title, message, confirmLabel, danger, onConfirm, onCancel"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/prop-count::src/lib/components/admin/PostMetaPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/PostMetaPanel.svelte has a single destructured $props() with 9 named props (> 6): featuredImage, authorId, categoryId, selectedTags, authors, categories, allTags, authorFieldName, tagInputId"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/prop-count::src/lib/components/admin/PublishControls.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/PublishControls.svelte has a single destructured $props() with 13 named props (> 6): status, publishedAt, isFeatured, saving, saveState, saveText, shortcuts, onSaveDraft, onPublish, onUnpublish, onSchedule, onStatusChange, onFeaturedChange"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/prop-count::src/lib/components/admin/SeoPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/SeoPanel.svelte has a single destructured $props() with 9 named props (> 6): excerpt, ogTitle, ogDescription, twitterTitle, twitterDescription, postTitle, slug, coverImageUrl, onchange"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/prop-count::src/lib/components/admin/TextInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/TextInput.svelte has a single destructured $props() with 10 named props (> 6): value, placeholder, type, disabled, readonly, id, name, required, oninput, onchange"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/prop-count::src/lib/components/admin/Textarea.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/Textarea.svelte has a single destructured $props() with 8 named props (> 6): value, placeholder, rows, maxlength, disabled, id, name, required"
+  },
+  {
+    "key": "94mrdshyml/open-loops::architecture/prop-count::src/lib/components/blog/StoryCover.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/blog/StoryCover.svelte has a single destructured $props() with 7 named props (> 6): src, href, categoryName, preset, og, blank, eager"
+  },
+  {
+    "key": "94mrdshyml/open-loops::correctness/each-index-key::src/lib/components/admin/TldrPanel.svelte:54::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/TldrPanel.svelte:54 points $bindable with text inputs, appended (:33) and removed mid-list by index (:28); user-edited list, identity follows position"
+  },
+  {
+    "key": "94mrdshyml/open-loops::correctness/stale-prop-derivation::src/routes/newsletter/+page.svelte:11::\"isLoggedIn\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/newsletter/+page.svelte:11 isLoggedIn = data.isLoggedIn at init, rendered (claim structurally true), but the route has no params, forms or invalidate (submit uses fetch and sets status; goto leaves the page), so data does not change while it is mounted"
+  },
+  {
+    "key": "94mrdshyml/open-loops::correctness/stale-prop-derivation::src/routes/newsletter/+page.svelte:12::\"alreadySubscribed\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/newsletter/+page.svelte:12 alreadySubscribed = data.isSubscribed at init, rendered (:92; claim structurally true), but the route has no params, forms or invalidate, so data does not change while it is mounted"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/iframe-loading::src/routes/(admin)/dashboard/emails/+page.svelte:483::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe {title} srcdoc={html} sandbox> has no loading attribute, no spread; srcdoc email preview in the settings form panel (:478-487, height 500px) - fetches no document, per the ledger srcdoc resolution"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/iframe-loading::src/routes/(admin)/dashboard/emails/[id]/+page.svelte:181::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe srcdoc={resendData.html} sandbox> has no loading attribute, no spread; email preview section (:177-187) - fetches no document, per the ledger srcdoc resolution"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-dimensions::src/routes/(admin)/+layout.svelte:240::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .user-avatar-img width/height 100% in the 32x32 .user-avatar box (+layout.svelte:559-581) - box reserved by CSS; key covers 15 routes (same element)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-dimensions::src/routes/(admin)/dashboard/account/+page.svelte:212::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .avatar-img 100% x 100% in the 96x96 .avatar box (:350-367) - box reserved by CSS"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-dimensions::src/routes/(admin)/dashboard/authors/+page.svelte:151::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .avatar fixes 44x44 (.large 56x56) on the img itself (:384-396) - box reserved by CSS"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-dimensions::src/routes/(admin)/dashboard/posts/+page.svelte:296::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .thumb fixes 56x56 on the img itself (:691-698) - box reserved by CSS"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-dimensions::src/routes/(admin)/dashboard/users/[id]/+page.svelte:78::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; class avatar fixes 72x72 on the img (:212-219) - box reserved by CSS"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-dimensions::src/routes/(public)/profile/+page.svelte:97::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .avatar-img 100% x 100% in the 96x96 .avatar-circle (:369-386) - box reserved by CSS"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-dimensions::src/routes/(public)/profile/edit/+page.svelte:100::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .avatar-img 100% x 100% in the 88x88 .avatar-circle (:308-325) - box reserved by CSS"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-loading-hint::src/routes/(admin)/+layout.svelte:240::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; signed-in user avatar in the admin sidebar footer (:236-240), part of the always-visible sidebar chrome - where the docs keep the image eager"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-loading-hint::src/routes/(admin)/dashboard/account/+page.svelte:212::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; avatar in the <header class=who> at the top of the account page (:208-212) - above the fold"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-loading-hint::src/routes/(admin)/dashboard/authors/+page.svelte:151::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; avatar snippet rendered in each row of the {#each data.authors} table (:177) - later rows offscreen on load"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-loading-hint::src/routes/(admin)/dashboard/users/[id]/+page.svelte:78::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; avatar in the first Profile section under the back link (:72-78) - above the fold"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-loading-hint::src/routes/(public)/authors/[slug]/+page.svelte:53::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; author avatar in the page header lead snippet (:50-58) - above the fold"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-loading-hint::src/routes/(public)/profile/+page.svelte:97::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; avatar in the profile-head header at the top of the page (:94-97) - above the fold"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/image-loading-hint::src/routes/(public)/profile/edit/+page.svelte:100::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; avatar at the top of the edit form (:97-100) - above the fold"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(admin)/+layout.svelte:240::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; data.user.avatarUrl is a remote or uploaded raster avatar at 32px - one fixed-size asset"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(admin)/dashboard/account/+page.svelte:212::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; photo = uploadedUrl || user.avatarUrl (:61), a remote raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(admin)/dashboard/authors/+page.svelte:151::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; author.avatarUrl remote raster avatar at 44px - one fixed-size asset"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(admin)/dashboard/posts/+page.svelte:296::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; post.featuredImage full raster cover shown as a 56px row thumbnail - one fixed-size asset"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(admin)/dashboard/users/[id]/+page.svelte:78::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; user.avatarUrl remote raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(public)/authors/[slug]/+page.svelte:53::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; avatarImage() requests the 128px preset variant (lib/utils/image-url.ts:13,53) for a 96px avatar - already a small variant"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(public)/posts/[slug]/+page.svelte:172::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; cover raster through heroImage() (fixed 1200x630 preset, image-url.ts:10,49) at width:100% - one size for every device, and the CDN could serve others"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(public)/profile/+page.svelte:207::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; item.coverImageUrl full raster post cover shown as a 96x54 list thumbnail (:207) - one fixed-size asset"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(public)/profile/+page.svelte:258::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; item.coverImageUrl full raster post cover shown as a 96x54 list thumbnail (:258) - one fixed-size asset"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(public)/profile/+page.svelte:97::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; user.avatarUrl remote raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/responsive-image::src/routes/(public)/profile/edit/+page.svelte:100::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; avatarPreview is user.avatarUrl or the uploaded URL (:13,67), a remote raster - one fixed-size asset"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/sequential-awaits::src/routes/(public)/+page.server.ts:54::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "+page.server.ts:54 + queries/categories.ts:100: getHomepageCategories is a DB query using nothing from the earlier Promise.all or latestRows — independent DB round trip serialized; Promise.all would work"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/sequential-awaits::src/routes/(public)/authors/[slug]/+page.server.ts:19::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "[slug]/+page.server.ts:19: getPostsByAuthor uses only params.slug, nothing from the author row (404-gate) — independent DB queries serialized; Promise.all would work (ledger 404-gate convention)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/sequential-awaits::src/routes/(public)/categories/[slug]/+page.server.ts:25::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "[slug]/+page.server.ts:25-28: getPosts/getPostCount use only params.slug and url paging, nothing from the category row (404-gate) — independent DB queries serialized; Promise.all would work (ledger 404-gate convention)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/sequential-awaits::src/routes/(public)/search/+page.server.ts:47::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "search/+page.server.ts:42-47: the only preceding await is countHit, the rate-limit gate that returns before any search when blocked — deliberate gate-before-query ordering, docs Limitations (ledger gate convention)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::performance/sequential-awaits::src/routes/(public)/tags/[slug]/+page.server.ts:20::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "[slug]/+page.server.ts:20: getPostsByTag uses only params.slug, nothing from the tag row (404-gate) — independent DB queries serialized; Promise.all would work (ledger 404-gate convention)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/lib/components/blog/PostContent.svelte:27::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "lib/utils/tiptap-to-html.ts:17-120: tiptapToHtml escapes all text and attrs, safeUrl drops non-http/mailto/tel schemes — escaped by construction, reported per docs"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/routes/(admin)/+layout.svelte:189::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "+layout.svelte:27-88: item.icon is one of the literal ICON_* SVG consts in this file — repo constant, reported per docs"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/routes/(public)/+layout.svelte:118::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "umamiWebsiteId from settings or env (+layout.server.ts:24); settings/+page.server.ts:84-106 accepts the id only if isTrackingId (lib/utils/web-address.ts) matches its shape before saving — validated id in a repo-literal snippet, reported per docs; env is operator-set"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/routes/(public)/+layout.svelte:123::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "gtmId from settings; settings/+page.server.ts:84-106 accepts the id only if isTrackingId (lib/utils/web-address.ts) matches its shape before saving — validated id in a repo-literal snippet, reported per docs"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/routes/(public)/+layout.svelte:128::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "ga4Id from settings; settings/+page.server.ts:84-106 accepts the id only if isTrackingId (lib/utils/web-address.ts) matches its shape before saving — validated id in a repo-literal snippet, reported per docs"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/routes/(public)/+layout.svelte:133::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "metaPixelId from settings; settings/+page.server.ts:84-106 accepts the id only if isTrackingId (lib/utils/web-address.ts) matches its shape before saving — validated id in a repo-literal snippet, reported per docs"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/routes/(public)/+layout.svelte:139::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "+layout.svelte:42-52 orgJsonLd via lib/utils/seo.ts:22-29 jsonLdScript JSON.stringify with < escaped as \\u003c — script-safe serialization, reported per docs"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/routes/(public)/authors/[slug]/+page.svelte:40::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "+page.svelte:19-31 personJsonLd via lib/utils/seo.ts:22-29 jsonLdScript JSON.stringify with < escaped as \\u003c — script-safe serialization, reported per docs"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/routes/(public)/posts/[slug]/+page.svelte:124::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "+page.svelte:50-51 jsonLdTag via lib/utils/seo.ts:22-29 jsonLdScript JSON.stringify with < escaped as \\u003c — script-safe serialization, reported per docs"
+  },
+  {
+    "key": "94mrdshyml/open-loops::security/raw-html::src/routes/(public)/posts/[slug]/+page.svelte:126::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "+page.svelte:77-90 breadcrumbJsonLd via lib/utils/seo.ts:22-29 jsonLdScript JSON.stringify with < escaped as \\u003c — script-safe serialization, reported per docs"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard (src/routes/(admin)/dashboard/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/account (src/routes/(admin)/dashboard/account/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/authors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/authors (src/routes/(admin)/dashboard/authors/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/categories/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/categories (src/routes/(admin)/dashboard/categories/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/comments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/comments (src/routes/(admin)/dashboard/comments/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/emails/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/emails (src/routes/(admin)/dashboard/emails/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/emails/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/emails/[id] (src/routes/(admin)/dashboard/emails/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/newsletter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/newsletter (src/routes/(admin)/dashboard/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/posts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/posts (src/routes/(admin)/dashboard/posts/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/posts/[id]/edit (src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/posts/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/posts/new (src/routes/(admin)/dashboard/posts/new/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/settings (src/routes/(admin)/dashboard/settings/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/tags/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/tags (src/routes/(admin)/dashboard/tags/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/users (src/routes/(admin)/dashboard/users/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/(admin)/dashboard/users/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /dashboard/users/[id] (src/routes/(admin)/dashboard/users/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (auth-gated: hooks.server.ts:105-106 and (admin)/+layout.server.ts:7 redirect guests to /login)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /login (src/routes/login/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (literal noindex robots meta at login/+page.svelte:14)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/newsletter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /newsletter (src/routes/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; public marketing page: newsletter/+page.server.ts load never redirects, head is <title>+description only (+page.svelte:80-86), no noindex"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/newsletter/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /newsletter/setup (src/routes/newsletter/setup/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (literal noindex robots meta at newsletter/setup/+page.svelte:44)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /register (src/routes/register/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (literal noindex robots meta at register/+page.svelte:71)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/canonical-url::src/routes/unsubscribe/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /unsubscribe (src/routes/unsubscribe/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders; not a search target (literal noindex robots meta at unsubscribe/+page.svelte:12)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/account; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/authors/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/authors; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/categories/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/categories; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/comments/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/comments; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/emails/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/emails; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/emails/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/emails/[id]; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/newsletter/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/newsletter; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/posts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/posts; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/posts/[id]/edit; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/posts/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/posts/new; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/settings; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/tags/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/tags; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/users; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/(admin)/dashboard/users/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: (admin)/+layout.svelte and root layout emit no description, page none (literal claim holds) on /dashboard/users/[id]; but hooks.server.ts redirects session-less /dashboard to /login and (admin)/+layout.server.ts:7 does too, so it is the signed-in back office of the blog, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/login/+page.svelte is outside (public) whose layout emits the description, so /login ships none (literal claim holds); but its own svelte:head carries a literal noindex, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/newsletter/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/newsletter/setup/+page.svelte is outside (public) whose layout emits the description, so /newsletter/setup ships none (literal claim holds); but its own svelte:head carries a literal noindex, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/register/+page.svelte is outside (public) whose layout emits the description, so /register ships none (literal claim holds); but its own svelte:head carries a literal noindex, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/description-presence::src/routes/unsubscribe/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/unsubscribe/+page.svelte is outside (public) whose layout emits the description, so /unsubscribe ships none (literal claim holds); but its own svelte:head carries a literal noindex, not a search target"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/indexability::src/routes/(public)/profile/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=\"robots\" content=\"noindex…\"> in src/routes/(public)/profile/+page.svelte top-level svelte:head; noindex as claimed (deliberate for an account/utility page; on /profile the (public) layout also emits a dynamic robots meta, noindex still ships)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/indexability::src/routes/(public)/profile/edit/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=\"robots\" content=\"noindex…\"> in src/routes/(public)/profile/edit/+page.svelte top-level svelte:head; noindex as claimed (deliberate for an account/utility page; on /profile the (public) layout also emits a dynamic robots meta, noindex still ships)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/indexability::src/routes/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=\"robots\" content=\"noindex…\"> in src/routes/login/+page.svelte top-level svelte:head; noindex as claimed (deliberate for an account/utility page; on /profile the (public) layout also emits a dynamic robots meta, noindex still ships)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/indexability::src/routes/newsletter/setup/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=\"robots\" content=\"noindex…\"> in src/routes/newsletter/setup/+page.svelte top-level svelte:head; noindex as claimed (deliberate for an account/utility page; on /profile the (public) layout also emits a dynamic robots meta, noindex still ships)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/indexability::src/routes/register/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=\"robots\" content=\"noindex…\"> in src/routes/register/+page.svelte top-level svelte:head; noindex as claimed (deliberate for an account/utility page; on /profile the (public) layout also emits a dynamic robots meta, noindex still ships)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/indexability::src/routes/unsubscribe/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=\"robots\" content=\"noindex…\"> in src/routes/unsubscribe/+page.svelte top-level svelte:head; noindex as claimed (deliberate for an account/utility page; on /profile the (public) layout also emits a dynamic robots meta, noindex still ships)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/account/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/account has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/authors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/authors/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/authors has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/categories/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/categories/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/categories has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/comments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/comments/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/comments has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/emails/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/emails/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/emails has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/emails/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/emails/[id]/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/emails/[id] has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/newsletter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/newsletter/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/newsletter has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/posts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/posts/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/posts has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/posts/[id]/edit has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/posts/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/posts/new/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/posts/new has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/settings/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/settings has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/tags/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/tags/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/tags has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/users/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/users has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/(admin)/dashboard/users/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/(admin)/dashboard/users/[id]/+page.svelte is outside that chain, root +layout.svelte has no head, so /dashboard/users/[id] has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/login/+page.svelte is outside that chain, root +layout.svelte has no head, so /login has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/newsletter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/newsletter/+page.svelte is outside that chain, root +layout.svelte has no head, so /newsletter has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/newsletter/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/newsletter/setup/+page.svelte is outside that chain, root +layout.svelte has no head, so /newsletter/setup has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/register/+page.svelte is outside that chain, root +layout.svelte has no head, so /register has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/json-ld::src/routes/unsubscribe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for ld+json): JSON-LD comes only from (public)/+layout.svelte (orgJsonLd) and posts/authors pages; src/routes/unsubscribe/+page.svelte is outside that chain, root +layout.svelte has no head, so /unsubscribe has none (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard (src/routes/(admin)/dashboard/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/account (src/routes/(admin)/dashboard/account/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/authors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/authors (src/routes/(admin)/dashboard/authors/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/categories/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/categories (src/routes/(admin)/dashboard/categories/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/comments/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/comments (src/routes/(admin)/dashboard/comments/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/emails/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/emails (src/routes/(admin)/dashboard/emails/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/emails/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/emails/[id] (src/routes/(admin)/dashboard/emails/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/newsletter/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/newsletter (src/routes/(admin)/dashboard/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/posts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/posts (src/routes/(admin)/dashboard/posts/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/posts/[id]/edit (src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/posts/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/posts/new (src/routes/(admin)/dashboard/posts/new/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/settings (src/routes/(admin)/dashboard/settings/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/tags/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/tags (src/routes/(admin)/dashboard/tags/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/users (src/routes/(admin)/dashboard/users/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/(admin)/dashboard/users/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /dashboard/users/[id] (src/routes/(admin)/dashboard/users/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /login (src/routes/login/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /newsletter (src/routes/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/newsletter/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /newsletter/setup (src/routes/newsletter/setup/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /register (src/routes/register/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-description::src/routes/unsubscribe/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /unsubscribe (src/routes/unsubscribe/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard (src/routes/(admin)/dashboard/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/account (src/routes/(admin)/dashboard/account/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/authors/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/authors (src/routes/(admin)/dashboard/authors/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/categories/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/categories (src/routes/(admin)/dashboard/categories/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/comments/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/comments (src/routes/(admin)/dashboard/comments/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/emails/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/emails (src/routes/(admin)/dashboard/emails/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/emails/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/emails/[id] (src/routes/(admin)/dashboard/emails/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/newsletter/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/newsletter (src/routes/(admin)/dashboard/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/posts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/posts (src/routes/(admin)/dashboard/posts/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/posts/[id]/edit (src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/posts/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/posts/new (src/routes/(admin)/dashboard/posts/new/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/settings (src/routes/(admin)/dashboard/settings/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/tags/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/tags (src/routes/(admin)/dashboard/tags/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/users (src/routes/(admin)/dashboard/users/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/(admin)/dashboard/users/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /dashboard/users/[id] (src/routes/(admin)/dashboard/users/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /login (src/routes/login/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /newsletter (src/routes/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/newsletter/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /newsletter/setup (src/routes/newsletter/setup/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /register (src/routes/register/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-image::src/routes/unsubscribe/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /unsubscribe (src/routes/unsubscribe/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard (src/routes/(admin)/dashboard/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/account (src/routes/(admin)/dashboard/account/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/authors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/authors (src/routes/(admin)/dashboard/authors/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/categories/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/categories (src/routes/(admin)/dashboard/categories/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/comments/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/comments (src/routes/(admin)/dashboard/comments/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/emails/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/emails (src/routes/(admin)/dashboard/emails/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/emails/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/emails/[id] (src/routes/(admin)/dashboard/emails/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/newsletter/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/newsletter (src/routes/(admin)/dashboard/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/posts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/posts (src/routes/(admin)/dashboard/posts/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/posts/[id]/edit (src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/posts/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/posts/new (src/routes/(admin)/dashboard/posts/new/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/settings (src/routes/(admin)/dashboard/settings/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/tags/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/tags (src/routes/(admin)/dashboard/tags/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/users (src/routes/(admin)/dashboard/users/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/(admin)/dashboard/users/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /dashboard/users/[id] (src/routes/(admin)/dashboard/users/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /login (src/routes/login/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /newsletter (src/routes/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/newsletter/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /newsletter/setup (src/routes/newsletter/setup/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /register (src/routes/register/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-title::src/routes/unsubscribe/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /unsubscribe (src/routes/unsubscribe/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard (src/routes/(admin)/dashboard/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/account (src/routes/(admin)/dashboard/account/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/authors/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/authors (src/routes/(admin)/dashboard/authors/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/categories/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/categories (src/routes/(admin)/dashboard/categories/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/comments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/comments (src/routes/(admin)/dashboard/comments/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/emails/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/emails (src/routes/(admin)/dashboard/emails/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/emails/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/emails/[id] (src/routes/(admin)/dashboard/emails/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/newsletter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/newsletter (src/routes/(admin)/dashboard/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/posts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/posts (src/routes/(admin)/dashboard/posts/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/posts/[id]/edit (src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/posts/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/posts/new (src/routes/(admin)/dashboard/posts/new/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/settings (src/routes/(admin)/dashboard/settings/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/tags/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/tags (src/routes/(admin)/dashboard/tags/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/users (src/routes/(admin)/dashboard/users/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/(admin)/dashboard/users/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /dashboard/users/[id] (src/routes/(admin)/dashboard/users/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /login (src/routes/login/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /newsletter (src/routes/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/newsletter/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /newsletter/setup (src/routes/newsletter/setup/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /register (src/routes/register/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/og-url::src/routes/unsubscribe/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /unsubscribe (src/routes/unsubscribe/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-length::src/routes/(public)/profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"My Profile — Open Tabs\" in src/routes/(public)/profile/+page.svelte, 22 chars as reported (literal claim holds); but the same svelte:head carries a literal noindex (account/utility page), not shown in search results"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-length::src/routes/(public)/profile/edit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Edit Profile — Open Tabs\" in src/routes/(public)/profile/edit/+page.svelte, 24 chars as reported (literal claim holds); but the same svelte:head carries a literal noindex (account/utility page), not shown in search results"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Sign in — Open Tabs\" in src/routes/login/+page.svelte, 19 chars as reported (literal claim holds); but the same svelte:head carries a literal noindex (account/utility page), not shown in search results"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-length::src/routes/newsletter/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: literal <title> \"Newsletter — Open Tabs\" in src/routes/newsletter/+page.svelte, whitespace collapsed, 22 chars as reported; public, indexable newsletter sign-up page with its own description, no noindex, too short as claimed"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-length::src/routes/register/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Create account — Open Tabs\" in src/routes/register/+page.svelte, 26 chars as reported (literal claim holds); but the same svelte:head carries a literal noindex (account/utility page), not shown in search results"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-length::src/routes/unsubscribe/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Unsubscribe — Open Tabs\" in src/routes/unsubscribe/+page.svelte, 23 chars as reported (literal claim holds); but the same svelte:head carries a literal noindex (account/utility page), not shown in search results"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/account/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/account/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/authors/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/authors/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/categories/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/categories/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/comments/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/comments/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/emails/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/emails/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/emails/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/emails/[id]/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/newsletter/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/newsletter/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/posts/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/posts/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/posts/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/posts/new/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/settings/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/tags/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/tags/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/users/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/users/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/title-presence::src/routes/(admin)/dashboard/users/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (src/lib and src/routes/(admin) grep): src/routes/(admin)/dashboard/users/[id]/+page.svelte has no svelte:head; (admin)/+layout.svelte:308 renders $pageTitle (lib/stores/admin-page-title.ts, a writable) as a body <h1> only; root +layout.svelte renders children only; only (admin)/+error.svelte:32 has a <title>, app.html none, no document.title in src/lib; hooks.server.ts and (admin)/+layout.server.ts redirect only by session/role, so the route renders for signed-in users (ledger: gated dashboards are tp)"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard (src/routes/(admin)/dashboard/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/account (src/routes/(admin)/dashboard/account/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/authors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/authors (src/routes/(admin)/dashboard/authors/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/categories/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/categories (src/routes/(admin)/dashboard/categories/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/comments/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/comments (src/routes/(admin)/dashboard/comments/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/emails/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/emails (src/routes/(admin)/dashboard/emails/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/emails/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/emails/[id] (src/routes/(admin)/dashboard/emails/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/newsletter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/newsletter (src/routes/(admin)/dashboard/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/posts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/posts (src/routes/(admin)/dashboard/posts/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/posts/[id]/edit (src/routes/(admin)/dashboard/posts/[id]/edit/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/posts/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/posts/new (src/routes/(admin)/dashboard/posts/new/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/settings (src/routes/(admin)/dashboard/settings/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/tags/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/tags (src/routes/(admin)/dashboard/tags/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/users (src/routes/(admin)/dashboard/users/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/(admin)/dashboard/users/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /dashboard/users/[id] (src/routes/(admin)/dashboard/users/[id]/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /login (src/routes/login/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/newsletter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /newsletter (src/routes/newsletter/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/newsletter/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /newsletter/setup (src/routes/newsletter/setup/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /register (src/routes/register/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  },
+  {
+    "key": "94mrdshyml/open-loops::seo/twitter-card::src/routes/unsubscribe/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /unsubscribe (src/routes/unsubscribe/+page.svelte): the only emitters are routes/(public)/+layout.svelte:95-108 (positive control) and below, and this route is outside (public); root +layout.svelte has no head; app.html has no such tag; hooks.server.ts has no transformPageChunk; no Svelte UI dependency; route renders"
+  }
+]

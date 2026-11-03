@@ -1,0 +1,592 @@
+[
+  {
+    "key": "Indy-Center/training-tools::a11y/permitted-contents::src/lib/components/header/UserProfileDropdown.svelte:70::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <div> at src/lib/components/header/UserProfileDropdown.svelte:70 has literal <button> as its nearest element ancestor (only block nodes between, no component/snippet/svg boundary); not in that parent's content model as reported"
+  },
+  {
+    "key": "Indy-Center/training-tools::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Indy-Center/training-tools::architecture/component-size::src/routes/EnrollmentForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/EnrollmentForm.svelte has 238 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Indy-Center/training-tools::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 315 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Indy-Center/training-tools::architecture/component-size::src/routes/teach/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/teach/+page.svelte has 442 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Indy-Center/training-tools::architecture/component-size::src/routes/teach/report/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/teach/report/[id]/+page.svelte has 398 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Indy-Center/training-tools::architecture/component-size::src/routes/teachers/[cid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/teachers/[cid]/+page.svelte has 341 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Indy-Center/training-tools::architecture/prop-count::src/lib/components/forms/ActionForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/ActionForm.svelte has a single destructured $props() with 10 named props (> 6): action, label, fields, question, variant, split, busy, busyKey, class, children"
+  },
+  {
+    "key": "Indy-Center/training-tools::architecture/prop-count::src/lib/components/ui/ChoiceCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/ChoiceCard.svelte has a single destructured $props() with 9 named props (> 6): type, name, value, checked, required, align, compact, class, children"
+  },
+  {
+    "key": "Indy-Center/training-tools::architecture/prop-count::src/lib/components/ui/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/ConfirmDialog.svelte has a single destructured $props() with 7 named props (> 6): open, title, confirmLabel, cancelLabel, tone, ready, children"
+  },
+  {
+    "key": "Indy-Center/training-tools::correctness/each-index-key::src/lib/components/controller/Timeline.svelte:45::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/controller/Timeline.svelte:45 entries prop: a controller's recorded roster/teacher/qualification changes (:15-27), runtime records that grow over time; identity follows position"
+  },
+  {
+    "key": "Indy-Center/training-tools::correctness/each-key::src/lib/components/header/NavigationLinks.svelte:105::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/header/NavigationLinks.svelte:105 links = $derived list of authored nav entries gated by role (:51); static nav list"
+  },
+  {
+    "key": "Indy-Center/training-tools::correctness/each-key::src/lib/components/header/NavigationLinks.svelte:121::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/header/NavigationLinks.svelte:121 links = $derived list of authored nav entries gated by role (:51); static nav list"
+  },
+  {
+    "key": "Indy-Center/training-tools::correctness/each-key::src/routes/teach/+page.svelte:353::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/teach/+page.svelte:353 resources from data.resources, read from the CMS (getTeacherResources, +page.server.ts:58); runtime records"
+  },
+  {
+    "key": "Indy-Center/training-tools::correctness/effect-as-derived::src/routes/teach/report/[id]/+page.svelte:89::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/teach/report/[id]/+page.svelte:89 the effect only copies values.finish into finish; its other write is a top-level reassignment (:371), the writable-$derived override pattern (svelte 5.57.1 in the lockfile)"
+  },
+  {
+    "key": "Indy-Center/training-tools::correctness/effect-as-derived::src/routes/teach/report/[id]/+page.svelte:95::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/teach/report/[id]/+page.svelte:95 the effect only copies values.otsStatus into otsStatus; its other write is a top-level reassignment (:328), the writable-$derived override pattern (svelte 5.57.1 in the lockfile)"
+  },
+  {
+    "key": "Indy-Center/training-tools::performance/sequential-awaits::src/routes/certifications/[cid]/+page.server.ts:44::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "[cid]/+page.server.ts:36-48: the Promise.all reads use locals.db and params.cid only, nothing from the roster member row (404-gate; authorization is the synchronous requireRole) — independent DB queries serialized; Promise.all would work (ledger 404-gate convention)"
+  },
+  {
+    "key": "Indy-Center/training-tools::performance/sequential-awaits::src/routes/teach/report/[id]/+page.server.ts:78::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "[id]/+page.server.ts:57-78: the only preceding await is reporting(), the teacher/enrollment permission gate that errors 403/404 — deliberate auth-before-query ordering, docs Limitations (ledger auth-gate convention)"
+  },
+  {
+    "key": "Indy-Center/training-tools::performance/state-raw::src/lib/components/ui/DropdownMenu.svelte:44::\"place\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"place\" in src/lib/components/ui/DropdownMenu.svelte and read each {#each} body over it: declared at :44, only whole-binding reassignments and read-only uses; no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "Indy-Center/training-tools::security/raw-html::src/lib/components/content/CopyPanel.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "CopyPanel.svelte:24 + vite.config.ts:8-29 + lib/content/training/index.ts:73-80: body is repo markdown compiled at build time; fillCopy HTML-escapes its values — repo constant, reported per docs"
+  },
+  {
+    "key": "Indy-Center/training-tools::security/raw-html::src/routes/+page.svelte:63::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "routes/+page.svelte:63: SHARED_COPY.signedOut.body, repo markdown compiled at build time (vite.config.ts:8-29) — repo constant, reported per docs"
+  },
+  {
+    "key": "Indy-Center/training-tools::security/raw-html::src/routes/EnrollmentForm.svelte:211::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "EnrollmentForm.svelte:211: ENROLLMENT_COPY.agreement, repo markdown compiled at build time (vite.config.ts:8-29) — repo constant, reported per docs"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; public landing page (hooks.server.ts:27 PUBLIC_PATHS includes '/', +page.server.ts returns sign-in CTA data for guests), no noindex"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /admin (src/routes/admin/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/admin/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /admin/audit (src/routes/admin/audit/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/certifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /certifications (src/routes/certifications/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/certifications/[cid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /certifications/[cid] (src/routes/certifications/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/enroll/tier-2/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /enroll/tier-2 (src/routes/enroll/tier-2/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/teach/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /teach (src/routes/teach/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/teach/report/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /teach/report/[id] (src/routes/teach/report/[id]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/teachers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /teachers (src/routes/teachers/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/teachers/[cid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /teachers/[cid] (src/routes/teachers/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/canonical-url::src/routes/waitlist/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /waitlist (src/routes/waitlist/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders; not a search target (auth-gated: hooks.server.ts:55-57 redirects every sessionless request off PUBLIC_PATHS to identity login)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-length::src/routes/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: literal <meta name=description> \"Controller training at Indy Center — enroll and track your progress.\" in src/routes/+page.svelte, whitespace collapsed, 68 chars as reported; / is the one public page (hooks.server.ts PUBLIC_PATHS), no noindex, claim holds"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-presence::src/routes/admin/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/audit (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-presence::src/routes/certifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /certifications (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-presence::src/routes/certifications/[cid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /certifications/[cid] (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-presence::src/routes/enroll/tier-2/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /enroll/tier-2 (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-presence::src/routes/teach/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /teach (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-presence::src/routes/teach/report/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /teach/report/[id] (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-presence::src/routes/teachers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /teachers (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/description-presence::src/routes/teachers/[cid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /teachers/[cid] (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/admin/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/audit; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/certifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /certifications; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/certifications/[cid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /certifications/[cid]; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/enroll/tier-2/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /enroll/tier-2; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/teach/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /teach; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/teach/report/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /teach/report/[id]; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/teachers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /teachers; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/teachers/[cid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /teachers/[cid]; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/json-ld::src/routes/waitlist/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /waitlist; facility training tool (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /admin (src/routes/admin/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /admin/audit (src/routes/admin/audit/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/certifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /certifications (src/routes/certifications/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/certifications/[cid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /certifications/[cid] (src/routes/certifications/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/enroll/tier-2/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /enroll/tier-2 (src/routes/enroll/tier-2/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/teach/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /teach (src/routes/teach/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/teach/report/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /teach/report/[id] (src/routes/teach/report/[id]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/teachers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /teachers (src/routes/teachers/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/teachers/[cid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /teachers/[cid] (src/routes/teachers/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-description::src/routes/waitlist/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /waitlist (src/routes/waitlist/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /admin (src/routes/admin/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /admin/audit (src/routes/admin/audit/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/certifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /certifications (src/routes/certifications/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/certifications/[cid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /certifications/[cid] (src/routes/certifications/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/enroll/tier-2/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /enroll/tier-2 (src/routes/enroll/tier-2/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/teach/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /teach (src/routes/teach/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/teach/report/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /teach/report/[id] (src/routes/teach/report/[id]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/teachers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /teachers (src/routes/teachers/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/teachers/[cid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /teachers/[cid] (src/routes/teachers/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-image::src/routes/waitlist/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /waitlist (src/routes/waitlist/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /admin (src/routes/admin/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /admin/audit (src/routes/admin/audit/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/certifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /certifications (src/routes/certifications/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/certifications/[cid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /certifications/[cid] (src/routes/certifications/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/enroll/tier-2/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /enroll/tier-2 (src/routes/enroll/tier-2/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/teach/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /teach (src/routes/teach/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/teach/report/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /teach/report/[id] (src/routes/teach/report/[id]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/teachers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /teachers (src/routes/teachers/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/teachers/[cid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /teachers/[cid] (src/routes/teachers/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-title::src/routes/waitlist/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /waitlist (src/routes/waitlist/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /admin (src/routes/admin/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /admin/audit (src/routes/admin/audit/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/certifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /certifications (src/routes/certifications/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/certifications/[cid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /certifications/[cid] (src/routes/certifications/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/enroll/tier-2/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /enroll/tier-2 (src/routes/enroll/tier-2/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/teach/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /teach (src/routes/teach/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/teach/report/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /teach/report/[id] (src/routes/teach/report/[id]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/teachers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /teachers (src/routes/teachers/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/teachers/[cid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /teachers/[cid] (src/routes/teachers/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/og-url::src/routes/waitlist/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /waitlist (src/routes/waitlist/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has favicons only, no robots.txt route or generator (literal claim holds); but login-gated training tool of Indy Center, only / is public (hooks.server.ts PUBLIC_PATHS), nothing to list or steer"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has favicons only, no sitemap.xml route or generator (literal claim holds); but login-gated training tool of Indy Center, only / is public (hooks.server.ts PUBLIC_PATHS), nothing to list or steer"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: literal <title> \"Indy Center | Training\" in src/routes/+page.svelte, whitespace collapsed, 22 chars as reported; / is the one public page (hooks.server.ts PUBLIC_PATHS), no noindex, claim holds"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Indy Center | Admin\" in src/routes/admin/+page.svelte, 19 chars as reported (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/title-length::src/routes/admin/audit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Indy Center | Training audit\" in src/routes/admin/audit/+page.svelte, 28 chars as reported (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/title-length::src/routes/certifications/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Indy Center | Certifications\" in src/routes/certifications/+page.svelte, 28 chars as reported (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/title-length::src/routes/teach/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Indy Center | Teach\" in src/routes/teach/+page.svelte, 19 chars as reported (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/title-length::src/routes/teachers/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Indy Center | Teachers\" in src/routes/teachers/+page.svelte, 22 chars as reported (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/title-length::src/routes/waitlist/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Indy Center | Waitlist\" in src/routes/waitlist/+page.svelte, 22 chars as reported (literal claim holds); but hooks.server.ts authHandle redirects every session-less path except / to the identity login (PUBLIC_PATHS), facility training tool, not a search target"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /admin (src/routes/admin/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/admin/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /admin/audit (src/routes/admin/audit/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/certifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /certifications (src/routes/certifications/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/certifications/[cid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /certifications/[cid] (src/routes/certifications/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/enroll/tier-2/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /enroll/tier-2 (src/routes/enroll/tier-2/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/teach/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /teach (src/routes/teach/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/teach/report/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /teach/report/[id] (src/routes/teach/report/[id]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/teachers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /teachers (src/routes/teachers/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/teachers/[cid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /teachers/[cid] (src/routes/teachers/[cid]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  },
+  {
+    "key": "Indy-Center/training-tools::seo/twitter-card::src/routes/waitlist/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /waitlist (src/routes/waitlist/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (icons/charset/viewport); root +layout.svelte:12-14 head is <title>; hooks.server.ts has no transformPageChunk; @indy-center/identity@1.0.0 and indy-larry-worker@1.2.0 ship no .svelte (jsDelivr); load does not redirect on every path, route renders"
+  }
+]

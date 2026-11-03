@@ -1,0 +1,1032 @@
+[
+  {
+    "key": "dimastirtan/portalditek-revamp::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::correctness/each-index-key::src/lib/components/shared/catalog-table.svelte:54::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/shared/catalog-table.svelte:54 cells of one table row (row as cell, j), styled by column index; positional list (table cells)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::performance/image-dimensions::src/routes/berita-utama/+page.svelte:24::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; class max-h-auto w-full object-cover (:28) - width only, the natural ratio decides the height and the card text below shifts"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::performance/image-dimensions::src/routes/organisasi/+page.svelte:18::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; absolute inset-0 h-full w-full in the {size} (size-12/size-8) round avatar box (:16-22) - out of flow, box reserved"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::performance/image-dimensions::src/routes/sekilas-dittek/+page.svelte:31::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; absolute inset-0 h-full w-full in the aspect-[4/3] frame (:29-35) - box reserved by CSS"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::performance/lcp-image::src/routes/berita-utama/+page.svelte:24::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route (only the small site-header logo renders earlier): full-width image of the first article card in the 2-column grid directly under the heading (:14-28) - the largest image in view, yet lazy"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::performance/lcp-image::src/routes/organisasi/+page.svelte:18::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route, but a 48px avatar in each organisation card (:15-22,41) - not the LCP candidate"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::performance/lcp-image::src/routes/sekilas-dittek/+page.svelte:31::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route (only the small site-header logo renders earlier): first 4:3 photo of the gallery grid directly under the heading (:20-35) - the largest image in view, yet lazy"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::performance/responsive-image::src/routes/berita-utama/+page.svelte:24::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; imgUrl(group.image) raster article image at full card width - one fixed-size asset"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::performance/responsive-image::src/routes/organisasi/+page.svelte:18::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; imgUrl(foto) raster staff photo at 48px or less - one fixed-size asset"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::performance/responsive-image::src/routes/sekilas-dittek/+page.svelte:31::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; imgUrl(item.file) raster photo in a 2-4 column grid - one fixed-size asset"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::security/raw-html::src/lib/components/shared/rich-content.svelte:7::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "rich-content.svelte:7 + server/portal/transform.ts:129-153 + queries.ts:216: legacy DB HTML shown to visitors after only a regex denylist; on* stripping needs leading whitespace, so <svg/onload=…> survives (ledger DB-authored convention)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/[system]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /[system] (src/routes/[system]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex (placeholder page for a SYSTEMS entry, [system]/+page.ts error(404) only on an unknown slug); internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/berita-utama/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /berita-utama (src/routes/berita-utama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/berita/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /berita (src/routes/berita/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/capability/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /capability (src/routes/capability/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/command-media/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /command-media (src/routes/command-media/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/fasilitas/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /fasilitas (src/routes/fasilitas/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/hki/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /hki (src/routes/hki/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/jadwal-kereta-api/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /jadwal-kereta-api (src/routes/jadwal-kereta-api/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/jadwal-penerbangan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /jadwal-penerbangan (src/routes/jadwal-penerbangan/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/jdq/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /jdq (src/routes/jdq/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/kalender-kerja/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /kalender-kerja (src/routes/kalender-kerja/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/kerjasama/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /kerjasama (src/routes/kerjasama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/library/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /library (src/routes/library/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/library/[catalog]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /library/[catalog] (src/routes/library/[catalog]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/link/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /link (src/routes/link/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/oc/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /oc (src/routes/oc/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/online-publication/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /online-publication (src/routes/online-publication/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/organisasi/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /organisasi (src/routes/organisasi/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/personil/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /personil (src/routes/personil/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/project/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /project (src/routes/project/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/regulation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /regulation (src/routes/regulation/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/sekilas-dittek/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /sekilas-dittek (src/routes/sekilas-dittek/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/canonical-url::src/routes/telepon-penting/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): <link rel=\"canonical\"> absent on /telepon-penting (src/routes/telepon-penting/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders; rendered route with no auth gate or noindex; internal company portal (README.md:3) but nothing in source keeps it from crawlers, ledger convention: tp"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/description-length::src/routes/kalender-kerja/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <meta name=description> \"Kalender kerja dan hari libur Direktorat Teknologi.\" in src/routes/kalender-kerja/+page.svelte, 51 chars as reported (literal claim holds); but internal portal of the PT Dirgantara Indonesia technology directorate (README \"Portal internal\", employee content), not a search target"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/[system]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /[system]; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/berita-utama/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /berita-utama; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/berita/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /berita; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/capability/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /capability; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/command-media/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /command-media; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/fasilitas/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /fasilitas; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/hki/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /hki; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/jadwal-kereta-api/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /jadwal-kereta-api; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/jadwal-penerbangan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /jadwal-penerbangan; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/jdq/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /jdq; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/kalender-kerja/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /kalender-kerja; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/kerjasama/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /kerjasama; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/library/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /library; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/library/[catalog]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /library/[catalog]; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/link/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /link; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/oc/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /oc; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/online-publication/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /online-publication; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/organisasi/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /organisasi; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/personil/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /personil; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/project/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /project; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/regulation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /regulation; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/sekilas-dittek/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /sekilas-dittek; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/json-ld::src/routes/telepon-penting/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /telepon-penting; internal portal (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/[system]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /[system] (src/routes/[system]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/berita-utama/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /berita-utama (src/routes/berita-utama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/berita/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /berita (src/routes/berita/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/capability/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /capability (src/routes/capability/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/command-media/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /command-media (src/routes/command-media/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/fasilitas/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /fasilitas (src/routes/fasilitas/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/hki/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /hki (src/routes/hki/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/jadwal-kereta-api/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /jadwal-kereta-api (src/routes/jadwal-kereta-api/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/jadwal-penerbangan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /jadwal-penerbangan (src/routes/jadwal-penerbangan/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/jdq/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /jdq (src/routes/jdq/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/kalender-kerja/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /kalender-kerja (src/routes/kalender-kerja/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/kerjasama/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /kerjasama (src/routes/kerjasama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/library/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /library (src/routes/library/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/library/[catalog]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /library/[catalog] (src/routes/library/[catalog]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/link/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /link (src/routes/link/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/oc/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /oc (src/routes/oc/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/online-publication/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /online-publication (src/routes/online-publication/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/organisasi/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /organisasi (src/routes/organisasi/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/personil/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /personil (src/routes/personil/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/project/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /project (src/routes/project/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/regulation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /regulation (src/routes/regulation/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/sekilas-dittek/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /sekilas-dittek (src/routes/sekilas-dittek/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-description::src/routes/telepon-penting/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:description absent on /telepon-penting (src/routes/telepon-penting/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/[system]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /[system] (src/routes/[system]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/berita-utama/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /berita-utama (src/routes/berita-utama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/berita/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /berita (src/routes/berita/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/capability/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /capability (src/routes/capability/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/command-media/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /command-media (src/routes/command-media/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/fasilitas/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /fasilitas (src/routes/fasilitas/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/hki/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /hki (src/routes/hki/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/jadwal-kereta-api/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /jadwal-kereta-api (src/routes/jadwal-kereta-api/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/jadwal-penerbangan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /jadwal-penerbangan (src/routes/jadwal-penerbangan/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/jdq/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /jdq (src/routes/jdq/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/kalender-kerja/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /kalender-kerja (src/routes/kalender-kerja/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/kerjasama/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /kerjasama (src/routes/kerjasama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/library/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /library (src/routes/library/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/library/[catalog]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /library/[catalog] (src/routes/library/[catalog]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/link/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /link (src/routes/link/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/oc/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /oc (src/routes/oc/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/online-publication/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /online-publication (src/routes/online-publication/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/organisasi/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /organisasi (src/routes/organisasi/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/personil/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /personil (src/routes/personil/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/project/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /project (src/routes/project/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/regulation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /regulation (src/routes/regulation/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/sekilas-dittek/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /sekilas-dittek (src/routes/sekilas-dittek/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-image::src/routes/telepon-penting/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:image absent on /telepon-penting (src/routes/telepon-penting/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/[system]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /[system] (src/routes/[system]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/berita-utama/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /berita-utama (src/routes/berita-utama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/berita/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /berita (src/routes/berita/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/capability/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /capability (src/routes/capability/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/command-media/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /command-media (src/routes/command-media/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/fasilitas/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /fasilitas (src/routes/fasilitas/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/hki/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /hki (src/routes/hki/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/jadwal-kereta-api/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /jadwal-kereta-api (src/routes/jadwal-kereta-api/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/jadwal-penerbangan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /jadwal-penerbangan (src/routes/jadwal-penerbangan/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/jdq/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /jdq (src/routes/jdq/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/kalender-kerja/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /kalender-kerja (src/routes/kalender-kerja/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/kerjasama/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /kerjasama (src/routes/kerjasama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/library/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /library (src/routes/library/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/library/[catalog]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /library/[catalog] (src/routes/library/[catalog]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/link/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /link (src/routes/link/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/oc/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /oc (src/routes/oc/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/online-publication/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /online-publication (src/routes/online-publication/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/organisasi/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /organisasi (src/routes/organisasi/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/personil/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /personil (src/routes/personil/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/project/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /project (src/routes/project/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/regulation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /regulation (src/routes/regulation/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/sekilas-dittek/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /sekilas-dittek (src/routes/sekilas-dittek/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-title::src/routes/telepon-penting/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:title absent on /telepon-penting (src/routes/telepon-penting/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/[system]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /[system] (src/routes/[system]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/berita-utama/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /berita-utama (src/routes/berita-utama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/berita/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /berita (src/routes/berita/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/capability/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /capability (src/routes/capability/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/command-media/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /command-media (src/routes/command-media/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/fasilitas/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /fasilitas (src/routes/fasilitas/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/hki/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /hki (src/routes/hki/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/jadwal-kereta-api/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /jadwal-kereta-api (src/routes/jadwal-kereta-api/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/jadwal-penerbangan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /jadwal-penerbangan (src/routes/jadwal-penerbangan/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/jdq/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /jdq (src/routes/jdq/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/kalender-kerja/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /kalender-kerja (src/routes/kalender-kerja/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/kerjasama/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /kerjasama (src/routes/kerjasama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/library/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /library (src/routes/library/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/library/[catalog]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /library/[catalog] (src/routes/library/[catalog]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/link/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /link (src/routes/link/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/oc/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /oc (src/routes/oc/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/online-publication/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /online-publication (src/routes/online-publication/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/organisasi/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /organisasi (src/routes/organisasi/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/personil/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /personil (src/routes/personil/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/project/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /project (src/routes/project/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/regulation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /regulation (src/routes/regulation/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/sekilas-dittek/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /sekilas-dittek (src/routes/sekilas-dittek/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/og-url::src/routes/telepon-penting/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): og:url absent on /telepon-penting (src/routes/telepon-penting/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has images only, no robots.txt route or generator (literal claim holds); but internal portal of the PT Dirgantara Indonesia technology directorate (README \"Portal internal\", employee content), not a search target"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/berita::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none (RichContent {@html} is CMS-authored database content) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/capability::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none (RichContent {@html} is CMS-authored database content) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/command-media::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none (RichContent {@html} is CMS-authored database content) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/hki::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none (RichContent {@html} is CMS-authored database content) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/jadwal-kereta-api::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/jadwal-penerbangan::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/kalender-kerja::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/kerjasama::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none (RichContent {@html} is CMS-authored database content) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/library/[catalog]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/library::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/oc::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/online-publication::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/personil::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/regulation::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::/sekilas-dittek::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::src/routes/berita-utama/+page.svelte:33::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none; page starts below with <h2> (:33) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::src/routes/fasilitas/+page.svelte:20::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none; page starts below with <h2> (:20) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::src/routes/jdq/+page.svelte:23::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none; page starts below with <h2> (:23) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::src/routes/link/+page.svelte:22::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none; page starts below with <h2> (:22) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::src/routes/organisasi/+page.svelte:43::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none; page starts below with <h2> (:43) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::src/routes/project/+page.svelte:22::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none; page starts below with <h2> (:22) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/single-h1::src/routes/telepon-penting/+page.svelte:24::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: only hero.svelte and system-placeholder.svelte hold an <h1> in src, neither on this route; SectionHeading renders <h2> (section-heading.svelte:25) and layout Topbar/SiteHeader/SiteFooter have none; page starts below with <h2> (:24) - no <h1>"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has images only, no sitemap.xml route or generator (literal claim holds); but internal portal of the PT Dirgantara Indonesia technology directorate (README \"Portal internal\", employee content), not a search target"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/title-length::src/routes/berita/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Berita · Direktorat Teknologi\" in src/routes/berita/+page.svelte, 29 chars as reported (literal claim holds); but internal portal of the PT Dirgantara Indonesia technology directorate (README \"Portal internal\", employee content), not a search target"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on / (src/routes/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/[system]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /[system] (src/routes/[system]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/berita-utama/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /berita-utama (src/routes/berita-utama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/berita/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /berita (src/routes/berita/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/capability/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /capability (src/routes/capability/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/command-media/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /command-media (src/routes/command-media/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/fasilitas/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /fasilitas (src/routes/fasilitas/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/hki/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /hki (src/routes/hki/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/jadwal-kereta-api/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /jadwal-kereta-api (src/routes/jadwal-kereta-api/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/jadwal-penerbangan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /jadwal-penerbangan (src/routes/jadwal-penerbangan/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/jdq/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /jdq (src/routes/jdq/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/kalender-kerja/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /kalender-kerja (src/routes/kalender-kerja/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/kerjasama/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /kerjasama (src/routes/kerjasama/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/library/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /library (src/routes/library/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/library/[catalog]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /library/[catalog] (src/routes/library/[catalog]/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/link/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /link (src/routes/link/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/oc/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /oc (src/routes/oc/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/online-publication/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /online-publication (src/routes/online-publication/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/organisasi/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /organisasi (src/routes/organisasi/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/personil/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /personil (src/routes/personil/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/project/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /project (src/routes/project/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/regulation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /regulation (src/routes/regulation/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/sekilas-dittek/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /sekilas-dittek (src/routes/sekilas-dittek/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  },
+  {
+    "key": "dimastirtan/portalditek-revamp::seo/twitter-card::src/routes/telepon-penting/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (A1b emitter scan, comments stripped, whole app src): twitter:card absent on /telepon-penting (src/routes/telepon-penting/+page.svelte): no og/twitter/canonical emitter anywhere in src incl. app.html (site.ts twitter is a social link URL); root +layout.svelte:66-69 head is <title>+description; no hooks; npm bits-ui/@lucide emit none; loads catch errors and return data, route renders"
+  }
+]
