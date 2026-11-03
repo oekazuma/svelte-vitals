@@ -1,0 +1,1612 @@
+[
+  {
+    "key": "colibri-hq/colibri:apps/app::a11y/no-autofocus::src/lib/components/ModalCloseButton.svelte:16::autofocus on <button> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "tp",
+    "basis": "read ModalCloseButton.svelte:16: literal autofocus on a <button> with no enclosing <dialog> or popover in the template, as reported; grep over the whole repo finds no importer (Modal.svelte has its own inline close button), and the ledger keeps a11y markup claims tp on components imported nowhere"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::a11y/permitted-contents::src/lib/components/Notifications/NotificationItem.svelte:45::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <div> at src/lib/components/Notifications/NotificationItem.svelte:45 has literal <button> as its nearest element ancestor (only block nodes between, no component/snippet/svg boundary); not in that parent's content model as reported"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::a11y/permitted-contents::src/lib/components/VisibilitySelector.svelte:63::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <div> at src/lib/components/VisibilitySelector.svelte:63 has literal <label> as its nearest element ancestor (only block nodes between, no component/snippet/svg boundary); not in that parent's content model as reported"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::a11y/permitted-contents::src/lib/components/VisibilitySelector.svelte:72::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <div> at src/lib/components/VisibilitySelector.svelte:72 has literal <label> as its nearest element ancestor (only block nodes between, no component/snippet/svg boundary); not in that parent's content model as reported"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::a11y/permitted-contents::src/lib/components/VisibilitySelector.svelte:82::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <div> at src/lib/components/VisibilitySelector.svelte:82 has literal <label> as its nearest element ancestor (only block nodes between, no component/snippet/svg boundary); not in that parent's content model as reported"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::a11y/permitted-contents::src/routes/(library)/instance/moderation/+page.svelte:1671::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <div> at src/routes/(library)/instance/moderation/+page.svelte:1671 has literal <label> as its nearest element ancestor (only block nodes between, no component/snippet/svg boundary); not in that parent's content model as reported"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::a11y/permitted-contents::src/routes/(library)/instance/settings/CreateApiKeyModal.svelte:206::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ctx.mjs): literal <div> at src/routes/(library)/instance/settings/CreateApiKeyModal.svelte:206 has literal <label> as its nearest element ancestor (only block nodes between, no component/snippet/svg boundary); not in that parent's content model as reported"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::a11y/permitted-contents::src/routes/(library)/works/[work=id]/Meta.svelte:28::`<span>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read src/routes/(library)/works/[work=id]/Meta.svelte:28: <span class=\"hidden\" aria-hidden=\"true\"> is the {#await publisher} pending arm directly in <ul> (ul admits only li); invalid as reported though hidden from AT (ledger has no permitted-contents design verdicts)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/lib/components/Auth/Digits/DigitInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Auth/Digits/DigitInput.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/lib/components/Comments/Comment.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Comments/Comment.svelte has 367 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/lib/components/EditCollectionModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EditCollectionModal.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/lib/components/Upload/BookDataForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Upload/BookDataForm.svelte has 341 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/routes/(library)/collections/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(library)/collections/+page.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/routes/(library)/collections/[collection]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(library)/collections/[collection]/+page.svelte has 294 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/routes/(library)/instance/moderation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(library)/instance/moderation/+page.svelte has 1774 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/routes/(library)/instance/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(library)/instance/profile/+page.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/routes/(library)/instance/settings/ApiKeysSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(library)/instance/settings/ApiKeysSettings.svelte has 286 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/routes/(library)/instance/settings/CreateApiKeyModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(library)/instance/settings/CreateApiKeyModal.svelte has 246 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/routes/(library)/instance/settings/InstanceSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(library)/instance/settings/InstanceSettings.svelte has 382 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/routes/(library)/instance/settings/MetadataProviders.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(library)/instance/settings/MetadataProviders.svelte has 484 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/component-size::src/routes/(library)/works/[work=id]/+page@(library).svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(library)/works/[work=id]/+page@(library).svelte has 574 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/LoadingSpinner.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/LoadingSpinner.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, size, speed, thickness, gap, radius, paused, children"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/Auth/Digits/Digit.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Auth/Digits/Digit.svelte has a single destructured $props() with 11 named props (> 6): name, id, value, placeholder, disabled, numeric, autofocus, onbackspace, oninput, onpaste, onclear"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/Auth/Digits/DigitInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Auth/Digits/DigitInput.svelte has a single destructured $props() with 14 named props (> 6): amount, autofocus, class, control, disabled, emitEventOnPrefill, error, initialValue, name, numeric, oninput, placeholder, separator, value"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/BookCover.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/BookCover.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, imageClasses, book, edition, title, blurhash, src, alt"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/Comments/Comment.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Comments/Comment.svelte has a single destructured $props() with 9 named props (> 6): comment, isAdmin, moderationEnabled, onReaction, onReactionRemoved, onReply, onEdit, onDelete, onRefresh"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/Comments/CommentThread.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Comments/CommentThread.svelte has a single destructured $props() with 8 named props (> 6): comment, depth, entityType, entityId, moderationEnabled, onRefresh, onReaction, onReactionRemoved"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/Comments/CommentsPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Comments/CommentsPanel.svelte has a single destructured $props() with 11 named props (> 6): loading, comments, entityType, entityId, moderationEnabled, onOpen, onClose, onReaction, onReactionRemoved, onSubmit, onRefresh"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/Enrichment/EnrichmentReviewModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Enrichment/EnrichmentReviewModal.svelte has a single destructured $props() with 8 named props (> 6): open, onClose, preview, improvements, sources, loading, onApply, onDismiss"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/Pagination/PaginatedList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Pagination/PaginatedList.svelte has a single destructured $props() with 11 named props (> 6): data, transitionDuration, transitionAppearDelay, max, firstLast, prevNext, queryParam, onChange, loadingIndicator, children, paginator"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/Pagination/Pagination.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Pagination/Pagination.svelte has a single destructured $props() with 15 named props (> 6) plus ...rest: class, total, current, max, firstLast, prevNext, onfirst, onlast, onprevious, onnext, onpage, firstLabel, prevLabel, nextLabel, lastLabel"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::architecture/prop-count::src/lib/components/Pagination/PaginationButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Pagination/PaginationButton.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: label, active, disabled, children, onclick, onkeydown, onkeypress, onkeyup"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/lib/components/Auth/Digits/DigitInput.svelte:163::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Auth/Digits/DigitInput.svelte:163 digits: fixed-length one-time-code cells, addressed by position; positional list"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/lib/components/Auth/OAuth/AuthorizationPrompt.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Auth/OAuth/AuthorizationPrompt.svelte:27 scopes prop: the scopes of one OAuth request, read-only on the prompt (no selection, :40 TODO); static per view"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/lib/components/AvatarGroup.svelte:20::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AvatarGroup.svelte:20 users prop: runtime user records rendered as avatars; identity follows position"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/lib/components/Form/ZodIssues.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Form/ZodIssues.svelte:22 filteredIssues from the issues prop: validation issues; runtime data (ledger error-list convention)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/lib/components/Moderation/ModerationStatistics.svelte:175::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Moderation/ModerationStatistics.svelte:175 stats.topReporters fetched by trpc (:26), ranked runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/lib/components/Pagination/Pagination.svelte:140::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Pagination/Pagination.svelte:140 pages = Array.from({ length: total }, (_, i) => i + 1) (:68): page numbers; positional list"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/lib/components/Sidebar/CollectionsList.svelte:84::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Sidebar/CollectionsList.svelte:84 collections prop: the user's runtime collections, changed by toggleBook (:58)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/authors/+page.svelte:15::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/authors/+page.svelte:15 data.authors from the load, runtime library records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/authors/[author]/+page.svelte:74::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/authors/[author]/+page.svelte:74 works = data.works, runtime library records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/collections/[collection]/+page.svelte:256::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/collections/[collection]/+page.svelte:256 works = data.works of a user collection, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/creators/+page.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/creators/+page.svelte:22 items of a paginated creator list; runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/creators/[creator=id]/+page.svelte:41::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/creators/[creator=id]/+page.svelte:41 contributions = data.contributions, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/discover/CatalogNavigation.svelte:17::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/discover/CatalogNavigation.svelte:17 catalogs prop: the instance's configured OPDS catalogs, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte:60::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte:60 feed.categories of a remote OPDS feed, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte:70::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte:70 feed.entries of a remote OPDS feed, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/Breadcrumbs.svelte:14::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/Breadcrumbs.svelte:14 items: breadcrumb path; positional list (breadcrumb convention)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/discover/featured/+page@(library).svelte:33::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/discover/featured/+page@(library).svelte:33 books from the awaited gutendex response, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/instance/profile/+page.svelte:165::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/instance/profile/+page.svelte:165 data.authenticators, the user's registered passkeys, runtime records the page can change"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/instance/settings/CatalogSettings.svelte:62::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/instance/settings/CatalogSettings.svelte:62 items of a paginated catalog list (admin settings), runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/instance/settings/MemberSettings.svelte:42::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/instance/settings/MemberSettings.svelte:42 items of a paginated member list (PaginatedList data={users}, :39), runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/publishers/+page.svelte:14::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/publishers/+page.svelte:14 data.publishers from the load, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/publishers/[publisher]/+page.svelte:107::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/publishers/[publisher]/+page.svelte:107 works = data.works, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/publishers/[publisher]/+page.svelte:88::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/publishers/[publisher]/+page.svelte:88 creators = data.creators, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/series/+page.svelte:24::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/series/+page.svelte:24 items of a paginated series list (:20-24), runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/series/[series=id]/+page.svelte:40::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/series/[series=id]/+page.svelte:40 worksList of a series, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/works/+page.svelte:130::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/works/+page.svelte:130 works = data.works, runtime library records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/works/[work=id]/+page@(library).svelte:305::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/works/[work=id]/+page@(library).svelte:305 essentialCreators = creators.filter(...) (:300), runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/works/[work=id]/CollectionModal.svelte:67::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/works/[work=id]/CollectionModal.svelte:67 collections $state fetched by trpc (:32), runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/works/[work=id]/RatingsWidget.svelte:26::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/works/[work=id]/RatingsWidget.svelte:26 ratings prop, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/each-index-key::src/routes/(library)/works/[work=id]/ReviewWidget.svelte:45::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/works/[work=id]/ReviewWidget.svelte:45 reviews prop, runtime records"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::correctness/unmutated-state::src/routes/(library)/instance/moderation/+page.svelte:95::$state \"keyboardNavEnabled\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(library)/instance/moderation/+page.svelte:95 keyboardNavEnabled = $state(true): the only other mention reads it (:624); never written, bound or passed"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/image-dimensions::src/routes/(library)/authors/[author]/+page.svelte:20::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; h-full w-full inside the fixed h-32 w-32 wrapper - box reserved by CSS"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/image-dimensions::src/routes/(library)/creators/[creator=id]/+page.svelte:19::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; h-full w-full inside the fixed h-24 w-24 wrapper - box reserved by CSS"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/image-dimensions::src/routes/(library)/publishers/[publisher]/+page.svelte:26::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; h-full w-full inside the fixed h-32 w-32 wrapper - box reserved by CSS"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/image-loading-hint::src/routes/(library)/authors/[author]/+page.svelte:20::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; author picture in the page header beside the title - above the fold"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/image-loading-hint::src/routes/(library)/creators/[creator=id]/+page.svelte:19::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; creator picture in the page header beside the title - above the fold"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/image-loading-hint::src/routes/(library)/publishers/[publisher]/+page.svelte:26::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; publisher picture in the page header beside the title - above the fold"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/load-waterfall::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.ts:47::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "[...segments]/+page.ts:10,46-47: the feed request really depends on catalog.feed_url and runs after it in the browser, but `browser ? feed : await feed` streams it there, so navigation does not wait; the flagged await runs only during SSR — real chain, deliberate streaming, reported per docs"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/responsive-image::src/routes/(library)/authors/[author]/+page.svelte:20::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /creators/{author.id}/picture serves the stored raster picture at one size - one fixed-size asset"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/responsive-image::src/routes/(library)/creators/[creator=id]/+page.svelte:19::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /creators/{creator.id}/picture serves the stored raster picture at one size - one fixed-size asset"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/responsive-image::src/routes/(library)/publishers/[publisher]/+page.svelte:26::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /publishers/{publisher.id}/picture serves the stored raster picture at one size - one fixed-size asset"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::performance/sequential-awaits::src/routes/(library)/+layout.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "(library)/+layout.server.ts:6-9: the only preceding await is ensureLoggedIn (lib/server/utilities.ts:35-49), which redirects signed-out users — deliberate auth-before-query ordering, docs Limitations (ledger auth-gate convention)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::security/raw-html::src/lib/components/Search/ContentSearchResults.svelte:77::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "ContentSearchResults.svelte:77 + sdk/resources/search.ts:229 + ebooks/extract-text.ts:188: raw ts_headline over text extracted from uploaded ebooks, no sanitizer; PostgreSQL does not guarantee its output is safe markup, so the source comment \"safe\" does not hold"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/authors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /authors (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/authors/[author]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /authors/[author] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/collections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /collections (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/collections/[collection]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /collections/[collection] (script-verified: comments stripped, none in page, layout chain and 88 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/creators/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /creators (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/creators/[creator=id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /creators/[creator=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/discover/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /discover (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /discover/[catalog=id]/[vanity]/[...segments=encoded_path] (script-verified: comments stripped, none in page, layout chain and 79 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/discover/featured/+page@(library).svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /discover/featured (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/help/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /help (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/instance/moderation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /instance/moderation (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/instance/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /instance/profile (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/instance/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /instance/settings (script-verified: comments stripped, none in page, layout chain and 93 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/publishers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /publishers (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/publishers/[publisher]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /publishers/[publisher] (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/series/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /series (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/series/[series=id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /series/[series=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/works/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /works (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/works/[work=id]/+page@(library).svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /works/[work=id] (script-verified: comments stripped, none in page, layout chain and 97 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/works/[work=id]/cover/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /works/[work=id]/cover (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/(library)/works/[work=id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /works/[work=id]/edit (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: (library)/+layout.server.ts:6 ensureLoggedIn, lib/server/utilities.ts:42-47, redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/api/docs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /api/docs (script-verified: comments stripped, none in page, layout chain and 5 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — publicly reachable rendered route (no ensureLoggedIn on its chain, hooks only authenticate /api/ without rejecting), no noindex, no robots.txt"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/auth/attestation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /auth/attestation (script-verified: comments stripped, none in page, layout chain and 11 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — publicly reachable rendered route (no ensureLoggedIn on its chain, hooks only authenticate /api/ without rejecting), no noindex, no robots.txt"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/auth/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /auth/login (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — publicly reachable rendered route (no ensureLoggedIn on its chain, hooks only authenticate /api/ without rejecting), no noindex, no robots.txt"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/auth/login/unknown/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /auth/login/unknown (script-verified: comments stripped, none in page, layout chain and 8 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — publicly reachable rendered route (no ensureLoggedIn on its chain, hooks only authenticate /api/ without rejecting), no noindex, no robots.txt"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/canonical-url::src/routes/auth/oauth/device/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/oauth/device (script-verified: comments stripped, none in page, layout chain and 10 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders) — not a search target (auth-gated: auth/oauth/+layout.server.ts ensureLoggedIn redirects guests to /auth/login)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on / (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/authors/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /authors (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/authors/[author]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /authors/[author] (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/collections/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /collections (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/collections/[collection]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /collections/[collection] (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/creators/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /creators (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/creators/[creator=id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /creators/[creator=id] (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/discover/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /discover (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /discover/[catalog=id]/[vanity]/[...segments=encoded_path] (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/discover/featured/+page@(library).svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /discover/featured (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/help/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /help (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/instance/moderation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /instance/moderation (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/instance/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /instance/profile (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/instance/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /instance/settings (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/publishers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /publishers (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/publishers/[publisher]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /publishers/[publisher] (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/series/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /series (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/series/[series=id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /series/[series=id] (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/works/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /works (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/works/[work=id]/+page@(library).svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /works/[work=id] (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/works/[work=id]/cover/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /works/[work=id]/cover (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/(library)/works/[work=id]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /works/[work=id]/edit (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/api/docs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /api/docs (literal claim holds); but publicly reachable sign-in or API-docs page of a self-hosted ebook library instance (README), not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/auth/attestation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /auth/attestation (literal claim holds); but publicly reachable sign-in or API-docs page of a self-hosted ebook library instance (README), not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/auth/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /auth/login (literal claim holds); but publicly reachable sign-in or API-docs page of a self-hosted ebook library instance (README), not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/auth/login/unknown/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /auth/login/unknown (literal claim holds); but publicly reachable sign-in or API-docs page of a self-hosted ebook library instance (README), not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/description-presence::src/routes/auth/oauth/device/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /auth/oauth/device (literal claim holds); but publicly reachable sign-in or API-docs page of a self-hosted ebook library instance (README), not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/duplicate-title::src/routes/auth/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: auth/+layout.svelte:10 literal <title>Account • Colibri</title> is the only title of the 4 auth routes (no page sets one), duplicate as claimed; but Colibri is a self-hosted ebook library (README): library routes redirect to /auth/login ((library)/+layout.server.ts:7), the rest are sign-in pages, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/heading-level-skip::src/routes/(library)/works/[work=id]/+page@(library).svelte:338::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1>{work.title} (:285), then EnrichmentBadge, SeriesBadge and RatingWidget (no headings), then <h3>Synopsis (:338) with no <h2> between - h1 to h3"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/authors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /authors; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/authors/[author]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /authors/[author]; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/collections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /collections; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/collections/[collection]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /collections/[collection]; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/creators/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /creators; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/creators/[creator=id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /creators/[creator=id]; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/discover/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /discover; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /discover/[catalog=id]/[vanity]/[...segments=encoded_path]; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/discover/featured/+page@(library).svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /discover/featured; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/help/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /help; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/instance/moderation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /instance/moderation; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/instance/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /instance/profile; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/instance/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /instance/settings; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/publishers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /publishers; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/publishers/[publisher]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /publishers/[publisher]; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/series/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /series; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/series/[series=id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /series/[series=id]; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/works/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /works; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/works/[work=id]/+page@(library).svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /works/[work=id]; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/works/[work=id]/cover/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /works/[work=id]/cover; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/(library)/works/[work=id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /works/[work=id]/edit; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/api/docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /api/docs; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/auth/attestation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /auth/attestation; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/auth/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /auth/login; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/auth/login/unknown/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /auth/login/unknown; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/json-ld::src/routes/auth/oauth/device/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /auth/oauth/device; self-hosted library; @colibri-hq/ui has no svelte:head (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/authors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /authors (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/authors/[author]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /authors/[author] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/collections/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collections (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/collections/[collection]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collections/[collection] (script-verified: comments stripped, none in page, layout chain and 88 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/creators/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /creators (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/creators/[creator=id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /creators/[creator=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/discover/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /discover (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /discover/[catalog=id]/[vanity]/[...segments=encoded_path] (script-verified: comments stripped, none in page, layout chain and 79 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/discover/featured/+page@(library).svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /discover/featured (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/help/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /help (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/instance/moderation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/moderation (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/instance/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/profile (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/instance/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/settings (script-verified: comments stripped, none in page, layout chain and 93 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/publishers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /publishers (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/publishers/[publisher]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /publishers/[publisher] (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/series/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /series (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/series/[series=id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /series/[series=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/works/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /works (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/works/[work=id]/+page@(library).svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /works/[work=id] (script-verified: comments stripped, none in page, layout chain and 97 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/works/[work=id]/cover/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /works/[work=id]/cover (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/(library)/works/[work=id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /works/[work=id]/edit (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/api/docs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /api/docs (script-verified: comments stripped, none in page, layout chain and 5 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/auth/attestation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/attestation (script-verified: comments stripped, none in page, layout chain and 11 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/login (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/auth/login/unknown/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/login/unknown (script-verified: comments stripped, none in page, layout chain and 8 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-description::src/routes/auth/oauth/device/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/oauth/device (script-verified: comments stripped, none in page, layout chain and 10 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/authors/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /authors (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/authors/[author]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /authors/[author] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/collections/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collections (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/collections/[collection]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collections/[collection] (script-verified: comments stripped, none in page, layout chain and 88 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/creators/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /creators (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/creators/[creator=id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /creators/[creator=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/discover/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /discover (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /discover/[catalog=id]/[vanity]/[...segments=encoded_path] (script-verified: comments stripped, none in page, layout chain and 79 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/discover/featured/+page@(library).svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /discover/featured (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/help/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /help (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/instance/moderation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/moderation (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/instance/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/profile (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/instance/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/settings (script-verified: comments stripped, none in page, layout chain and 93 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/publishers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /publishers (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/publishers/[publisher]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /publishers/[publisher] (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/series/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /series (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/series/[series=id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /series/[series=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/works/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /works (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/works/[work=id]/+page@(library).svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /works/[work=id] (script-verified: comments stripped, none in page, layout chain and 97 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/works/[work=id]/cover/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /works/[work=id]/cover (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/(library)/works/[work=id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /works/[work=id]/edit (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/api/docs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /api/docs (script-verified: comments stripped, none in page, layout chain and 5 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/auth/attestation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/attestation (script-verified: comments stripped, none in page, layout chain and 11 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/login (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/auth/login/unknown/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/login/unknown (script-verified: comments stripped, none in page, layout chain and 8 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-image::src/routes/auth/oauth/device/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/oauth/device (script-verified: comments stripped, none in page, layout chain and 10 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/authors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /authors (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/authors/[author]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /authors/[author] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/collections/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collections (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/collections/[collection]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collections/[collection] (script-verified: comments stripped, none in page, layout chain and 88 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/creators/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /creators (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/creators/[creator=id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /creators/[creator=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/discover/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /discover (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /discover/[catalog=id]/[vanity]/[...segments=encoded_path] (script-verified: comments stripped, none in page, layout chain and 79 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/discover/featured/+page@(library).svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /discover/featured (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/help/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /help (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/instance/moderation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/moderation (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/instance/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/profile (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/instance/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/settings (script-verified: comments stripped, none in page, layout chain and 93 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/publishers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /publishers (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/publishers/[publisher]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /publishers/[publisher] (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/series/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /series (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/series/[series=id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /series/[series=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/works/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /works (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/works/[work=id]/+page@(library).svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /works/[work=id] (script-verified: comments stripped, none in page, layout chain and 97 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/works/[work=id]/cover/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /works/[work=id]/cover (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/(library)/works/[work=id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /works/[work=id]/edit (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/api/docs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /api/docs (script-verified: comments stripped, none in page, layout chain and 5 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/auth/attestation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/attestation (script-verified: comments stripped, none in page, layout chain and 11 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/login (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/auth/login/unknown/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/login/unknown (script-verified: comments stripped, none in page, layout chain and 8 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-title::src/routes/auth/oauth/device/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/oauth/device (script-verified: comments stripped, none in page, layout chain and 10 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/authors/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /authors (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/authors/[author]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /authors/[author] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/collections/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collections (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/collections/[collection]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collections/[collection] (script-verified: comments stripped, none in page, layout chain and 88 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/creators/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /creators (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/creators/[creator=id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /creators/[creator=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/discover/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /discover (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /discover/[catalog=id]/[vanity]/[...segments=encoded_path] (script-verified: comments stripped, none in page, layout chain and 79 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/discover/featured/+page@(library).svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /discover/featured (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/help/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /help (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/instance/moderation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/moderation (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/instance/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/profile (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/instance/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/settings (script-verified: comments stripped, none in page, layout chain and 93 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/publishers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /publishers (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/publishers/[publisher]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /publishers/[publisher] (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/series/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /series (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/series/[series=id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /series/[series=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/works/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /works (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/works/[work=id]/+page@(library).svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /works/[work=id] (script-verified: comments stripped, none in page, layout chain and 97 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/works/[work=id]/cover/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /works/[work=id]/cover (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/(library)/works/[work=id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /works/[work=id]/edit (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/api/docs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /api/docs (script-verified: comments stripped, none in page, layout chain and 5 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/auth/attestation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/attestation (script-verified: comments stripped, none in page, layout chain and 11 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/login (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/auth/login/unknown/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/login/unknown (script-verified: comments stripped, none in page, layout chain and 8 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/og-url::src/routes/auth/oauth/device/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/oauth/device (script-verified: comments stripped, none in page, layout chain and 10 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has icons, logo only, no robots.txt route or generator (literal claim holds); but Colibri is a self-hosted ebook library (README): library routes redirect to /auth/login ((library)/+layout.server.ts:7), the rest are sign-in pages, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/single-h1::/auth/login/unknown::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page shows <strong>No account by that name; auth and auth/login layouts render only children and root +layout.svelte has no <h1> (grep) - no <h1>"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/single-h1::src/lib/components/Sidebar/SiteBranding.svelte:6::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: (library)/+layout.svelte renders Sidebar > SiteBranding <h1>Colibri (:6) always, and each page its own <h1>, plus UploadModal <h1> (:145) in an always-present <dialog> (ui Modal.svelte:89-125) - several <h1>s; key covers 19 routes"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/single-h1::src/lib/components/Upload/UploadModal.svelte:145::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /works/[work=id]/cover (placeholder page, no heading) still has SiteBranding <h1> (:6) and UploadModal <h1> (:145), whose header renders in the always-present <dialog> (ui Modal.svelte:89-105) for the signed-in users this layout requires - two <h1>s in the DOM"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has icons, logo only, no sitemap.xml route or generator (literal claim holds); but Colibri is a self-hosted ebook library (README): library routes redirect to /auth/login ((library)/+layout.server.ts:7), the rest are sign-in pages, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-length::src/routes/(library)/instance/moderation/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Content Moderation\" in src/routes/(library)/instance/moderation/+page.svelte, 18 chars as reported (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-length::src/routes/(library)/instance/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Settings\" in src/routes/(library)/instance/settings/+page.svelte, 8 chars as reported (literal claim holds); but Colibri is a self-hosted ebook library (README), route behind the ensureLoggedIn redirect in (library)/+layout.server.ts:7, not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-length::src/routes/auth/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified: literal <title> \"Account • Colibri\" in src/routes/auth/+layout.svelte, 17 chars as reported (literal claim holds); but publicly reachable sign-in or API-docs page of a self-hosted ebook library instance (README), not a search target"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/authors/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/authors/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/authors/[author]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/authors/[author]/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/collections/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/collections/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/collections/[collection]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/collections/[collection]/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/creators/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/creators/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/creators/[creator=id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/creators/[creator=id]/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/discover/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/discover/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/discover/featured/+page@(library).svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/discover/featured/+page@(library).svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/help/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/help/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/instance/profile/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/instance/profile/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/publishers/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/publishers/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/publishers/[publisher]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/publishers/[publisher]/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/series/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/series/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/series/[series=id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/series/[series=id]/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/works/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/works/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/works/[work=id]/+page@(library).svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/works/[work=id]/+page@(library).svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/works/[work=id]/cover/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "src/routes/(library)/works/[work=id]/cover/+page.svelte has no <title> and neither do root or (library) layouts (only <title>s in src are auth/+layout.svelte, instance/settings and instance/moderation; none in packages/ui, app.html none; literal claim holds), but the page is a literal 'TODO: Users should be able to manage the cover image here' placeholder, linked from nowhere (BookCover links only the sibling /cover/file) (gtmun/statox placeholder precedent)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/(library)/works/[work=id]/edit/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/(library)/works/[work=id]/edit/+page.svelte or its chain root +layout.svelte > (library)/+layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; (library)/+layout.server.ts ensureLoggedIn redirects only when signed out, so it renders"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/title-presence::src/routes/api/docs/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (whole app src and packages/ grep for <title/svelte:head/document.title): only auth/+layout.svelte:10, (library)/instance/settings:55 and instance/moderation:812 have a <title>, none on src/routes/api/docs/+page.svelte or its chain root +layout.svelte (or a section layout); app.html none; npm svelte deps (svelte-headlessui, svelte-sonner, bytemd) are UI, no meta library; public stub reached by routes/api/+page.server.ts redirect; hooks.server.ts lets it resolve"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/authors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /authors (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/authors/[author]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /authors/[author] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/collections/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collections (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/collections/[collection]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collections/[collection] (script-verified: comments stripped, none in page, layout chain and 88 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/creators/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /creators (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/creators/[creator=id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /creators/[creator=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/discover/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /discover (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/discover/[catalog=id]/[vanity]/[...segments=encoded_path]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /discover/[catalog=id]/[vanity]/[...segments=encoded_path] (script-verified: comments stripped, none in page, layout chain and 79 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/discover/featured/+page@(library).svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /discover/featured (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/help/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /help (script-verified: comments stripped, none in page, layout chain and 73 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/instance/moderation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/moderation (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/instance/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/profile (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/instance/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/settings (script-verified: comments stripped, none in page, layout chain and 93 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/publishers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /publishers (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/publishers/[publisher]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /publishers/[publisher] (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/series/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /series (script-verified: comments stripped, none in page, layout chain and 78 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/series/[series=id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /series/[series=id] (script-verified: comments stripped, none in page, layout chain and 76 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/works/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /works (script-verified: comments stripped, none in page, layout chain and 77 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/works/[work=id]/+page@(library).svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /works/[work=id] (script-verified: comments stripped, none in page, layout chain and 97 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/works/[work=id]/cover/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /works/[work=id]/cover (script-verified: comments stripped, none in page, layout chain and 74 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/(library)/works/[work=id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /works/[work=id]/edit (script-verified: comments stripped, none in page, layout chain and 75 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/api/docs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /api/docs (script-verified: comments stripped, none in page, layout chain and 5 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/auth/attestation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/attestation (script-verified: comments stripped, none in page, layout chain and 11 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/auth/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/login (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/auth/login/unknown/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/login/unknown (script-verified: comments stripped, none in page, layout chain and 8 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  },
+  {
+    "key": "colibri-hq/colibri:apps/app::seo/twitter-card::src/routes/auth/oauth/device/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/oauth/device (script-verified: comments stripped, none in page, layout chain and 10 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in apps/app/src, app.html or @colibri-hq/ui (only the separate apps/docs site has them; head is <title> only; works/[work=id] <Meta> is a body component; hooks.server.ts has no head transform; npm Svelte deps headlessui/sonner/dnd/gravatar render none); route renders)"
+  }
+]

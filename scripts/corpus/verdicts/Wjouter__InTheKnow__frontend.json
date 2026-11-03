@@ -1,0 +1,1182 @@
+[
+  {
+    "key": "Wjouter/InTheKnow:frontend::a11y/top-level-landmark::src/routes/calendars/+page.svelte:24::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read calendars/+page.svelte:24: unlabelled <aside class=\"stack\"> sibling of <section> inside <div class=\"wrap layout\"> (not in sectioning content), and root +layout.svelte:35-46 renders children inside <main> in its {:else}; complementary nested in main as reported"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::architecture/component-size::src/lib/components/RuleEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RuleEditor.svelte has 434 physical lines (split on \\n, trailing newline not counted; > 200) at the pinned sha, matches reported count; no generated-file marker in its header"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::architecture/prop-count::src/lib/components/ConfirmAction.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ConfirmAction.svelte has a single destructured $props() with 10 named props (> 6): label, title, confirm, action, fields, enhanceWith, pending, variant, size, children"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::architecture/prop-count::src/lib/components/Switch.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Switch.svelte has a single destructured $props() with 8 named props (> 6): id, name, label, description, checked, value, disabled, onchange"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::correctness/each-index-key::src/lib/components/ChangeGroup.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ChangeGroup.svelte:37 group.items, the changes recorded for one event in the runtime change feed (outcome + sentence); runtime records"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::correctness/each-index-key::src/lib/components/PresetList.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PresetList.svelte:28 p.sentences, the rule sentences of one preset, plain <li> text; parts of one record shown read-only"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::correctness/each-index-key::src/routes/calendars/[id]/filter/+page.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/calendars/[id]/filter/+page.svelte:27 data.rules, the calendar's filter rules from the load; the same page's form actions (applyPreset) replace them; runtime records"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::correctness/effect-as-derived::src/routes/admin/sign-up/+page.svelte:24::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/sign-up/+page.svelte:24 the effect only assigns link from the form prop and resets copied; other writes are top-level reassignments (:65, :68), the writable-$derived override pattern (svelte ^5.57.1; ledger: resets count)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::performance/image-loading-hint::src/routes/(settings)/settings/security/two-factor/+page.svelte:45::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; QR shown {:else if setup} only after the user starts setup (:41-45), a data:image/svg+xml URL from the action (+page.server.ts:15) - visible when created, no network request"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::performance/sequential-awaits::src/routes/+page.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "routes/+page.server.ts:9-11 + lib/server/changes.ts:189-196: loadFeed runs only after `if (!calendars.length) return { view: \"empty\" }` falls through, a normal onboarding path with its own view, so parallelizing wastes a feed call there; it reads no data from the response (it refetches calendars itself) — gate-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/(settings)/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /notifications (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/(settings)/settings/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/account (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/(settings)/settings/preferences/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/preferences (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/(settings)/settings/security/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/security (script-verified: comments stripped, none in page, layout chain and 25 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/(settings)/settings/security/two-factor/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/security/two-factor (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: comments stripped, none in page, layout chain and 24 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — public under hooks.server.ts isPublic (lib/paths.ts:2-9), renders for guests, no noindex or robots.txt"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/account/confirm/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/confirm (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — public under hooks.server.ts isPublic (lib/paths.ts:2-9), renders for guests, no noindex or robots.txt (emailed token-link page; ledger convention for public token pages: tp)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/account/confirmation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/confirmation (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — public under hooks.server.ts isPublic (lib/paths.ts:2-9), renders for guests, no noindex or robots.txt"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/account/email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/email (script-verified: comments stripped, none in page, layout chain and 16 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — public under hooks.server.ts isPublic (lib/paths.ts:2-9), renders for guests, no noindex or robots.txt (emailed token-link page; ledger convention for public token pages: tp)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/account/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/forgot-password (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — public under hooks.server.ts isPublic (lib/paths.ts:2-9), renders for guests, no noindex or robots.txt"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/account/invite/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/invite (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — public under hooks.server.ts isPublic (lib/paths.ts:2-9), renders for guests, no noindex or robots.txt (emailed token-link page; ledger convention for public token pages: tp)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/account/reset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/reset (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — public under hooks.server.ts isPublic (lib/paths.ts:2-9), renders for guests, no noindex or robots.txt (emailed token-link page; ledger convention for public token pages: tp)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/account/sign-up/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/sign-up (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — public under hooks.server.ts isPublic (lib/paths.ts:2-9), renders for guests, no noindex or robots.txt"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/admin/accounts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/accounts (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/admin/calendars/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/calendars (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/admin/email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/email (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/admin/presets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/presets (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/admin/presets/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/presets/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/admin/sign-up/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/sign-up (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/calendars/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /calendars (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/calendars/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /calendars/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/calendars/[id]/filter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /calendars/[id]/filter (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/calendars/[id]/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /calendars/[id]/notifications (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/changes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /changes (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/presets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /presets (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/presets/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /presets/[id] (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (auth-gated: hooks.server.ts sign-in gate 303s every path outside lib/paths.ts isPublic to /sign-in for guests)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/sign-in/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sign-in (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — public under hooks.server.ts isPublic (lib/paths.ts:2-9), renders for guests, no noindex or robots.txt"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/canonical-url::src/routes/sign-in/code/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /sign-in/code (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders) — not a search target (sign-in/code/+page.server.ts:10 redirects to /sign-in without the itk_pending cookie, so a crawler never sees it)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/(settings)/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /notifications (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/(settings)/settings/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /settings/account (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /settings/preferences (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/(settings)/settings/security/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /settings/security (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/(settings)/settings/security/two-factor/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /settings/security/two-factor (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on / (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/account/confirm/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /account/confirm (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/account/confirmation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /account/confirmation (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/account/email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /account/email (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/account/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /account/forgot-password (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/account/invite/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /account/invite (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/account/reset/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /account/reset (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/account/sign-up/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /account/sign-up (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/admin/accounts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/accounts (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/admin/calendars/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/calendars (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/admin/email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/email (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/admin/presets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/presets (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/admin/presets/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/presets/[id] (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/admin/sign-up/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /admin/sign-up (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/calendars/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /calendars (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/calendars/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /calendars/[id] (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/calendars/[id]/filter/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /calendars/[id]/filter (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/calendars/[id]/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /calendars/[id]/notifications (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/changes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /changes (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/presets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /presets (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/presets/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /presets/[id] (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/sign-in/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /sign-in (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/description-presence::src/routes/sign-in/code/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for name=\"description\" in head tags; no head-emitting package imported): no <meta name=description> on /sign-in/code (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/(settings)/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /notifications; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/(settings)/settings/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /settings/account; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/(settings)/settings/preferences/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /settings/preferences; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/(settings)/settings/security/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /settings/security; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/(settings)/settings/security/two-factor/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /settings/security/two-factor; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/account/confirm/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /account/confirm; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/account/confirmation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /account/confirmation; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/account/email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /account/email; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/account/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /account/forgot-password; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/account/invite/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /account/invite; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/account/reset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /account/reset; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/account/sign-up/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /account/sign-up; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/admin/accounts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/accounts; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/admin/calendars/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/calendars; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/admin/email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/email; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/admin/presets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/presets; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/admin/presets/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/presets/[id]; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/admin/sign-up/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /admin/sign-up; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/calendars/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /calendars; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/calendars/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /calendars/[id]; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/calendars/[id]/filter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /calendars/[id]/filter; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/calendars/[id]/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /calendars/[id]/notifications; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/changes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /changes; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/presets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /presets; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/presets/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /presets/[id]; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/sign-in/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /sign-in; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/json-ld::src/routes/sign-in/code/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json/jsonLd/schema.org: no hits, except where named; no meta or JSON-LD package in package.json): no JSON-LD on /sign-in/code; self-hostable app (json-ld convention: tp regardless of gating, noindex)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/(settings)/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /notifications (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/(settings)/settings/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/account (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/preferences (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/(settings)/settings/security/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/security (script-verified: comments stripped, none in page, layout chain and 25 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/(settings)/settings/security/two-factor/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/security/two-factor (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: comments stripped, none in page, layout chain and 24 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/account/confirm/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/confirm (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/account/confirmation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/confirmation (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/account/email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/email (script-verified: comments stripped, none in page, layout chain and 16 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/account/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/forgot-password (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/account/invite/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/invite (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/account/reset/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/reset (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/account/sign-up/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/sign-up (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/admin/accounts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/accounts (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/admin/calendars/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/calendars (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/admin/email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/email (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/admin/presets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/presets (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/admin/presets/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/presets/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/admin/sign-up/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/sign-up (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/calendars/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calendars (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/calendars/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calendars/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/calendars/[id]/filter/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calendars/[id]/filter (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/calendars/[id]/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calendars/[id]/notifications (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/changes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /changes (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/presets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /presets (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/presets/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /presets/[id] (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/sign-in/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sign-in (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-description::src/routes/sign-in/code/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sign-in/code (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/(settings)/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /notifications (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/(settings)/settings/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/account (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/preferences (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/(settings)/settings/security/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/security (script-verified: comments stripped, none in page, layout chain and 25 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/(settings)/settings/security/two-factor/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/security/two-factor (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: comments stripped, none in page, layout chain and 24 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/account/confirm/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/confirm (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/account/confirmation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/confirmation (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/account/email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/email (script-verified: comments stripped, none in page, layout chain and 16 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/account/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/forgot-password (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/account/invite/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/invite (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/account/reset/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/reset (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/account/sign-up/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/sign-up (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/admin/accounts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/accounts (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/admin/calendars/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/calendars (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/admin/email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/email (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/admin/presets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/presets (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/admin/presets/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/presets/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/admin/sign-up/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/sign-up (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/calendars/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calendars (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/calendars/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calendars/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/calendars/[id]/filter/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calendars/[id]/filter (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/calendars/[id]/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calendars/[id]/notifications (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/changes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /changes (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/presets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /presets (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/presets/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /presets/[id] (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/sign-in/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sign-in (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-image::src/routes/sign-in/code/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sign-in/code (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/(settings)/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /notifications (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/(settings)/settings/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/account (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/preferences (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/(settings)/settings/security/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/security (script-verified: comments stripped, none in page, layout chain and 25 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/(settings)/settings/security/two-factor/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/security/two-factor (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: comments stripped, none in page, layout chain and 24 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/account/confirm/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/confirm (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/account/confirmation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/confirmation (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/account/email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/email (script-verified: comments stripped, none in page, layout chain and 16 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/account/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/forgot-password (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/account/invite/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/invite (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/account/reset/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/reset (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/account/sign-up/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/sign-up (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/admin/accounts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/accounts (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/admin/calendars/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/calendars (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/admin/email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/email (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/admin/presets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/presets (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/admin/presets/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/presets/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/admin/sign-up/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/sign-up (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/calendars/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calendars (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/calendars/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calendars/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/calendars/[id]/filter/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calendars/[id]/filter (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/calendars/[id]/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calendars/[id]/notifications (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/changes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /changes (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/presets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /presets (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/presets/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /presets/[id] (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/sign-in/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sign-in (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-title::src/routes/sign-in/code/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sign-in/code (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/(settings)/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /notifications (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/(settings)/settings/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/account (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/preferences (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/(settings)/settings/security/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/security (script-verified: comments stripped, none in page, layout chain and 25 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/(settings)/settings/security/two-factor/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/security/two-factor (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: comments stripped, none in page, layout chain and 24 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/account/confirm/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/confirm (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/account/confirmation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/confirmation (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/account/email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/email (script-verified: comments stripped, none in page, layout chain and 16 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/account/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/forgot-password (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/account/invite/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/invite (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/account/reset/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/reset (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/account/sign-up/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/sign-up (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/admin/accounts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/accounts (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/admin/calendars/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/calendars (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/admin/email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/email (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/admin/presets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/presets (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/admin/presets/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/presets/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/admin/sign-up/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/sign-up (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/calendars/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calendars (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/calendars/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calendars/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/calendars/[id]/filter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calendars/[id]/filter (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/calendars/[id]/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calendars/[id]/notifications (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/changes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /changes (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/presets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /presets (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/presets/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /presets/[id] (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/sign-in/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sign-in (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/og-url::src/routes/sign-in/code/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sign-in/code (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no static/ dir, no robots.txt route or generator (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no static/ dir, no sitemap.xml route or generator (literal claim holds); but InTheKnow is a self-hostable personal calendar monitor (README, compose.yaml) with a sign-in gate in hooks.server.ts and sign-in/account forms, not a search target"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/(settings)/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /notifications (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/(settings)/settings/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/account (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/(settings)/settings/preferences/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/preferences (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/(settings)/settings/security/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/security (script-verified: comments stripped, none in page, layout chain and 25 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/(settings)/settings/security/two-factor/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/security/two-factor (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: comments stripped, none in page, layout chain and 24 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/account/confirm/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/confirm (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/account/confirmation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/confirmation (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/account/email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/email (script-verified: comments stripped, none in page, layout chain and 16 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/account/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/forgot-password (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/account/invite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/invite (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/account/reset/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/reset (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/account/sign-up/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/sign-up (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/admin/accounts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/accounts (script-verified: comments stripped, none in page, layout chain and 22 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/admin/calendars/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/calendars (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/admin/email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/email (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/admin/presets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/presets (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/admin/presets/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/presets/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/admin/sign-up/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/sign-up (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/calendars/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calendars (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/calendars/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calendars/[id] (script-verified: comments stripped, none in page, layout chain and 23 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/calendars/[id]/filter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calendars/[id]/filter (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/calendars/[id]/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calendars/[id]/notifications (script-verified: comments stripped, none in page, layout chain and 20 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/changes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /changes (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/presets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /presets (script-verified: comments stripped, none in page, layout chain and 19 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/presets/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /presets/[id] (script-verified: comments stripped, none in page, layout chain and 21 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/sign-in/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sign-in (script-verified: comments stripped, none in page, layout chain and 18 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  },
+  {
+    "key": "Wjouter/InTheKnow:frontend::seo/twitter-card::src/routes/sign-in/code/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sign-in/code (script-verified: comments stripped, none in page, layout chain and 17 reached local/workspace files; no og:*/twitter:card/rel=canonical emitter anywhere in frontend/src or app.html (heads are <title>/description; hooks.server.ts transformPageChunk only fills %lang%; npm Svelte dep is @lucide/svelte icons only); route renders)"
+  }
+]
