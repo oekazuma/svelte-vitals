@@ -104,5 +104,5 @@ whose entries are not built.
 ## Next
 
 Add these 14 apps to the tuning corpus. All three false-positive classes are single-app. The
-`<svelte:element>` JSON-LD is the largest, and the corpus already holds the same shape in timdeschryver.dev
-(`this={"script"}`), so it is the first to measure.
+`<svelte:element>` JSON-LD is the largest, but the shape is in one file of the corpus, and reading it also
+silences ten true findings on the routes that render `SeoHead` without `jsonLd`, so it stays unread.
