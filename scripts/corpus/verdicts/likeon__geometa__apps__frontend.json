@@ -465,6 +465,11 @@
     "basis": "read: src/routes/(public)/privacy/+page.svelte head has only a <title> (or none), no (public) layout, root +layout.svelte has no description, app.html none; public page of learnablemeta.com"
   },
   {
+    "key": "likeon/geometa:apps/frontend::seo/heading-level-skip::src/routes/(admin)/personal/[id]/+page.svelte:145::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "source-verified: Dialog.Title at :94 (shadcn wrapper over bits-ui Dialog.Title, level 2 by default) renders with the <h4> at :145 inside the same dialog arm, with no heading between them; a real h2 to h4 skip while the dialog is open."
+  },
+  {
     "key": "likeon/geometa:apps/frontend::seo/heading-level-skip::src/routes/(public)/maps/[geoguessrMapId]/+page.svelte:333::Heading level skipped (<h#> to <h#>)",
     "verdict": "tp",
     "basis": "read: cards view: <h1>{data.mapName} (:308), then {#if data.metaList.length === 0} the empty-state <h3>No metadata available (:333) with no <h2> between — h1 to h3 on a map without metas"

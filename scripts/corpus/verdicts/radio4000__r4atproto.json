@@ -165,6 +165,11 @@
     "basis": "script-listed every reference to \"importErrors\" in src/routes/settings/sync/+page.svelte:37: only whole-binding reassignments and read-only template/expression uses ({#each} items only read; no bind:, component-prop/call-arg escapes, member writes, mutating calls or aliasing) — $state.raw fits"
   },
   {
+    "key": "radio4000/r4atproto::seo/heading-level-skip::src/routes/settings/account/+page.svelte:396::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "source-verified: DialogTitle at :378 (shadcn wrapper over bits-ui Dialog.Title, level 2 by default) renders with the <h4> at :396 inside the same DialogContent, with no heading between them; a real h2 to h4 skip while the dialog is open."
+  },
+  {
     "key": "radio4000/r4atproto::seo/heading-level-skip::src/routes/settings/appearance/+page.svelte:196::Heading level skipped (<h#> to <h#>)",
     "verdict": "fp",
     "basis": "read: settings/+layout.svelte:27 <h1>, then the page's Cards each open with <CardTitle>, which renders <div role=\"heading\" aria-level={3}> (ui/card/card-title.svelte, default level 3); the flagged <h3> (appearance/+page.svelte:196) sits in the second Card's content right after its CardTitle (:185) -> outline h1 -> 3 -> 3 -> h3, no skip at this element (component heading unseen; ledger Dialog.Title aria-level convention)"

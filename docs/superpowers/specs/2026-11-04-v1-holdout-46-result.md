@@ -123,6 +123,6 @@ stopped before the plugin reported, when Kit's analysis imported a Supabase clie
 
 Add these 14 apps to the tuning corpus. Measure the two `heading-level-skip` classes behind the C7 result: a reading of `{#if title}`
 on a prop passed as an expression, and bits-ui's `Dialog.Title` as a level-2 ARIA heading, which the corpus
-already labels `fp` in 7 other apps. The qualified type name and the top-level snippet are also
+already labels `fp` in 5 other apps. The qualified type name and the top-level snippet are also
 candidates, as misreadings the rules' docs already rule out. `handler-state-write` on a chain that exports
 `prerender = true` is worth measuring too: it is `design`, but it stopped a build at the gate.

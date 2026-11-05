@@ -1247,6 +1247,8 @@ interface ParsedHeading {
   order: number[];
   /** An ARIA heading (`HeadingInfo.aria`). */
   aria?: true;
+  /** A dialog's title, which renders only while the dialog is open: read like a component's heading wherever it sits. */
+  overlay?: true;
 }
 
 /**
@@ -1621,6 +1623,17 @@ function childrenUrlConds(ast: AST.Root, source: string) {
   return { sites: out, blocks };
 }
 
+/** `<Dialog.Title>` of bits-ui, by its local names: a `role="heading"` element of its `level` (2 without one). */
+function dialogTitles(imports: ImportMap, bound: ReadonlySet<string>): Set<string> {
+  const titles = new Set<string>();
+  for (const [local, { source, imported }] of imports) {
+    if (source === 'bits-ui' && (imported === 'Dialog' || imported === 'AlertDialog') && !bound.has(local)) {
+      titles.add(`${local}.Title`);
+    }
+  }
+  return titles;
+}
+
 const isAriaHeading = (node: AST.RegularElement) =>
   attrText(
     node.attributes.filter((a): a is AST.Attribute => a.type === 'Attribute'),
@@ -1636,7 +1649,8 @@ function collectHeadings(
   reassigned: ReadonlySet<string> = new Set(),
   urls: ReadonlyMap<number, UrlCond> = new Map(),
   flags: ReadonlySet<string> = new Set(),
-  urlBlocks: ReadonlyMap<number, UrlCond> = new Map()
+  urlBlocks: ReadonlyMap<number, UrlCond> = new Map(),
+  titles: ReadonlySet<string> = new Set()
 ) {
   const headings: ParsedHeading[] = [];
   const gates = new Map<number, PropGate>();
@@ -1667,7 +1681,8 @@ function collectHeadings(
     path: BranchStep[],
     at: number[] | undefined,
     when: Cond[] | null,
-    aria?: true
+    aria?: true,
+    overlay?: true
   ): void => {
     const order = at === undefined ? [node.start] : [...at, node.start];
     const heading = {
@@ -1675,7 +1690,8 @@ function collectHeadings(
       line: lineOf(source, node.start),
       ...(path.length > 0 ? { path } : {}),
       order,
-      ...(aria ? { aria } : {})
+      ...(aria ? { aria } : {}),
+      ...(overlay ? { overlay } : {})
     };
     headings.push(heading);
     if (when) headingWhen.set(heading, when);
@@ -1831,6 +1847,13 @@ function collectHeadings(
       first(renderOffsets, 'children', at?.[0] ?? node.start);
     }
     if (node.type === 'Component' || node.type === 'SvelteComponent') {
+      if (node.type === 'Component' && titles.has(node.name)) {
+        const attrs = node.attributes.filter((a): a is AST.Attribute => a.type === 'Attribute');
+        const set = attrs.find((a) => a.name === 'level')?.value;
+        const expr = set && !Array.isArray(set) && set !== true ? set.expression : undefined;
+        const level = Number(expr?.type === 'Literal' ? expr.value : set ? attrText(attrs, 'level') : 2);
+        push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at, when, true, true);
+      }
       meet(componentPaths, node, path);
       note(componentWhen, node, when);
       first(componentOffsets, node, at?.[0] ?? node.start);
@@ -2669,7 +2692,16 @@ export function parseFile(raw: string, filename: string): ParsedFile {
   const reassigned = reassignedLocals(ast);
   const mounts = mountFlags(ast, bound, imports);
   const ungated = new Set([...reassigned, ...bound]);
-  const headingAcc = collectHeadings(ast.fragment, source, props, ungated, urls.sites, flags, urls.blocks);
+  const headingAcc = collectHeadings(
+    ast.fragment,
+    source,
+    props,
+    ungated,
+    urls.sites,
+    flags,
+    urls.blocks,
+    dialogTitles(imports, bound)
+  );
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc, mounts);
   const jsonLdNames = jsonLdBindings(ast);
