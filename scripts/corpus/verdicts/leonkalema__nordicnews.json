@@ -1,0 +1,467 @@
+[
+  {
+    "key": "leonkalema/nordicnews::a11y/duplicate-landmark::src/routes/article/[slug]/+page.svelte:115::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "page <main> (:115, inside <article>) renders inside root +layout.svelte:54 <main> unconditionally; two main landmarks"
+  },
+  {
+    "key": "leonkalema/nordicnews::a11y/duplicate-landmark::src/routes/author/[slug]/+page.svelte:46::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "page <main> (:46, inside <section>) renders inside root +layout.svelte:54 <main> unconditionally; two main landmarks"
+  },
+  {
+    "key": "leonkalema/nordicnews::a11y/duplicate-landmark::src/routes/contribute/+page.svelte:94::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "page <main> (:94) renders inside root +layout.svelte:54 <main> unconditionally; two main landmarks"
+  },
+  {
+    "key": "leonkalema/nordicnews::a11y/top-level-landmark::src/routes/+page.svelte:113::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/+page.svelte:113: unlabelled <aside> in divs only on / inside root +layout.svelte:54 <main>; no sectioning ancestor, so complementary inside main"
+  },
+  {
+    "key": "leonkalema/nordicnews::a11y/top-level-landmark::src/routes/article/[slug]/+page.svelte:115::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "page <main> (:115) sits inside root +layout.svelte:54 <main>; main nested in main (the page's <article> does not change that)"
+  },
+  {
+    "key": "leonkalema/nordicnews::a11y/top-level-landmark::src/routes/author/[slug]/+page.svelte:46::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "page <main> (:46) sits inside root +layout.svelte:54 <main>; main nested in main (the page's <section> does not change that)"
+  },
+  {
+    "key": "leonkalema/nordicnews::a11y/top-level-landmark::src/routes/contribute/+page.svelte:94::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "page <main> (:94) sits inside root +layout.svelte:54 <main>; main nested in main"
+  },
+  {
+    "key": "leonkalema/nordicnews::architecture/component-size::src/routes/[country=country]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[country=country]/+page.svelte has 343 physical lines (308 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "leonkalema/nordicnews::architecture/component-size::src/routes/category/[category]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/category/[category]/+page.svelte has 398 physical lines (363 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "leonkalema/nordicnews::architecture/component-size::src/routes/contribute/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/contribute/+page.svelte has 482 physical lines (445 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "leonkalema/nordicnews::architecture/component-size::src/routes/editorial-policy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/editorial-policy/+page.svelte has 247 physical lines (225 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "leonkalema/nordicnews::architecture/component-size::src/routes/install/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/install/+page.svelte has 204 physical lines (196 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "leonkalema/nordicnews::architecture/component-size::src/routes/privacy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/privacy/+page.svelte has 234 physical lines (207 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "leonkalema/nordicnews::architecture/component-size::src/routes/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/search/+page.svelte has 242 physical lines (222 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "leonkalema/nordicnews::architecture/prop-count::src/lib/components/article/ArticleHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/article/ArticleHeader.svelte has a single destructured $props() with 13 named props (> 6): title, slug, country, countryName, categoryDisplay, publishedAt, relativeTime, viewCount, authorName, authorSlug, summary, excerpt, showIntro"
+  },
+  {
+    "key": "leonkalema/nordicnews::architecture/prop-count::src/lib/components/article/ArticleMetaHead.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/article/ArticleMetaHead.svelte has a single destructured $props() with 8 named props (> 6): slug, title, excerpt, featuredImageUrl, featuredImageCaption, meta, ogLocale, structuredData"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/AcrossTheNordics.svelte:33::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AcrossTheNordics.svelte:33 '{#each articlesByCountry as countryData}' has no key; articles grouped by country from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/AcrossTheNordics.svelte:50::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AcrossTheNordics.svelte:50 '{#each countryData.articles.slice(0, 3) as article}' has no key; articles of one country from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/AcrossTheNordics.svelte:68::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AcrossTheNordics.svelte:68 '{#each Object.entries(countryNames) as [code, name]}' has no key; Object.entries of the same-file const countryNames object; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/CountryFAQ.svelte:10::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CountryFAQ.svelte:10 '{#each faqs as faq}' has no key; faqs = countryConfig.faqs from $lib/config/countries; authored FAQ entries; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/DailySnapshot.svelte:50::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DailySnapshot.svelte:50 '{#each topStories as story, index}' has no key; featuredArticles.slice(1,4) from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/DeepDive.svelte:101::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeepDive.svelte:101 '{#each politicsArticles.slice(0, 4) as article}' has no key; article lists from the Supabase load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/DeepDive.svelte:120::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeepDive.svelte:120 '{#each cultureSocietyArticles.slice(0, 4) as article}' has no key; article lists from the Supabase load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/DeepDive.svelte:36::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeepDive.svelte:36 '{#each latestArticles.slice(0, 4) as article}' has no key; article lists from the Supabase load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/DeepDive.svelte:56::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeepDive.svelte:56 '{#each latestArticles.slice(4, 12) as article}' has no key; article lists from the Supabase load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/DeepDive.svelte:82::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeepDive.svelte:82 '{#each businessTechArticles.slice(0, 4) as article}' has no key; article lists from the Supabase load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/FeaturedGuides.svelte:25::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FeaturedGuides.svelte:25 '{#each guideArticles.slice(0, 6) as guide}' has no key; guide articles from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/RecommendedLinks.svelte:21::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/RecommendedLinks.svelte:21 '{#each visibleLinks as link}' has no key; links built by buildRecommendedLinks from trending articles (+page.server.ts:113); runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/SEOHead.svelte:90::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SEOHead.svelte:90 '{#each tags as tag}' has no key; tags prop of the page SEO head; same shape as the ledger tp SEO.svelte tags"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/TrendingNow.svelte:20::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/TrendingNow.svelte:20 '{#each articles.slice(0, 5) as article, i}' has no key; articles prop from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/article/AnswerBlock.svelte:15::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/article/AnswerBlock.svelte:15 '{#each bullets as bullet}' has no key; answerBullets.slice(0,5) of one article (article/[slug]/+page.svelte:120); parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/article/ArticleSidebar.svelte:114::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/article/ArticleSidebar.svelte:114 '{#each relatedArticles.trending as trending}' has no key; related/trending articles from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/article/ArticleSidebar.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/article/ArticleSidebar.svelte:57 '{#each relatedArticles.byCategory as related}' has no key; related/trending articles from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/article/ArticleSidebar.svelte:80::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/article/ArticleSidebar.svelte:80 '{#each relatedArticles.byCountry as related}' has no key; related/trending articles from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/country/CountryAllArticlesSection.svelte:32::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/country/CountryAllArticlesSection.svelte:32 '{#each displayedArticles as article}' has no key; displayedArticles grows with onLoadMore; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/country/CountryCategoryModules.svelte:121::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/country/CountryCategoryModules.svelte:121 '{#each societyArticles as article}' has no key; category article lists from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/country/CountryCategoryModules.svelte:40::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/country/CountryCategoryModules.svelte:40 '{#each politicsArticles as article}' has no key; category article lists from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/country/CountryCategoryModules.svelte:67::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/country/CountryCategoryModules.svelte:67 '{#each businessArticles as article}' has no key; category article lists from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/country/CountryCategoryModules.svelte:94::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/country/CountryCategoryModules.svelte:94 '{#each techArticles as article}' has no key; category article lists from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/lib/components/country/CountryCityHubsSection.svelte:23::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/country/CountryCityHubsSection.svelte:23 '{#each cities as city}' has no key; cities = countryConfig.cities from $lib/config/countries; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/+error.svelte:95::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+error.svelte:95 '{#each suggestions as suggestion}' has no key; suggestions is assigned constant string arrays per status in onMount (:23-45); static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/[city=city]/+page.svelte:62::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[city=city]/+page.svelte:62 '{#each articles as article}' has no key; articles from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/[country=country]/+page.svelte:260::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[country=country]/+page.svelte:260 '{#each latestArticles as article}' has no key; latestArticles from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/[country=country]/[category]/+page.svelte:125::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[country=country]/[category]/+page.svelte:125 '{#each paginatedArticles as article}' has no key; paginatedArticles from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/article/[slug]/+page.svelte:155::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/article/[slug]/+page.svelte:155 '{#each article.keywords as keyword}' has no key; article.keywords of a CMS article record; nested runtime list (ledger item.tags convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/author/[slug]/+page.svelte:36::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/author/[slug]/+page.svelte:36 '{#each author.specialties as tag}' has no key; author.specialties of a Supabase author record; nested runtime list (ledger business.specialties convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/author/[slug]/+page.svelte:53::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/author/[slug]/+page.svelte:53 '{#each articles as article}' has no key; author articles from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/category/[category]/+page.svelte:206::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/category/[category]/+page.svelte:206 '{#each featuredArticles as article}' has no key; article lists from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/category/[category]/+page.svelte:262::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/category/[category]/+page.svelte:262 '{#each articlesByCountry as countryGroup}' has no key; article lists from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/category/[category]/+page.svelte:270::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/category/[category]/+page.svelte:270 '{#each countryGroup.articles.slice(0, 3) as article}' has no key; article lists from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/category/[category]/+page.svelte:306::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/category/[category]/+page.svelte:306 '{#each articles as article}' has no key; article lists from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::correctness/each-key::src/routes/search/+page.svelte:120::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/search/+page.svelte:120 '{#each articles as article}' has no key; search results from load; runtime records from the API/load, items can be inserted, removed or reordered, so the claim holds"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-dimensions::src/routes/[city=city]/+page.svelte:65::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: w-full h-48 object-cover"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-dimensions::src/routes/[country=country]/+page.svelte:264::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: w-full h-full in aspect-[16/10] wrapper object-cover"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-dimensions::src/routes/[country=country]/[category]/+page.svelte:128::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: w-full h-48 object-cover"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-dimensions::src/routes/author/[slug]/+page.svelte:19::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: own class w-24 h-24"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-dimensions::src/routes/author/[slug]/+page.svelte:56::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: w-full h-40 object-cover"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-dimensions::src/routes/category/[category]/+page.svelte:209::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: w-full h-48 object-cover"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-dimensions::src/routes/category/[category]/+page.svelte:309::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: w-full h-48 object-cover"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-dimensions::src/routes/search/+page.svelte:123::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: w-full h-48 object-cover"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-loading-hint::src/routes/[country=country]/+page.svelte:264::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; read: cover in the {#each latestArticles} grid, after the hero and CountryCityHubsSection (:235-260) - offscreen on load"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-loading-hint::src/routes/[country=country]/[category]/+page.svelte:128::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; read: cover in the {#each paginatedArticles} grid - later rows offscreen"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-loading-hint::src/routes/author/[slug]/+page.svelte:19::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: author portrait in the page header beside the <h1> - above the fold"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-loading-hint::src/routes/author/[slug]/+page.svelte:56::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; read: cover in each {#each articles} card under the author header - later cards offscreen"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-loading-hint::src/routes/category/[category]/+page.svelte:309::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; read: cover in the All Articles grid, after Featured, an ad and By Country (:202-306) - offscreen on load"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/image-loading-hint::src/routes/search/+page.svelte:123::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; read: cover in the {#each articles} results grid - later rows offscreen"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/lcp-image::src/routes/[city=city]/+page.svelte:65::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "<img> has literal loading=\"lazy\"; first page image: cover of the first card of the grid right under the short header (:52-65) - the largest image in view on load (the only earlier image is the h-16 Header logo), yet lazy"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/lcp-image::src/routes/category/[category]/+page.svelte:209::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "<img> has literal loading=\"lazy\"; first page image: cover of the first Featured card under the category header (:192-209) - the largest image in view on load (the only earlier image is the h-16 Header logo), yet lazy"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/responsive-image::src/routes/[city=city]/+page.svelte:65::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: article.featured_image_url, a remote article photo - raster, one fixed-size asset"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/responsive-image::src/routes/[country=country]/+page.svelte:264::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: article.featured_image_url, a remote article photo - raster, one fixed-size asset"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/responsive-image::src/routes/[country=country]/[category]/+page.svelte:128::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: article.featured_image_url, a remote article photo - raster, one fixed-size asset"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/responsive-image::src/routes/author/[slug]/+page.svelte:19::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: author.profile_image_url, a remote portrait - raster, one fixed-size asset"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/responsive-image::src/routes/author/[slug]/+page.svelte:56::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: article.featured_image_url, a remote article photo - raster, one fixed-size asset"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/responsive-image::src/routes/category/[category]/+page.svelte:209::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: article.featured_image_url, a remote article photo - raster, one fixed-size asset"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/responsive-image::src/routes/category/[category]/+page.svelte:309::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: article.featured_image_url, a remote article photo - raster, one fixed-size asset"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/responsive-image::src/routes/search/+page.svelte:123::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: article.featured_image_url, a remote article photo - raster, one fixed-size asset"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/sequential-awaits::src/routes/author/[slug]/+page.server.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read author/[slug]/+page.server.ts:9-27: the author's articles select uses only params.slug, nothing from the author row, whose only role is the 404 gate (exceptional path) — independent Supabase requests serialized (ledger 404-gate convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/sequential-awaits::src/routes/category/[category]/+page.server.ts:33::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read category/[category]/+page.server.ts:30-37: the featured fetchArticles uses only categoryCode, nothing from articlesResult — independent requests serialized; lib/data/articles fetchArticles is Supabase behind a 10 min in-memory cache with distinct keys per filter set, so a cold key is a real request (ledger short-TTL cache convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/sequential-awaits::src/routes/category/[category]/+page.server.ts:56::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read category/[category]/+page.server.ts:40-56: the per-country requests use only categoryCode and start after the two awaits before them, nothing from their results — independent requests serialized; lib/data/articles fetchArticles is Supabase behind a 10 min in-memory cache with distinct keys per filter set, so a cold key is a real request (ledger short-TTL cache convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::performance/sequential-awaits::src/routes/category/[category]/+page.server.ts:79::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read category/[category]/+page.server.ts:62-79: the related-category requests use only getRelatedCategories(categoryCode) and start after the country results, nothing from them — independent requests serialized; lib/data/articles fetchArticles is Supabase behind a 10 min in-memory cache with distinct keys per filter set, so a cold key is a real request (ledger short-TTL cache convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/lib/components/SEOHead.svelte:118::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/SEOHead.svelte:118: src/lib/utils/json-ld.ts:5-14 serializeJsonLd escapes < > & U+2028 U+2029 after JSON.stringify — script-safe JSON-LD, the safe shape the docs describe; reported per docs"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/lib/components/article/ArticleBody.svelte:102::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read ArticleBody.svelte:102 contentParts.after: lib/components/article/ArticleBody.svelte:30-32 + routes/article/[slug]/+page.svelte:125: marked.parse(article.content) with no sanitizer (none in the app) over published_articles rows, which include approved public opinion submissions (article/[slug]/+page.server.ts:36-40 published_article_id) screened only by the regex denylist in contribute/+page.server.ts:21-30 — stored DB/contributor text rendered unsanitized (ledger DB-authored convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/lib/components/article/ArticleBody.svelte:74::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read ArticleBody.svelte:74 contentParts.before: lib/components/article/ArticleBody.svelte:30-32 + routes/article/[slug]/+page.svelte:125: marked.parse(article.content) with no sanitizer (none in the app) over published_articles rows, which include approved public opinion submissions (article/[slug]/+page.server.ts:36-40 published_article_id) screened only by the regex denylist in contribute/+page.server.ts:21-30 — stored DB/contributor text rendered unsanitized (ledger DB-authored convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/lib/components/article/ArticleMetaHead.svelte:73::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/article/ArticleMetaHead.svelte:73: src/lib/utils/json-ld.ts:5-14 serializeJsonLd escapes < > & U+2028 U+2029 after JSON.stringify — script-safe JSON-LD, the safe shape the docs describe; reported per docs"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/lib/components/article/ArticleMetaHead.svelte:74::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/article/ArticleMetaHead.svelte:74: src/lib/utils/json-ld.ts:5-14 serializeJsonLd escapes < > & U+2028 U+2029 after JSON.stringify — script-safe JSON-LD, the safe shape the docs describe; reported per docs"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/routes/+layout.svelte:36::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:36: src/lib/utils/json-ld.ts:5-14 serializeJsonLd escapes < > & U+2028 U+2029 after JSON.stringify — script-safe JSON-LD, the safe shape the docs describe; reported per docs"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/routes/[country=country]/+page.svelte:201::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[country=country]/+page.svelte:201: src/lib/utils/json-ld.ts:5-14 serializeJsonLd escapes < > & U+2028 U+2029 after JSON.stringify — script-safe JSON-LD, the safe shape the docs describe; reported per docs"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/routes/[country=country]/[category]/+page.svelte:61::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[country=country]/[category]/+page.svelte:61: src/lib/utils/json-ld.ts:5-14 serializeJsonLd escapes < > & U+2028 U+2029 after JSON.stringify — script-safe JSON-LD, the safe shape the docs describe; reported per docs"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/routes/category/[category]/+page.svelte:113::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/category/[category]/+page.svelte:113: src/lib/utils/json-ld.ts:5-14 serializeJsonLd escapes < > & U+2028 U+2029 after JSON.stringify — script-safe JSON-LD, the safe shape the docs describe; reported per docs"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/routes/category/[category]/+page.svelte:134::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/category/[category]/+page.svelte:134: src/lib/utils/json-ld.ts:5-14 serializeJsonLd escapes < > & U+2028 U+2029 after JSON.stringify — script-safe JSON-LD, the safe shape the docs describe; reported per docs"
+  },
+  {
+    "key": "leonkalema/nordicnews::security/raw-html::src/routes/contribute/+page.svelte:351::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read contribute/+page.svelte:9,19,78-85,351: renderMarkdown(contentText) is marked over the visitor's own textarea, client-side preview only, never prefilled from a URL or stored text — author's own draft (self-only), reported per docs (ledger own-draft convention)"
+  },
+  {
+    "key": "leonkalema/nordicnews::seo/indexability::src/routes/unsubscribe/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/unsubscribe/+page.svelte:53 unconditional literal noindex (root SEOHead also emits its index,follow default, the restrictive directive wins); noindex as claimed"
+  },
+  {
+    "key": "leonkalema/nordicnews::seo/title-length::src/routes/unsubscribe/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Unsubscribe | Nordics Today\" in src/routes/unsubscribe/+page.svelte, whitespace collapsed, entities decoded, 27 chars as reported; no later title on the route); not a search target: email unsubscribe page with literal noindex at unsubscribe/+page.svelte:53"
+  }
+]

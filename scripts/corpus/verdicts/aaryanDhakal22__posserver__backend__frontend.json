@@ -1,0 +1,907 @@
+[
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::a11y/disallowed-aria-props::src/lib/ui/Skeleton.svelte:6::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/ui/Skeleton.svelte:6: <div aria-busy aria-label=\"Loading\"> has no role, spread or use:; generic takes no name, so the loading label is not exposed"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::a11y/disallowed-aria-props::src/routes/admin/tenants/new/+page.svelte:559::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/admin/tenants/new/+page.svelte:559: <span class=field aria-label=\"Printer name\"> read-only value has no role; generic takes no name"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::a11y/disallowed-aria-props::src/routes/admin/tenants/new/+page.svelte:560::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/admin/tenants/new/+page.svelte:560: <span class=field aria-label=\"IP address\"> read-only value has no role; generic takes no name"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::a11y/no-autofocus::src/routes/admin/tenants/new/+page.svelte:460::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "tp",
+    "basis": "read routes/admin/tenants/new/+page.svelte:460: store-name <input autofocus> in the {#if step === 1} arm (:446) with step = $state(1) (:47), so it takes focus on page load; not in a <dialog>/popover (onboarding step-1 precedent)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::a11y/no-autofocus::src/routes/store/menu/+page.svelte:665::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "fp",
+    "basis": "read routes/store/menu/+page.svelte:665: <input autofocus> is in the children of <Dialog bind:open={addOpen}> (:660), and lib/ui/Dialog.svelte:41 renders children (:68) inside a real <dialog> opened with showModal() (:31); the docs exempt autofocus inside <dialog> and their Limitations name this case (a component its parent renders into a <dialog>) a known false positive"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::a11y/permitted-contents::src/routes/admin/diagnostics/+page.svelte:181::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at routes/admin/diagnostics/+page.svelte:181 has literal <button> (:175) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::a11y/permitted-contents::src/routes/admin/diagnostics/+page.svelte:187::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at routes/admin/diagnostics/+page.svelte:187 has literal <button> (:175) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::a11y/permitted-contents::src/routes/admin/diagnostics/+page.svelte:188::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at routes/admin/diagnostics/+page.svelte:188 has literal <button> (:175) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/lib/components/menu/CategoriesTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/CategoriesTab.svelte has 264 physical lines (257 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/lib/components/menu/DealsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/DealsTab.svelte has 404 physical lines (390 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/lib/components/menu/ItemEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/ItemEditor.svelte has 358 physical lines (344 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/lib/components/menu/ModifiersTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/ModifiersTab.svelte has 292 physical lines (284 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/lib/components/menu/ViewsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/ViewsTab.svelte has 468 physical lines (453 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/routes/admin/diagnostics/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/diagnostics/+page.svelte has 321 physical lines (301 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/routes/admin/tenants/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/tenants/[id]/+page.svelte has 723 physical lines (697 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/routes/admin/tenants/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/tenants/new/+page.svelte has 733 physical lines (709 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/routes/store/menu/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/store/menu/+page.svelte has 766 physical lines (738 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/component-size::src/routes/store/printers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/store/printers/+page.svelte has 349 physical lines (331 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/prop-count::src/lib/components/menu/CategoriesTab.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/menu/CategoriesTab.svelte has a single destructured $props() with 7 named props (> 6): menus, active, categories, itemsByCat, printers, onselect, onreload"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/prop-count::src/lib/components/menu/ItemEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/menu/ItemEditor.svelte has a single destructured $props() with 11 named props (> 6): item, categoryName, printers, live, piState, inheritedPrinter, sizes, bank, onclose, onsaved, ondeleted"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/prop-count::src/lib/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/Button.svelte has a single destructured $props() with 11 named props (> 6) plus ...rest: variant, size, href, download, icon, iconRight, loading, disabled, type, class, children"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/prop-count::src/lib/ui/Dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/Dialog.svelte has a single destructured $props() with 8 named props (> 6): open, title, description, width, dismissable, onclose, children, footer"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/prop-count::src/lib/ui/Drawer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/Drawer.svelte has a single destructured $props() with 8 named props (> 6): open, title, eyebrow, width, onclose, beforeClose, children, footer"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/prop-count::src/lib/ui/Field.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/Field.svelte has a single destructured $props() with 7 named props (> 6): label, id, help, error, class, aside, children"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::architecture/prop-count::src/lib/ui/StatTile.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/StatTile.svelte has a single destructured $props() with 7 named props (> 6): label, value, suffix, sub, subTone, loading, href"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-index-key::src/lib/components/menu/DealsTab.svelte:274::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/menu/DealsTab.svelte:274 '{#each draft.slots as slot, i (i)}' keyed by its index; draft.slots with push (:290) and per-step remove (:285); editable rows the user adds/removes, so identity follows position as claimed"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-index-key::src/lib/components/menu/DealsTab.svelte:365::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/menu/DealsTab.svelte:365 '{#each preview.lines as l, i (i)}' keyed by its index; preview.lines appended at :199 and editable; editable rows the user adds/removes, so identity follows position as claimed"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-index-key::src/lib/components/menu/DealsTab.svelte:388::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/menu/DealsTab.svelte:388 '{#each quote.discounts as x, i (i)}' keyed by its index; quote discount lines of one computed quote; messages of one result shown read-only; positional list (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-index-key::src/lib/components/menu/DealsTab.svelte:390::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/menu/DealsTab.svelte:390 '{#each quote.nudges as n, i (i)}' keyed by its index; quote nudges of one computed quote; messages of one result shown read-only; positional list (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-index-key::src/lib/components/menu/DealsTab.svelte:391::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/menu/DealsTab.svelte:391 '{#each quote.warnings as w, i (i)}' keyed by its index; quote warnings of one computed quote; messages of one result shown read-only; positional list (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-index-key::src/lib/components/menu/DealsTab.svelte:392::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/menu/DealsTab.svelte:392 '{#each quote.errors.filter((x) => x.code.startsWith('code')) as x, i (i)}' keyed by its index; quote errors of one computed quote; messages of one result shown read-only; positional list (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-index-key::src/lib/components/menu/ViewsTab.svelte:282::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/menu/ViewsTab.svelte:282 '{#each build.needs_attention as n, i (i)}' keyed by its index; build.needs_attention rows hold a per-row select and Match button (:287-291) and matching an item changes the list, so focus and element state follow position as claimed"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-key::src/lib/components/LocationFields.svelte:61::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LocationFields.svelte:61 '{#each tzs as tz}' has no key; tzs = imported TIMEZONES constant, optionally with the current value first (:36); static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-key::src/lib/components/OperatorRow.svelte:107::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/OperatorRow.svelte:107 '{#each operator.location_ids as id}' has no key; operator.location_ids of an API operator record; nested runtime list"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-key::src/lib/ui/MenuButton.svelte:103::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/MenuButton.svelte:103 '{#each items as it}' has no key; items prop, fixed menu literals from callers; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-key::src/lib/ui/PageHeader.svelte:23::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/PageHeader.svelte:23 '{#each crumbs as c, i}' has no key; breadcrumb items; positional list (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-key::src/routes/admin/diagnostics/+page.svelte:241::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/diagnostics/+page.svelte:241 '{#each rep.steps as st, i}' has no key; steps/checks/fields of one selected diagnostics report (:202); parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-key::src/routes/admin/diagnostics/+page.svelte:260::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/diagnostics/+page.svelte:260 '{#each entries(rep.checks) as [name, c]}' has no key; steps/checks/fields of one selected diagnostics report (:202); parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-key::src/routes/admin/diagnostics/+page.svelte:282::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/diagnostics/+page.svelte:282 '{#each entries(rep.tablet).filter(([k]) => !['name', 'app_version', 'checks'].includes(k))' has no key; steps/checks/fields of one selected diagnostics report (:202); parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-key::src/routes/admin/diagnostics/+page.svelte:285::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/diagnostics/+page.svelte:285 '{#each entries(rep.tablet?.checks) as [k, v]}' has no key; steps/checks/fields of one selected diagnostics report (:202); parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::correctness/each-key::src/routes/admin/diagnostics/+page.svelte:294::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/diagnostics/+page.svelte:294 '{#each entries(rep.pi).filter(([k]) => !['version', 'health', 'last_diag'].includes(k)) as' has no key; steps/checks/fields of one selected diagnostics report (:202); parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::performance/state-raw::src/lib/ui/MenuButton.svelte:28::\"pos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"pos\" in src/lib/ui/MenuButton.svelte and read each {#each} body over it: declared at :28, only whole-binding reassignments (:34) and read-only uses (member/index reads, .length, read-only each bodies); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::performance/state-raw::src/routes/admin/diagnostics/+page.svelte:22::\"tenants\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"tenants\" in src/routes/admin/diagnostics/+page.svelte and read each {#each} body over it: declared at :22, only whole-binding reassignments (:114) and read-only uses (member/index reads, .length, read-only each bodies); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::security/raw-html::src/lib/ui/Icon.svelte:92::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Icon.svelte:1-4,75,92: markup is looked up in the module constants PATHS/FILLED by the typed name prop — literal Lucide SVG markup, reported per docs"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client redirect stub: +page.svelte:9-13 onMount goto /admin, /store or /login, markup is a spinner), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: admin/+layout.svelte onMount goToLogin() without an admin key, children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/admin/channels/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/channels (script-verified: comments stripped, not in page, layouts, 26 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: admin/+layout.svelte onMount goToLogin() without an admin key, children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/admin/diagnostics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/diagnostics (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: admin/+layout.svelte onMount goToLogin() without an admin key, children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/admin/operators/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/operators (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: admin/+layout.svelte onMount goToLogin() without an admin key, children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/admin/tenants/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/tenants (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: admin/+layout.svelte onMount goToLogin() without an admin key, children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/admin/tenants/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/tenants/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: admin/+layout.svelte onMount goToLogin() without an admin key, children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/admin/tenants/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/tenants/new (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: admin/+layout.svelte onMount goToLogin() without an admin key, children only {#if ready}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; public sign-in page, no gate, no noindex, no robots.txt"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/store/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /store (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: store/+layout.svelte whoami 401 goes to login, children only {#if who}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/store/details/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /store/details (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: store/+layout.svelte whoami 401 goes to login, children only {#if who}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/store/devices/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /store/devices (script-verified: comments stripped, not in page, layouts, 25 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: store/+layout.svelte whoami 401 goes to login, children only {#if who}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/store/menu/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /store/menu (script-verified: comments stripped, not in page, layouts, 39 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: store/+layout.svelte whoami 401 goes to login, children only {#if who}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/store/orders/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /store/orders (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: store/+layout.svelte whoami 401 goes to login, children only {#if who}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/canonical-url::src/routes/store/printers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /store/printers (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged; but not a search target (client auth gate: store/+layout.svelte whoami 401 goes to login, children only {#if who}), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on / (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /admin (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/admin/channels/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /admin/channels (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/admin/diagnostics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /admin/diagnostics (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/admin/operators/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /admin/operators (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/admin/tenants/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /admin/tenants (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/admin/tenants/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /admin/tenants/[id] (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/admin/tenants/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /admin/tenants/new (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /login (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/store/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /store (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/store/details/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /store/details (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/store/devices/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /store/devices (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/store/menu/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /store/menu (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/store/orders/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /store/orders (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/description-presence::src/routes/store/printers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /store/printers (literal claim holds); not a search target: internal POS admin/store console, an ssr=false SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so / has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /admin has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/admin/channels/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /admin/channels has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/admin/diagnostics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /admin/diagnostics has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/admin/operators/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /admin/operators has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/admin/tenants/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /admin/tenants has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/admin/tenants/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /admin/tenants/[id] has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/admin/tenants/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /admin/tenants/new has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /login has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/store/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /store has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/store/details/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /store/details has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/store/devices/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /store/devices has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/store/menu/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /store/menu has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/store/orders/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /store/orders has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/json-ld::src/routes/store/printers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the posserver repo, so /store/printers has none"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/admin/channels/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/channels (script-verified: comments stripped, not in page, layouts, 26 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/admin/diagnostics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/diagnostics (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/admin/operators/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/operators (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/admin/tenants/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/tenants (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/admin/tenants/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/tenants/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/admin/tenants/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/tenants/new (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/store/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /store (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/store/details/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /store/details (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/store/devices/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /store/devices (script-verified: comments stripped, not in page, layouts, 25 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/store/menu/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /store/menu (script-verified: comments stripped, not in page, layouts, 39 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/store/orders/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /store/orders (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-description::src/routes/store/printers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /store/printers (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/admin/channels/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/channels (script-verified: comments stripped, not in page, layouts, 26 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/admin/diagnostics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/diagnostics (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/admin/operators/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/operators (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/admin/tenants/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/tenants (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/admin/tenants/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/tenants/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/admin/tenants/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/tenants/new (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/store/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /store (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/store/details/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /store/details (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/store/devices/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /store/devices (script-verified: comments stripped, not in page, layouts, 25 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/store/menu/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /store/menu (script-verified: comments stripped, not in page, layouts, 39 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/store/orders/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /store/orders (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-image::src/routes/store/printers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /store/printers (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/admin/channels/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/channels (script-verified: comments stripped, not in page, layouts, 26 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/admin/diagnostics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/diagnostics (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/admin/operators/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/operators (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/admin/tenants/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/tenants (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/admin/tenants/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/tenants/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/admin/tenants/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/tenants/new (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/store/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /store (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/store/details/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /store/details (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/store/devices/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /store/devices (script-verified: comments stripped, not in page, layouts, 25 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/store/menu/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /store/menu (script-verified: comments stripped, not in page, layouts, 39 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/store/orders/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /store/orders (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-title::src/routes/store/printers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /store/printers (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/admin/channels/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/channels (script-verified: comments stripped, not in page, layouts, 26 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/admin/diagnostics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/diagnostics (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/admin/operators/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/operators (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/admin/tenants/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/tenants (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/admin/tenants/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/tenants/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/admin/tenants/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/tenants/new (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/store/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /store (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/store/details/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /store/details (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/store/devices/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /store/devices (script-verified: comments stripped, not in page, layouts, 25 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/store/menu/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /store/menu (script-verified: comments stripped, not in page, layouts, 39 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/store/orders/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /store/orders (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/og-url::src/routes/store/printers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /store/printers (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep (repo-wide search for robots.txt and generators): no robots.txt in static/, no route endpoint or generator (literal claim holds); internal POS console, ssr=false SPA embedded in a Go binary under /app, so not a site root and nothing public to list"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub (ledger redirect-stub convention): routes/+page.svelte renders only the pulsing <Brand> and goto()s in onMount; no <h1> on the route (ssr=false SPA)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep (repo-wide search for sitemap.xml and generators): no sitemap.xml in static/, no route endpoint or generator (literal claim holds); internal POS console, ssr=false SPA embedded in a Go binary under /app, so not a site root and nothing public to list"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/ssr-disabled::src/routes/+layout.ts:3::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:3 (comment: \"Pure SPA ... The Go binary serves a single fallback index.html\"); deliberate SPA for an internal POS console"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: app.html:7 literal <title>quicc</title> (5 chars as reported) is the only title of / (root +page.svelte only redirects in onMount); not a search target: internal POS console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Overview — quicc admin\" in src/routes/admin/+page.svelte, whitespace collapsed, entities decoded, 22 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/admin/channels/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Channels — quicc admin\" in src/routes/admin/channels/+page.svelte, whitespace collapsed, entities decoded, 22 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/admin/diagnostics/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Diagnostics — quicc admin\" in src/routes/admin/diagnostics/+page.svelte, whitespace collapsed, entities decoded, 25 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/admin/operators/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Operators — quicc admin\" in src/routes/admin/operators/+page.svelte, whitespace collapsed, entities decoded, 23 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/admin/tenants/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Stores — quicc admin\" in src/routes/admin/tenants/+page.svelte, whitespace collapsed, entities decoded, 20 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/admin/tenants/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"New store — quicc admin\" in src/routes/admin/tenants/new/+page.svelte, whitespace collapsed, entities decoded, 23 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Sign in — quicc\" in src/routes/login/+page.svelte, whitespace collapsed, entities decoded, 15 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/store/details/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Details & hours — quicc\" in src/routes/store/details/+page.svelte, whitespace collapsed, entities decoded, 23 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/store/devices/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Devices — quicc\" in src/routes/store/devices/+page.svelte, whitespace collapsed, entities decoded, 15 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/store/menu/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Menu — quicc\" in src/routes/store/menu/+page.svelte, whitespace collapsed, entities decoded, 12 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/store/orders/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Orders — quicc\" in src/routes/store/orders/+page.svelte, whitespace collapsed, entities decoded, 14 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/title-length::src/routes/store/printers/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Printers — quicc\" in src/routes/store/printers/+page.svelte, whitespace collapsed, entities decoded, 16 chars as reported; no later title on the route); not a search target: internal POS admin/store console SPA embedded in the Go binary (frontend README, +layout.ts:3)"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/admin/channels/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/channels (script-verified: comments stripped, not in page, layouts, 26 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/admin/diagnostics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/diagnostics (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/admin/operators/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/operators (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/admin/tenants/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/tenants (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/admin/tenants/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/tenants/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/admin/tenants/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/tenants/new (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified: comments stripped, not in page, layouts, 14 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/store/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /store (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/store/details/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /store/details (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/store/devices/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /store/devices (script-verified: comments stripped, not in page, layouts, 25 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/store/menu/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /store/menu (script-verified: comments stripped, not in page, layouts, 39 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/store/orders/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /store/orders (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  },
+  {
+    "key": "aaryanDhakal22/posserver:backend/frontend::seo/twitter-card::src/routes/store/printers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /store/printers (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): no og/twitter/canonical emitter in frontend/src; app.html:3-8 has charset/viewport/color-scheme/<title> only; ssr=false SPA (+layout.ts:3) so client heads count and pages set <title> only; the Go server (internal/transport/webapp/embed.go) serves the embedded build unchanged"
+  }
+]

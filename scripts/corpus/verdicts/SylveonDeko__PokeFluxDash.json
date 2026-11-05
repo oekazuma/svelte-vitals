@@ -1,0 +1,1332 @@
+[
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/disallowed-aria-props::src/lib/components/stats/AsyncState.svelte:29::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/stats/AsyncState.svelte:29: spinner <div aria-label={m.common.loading()}> has no role, spread or use:; generic takes no name, so the loading label is not exposed"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/duplicate-landmark::src/routes/+page.svelte:62::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "page <main> (:62) renders inside root +layout.svelte:148 <main> (ErrorBoundary renders children when no error); two main landmarks"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/duplicate-landmark::src/routes/commands/+page.svelte:127::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "page <main> (:127) renders inside root +layout.svelte:148 <main> (ErrorBoundary renders children when no error); two main landmarks"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/interactive-nesting::src/lib/components/forms/DiscordSelector.svelte:403::<span> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read lib/components/forms/DiscordSelector.svelte:403: remove <span role=button tabindex=0 onclick> inside the selector trigger <button>; interactive descendant of a button, as reported"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/interactive-nesting::src/lib/components/forms/DiscordSelector.svelte:436::<span> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read lib/components/forms/DiscordSelector.svelte:436: clear-all <span onclick role=button> inside the selector trigger <button>; interactive descendant of a button, as reported"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/interactive-nesting::src/lib/components/home/FluxerChatDesktop.svelte:70::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "design",
+    "basis": "read lib/components/home/FluxerChatDesktop.svelte:70: <button tabindex=-1> inside <div role=button> (:52) in the channel snippet, as the docs flag; but the snippet renders only inside <ScaledFrame> (:79-266), whose fluxer/ScaledFrame.svelte:28-34 wrapper is aria-hidden and inert in a role=img frame, so this decorative chat mock exposes no control to AT or keyboard"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/forms/DiscordSelector.svelte:368::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/forms/DiscordSelector.svelte:368 has literal <button> (:350) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/forms/DiscordSelector.svelte:379::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/forms/DiscordSelector.svelte:379 has literal <button> (:350) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/forms/DiscordSelector.svelte:382::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/forms/DiscordSelector.svelte:382 has literal <button> (:350) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/forms/DiscordSelector.svelte:434::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/forms/DiscordSelector.svelte:434 has literal <button> (:350) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/forms/DiscordSelector.svelte:524::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/forms/DiscordSelector.svelte:524 has literal <button> (:505) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/forms/DiscordSelector.svelte:535::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/forms/DiscordSelector.svelte:535 has literal <button> (:505) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/forms/DiscordSelector.svelte:539::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/forms/DiscordSelector.svelte:539 has literal <button> (:505) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/forms/DiscordSelector.svelte:561::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/forms/DiscordSelector.svelte:561 has literal <button> (:505) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/home/FluxerChatDesktop.svelte:129::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/home/FluxerChatDesktop.svelte:129 has literal <button> (:128) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content; in the inert aria-hidden home-page chat mock, but the content-model claim holds (ledger marks mocks tp)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/home/FluxerChatDesktop.svelte:86::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/home/FluxerChatDesktop.svelte:86 has literal <button> (:85) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content; in the inert aria-hidden home-page chat mock, but the content-model claim holds (ledger marks mocks tp)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/home/FluxerChatDesktop.svelte:95::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/home/FluxerChatDesktop.svelte:95 has literal <button> (:94) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content; in the inert aria-hidden home-page chat mock, but the content-model claim holds (ledger marks mocks tp)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/home/fluxer/Markup.svelte:30::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/home/fluxer/Markup.svelte:30 has literal <span> (:27) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content; in the inert aria-hidden home-page chat mock, but the content-model claim holds (ledger marks mocks tp)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/home/fluxer/Markup.svelte:32::`<ol>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <ol> at lib/components/home/fluxer/Markup.svelte:32 has literal <span> (:27) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content; in the inert aria-hidden home-page chat mock, but the content-model claim holds (ledger marks mocks tp)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/home/fluxer/Markup.svelte:34::`<ul>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <ul> at lib/components/home/fluxer/Markup.svelte:34 has literal <span> (:27) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content; in the inert aria-hidden home-page chat mock, but the content-model claim holds (ledger marks mocks tp)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/home/fluxer/Reactions.svelte:13::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/home/fluxer/Reactions.svelte:13 has literal <button> (:12) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content; in the inert aria-hidden home-page chat mock, but the content-model claim holds (ledger marks mocks tp)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/layout/DashboardSidebar.svelte:414::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/layout/DashboardSidebar.svelte:414 has literal <button> (:403) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/layout/DashboardSidebar.svelte:430::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/layout/DashboardSidebar.svelte:430 has literal <button> (:403) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/layout/UnifiedNav.svelte:274::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/layout/UnifiedNav.svelte:274 has literal <button> (:265) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/layout/UnifiedNav.svelte:283::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at lib/components/layout/UnifiedNav.svelte:283 has literal <button> (:265) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/pokeflux/SpeciesFacts.svelte:23::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <dt> at lib/components/pokeflux/SpeciesFacts.svelte:23 has the plain <div> at :22 as parent (grandparent <div>), not a <dl> or a dl > div; dt outside its container"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/lib/components/pokeflux/SpeciesFacts.svelte:24::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <dd> at lib/components/pokeflux/SpeciesFacts.svelte:24 has the plain <div> at :22 as parent (grandparent <div>), not a <dl> or a dl > div; dd outside its container"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/routes/+error.svelte:146::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at routes/+error.svelte:146 has literal <button> (:136) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/routes/+error.svelte:154::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at routes/+error.svelte:154 has literal <button> (:136) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/routes/commands/+page.svelte:201::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <div> at routes/commands/+page.svelte:201 has literal <button> (:188) as nearest element ancestor, only control-flow blocks between, no component/snippet/svelte:element boundary; not phrasing content"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/routes/dashboard/pokemon/[id]/+page.svelte:441::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <dt> at routes/dashboard/pokemon/[id]/+page.svelte:441 has the plain <div> at :440 as parent (grandparent <div>), not a <dl> or a dl > div; dt outside its container"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/permitted-contents::src/routes/dashboard/pokemon/[id]/+page.svelte:442::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST, E-a11y/gen.mjs): <dd> at routes/dashboard/pokemon/[id]/+page.svelte:442 has the plain <div> at :440 as parent (grandparent <div>), not a <dl> or a dl > div; dd outside its container"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/top-level-landmark::src/routes/+page.svelte:62::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "page <main> (:62) sits inside root +layout.svelte:148 <main>; main nested in main"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::a11y/top-level-landmark::src/routes/commands/+page.svelte:127::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "page <main> (:127) sits inside root +layout.svelte:148 <main>; main nested in main"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/forms/DiscordSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/forms/DiscordSelector.svelte has 615 physical lines (555 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/home/FluxerChatDesktop.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/FluxerChatDesktop.svelte has 1238 physical lines (1119 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/home/FluxerChatMobile.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/FluxerChatMobile.svelte has 352 physical lines (322 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/home/fluxer/Composer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/fluxer/Composer.svelte has 326 physical lines (292 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/home/fluxer/Embed.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/fluxer/Embed.svelte has 308 physical lines (278 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/home/fluxer/MessageGroup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/fluxer/MessageGroup.svelte has 293 physical lines (259 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/layout/DashboardPageLayout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/DashboardPageLayout.svelte has 496 physical lines (448 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/layout/DashboardSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/DashboardSidebar.svelte has 523 physical lines (468 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/layout/UnifiedNav.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/UnifiedNav.svelte has 783 physical lines (731 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/pokeflux/PokemonCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pokeflux/PokemonCard.svelte has 219 physical lines (204 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/lib/components/pokeflux/PokemonPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pokeflux/PokemonPicker.svelte has 294 physical lines (277 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/+error.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+error.svelte has 213 physical lines (195 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 391 physical lines (359 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/commands/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/commands/+page.svelte has 347 physical lines (321 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+page.svelte has 255 physical lines (236 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/admin/users/[userId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/admin/users/[userId]/+page.svelte has 242 physical lines (223 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/dev/components/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/dev/components/+page.svelte has 244 physical lines (225 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/hatchery/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/hatchery/+page.svelte has 269 physical lines (248 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/market/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/market/+page.svelte has 335 physical lines (314 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/missions/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/missions/+page.svelte has 307 physical lines (295 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/party/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/party/+page.svelte has 445 physical lines (408 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/pokedex/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/pokedex/+page.svelte has 238 physical lines (219 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/pokedex/[species]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/pokedex/[species]/+page.svelte has 228 physical lines (211 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/pokemon/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/pokemon/+page.svelte has 376 physical lines (348 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/pokemon/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/pokemon/[id]/+page.svelte has 831 physical lines (768 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/servers/[guildId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/servers/[guildId]/+page.svelte has 428 physical lines (402 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/component-size::src/routes/dashboard/shop/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/shop/+page.svelte has 347 physical lines (322 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/admin/ReasonDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/ReasonDialog.svelte has a single destructured $props() with 7 named props (> 6): open, title, message, confirmLabel, variant, onconfirm, children"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/collection/Meter.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/collection/Meter.svelte has a single destructured $props() with 8 named props (> 6): value, max, label, valueText, color, hideLabel, size, class"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/dashboard/Pagination.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/Pagination.svelte has a single destructured $props() with 8 named props (> 6): page, pages, label, hrefFor, onchange, numbered, disabled, class"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/dashboard/Panel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/Panel.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: title, icon, subtitle, headingId, badge, actions, flush, children, class"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/forms/DiscordSelector.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/DiscordSelector.svelte has a single destructured $props() with 12 named props (> 6): type, options, selected, multiple, placeholder, searchable, disabled, customIcon, id, ariaLabel, ariaLabelledby, onchange"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/forms/SettingToggle.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/SettingToggle.svelte has a single destructured $props() with 7 named props (> 6): label, hint, id, checked, disabled, accent, onchange"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/home/fluxer/MessageGroup.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/home/fluxer/MessageGroup.svelte has a single destructured $props() with 9 named props (> 6): name, time, avatar, avatarColor, bot, mobile, grouped, text, accessories"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/layout/DashboardPageLayout.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/layout/DashboardPageLayout.svelte has a single destructured $props() with 15 named props (> 6): title, subtitle, icon, tabs, activeTab, subTabs, activeSubTab, actionButtons, notificationMessage, notificationType, statusMessages, actions, children, ontabChange, onsubTabChange"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/pokeflux/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pokeflux/ConfirmDialog.svelte has a single destructured $props() with 10 named props (> 6): open, title, message, confirmLabel, cancelLabel, variant, confirmDisabled, onconfirm, oncancel, children"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/pokeflux/Modal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pokeflux/Modal.svelte has a single destructured $props() with 10 named props (> 6): open, title, icon, iconColor, size, locked, initialFocus, onclose, children, footer"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/pokeflux/MoveCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pokeflux/MoveCard.svelte has a single destructured $props() with 7 named props (> 6): move, slot, compact, active, disabled, onselect, class"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/pokeflux/PokemonCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pokeflux/PokemonCard.svelte has a single destructured $props() with 13 named props (> 6): pokemon, size, href, onclick, selectable, checked, onchange, disabled, disabledReason, showNumber, hideBadges, children, class"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/pokeflux/PokemonPicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pokeflux/PokemonPicker.svelte has a single destructured $props() with 16 named props (> 6): open, title, multiple, max, allowEmpty, initialSelected, query, pageSize, showControls, showSearch, emptyTitle, emptyMessage, isDisabled, loader, onpick, oncancel"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/pokeflux/StatBars.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pokeflux/StatBars.svelte has a single destructured $props() with 8 named props (> 6): ivs, evs, baseStats, stats, view, switchable, onviewchange, class"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/ui/ConfirmationModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/ConfirmationModal.svelte has a single destructured $props() with 9 named props (> 6): isOpen, title, message, confirmText, cancelText, variant, confirmDisabled, onconfirm, oncancel"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::architecture/prop-count::src/lib/components/ui/Tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Tooltip.svelte has a single destructured $props() with 10 named props (> 6): text, placement, trigger, delay, disabled, class, triggerSnippet, content, onshow, onhide"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/lib/components/admin/DataTable.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/admin/DataTable.svelte:28 '{#each columns as column, i (i)}' keyed by its index; column definitions fixed per table by the caller; positional, static per view (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/lib/components/home/fluxer/Conversation.svelte:31::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/fluxer/Conversation.svelte:31 '{#each messages as message, index (index)}' keyed by its index; messages/embeds of the home-page demo chat, fixed fixture props; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/lib/components/home/fluxer/Conversation.svelte:52::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/fluxer/Conversation.svelte:52 '{#each message.embeds ?? [] as embed, e (e)}' keyed by its index; messages/embeds of the home-page demo chat, fixed fixture props; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/lib/components/home/fluxer/Embed.svelte:56::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/fluxer/Embed.svelte:56 '{#each groups as group, g (g)}' keyed by its index; field groups of one demo embed; parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/lib/components/home/fluxer/Embed.svelte:57::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/fluxer/Embed.svelte:57 '{#each group as field, index (index)}' keyed by its index; field groups of one demo embed; parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/lib/components/home/fluxer/Markup.svelte:14::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/fluxer/Markup.svelte:14 '{#each items as item, i (i)}' keyed by its index; parseMarkup/parseInline output of one string; text runs/tokens parsed from one string; positional list (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/lib/components/home/fluxer/Markup.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/fluxer/Markup.svelte:28 '{#each blocks as block, i (i)}' keyed by its index; parseMarkup/parseInline output of one string; text runs/tokens parsed from one string; positional list (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/lib/components/home/fluxer/Markup.svelte:33::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/fluxer/Markup.svelte:33 '{#each block.items as item, j (j)}' keyed by its index; parseMarkup/parseInline output of one string; text runs/tokens parsed from one string; positional list (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/lib/components/home/fluxer/Markup.svelte:34::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/fluxer/Markup.svelte:34 '{#each block.items as item, j (j)}' keyed by its index; parseMarkup/parseInline output of one string; text runs/tokens parsed from one string; positional list (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/routes/commands/+page.svelte:256::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/commands/+page.svelte:256 '{#each summaryParts(command.summary) as part, i (i)}' keyed by its index; summaryParts(command.summary), text.split pieces; text runs/tokens parsed from one string; positional list (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/routes/dashboard/dev/components/+page.svelte:132::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/dev/components/+page.svelte:132 '{#each detail.moves as move, i (i)}' keyed by its index; detail.moves from the ./fixtures dev fixture; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/routes/dashboard/market/ListingModal.svelte:141::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/market/ListingModal.svelte:141 '{#each detail.moves as move, i (i)}' keyed by its index; moves of one listed pokemon; parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/routes/dashboard/missions/+page.svelte:287::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/missions/+page.svelte:287 '{#each achievement.milestones as milestone, i (i)}' keyed by its index; milestone numbers of one achievement; parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/routes/dashboard/party/+page.svelte:256::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/party/+page.svelte:256 '{#each party.slots as pokemon, index (index)}' keyed by its index; party.slots, fixed party slots where the index is the slot number (slot = index + 1, :257); a position is the identity here"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/routes/dashboard/party/+page.svelte:404::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/party/+page.svelte:404 '{#each current.slots as pokemon, index (index)}' keyed by its index; party.slots, fixed party slots where the index is the slot number (slot = index + 1, :257); a position is the identity here"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/routes/dashboard/servers/[guildId]/+page.svelte:372::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/servers/[guildId]/+page.svelte:372 '{#each lastSave.changes as line, i (i)}' keyed by its index; change description lines of one save/draft; messages of one result shown read-only; positional list (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-index-key::src/routes/dashboard/servers/[guildId]/+page.svelte:391::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/servers/[guildId]/+page.svelte:391 '{#each changeLines as line, i (i)}' keyed by its index; change description lines of one save/draft; messages of one result shown read-only; positional list (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-key::src/lib/components/forms/DiscordSelector.svelte:395::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/forms/DiscordSelector.svelte:395 '{#each selectedArray.slice(0, 3) as selectedId}' has no key; selectedArray.slice(0, 3), the ids the user picks in a multi-select; items added and removed"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-key::src/lib/components/layout/DashboardPageLayout.svelte:283::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/DashboardPageLayout.svelte:283 '{#each actionButtons as button}' has no key; actionButtons/tabs/subtabs props, fixed literals from each page (e.g. market/+page.svelte:142); static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-key::src/lib/components/layout/DashboardPageLayout.svelte:340::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/DashboardPageLayout.svelte:340 '{#each tabs as tab}' has no key; actionButtons/tabs/subtabs props, fixed literals from each page (e.g. market/+page.svelte:142); static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-key::src/lib/components/layout/DashboardPageLayout.svelte:423::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/DashboardPageLayout.svelte:423 '{#each currentSubTabs as subTab}' has no key; actionButtons/tabs/subtabs props, fixed literals from each page (e.g. market/+page.svelte:142); static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/each-key::src/lib/components/layout/UnifiedNav.svelte:262::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/UnifiedNav.svelte:262 '{#each computedItems as item, i}' has no key; computedItems, the nav config resolved per URL (:72); static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/effect-as-derived::src/lib/components/ui/Tooltip.svelte:41::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/Tooltip.svelte:41 isMobile reads window/navigator.maxTouchPoints; the docs-listed browser-global-capture limitation, a $derived would crash SSR"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/effect-as-derived::src/routes/dashboard/admin/audit/+page.svelte:21::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/admin/audit/+page.svelte:21 $effect only copies data.query.* into primitive bind:value strings; writable $derived does the same"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/effect-as-derived::src/routes/dashboard/admin/market/+page.svelte:33::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/admin/market/+page.svelte:33 fields = fieldsFrom(data.query) is then deep-written by bind:value={fields.seller} (:87-95); a $derived value is not deeply proxied (ledger convention)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/effect-as-derived::src/routes/dashboard/admin/relationship/+page.svelte:29::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/admin/relationship/+page.svelte:29 $effect only copies data.user1/user2 into local $state; writable $derived does the same"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/effect-as-derived::src/routes/dashboard/admin/users/+page.svelte:20::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/admin/users/+page.svelte:20 $effect only assigns search = data.search (primitive, bind:value); writable $derived does the same"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/prop-mutation::src/lib/components/pokeflux/MoveFilters.svelte:31::Prop \"filter\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pokeflux/MoveFilters.svelte:31 writes a field of the filter prop, a MoveFilter class instance whose type/category/sort are $state fields (moveFilter.svelte.ts:7-11); reactive, the docs-listed class-instance limitation"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/prop-mutation::src/lib/components/pokeflux/MoveFilters.svelte:47::Prop \"filter\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pokeflux/MoveFilters.svelte:47 writes a field of the filter prop, a MoveFilter class instance whose type/category/sort are $state fields (moveFilter.svelte.ts:7-11); reactive, the docs-listed class-instance limitation"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::correctness/prop-mutation::src/lib/components/pokeflux/MoveFilters.svelte:63::Prop \"filter\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pokeflux/MoveFilters.svelte:63 writes a field of the filter prop, a MoveFilter class instance whose type/category/sort are $state fields (moveFilter.svelte.ts:7-11); reactive, the docs-listed class-instance limitation"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::performance/image-dimensions::src/routes/dashboard/+page.svelte:76::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: own class w-11 h-11"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::performance/image-loading-hint::src/routes/dashboard/+page.svelte:76::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: avatar in the trainer card, the first section of the dashboard - above the fold"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::performance/image-loading-hint::src/routes/dashboard/import/+page.svelte:96::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: 24px signed-in avatar at the top of the import card (:86-96) - above the fold"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::performance/responsive-image::src/routes/dashboard/+page.svelte:76::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: cdn.userAvatarUrl(id, avatar, 128), a remote avatar - raster, one fixed-size asset"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::performance/responsive-image::src/routes/dashboard/import/+page.svelte:96::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: cdn.discordapp.com avatar .png?size=64 (:23) - raster, one fixed-size asset"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::security/raw-html::src/lib/components/home/HomeHero.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read HomeHero.svelte:28 + i18n/generated/messages.ts:759 + stores/colorStore.ts:88-97: repo i18n message whose only param is the palette primary colour (derived from an image, stored value checked as hex/hsl) — repo i18n, not user HTML, reported per docs"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::security/raw-html::src/routes/privacy/+page.svelte:37::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read privacy/+page.svelte:37 + i18n/generated/messages.ts:931: repo i18n message with a literal <a>, no params — repo i18n, reported per docs"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::security/raw-html::src/routes/terms/+page.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read terms/+page.svelte:28 + i18n/generated/messages.ts:1045: repo i18n message, no params — repo i18n, reported per docs"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified: comments stripped, not in page, layouts, 85 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/admin (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/admin/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/admin/audit (script-verified: comments stripped, not in page, layouts, 66 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/admin/detections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/admin/detections (script-verified: comments stripped, not in page, layouts, 67 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/admin/detections/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/admin/detections/[id] (script-verified: comments stripped, not in page, layouts, 63 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/admin/market/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/admin/market (script-verified: comments stripped, not in page, layouts, 74 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/admin/relationship/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/admin/relationship (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/admin/users (script-verified: comments stripped, not in page, layouts, 64 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/admin/users/[userId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/admin/users/[userId] (script-verified: comments stripped, not in page, layouts, 74 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/dev/components/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/dev/components (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/hatchery/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/hatchery (script-verified: comments stripped, not in page, layouts, 86 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/import (script-verified: comments stripped, not in page, layouts, 64 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/inventory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/inventory (script-verified: comments stripped, not in page, layouts, 86 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/market/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/market (script-verified: comments stripped, not in page, layouts, 87 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/missions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/missions (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/party/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/party (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/pokedex/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/pokedex (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/pokedex/[species]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/pokedex/[species] (script-verified: comments stripped, not in page, layouts, 66 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/pokemon/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/pokemon (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/pokemon/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/pokemon/[id] (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/servers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/servers (script-verified: comments stripped, not in page, layouts, 81 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/servers/[guildId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/servers/[guildId] (script-verified: comments stripped, not in page, layouts, 72 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/canonical-url::src/routes/dashboard/shop/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/shop (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): <link rel=\"canonical\"> absent: dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); but not a search target (auth-gated by that layout load), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/admin (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/admin is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/admin/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/admin/audit (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/admin/audit is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/admin/detections/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/admin/detections (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/admin/detections is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/admin/detections/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/admin/detections/[id] (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/admin/detections/[id] is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/admin/market/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/admin/market (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/admin/market is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/admin/relationship/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/admin/relationship (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/admin/relationship is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/admin/users (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/admin/users is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/admin/users/[userId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/admin/users/[userId] (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/admin/users/[userId] is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/dev/components/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/dev/components (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/dev/components is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/hatchery/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/hatchery (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/hatchery is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/import/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/import (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/import is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/inventory/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/inventory (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/inventory is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/market/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/market (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/market is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/missions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/missions (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/missions is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/party/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/party (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/party is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/pokedex/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/pokedex (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/pokedex is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/pokedex/[species]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/pokedex/[species] (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/pokedex/[species] is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/pokemon/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/pokemon (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/pokemon is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/pokemon/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/pokemon/[id] (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/pokemon/[id] is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/servers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/servers (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/servers is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/servers/[guildId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/servers/[guildId] (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/servers/[guildId] is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/description-presence::src/routes/dashboard/shop/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /dashboard/shop (literal claim holds); not a search target: dashboard/+layout.server.ts:8-10 redirects guests to the login endpoint, so /dashboard/shop is signed-in only (the dashboard head is DashboardPageLayout.svelte:249-251, a title only)"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/heading-level-skip::src/routes/dashboard/inventory/+page.svelte:42::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "flagged <h3> is in {#snippet tiles}, rendered only inside <Panel title={m...}> (:107-115, :117-125). Panel.svelte renders <h2>{title} in {#if title}, and every use here passes a non-empty title (m.* call), so the real outline is h1 (DashboardPageLayout:273), Panel h2, then this h3 - no skip; the analyzer leaves Panel's h2 out because its {#if title} on an expression prop is undecided"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/heading-level-skip::src/routes/dashboard/party/+page.svelte:386::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "flagged <h3> sits in <Panel title={m.pokefluxCollection.savedPartiesTitle()}> (:311). Panel.svelte renders <h2>{title} in {#if title}, and every use here passes a non-empty title (m.* call), so the real outline is h1 (DashboardPageLayout:273), Panel h2, then this h3 - no skip; the analyzer leaves Panel's h2 out because its {#if title} on an expression prop is undecided"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/heading-level-skip::src/routes/dashboard/shop/+page.svelte:189::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "flagged <h3> sits in <Panel title={m.pokefluxMarket.chestsTitle()}> (:173-178). Panel.svelte renders <h2>{title} in {#if title}, and every use here passes a non-empty title (m.* call), so the real outline is h1 (DashboardPageLayout:273), Panel h2, then this h3 - no skip; the analyzer leaves Panel's h2 out because its {#if title} on an expression prop is undecided"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so / has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/commands/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /commands has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/admin has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/admin/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/admin/audit has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/admin/detections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/admin/detections has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/admin/detections/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/admin/detections/[id] has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/admin/market/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/admin/market has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/admin/relationship/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/admin/relationship has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/admin/users has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/admin/users/[userId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/admin/users/[userId] has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/dev/components/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/dev/components has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/hatchery/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/hatchery has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/import has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/inventory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/inventory has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/market/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/market has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/missions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/missions has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/party/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/party has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/pokedex/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/pokedex has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/pokedex/[species]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/pokedex/[species] has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/pokemon/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/pokemon has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/pokemon/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/pokemon/[id] has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/servers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/servers has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/servers/[guildId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/servers/[guildId] has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/dashboard/shop/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /dashboard/shop has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/leaderboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /leaderboard has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /privacy has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/json-ld::src/routes/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the PokeFluxDash repo, so /terms has none"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (script-verified: comments stripped, not in page, layouts, 85 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/admin (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/admin/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/admin/audit (script-verified: comments stripped, not in page, layouts, 66 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/admin/detections/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/admin/detections (script-verified: comments stripped, not in page, layouts, 67 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/admin/detections/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/admin/detections/[id] (script-verified: comments stripped, not in page, layouts, 63 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/admin/market/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/admin/market (script-verified: comments stripped, not in page, layouts, 74 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/admin/relationship/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/admin/relationship (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/admin/users (script-verified: comments stripped, not in page, layouts, 64 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/admin/users/[userId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/admin/users/[userId] (script-verified: comments stripped, not in page, layouts, 74 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/dev/components/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/dev/components (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/hatchery/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/hatchery (script-verified: comments stripped, not in page, layouts, 86 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/import (script-verified: comments stripped, not in page, layouts, 64 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/inventory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/inventory (script-verified: comments stripped, not in page, layouts, 86 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/market/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/market (script-verified: comments stripped, not in page, layouts, 87 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/missions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/missions (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/party/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/party (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/pokedex/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/pokedex (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/pokedex/[species]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/pokedex/[species] (script-verified: comments stripped, not in page, layouts, 66 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/pokemon/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/pokemon (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/pokemon/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/pokemon/[id] (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/servers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/servers (script-verified: comments stripped, not in page, layouts, 81 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/servers/[guildId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/servers/[guildId] (script-verified: comments stripped, not in page, layouts, 72 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/dashboard/shop/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/shop (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-description::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard (script-verified: comments stripped, not in page, layouts, 75 reached local files or app.html, no dynamic <meta>): leaderboard/+page.svelte:30-33 head has description and canonical only; root +layout.svelte:128-137 emits og:image/og:type/twitter:card but not this tag; public route with a conditional load"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (script-verified: comments stripped, not in page, layouts, 85 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/admin (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/admin/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/admin/audit (script-verified: comments stripped, not in page, layouts, 66 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/admin/detections/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/admin/detections (script-verified: comments stripped, not in page, layouts, 67 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/admin/detections/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/admin/detections/[id] (script-verified: comments stripped, not in page, layouts, 63 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/admin/market/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/admin/market (script-verified: comments stripped, not in page, layouts, 74 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/admin/relationship/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/admin/relationship (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/admin/users (script-verified: comments stripped, not in page, layouts, 64 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/admin/users/[userId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/admin/users/[userId] (script-verified: comments stripped, not in page, layouts, 74 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/dev/components/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/dev/components (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/hatchery/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/hatchery (script-verified: comments stripped, not in page, layouts, 86 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/import (script-verified: comments stripped, not in page, layouts, 64 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/inventory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/inventory (script-verified: comments stripped, not in page, layouts, 86 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/market/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/market (script-verified: comments stripped, not in page, layouts, 87 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/missions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/missions (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/party/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/party (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/pokedex/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/pokedex (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/pokedex/[species]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/pokedex/[species] (script-verified: comments stripped, not in page, layouts, 66 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/pokemon/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/pokemon (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/pokemon/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/pokemon/[id] (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/servers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/servers (script-verified: comments stripped, not in page, layouts, 81 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/servers/[guildId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/servers/[guildId] (script-verified: comments stripped, not in page, layouts, 72 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/dashboard/shop/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/shop (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-title::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard (script-verified: comments stripped, not in page, layouts, 75 reached local files or app.html, no dynamic <meta>): leaderboard/+page.svelte:30-33 head has description and canonical only; root +layout.svelte:128-137 emits og:image/og:type/twitter:card but not this tag; public route with a conditional load"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (script-verified: comments stripped, not in page, layouts, 85 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/admin (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/admin/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/admin/audit (script-verified: comments stripped, not in page, layouts, 66 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/admin/detections/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/admin/detections (script-verified: comments stripped, not in page, layouts, 67 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/admin/detections/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/admin/detections/[id] (script-verified: comments stripped, not in page, layouts, 63 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/admin/market/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/admin/market (script-verified: comments stripped, not in page, layouts, 74 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/admin/relationship/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/admin/relationship (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/admin/users (script-verified: comments stripped, not in page, layouts, 64 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/admin/users/[userId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/admin/users/[userId] (script-verified: comments stripped, not in page, layouts, 74 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/dev/components/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/dev/components (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/hatchery/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/hatchery (script-verified: comments stripped, not in page, layouts, 86 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/import (script-verified: comments stripped, not in page, layouts, 64 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/inventory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/inventory (script-verified: comments stripped, not in page, layouts, 86 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/market/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/market (script-verified: comments stripped, not in page, layouts, 87 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/missions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/missions (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/party/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/party (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/pokedex/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/pokedex (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/pokedex/[species]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/pokedex/[species] (script-verified: comments stripped, not in page, layouts, 66 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/pokemon/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/pokemon (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/pokemon/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/pokemon/[id] (script-verified: comments stripped, not in page, layouts, 68 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/servers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/servers (script-verified: comments stripped, not in page, layouts, 81 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/servers/[guildId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/servers/[guildId] (script-verified: comments stripped, not in page, layouts, 72 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/dashboard/shop/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/shop (script-verified: comments stripped, not in page, layouts, 83 reached local files or app.html, no dynamic <meta>): dashboard pages have no <svelte:head>; root +layout.svelte:128-137 emits og:image/og:type/twitter:card only; route renders (dashboard/+layout.server.ts:8-10 redirects guests only; page load errors only on a malformed id at most); og tags stay tp on gated routes per ledger"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/og-url::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard (script-verified: comments stripped, not in page, layouts, 75 reached local files or app.html, no dynamic <meta>): leaderboard/+page.svelte:30-33 head has description and canonical only; root +layout.svelte:128-137 emits og:image/og:type/twitter:card but not this tag; public route with a conditional load"
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for robots.txt and generators): no robots.txt in static/, no route endpoint or generator; public site pokeflux.tech (README) with public /, /commands, /leaderboard, /privacy, /terms and root layout robots \"index, follow\""
+  },
+  {
+    "key": "SylveonDeko/PokeFluxDash::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for sitemap.xml and generators): no sitemap.xml in static/, no route endpoint or generator; public site pokeflux.tech (README) with public /, /commands, /leaderboard, /privacy, /terms and root layout robots \"index, follow\""
+  }
+]

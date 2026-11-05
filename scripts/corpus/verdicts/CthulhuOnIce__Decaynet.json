@@ -1,0 +1,1662 @@
+[
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/disallowed-aria-props::src/lib/components/ConfidenceMark.svelte:16::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/ConfidenceMark.svelte:16: <span title aria-label={m.text}> has no role, spread or use:; docs report a name on a span whatever else names it"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/id-duplication::src/routes/admin/settings/+page.svelte:158::Duplicate id \"mb\"",
+    "verdict": "tp",
+    "basis": "read routes/admin/settings/+page.svelte:158: <input id=\"mb\"> (max image size) and <input id=\"mb\"> at :67 (pan limit) are both unconditional in one <form> (:34), neither under {#if}/{#each}; each <label for=\"mb\"> points at the first input, a real duplicate on /admin/settings"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/interactive-nesting::src/lib/components/EntityPicker.svelte:125::<button> is nested inside interactive <li role=\"option\">",
+    "verdict": "tp",
+    "basis": "read lib/components/EntityPicker.svelte:125: <button> directly inside <li role=\"option\"> (:124) of the listbox; option is children-presentational, nested control as reported"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/pattern-title::src/routes/new/+page.svelte:53::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read routes/new/+page.svelte:53: <input id=slug pattern=\"[a-z0-9]+(-[a-z0-9]+)*\"> has no title in <form method=post> (:35) with no novalidate, and no hint or aria-describedby; a failed match shows no format"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/top-level-landmark::src/routes/e/[slug]/+page.svelte:329::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/e/[slug]/+page.svelte:329: unlabelled <aside class=\"side stack\"> through divs only inside root +layout.svelte:159 <main>; complementary inside main"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/top-level-landmark::src/routes/e/[slug]/cleanup/+page.svelte:126::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/e/[slug]/cleanup/+page.svelte:126: unlabelled <aside class=stack> through divs only inside root +layout.svelte:159 <main>; complementary inside main"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/top-level-landmark::src/routes/e/[slug]/history/+page.svelte:84::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/e/[slug]/history/+page.svelte:84: unlabelled <aside class=card> through divs only inside root +layout.svelte:159 <main>; complementary inside main"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/top-level-landmark::src/routes/import/+page.svelte:254::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/import/+page.svelte:254: unlabelled <aside class=panel> in a div inside root +layout.svelte:159 <main>; complementary inside main"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/top-level-landmark::src/routes/tips/[id]/+page.svelte:71::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/tips/[id]/+page.svelte:71: unlabelled <aside class=stack> through divs only inside root +layout.svelte:159 <main>; complementary inside main"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::a11y/top-level-landmark::src/routes/workbench/+page.svelte:755::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/workbench/+page.svelte:755: unlabelled <aside class=panel> in a div inside root +layout.svelte:159 <main>; complementary inside main"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/lib/components/EntityPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EntityPanel.svelte has 281 physical lines (266 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/lib/components/EntityPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EntityPicker.svelte has 215 physical lines (210 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/lib/components/GeometryPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/GeometryPicker.svelte has 229 physical lines (217 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/lib/components/ScanPinView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ScanPinView.svelte has 240 physical lines (229 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/lib/components/SourcePicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SourcePicker.svelte has 329 physical lines (318 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/lib/components/TimeMachineMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TimeMachineMap.svelte has 330 physical lines (308 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 421 physical lines (405 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 390 physical lines (370 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/routes/admin/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/settings/+page.svelte has 236 physical lines (224 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/routes/e/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/e/[slug]/+page.svelte has 641 physical lines (623 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/routes/e/[slug]/cleanup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/e/[slug]/cleanup/+page.svelte has 240 physical lines (231 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/routes/e/[slug]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/e/[slug]/edit/+page.svelte has 227 physical lines (211 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/routes/e/[slug]/facts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/e/[slug]/facts/+page.svelte has 516 physical lines (498 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/routes/import/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/import/+page.svelte has 702 physical lines (674 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/component-size::src/routes/workbench/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/workbench/+page.svelte has 1458 physical lines (1403 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/prop-count::src/lib/components/EntityPicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/EntityPicker.svelte has a single destructured $props() with 8 named props (> 6): name, kinds, value, values, multiple, placeholder, required, id"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/prop-count::src/lib/components/ScanPinView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ScanPinView.svelte has a single destructured $props() with 7 named props (> 6): url, width, height, pins, waiting, onpin, onmove"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/prop-count::src/lib/components/SourcePicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SourcePicker.svelte has a single destructured $props() with 10 named props (> 6): value, sources, name, id, allowNone, noneLabel, allowNew, newLabel, placeholder, resetValue"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/prop-count::src/lib/components/TagSelect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/TagSelect.svelte has a single destructured $props() with 9 named props (> 6): tags, name, facets, multiple, value, id, required, placeholder, by"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::architecture/prop-count::src/lib/components/TimeMachineMap.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/TimeMachineMap.svelte has a single destructured $props() with 17 named props (> 6): year, minYear, maxYear, kinds, ghosts, moments, tag, basemap, selected, center, zoom, autoFit, pin, onselect, onmoments, onview, onready"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/each-index-key::src/lib/components/EntityPanel.svelte:108::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/EntityPanel.svelte:108 '{#each snap.relations as r, i (i)}' keyed by its index; snap comes from the year-driven snapshot; changing the year inserts/removes entries mid-list, so index identity shifts as claimed"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/each-index-key::src/lib/components/EntityPanel.svelte:123::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/EntityPanel.svelte:123 '{#each snap.other_names as n, i (i)}' keyed by its index; snap comes from the year-driven snapshot; changing the year inserts/removes entries mid-list, so index identity shifts as claimed"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/each-index-key::src/lib/components/YearSlider.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/YearSlider.svelte:82 '{#each density as d, i (i)}' keyed by its index; density histogram bars placed by index (pct(min + i)); positional chart/geometry list, rebuilt wholesale (ledger convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/each-index-key::src/routes/e/[slug]/+page.svelte:128::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/e/[slug]/+page.svelte:128 '{#each akas as n, i (i)}' keyed by its index; data.snapshot changes with ?y= (travel() at :25); entries are inserted/removed mid-list as the year moves, so index identity shifts as claimed"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/each-index-key::src/routes/e/[slug]/+page.svelte:364::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/e/[slug]/+page.svelte:364 '{#each snap.relations.slice(0, 8) as r, i (i)}' keyed by its index; data.snapshot changes with ?y= (travel() at :25); entries are inserted/removed mid-list as the year moves, so index identity shifts as claimed"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/each-index-key::src/routes/e/[slug]/duplicate/+page.svelte:101::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/e/[slug]/duplicate/+page.svelte:101 '{#each p.copied as i, n (n)}' keyed by its index; p.copied lines of one duplicate preview; parts of one record shown read-only; positional list, nothing keyed to item state (ledger convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/each-index-key::src/routes/workbench/+page.svelte:937::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/workbench/+page.svelte:937 '{#each kept as f, i (i)}' keyed by its index; kept is $state appended at :425 and spliced by kept.splice(i, 1) on the row button; editable rows the user adds/removes, so identity follows position as claimed"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/effect-as-derived::src/lib/components/GeometryPicker.svelte:50::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/GeometryPicker.svelte:50 $effect.pre only assigns mode = initialMode; mode is primitive, a writable $derived(initialMode) does the same"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/effect-as-derived::src/routes/admin/settings/+page.svelte:13::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/settings/+page.svelte:13 $effect.pre only copies s.* into primitive form $state; writable $derived does the same"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/effect-as-derived::src/routes/e/[slug]/+page.svelte:22::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/e/[slug]/+page.svelte:22 $effect only assigns yearInput = data.year (primitive); writable $derived does the same"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/effect-as-derived::src/routes/e/[slug]/cleanup/+page.svelte:20::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/e/[slug]/cleanup/+page.svelte:20 $effect.pre only assigns picked = defaults, a reset-on-new-plan copy; writable $derived does the same (bind:group reassigns, no deep write)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/effect-as-derived::src/routes/e/[slug]/duplicate/+page.svelte:28::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/e/[slug]/duplicate/+page.svelte:28 $effect.pre only assigns newName = p?.name ?? ''; writable $derived does the same"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::correctness/effect-as-derived::src/routes/e/[slug]/edit/+page.svelte:18::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/e/[slug]/edit/+page.svelte:18 $effect.pre only copies form/article into primitive body/status; writable $derived does the same"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/image-dimensions::src/routes/e/[slug]/+page.svelte:208::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> lacks width and/or height, no spread; read: .hero img has only max-width:100%; max-height:70vh (:519-525), no class fixes the box - natural size decides it and the content below shifts"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/image-dimensions::src/routes/e/[slug]/+page.svelte:301::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: .tile aspect-ratio 4/3 with .tile img 100% x 100% object-fit cover (:560-575)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/image-dimensions::src/routes/media/new/+page.svelte:78::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: preview = URL.createObjectURL(file) (:19), rendered {#if preview} only after the user picks a file - the shift follows that input, which CLS excludes"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/image-dimensions::src/routes/tip/+page.svelte:130::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: .previews img 90px x 70px (:168-173)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/image-dimensions::src/routes/tips/[id]/+page.svelte:44::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> lacks width and/or height, no spread; read: .img img width:100%; max-height:260px only (:154-160) - no height reserved, the natural aspect decides each card height"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/image-loading-hint::src/routes/e/[slug]/+page.svelte:208::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: entity hero figure at the top of .main right under the page header (:204-208) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/image-loading-hint::src/routes/media/new/+page.svelte:78::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: blob: object URL of the file the user just picked (:19) - no network request for loading to defer"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/image-loading-hint::src/routes/tip/+page.svelte:130::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: blob: object URLs of the files the user just picked (:20) - no network request for loading to defer"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/image-loading-hint::src/routes/tips/[id]/+page.svelte:44::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute, no spread; read: signed-URL tip photo in {#each data.images}, under the <h2>Images after the tip detail table (:39-44) - later cards offscreen"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/responsive-image::src/routes/e/[slug]/+page.svelte:208::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: mainMedia is an uploaded/external media_items photo (isImage arm) - raster, one fixed-size asset"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/responsive-image::src/routes/e/[slug]/+page.svelte:301::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: media_items photo in the gallery tile via mediaSrc() - raster, one fixed-size asset to a 160px+ tile"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/responsive-image::src/routes/media/new/+page.svelte:78::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "<img> has no srcset, no spread; read: blob: object URL of the picked file (:19) - no alternate sizes exist"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/responsive-image::src/routes/tip/+page.svelte:130::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "<img> has no srcset, no spread; read: blob: object URLs of the picked files (:20) - no alternate sizes exist"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/responsive-image::src/routes/tips/[id]/+page.svelte:44::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: signed storage URL of a submitted photo - raster, one fixed-size asset"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/+layout.server.ts:35::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+layout.server.ts:16-35: loadVocabulary/loadSettings (Supabase HTTP selects, lib/server/db.ts:12-21,62-66) use nothing from the session, profile, permissions or tips awaits before them — independent requests serialized; they could join the profile Promise.all"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/+page.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.server.ts:6-11: the site_settings select uses nothing from the timeline_extent/chronology Promise.all before it — independent Supabase requests serialized; it could join that Promise.all"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.server.ts:26 + lib/server/db.ts:36-40: loadTags (Supabase select) uses nothing from the earlier awaits — independent request serialized at the end of the load"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/account/+page.server.ts:8::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read account/+page.server.ts:6-8: the only preceding await is locals.safeGetSession() followed by the login redirect — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/admin/roles/+page.server.ts:8::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/roles/+page.server.ts:8: the only preceding await is requirePermission(locals, …) (lib/server/db.ts:49-54, session read + has_permission RPC that throws 401/403) — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/admin/settings/+page.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/settings/+page.server.ts:9: the only preceding await is requirePermission(locals, …) (lib/server/db.ts:49-54, session read + has_permission RPC that throws 401/403) — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/admin/timelines/+page.server.ts:19::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/timelines/+page.server.ts:19: the only preceding await is requirePermission(locals, …) (lib/server/db.ts:49-54, session read + has_permission RPC that throws 401/403) — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/admin/users/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/users/+page.server.ts:14: the only preceding await is requirePermission(locals, …) (lib/server/db.ts:49-54, session read + has_permission RPC that throws 401/403) — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/admin/vocabulary/+page.server.ts:12::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/vocabulary/+page.server.ts:12: the only preceding await is requirePermission(locals, …) (lib/server/db.ts:49-54, session read + has_permission RPC that throws 401/403) — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/e/[slug]/cleanup/+page.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read e/[slug]/cleanup/+page.server.ts:11: the only preceding await is requirePermission(locals, …) (lib/server/db.ts:49-54, session read + has_permission RPC that throws 401/403) — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/e/[slug]/duplicate/+page.server.ts:32::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read e/[slug]/duplicate/+page.server.ts:32: the only preceding await is requirePermission(locals, …) (lib/server/db.ts:49-54, session read + has_permission RPC that throws 401/403) — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/e/[slug]/edit/+page.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read e/[slug]/edit/+page.server.ts:11: the only preceding await is locals.safeGetSession() followed by the login redirect — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/e/[slug]/facts/+page.server.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read e/[slug]/facts/+page.server.ts:17: the only preceding await is locals.safeGetSession() followed by the login redirect — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/import/+page.server.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read import/+page.server.ts:10-18 + lib/server/admin.ts:21-31: getGeonamesUser reads site_secrets through the Supabase service client (when one is configured) and uses nothing from the import_batches select; await parent() is exempt — independent requests serialized"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/maintenance/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read maintenance/+page.server.ts:19-31: the entity_health issue counts use only the ISSUES keys, nothing from the status lookups before them; no auth gate here — independent Supabase requests serialized"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/maintenance/+page.server.ts:33::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read maintenance/+page.server.ts:33: the private-entities count uses nothing from the status or issue counts before it — independent Supabase request serialized"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/media/new/+page.server.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read media/new/+page.server.ts:18: the only preceding await is locals.safeGetSession() followed by the login redirect — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/media/new/+page.server.ts:24::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read media/new/+page.server.ts:18-24 + lib/server/db.ts:36-40: loadTags (Supabase select) uses nothing from the depicts/sources Promise.all before it — independent request serialized; it could join that Promise.all"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/tips/+page.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read tips/+page.server.ts:9: the only preceding await is requirePermission(locals, …) (lib/server/db.ts:49-54, session read + has_permission RPC that throws 401/403) — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/tips/[id]/+page.server.ts:21::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read tips/[id]/+page.server.ts:21: the only preceding await is requirePermission(locals, …) (lib/server/db.ts:49-54, session read + has_permission RPC that throws 401/403) — deliberate auth-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::performance/sequential-awaits::src/routes/u/[id]/+page.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read u/[id]/+page.server.ts:7-9: the recent_activity select uses only params.id, nothing from the preceding profile select, whose only role is the 404 gate (exceptional path) — independent Supabase requests serialized (ledger 404-gate convention)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::security/raw-html::src/routes/about/+page.svelte:14::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read about/+page.server.ts:6 + lib/server/markdown.ts:74-83,90-102: renderArticle returns sanitizeHtml(html, SANITIZE) with an allowlist of tags, attributes and http/https/mailto schemes — sanitized, reported per docs"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::security/raw-html::src/routes/e/[slug]/+page.svelte:229::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read e/[slug]/+page.server.ts:74 + lib/server/markdown.ts:74-83,90-102: renderArticle returns sanitizeHtml(html, SANITIZE) with an allowlist of tags, attributes and http/https/mailto schemes — sanitized, reported per docs"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::security/raw-html::src/routes/e/[slug]/edit/+page.svelte:135::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read e/[slug]/edit/+page.server.ts:20-23 preview action + lib/server/markdown.ts:74-83,90-102: renderArticle returns sanitizeHtml(html, SANITIZE) with an allowlist of tags, attributes and http/https/mailto schemes — sanitized, reported per docs"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: account/+page.server.ts:7 turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: admin/+layout.server.ts:7-8 redirects guests to /login and 403s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/admin/roles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/roles (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: admin/+layout.server.ts:7-8 redirects guests to /login and 403s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/settings (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: admin/+layout.server.ts:7-8 redirects guests to /login and 403s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/admin/timelines/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/timelines (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: admin/+layout.server.ts:7-8 redirects guests to /login and 403s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: admin/+layout.server.ts:7-8 redirects guests to /login and 403s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/admin/vocabulary/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/vocabulary (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: admin/+layout.server.ts:7-8 redirects guests to /login and 403s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/browse/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /browse (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/changes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /changes (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/e/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /e/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/e/[slug]/cleanup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /e/[slug]/cleanup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: e/[slug]/cleanup/+page.server.ts:9 requirePermission (lib/server/db.ts:44 error(401)) turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/e/[slug]/duplicate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /e/[slug]/duplicate (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: e/[slug]/duplicate/+page.server.ts:31 requirePermission (error 401/403) turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/e/[slug]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /e/[slug]/edit (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: e/[slug]/edit/+page.server.ts:10 turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/e/[slug]/facts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /e/[slug]/facts (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: e/[slug]/facts/+page.server.ts:15 turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/e/[slug]/history/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /e/[slug]/history (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /import (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: import/+page.server.ts:11 turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/maintenance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /maintenance (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/media/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /media/new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: media/new/+page.server.ts:11 turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: new/+page.server.ts:8 turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /search (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (first-run wizard: setup/+page.server.ts:16 redirects to / once an admin exists), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/sources/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sources (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/sources/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sources/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/tags/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tags (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/tags/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tags/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/timeline/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /timeline (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/tip/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tip (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/tips/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /tips (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: tips/+page.server.ts:5 requirePermission (error 401/403) turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/tips/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /tips/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: tips/[id]/+page.server.ts:19 requirePermission (error 401/403) turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/u/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /u/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); publicly reachable rendered route, no guest gate in its load, no robots.txt, no noindex"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/canonical-url::src/routes/workbench/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workbench (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); not a search target (auth-gated: workbench/+page.server.ts:9 turns guests away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/heading-level-skip::src/routes/admin/roles/+page.svelte:60::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>Roles & permissions (:8) then <h3>New role (:60), no <h2> and no heading component between; admin and root layouts render no heading"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/heading-level-skip::src/routes/e/[slug]/cleanup/+page.svelte:45::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1> (:32) then <h3>Needs a person in {#if notes.length} (:45), before any <h2> (:60/:82 come later); nothing between renders a heading"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/heading-level-skip::src/routes/media/new/+page.svelte:109::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>Add media (:27) then <h3>What it shows (:109) with no <h2> between; only TagSelect (no headings) sits between - real h1 to h3 skip"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/heading-level-skip::src/routes/sources/+page.svelte:59::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>Sources (:24) then <h3>Add a source to the library (:59), no <h2> between"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so / has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /about has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /account has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /admin has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/admin/roles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /admin/roles has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /admin/settings has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/admin/timelines/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /admin/timelines has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /admin/users has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/admin/vocabulary/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /admin/vocabulary has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/browse/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /browse has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/changes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /changes has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/e/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /e/[slug] has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/e/[slug]/cleanup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /e/[slug]/cleanup has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/e/[slug]/duplicate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /e/[slug]/duplicate has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/e/[slug]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /e/[slug]/edit has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/e/[slug]/facts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /e/[slug]/facts has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/e/[slug]/history/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /e/[slug]/history has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /import has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /login has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/maintenance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /maintenance has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/media/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /media/new has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /new has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /search has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /setup has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/sources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /sources has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/sources/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /sources/[id] has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/tags/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /tags has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/tags/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /tags/[slug] has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/timeline/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /timeline has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/tip/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /tip has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/tips/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /tips has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/tips/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /tips/[id] has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/u/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /u/[id] has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/json-ld::src/routes/workbench/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Decaynet repo, so /workbench has none"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/admin/roles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/roles (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/settings (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/admin/timelines/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/timelines (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/admin/vocabulary/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/vocabulary (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/browse/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /browse (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/changes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /changes (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/e/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /e/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/e/[slug]/cleanup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /e/[slug]/cleanup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/e/[slug]/duplicate/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /e/[slug]/duplicate (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/e/[slug]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /e/[slug]/edit (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/e/[slug]/facts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /e/[slug]/facts (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/e/[slug]/history/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /e/[slug]/history (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /import (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/maintenance/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /maintenance (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/media/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /media/new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /search (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/sources/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sources (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/sources/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sources/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/tags/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tags (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/tags/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tags/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/timeline/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /timeline (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/tip/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tip (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/tips/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tips (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/tips/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tips/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/u/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /u/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-description::src/routes/workbench/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /workbench (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/admin/roles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/roles (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/settings (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/admin/timelines/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/timelines (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/admin/vocabulary/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/vocabulary (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/browse/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /browse (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/changes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /changes (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/e/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /e/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/e/[slug]/cleanup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /e/[slug]/cleanup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/e/[slug]/duplicate/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /e/[slug]/duplicate (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/e/[slug]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /e/[slug]/edit (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/e/[slug]/facts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /e/[slug]/facts (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/e/[slug]/history/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /e/[slug]/history (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/import/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /import (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/maintenance/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /maintenance (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/media/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /media/new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /search (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/sources/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sources (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/sources/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sources/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/tags/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tags (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/tags/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tags/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/timeline/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /timeline (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/tip/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tip (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/tips/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tips (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/tips/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tips/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/u/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /u/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-image::src/routes/workbench/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /workbench (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/admin/roles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/roles (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/settings (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/admin/timelines/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/timelines (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/admin/vocabulary/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/vocabulary (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/browse/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /browse (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/changes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /changes (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/e/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /e/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/e/[slug]/cleanup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /e/[slug]/cleanup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/e/[slug]/duplicate/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /e/[slug]/duplicate (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/e/[slug]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /e/[slug]/edit (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/e/[slug]/facts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /e/[slug]/facts (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/e/[slug]/history/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /e/[slug]/history (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /import (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/maintenance/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /maintenance (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/media/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /media/new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /search (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/sources/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sources (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/sources/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sources/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/tags/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tags (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/tags/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tags/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/timeline/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /timeline (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/tip/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tip (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/tips/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tips (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/tips/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tips/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/u/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /u/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-title::src/routes/workbench/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /workbench (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/admin/roles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/roles (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/settings (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/admin/timelines/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/timelines (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/admin/vocabulary/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/vocabulary (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/browse/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /browse (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/changes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /changes (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/e/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /e/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/e/[slug]/cleanup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /e/[slug]/cleanup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/e/[slug]/duplicate/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /e/[slug]/duplicate (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/e/[slug]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /e/[slug]/edit (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/e/[slug]/facts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /e/[slug]/facts (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/e/[slug]/history/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /e/[slug]/history (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /import (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/maintenance/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /maintenance (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/media/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /media/new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /search (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/sources/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sources (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/sources/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sources/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/tags/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tags (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/tags/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tags/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/timeline/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /timeline (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/tip/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tip (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/tips/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tips (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/tips/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tips/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/u/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /u/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/og-url::src/routes/workbench/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /workbench (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for robots.txt and generators): no robots.txt in static/, no route endpoint or generator; Decaynet is a public regional history wiki (README); / , /browse, /e/[slug], /tags and /sources have no login gate in their loads, with many pages to list"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on /: grep of src/lib/components and +page/+layout finds none; +page.svelte renders the map, YearSlider, TagSelect, EntityPanel; the page name is only the header .brand <span>; layout load redirects only until a first admin exists"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/single-h1::src/routes/workbench/+page.svelte:776::Missing <h#>",
+    "verdict": "tp",
+    "basis": "workbench has only <h3>s (:776...) in a tool panel; no <h1> in the page, its imported components or the root layout (login-gated editor page, the claim holds)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for sitemap.xml and generators): no sitemap.xml in static/, no route endpoint or generator; Decaynet is a public regional history wiki (README); / , /browse, /e/[slug], /tags and /sources have no login gate in their loads, with many pages to list"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/title-length::src/routes/admin/roles/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Roles & permissions · Admin\" in src/routes/admin/roles/+page.svelte, whitespace collapsed, entities decoded, 27 chars as reported; no later title on the route); not a search target: admin/+layout.server.ts:7-8 redirects guests and errors 403 without admin permissions"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/title-length::src/routes/admin/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Site settings · Admin\" in src/routes/admin/settings/+page.svelte, whitespace collapsed, entities decoded, 21 chars as reported; no later title on the route); not a search target: admin/+layout.server.ts:7-8 redirects guests and errors 403 without admin permissions"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/title-length::src/routes/admin/timelines/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Timelines · Admin\" in src/routes/admin/timelines/+page.svelte, whitespace collapsed, entities decoded, 17 chars as reported; no later title on the route); not a search target: admin/+layout.server.ts:7-8 redirects guests and errors 403 without admin permissions"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/title-length::src/routes/admin/users/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Users · Admin\" in src/routes/admin/users/+page.svelte, whitespace collapsed, entities decoded, 13 chars as reported; no later title on the route); not a search target: admin/+layout.server.ts:7-8 redirects guests and errors 403 without admin permissions"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/title-length::src/routes/admin/vocabulary/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (literal <title> \"Vocabulary · Admin\" in src/routes/admin/vocabulary/+page.svelte, whitespace collapsed, entities decoded, 18 chars as reported; no later title on the route); not a search target: admin/+layout.server.ts:7-8 redirects guests and errors 403 without admin permissions"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/admin/roles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/roles (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/settings (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/admin/timelines/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/timelines (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/admin/vocabulary/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/vocabulary (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/browse/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /browse (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/changes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /changes (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/e/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /e/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/e/[slug]/cleanup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /e/[slug]/cleanup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/e/[slug]/duplicate/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /e/[slug]/duplicate (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/e/[slug]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /e/[slug]/edit (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/e/[slug]/facts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /e/[slug]/facts (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/e/[slug]/history/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /e/[slug]/history (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/import/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /import (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/maintenance/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /maintenance (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/media/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /media/new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /new (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /search (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/sources/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sources (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/sources/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sources/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/tags/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tags (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/tags/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tags/[slug] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/timeline/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /timeline (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/tip/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tip (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/tips/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tips (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/tips/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tips/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/u/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /u/[id] (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "CthulhuOnIce/Decaynet::seo/twitter-card::src/routes/workbench/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /workbench (script-verified (repo grep of src): no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:50-53 head is <title>/description, the page head <title> only; app.html icon/preconnect/font; hooks.server.ts handle only sets up Supabase and resolves (no transformPageChunk); no Svelte UI deps; route renders (load gates are conditional)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  }
+]

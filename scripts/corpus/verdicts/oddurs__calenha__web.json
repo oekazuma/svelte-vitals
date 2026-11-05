@@ -1,0 +1,627 @@
+[
+  {
+    "key": "oddurs/calenha:web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 300 physical lines (288 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "oddurs/calenha:web::architecture/component-size::src/routes/design/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/design/+page.svelte has 523 physical lines (500 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "oddurs/calenha:web::architecture/component-size::src/routes/words/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/words/[slug]/+page.svelte has 259 physical lines (246 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "oddurs/calenha:web::architecture/prop-count::src/lib/components/ui/SearchField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/SearchField.svelte has a single destructured $props() with 7 named props (> 6): id, label, placeholder, value, multiline, lang, hideLabel"
+  },
+  {
+    "key": "oddurs/calenha:web::correctness/each-index-key::src/lib/components/language/EntryRow.svelte:21::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/language/EntryRow.svelte:21 '{#each entry.parts as part, i (i)}' keyed by its index; entry.parts of one word from the bundled language data ($lib/language); static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "oddurs/calenha:web::correctness/each-index-key::src/lib/components/language/Interlinear.svelte:20::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/language/Interlinear.svelte:20 '{#each tokens as token, i (i)}' keyed by its index; tokens = read(text), words of one line; text runs/tokens parsed from one string; positional list (ledger convention)"
+  },
+  {
+    "key": "oddurs/calenha:web::correctness/each-index-key::src/lib/components/language/Line.svelte:24::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/language/Line.svelte:24 '{#each tokens as token, i (i)}' keyed by its index; tokens = read(text), words of one line; text runs/tokens parsed from one string; positional list (ledger convention)"
+  },
+  {
+    "key": "oddurs/calenha:web::correctness/each-index-key::src/lib/components/language/Word.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/language/Word.svelte:27 '{#each text.split('·') as piece, i (i)}' keyed by its index; text.split('·') pieces of one word; text runs/tokens parsed from one string; positional list (ledger convention)"
+  },
+  {
+    "key": "oddurs/calenha:web::correctness/each-index-key::src/routes/texts/[slug]/+page.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/texts/[slug]/+page.svelte:50 '{#each stanzas as stanza, s (s)}' keyed by its index; stanzas/lines of one bundled text ($lib/language, prerender entries); static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "oddurs/calenha:web::correctness/each-index-key::src/routes/texts/[slug]/+page.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/texts/[slug]/+page.svelte:53 '{#each stanza as line, i (i)}' keyed by its index; stanzas/lines of one bundled text ($lib/language, prerender entries); static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "oddurs/calenha:web::correctness/each-index-key::src/routes/words/[slug]/+page.svelte:33::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/words/[slug]/+page.svelte:33 '{#each e.parts as part, i (i)}' keyed by its index; e.parts of one word from the bundled language data; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "oddurs/calenha:web::correctness/each-index-key::src/routes/words/[slug]/+page.svelte:83::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/words/[slug]/+page.svelte:83 '{#each e.syllables as s, i (i)}' keyed by its index; e.syllables of one word from the bundled language data; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "oddurs/calenha:web::correctness/instance-browser-global::src/routes/words/[slug]/+page.svelte:21::history is accessed during component initialisation — during SSR this runs on the server, where history is not defined",
+    "verdict": "fp",
+    "basis": "read: src/routes/words/[slug]/+page.svelte:21 `history` at :21 (body: history) is the page's own snippet, {#snippet history()} at :49, not window.history; the docs say own bindings are never flagged, and a top-level template snippet is not read as a binding here"
+  },
+  {
+    "key": "oddurs/calenha:web::performance/state-raw::src/routes/design/+page.svelte:20::\"values\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"values\" in src/routes/design/+page.svelte and read each {#each} body over it: declared at :20, only whole-binding reassignments (:29) and read-only uses (member/index reads, .length, read-only each bodies); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "oddurs/calenha:web::security/raw-html::src/lib/components/ui/Prose.svelte:13::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Prose.svelte + DocPage.svelte:22: html comes from the Markdown docs this repository exports into the generated, gitignored language data (web/package.json:11, uv run calenha export) — repo content, reported per docs"
+  },
+  {
+    "key": "oddurs/calenha:web::security/raw-html::src/routes/history/+page.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read history/+page.svelte:9,39: c.note from language.entries; repo-authored data: lib/language/index.ts:5 imports $lib/data/language.json, a gitignored file generated at build by `npm run data` (web/package.json:11, uv run calenha export) from the repo-root lang/ sources, no runtime input — repo content, reported per docs"
+  },
+  {
+    "key": "oddurs/calenha:web::security/raw-html::src/routes/texts/[slug]/+page.svelte:73::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read texts/[slug]/+page.ts:8-12 + :73: t.note from language.texts; repo-authored data: lib/language/index.ts:5 imports $lib/data/language.json, a gitignored file generated at build by `npm run data` (web/package.json:11, uv run calenha export) from the repo-root lang/ sources, no runtime input — repo content, reported per docs"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/design/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /design (script-verified: comments stripped, not in page, layouts, 29 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/grammar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /grammar (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/history/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /history (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/phrases/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /phrases (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/principles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /principles (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/reader/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reader (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/roots/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /roots (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/sounds/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sounds (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/texts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /texts (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/texts/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /texts/[slug] (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/unspoken/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /unspoken (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/words/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /words (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/words/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /words/[slug] (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/canonical-url::src/routes/world/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /world (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so / has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/design/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /design has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/grammar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /grammar has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/history/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /history has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/phrases/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /phrases has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/principles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /principles has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/reader/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /reader has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/roots/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /roots has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/sounds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /sounds has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/texts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /texts has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/texts/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /texts/[slug] has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/unspoken/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /unspoken has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/words/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /words has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/words/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /words/[slug] has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/json-ld::src/routes/world/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the calenha repo, so /world has none"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/design/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /design (script-verified: comments stripped, not in page, layouts, 29 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/grammar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /grammar (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/history/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /history (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/phrases/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /phrases (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/principles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /principles (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/reader/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reader (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/roots/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roots (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/sounds/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sounds (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/texts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /texts (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/texts/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /texts/[slug] (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/unspoken/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /unspoken (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/words/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /words (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/words/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /words/[slug] (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-description::src/routes/world/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /world (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/design/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /design (script-verified: comments stripped, not in page, layouts, 29 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/grammar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /grammar (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/history/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /history (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/phrases/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /phrases (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/principles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /principles (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/reader/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reader (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/roots/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roots (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/sounds/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sounds (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/texts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /texts (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/texts/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /texts/[slug] (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/unspoken/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /unspoken (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/words/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /words (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/words/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /words/[slug] (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-image::src/routes/world/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /world (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/design/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /design (script-verified: comments stripped, not in page, layouts, 29 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/grammar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /grammar (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/history/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /history (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/phrases/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /phrases (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/principles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /principles (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/reader/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reader (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/roots/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roots (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/sounds/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sounds (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/texts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /texts (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/texts/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /texts/[slug] (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/unspoken/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /unspoken (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/words/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /words (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/words/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /words/[slug] (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-title::src/routes/world/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /world (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/design/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /design (script-verified: comments stripped, not in page, layouts, 29 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/grammar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /grammar (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/history/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /history (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/phrases/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /phrases (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/principles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /principles (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/reader/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reader (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/roots/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roots (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/sounds/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sounds (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/texts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /texts (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/texts/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /texts/[slug] (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/unspoken/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /unspoken (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/words/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /words (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/words/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /words/[slug] (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/og-url::src/routes/world/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /world (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for robots.txt and generators): no robots.txt in static/, no route endpoint or generator; public prerendered conlang reference site with many word/text pages, deployed to GitHub Pages (.github/workflows/pages.yml, BASE_PATH; GitHub Pages project-path precedent: tp)"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/single-h1::src/routes/+page.svelte:95::Missing <h#>",
+    "verdict": "tp",
+    "basis": "home has Section <h2>s and <h3>s (:95); Horizon, SiteHeader, Section and Line render no <h1>/svelte:element/{@html}; the only <h1>s are PageHeader and words/texts pages, not used here"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for sitemap.xml and generators): no sitemap.xml in static/, no route endpoint or generator; public prerendered conlang reference site with many word/text pages, deployed to GitHub Pages (.github/workflows/pages.yml, BASE_PATH; GitHub Pages project-path precedent: tp)"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/design/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /design (script-verified: comments stripped, not in page, layouts, 29 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/grammar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /grammar (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/history/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /history (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/phrases/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /phrases (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/principles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /principles (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/reader/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reader (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/roots/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roots (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/sounds/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sounds (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/texts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /texts (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/texts/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /texts/[slug] (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/unspoken/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /unspoken (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/words/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /words (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/words/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /words/[slug] (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  },
+  {
+    "key": "oddurs/calenha:web::seo/twitter-card::src/routes/world/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /world (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): no emitter anywhere in web/src: root +layout.svelte has no head and layout/Meta.svelte:14-17 emits only <title> and description; prerendered public site (+layout.ts:2), no noindex, no robots.txt, prebuild only exports data"
+  }
+]
