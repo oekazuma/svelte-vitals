@@ -740,12 +740,20 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
 
     expect(await skips(`<h1>T</h1>${dialog(title, '<h3>Part</h3>')}`)).toBe(0);
     expect(await skips(`<h1>T</h1>${dialog(title, '<h4>Part</h4>')}`)).toBe(1);
+    expect(await skips(`<h1>T</h1>${dialog('<Dialog.Title level={3}>Edit</Dialog.Title>', '<h4>Part</h4>')}`)).toBe(0);
+    expect(await skips(`<h1>T</h1>${dialog('<Dialog.Title level={3}>Edit</Dialog.Title>', '<h5>Part</h5>')}`)).toBe(1);
     expect(await skips(`<h1>T</h1>${dialog('<Dialog.Title level="3">Edit</Dialog.Title>', '<h4>Part</h4>')}`)).toBe(0);
+    expect(await skips(`<h1>T</h1>${dialog('<Dialog.Title {level}>Edit</Dialog.Title>', '<h5>Part</h5>')}`)).toBe(0);
 
     expect(await skips(`<h1>T</h1>${dialog(title)}<h3>Part</h3>`)).toBe(1);
     expect(await skips(`<h1>T</h1><h2>A</h2><h3>B</h3>${dialog(title)}<h4>Part</h4>`)).toBe(0);
 
     expect(await skips(`<h1>T</h1>${dialog(title, '<h3>Part</h3>')}`, '$lib/dialog')).toBe(1);
+    expect(
+      await skips(
+        `{#snippet x(Dialog)}<h1>T</h1><Dialog.Title>Edit</Dialog.Title><h3>Part</h3>{/snippet}{@render x(d)}`
+      )
+    ).toBe(1);
   });
 
   it("reads bits-ui's dialog title through a component that wraps it", async () => {

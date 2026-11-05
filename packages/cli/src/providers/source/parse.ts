@@ -1624,10 +1624,12 @@ function childrenUrlConds(ast: AST.Root, source: string) {
 }
 
 /** `<Dialog.Title>` of bits-ui, by its local names: a `role="heading"` element of its `level` (2 without one). */
-function dialogTitles(imports: ImportMap): Set<string> {
+function dialogTitles(imports: ImportMap, bound: ReadonlySet<string>): Set<string> {
   const titles = new Set<string>();
   for (const [local, { source, imported }] of imports) {
-    if (source === 'bits-ui' && (imported === 'Dialog' || imported === 'AlertDialog')) titles.add(`${local}.Title`);
+    if (source === 'bits-ui' && (imported === 'Dialog' || imported === 'AlertDialog') && !bound.has(local)) {
+      titles.add(`${local}.Title`);
+    }
   }
   return titles;
 }
@@ -1847,7 +1849,9 @@ function collectHeadings(
     if (node.type === 'Component' || node.type === 'SvelteComponent') {
       if (node.type === 'Component' && titles.has(node.name)) {
         const attrs = node.attributes.filter((a): a is AST.Attribute => a.type === 'Attribute');
-        const level = Number(attrs.some((a) => a.name === 'level') ? attrText(attrs, 'level') : 2);
+        const set = attrs.find((a) => a.name === 'level')?.value;
+        const expr = set && !Array.isArray(set) && set !== true ? set.expression : undefined;
+        const level = Number(expr?.type === 'Literal' ? expr.value : set ? attrText(attrs, 'level') : 2);
         push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at, when, true, true);
       }
       meet(componentPaths, node, path);
@@ -2696,7 +2700,7 @@ export function parseFile(raw: string, filename: string): ParsedFile {
     urls.sites,
     flags,
     urls.blocks,
-    dialogTitles(imports)
+    dialogTitles(imports, bound)
   );
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc, mounts);
