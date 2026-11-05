@@ -623,15 +623,18 @@ export async function resolveFileTags(
   return {
     tags,
     broad,
-    ownHeadings: parsed.headings.map((h) => placeHeading({ ...h, file: fileRel })),
+    ownHeadings: parsed.headings.filter((h) => !h.overlay).map((h) => placeHeading({ ...h, file: fileRel })),
     renderPaths: new Map([...parsed.renderPaths].map(([name, path]) => [name, place(path)])),
     ...(parsed.childrenSites
       ? { childrenSites: parsed.childrenSites.map((s) => ({ ...s, path: place(s.path) })) }
       : {}),
     renderOffsets: parsed.renderOffsets,
-    headings: nested.flatMap(({ headings, at, base, offset }) =>
-      headings.map((h) => ({ ...nestHeading(h, place(at), base), order: [offset, ...(h.order ?? [])] }))
-    ),
+    headings: [
+      ...parsed.headings.filter((h) => h.overlay).map((h) => placeHeading({ ...h, file: fileRel })),
+      ...nested.flatMap(({ headings, at, base, offset }) =>
+        headings.map((h) => ({ ...nestHeading(h, place(at), base), order: [offset, ...(h.order ?? [])] }))
+      )
+    ],
     groupSpan,
     dynamicHeading,
     clientOnlyHeading

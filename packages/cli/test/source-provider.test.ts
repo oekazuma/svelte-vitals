@@ -722,6 +722,51 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(await skips('label.get()')).toBe(true);
   });
 
+  it("reads bits-ui's dialog title as an ARIA heading that renders only with the dialog", async () => {
+    const skips = async (body: string, source = 'bits-ui') => {
+      const page = `<script>import { Dialog } from '${source}';</script>${body}`;
+      const { headings } = await collectRoutes(createMemoryRuntime({ 'src/routes/+page.svelte': page }), '');
+      const rs = await seoHeadingLevelSkip.check({
+        heads: [],
+        headings,
+        project: defaultProject,
+        config: defaultConfig
+      });
+      return rs.filter((r) => r.message !== 'Heading order').length;
+    };
+    const dialog = (title: string, inside = '') =>
+      `<Dialog.Root><Dialog.Content>${title}${inside}</Dialog.Content></Dialog.Root>`;
+    const title = '<Dialog.Title>Edit</Dialog.Title>';
+
+    expect(await skips(`<h1>T</h1>${dialog(title, '<h3>Part</h3>')}`)).toBe(0);
+    expect(await skips(`<h1>T</h1>${dialog(title, '<h4>Part</h4>')}`)).toBe(1);
+    expect(await skips(`<h1>T</h1>${dialog('<Dialog.Title level="3">Edit</Dialog.Title>', '<h4>Part</h4>')}`)).toBe(0);
+
+    expect(await skips(`<h1>T</h1>${dialog(title)}<h3>Part</h3>`)).toBe(1);
+    expect(await skips(`<h1>T</h1><h2>A</h2><h3>B</h3>${dialog(title)}<h4>Part</h4>`)).toBe(0);
+
+    expect(await skips(`<h1>T</h1>${dialog(title, '<h3>Part</h3>')}`, '$lib/dialog')).toBe(1);
+  });
+
+  it("reads bits-ui's dialog title through a component that wraps it", async () => {
+    const skips = async (body: string) => {
+      const files = {
+        'src/lib/DialogTitle.svelte': `<script>import { Dialog as Primitive } from 'bits-ui'; let { children } = $props();</script><Primitive.Title>{@render children?.()}</Primitive.Title>`,
+        'src/routes/+page.svelte': `<script>import DialogTitle from '$lib/DialogTitle.svelte'; let open = $state(false);</script><h1>T</h1>${body}`
+      };
+      const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+      const rs = await seoHeadingLevelSkip.check({
+        heads: [],
+        headings,
+        project: defaultProject,
+        config: defaultConfig
+      });
+      return rs.filter((r) => r.message !== 'Heading order').length;
+    };
+    expect(await skips('{#if open}<DialogTitle>Edit</DialogTitle><h3>Part</h3>{/if}')).toBe(0);
+    expect(await skips('{#if open}<DialogTitle>Edit</DialogTitle>{/if}<h3>Part</h3>')).toBe(1);
+  });
+
   it('places a heading of a snippet rendered from inside another snippet at that inner render', async () => {
     const page = `<h1>Workflow</h1><h2>Queue</h2>{#snippet inner()}<h4>Assigned</h4>{/snippet}{#snippet card()}<h3>Assign</h3>{@render inner()}{/snippet}{@render card()}`;
     const { headings } = await collectRoutes(createMemoryRuntime({ 'src/routes/+page.svelte': page }), '');
