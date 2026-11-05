@@ -1,0 +1,137 @@
+[
+  {
+    "key": "adityaoberai/Portfolio::a11y/disallowed-aria-props::src/routes/photography/+page.svelte:27::`aria-label` is prohibited on <p> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/photography/+page.svelte:27: <p aria-label=\"Camera and places\"> has no role; paragraph takes no name"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/component-size::src/lib/components/PhotoGallery.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PhotoGallery.svelte has 270 physical lines (268 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/component-size::src/lib/components/index/IndexView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/index/IndexView.svelte has 262 physical lines (256 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/component-size::src/lib/components/world/MusicDock.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/world/MusicDock.svelte has 239 physical lines (237 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/component-size::src/lib/components/world/RecordPlayer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/world/RecordPlayer.svelte has 249 physical lines (242 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/component-size::src/lib/components/world/RoomMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/world/RoomMenu.svelte has 257 physical lines (255 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/component-size::src/lib/components/world/StationPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/world/StationPanel.svelte has 620 physical lines (613 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/component-size::src/lib/components/world/WorldView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/world/WorldView.svelte has 1441 physical lines (1435 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/component-size::src/routes/speaking/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/speaking/+page.svelte has 233 physical lines (224 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/prop-count::src/lib/components/Row.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Row.svelte has a single destructured $props() with 7 named props (> 6): meta, title, subtitle, description, href, external, tracking"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/prop-count::src/lib/components/world/MusicDock.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/world/MusicDock.svelte has a single destructured $props() with 12 named props (> 6): element, button, soundcloud, on, expanded, compact, playing, reducedMotion, disabled, ontoggle, onstop, onplayback"
+  },
+  {
+    "key": "adityaoberai/Portfolio::architecture/prop-count::src/lib/components/world/RoomMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/world/RoomMenu.svelte has a single destructured $props() with 12 named props (> 6): element, lowQuality, reducedMotion, near, ready, musicOn, onvisit, oncuriosity, onpoem, onmusic, onsetting, ontoggle"
+  },
+  {
+    "key": "adityaoberai/Portfolio::correctness/each-index-key::src/lib/components/world/StationPanel.svelte:45::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/world/StationPanel.svelte:45 '{#each blocks as block, b (b)}' keyed by its index; blocks = panels[id].blocks from the bundled $lib/data/room data; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "adityaoberai/Portfolio::correctness/each-index-key::src/lib/components/world/WorldView.svelte:908::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/world/WorldView.svelte:908 '{#each poem.stanzas as stanza, s (s)}' keyed by its index; poem stanzas/lines from the bundled curiosities in $lib/data/room; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "adityaoberai/Portfolio::correctness/each-index-key::src/lib/components/world/WorldView.svelte:909::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/world/WorldView.svelte:909 '{#each stanza as line, i (i)}' keyed by its index; poem stanzas/lines from the bundled curiosities in $lib/data/room; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "adityaoberai/Portfolio::performance/lcp-image::src/routes/collection/+page.svelte:61::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "fp",
+    "basis": "not the route's first image: <Slab image={cardImage(favourite)}> (:31-36, favourite Blastoise exists in collection.ts:31) renders <img class=photo> with no loading attribute, so eager (world/Slab.svelte:34-41), in the feature block before the flagged lazy card in the \"A few favourites\" list (:57-61)"
+  },
+  {
+    "key": "adityaoberai/Portfolio::performance/responsive-image::src/routes/collection/+page.svelte:61::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: /cards/<id>.webp (collection.ts:70), one 400x559 raster per card - one fixed-size asset"
+  },
+  {
+    "key": "adityaoberai/Portfolio::security/raw-html::src/lib/components/PageMeta.svelte:62::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read PageMeta.svelte:17-29,62: jsonLd is JSON.stringify(person).replace(/</g,'\\\\u003c') over repo site constants — script-safe literal JSON-LD, reported per docs"
+  },
+  {
+    "key": "adityaoberai/Portfolio::seo/canonical-url::src/routes/404/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /404 (read: 404/+page.svelte:5-8 head is <title> and robots noindex only and renders NotFound.svelte (no head); lib/components/PageMeta.svelte, the only emitter, is imported by 13 other pages but not this one; root +layout.svelte, V3Header/V3Footer and app.html emit none; no hooks.server; deps appwrite/three ship no Svelte components; route renders (prerendered, no load)); not a search target: literal noindex robots meta at 404/+page.svelte:7, so absence is not demonstrably a defect"
+  },
+  {
+    "key": "adityaoberai/Portfolio::seo/description-presence::src/routes/404/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /404 (literal claim holds); not a search target: not-found page with literal noindex at src/routes/404/+page.svelte:7"
+  },
+  {
+    "key": "adityaoberai/Portfolio::seo/indexability::src/routes/404/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/404/+page.svelte:7 unconditional literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed"
+  },
+  {
+    "key": "adityaoberai/Portfolio::seo/json-ld::src/routes/404/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: /404 page head (src/routes/404/+page.svelte:5-8) has title and robots only, it does not render PageMeta (the only JSON-LD emitter, PageMeta.svelte, and only for /, /index, /about); no JSON-LD on this route"
+  },
+  {
+    "key": "adityaoberai/Portfolio::seo/og-description::src/routes/404/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /404 (read: 404/+page.svelte:5-8 head is <title> and robots noindex only and renders NotFound.svelte (no head); lib/components/PageMeta.svelte, the only emitter, is imported by 13 other pages but not this one; root +layout.svelte, V3Header/V3Footer and app.html emit none; no hooks.server; deps appwrite/three ship no Svelte components; route renders (prerendered, no load)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "adityaoberai/Portfolio::seo/og-image::src/routes/404/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /404 (read: 404/+page.svelte:5-8 head is <title> and robots noindex only and renders NotFound.svelte (no head); lib/components/PageMeta.svelte, the only emitter, is imported by 13 other pages but not this one; root +layout.svelte, V3Header/V3Footer and app.html emit none; no hooks.server; deps appwrite/three ship no Svelte components; route renders (prerendered, no load)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "adityaoberai/Portfolio::seo/og-title::src/routes/404/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /404 (read: 404/+page.svelte:5-8 head is <title> and robots noindex only and renders NotFound.svelte (no head); lib/components/PageMeta.svelte, the only emitter, is imported by 13 other pages but not this one; root +layout.svelte, V3Header/V3Footer and app.html emit none; no hooks.server; deps appwrite/three ship no Svelte components; route renders (prerendered, no load)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "adityaoberai/Portfolio::seo/og-url::src/routes/404/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /404 (read: 404/+page.svelte:5-8 head is <title> and robots noindex only and renders NotFound.svelte (no head); lib/components/PageMeta.svelte, the only emitter, is imported by 13 other pages but not this one; root +layout.svelte, V3Header/V3Footer and app.html emit none; no hooks.server; deps appwrite/three ship no Svelte components; route renders (prerendered, no load)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "adityaoberai/Portfolio::seo/twitter-card::src/routes/404/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /404 (read: 404/+page.svelte:5-8 head is <title> and robots noindex only and renders NotFound.svelte (no head); lib/components/PageMeta.svelte, the only emitter, is imported by 13 other pages but not this one; root +layout.svelte, V3Header/V3Footer and app.html emit none; no hooks.server; deps appwrite/three ship no Svelte components; route renders (prerendered, no load)); the tag is missing as claimed (the og/twitter rules have no search-target exemption)"
+  }
+]

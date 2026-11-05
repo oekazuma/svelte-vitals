@@ -1,0 +1,882 @@
+[
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/disallowed-aria-props::src/lib/components/home/HomeUnsigned.svelte:97::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/home/HomeUnsigned.svelte:97: <div aria-label={$t(home.cliTitle)}> has no role, spread or use:; generic takes no name"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/disallowed-aria-props::src/lib/components/profile/ActivityHeatmap.svelte:13::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/profile/ActivityHeatmap.svelte:13: each-rendered <span title aria-label=date: count> heatmap cell has no role, spread or use:; generic takes no name"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/disallowed-aria-props::src/lib/components/thread/ThreadCard.svelte:103::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/thread/ThreadCard.svelte:103: <span title aria-label=visibility> inside the card <a> has no role; generic takes no name, and docs drop axe's widget-ancestor exemption"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/disallowed-aria-props::src/lib/components/thread/ThreadCard.svelte:93::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/thread/ThreadCard.svelte:93: <span title aria-label=archived> inside the card <a> has no role; generic takes no name, and docs drop axe's widget-ancestor exemption"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/disallowed-aria-props::src/routes/web/settings/SettingsNav.svelte:67::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/web/settings/SettingsNav.svelte:67: <div aria-label={$t(settings.helpCenter)}> has no role, spread or use:; generic takes no name"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/duplicate-landmark::src/routes/web/admin/+page.svelte:150::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "page <main> (:150, not under {#if}) renders inside root +layout.svelte:24 <main>; two main landmarks"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/duplicate-landmark::src/routes/web/settings/+page.svelte:141::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "page <main> (:141, not under {#if}) renders inside root +layout.svelte:24 <main>; two main landmarks"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/top-level-landmark::src/routes/[[lang=lang]]/manual/+page.svelte:358::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/[[lang=lang]]/manual/+page.svelte:358: unlabelled <aside class=toc> in a div inside root +layout.svelte:24 <main> (the [[lang=lang]] layout has no component); complementary inside main"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/top-level-landmark::src/routes/web/admin/+page.svelte:127::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "<aside aria-label={admin.title}> under {#if allowed} in a div inside root +layout.svelte:24 <main>; complementary inside main"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/top-level-landmark::src/routes/web/admin/+page.svelte:150::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "page <main> (:150) in a div inside root +layout.svelte:24 <main>; main nested in main"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::a11y/top-level-landmark::src/routes/web/settings/+page.svelte:141::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "page <main> (:141) in a div inside root +layout.svelte:24 <main>; main nested in main"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/lib/components/home/HomeSigned.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/HomeSigned.svelte has 321 physical lines (283 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/lib/components/home/HomeUnsigned.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/HomeUnsigned.svelte has 402 physical lines (357 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/lib/components/layout/TopBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/TopBar.svelte has 428 physical lines (378 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/lib/components/thread/MarkdownView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/MarkdownView.svelte has 418 physical lines (356 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/lib/components/thread/ThreadCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/ThreadCard.svelte has 397 physical lines (354 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/lib/components/thread/ThreadSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/ThreadSidebar.svelte has 1669 physical lines (1507 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/lib/components/thread/ThreadView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/ThreadView.svelte has 855 physical lines (762 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/lib/components/thread/WorkGroup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/thread/WorkGroup.svelte has 651 physical lines (574 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/routes/@[username]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/@[username]/+page.svelte has 548 physical lines (489 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/routes/[[lang=lang]]/manual/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[lang=lang]]/manual/+page.svelte has 577 physical lines (543 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/routes/[[lang=lang]]/pricing/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[lang=lang]]/pricing/+page.svelte has 323 physical lines (289 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/routes/privacy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/privacy/+page.svelte has 243 physical lines (217 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/routes/terms/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/terms/+page.svelte has 210 physical lines (185 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/routes/threads/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/threads/+page.svelte has 595 physical lines (533 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/routes/web/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/web/admin/+page.svelte has 283 physical lines (268 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/routes/web/auth/signin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/web/auth/signin/+page.svelte has 329 physical lines (313 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/component-size::src/routes/web/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/web/settings/+page.svelte has 863 physical lines (848 non-blank; split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 8 named props (> 6): variant, size, type, href, reload, disabled, onclick, children"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::architecture/prop-count::src/lib/components/ui/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Input.svelte has a single destructured $props() with 9 named props (> 6): id, value, placeholder, type, disabled, min, max, step, oninput"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::correctness/each-index-key::src/lib/components/thread/ThreadView.svelte:310::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/thread/ThreadView.svelte:310 '{#each turn.units as unit, ui (ui)}' keyed by its index; turn.units, the content blocks of one chat turn; positional list (ledger content-blocks convention)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::correctness/each-index-key::src/lib/components/thread/WorkGroup.svelte:211::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/thread/WorkGroup.svelte:211 '{#each units as unit, index (index)}' keyed by its index; units of one work group, append-only and toggled by index (toggleItem(index)); positional list of one turn"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::correctness/each-index-key::src/lib/components/thread/WorkGroup.svelte:247::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/thread/WorkGroup.svelte:247 '{#each edit.rows as row, rowIndex (rowIndex)}' keyed by its index; edit.rows, the diff rows of one edit; positional list (ledger diff-lines convention)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::correctness/each-key::src/lib/components/home/HomeUnsigned.svelte:98::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/HomeUnsigned.svelte:98 '{#each selectedInstall.commands as command}' has no key; selectedInstall.commands of the same-file const installOptions literal; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::correctness/each-key::src/routes/[[lang=lang]]/manual/+page.svelte:380::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[[lang=lang]]/manual/+page.svelte:380 '{#each section.body as block}' has no key; section.body / block.items of the same-file copy literal; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::correctness/each-key::src/routes/[[lang=lang]]/manual/+page.svelte:389::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[[lang=lang]]/manual/+page.svelte:389 '{#each block.items as item}' has no key; section.body / block.items of the same-file copy literal; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::correctness/each-key::src/routes/[[lang=lang]]/pricing/+page.svelte:148::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[[lang=lang]]/pricing/+page.svelte:148 '{#each plan.features as feature}' has no key; plan.features of the same-file copy literal; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::correctness/each-key::src/routes/web/settings/SettingsNav.svelte:48::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/web/settings/SettingsNav.svelte:48 '{#each navItems as item}' has no key; navItems prop, a fixed $derived literal in settings/+page.svelte:66; static list fixed at author time, not an exempt shape but never reorders (ledger convention)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-dimensions::src/routes/@[username]/+page.svelte:123::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: .brand-mark img display:block; height:26px; width:auto (:241-246), opacity .42 mark alone in its row, not a wrapping row - fixed height, the width moves nothing"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-dimensions::src/routes/@[username]/+page.svelte:138::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: .avatar 88px x 88px (:294-297)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-dimensions::src/routes/@[username]/+page.svelte:153::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: .avatar 88px x 88px (:294-297)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-dimensions::src/routes/web/auth/email/+page.svelte:46::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> lacks width and/or height, no spread; read: .brand img width:92px; height:auto (:90) - height from the natural aspect, the <h1> and card below shift"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-dimensions::src/routes/web/auth/signin/+page.svelte:159::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> has width=\"100\" but no height; .brand img width:92px; height:auto (:273) - height from the natural aspect, the <h1> below shifts"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-dimensions::src/routes/web/settings/+page.svelte:165::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: .profile-avatar 56px x 56px (:477-481)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-dimensions::src/routes/web/settings/+page.svelte:180::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; read: box reserved by CSS: .profile-avatar 56px x 56px (:477-481)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-loading-hint::src/routes/@[username]/+page.svelte:123::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: brand mark at the top of the profile card - above the fold"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-loading-hint::src/routes/@[username]/+page.svelte:138::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: avatar in the identity block at the top of the profile card - above the fold"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-loading-hint::src/routes/@[username]/+page.svelte:153::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: avatar in the identity block at the top of the profile card - above the fold"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-loading-hint::src/routes/web/auth/email/+page.svelte:46::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: logo at the top of the auth card column - above the fold"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-loading-hint::src/routes/web/auth/signin/+page.svelte:159::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: logo at the top of the auth card column - above the fold"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-loading-hint::src/routes/web/settings/+page.svelte:165::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: avatar in the identity row at the top of the settings account card - above the fold"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/image-loading-hint::src/routes/web/settings/+page.svelte:180::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute, no spread; read: avatar in the identity row at the top of the settings account card - above the fold"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/responsive-image::src/routes/@[username]/+page.svelte:123::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: /brand/logo-240.png shown 26px tall - raster, one fixed-size asset"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/responsive-image::src/routes/@[username]/+page.svelte:138::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: profile.user.avatar_url (:52), an uploaded avatar - raster, one fixed-size asset"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/responsive-image::src/routes/@[username]/+page.svelte:153::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: profile.user.avatar_url (:52), an uploaded avatar - raster, one fixed-size asset"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/responsive-image::src/routes/web/auth/email/+page.svelte:46::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: /brand/logo-240.png - raster, one fixed-size asset"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/responsive-image::src/routes/web/auth/signin/+page.svelte:159::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: /brand/logo-240.png - raster, one fixed-size asset"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/responsive-image::src/routes/web/settings/+page.svelte:165::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: $session.user.avatar_url, an uploaded avatar (png/jpeg/gif/webp) - raster, one fixed-size asset"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/responsive-image::src/routes/web/settings/+page.svelte:180::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset, no spread; read: $session.user.avatar_url, an uploaded avatar (png/jpeg/gif/webp) - raster, one fixed-size asset"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::performance/state-raw::src/routes/web/auth/signin/+page.svelte:25::\"config\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"config\" in src/routes/web/auth/signin/+page.svelte and read each {#each} body over it: declared at :25, only whole-binding reassignments (:41) and read-only uses (member/index reads, .length, read-only each bodies); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::security/handler-state-write::src/routes/[[lang=lang]]/+layout.ts:24::a server-executed handler writes imported module state \"locale\" — module state is shared across all requests on the server; if this holds per-request or per-user data, one user's data can leak to another. Caches and rate limiters keyed by non-personal data are the benign shape — verify which this is",
+    "verdict": "design",
+    "basis": "read [[lang=lang]]/+layout.ts:7-8,13-25 + svelte.config.js adapter-static: the flagged locale.set(lang) on a module writable is the prerender branch (browser writes are behind if (browser)); this group exports prerender = true on an adapter-static build with no runtime SvelteKit server, so it runs only at build time with a URL-derived language — no long-lived process or per-user data, reported per docs, not a demonstrable leak"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::security/raw-html::src/lib/components/thread/MarkdownView.svelte:80::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read MarkdownView.svelte:11,80 + thread/markdown.ts:235-250: html = renderMarkdown(source), markdown-it output through DOMPurify.sanitize with a URI allowlist and forbidden script/style/iframe/form — sanitized, reported per docs"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/@[username]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /@[username] (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; public route, Allow or unmatched in static/robots.txt, no noindex, no auth gate"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/[[lang=lang]]/manual/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/manual (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; public route, Allow or unmatched in static/robots.txt, no noindex, no auth gate (prerendered with ssr=true)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/[[lang=lang]]/pricing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/pricing (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; public route, Allow or unmatched in static/robots.txt, no noindex, no auth gate (prerendered with ssr=true)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; public route, Allow or unmatched in static/robots.txt, no noindex, no auth gate (prerendered with ssr=true)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /terms (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; public route, Allow or unmatched in static/robots.txt, no noindex, no auth gate (prerendered with ssr=true)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/threads/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /threads (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (the page has no redirect, yet its list API needs a session, backend/api/route/route.go:503 SessionAuth, and lib/api/client.ts:85 only resets session state on 401, so guests get only the error state at threads/+page.svelte:348-350; route is outside sitemap.xml, though robots Disallow: /threads/ does not literally match /threads), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/threads/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /threads/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (static/robots.txt Disallow: /web/ and /threads/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/web/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /web/admin (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (static/robots.txt Disallow: /web/ and /threads/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/web/auth/email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /web/auth/email (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (static/robots.txt Disallow: /web/ and /threads/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/web/auth/password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /web/auth/password (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (static/robots.txt Disallow: /web/ and /threads/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/web/auth/signin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /web/auth/signin (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (static/robots.txt Disallow: /web/ and /threads/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/web/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /web/dashboard (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (static/robots.txt Disallow: /web/ and /threads/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/web/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /web/profile (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (static/robots.txt Disallow: /web/ and /threads/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/web/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /web/settings (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (static/robots.txt Disallow: /web/ and /threads/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/canonical-url::src/routes/web/share/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /web/share/[slug] (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; but not a search target (static/robots.txt Disallow: /web/ and /threads/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/@[username]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /@[username] (literal claim holds); not a search target by the app own plan: shareable profile, but an ssr=false client page with no svelte:head that static/sitemap.xml (marketing/legal URLs only) and the robots.txt Allow list omit; the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/threads/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /threads (literal claim holds); not a search target: client-rendered thread list of the SPA, absent from static/sitemap.xml and the robots.txt Allow list; the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/threads/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /threads/[id] (literal claim holds); not a search target: client-rendered thread view of the SPA, static/robots.txt disallows /threads/; the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/web/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /web/admin (literal claim holds); not a search target: static/robots.txt disallows /web/ (/web/admin is SPA app surface); the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/web/auth/email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /web/auth/email (literal claim holds); not a search target: static/robots.txt disallows /web/ (/web/auth/email is SPA app surface); the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/web/auth/password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /web/auth/password (literal claim holds); not a search target: static/robots.txt disallows /web/ (/web/auth/password is SPA app surface); the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/web/auth/signin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /web/auth/signin (literal claim holds); not a search target: static/robots.txt disallows /web/ (/web/auth/signin is SPA app surface); the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/web/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /web/dashboard (literal claim holds); not a search target: static/robots.txt disallows /web/ (/web/dashboard is SPA app surface); the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/web/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /web/profile (literal claim holds); not a search target: static/robots.txt disallows /web/ (/web/profile is SPA app surface); the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/web/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /web/settings (literal claim holds); not a search target: static/robots.txt disallows /web/ (/web/settings is SPA app surface); the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/description-presence::src/routes/web/share/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (page+layout+import closure and app.html, no meta-tag package in deps): no <meta name=description> on /web/share/[slug] (literal claim holds); not a search target: static/robots.txt disallows /web/ (/web/share/[slug] is SPA app surface); the Go server injects no head tags (grep of *.go)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/@[username]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /@[username] has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/[[lang=lang]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /[[lang=lang]] has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/[[lang=lang]]/manual/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /[[lang=lang]]/manual has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/[[lang=lang]]/pricing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /[[lang=lang]]/pricing has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /privacy has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /terms has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/threads/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /threads has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/threads/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /threads/[id] has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/web/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /web/admin has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/web/auth/email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /web/auth/email has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/web/auth/password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /web/auth/password has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/web/auth/signin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /web/auth/signin has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/web/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /web/dashboard has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/web/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /web/profile has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/web/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /web/settings has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/json-ld::src/routes/web/share/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide search for ld+json/schema.org outside node_modules, plus page+layout+import closure; no JSON-LD package in deps): no JSON-LD anywhere in the Jieli repo, Go server included, so /web/share/[slug] has none"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/@[username]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /@[username] (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/[[lang=lang]]/manual/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/manual (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/[[lang=lang]]/pricing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/pricing (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /privacy (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/terms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /terms (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/threads/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /threads (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/threads/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /threads/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/web/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /web/admin (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/web/auth/email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /web/auth/email (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/web/auth/password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /web/auth/password (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/web/auth/signin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /web/auth/signin (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/web/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /web/dashboard (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/web/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /web/profile (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/web/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /web/settings (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-description::src/routes/web/share/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /web/share/[slug] (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/@[username]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /@[username] (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/[[lang=lang]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]] (script-verified: comments stripped, not in page, layouts, 21 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer; home page sets og:title/description/url but no og:image"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/[[lang=lang]]/manual/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/manual (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/[[lang=lang]]/pricing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/pricing (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /privacy (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /terms (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/threads/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /threads (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/threads/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /threads/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/web/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /web/admin (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/web/auth/email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /web/auth/email (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/web/auth/password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /web/auth/password (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/web/auth/signin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /web/auth/signin (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/web/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /web/dashboard (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/web/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /web/profile (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/web/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /web/settings (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-image::src/routes/web/share/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /web/share/[slug] (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/@[username]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /@[username] (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/[[lang=lang]]/manual/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/manual (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/[[lang=lang]]/pricing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/pricing (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /privacy (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/terms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /terms (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/threads/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /threads (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/threads/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /threads/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/web/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /web/admin (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/web/auth/email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /web/auth/email (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/web/auth/password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /web/auth/password (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/web/auth/signin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /web/auth/signin (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/web/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /web/dashboard (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/web/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /web/profile (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/web/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /web/settings (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-title::src/routes/web/share/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /web/share/[slug] (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/@[username]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /@[username] (script-verified: comments stripped, not in page, layouts, 22 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/[[lang=lang]]/manual/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/manual (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/[[lang=lang]]/pricing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/pricing (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /privacy (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /terms (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/threads/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /threads (script-verified: comments stripped, not in page, layouts, 23 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/threads/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /threads/[id] (script-verified: comments stripped, not in page, layouts, 31 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/web/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /web/admin (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/web/auth/email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /web/auth/email (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/web/auth/password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /web/auth/password (script-verified: comments stripped, not in page, layouts, 16 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/web/auth/signin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /web/auth/signin (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/web/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /web/dashboard (script-verified: comments stripped, not in page, layouts, 20 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/web/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /web/profile (script-verified: comments stripped, not in page, layouts, 15 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/web/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /web/settings (script-verified: comments stripped, not in page, layouts, 24 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/og-url::src/routes/web/share/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /web/share/[slug] (script-verified: comments stripped, not in page, layouts, 27 reached local files or app.html, no dynamic <meta>): app.html has og:site_name/twitter:card only; the only og/canonical emitter is [[lang=lang]]/+page.svelte:16-23 (home, without og:image); no emitter on this route, and backend/ has no og or canonical writer"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/single-h1::/web/dashboard::Missing <h#>",
+    "verdict": "tp",
+    "basis": "page renders Spinner/HomeSigned/sign-in note; HomeSigned has only <h2>s (:36,:70), its <h1> grep is empty (only HomeUnsigned has one, not rendered here); no <h1> in the root layout"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/single-h1::/web/profile::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub (ledger redirect-stub convention): $effect goto()s /@<name> or sign-in, markup is an empty div; no <h1> on the route (ssr=false)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/single-h1::src/routes/@[username]/+page.svelte:182::Missing <h#>",
+    "verdict": "tp",
+    "basis": "the page's only heading is <h3> (:182); the name is <div class=name> (:165); no <h1> in ActivityHeatmap, TopBar or the root layout"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/single-h1::src/routes/web/admin/+page.svelte:205::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "both panels are in the DOM with the hidden attribute toggled: users-panel <h1> (:158) and email-panel <h1> (:205), same {:else} arm - two <h1>s in the document, one shown per tab"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/ssr-disabled::src/routes/+layout.ts:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:2 for the signed-in SPA; [[lang=lang]]/+layout.ts:7, privacy/+page.ts:3 and terms/+page.ts:3 re-enable ssr = true for every marketing/legal page and robots.txt disallows /web/ and /threads/ while static/sitemap.xml lists only those SSR pages, so the \"whole app\" wording overstates but the client-only part is deliberate (ledger precedent: Heracraft/repose, taijobi)"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/title-length::src/routes/privacy/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (literal <title> \"Privacy Policy - Jieli\" in src/routes/privacy/+page.svelte, whitespace collapsed, entities decoded, 22 chars as reported; no later title on the route); public legal page, ssr=true prerendered (src/routes/privacy/+page.ts:3-4), static/robots.txt allows it"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/title-length::src/routes/terms/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (literal <title> \"Terms of Service - Jieli\" in src/routes/terms/+page.svelte, whitespace collapsed, entities decoded, 24 chars as reported; no later title on the route); public legal page, ssr=true prerendered (src/routes/terms/+page.ts:3-4), static/robots.txt allows it"
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/title-presence::src/routes/@[username]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (import closure of src/routes/@[username]/+page.svelte + root +layout.svelte, 22 files, <svg> stripped: no svelte:head/<title/document.title; ThreadsIcon.svelte:7 <title> is inside <svg>): public profile page, no redirect in the page. Root +layout.ts ssr=false so client titles would count, but none exists; root layout has no svelte:head, app.html has no <title>; hooks.server.ts only rewrites html lang; cmd/server/main.go buildShell injects only window.__APP_CONFIG__; no npm Svelte component deps."
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/title-presence::src/routes/threads/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (import closure of src/routes/threads/+page.svelte + root +layout.svelte, 23 files, <svg> stripped: no svelte:head/<title/document.title; ThreadsIcon.svelte:7 <title> is inside <svg>): thread list page (h1 :243), no redirect in the page. Root +layout.ts ssr=false so client titles would count, but none exists; root layout has no svelte:head, app.html has no <title>; hooks.server.ts only rewrites html lang; cmd/server/main.go buildShell injects only window.__APP_CONFIG__; no npm Svelte component deps."
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/title-presence::src/routes/web/profile/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (import closure of src/routes/web/profile/+page.svelte + root +layout.svelte, 15 files, <svg> stripped: no svelte:head/<title/document.title; ThreadsIcon.svelte:7 <title> is inside <svg>): client goto shim: $effect waits for session.loaded, then goto(/@user or signin, replaceState) over an empty div under TopBar; it mounts untitled first (ledger majority tp for client goto shims). Root +layout.ts ssr=false so client titles would count, but none exists; root layout has no svelte:head, app.html has no <title>; hooks.server.ts only rewrites html lang; cmd/server/main.go buildShell injects only window.__APP_CONFIG__; no npm Svelte component deps."
+  },
+  {
+    "key": "jieliapp/Jieli:frontend::seo/title-presence::src/routes/web/share/[slug]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (import closure of src/routes/web/share/[slug]/+page.svelte + root +layout.svelte, 27 files, <svg> stripped: no svelte:head/<title/document.title; ThreadsIcon.svelte:7 <title> is inside <svg>): public read-only shared-thread page, ThreadView renders no title. Root +layout.ts ssr=false so client titles would count, but none exists; root layout has no svelte:head, app.html has no <title>; hooks.server.ts only rewrites html lang; cmd/server/main.go buildShell injects only window.__APP_CONFIG__; no npm Svelte component deps."
+  }
+]
