@@ -703,6 +703,25 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(rs.map((r) => r.message)).toEqual(['Heading order']);
   });
 
+  it('reads a message function passed to a prop as non-empty text, and a call on anything else as undecided', async () => {
+    const skips = async (title: string) => {
+      const panel = `<script>let { title, children } = $props();</script>{#if title}<h2>{title}</h2>{/if}{@render children?.()}`;
+      const page = `<script>import Panel from '$lib/Panel.svelte';</script><h1>Items</h1><Panel title={${title}}><h3>Held</h3></Panel>`;
+      const files = { 'src/lib/Panel.svelte': panel, 'src/routes/+page.svelte': page };
+      const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+      const rs = await seoHeadingLevelSkip.check({
+        heads: [],
+        headings,
+        project: defaultProject,
+        config: defaultConfig
+      });
+      return rs.some((r) => r.message !== 'Heading order');
+    };
+    expect(await skips('m.heldItems()')).toBe(false);
+    expect(await skips('m.bag.title({ count: 2 })')).toBe(false);
+    expect(await skips('label.get()')).toBe(true);
+  });
+
   it('places a heading of a snippet rendered from inside another snippet at that inner render', async () => {
     const page = `<h1>Workflow</h1><h2>Queue</h2>{#snippet inner()}<h4>Assigned</h4>{/snippet}{#snippet card()}<h3>Assign</h3>{@render inner()}{/snippet}{@render card()}`;
     const { headings } = await collectRoutes(createMemoryRuntime({ 'src/routes/+page.svelte': page }), '');

@@ -673,6 +673,8 @@ type DefaultValue = PropDefault | { length: number };
 // A `Literal` node's value when it is one a gate can compare (not a regex or bigint).
 /** The conventional names of a translation function: `t`, `$t`, `_`, `$_`, `translate`, or one of those on an object (`i18n.t`). */
 const TRANSLATE_CALL = /^(?:[$\w]+\.)?(?:\$?t|\$?_|translate)$/;
+/** A message function, whose name is its key: `m.title()`, `m.nav.title({ count })`. `decidedArms` has only the component's imports, not the use's, so `m` is taken by its name. */
+const MESSAGE_CALL = /^m\.[$\w.]+$/;
 
 /** `t`, `$_`, `i18n.t`: the dotted name of a callee, or '' for anything else. */
 function calleeText(n: {
@@ -917,6 +919,7 @@ export function decidedArms<K = number>(
         first.value.trim()
       )
         return { type: 'text' };
+      if (expr.type === 'CallExpression' && MESSAGE_CALL.test(calleeText(expr.callee))) return { type: 'text' };
       return literalValue(expr);
     };
     let held: Held;
