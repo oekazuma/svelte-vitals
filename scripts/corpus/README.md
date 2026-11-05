@@ -677,7 +677,7 @@ Measured on 636 apps, each pinned to a commit:
 - [frolov2b/infosections/frontend](https://github.com/frolov2b/infosections/tree/b41f8a7c1a0e3b0bf04568ce87afb3c3fb5dea15/frontend) (`b41f8a7`)
 - [SylveonDeko/PokeFluxDash](https://github.com/SylveonDeko/PokeFluxDash/tree/1a5341cd7562ebc3a8ba15319982a5ef76738be3) (`1a5341c`)
 
-242945 of 242970 corpus findings have a verdict.
+242942 of 242967 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share      |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ----------------- |
@@ -761,7 +761,7 @@ Measured on 636 apps, each pinned to a commit:
 | [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 12653           | 434  | 1285 / 81 / 11287 / 0                 | 94% (1285/1366)    | 89% (11287/12653) |
 | [`seo/duplicate-description`](../../docs/src/content/docs/rules/seo/duplicate-description.md)                         | 180             | 96   | 113 / 0 / 67 / 0                      | 100% (113/113)     | 37% (67/180)      |
 | [`seo/duplicate-title`](../../docs/src/content/docs/rules/seo/duplicate-title.md)                                     | 406             | 197  | 73 / 3 / 330 / 0                      | 96% (73/76)        | 81% (330/406)     |
-| [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 1528            | 298  | 1477 / 45 / 6 / 0                     | 97% (1477/1522)    | 0% (6/1528)       |
+| [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 1525            | 297  | 1477 / 42 / 6 / 0                     | 97% (1477/1519)    | 0% (6/1525)       |
 | [`seo/hreflang`](../../docs/src/content/docs/rules/seo/hreflang.md)                                                   | 0               | 0    | —                                     | —                  | —                 |
 | [`seo/html-lang`](../../docs/src/content/docs/rules/seo/html-lang.md)                                                 | 5               | 5    | 4 / 0 / 1 / 0                         | 100% (4/4)         | 20% (1/5)         |
 | [`seo/image-alt`](../../docs/src/content/docs/rules/seo/image-alt.md)                                                 | 26              | 6    | 26 / 0 / 0 / 0                        | 100% (26/26)       | 0% (0/26)         |
