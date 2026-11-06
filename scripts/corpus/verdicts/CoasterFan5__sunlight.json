@@ -1,0 +1,517 @@
+[
+  {
+    "key": "CoasterFan5/sunlight::architecture/prop-count::src/lib/components/TextInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/TextInput.svelte has a single destructured $props() with 8 named props (> 6)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::correctness/each-index-key::src/lib/components/TextInput.svelte:35::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: validation issues list (TextInput.svelte:35 / allIssues() in the modals) recomputed from user input, keyed by index (ledger field-error convention)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::correctness/each-index-key::src/routes/contribute/(app)/schools/AddSchoolModal.svelte:21::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: validation issues list (TextInput.svelte:35 / allIssues() in the modals) recomputed from user input, keyed by index (ledger field-error convention)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::correctness/each-index-key::src/routes/contribute/(app)/software/[slug]/AddContractModal.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: validation issues list (TextInput.svelte:35 / allIssues() in the modals) recomputed from user input, keyed by index (ledger field-error convention)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/(front)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, noindex or redirect; static/robots.txt Disallow: empty)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/(front)/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, noindex or redirect; static/robots.txt Disallow: empty)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/(front)/software/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /software/[slug] (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, noindex or redirect; static/robots.txt Disallow: empty)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/contribute/(app)/portal/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /contribute/portal (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated: contribute/(app)/+layout.server.ts load calls validateSession which redirects to /contribute/login without a valid session cookie"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/contribute/(app)/schools/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /contribute/schools (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated: contribute/(app)/+layout.server.ts load calls validateSession which redirects to /contribute/login without a valid session cookie"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/contribute/(app)/software/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /contribute/software (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated: contribute/(app)/+layout.server.ts load calls validateSession which redirects to /contribute/login without a valid session cookie"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/contribute/(app)/software/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /contribute/software/[slug] (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated: contribute/(app)/+layout.server.ts load calls validateSession which redirects to /contribute/login without a valid session cookie"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/contribute/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /contribute/login (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, noindex or redirect; static/robots.txt Disallow: empty)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/contribute/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /contribute/register (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, noindex or redirect; static/robots.txt Disallow: empty)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/canonical-url::src/routes/contribute/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /contribute (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, noindex or redirect; static/robots.txt Disallow: empty)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/(front)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description>, no svelte:head with one, no meta lib anywhere; / is a public page of the Sunlight Ledger EdTech-contract site (no load gate, static/robots.txt allows all)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/(front)/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description>, no svelte:head with one, no meta lib anywhere; /about is a public page of the Sunlight Ledger EdTech-contract site (no load gate, static/robots.txt allows all)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/(front)/software/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description>, no svelte:head with one, no meta lib anywhere; /software/[slug] is a public page of the Sunlight Ledger EdTech-contract site (no load gate, static/robots.txt allows all)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/contribute/(app)/portal/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "no <meta name=description> anywhere in src or app.html (literal claim holds); /contribute/portal is the contributor back office/login area (checkAuth redirects unverified users to /contribute/login in the software loads; login/register/portal are auth shells), not a search target"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/contribute/(app)/schools/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "no <meta name=description> anywhere in src or app.html (literal claim holds); /contribute/schools is the contributor back office/login area (checkAuth redirects unverified users to /contribute/login in the software loads; login/register/portal are auth shells), not a search target"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/contribute/(app)/software/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "no <meta name=description> anywhere in src or app.html (literal claim holds); /contribute/software is the contributor back office/login area (checkAuth redirects unverified users to /contribute/login in the software loads; login/register/portal are auth shells), not a search target"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/contribute/(app)/software/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "no <meta name=description> anywhere in src or app.html (literal claim holds); /contribute/software/[slug] is the contributor back office/login area (checkAuth redirects unverified users to /contribute/login in the software loads; login/register/portal are auth shells), not a search target"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/contribute/(auth)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "no <meta name=description> anywhere in src or app.html (literal claim holds); /contribute/login is the contributor back office/login area (checkAuth redirects unverified users to /contribute/login in the software loads; login/register/portal are auth shells), not a search target"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/contribute/(auth)/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "no <meta name=description> anywhere in src or app.html (literal claim holds); /contribute/register is the contributor back office/login area (checkAuth redirects unverified users to /contribute/login in the software loads; login/register/portal are auth shells), not a search target"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/description-presence::src/routes/contribute/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "no <meta name=description> anywhere in src or app.html (literal claim holds); /contribute is the contributor back office/login area (checkAuth redirects unverified users to /contribute/login in the software loads; login/register/portal are auth shells), not a search target"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/(front)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so / has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/(front)/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /about has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/(front)/software/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /software/[slug] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/contribute/(app)/portal/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /contribute/portal has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/contribute/(app)/schools/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /contribute/schools has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/contribute/(app)/software/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /contribute/software has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/contribute/(app)/software/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /contribute/software/[slug] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/contribute/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /contribute/login has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/contribute/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /contribute/register has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/json-ld::src/routes/contribute/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /contribute has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/(front)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/(front)/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /about: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/(front)/software/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/contribute/(app)/portal/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /contribute/portal: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/contribute/(app)/schools/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /contribute/schools: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/contribute/(app)/software/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /contribute/software: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/contribute/(app)/software/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /contribute/software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/contribute/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /contribute/login: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/contribute/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /contribute/register: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-description::src/routes/contribute/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /contribute: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/(front)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/(front)/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /about: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/(front)/software/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/contribute/(app)/portal/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /contribute/portal: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/contribute/(app)/schools/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /contribute/schools: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/contribute/(app)/software/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /contribute/software: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/contribute/(app)/software/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /contribute/software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/contribute/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /contribute/login: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/contribute/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /contribute/register: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-image::src/routes/contribute/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /contribute: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/(front)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/(front)/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /about: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/(front)/software/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/contribute/(app)/portal/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /contribute/portal: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/contribute/(app)/schools/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /contribute/schools: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/contribute/(app)/software/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /contribute/software: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/contribute/(app)/software/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /contribute/software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/contribute/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /contribute/login: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/contribute/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /contribute/register: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-title::src/routes/contribute/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /contribute: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/(front)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/(front)/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /about: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/(front)/software/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/contribute/(app)/portal/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /contribute/portal: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/contribute/(app)/schools/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /contribute/schools: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/contribute/(app)/software/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /contribute/software: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/contribute/(app)/software/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /contribute/software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/contribute/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /contribute/login: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/contribute/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /contribute/register: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/og-url::src/routes/contribute/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /contribute: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/single-h1::src/routes/(front)/+page.svelte:22::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: this page (and (front)/(contribute) layouts) has only <h2>/<h3>; src has <h1> only in contribute/+page.svelte and portal/+page.svelte; layout renders no heading"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/single-h1::src/routes/(front)/about/+page.svelte:3::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: this page (and (front)/(contribute) layouts) has only <h2>/<h3>; src has <h1> only in contribute/+page.svelte and portal/+page.svelte; layout renders no heading"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/single-h1::src/routes/(front)/software/[slug]/+page.svelte:26::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: this page (and (front)/(contribute) layouts) has only <h2>/<h3>; src has <h1> only in contribute/+page.svelte and portal/+page.svelte; layout renders no heading"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/single-h1::src/routes/contribute/(app)/schools/+page.svelte:21::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: this page (and (front)/(contribute) layouts) has only <h2>/<h3>; src has <h1> only in contribute/+page.svelte and portal/+page.svelte; layout renders no heading"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/single-h1::src/routes/contribute/(app)/software/+page.svelte:22::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: this page (and (front)/(contribute) layouts) has only <h2>/<h3>; src has <h1> only in contribute/+page.svelte and portal/+page.svelte; layout renders no heading"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/single-h1::src/routes/contribute/(app)/software/[slug]/+page.svelte:24::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: this page (and (front)/(contribute) layouts) has only <h2>/<h3>; src has <h1> only in contribute/+page.svelte and portal/+page.svelte; layout renders no heading"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/single-h1::src/routes/contribute/(auth)/login/+page.svelte:10::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: this page (and (front)/(contribute) layouts) has only <h2>/<h3>; src has <h1> only in contribute/+page.svelte and portal/+page.svelte; layout renders no heading"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/single-h1::src/routes/contribute/(auth)/register/+page.svelte:10::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: this page (and (front)/(contribute) layouts) has only <h2>/<h3>; src has <h1> only in contribute/+page.svelte and portal/+page.svelte; layout renders no heading"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no static/sitemap.xml, no src/routes/sitemap.xml endpoint or generator; public site (static/robots.txt Allow all) with per-software public pages /software/[slug] to list"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/(front)/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/(front)/about/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/(front)/software/[slug]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/contribute/(app)/portal/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/contribute/(app)/schools/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/contribute/(app)/software/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/contribute/(app)/software/[slug]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/contribute/(auth)/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/contribute/(auth)/register/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/title-presence::src/routes/contribute/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layouts + transitive imports): only svelte:head is the favicon link in routes/+layout.svelte:8; no <title>/document.title/meta lib in package.json; app.html has none; route renders (auth redirects are conditional via validateSession/checkAuth)"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/(front)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/(front)/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /about: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/(front)/software/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/contribute/(app)/portal/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /contribute/portal: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/contribute/(app)/schools/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /contribute/schools: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/contribute/(app)/software/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /contribute/software: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/contribute/(app)/software/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /contribute/software/[slug]: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/contribute/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /contribute/login: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/contribute/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /contribute/register: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  },
+  {
+    "key": "CoasterFan5/sunlight::seo/twitter-card::src/routes/contribute/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /contribute: no og:*/twitter:*/canonical anywhere in src or app.html; heads are only the root layout favicon"
+  }
+]

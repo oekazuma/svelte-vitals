@@ -1,0 +1,792 @@
+[
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::a11y/id-duplication::src/lib/components/Modal.svelte:53::Duplicate id \"modal-title\"",
+    "verdict": "design",
+    "basis": "read conversation/[id]/+page.svelte:305/350: two <Modal> instances (Modal.svelte:53 h2#modal-title, under {#if open}) opened by separate buttons (:213/:222) as full-screen overlays; separate {#if} blocks that never render together"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::a11y/pattern-title::src/routes/login/+page.svelte:160::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read +page.svelte:160: <input pattern> without title inside a <form> without novalidate, so a failed native match shows the generic message with no format hint"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::a11y/permitted-contents::src/lib/components/Checkbox.svelte:31::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: Checkbox.svelte:31 <div> sits directly inside literal <label> (line 25) per svelte parse; label content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::a11y/permitted-contents::src/lib/components/Toggle.svelte:30::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: Toggle.svelte:30 <div> sits directly inside literal <label> (line 23) per svelte parse; label content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::a11y/permitted-contents::src/lib/components/Toggle.svelte:41::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: Toggle.svelte:41 <div> sits directly inside literal <label> (line 23) per svelte parse; label content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 250 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/component-size::src/routes/conversation/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/conversation/[id]/+page.svelte has 380 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/component-size::src/routes/create/request/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/create/request/+page.svelte has 221 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/component-size::src/routes/listing/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/listing/[id]/+page.svelte has 209 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 213 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/component-size::src/routes/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/+page.svelte has 316 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/prop-count::src/lib/components/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Button.svelte has a single destructured $props() with 8 named props (> 6)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/prop-count::src/lib/components/Checkbox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Checkbox.svelte has a single destructured $props() with 7 named props (> 6)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/prop-count::src/lib/components/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Input.svelte has a single destructured $props() with 12 named props (> 6)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/prop-count::src/lib/components/RadioGroup.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/RadioGroup.svelte has a single destructured $props() with 7 named props (> 6)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/prop-count::src/lib/components/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Select.svelte has a single destructured $props() with 9 named props (> 6)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::architecture/prop-count::src/lib/components/Textarea.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Textarea.svelte has a single destructured $props() with 10 named props (> 6)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/profile/+page.svelte:272::<a href=\"/profile/edit\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/profile/edit') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal href/goto('/'); svelte.config.js:15 sets kit.paths.base = '/generator-share' (fixed), so it leaves the app"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/profile/+page.svelte:70::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal href/goto('/'); svelte.config.js:15 sets kit.paths.base = '/generator-share' (fixed), so it leaves the app"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/profile/+page.svelte:81::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal href/goto('/'); svelte.config.js:15 sets kit.paths.base = '/generator-share' (fixed), so it leaves the app"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/review/[id]/+page.svelte:73::goto('/profile') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/profile')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal href/goto('/'); svelte.config.js:15 sets kit.paths.base = '/generator-share' (fixed), so it leaves the app"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/each-key::src/lib/components/RadioGroup.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: RadioGroup/Select options prop; every caller passes a constant option list (NEIGHBORHOOD_OPTIONS, WATTAGE_OPTIONS, inline literals); static option list"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/each-key::src/lib/components/Select.svelte:61::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: RadioGroup/Select options prop; every caller passes a constant option list (NEIGHBORHOOD_OPTIONS, WATTAGE_OPTIONS, inline literals); static option list"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/each-key::src/routes/admin/+page.svelte:163::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: runtime records loaded from the API into $state (reports/reviews/listings) or the conversations store; list changes at runtime"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/each-key::src/routes/debug/+page.svelte:66::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: debug/+page.svelte:66 Object.entries(envVars) of a debug page, fixed set of env var names; positional list"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/each-key::src/routes/profile/+page.svelte:163::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: runtime records loaded from the API into $state (reports/reviews/listings) or the conversations store; list changes at runtime"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/each-key::src/routes/profile/+page.svelte:201::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: runtime records loaded from the API into $state (reports/reviews/listings) or the conversations store; list changes at runtime"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/each-key::src/routes/profile/+page.svelte:244::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: runtime records loaded from the API into $state (reports/reviews/listings) or the conversations store; list changes at runtime"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::performance/state-raw::src/routes/admin/+page.svelte:11::\"stats\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/routes/admin/+page.svelte: only whole-binding reassignments and read-only template/expression uses (member reads, .length, {#each} items only read); no member writes, mutating calls, bind:, call-arg/prop escapes — $state.raw fits"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::performance/state-raw::src/routes/profile/+page.svelte:25::\"reviews\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/routes/profile/+page.svelte: only whole-binding reassignments and read-only template/expression uses (member reads, .length, {#each} items only read); no member writes, mutating calls, bind:, call-arg/prop escapes — $state.raw fits"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/browse/offers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /browse/offers (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/browse/requests/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /browse/requests (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/conversation/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /conversation/[id] (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/create/offer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /create/offer (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/create/request/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /create/request (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/debug/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /debug (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/listing/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /listing/[id] (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /profile (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/report/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /report (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/review/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /review/[id] (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/safety/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /safety (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /terms (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/canonical-url::src/routes/test/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /test (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false SPA route; no canonical in app.html or any head (root +layout.svelte head is <title> only); no server auth gate (data-level checks only), no noindex or robots.txt Disallow"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "app.html:8 literal <meta name=description> is the only description of all 17 routes (no page/layout sets one; local CLI list), duplicate as claimed; labelled by majority: Generator Share is a public community site (/, /safety, /privacy, /terms, /browse/*, /listing/[id]) and its public pages share the one string"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "src/routes/+layout.svelte:42 literal <title>Generator Share</title> is the only title of /debug and /test (neither sets one), duplicate as claimed; both are developer diagnostic pages (Supabase/env status), not search targets"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so / has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /admin has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/browse/offers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /browse/offers has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/browse/requests/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /browse/requests has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/conversation/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /conversation/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/create/offer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /create/offer has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/create/request/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /create/request has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/debug/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /debug has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/listing/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /listing/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /login has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /privacy has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /profile has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/report/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /report has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/review/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /review/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/safety/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /safety has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /terms has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/json-ld::src/routes/test/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of gen-share/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /test has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/browse/offers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /browse/offers: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/browse/requests/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /browse/requests: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/conversation/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /conversation/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/create/offer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /create/offer: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/create/request/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /create/request: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/debug/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /debug: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/listing/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /listing/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /privacy: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /profile: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/report/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /report: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/review/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /review/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/safety/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /safety: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/terms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /terms: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-description::src/routes/test/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /test: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/browse/offers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /browse/offers: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/browse/requests/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /browse/requests: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/conversation/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /conversation/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/create/offer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /create/offer: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/create/request/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /create/request: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/debug/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /debug: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/listing/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /listing/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /privacy: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /profile: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/report/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /report: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/review/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /review/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/safety/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /safety: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /terms: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-image::src/routes/test/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /test: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/browse/offers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /browse/offers: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/browse/requests/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /browse/requests: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/conversation/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /conversation/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/create/offer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /create/offer: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/create/request/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /create/request: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/debug/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /debug: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/listing/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /listing/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /privacy: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /profile: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/report/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /report: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/review/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /review/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/safety/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /safety: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/terms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /terms: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-title::src/routes/test/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /test: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/browse/offers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /browse/offers: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/browse/requests/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /browse/requests: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/conversation/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /conversation/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/create/offer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /create/offer: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/create/request/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /create/request: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/debug/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /debug: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/listing/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /listing/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /privacy: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /profile: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/report/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /report: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/review/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /review/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/safety/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /safety: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /terms: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/og-url::src/routes/test/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /test: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide incl. repo root, netlify.toml, _redirects): no robots.txt file, endpoint or generator; public site (README: community platform on Netlify)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide): no sitemap.xml file, endpoint or generator; public site with public pages and listings to list"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/ssr-disabled::src/routes/+layout.ts:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "literal export const ssr = false at src/routes/+layout.ts:2 (adapter-static SPA fallback, prerender 'auto'); the site is a public community generator-sharing platform with public pages (/, /safety, /privacy, /terms, /browse/*) that ship as empty shells, invisible to non-JS crawlers as claimed"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "layout literal <title>Generator Share</title> (15 chars <30, claim holds) is the title of /debug and /test only; developer diagnostic pages, not search targets"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "admin/+page.svelte:109 literal <title>Admin - Generator Share</title> 23 chars (<30, claim holds); admin console, not a search target"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "src/routes/login/+page.svelte literal <title> in top-level svelte:head, 24-25 chars (<30) as claimed; the route's only title on the public Generator Share site (length rules tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/title-length::src/routes/report/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "src/routes/report/+page.svelte literal <title> in top-level svelte:head, 24-25 chars (<30) as claimed; the route's only title on the public Generator Share site (length rules tp regardless of gating)"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/browse/offers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /browse/offers: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/browse/requests/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /browse/requests: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/conversation/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /conversation/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/create/offer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /create/offer: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/create/request/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /create/request: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/debug/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /debug: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/listing/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /listing/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /privacy: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /profile: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/report/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /report: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/review/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /review/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/safety/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /safety: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/terms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /terms: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  },
+  {
+    "key": "KG3solutions/Ripper-Radar:gen-share::seo/twitter-card::src/routes/test/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /test: no og:*/twitter:*/canonical anywhere in src or app.html (heads are <title> only); ssr=false"
+  }
+]

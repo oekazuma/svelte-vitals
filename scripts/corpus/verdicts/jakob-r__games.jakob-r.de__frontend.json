@@ -1,0 +1,392 @@
+[
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::a11y/disallowed-aria-props::src/lib/games/GameHub.svelte:213::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): GameHub.svelte:213 <span> carries aria-label/labelledby with no role, spread or use: action, so it is generic/paragraph and the role prohibits a name"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::a11y/disallowed-aria-props::src/routes/+page.svelte:284::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): +page.svelte:284 <span> carries aria-label/labelledby with no role, spread or use: action, so it is generic/paragraph and the role prohibits a name"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::a11y/permitted-contents::src/lib/games/sudoku/SudokuGame.svelte:385::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: SudokuGame.svelte:385 <div> sits directly inside literal <button> (line 337) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/component-size::src/lib/core/components/RoomShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/core/components/RoomShell.svelte has 210 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/component-size::src/lib/games/GameHub.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/games/GameHub.svelte has 392 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/component-size::src/lib/games/GameLogo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/games/GameLogo.svelte has 275 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/component-size::src/lib/games/emoji-charades/EmojiCharadesGame.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/games/emoji-charades/EmojiCharadesGame.svelte has 878 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/component-size::src/lib/games/kaesekaestchen/KaesekaestchenGame.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/games/kaesekaestchen/KaesekaestchenGame.svelte has 1051 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/component-size::src/lib/games/minesweeper/MinesweeperGame.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/games/minesweeper/MinesweeperGame.svelte has 533 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/component-size::src/lib/games/silbenstreit/SilbenstreitGame.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/games/silbenstreit/SilbenstreitGame.svelte has 654 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/component-size::src/lib/games/sudoku/SudokuGame.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/games/sudoku/SudokuGame.svelte has 484 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 519 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/prop-count::src/lib/core/components/Lobby.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/core/components/Lobby.svelte has a single destructured $props() with 11 named props (> 6)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/prop-count::src/lib/core/components/PlayerBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/core/components/PlayerBar.svelte has a single destructured $props() with 10 named props (> 6)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/prop-count::src/lib/core/components/RoomShell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/core/components/RoomShell.svelte has a single destructured $props() with 9 named props (> 6)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/prop-count::src/lib/core/components/ScribblyButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/core/components/ScribblyButton.svelte has a single destructured $props() with 8 named props (> 6)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::architecture/prop-count::src/lib/core/components/TurnNotificationBell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/core/components/TurnNotificationBell.svelte has a single destructured $props() with 7 named props (> 6)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::correctness/each-index-key::src/lib/core/components/RoomShell.svelte:124::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: positional list (subtitle labels, result/draft sentence lines, 3 word choices addressed by index, fixed sudoku/minesweeper grid cells); index is the identity, nothing reorders"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::correctness/each-index-key::src/lib/games/emoji-charades/EmojiCharadesGame.svelte:495::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: positional list (subtitle labels, result/draft sentence lines, 3 word choices addressed by index, fixed sudoku/minesweeper grid cells); index is the identity, nothing reorders"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::correctness/each-index-key::src/lib/games/emoji-charades/EmojiCharadesGame.svelte:529::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: positional list (subtitle labels, result/draft sentence lines, 3 word choices addressed by index, fixed sudoku/minesweeper grid cells); index is the identity, nothing reorders"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::correctness/each-index-key::src/lib/games/emoji-charades/EmojiCharadesGame.svelte:573::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: positional list (subtitle labels, result/draft sentence lines, 3 word choices addressed by index, fixed sudoku/minesweeper grid cells); index is the identity, nothing reorders"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::correctness/each-index-key::src/lib/games/emoji-charades/EmojiCharadesGame.svelte:794::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: EmojiCharadesGame.svelte:794 [...guesses].reverse() keyed by index; each new guess is prepended, so keys shift every item"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::correctness/each-index-key::src/lib/games/sudoku/SudokuGame.svelte:304::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: positional list (subtitle labels, result/draft sentence lines, 3 word choices addressed by index, fixed sudoku/minesweeper grid cells); index is the identity, nothing reorders"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::correctness/each-index-key::src/lib/games/sudoku/SudokuGame.svelte:305::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: positional list (subtitle labels, result/draft sentence lines, 3 word choices addressed by index, fixed sudoku/minesweeper grid cells); index is the identity, nothing reorders"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::correctness/each-key::src/lib/games/minesweeper/MinesweeperGame.svelte:372::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: positional list (subtitle labels, result/draft sentence lines, 3 word choices addressed by index, fixed sudoku/minesweeper grid cells); index is the identity, nothing reorders"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::correctness/each-key::src/lib/games/minesweeper/MinesweeperGame.svelte:373::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: positional list (subtitle labels, result/draft sentence lines, 3 word choices addressed by index, fixed sudoku/minesweeper grid cells); index is the identity, nothing reorders"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::security/raw-html::src/lib/core/components/SeoHead.svelte:49::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read jakob-r SeoHead.svelte:22-24,49 + GameHub.svelte:45-62, +page.svelte:59-70: JSON.stringify without '<' escaping, but the JSON-LD object is built only from the committed GAMES catalog and constants (no user data), so nothing can close the script tag"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (script-verified: grep of src+app.html finds no emitter reaching it): page renders AuthShell.svelte:10 literal <meta name=\"robots\" content=\"noindex\"> (ARCHITECTURE.md:34 documents noindex)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/canonical-url::src/routes/emoji-charades/[roomId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /emoji-charades/[roomId] (script-verified: grep of src+app.html finds no emitter reaching it): game-room route (ssr=false SPA, head is <title> only); no noindex, robots.txt Allow: /; canonical only emitted by SeoHead on hubs/landing/privacy, not this route"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/canonical-url::src/routes/kaesekaestchen/[roomId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /kaesekaestchen/[roomId] (script-verified: grep of src+app.html finds no emitter reaching it): game-room route (ssr=false SPA, head is <title> only); no noindex, robots.txt Allow: /; canonical only emitted by SeoHead on hubs/landing/privacy, not this route"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: grep of src+app.html finds no emitter reaching it): page renders AuthShell.svelte:10 literal <meta name=\"robots\" content=\"noindex\"> (ARCHITECTURE.md:34 documents noindex)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/canonical-url::src/routes/minesweeper/[roomId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /minesweeper/[roomId] (script-verified: grep of src+app.html finds no emitter reaching it): game-room route (ssr=false SPA, head is <title> only); no noindex, robots.txt Allow: /; canonical only emitted by SeoHead on hubs/landing/privacy, not this route"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (script-verified: grep of src+app.html finds no emitter reaching it): page renders AuthShell.svelte:10 literal <meta name=\"robots\" content=\"noindex\"> (ARCHITECTURE.md:34 documents noindex)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/canonical-url::src/routes/silbenstreit/[roomId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /silbenstreit/[roomId] (script-verified: grep of src+app.html finds no emitter reaching it): game-room route (ssr=false SPA, head is <title> only); no noindex, robots.txt Allow: /; canonical only emitted by SeoHead on hubs/landing/privacy, not this route"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/canonical-url::src/routes/sudoku/[roomId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sudoku/[roomId] (script-verified: grep of src+app.html finds no emitter reaching it): game-room route (ssr=false SPA, head is <title> only); no noindex, robots.txt Allow: /; canonical only emitted by SeoHead on hubs/landing/privacy, not this route"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/canonical-url::src/routes/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /verify-email (script-verified: grep of src+app.html finds no emitter reaching it): page renders AuthShell.svelte:10 literal <meta name=\"robots\" content=\"noindex\"> (ARCHITECTURE.md:34 documents noindex)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "app.html:12 literal description is the only description of all 9 routes (the four auth screens plus the five /<game>/[roomId] rooms; local CLI list), duplicate as claimed; none is a search target (auth screens are noindex via AuthShell.svelte:10, rooms are shared links), while the indexable /, /sudoku etc. set their own via SeoHead"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/indexability::src/routes/account/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "src/routes/account/+page.svelte renders lib/core/components/AuthShell.svelte whose svelte:head has literal unconditional <meta name=\"robots\" content=\"noindex\"> (AuthShell.svelte:10); noindex as claimed (intentional for account/auth screens)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/indexability::src/routes/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "src/routes/login/+page.svelte renders lib/core/components/AuthShell.svelte whose svelte:head has literal unconditional <meta name=\"robots\" content=\"noindex\"> (AuthShell.svelte:10); noindex as claimed (intentional for account/auth screens)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/indexability::src/routes/reset-password/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "src/routes/reset-password/+page.svelte renders lib/core/components/AuthShell.svelte whose svelte:head has literal unconditional <meta name=\"robots\" content=\"noindex\"> (AuthShell.svelte:10); noindex as claimed (intentional for account/auth screens)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/indexability::src/routes/verify-email/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "src/routes/verify-email/+page.svelte renders lib/core/components/AuthShell.svelte whose svelte:head has literal unconditional <meta name=\"robots\" content=\"noindex\"> (AuthShell.svelte:10); noindex as claimed (intentional for account/auth screens)"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /account: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-description::src/routes/emoji-charades/[roomId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /emoji-charades/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-description::src/routes/kaesekaestchen/[roomId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /kaesekaestchen/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /login: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-description::src/routes/minesweeper/[roomId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /minesweeper/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-description::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /reset-password: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-description::src/routes/silbenstreit/[roomId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /silbenstreit/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-description::src/routes/sudoku/[roomId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /sudoku/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-description::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /verify-email: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /account: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-title::src/routes/emoji-charades/[roomId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /emoji-charades/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-title::src/routes/kaesekaestchen/[roomId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /kaesekaestchen/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /login: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-title::src/routes/minesweeper/[roomId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /minesweeper/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-title::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /reset-password: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-title::src/routes/silbenstreit/[roomId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /silbenstreit/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-title::src/routes/sudoku/[roomId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /sudoku/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-title::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /verify-email: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /account: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-url::src/routes/emoji-charades/[roomId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /emoji-charades/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-url::src/routes/kaesekaestchen/[roomId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /kaesekaestchen/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /login: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-url::src/routes/minesweeper/[roomId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /minesweeper/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /reset-password: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-url::src/routes/silbenstreit/[roomId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /silbenstreit/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-url::src/routes/sudoku/[roomId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /sudoku/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/og-url::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /verify-email: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/ssr-disabled::src/routes/+layout.ts:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "literal export const ssr = false at src/routes/+layout.ts:2 (claim holds), but the indexable pages (/, /privacy, /sudoku, /kaesekaestchen, /minesweeper, /silbenstreit, /emoji-charades) each re-enable it with prerender = true + ssr = true in their +page.ts; the SPA remainder is auth screens and game rooms, so the app-wide message is deliberate"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /account: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/twitter-card::src/routes/emoji-charades/[roomId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /emoji-charades/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/twitter-card::src/routes/kaesekaestchen/[roomId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /kaesekaestchen/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /login: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/twitter-card::src/routes/minesweeper/[roomId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /minesweeper/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /reset-password: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/twitter-card::src/routes/silbenstreit/[roomId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /silbenstreit/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/twitter-card::src/routes/sudoku/[roomId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /sudoku/[roomId]: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  },
+  {
+    "key": "jakob-r/games.jakob-r.de:frontend::seo/twitter-card::src/routes/verify-email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /verify-email: og/twitter/canonical only emitted by SeoHead.svelte on landing/hubs/privacy; app.html has og:site_name/locale/image only; this route is ssr=false with <title> only"
+  }
+]

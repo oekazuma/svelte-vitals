@@ -1,0 +1,842 @@
+[
+  {
+    "key": "Doom325/llama-forge:ui::a11y/disallowed-aria-props::src/lib/components/shared/StatusBadge.svelte:94::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): StatusBadge.svelte:94 <span> carries aria-label/labelledby with no role, spread or use: action, so it is generic/paragraph and the role prohibits a name"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::a11y/duplicate-landmark::src/routes/setup/+layout.svelte:129::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read setup/+layout.svelte:129 <main> inside root +layout.svelte:45 <main id=main-content> (root ssr=false); two main landmarks on /setup/*"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::a11y/id-duplication::src/lib/components/playground/ChatPane.svelte:99::Duplicate id \"chat-input\"",
+    "verdict": "tp",
+    "basis": "read playground/+page.svelte:222-327 mounts ChatPane (id=chat-input, ChatPane.svelte:100) and ComparisonPane (ComparisonPane.svelte:73 renders another ChatPane) together in compare mode (both narrow and wide arms), so two #chat-input exist in the DOM"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::a11y/top-level-landmark::src/routes/setup/+layout.svelte:129::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read setup/+layout.svelte:129 <main> nested in root +layout.svelte:45 <main> on /setup/*"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/component-size::src/lib/components/config/GlobalSettingsEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/config/GlobalSettingsEditor.svelte has 329 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/component-size::src/lib/components/config/PriorityRulesEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/config/PriorityRulesEditor.svelte has 288 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/component-size::src/lib/components/config/ServerConfigEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/config/ServerConfigEditor.svelte has 257 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/component-size::src/lib/components/explorer/ExplorerTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/explorer/ExplorerTable.svelte has 284 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/component-size::src/lib/components/shared/EChartsWrapper.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/EChartsWrapper.svelte has 220 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/component-size::src/routes/playground/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/playground/+page.svelte has 365 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/component-size::src/routes/setup/binary/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/setup/binary/+page.svelte has 242 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/prop-count::src/lib/components/setup/StepNavigation.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/setup/StepNavigation.svelte has a single destructured $props() with 8 named props (> 6)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/prop-count::src/lib/components/shared/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/ConfirmDialog.svelte has a single destructured $props() with 8 named props (> 6)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/route-component-import::src/lib/components/testing/ExplorerPageWrapper.svelte:2::src/routes/explorer/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/lib/components/testing/ExplorerPageWrapper.svelte:2 imports the route entry only to wrap it in QueryClientTestWrapper for unit tests (testing/ helper, the route page takes no $props()); a test harness that renders it by hand, the rule's exempt-importers rationale, though the name is outside the default globs"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/route-component-import::src/lib/components/testing/ModelRegistryPageWrapper.svelte:2::src/routes/models/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/lib/components/testing/ModelRegistryPageWrapper.svelte:2 imports the route entry only to wrap it in QueryClientTestWrapper for unit tests (testing/ helper, the route page takes no $props()); a test harness that renders it by hand, the rule's exempt-importers rationale, though the name is outside the default globs"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/route-component-import::src/lib/components/testing/PlaygroundPageWrapper.svelte:2::src/routes/playground/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/lib/components/testing/PlaygroundPageWrapper.svelte:2 imports the route entry only to wrap it in QueryClientTestWrapper for unit tests (testing/ helper, the route page takes no $props()); a test harness that renders it by hand, the rule's exempt-importers rationale, though the name is outside the default globs"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/route-component-import::src/lib/components/testing/QueuePageWrapper.svelte:2::src/routes/queue/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/lib/components/testing/QueuePageWrapper.svelte:2 imports the route entry only to wrap it in QueryClientTestWrapper for unit tests (testing/ helper, the route page takes no $props()); a test harness that renders it by hand, the rule's exempt-importers rationale, though the name is outside the default globs"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/route-component-import::src/lib/components/testing/ServerDetailPageWrapper.svelte:2::src/routes/servers/[id]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/lib/components/testing/ServerDetailPageWrapper.svelte:2 imports the route entry only to wrap it in QueryClientTestWrapper for unit tests (testing/ helper, the route page takes no $props()); a test harness that renders it by hand, the rule's exempt-importers rationale, though the name is outside the default globs"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::architecture/route-component-import::src/routes/DashboardPageWrapper.svelte:2::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/routes/DashboardPageWrapper.svelte:2 imports the route entry only to wrap it in QueryClientTestWrapper for unit tests (testing/ helper, the route page takes no $props()); a test harness that renders it by hand, the rule's exempt-importers rationale, though the name is outside the default globs"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/base-path-navigation::src/routes/+page.svelte:158::goto('/config/servers') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/config/servers')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:158 goto('/config/servers') root-relative literal; svelte.config.js:14 sets kit.paths.base = '/ui' (fixed), so it leaves the app"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/each-index-key::src/lib/components/config/PriorityRulesEditor.svelte:104::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: config form rows (task_types/fair_share/servers) edited with add/remove, keyed by index; removing a middle row shifts input state"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/each-index-key::src/lib/components/config/PriorityRulesEditor.svelte:156::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: config form rows (task_types/fair_share/servers) edited with add/remove, keyed by index; removing a middle row shifts input state"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/each-index-key::src/lib/components/config/ServerConfigEditor.svelte:95::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: config form rows (task_types/fair_share/servers) edited with add/remove, keyed by index; removing a middle row shifts input state"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/each-index-key::src/lib/components/playground/ChatPane.svelte:60::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: ChatPane.svelte:60 messages of the playground conversation, runtime list keyed by index"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/each-index-key::src/lib/components/shared/EChartsWrapper.svelte:208::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: EChartsWrapper.svelte:208 rows of the accessible table mirroring chart points; positional chart data, no per-row state"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/each-index-key::src/lib/components/shared/LogViewer.svelte:45::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: LogViewer.svelte:45 log text lines in a <pre> keyed by index; positional text lines"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/effect-as-onmount::src/lib/components/playground/ComparisonPane.svelte:42::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: ComparisonPane.svelte:42 $effect(() => () => session.cancel()) only returns a cleanup, reads nothing reactive; acts as onDestroy (ledger cleanup-only convention)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/effect-as-onmount::src/routes/+layout.svelte:36::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: +layout.svelte:36 effect only removes the pre-hydration skeleton element once, reading nothing reactive; belongs in onMount"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::correctness/effect-as-onmount::src/routes/setup/review/+page.svelte:81::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: setup/review/+page.svelte:81 $effect(() => () => { cancelled = true }) cleanup-only on a plain let; acts as onDestroy"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::performance/state-raw::src/lib/components/config/GlobalSettingsEditor.svelte:58::\"touched\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/lib/components/config/GlobalSettingsEditor.svelte: only whole-binding reassignments and read-only template/expression uses (member reads, .length, {#each} items only read); no member writes, mutating calls, bind:, call-arg/prop escapes — $state.raw fits"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::performance/state-raw::src/lib/components/config/PriorityRulesEditor.svelte:51::\"touched\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/lib/components/config/PriorityRulesEditor.svelte: only whole-binding reassignments and read-only template/expression uses (member reads, .length, {#each} items only read); no member writes, mutating calls, bind:, call-arg/prop escapes — $state.raw fits"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::performance/state-raw::src/lib/components/config/ServerConfigEditor.svelte:43::\"touched\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/lib/components/config/ServerConfigEditor.svelte: only whole-binding reassignments and read-only template/expression uses (member reads, .length, {#each} items only read); no member writes, mutating calls, bind:, call-arg/prop escapes — $state.raw fits"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::security/raw-html::src/lib/components/playground/MessageBubble.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read llama-forge ui/src/lib/utils/markdown.ts:2-7,111: renderMarkdown is marked -> DOMPurify (documented single sanitized {@html} source) — sanitized, reported per docs"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::security/raw-html::src/routes/setup/review/+page.svelte:150::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read setup/review/+page.svelte:150: renderMarkdown('```toml…') goes through utils/markdown.ts marked -> DOMPurify; sanitized"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/config/global/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /config/global (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/config/priority/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /config/priority (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/config/servers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /config/servers (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/explorer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /explorer (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/models/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /models (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/playground/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /playground (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/queue/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /queue (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/servers/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /servers/[id] (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setup (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/setup/binary/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setup/binary (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/setup/configure/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setup/configure (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/setup/hardware/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setup/hardware (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/setup/models/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setup/models (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/canonical-url::src/routes/setup/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setup/review (script-verified: grep of src+app.html finds no emitter reaching it): rendered ssr=false dashboard route with no auth gate, redirect (root layout load only redirects to /setup conditionally) or noindex; no canonical in app.html, layouts or components; robots.txt absent"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/config/global/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/config/priority/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/config/servers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/explorer/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/models/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/playground/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/queue/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/servers/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/setup/binary/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/setup/configure/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/setup/hardware/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/setup/models/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/description-presence::src/routes/setup/review/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/duplicate-title::src/routes/setup/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "setup/+layout.svelte:123 literal <title>Setup — LlamaForge</title> is the only title of the 6 /setup/* wizard routes (no page sets one), duplicate as claimed; first-run wizard of a self-hosted tool, ssr=false (setup/+layout.ts:3), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so / has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/config/global/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /config/global has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/config/priority/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /config/priority has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/config/servers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /config/servers has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/explorer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /explorer has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/models/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /models has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/playground/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /playground has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/queue/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /queue has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/servers/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /servers/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /setup has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/setup/binary/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /setup/binary has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/setup/configure/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /setup/configure has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/setup/hardware/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /setup/hardware has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/setup/models/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /setup/models has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/json-ld::src/routes/setup/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json): no JSON-LD anywhere, so /setup/review has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/config/global/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /config/global: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/config/priority/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /config/priority: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/config/servers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /config/servers: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/explorer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /explorer: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/models/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/playground/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /playground: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/queue/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /queue: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/servers/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /servers/[id]: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /setup: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/setup/binary/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /setup/binary: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/setup/configure/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /setup/configure: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/setup/hardware/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /setup/hardware: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/setup/models/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /setup/models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-description::src/routes/setup/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /setup/review: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/config/global/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /config/global: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/config/priority/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /config/priority: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/config/servers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /config/servers: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/explorer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /explorer: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/models/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/playground/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /playground: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/queue/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /queue: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/servers/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /servers/[id]: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /setup: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/setup/binary/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /setup/binary: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/setup/configure/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /setup/configure: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/setup/hardware/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /setup/hardware: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/setup/models/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /setup/models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-image::src/routes/setup/review/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /setup/review: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/config/global/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /config/global: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/config/priority/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /config/priority: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/config/servers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /config/servers: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/explorer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /explorer: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/models/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/playground/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /playground: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/queue/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /queue: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/servers/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /servers/[id]: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /setup: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/setup/binary/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /setup/binary: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/setup/configure/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /setup/configure: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/setup/hardware/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /setup/hardware: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/setup/models/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /setup/models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-title::src/routes/setup/review/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /setup/review: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/config/global/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /config/global: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/config/priority/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /config/priority: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/config/servers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /config/servers: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/explorer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /explorer: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/models/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/playground/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /playground: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/queue/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /queue: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/servers/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /servers/[id]: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /setup: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/setup/binary/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /setup/binary: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/setup/configure/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /setup/configure: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/setup/hardware/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /setup/hardware: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/setup/models/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /setup/models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/og-url::src/routes/setup/review/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /setup/review: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep (repo-wide): no robots.txt file, endpoint or generator (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/single-h1::src/lib/components/shared/DynamicHeading.svelte:16::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: DynamicHeading.svelte:16 <h1> is the level===1 arm, but its only caller EmptyState passes level={headingLevel} defaulting to 3 and no caller sets headingLevel (grep: only EmptyState.svelte); ModelCard/ServerCard pass 3, so no extra h1 renders; script-verified over 9 routes, each page's own h1 is the only one"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep (repo-wide): no sitemap.xml file, endpoint or generator (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/ssr-disabled::src/routes/+layout.ts:7::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "literal export const ssr = false at src/routes/+layout.ts (claim holds); deliberate SPA: LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/ssr-disabled::src/routes/setup/+layout.ts:3::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "literal export const ssr = false at src/routes/setup/+layout.ts (claim holds); deliberate SPA: LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/+page.svelte (e.g. 'Dashboard | LlamaForge', 'Setup — LlamaForge') is <30 chars as claimed (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/title-length::src/routes/config/global/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/config/global/+page.svelte (e.g. 'Dashboard | LlamaForge', 'Setup — LlamaForge') is <30 chars as claimed (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/title-length::src/routes/config/priority/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/config/priority/+page.svelte (e.g. 'Dashboard | LlamaForge', 'Setup — LlamaForge') is <30 chars as claimed (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/title-length::src/routes/explorer/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/explorer/+page.svelte (e.g. 'Dashboard | LlamaForge', 'Setup — LlamaForge') is <30 chars as claimed (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/title-length::src/routes/models/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/models/+page.svelte (e.g. 'Dashboard | LlamaForge', 'Setup — LlamaForge') is <30 chars as claimed (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/title-length::src/routes/playground/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/playground/+page.svelte (e.g. 'Dashboard | LlamaForge', 'Setup — LlamaForge') is <30 chars as claimed (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/title-length::src/routes/queue/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/queue/+page.svelte (e.g. 'Dashboard | LlamaForge', 'Setup — LlamaForge') is <30 chars as claimed (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/title-length::src/routes/setup/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/setup/+layout.svelte (e.g. 'Dashboard | LlamaForge', 'Setup — LlamaForge') is <30 chars as claimed (literal claim holds); LlamaForge ui is a self-hosted orchestrator dashboard SPA (root +layout.ts:7 ssr=false, served by the Rust binary under /ui), not a search target"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/config/global/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /config/global: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/config/priority/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /config/priority: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/config/servers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /config/servers: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/explorer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /explorer: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/models/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/playground/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /playground: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/queue/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /queue: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/servers/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /servers/[id]: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /setup: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/setup/binary/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /setup/binary: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/setup/configure/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /setup/configure: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/setup/hardware/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /setup/hardware: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/setup/models/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /setup/models: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  },
+  {
+    "key": "Doom325/llama-forge:ui::seo/twitter-card::src/routes/setup/review/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /setup/review: no og:*/twitter:*/canonical anywhere in ui/src or app.html (heads are <title> only); ssr=false so no client emitter either"
+  }
+]

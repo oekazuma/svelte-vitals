@@ -1,0 +1,577 @@
+[
+  {
+    "key": "ir-anthology/ir-anthology:frontend::a11y/no-missing-id-ref::src/lib/components/ColumnSettings.svelte:86::aria-labelledby=\"column-settings-menu\" references a missing id",
+    "verdict": "tp",
+    "basis": "read ColumnSettings.svelte:86: menu div aria-labelledby points to an id that exists nowhere in src (grep for the id returns only this attribute); the trigger button uses aria-label and has no id"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::a11y/no-missing-id-ref::src/lib/components/RowDensity.svelte:68::aria-labelledby=\"row-density-menu\" references a missing id",
+    "verdict": "tp",
+    "basis": "read RowDensity.svelte:68: menu div aria-labelledby points to an id that exists nowhere in src (grep for the id returns only this attribute); the trigger button uses aria-label and has no id"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::architecture/component-size::src/lib/components/DataTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DataTable.svelte has 442 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 485 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::correctness/each-index-key::src/lib/components/DataTable.svelte:375::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: authors of one publication/entry rendered read-only (decodeOrdered/splitList of a record field); parts of one record"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::correctness/each-index-key::src/lib/components/FilterField.svelte:29::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: FilterField.svelte:29 removable filter chips keyed by index; removeFilter(index) deletes a middle chip, so identity shifts"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::correctness/each-index-key::src/routes/anthology/people/[name]/[id]/+page.svelte:40::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: authors of one publication/entry rendered read-only (decodeOrdered/splitList of a record field); parts of one record"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::correctness/each-index-key::src/routes/anthology/publications/[name]/+page.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: authors of one publication/entry rendered read-only (decodeOrdered/splitList of a record field); parts of one record"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::correctness/each-index-key::src/routes/anthology/venues/[name]/[year]/+page.svelte:145::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: authors of one publication/entry rendered read-only (decodeOrdered/splitList of a record field); parts of one record"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::correctness/each-index-key::src/routes/anthology/venues/[name]/[year]/+page.svelte:175::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: authors of one publication/entry rendered read-only (decodeOrdered/splitList of a record field); parts of one record"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::correctness/each-index-key::src/routes/anthology/venues/[name]/[year]/+page.svelte:79::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: authors of one publication/entry rendered read-only (decodeOrdered/splitList of a record field); parts of one record"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::correctness/effect-as-derived::src/lib/components/DataTable.svelte:40::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: DataTable.svelte:40 effect sets rows = [...bindings] (a prop) while rows is also appended elsewhere (load more): the writable-$derived pattern"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::performance/image-dimensions::src/routes/+layout.svelte:106::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: +layout.svelte:106 header avatar class w-8 h-8: box reserved"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::performance/image-dimensions::src/routes/admin/+page.svelte:208::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: admin/+page.svelte:208 avatar class w-14 h-14: box reserved"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::performance/image-loading-hint::src/routes/+layout.svelte:106::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: +layout.svelte:106 avatar in the site header's user menu, above the fold"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::performance/image-loading-hint::src/routes/admin/+page.svelte:208::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: admin/+page.svelte:208 avatar beside the <h1> at the top of the page, above the fold"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::performance/responsive-image::src/routes/+layout.svelte:106::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: userPicture / profile.picture, a remote raster OIDC avatar at 2-3.5rem; one fixed-size asset"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::performance/responsive-image::src/routes/admin/+page.svelte:208::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: userPicture / profile.picture, a remote raster OIDC avatar at 2-3.5rem; one fixed-size asset"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated: admin/+page.ts load redirects to /login without an OIDC user"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/anthology/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /anthology (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, redirect stub or noindex; robots.txt Disallow empty); no canonical in app.html, layouts or components"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/anthology/info/credits/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /anthology/info/credits (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, redirect stub or noindex; robots.txt Disallow empty); no canonical in app.html, layouts or components"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/anthology/people/[name]/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /anthology/people/[name]/[id] (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, redirect stub or noindex; robots.txt Disallow empty); no canonical in app.html, layouts or components"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/anthology/publications/[name]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /anthology/publications/[name] (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, redirect stub or noindex; robots.txt Disallow empty); no canonical in app.html, layouts or components"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/anthology/venues/[name]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /anthology/venues/[name] (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, redirect stub or noindex; robots.txt Disallow empty); no canonical in app.html, layouts or components"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/anthology/venues/[name]/[year]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /anthology/venues/[name]/[year] (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, redirect stub or noindex; robots.txt Disallow empty); no canonical in app.html, layouts or components"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /callback (script-verified: grep of src+app.html finds no emitter reaching it): client redirect stub: callback/+page.svelte onMount completes OIDC sign-in then goto(/admin), no markup"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/community/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /community (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, redirect stub or noindex; robots.txt Disallow empty); no canonical in app.html, layouts or components"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: grep of src+app.html finds no emitter reaching it): publicly reachable rendered route (no auth gate, redirect stub or noindex; robots.txt Disallow empty); no canonical in app.html, layouts or components"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); /admin is the OIDC login/callback/admin-import screen (admin load redirects to /login without a token), not a search target"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/anthology/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html and lib): no <meta name=description> anywhere; /anthology is a public prerendered page of the IR Anthology site (static/robots.txt allows all, adapter-static)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/anthology/info/credits/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html and lib): no <meta name=description> anywhere; /anthology/info/credits is a public prerendered page of the IR Anthology site (static/robots.txt allows all, adapter-static)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/anthology/people/[name]/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html and lib): no <meta name=description> anywhere; /anthology/people/[name]/[id] is a public prerendered page of the IR Anthology site (static/robots.txt allows all, adapter-static)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/anthology/publications/[name]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html and lib): no <meta name=description> anywhere; /anthology/publications/[name] is a public prerendered page of the IR Anthology site (static/robots.txt allows all, adapter-static)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/anthology/venues/[name]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html and lib): no <meta name=description> anywhere; /anthology/venues/[name] is a public prerendered page of the IR Anthology site (static/robots.txt allows all, adapter-static)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/anthology/venues/[name]/[year]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html and lib): no <meta name=description> anywhere; /anthology/venues/[name]/[year] is a public prerendered page of the IR Anthology site (static/robots.txt allows all, adapter-static)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); /callback is the OIDC login/callback/admin-import screen (admin load redirects to /login without a token), not a search target"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/community/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html and lib): no <meta name=description> anywhere; /community is a public prerendered page of the IR Anthology site (static/robots.txt allows all, adapter-static)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); /login is the OIDC login/callback/admin-import screen (admin load redirects to /login without a token), not a search target"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /admin has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/anthology/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /anthology has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/anthology/info/credits/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /anthology/info/credits has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/anthology/people/[name]/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /anthology/people/[name]/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/anthology/publications/[name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /anthology/publications/[name] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/anthology/venues/[name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /anthology/venues/[name] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/anthology/venues/[name]/[year]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /anthology/venues/[name]/[year] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /callback has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/community/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /community has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /login has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/anthology/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /anthology: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/anthology/info/credits/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /anthology/info/credits: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/anthology/people/[name]/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /anthology/people/[name]/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/anthology/publications/[name]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /anthology/publications/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/anthology/venues/[name]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /anthology/venues/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/anthology/venues/[name]/[year]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /anthology/venues/[name]/[year]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /callback: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/community/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /community: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/anthology/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /anthology: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/anthology/info/credits/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /anthology/info/credits: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/anthology/people/[name]/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /anthology/people/[name]/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/anthology/publications/[name]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /anthology/publications/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/anthology/venues/[name]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /anthology/venues/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/anthology/venues/[name]/[year]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /anthology/venues/[name]/[year]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /callback: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/community/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /community: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/anthology/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /anthology: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/anthology/info/credits/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /anthology/info/credits: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/anthology/people/[name]/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /anthology/people/[name]/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/anthology/publications/[name]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /anthology/publications/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/anthology/venues/[name]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /anthology/venues/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/anthology/venues/[name]/[year]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /anthology/venues/[name]/[year]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /callback: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/community/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /community: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/anthology/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /anthology: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/anthology/info/credits/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /anthology/info/credits: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/anthology/people/[name]/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /anthology/people/[name]/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/anthology/publications/[name]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /anthology/publications/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/anthology/venues/[name]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /anthology/venues/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/anthology/venues/[name]/[year]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /anthology/venues/[name]/[year]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /callback: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/community/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /community: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/single-h1::/anthology::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: anthology/+page.svelte renders only DataTable (no headings, lib/ has no h1-h6 outside unused vitest-examples/Welcome.svelte); root +layout.svelte has none"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/single-h1::/callback::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: callback/+page.svelte has no markup, only onMount signinRedirectCallback() then goto('/admin') (ssr=false); redirect stub"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte shows brand link and a <p> 'Sign in to access restricted content.', no heading; ssr=false page"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "frontend/package.json:8 build script runs scripts/generate-sitemap.js, which writes sitemap.xml from the prerendered HTML after vite build; no sitemap in the SvelteKit source (literal claim holds; build-script convention)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/ssr-disabled::src/routes/admin/+page.ts:5::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "literal export const ssr = false at src/routes/admin/+page.ts (claim holds); src/routes/admin/+page.ts is the OIDC login/callback/admin-import screen of the IR Anthology (admin load redirects to /login without a token), not content for search; the public /anthology/* pages are prerendered"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/ssr-disabled::src/routes/callback/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "literal export const ssr = false at src/routes/callback/+page.ts (claim holds); src/routes/callback/+page.ts is the OIDC login/callback/admin-import screen of the IR Anthology (admin load redirects to /login without a token), not content for search; the public /anthology/* pages are prerendered"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/ssr-disabled::src/routes/login/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "literal export const ssr = false at src/routes/login/+page.ts (claim holds); src/routes/login/+page.ts is the OIDC login/callback/admin-import screen of the IR Anthology (admin load redirects to /login without a token), not content for search; the public /anthology/* pages are prerendered"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-length::src/routes/community/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "routes/community/+page.svelte:64 literal <title>Community – IR Anthology</title> in a top-level svelte:head = 24 chars (<30) as claimed; public prerendered page"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-presence::src/routes/admin/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports): only svelte:head in +layout.svelte:59 holds a commented-out stylesheet; no <title>/document.title/meta lib in package.json; app.html has no title; route renders (conditional/client auth only)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-presence::src/routes/anthology/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports): only svelte:head in +layout.svelte:59 holds a commented-out stylesheet; no <title>/document.title/meta lib in package.json; app.html has no title; route renders (conditional/client auth only)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-presence::src/routes/anthology/info/credits/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports): only svelte:head in +layout.svelte:59 holds a commented-out stylesheet; no <title>/document.title/meta lib in package.json; app.html has no title; route renders (conditional/client auth only)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-presence::src/routes/anthology/people/[name]/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports): only svelte:head in +layout.svelte:59 holds a commented-out stylesheet; no <title>/document.title/meta lib in package.json; app.html has no title; route renders (conditional/client auth only)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-presence::src/routes/anthology/publications/[name]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports): only svelte:head in +layout.svelte:59 holds a commented-out stylesheet; no <title>/document.title/meta lib in package.json; app.html has no title; route renders (conditional/client auth only)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-presence::src/routes/anthology/venues/[name]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports): only svelte:head in +layout.svelte:59 holds a commented-out stylesheet; no <title>/document.title/meta lib in package.json; app.html has no title; route renders (conditional/client auth only)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-presence::src/routes/anthology/venues/[name]/[year]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports): only svelte:head in +layout.svelte:59 holds a commented-out stylesheet; no <title>/document.title/meta lib in package.json; app.html has no title; route renders (conditional/client auth only)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-presence::src/routes/callback/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "callback/+page.svelte is an OAuth callback shim: onMount signinRedirectCallback() then goto('/admin'), renders no markup (ssr=false); redirect-shim precedent"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/title-presence::src/routes/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports): only svelte:head in +layout.svelte:59 holds a commented-out stylesheet; no <title>/document.title/meta lib in package.json; app.html has no title; route renders (conditional/client auth only)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /admin: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/anthology/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /anthology: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/anthology/info/credits/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /anthology/info/credits: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/anthology/people/[name]/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /anthology/people/[name]/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/anthology/publications/[name]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /anthology/publications/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/anthology/venues/[name]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /anthology/venues/[name]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/anthology/venues/[name]/[year]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /anthology/venues/[name]/[year]: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /callback: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/community/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /community: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  },
+  {
+    "key": "ir-anthology/ir-anthology:frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (only <title>s)"
+  }
+]

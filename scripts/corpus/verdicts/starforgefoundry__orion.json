@@ -1,0 +1,1952 @@
+[
+  {
+    "key": "starforgefoundry/orion::a11y/disallowed-aria-props::src/lib/frontend/components/SquareCardField.svelte:15::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): SquareCardField.svelte:15 <div> carries aria-label/labelledby with no role, spread or use: action, so it is generic/paragraph and the role prohibits a name"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read sidebar-inset.svelte:13 renders <main>; staff/+layout.svelte:21-23 wraps it around another <main> (ssr=false at root); two main landmarks on /staff routes"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/permitted-contents::src/routes/car_bay/DayPicker.svelte:58::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: DayPicker.svelte:58 <div> sits directly inside literal <button> (line 47) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/permitted-contents::src/routes/car_bay/DayPicker.svelte:73::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: DayPicker.svelte:73 <p> sits directly inside literal <button> (line 47) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/permitted-contents::src/routes/car_bay/DayPicker.svelte:74::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: DayPicker.svelte:74 <p> sits directly inside literal <button> (line 47) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/permitted-contents::src/routes/kiosk/KioskPassEmailSent.svelte:17::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: KioskPassEmailSent.svelte:17 <h1> sits directly inside literal <button> (line 11) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/permitted-contents::src/routes/kiosk/KioskPassEmailSent.svelte:18::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: KioskPassEmailSent.svelte:18 <p> sits directly inside literal <button> (line 11) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/permitted-contents::src/routes/kiosk/KioskResult.svelte:80::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: KioskResult.svelte:80 <h1> sits directly inside literal <button> (line 71) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/permitted-contents::src/routes/kiosk/KioskResult.svelte:81::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: KioskResult.svelte:81 <p> sits directly inside literal <button> (line 71) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/permitted-contents::src/routes/staff/classes/calendar/+page.svelte:60::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: +page.svelte:60 <div> sits directly inside literal <button> (line 55) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "starforgefoundry/orion::a11y/permitted-contents::src/routes/staff/classes/calendar/+page.svelte:66::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified: +page.svelte:66 <div> sits directly inside literal <button> (line 55) per svelte parse; button content model rejects it, markup renders as written (no component/portal boundary)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/component-size::src/lib/frontend/components/BayWeekCalendar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/frontend/components/BayWeekCalendar.svelte has 291 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/component-size::src/routes/print_request/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/print_request/+page.svelte has 307 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/component-size::src/routes/staff/car_bay/BookingDetailModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/staff/car_bay/BookingDetailModal.svelte has 215 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/component-size::src/routes/staff/print_requests/queue/Kanban.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/staff/print_requests/queue/Kanban.svelte has 201 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/component-size::src/routes/staff/print_requests/queue/RequestComments.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/staff/print_requests/queue/RequestComments.svelte has 211 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/component-size::src/routes/staff/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/staff/settings/+page.svelte has 286 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/component-size::src/routes/staff/settings/CarBaySettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/staff/settings/CarBaySettings.svelte has 216 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/components/ui/spinner/spinner.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/spinner/spinner.svelte has a single destructured $props() with 7 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/components/ui/toggle-group/toggle-group.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/toggle-group/toggle-group.svelte has a single destructured $props() with 7 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/frontend/components/BayWeekCalendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/frontend/components/BayWeekCalendar.svelte has a single destructured $props() with 10 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/frontend/components/BookingConfirmation.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/frontend/components/BookingConfirmation.svelte has a single destructured $props() with 15 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/frontend/components/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/frontend/components/ConfirmDialog.svelte has a single destructured $props() with 7 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/frontend/components/Modal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/frontend/components/Modal.svelte has a single destructured $props() with 10 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/frontend/components/ModalForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/frontend/components/ModalForm.svelte has a single destructured $props() with 12 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/frontend/components/form/FormField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/frontend/components/form/FormField.svelte has a single destructured $props() with 7 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/lib/frontend/components/form/OptionSelect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/frontend/components/form/OptionSelect.svelte has a single destructured $props() with 9 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/routes/car_bay/CheckoutModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/car_bay/CheckoutModal.svelte has a single destructured $props() with 8 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::architecture/prop-count::src/routes/classes/[id]/BookingModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/classes/[id]/BookingModal.svelte has a single destructured $props() with 8 named props (> 6)"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: field-error.svelte:50 validation errors keyed by index (ledger field-error convention)"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/each-index-key::src/lib/frontend/components/CalendarGrid.svelte:127::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: CalendarGrid.svelte:127 indicator dots over instances.slice(0,N) as _, i; items unused, no identity"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/each-index-key::src/lib/frontend/components/PaymentBreakdown.svelte:14::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: read-only line items / discounts / request files of one record rendered as text rows; parts of one record"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/each-index-key::src/lib/frontend/components/PaymentBreakdown.svelte:31::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: read-only line items / discounts / request files of one record rendered as text rows; parts of one record"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/each-index-key::src/routes/print_request/status/[id]/+page.svelte:132::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: read-only line items / discounts / request files of one record rendered as text rows; parts of one record"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/prop-mutation::src/lib/frontend/components/CarBayBookingFields.svelte:51::Prop \"form\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: prop is a class instance with $state fields (CarBayBookingForm / OrganizationDetail .svelte.ts); field writes are reactive by design, the docs-described class-instance case"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/prop-mutation::src/lib/frontend/components/CarBayBookingFields.svelte:60::Prop \"form\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: prop is a class instance with $state fields (CarBayBookingForm / OrganizationDetail .svelte.ts); field writes are reactive by design, the docs-described class-instance case"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/prop-mutation::src/lib/frontend/components/CarBayBookingFields.svelte:73::Prop \"form\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: prop is a class instance with $state fields (CarBayBookingForm / OrganizationDetail .svelte.ts); field writes are reactive by design, the docs-described class-instance case"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/prop-mutation::src/lib/frontend/components/form/HiddenField.svelte:12::Prop \"field\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: HiddenField.svelte:12 field: RemoteFormField<V>; field.set(value) is SvelteKit's reactive form-field setter (kit form-utils.js writes the form's state and bumps its version), the field's own API as a store's .set is; the ledger's fp class on such calls is I/O or callbacks that change no state, which this is not"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/prop-mutation::src/routes/staff/car_bay/ClosureFields.svelte:48::Prop \"form\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: prop is a class instance with $state fields (CarBayBookingForm / OrganizationDetail .svelte.ts); field writes are reactive by design, the docs-described class-instance case"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/prop-mutation::src/routes/staff/organizations/OrganizationCharges.svelte:54::Prop \"detail\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: prop is a class instance with $state fields (CarBayBookingForm / OrganizationDetail .svelte.ts); field writes are reactive by design, the docs-described class-instance case"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/unmutated-state::src/routes/auth/unauthorized/+page.svelte:14::$state \"errorTitle\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: unauthorized/+page.svelte:9,14 $state initialised once and only read in the template; never written"
+  },
+  {
+    "key": "starforgefoundry/orion::correctness/unmutated-state::src/routes/auth/unauthorized/+page.svelte:9::$state \"errorMessage\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: unauthorized/+page.svelte:9,14 $state initialised once and only read in the template; never written"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/iframe-loading::src/routes/staff/settings/EmailTemplateModal.svelte:109::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: EmailTemplateModal.svelte:109 sandboxed srcdoc preview of the template being edited, shown in the opened modal; visible content when created"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/auth/login/+page.svelte:12::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img class=\"mx-auto mb-6 w-16\" src={logo}> sets only width; logo.png is a 35KB raster, height comes from the loaded image and the card below shifts"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/auth/unauthorized/+page.svelte:22::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img class=\"mx-auto mb-6 w-16\" src={logo}> sets only width; logo.png is a 35KB raster, height comes from the loaded image and the card below shifts"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/classes/+page.svelte:30::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: classes photo class `h-36 w-full object-cover` / `h-44 w-full sm:h-64`: box reserved"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/classes/[id]/+page.svelte:55::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: classes photo class `h-36 w-full object-cover` / `h-44 w-full sm:h-64`: box reserved"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/member/onboard/[token]/+page.svelte:33::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: member/onboard banner is absolute inset-0 h-full w-full in `header h-48 sm:h-60`: box reserved"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/member/onboard/[token]/+page.svelte:37::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: logo class size-12 sm:size-14: box reserved"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/pass/+page.svelte:24::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: pass/+page.svelte:24 logo class size-14: box reserved"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/staff/+layout.svelte:20::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: staff/+layout.svelte:20 logo class h-6 in the mobile header, last item of the flex row, nothing after it to shift"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/staff/waivers/view/[id]/+page@.svelte:80::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: staff/waivers/view/[id]/+page@.svelte:80 signature img `mt-2 max-w-[200px]` only, no width/height; its height comes from the loaded signatureUrl image and the content below shifts"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-dimensions::src/routes/waiver/+page.svelte:27::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: waiver/+page.svelte:27 logo class size-12: box reserved"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/auth/login/+page.svelte:12::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: login/unauthorized logo is the first element of the card, above the fold"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/auth/unauthorized/+page.svelte:22::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: login/unauthorized logo is the first element of the card, above the fold"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/classes/+page.svelte:30::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: classes/+page.svelte:30 photo in each card of the {#each catalogs} grid, later cards offscreen; no loading attribute"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/classes/[id]/+page.svelte:55::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: classes/[id] hero photo is the first element of the page, above the fold"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/member/onboard/[token]/+page.svelte:33::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: onboard banner/logo are in the page header at the top, above the fold"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/member/onboard/[token]/+page.svelte:37::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: onboard banner/logo are in the page header at the top, above the fold"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/pass/+page.svelte:24::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: pass logo is the first element of the page header, above the fold"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/staff/+layout.svelte:20::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: staff/+layout.svelte:20 logo in the sticky mobile header, above the fold"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/staff/waivers/view/[id]/+page@.svelte:80::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: waiver view signature is at the end of the long waiver text, offscreen on load"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/image-loading-hint::src/routes/waiver/+page.svelte:27::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: waiver logo is in the page header, above the fold"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/auth/login/+page.svelte:12::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: src={logo} is the imported lib/assets/logo.png (35KB raster) shown at 1.5-4rem; one fixed-size asset, no srcset (and `.png`, not SVG)"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/auth/unauthorized/+page.svelte:22::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: src={logo} is the imported lib/assets/logo.png (35KB raster) shown at 1.5-4rem; one fixed-size asset, no srcset (and `.png`, not SVG)"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/classes/+page.svelte:30::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: catalog.photoUrl is a remote/uploaded raster photo shown at card width; one fixed-size asset"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/classes/[id]/+page.svelte:55::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: catalog.photoUrl is a remote/uploaded raster photo shown at card width; one fixed-size asset"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/member/onboard/[token]/+page.svelte:33::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: banner is an imported raster (assets/3dp-banner.jpeg|space-banner.jpg, 180-300KB) drawn full width; one fixed-size asset"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/member/onboard/[token]/+page.svelte:37::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: src={logo} imported lib/assets/logo.png raster at size-12; one fixed-size asset"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/pass/+page.svelte:24::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: src={logo} is the imported lib/assets/logo.png (35KB raster) shown at 1.5-4rem; one fixed-size asset, no srcset (and `.png`, not SVG)"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/staff/+layout.svelte:20::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: src={logo} is the imported lib/assets/logo.png (35KB raster) shown at 1.5-4rem; one fixed-size asset, no srcset (and `.png`, not SVG)"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/staff/waivers/view/[id]/+page@.svelte:80::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: waiver.current.signatureUrl raster signature image; one fixed-size asset"
+  },
+  {
+    "key": "starforgefoundry/orion::performance/responsive-image::src/routes/waiver/+page.svelte:27::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: src={logo} is the imported lib/assets/logo.png (35KB raster) shown at 1.5-4rem; one fixed-size asset, no srcset (and `.png`, not SVG)"
+  },
+  {
+    "key": "starforgefoundry/orion::security/raw-html::src/lib/frontend/components/QrCode.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read orion QrCode.svelte:6,18: qrSvg = renderQrSvg(data) from qrcode-generator, an SVG generated locally from module data; no user HTML"
+  },
+  {
+    "key": "starforgefoundry/orion::security/raw-html::src/lib/frontend/member-pass/PassImage.svelte:33::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read orion PassImage.svelte:8,33: qrSvg = renderQrSvg(passUrl) via qrcode-generator, locally generated SVG; no user HTML"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/auth/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /auth/login (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/auth/unauthorized/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /auth/unauthorized (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/car_bay/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=canonical> absent on /car_bay (public customer-facing page); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/car_bay/[tier=car_bay_tier]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=canonical> absent on /car_bay/[tier=car_bay_tier] (public customer-facing page); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/car_bay/booking/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /car_bay/booking/[token] (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/classes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=canonical> absent on /classes (public customer-facing page); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/classes/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=canonical> absent on /classes/[id] (public customer-facing page); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/classes/booking/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /classes/booking/[token] (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/inventory/scan/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /inventory/scan/[id] (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/kiosk/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /kiosk (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/member/onboard/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /member/onboard/[token] (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/pass/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=canonical> absent on /pass (public customer-facing page); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/pass/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /pass/[token] (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/pay/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /pay/[id] (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/print_request/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=canonical> absent on /print_request (public customer-facing page); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/print_request/status/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /print_request/status/[id] (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/print_request/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /print_request/success (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/car_bay/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/car_bay (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/classes/calendar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/classes/calendar (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/classes/catalog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/classes/catalog (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/inventory/items/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/inventory/items (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/inventory/labels/+page@.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/inventory/labels (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/inventory/purchase/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/inventory/purchase (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/members (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/members/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/members/[id] (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/organizations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/organizations (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/print_requests/materials/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/print_requests/materials (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/print_requests/queue/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/print_requests/queue (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/print_requests/scan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/print_requests/scan (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/settings (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/visits/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/visits (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/waivers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/waivers (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/staff/waivers/view/[id]/+page@.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /staff/waivers/view/[id] (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/waiver/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=canonical> absent on /waiver (public customer-facing page); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/canonical-url::src/routes/waiver/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=canonical> absent on /waiver/success (staff/token/kiosk/auth page, not for indexing; ledger convention design); script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/auth/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /auth/login is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/auth/unauthorized/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /auth/unauthorized is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/car_bay/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere; /car_bay is a public, un-gated customer page of the makerspace (class catalog / car-bay / print-request / waiver entry; robots.txt allows all)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/car_bay/[tier=car_bay_tier]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere; /car_bay/[tier=car_bay_tier] is a public, un-gated customer page of the makerspace (class catalog / car-bay / print-request / waiver entry; robots.txt allows all)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/car_bay/booking/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /car_bay/booking/[token] is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/classes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere; /classes is a public, un-gated customer page of the makerspace (class catalog / car-bay / print-request / waiver entry; robots.txt allows all)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/classes/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere; /classes/[id] is a public, un-gated customer page of the makerspace (class catalog / car-bay / print-request / waiver entry; robots.txt allows all)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/classes/booking/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /classes/booking/[token] is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/inventory/scan/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /inventory/scan/[id] is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/kiosk/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /kiosk is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/member/onboard/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /member/onboard/[token] is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/pass/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /pass is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/pass/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /pass/[token] is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/pay/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /pay/[id] is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/print_request/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere; /print_request is a public, un-gated customer page of the makerspace (class catalog / car-bay / print-request / waiver entry; robots.txt allows all)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/print_request/status/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /print_request/status/[id] is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/print_request/success/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /print_request/success is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/car_bay/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/car_bay is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/classes/calendar/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/classes/calendar is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/classes/catalog/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/classes/catalog is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/inventory/items/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/inventory/items is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/inventory/labels/+page@.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/inventory/labels is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/inventory/purchase/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/inventory/purchase is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/members is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/members/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/members/[id] is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/organizations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/organizations is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/print_requests/materials/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/print_requests/materials is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/print_requests/queue/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/print_requests/queue is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/print_requests/scan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/print_requests/scan is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/settings is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/visits/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/visits is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/waivers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/waivers is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/staff/waivers/view/[id]/+page@.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /staff/waivers/view/[id] is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/waiver/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere; /waiver is a public, un-gated customer page of the makerspace (class catalog / car-bay / print-request / waiver entry; robots.txt allows all)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/description-presence::src/routes/waiver/success/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=description> anywhere (literal claim holds); /waiver/success is a staff, kiosk, auth, scan or token-link page (staff paths redirect to /auth/login), not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/duplicate-title::src/routes/car_bay/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "literal title 'Car Bay Booking - Starforge' (car_bay and car_bay/booking/[token]) / '3D Print Request' (print_request and print_request/status/[id]) is shared as claimed; one partner of each pair is a private token-link page, so no real search competition"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/duplicate-title::src/routes/car_bay/booking/[token]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "literal title 'Car Bay Booking - Starforge' (car_bay and car_bay/booking/[token]) / '3D Print Request' (print_request and print_request/status/[id]) is shared as claimed; one partner of each pair is a private token-link page, so no real search competition"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/duplicate-title::src/routes/print_request/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "literal title 'Car Bay Booking - Starforge' (car_bay and car_bay/booking/[token]) / '3D Print Request' (print_request and print_request/status/[id]) is shared as claimed; one partner of each pair is a private token-link page, so no real search competition"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/duplicate-title::src/routes/print_request/status/[id]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "literal title 'Car Bay Booking - Starforge' (car_bay and car_bay/booking/[token]) / '3D Print Request' (print_request and print_request/status/[id]) is shared as claimed; one partner of each pair is a private token-link page, so no real search competition"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/auth/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /auth/login has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/auth/unauthorized/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /auth/unauthorized has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/car_bay/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /car_bay has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/car_bay/[tier=car_bay_tier]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /car_bay/[tier=car_bay_tier] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/car_bay/booking/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /car_bay/booking/[token] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/classes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /classes has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/classes/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /classes/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/classes/booking/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /classes/booking/[token] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/inventory/scan/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /inventory/scan/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/kiosk/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /kiosk has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/member/onboard/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /member/onboard/[token] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/pass/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /pass has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/pass/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /pass/[token] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/pay/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /pay/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/print_request/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /print_request has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/print_request/status/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /print_request/status/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/print_request/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /print_request/success has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/car_bay/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/car_bay has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/classes/calendar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/classes/calendar has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/classes/catalog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/classes/catalog has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/inventory/items/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/inventory/items has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/inventory/labels/+page@.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/inventory/labels has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/inventory/purchase/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/inventory/purchase has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/members has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/members/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/members/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/organizations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/organizations has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/print_requests/materials/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/print_requests/materials has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/print_requests/queue/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/print_requests/queue has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/print_requests/scan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/print_requests/scan has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/settings has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/visits/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/visits has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/waivers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/waivers has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/staff/waivers/view/[id]/+page@.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /staff/waivers/view/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/waiver/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /waiver has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/json-ld::src/routes/waiver/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /waiver/success has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/login; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/auth/unauthorized/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/unauthorized; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/car_bay/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/car_bay/[tier=car_bay_tier]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /car_bay/[tier=car_bay_tier]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/car_bay/booking/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /car_bay/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/classes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /classes; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/classes/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /classes/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/classes/booking/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /classes/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/inventory/scan/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inventory/scan/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/kiosk/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /kiosk; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/member/onboard/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /member/onboard/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/pass/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pass; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/pass/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pass/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/pay/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pay/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/print_request/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /print_request; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/print_request/status/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /print_request/status/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/print_request/success/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /print_request/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/car_bay/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/classes/calendar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/classes/calendar; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/classes/catalog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/classes/catalog; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/inventory/items/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/inventory/items; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/inventory/labels/+page@.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/inventory/labels; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/inventory/purchase/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/inventory/purchase; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/members; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/members/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/members/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/organizations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/organizations; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/print_requests/materials/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/print_requests/materials; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/print_requests/queue/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/print_requests/queue; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/print_requests/scan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/print_requests/scan; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/settings; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/visits/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/visits; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/waivers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/waivers; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/staff/waivers/view/[id]/+page@.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff/waivers/view/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/waiver/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /waiver; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-description::src/routes/waiver/success/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /waiver/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/login; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/auth/unauthorized/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/unauthorized; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/car_bay/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/car_bay/[tier=car_bay_tier]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /car_bay/[tier=car_bay_tier]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/car_bay/booking/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /car_bay/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/classes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /classes; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/classes/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /classes/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/classes/booking/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /classes/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/inventory/scan/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /inventory/scan/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/kiosk/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /kiosk; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/member/onboard/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /member/onboard/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/pass/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pass; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/pass/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pass/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/pay/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pay/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/print_request/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /print_request; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/print_request/status/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /print_request/status/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/print_request/success/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /print_request/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/car_bay/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/classes/calendar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/classes/calendar; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/classes/catalog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/classes/catalog; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/inventory/items/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/inventory/items; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/inventory/labels/+page@.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/inventory/labels; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/inventory/purchase/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/inventory/purchase; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/members; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/members/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/members/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/organizations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/organizations; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/print_requests/materials/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/print_requests/materials; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/print_requests/queue/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/print_requests/queue; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/print_requests/scan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/print_requests/scan; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/settings; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/visits/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/visits; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/waivers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/waivers; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/staff/waivers/view/[id]/+page@.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff/waivers/view/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/waiver/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /waiver; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-image::src/routes/waiver/success/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /waiver/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/login; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/auth/unauthorized/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/unauthorized; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/car_bay/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/car_bay/[tier=car_bay_tier]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /car_bay/[tier=car_bay_tier]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/car_bay/booking/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /car_bay/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/classes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /classes; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/classes/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /classes/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/classes/booking/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /classes/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/inventory/scan/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /inventory/scan/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/kiosk/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /kiosk; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/member/onboard/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /member/onboard/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/pass/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pass; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/pass/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pass/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/pay/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pay/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/print_request/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /print_request; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/print_request/status/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /print_request/status/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/print_request/success/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /print_request/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/car_bay/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/classes/calendar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/classes/calendar; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/classes/catalog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/classes/catalog; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/inventory/items/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/inventory/items; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/inventory/labels/+page@.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/inventory/labels; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/inventory/purchase/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/inventory/purchase; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/members; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/members/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/members/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/organizations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/organizations; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/print_requests/materials/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/print_requests/materials; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/print_requests/queue/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/print_requests/queue; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/print_requests/scan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/print_requests/scan; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/settings; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/visits/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/visits; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/waivers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/waivers; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/staff/waivers/view/[id]/+page@.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff/waivers/view/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/waiver/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /waiver; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-title::src/routes/waiver/success/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /waiver/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/login; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/auth/unauthorized/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/unauthorized; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/car_bay/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/car_bay/[tier=car_bay_tier]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /car_bay/[tier=car_bay_tier]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/car_bay/booking/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /car_bay/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/classes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /classes; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/classes/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /classes/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/classes/booking/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /classes/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/inventory/scan/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /inventory/scan/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/kiosk/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /kiosk; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/member/onboard/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /member/onboard/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/pass/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pass; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/pass/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pass/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/pay/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pay/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/print_request/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /print_request; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/print_request/status/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /print_request/status/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/print_request/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /print_request/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/car_bay/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/classes/calendar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/classes/calendar; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/classes/catalog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/classes/catalog; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/inventory/items/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/inventory/items; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/inventory/labels/+page@.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/inventory/labels; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/inventory/purchase/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/inventory/purchase; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/members; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/members/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/members/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/organizations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/organizations; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/print_requests/materials/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/print_requests/materials; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/print_requests/queue/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/print_requests/queue; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/print_requests/scan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/print_requests/scan; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/settings; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/visits/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/visits; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/waivers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/waivers; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/staff/waivers/view/[id]/+page@.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff/waivers/view/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/waiver/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /waiver; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/og-url::src/routes/waiver/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /waiver/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/single-h1::/auth/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src has no h1-h6 on this route: ui/card/card-title.svelte renders a <div>; lib/frontend PageHeader/PublicShell (the only h1s) are not used by this page, PassCard/Section give h2/h3; root layout ssr=false only"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/single-h1::/auth/unauthorized::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src has no h1-h6 on this route: ui/card/card-title.svelte renders a <div>; lib/frontend PageHeader/PublicShell (the only h1s) are not used by this page, PassCard/Section give h2/h3; root layout ssr=false only"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/single-h1::/pass/[token]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src has no h1-h6 on this route: ui/card/card-title.svelte renders a <div>; lib/frontend PageHeader/PublicShell (the only h1s) are not used by this page, PassCard/Section give h2/h3; root layout ssr=false only"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/single-h1::/pay/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src has no h1-h6 on this route: ui/card/card-title.svelte renders a <div>; lib/frontend PageHeader/PublicShell (the only h1s) are not used by this page, PassCard/Section give h2/h3; root layout ssr=false only"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/single-h1::/print_request/status/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: src has no h1-h6 on this route: ui/card/card-title.svelte renders a <div>; lib/frontend PageHeader/PublicShell (the only h1s) are not used by this page, PassCard/Section give h2/h3; root layout ssr=false only"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/single-h1::src/routes/kiosk/KioskResult.svelte:80::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: kiosk/+page.svelte:40-50 in the last arm renders KioskScanner (<h1> :27) and, when kiosk.screen is RESULT, KioskResult (<h1> :80) overlay in the same arm: both h1 are in the DOM together"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/single-h1::src/routes/staff/inventory/labels/+page@.svelte:21::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: staff/inventory/labels/+page@.svelte has only <h2> (:21) for label sheets; no h1 (the @ reset drops the staff layout)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml file, route or generator in the repo (literal claim holds); Orion is Starforge Foundry's internal makerspace-management app (README), an ssr=false SPA (+layout.server.ts:16) whose staff area redirects to /auth/login and whose other pages are token links, kiosk and auth screens, not search targets"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/ssr-disabled::src/routes/+layout.server.ts:16::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "literal export const ssr = false at src/routes/+layout.server.ts:16 (claim holds); deliberate SPA: Orion is Starforge Foundry's internal makerspace-management app (README), an ssr=false SPA (+layout.server.ts:16) whose staff area redirects to /auth/login and whose other pages are token links, kiosk and auth screens, not search targets"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/auth/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/auth/login/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/auth/unauthorized/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/auth/unauthorized/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/car_bay/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "literal <title> in src/routes/car_bay/+page.svelte top-level svelte:head is <30 chars as claimed; public customer entry page, no other title on the route"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/car_bay/booking/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/car_bay/booking/[token]/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/classes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "literal <title> in src/routes/classes/+page.svelte top-level svelte:head is <30 chars as claimed; public customer entry page, no other title on the route"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/classes/booking/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/classes/booking/[token]/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/kiosk/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/kiosk/+layout.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/member/onboard/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/member/onboard/[token]/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/pass/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/pass/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/pass/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/pass/[token]/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/pay/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/pay/[id]/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/print_request/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "literal <title> in src/routes/print_request/+page.svelte top-level svelte:head is <30 chars as claimed; public customer entry page, no other title on the route"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/print_request/status/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/print_request/status/[id]/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/print_request/success/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/print_request/success/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/staff/waivers/view/[id]/+page@.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/staff/waivers/view/[id]/+page@.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/waiver/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "literal <title> in src/routes/waiver/+page.svelte top-level svelte:head is <30 chars as claimed; public customer entry page, no other title on the route"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-length::src/routes/waiver/success/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "literal <title> in src/routes/waiver/success/+page.svelte is <30 chars as claimed (literal claim holds); staff/kiosk/auth/token-link/confirmation page, not a search target"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-presence::src/routes/inventory/scan/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports, 93-101 files): only svelte:head is the favicon link in routes/+layout.svelte:14; no <title>/document.title (root +layout.server.ts ssr=false but nothing sets a client title); app.html has none; route renders"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/title-presence::src/routes/staff/inventory/labels/+page@.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + root +layout.svelte + $lib imports, 93-101 files): only svelte:head is the favicon link in routes/+layout.svelte:14; no <title>/document.title (root +layout.server.ts ssr=false but nothing sets a client title); app.html has none; route renders; staff print sheet (window.print onMount) still has no title"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/auth/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/login; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/auth/unauthorized/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/unauthorized; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/car_bay/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/car_bay/[tier=car_bay_tier]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /car_bay/[tier=car_bay_tier]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/car_bay/booking/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /car_bay/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/classes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /classes; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/classes/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /classes/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/classes/booking/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /classes/booking/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/inventory/scan/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /inventory/scan/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/kiosk/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /kiosk; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/member/onboard/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /member/onboard/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/pass/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pass; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/pass/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pass/[token]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/pay/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pay/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/print_request/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /print_request; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/print_request/status/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /print_request/status/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/print_request/success/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /print_request/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/car_bay/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/car_bay; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/classes/calendar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/classes/calendar; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/classes/catalog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/classes/catalog; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/inventory/items/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/inventory/items; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/inventory/labels/+page@.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/inventory/labels; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/inventory/purchase/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/inventory/purchase; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/members; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/members/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/members/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/organizations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/organizations; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/print_requests/materials/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/print_requests/materials; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/print_requests/queue/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/print_requests/queue; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/print_requests/scan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/print_requests/scan; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/settings; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/visits/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/visits; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/waivers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/waivers; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/staff/waivers/view/[id]/+page@.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff/waivers/view/[id]; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/waiver/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /waiver; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  },
+  {
+    "key": "starforgefoundry/orion::seo/twitter-card::src/routes/waiver/success/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /waiver/success; script-verified: grep of orion src+app.html finds no og:*/twitter:*/canonical emitter (app.html has manifest/theme-color only); pages set <title> only; no meta lib; root +layout.server.ts:16 ssr=false (client-rendered shell)"
+  }
+]
