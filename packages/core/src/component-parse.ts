@@ -1498,12 +1498,24 @@ function selectNativeRole(attributes: Node[]): 'combobox' | 'listbox' | undefine
   return Number(attrTextOf(size)) > 1 ? 'listbox' : 'combobox';
 }
 
-function collectAriaElements(node: Node, source: string, acc: AriaElementFact[]): void {
+/** svelte-dnd-action's zone actions, which set `role="listitem"` on each child element at runtime. */
+const DND_ZONE_ACTIONS = new Set(['dndzone', 'dragHandleZone']);
+
+function collectAriaElements(node: Node, source: string, acc: AriaElementFact[], parentIsDndZone = false): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectAriaElements(child, source, acc);
+    for (const child of node) collectAriaElements(child, source, acc, parentIsDndZone);
     return;
   }
   if (!node || typeof node !== 'object') return;
+  let inDndZone = parentIsDndZone;
+  if (
+    typeof node.type === 'string' &&
+    (node.type.endsWith('Element') || node.type === 'Component' || node.type.startsWith('Svelte'))
+  ) {
+    inDndZone =
+      Array.isArray(node.attributes) &&
+      node.attributes.some((a: Node) => a?.type === 'UseDirective' && DND_ZONE_ACTIONS.has(a.name));
+  }
   if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
     // HTML attribute names are case-insensitive, so `ARIA-LABEL` and `ROLE` become `aria-label` and
     // `role` during HTML parsing — but the **Svelte AST keeps the source spelling**, which is why
@@ -1524,7 +1536,7 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
       const hasList = tag === 'input' && findAttr(node.attributes, 'list') !== undefined;
       const selectKind = tag === 'select' ? selectNativeRole(node.attributes) : undefined;
       const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
-      const hasAction = node.attributes.some((a: Node) => a?.type === 'UseDirective');
+      const hasAction = parentIsDndZone || node.attributes.some((a: Node) => a?.type === 'UseDirective');
       acc.push({
         tag,
         line: lineOf(source, node.start),
@@ -1543,7 +1555,7 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
     }
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectAriaElements(node[key], source, acc);
+    if (key in node) collectAriaElements(node[key], source, acc, inDndZone);
   }
 }
 

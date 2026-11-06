@@ -38,6 +38,20 @@ describe('roleCandidates', () => {
     expect(roleCandidates(el('<span role="button" use:a aria-label="x">x</span>'))?.explicit).toBe(true);
   });
 
+  it("is undefined for a svelte-dnd-action zone's item, which the zone gives role listitem", () => {
+    for (const zone of ['dndzone', 'dragHandleZone']) {
+      const src = `<div use:${zone}={{ items }}>{#each items as i (i.id)}<div aria-label={i.name}><b aria-label="y">y</b></div>{/each}</div>`;
+      const [item, grandchild] = parseComponentFacts(src, 'C.svelte').ariaElements!;
+      expect(roleCandidates(item!)).toBeUndefined();
+      expect(roleCandidates(grandchild!)?.namingProhibited).toBe(true);
+    }
+    const other = parseComponentFacts(
+      '<div use:zone>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
+      'C.svelte'
+    );
+    expect(roleCandidates(other.ariaElements![0]!)?.namingProhibited).toBe(true);
+  });
+
   it('keeps judging the explicit role when a spread is also present', () => {
     expect(roleCandidates(el('<div role="checkbox" {...p} aria-checked="true">x</div>'))?.explicit).toBe(true);
   });
