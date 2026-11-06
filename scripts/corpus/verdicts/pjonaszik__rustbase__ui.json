@@ -1,0 +1,1092 @@
+[
+  {
+    "key": "pjonaszik/rustbase:ui::a11y/disallowed-aria-props::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte:441::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): +page.svelte:441 <span> carries aria-label/labelledby with no role, spread or use: action, so it is generic/paragraph and the role prohibits a name"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::a11y/pattern-title::src/lib/PoliciesView.svelte:241::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "design",
+    "basis": "read PoliciesView.svelte:241: <input pattern> has no title as reported, but there is no <form> in the file and save() (button onclick) never calls checkValidity/reportValidity, so the pattern is never evaluated by the browser (no-form precedent)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::a11y/pattern-title::src/routes/workspaces/+page.svelte:95::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read +page.svelte:95: <input pattern> without title inside a <form> without novalidate, so a failed native match shows the generic message with no format hint"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::a11y/pattern-title::src/routes/workspaces/[workspace]/+page.svelte:99::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read +page.svelte:99: <input pattern> without title inside a <form> without novalidate, so a failed native match shows the generic message with no format hint"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::a11y/pattern-title::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte:123::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read +page.svelte:123: <input pattern> without title inside a <form> without novalidate, so a failed native match shows the generic message with no format hint"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::a11y/pattern-title::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte:342::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read +page.svelte:342: <input pattern> without title inside a <form> without novalidate, so a failed native match shows the generic message with no format hint"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::a11y/pattern-title::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte:235::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read +page.svelte:235: <input pattern> without title inside a <form> without novalidate, so a failed native match shows the generic message with no format hint"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::a11y/top-level-landmark::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte:193::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read hooks/+page.svelte:193 <aside> rendered in root +layout.svelte:103 <main id=main-content>; complementary nested in main"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::architecture/component-size::src/lib/PoliciesView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/PoliciesView.svelte has 267 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::architecture/component-size::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte has 534 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::architecture/component-size::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte has 599 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::architecture/component-size::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte has 297 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::architecture/component-size::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte has 340 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::architecture/component-size::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte has 359 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::architecture/component-size::src/routes/workspaces/[workspace]/users/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/workspaces/[workspace]/users/[id]/+page.svelte has 204 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/base-path-navigation::src/routes/+layout.svelte:76::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal <a href>; ui/svelte.config.js:23 base = VITE_BASE, and crates/rustbase-server/build.rs:140 builds the embedded dashboard with VITE_BASE=/_, so it is served under /_ in production"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/base-path-navigation::src/routes/+layout.svelte:84::<a href=\"/workspaces\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/workspaces') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal <a href>; ui/svelte.config.js:23 base = VITE_BASE, and crates/rustbase-server/build.rs:140 builds the embedded dashboard with VITE_BASE=/_, so it is served under /_ in production"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/base-path-navigation::src/routes/+layout.svelte:86::<a href=\"/system\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/system') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal <a href>; ui/svelte.config.js:23 base = VITE_BASE, and crates/rustbase-server/build.rs:140 builds the embedded dashboard with VITE_BASE=/_, so it is served under /_ in production"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/base-path-navigation::src/routes/login/+page.svelte:62::<a href=\"/setup\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/setup') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal <a href>; ui/svelte.config.js:23 base = VITE_BASE, and crates/rustbase-server/build.rs:140 builds the embedded dashboard with VITE_BASE=/_, so it is served under /_ in production"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/base-path-navigation::src/routes/login/+page.svelte:99::<a href=\"/setup\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/setup') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal <a href>; ui/svelte.config.js:23 base = VITE_BASE, and crates/rustbase-server/build.rs:140 builds the embedded dashboard with VITE_BASE=/_, so it is served under /_ in production"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/base-path-navigation::src/routes/setup/+page.svelte:95::<a href=\"/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/login') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: root-relative literal <a href>; ui/svelte.config.js:23 base = VITE_BASE, and crates/rustbase-server/build.rs:140 builds the embedded dashboard with VITE_BASE=/_, so it is served under /_ in production"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/lib/AuditView.svelte:142::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: audit entries loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/lib/Breadcrumbs.svelte:7::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: breadcrumb crumbs prop, positional; positional list"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/lib/PoliciesView.svelte:178::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: policy rows loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/lib/PoliciesView.svelte:228::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: read-only text lines of an auto-clamp cascade report; positional list"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/lib/PolicyEditor.svelte:144::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: chips parsed from a comma-separated string, read-only; positional list"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/lib/Skeleton.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Skeleton.svelte:21 placeholder stripes from Array.from({length}) via a local const; length-only list, no item identity; positional list"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/lib/Tabs.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Tabs prop; every layout passes a fixed tabs array; positional list"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/+page.svelte:152::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: workspaces loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/+page.svelte:154::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: apps loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte:177::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: collections loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte:354::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Object.entries of a constant KIND_LABEL map; positional list"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte:431::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: collection schema fields loaded from the API into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte:439::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: records loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte:453::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: collection schema fields loaded from the API into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte:533::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: collection schema fields loaded from the API into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte:255::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: files loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte:233::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: hook files loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte:330::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: reload error strings of one outcome rendered as text lines; positional list"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/oauth/+page.svelte:87::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: oauth providers loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte:222::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Object.entries of a constant PRESETS map; positional list"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/users/+page.svelte:125::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: users loaded into $state; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::correctness/each-key::src/routes/workspaces/[workspace]/users/[id]/+page.svelte:195::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: oauth links of a loaded user detail, runtime list; runtime records unkeyed"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::performance/state-raw::src/lib/AuditView.svelte:23::\"expanded\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/lib/AuditView.svelte: only whole-binding reassignments and read-only template/expression uses (member reads, .length, {#each} items only read); no member writes, mutating calls, bind:, call-arg/prop escapes — $state.raw fits"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: grep of src+app.html finds no emitter reaching it): public route (PUBLIC_ROUTES in +layout.svelte:15), ssr=false, no canonical, no noindex, robots.txt Disallow empty"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setup (script-verified: grep of src+app.html finds no emitter reaching it): public route (PUBLIC_ROUTES in +layout.svelte:15), ssr=false, no canonical, no noindex, robots.txt Disallow empty"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/system/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /system (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/system/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /system/audit (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/system/policies/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /system/policies (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace] (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/apps/[app] (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/apps/[app]/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/apps/[app]/audit (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/apps/[app]/collections/[coll] (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/apps/[app]/collections/[coll]/records (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/apps/[app]/files (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/apps/[app]/hooks (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/apps/[app]/policies/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/apps/[app]/policies (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/audit (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/oauth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/oauth (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/oauth/[provider] (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/policies/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/policies (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/users (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/canonical-url::src/routes/workspaces/[workspace]/users/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /workspaces/[workspace]/users/[id] (script-verified: grep of src+app.html finds no emitter reaching it): auth-gated client-side: root +layout.svelte:43-48 $effect goto(/login) for every path outside PUBLIC_ROUTES (/login,/setup) when unauthenticated"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/system/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/system/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/system/policies/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/apps/[app]/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/apps/[app]/policies/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/oauth/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/policies/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/description-presence::src/routes/workspaces/[workspace]/users/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (literal claim holds); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "+layout.svelte:66 literal <title>RustBase</title> is the only title of all 21 routes (no page sets one), duplicate as claimed; RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so / has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /login has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /setup has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/system/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /system has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/system/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /system/audit has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/system/policies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /system/policies has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/apps/[app] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/apps/[app]/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/apps/[app]/audit has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/apps/[app]/collections/[coll] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/apps/[app]/collections/[coll]/records has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/apps/[app]/files has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/apps/[app]/hooks has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/apps/[app]/policies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/apps/[app]/policies has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/audit has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/oauth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/oauth has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/oauth/[provider] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/policies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/policies has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/users has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/json-ld::src/routes/workspaces/[workspace]/users/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json/schema.org): no JSON-LD anywhere, so /workspaces/[workspace]/users/[id] has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /setup: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/system/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /system: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/system/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /system/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/system/policies/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /system/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/apps/[app]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/apps/[app]/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/apps/[app]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/apps/[app]/collections/[coll]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/apps/[app]/collections/[coll]/records: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/apps/[app]/files: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/apps/[app]/hooks: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/apps/[app]/policies/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/apps/[app]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/oauth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/oauth: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/oauth/[provider]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/policies/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/users: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-description::src/routes/workspaces/[workspace]/users/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og-description absent on /workspaces/[workspace]/users/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /setup: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/system/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /system: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/system/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /system/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/system/policies/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /system/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/apps/[app]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/apps/[app]/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/apps/[app]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/apps/[app]/collections/[coll]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/apps/[app]/collections/[coll]/records: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/apps/[app]/files: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/apps/[app]/hooks: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/apps/[app]/policies/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/apps/[app]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/oauth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/oauth: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/oauth/[provider]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/policies/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/users: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-image::src/routes/workspaces/[workspace]/users/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og-image absent on /workspaces/[workspace]/users/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /setup: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/system/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /system: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/system/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /system/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/system/policies/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /system/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/apps/[app]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/apps/[app]/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/apps/[app]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/apps/[app]/collections/[coll]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/apps/[app]/collections/[coll]/records: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/apps/[app]/files: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/apps/[app]/hooks: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/apps/[app]/policies/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/apps/[app]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/oauth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/oauth: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/oauth/[provider]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/policies/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/users: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-title::src/routes/workspaces/[workspace]/users/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og-title absent on /workspaces/[workspace]/users/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /setup: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/system/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /system: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/system/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /system/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/system/policies/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /system/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/apps/[app]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/apps/[app]/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/apps/[app]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/apps/[app]/collections/[coll]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/apps/[app]/collections/[coll]/records: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/apps/[app]/files: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/apps/[app]/hooks: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/apps/[app]/policies/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/apps/[app]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/oauth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/oauth: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/oauth/[provider]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/policies/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/users: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/og-url::src/routes/workspaces/[workspace]/users/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og-url absent on /workspaces/[workspace]/users/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/single-h1::/::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: ui/src/routes/+page.svelte (/) and system/+page.svelte (/system) only run goto() redirects in $effect, no markup, ssr=false; no page content to title (ledger: redirect stub, Gooowan/matchup)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/single-h1::/system::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: ui/src/routes/+page.svelte (/) and system/+page.svelte (/system) only run goto() redirects in $effect, no markup, ssr=false; no page content to title (ledger: redirect stub, Gooowan/matchup)"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml file, route or generator in ui (literal claim holds; static/robots.txt only allows all); RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/ssr-disabled::src/routes/+layout.ts:6::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "literal export const ssr = false at src/routes/+layout.ts:6 (claim holds); deliberate SPA: RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "+layout.svelte:66 literal <title>RustBase</title> (8 chars <30, claim holds), the title of all 21 routes; RustBase ui is the embedded admin dashboard of a self-hosted BaaS binary (served at /_/, adapter-static SPA fallback, +layout.ts:6 ssr=false; login/setup/workspace screens), not a search target"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /login: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /setup: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/system/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /system: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/system/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /system/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/system/policies/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /system/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/apps/[app]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/apps/[app]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/apps/[app]/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/apps/[app]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/apps/[app]/collections/[coll]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/apps/[app]/collections/[coll]/records/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/apps/[app]/collections/[coll]/records: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/apps/[app]/files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/apps/[app]/files: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/apps/[app]/hooks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/apps/[app]/hooks: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/apps/[app]/policies/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/apps/[app]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/audit: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/oauth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/oauth: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/oauth/[provider]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/oauth/[provider]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/policies/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/policies: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/users: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  },
+  {
+    "key": "pjonaszik/rustbase:ui::seo/twitter-card::src/routes/workspaces/[workspace]/users/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter-card absent on /workspaces/[workspace]/users/[id]: no og:*/twitter:*/canonical anywhere in src or app.html (root head is title+icon); ssr=false"
+  }
+]
