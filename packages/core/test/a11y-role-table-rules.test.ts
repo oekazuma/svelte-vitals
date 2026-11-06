@@ -65,6 +65,17 @@ describe('roleCandidates', () => {
       'C.svelte'
     );
     expect(roleCandidates(computed.ariaElements![0]!)).toBeUndefined();
+    const zoneItem = (opts: string) =>
+      roleCandidates(
+        parseComponentFacts(
+          `<script lang="ts"></script><div use:dndzone={${opts}}>{#each items as i}<div aria-label="x">x</div>{/each}</div>`,
+          'C.svelte'
+        ).ariaElements![0]!
+      );
+    expect(zoneItem("{ autoAriaDisabled: false, ['unrelated']: true }")).toBeUndefined();
+    expect(zoneItem('{ autoAriaDisabled: false, [key]: true }')).toBeUndefined();
+    expect(zoneItem("{ items, ['autoAriaDisabled']: true }")?.namingProhibited).toBe(true);
+    expect(zoneItem('{ items, autoAriaDisabled: true } as const')?.namingProhibited).toBe(true);
     const other = parseComponentFacts(
       '<div use:zone>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
       'C.svelte'

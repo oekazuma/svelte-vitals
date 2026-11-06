@@ -1504,17 +1504,25 @@ const DND_ZONE_ACTIONS = new Set(['dndzone', 'dragHandleZone']);
 /** A zone action unless its options' final say on `autoAriaDisabled` is a literal `true`, which turns the item roles off. */
 function isDndZone(a: Node): boolean {
   if (a?.type !== 'UseDirective' || !DND_ZONE_ACTIONS.has(a.name)) return false;
-  const opts = a.expression;
+  const opts = unwrapTs(a.expression);
   if (opts?.type !== 'ObjectExpression') return true;
-  // A later spread or computed key may override the key, so only the last such entry decides.
+  // A non-literal computed key is unknown, so it may be `autoAriaDisabled`.
+  const keyOf = (p: Node): string | undefined =>
+    p.computed ? (p.key?.type === 'Literal' ? String(p.key.value) : undefined) : String(p.key?.name ?? p.key?.value);
+  // A later spread or unknown key may override the key, so only the last such entry decides.
   const last = opts.properties
     .filter(
       (p: Node) =>
         p.type === 'SpreadElement' ||
-        (p.type === 'Property' && (p.computed || (p.key?.name ?? p.key?.value) === 'autoAriaDisabled'))
+        (p.type === 'Property' && (keyOf(p) === undefined || keyOf(p) === 'autoAriaDisabled'))
     )
     .at(-1);
-  return !(last?.type === 'Property' && last.value?.type === 'Literal' && last.value.value === true);
+  return !(
+    last?.type === 'Property' &&
+    keyOf(last) === 'autoAriaDisabled' &&
+    last.value?.type === 'Literal' &&
+    last.value.value === true
+  );
 }
 
 function collectAriaElements(node: Node, source: string, acc: AriaElementFact[], parentIsDndZone = false): void {
