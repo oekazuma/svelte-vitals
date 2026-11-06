@@ -1501,6 +1501,23 @@ function selectNativeRole(attributes: Node[]): 'combobox' | 'listbox' | undefine
 /** svelte-dnd-action's zone actions, which set `role="listitem"` on each child element at runtime. */
 const DND_ZONE_ACTIONS = new Set(['dndzone', 'dragHandleZone']);
 
+/** A zone action whose options are not a literal `autoAriaDisabled: true`, which turns the item roles off. */
+function isDndZone(a: Node): boolean {
+  if (a?.type !== 'UseDirective' || !DND_ZONE_ACTIONS.has(a.name)) return false;
+  const opts = a.expression;
+  return !(
+    opts?.type === 'ObjectExpression' &&
+    opts.properties.some(
+      (p: Node) =>
+        p.type === 'Property' &&
+        !p.computed &&
+        (p.key?.name ?? p.key?.value) === 'autoAriaDisabled' &&
+        p.value?.type === 'Literal' &&
+        p.value.value === true
+    )
+  );
+}
+
 function collectAriaElements(node: Node, source: string, acc: AriaElementFact[], parentIsDndZone = false): void {
   if (Array.isArray(node)) {
     for (const child of node) collectAriaElements(child, source, acc, parentIsDndZone);
@@ -1510,11 +1527,11 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[],
   let inDndZone = parentIsDndZone;
   if (
     typeof node.type === 'string' &&
-    (node.type.endsWith('Element') || node.type === 'Component' || node.type.startsWith('Svelte'))
+    (node.type.endsWith('Element') || node.type === 'Component' || node.type.startsWith('Svelte')) &&
+    // `<svelte:boundary>` renders no element, so a zone's items may sit inside one.
+    node.type !== 'SvelteBoundary'
   ) {
-    inDndZone =
-      Array.isArray(node.attributes) &&
-      node.attributes.some((a: Node) => a?.type === 'UseDirective' && DND_ZONE_ACTIONS.has(a.name));
+    inDndZone = Array.isArray(node.attributes) && node.attributes.some(isDndZone);
   }
   if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
     // HTML attribute names are case-insensitive, so `ARIA-LABEL` and `ROLE` become `aria-label` and

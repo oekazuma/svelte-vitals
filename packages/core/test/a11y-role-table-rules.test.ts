@@ -45,6 +45,16 @@ describe('roleCandidates', () => {
       expect(roleCandidates(item!)).toBeUndefined();
       expect(roleCandidates(grandchild!)?.namingProhibited).toBe(true);
     }
+    const bounded = parseComponentFacts(
+      '<div use:dndzone={{ items }}><svelte:boundary>{#each items as i}<div aria-label="x">x</div>{/each}</svelte:boundary></div>',
+      'C.svelte'
+    );
+    expect(roleCandidates(bounded.ariaElements![0]!)).toBeUndefined();
+    const noAria = parseComponentFacts(
+      '<div use:dndzone={{ items, autoAriaDisabled: true }}>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
+      'C.svelte'
+    );
+    expect(roleCandidates(noAria.ariaElements![0]!)?.namingProhibited).toBe(true);
     const other = parseComponentFacts(
       '<div use:zone>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
       'C.svelte'
