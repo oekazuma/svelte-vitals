@@ -1506,12 +1506,12 @@ function isDndZone(a: Node): boolean {
   if (a?.type !== 'UseDirective' || !DND_ZONE_ACTIONS.has(a.name)) return false;
   const opts = a.expression;
   if (opts?.type !== 'ObjectExpression') return true;
-  // A later spread may override the key, so only the last spread-or-key entry decides.
+  // A later spread or computed key may override the key, so only the last such entry decides.
   const last = opts.properties
     .filter(
       (p: Node) =>
         p.type === 'SpreadElement' ||
-        (p.type === 'Property' && !p.computed && (p.key?.name ?? p.key?.value) === 'autoAriaDisabled')
+        (p.type === 'Property' && (p.computed || (p.key?.name ?? p.key?.value) === 'autoAriaDisabled'))
     )
     .at(-1);
   return !(last?.type === 'Property' && last.value?.type === 'Literal' && last.value.value === true);

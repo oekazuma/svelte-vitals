@@ -60,6 +60,11 @@ describe('roleCandidates', () => {
       'C.svelte'
     );
     expect(roleCandidates(overridden.ariaElements![0]!)).toBeUndefined();
+    const computed = parseComponentFacts(
+      '<div use:dndzone={{ autoAriaDisabled: true, [\'autoAriaDisabled\']: false }}>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
+      'C.svelte'
+    );
+    expect(roleCandidates(computed.ariaElements![0]!)).toBeUndefined();
     const other = parseComponentFacts(
       '<div use:zone>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
       'C.svelte'
