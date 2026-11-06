@@ -1498,12 +1498,48 @@ function selectNativeRole(attributes: Node[]): 'combobox' | 'listbox' | undefine
   return Number(attrTextOf(size)) > 1 ? 'listbox' : 'combobox';
 }
 
-function collectAriaElements(node: Node, source: string, acc: AriaElementFact[]): void {
+/** svelte-dnd-action's zone actions, which set `role="listitem"` on each child element at runtime. */
+const DND_ZONE_ACTIONS = new Set(['dndzone', 'dragHandleZone']);
+
+/** A zone action unless its options' final say on `autoAriaDisabled` is a literal `true`, which turns the item roles off. */
+function isDndZone(a: Node): boolean {
+  if (a?.type !== 'UseDirective' || !DND_ZONE_ACTIONS.has(a.name)) return false;
+  const opts = unwrapTs(a.expression);
+  if (opts?.type !== 'ObjectExpression') return true;
+  // A non-literal computed key is unknown, so it may be `autoAriaDisabled`.
+  const keyOf = (p: Node): string | undefined =>
+    p.computed ? (p.key?.type === 'Literal' ? String(p.key.value) : undefined) : String(p.key?.name ?? p.key?.value);
+  // A later spread or unknown key may override the key, so only the last such entry decides.
+  const last = opts.properties
+    .filter(
+      (p: Node) =>
+        p.type === 'SpreadElement' ||
+        (p.type === 'Property' && (keyOf(p) === undefined || keyOf(p) === 'autoAriaDisabled'))
+    )
+    .at(-1);
+  return !(
+    last?.type === 'Property' &&
+    keyOf(last) === 'autoAriaDisabled' &&
+    last.value?.type === 'Literal' &&
+    last.value.value === true
+  );
+}
+
+function collectAriaElements(node: Node, source: string, acc: AriaElementFact[], parentIsDndZone = false): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectAriaElements(child, source, acc);
+    for (const child of node) collectAriaElements(child, source, acc, parentIsDndZone);
     return;
   }
   if (!node || typeof node !== 'object') return;
+  let inDndZone = parentIsDndZone;
+  if (
+    typeof node.type === 'string' &&
+    (node.type.endsWith('Element') || node.type === 'Component' || node.type.startsWith('Svelte')) &&
+    // `<svelte:boundary>` renders no element, so a zone's items may sit inside one.
+    node.type !== 'SvelteBoundary'
+  ) {
+    inDndZone = Array.isArray(node.attributes) && node.attributes.some(isDndZone);
+  }
   if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
     // HTML attribute names are case-insensitive, so `ARIA-LABEL` and `ROLE` become `aria-label` and
     // `role` during HTML parsing — but the **Svelte AST keeps the source spelling**, which is why
@@ -1524,7 +1560,7 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
       const hasList = tag === 'input' && findAttr(node.attributes, 'list') !== undefined;
       const selectKind = tag === 'select' ? selectNativeRole(node.attributes) : undefined;
       const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
-      const hasAction = node.attributes.some((a: Node) => a?.type === 'UseDirective');
+      const hasAction = parentIsDndZone || node.attributes.some((a: Node) => a?.type === 'UseDirective');
       acc.push({
         tag,
         line: lineOf(source, node.start),
@@ -1543,7 +1579,7 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
     }
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectAriaElements(node[key], source, acc);
+    if (key in node) collectAriaElements(node[key], source, acc, inDndZone);
   }
 }
 

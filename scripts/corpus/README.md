@@ -691,7 +691,7 @@ Measured on 650 apps, each pinned to a commit:
 - [starforgefoundry/orion](https://github.com/starforgefoundry/orion/tree/5b8d3094a748d522ad52ec0170694dd364711989) (`5b8d309`)
 - [CoasterFan5/sunlight](https://github.com/CoasterFan5/sunlight/tree/04b5109939f18a0a2197cc6efaecf5ae8f0ac21d) (`04b5109`)
 
-248256 of 248281 corpus findings have a verdict.
+248252 of 248277 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share      |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ----------------- |
@@ -701,7 +701,7 @@ Measured on 650 apps, each pinned to a commit:
 | [`a11y/deprecated-aria`](../../docs/src/content/docs/rules/a11y/deprecated-aria.md)                                   | 80              | 52   | 80 / 0 / 0 / 0                        | 100% (80/80)       | 0% (0/80)         |
 | [`a11y/deprecated-attr`](../../docs/src/content/docs/rules/a11y/deprecated-attr.md)                                   | 156             | 64   | 155 / 0 / 1 / 0                       | 100% (155/155)     | 1% (1/156)        |
 | [`a11y/deprecated-element`](../../docs/src/content/docs/rules/a11y/deprecated-element.md)                             | 33              | 6    | 33 / 0 / 0 / 0                        | 100% (33/33)       | 0% (0/33)         |
-| [`a11y/disallowed-aria-props`](../../docs/src/content/docs/rules/a11y/disallowed-aria-props.md)                       | 2167            | 331  | 2108 / 4 / 55 / 0                     | 100% (2108/2112)   | 3% (55/2167)      |
+| [`a11y/disallowed-aria-props`](../../docs/src/content/docs/rules/a11y/disallowed-aria-props.md)                       | 2163            | 330  | 2108 / 0 / 55 / 0                     | 100% (2108/2108)   | 3% (55/2163)      |
 | [`a11y/disallowed-element`](../../docs/src/content/docs/rules/a11y/disallowed-element.md)                             | 0               | 0    | —                                     | —                  | —                 |
 | [`a11y/doctype`](../../docs/src/content/docs/rules/a11y/doctype.md)                                                   | 0               | 0    | —                                     | —                  | —                 |
 | [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 743             | 180  | 703 / 8 / 32 / 0                      | 99% (703/711)      | 4% (32/743)       |

@@ -38,6 +38,51 @@ describe('roleCandidates', () => {
     expect(roleCandidates(el('<span role="button" use:a aria-label="x">x</span>'))?.explicit).toBe(true);
   });
 
+  it("is undefined for a svelte-dnd-action zone's item, which the zone gives role listitem", () => {
+    for (const zone of ['dndzone', 'dragHandleZone']) {
+      const src = `<div use:${zone}={{ items }}>{#each items as i (i.id)}<div aria-label={i.name}><b aria-label="y">y</b></div>{/each}</div>`;
+      const [item, grandchild] = parseComponentFacts(src, 'C.svelte').ariaElements!;
+      expect(roleCandidates(item!)).toBeUndefined();
+      expect(roleCandidates(grandchild!)?.namingProhibited).toBe(true);
+    }
+    const bounded = parseComponentFacts(
+      '<div use:dndzone={{ items }}><svelte:boundary>{#each items as i}<div aria-label="x">x</div>{/each}</svelte:boundary></div>',
+      'C.svelte'
+    );
+    expect(roleCandidates(bounded.ariaElements![0]!)).toBeUndefined();
+    const noAria = parseComponentFacts(
+      '<div use:dndzone={{ items, autoAriaDisabled: true }}>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
+      'C.svelte'
+    );
+    expect(roleCandidates(noAria.ariaElements![0]!)?.namingProhibited).toBe(true);
+    const overridden = parseComponentFacts(
+      '<div use:dndzone={{ autoAriaDisabled: true, ...opts }}>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
+      'C.svelte'
+    );
+    expect(roleCandidates(overridden.ariaElements![0]!)).toBeUndefined();
+    const computed = parseComponentFacts(
+      '<div use:dndzone={{ autoAriaDisabled: true, [\'autoAriaDisabled\']: false }}>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
+      'C.svelte'
+    );
+    expect(roleCandidates(computed.ariaElements![0]!)).toBeUndefined();
+    const zoneItem = (opts: string) =>
+      roleCandidates(
+        parseComponentFacts(
+          `<script lang="ts"></script><div use:dndzone={${opts}}>{#each items as i}<div aria-label="x">x</div>{/each}</div>`,
+          'C.svelte'
+        ).ariaElements![0]!
+      );
+    expect(zoneItem("{ autoAriaDisabled: false, ['unrelated']: true }")).toBeUndefined();
+    expect(zoneItem('{ autoAriaDisabled: false, [key]: true }')).toBeUndefined();
+    expect(zoneItem("{ items, ['autoAriaDisabled']: true }")?.namingProhibited).toBe(true);
+    expect(zoneItem('{ items, autoAriaDisabled: true } as const')?.namingProhibited).toBe(true);
+    const other = parseComponentFacts(
+      '<div use:zone>{#each items as i}<div aria-label="x">x</div>{/each}</div>',
+      'C.svelte'
+    );
+    expect(roleCandidates(other.ariaElements![0]!)?.namingProhibited).toBe(true);
+  });
+
   it('keeps judging the explicit role when a spread is also present', () => {
     expect(roleCandidates(el('<div role="checkbox" {...p} aria-checked="true">x</div>'))?.explicit).toBe(true);
   });
