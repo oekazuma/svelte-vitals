@@ -23,8 +23,6 @@ description: ボタン・リンク・画像ボタン・iframe には、アクセ
 
 このルールは「名前がないと証明できる」ものだけを検出し、動的な内容を推測することはありません。
 
-`href` が式（`href={url}`）または式の埋め込みを含む（`href="/x/{id}"`）`<a>` も検出しません。リンクとして描画されるかが静的にはわからないためです。
-
 名前空間はここでは追跡していません。`<svg>` 内の `<a href>` は HTML の `<a>` として判定されるため、計算可能なアクセシブルネーム（テキスト子孫・`aria-label`・`aria-labelledby`・`<title>` のいずれか）を持たない SVG のリンクは報告されます。SVG のアクセシビリティ指針が求めることと同じなので、理由は違えど結論は変わりません。
 
 ```svelte
@@ -76,7 +74,7 @@ iframe については、`title` が無いときコンパイラが `a11y_missing
 
 ## 無効化
 
-このルールからは見えない別の方法（他コンポーネントにある `<label for>` や、スクリプトで設定する `aria-label` など）で名前を与えている場合は、`<!-- svelte-vitals-disable-next-line a11y/accessible-name -->` で個別の要素を抑制するか、ルールを無効化してください。
+このルールからは見えない別の方法（ラップしている label 要素など）で名前を与えている場合は、`<!-- svelte-vitals-disable-next-line a11y/accessible-name -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

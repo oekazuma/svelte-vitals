@@ -17,13 +17,12 @@ description: キーボードでフォーカスできる要素を aria-hidden="tr
 <a href="/x" aria-hidden="true">Also flagged</a>
 ```
 
-「フォーカス可能」の判定は `a11y/interactive-nesting` の子孫側と同じ要素集合です: `<button>`、`<select>`、`<textarea>`、`<summary>`、`<iframe>`、`<embed>`、`type` がないかリテラルな `type` が `hidden` 以外の `<input>`、リテラルな `href` を持つ `<a>`、`<audio controls>`/`<video controls>`、リテラルな `tabindex` ≥ 0、リテラルなインタラクティブ ARIA ロール。
+「フォーカス可能」の判定は `a11y/interactive-nesting` の子孫側と同じ要素集合です: `<button>`、`<a href>`、フォームコントロール、`<audio controls>`/`<video controls>`、リテラルな `tabindex` ≥ 0、リテラルなインタラクティブ ARIA ロール。
 
 検出しないもの:
 
 - 式で与えられた `aria-hidden`（`aria-hidden={!open}`）。トグルされる値は静的には判定できないため、閉じている間は隠し、開いたら外すという正当な開閉パターンがこのルールに引っかかることはありません。式の `tabindex` も同じ理由で判定不能（`-1` に解決されうる）なので、その要素は対象外です。
 - リテラルな負の `tabindex` でタブ順から外された要素。`<button tabindex="-1" aria-hidden="true">` は定石の修正形で、アクセシビリティツリーとキーボードフォーカスの両方から一貫して隠れています。
-- `href` が式（`href={url}`）または式の埋め込みを含む（`href="/x/{id}"`）`<a>`。リンクとして描画されるかが静的にはわからないためです。
 - `disabled` の付いたフォームコントロール（`<button>`、`<input>`、`<select>`、`<textarea>`）。無効化された要素はタブ順からも外れています。
 - `inert` または `hidden` 属性を持つ要素とその配下すべて。`inert` のサブツリーはフォーカス不能になり、`hidden` のサブツリーはレンダリングされないため、どちらも `aria-hidden` との組み合わせは欠陥ではなく一貫した状態です。
 - `aria-hidden="false"`、およびフォーカス可能な要素を含まない `aria-hidden="true"` のサブツリー（装飾用の `<svg aria-hidden="true">` アイコンは検出されません）。

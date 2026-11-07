@@ -7,7 +7,7 @@ description: autofocus moves focus on page load without the user asking, so scre
 
 ## What it checks
 
-Flags an element with a literal `autofocus` attribute, bare or string-valued, unless the element is a `<dialog>` or a popover container, or sits inside one in the same component template:
+Flags an element with a literal `autofocus` attribute, bare or string-valued, unless the element is a `<dialog>`, or sits inside a `<dialog>` or a popover container in the same component template:
 
 ```svelte
 <input autofocus placeholder="Search" />
@@ -17,7 +17,7 @@ Not flagged:
 
 - An expression-valued `autofocus={expr}`, since the expression could be `false` and the rendered attribute is unknowable statically.
 - `autofocus` on a `<dialog>` element or on any descendant of one. The dialog focusing steps run when the dialog is shown, not at page load, and honour an `autofocus` descendant. This is the attribute's correct use.
-- An element carrying the `popover` attribute, or a descendant of one, in any form (bare, literal, or expression). The popover focusing steps behave like the dialog's, and an expression could resolve to a real popover value, so the carve-out stays generous rather than flag the documented pattern.
+- A descendant of an element carrying the `popover` attribute, in any form (bare, literal, or expression). The popover focusing steps behave like the dialog's, and an expression could resolve to a real popover value, so the carve-out stays generous rather than flag the documented pattern.
 - An `autofocus` supplied through a spread attribute, which is out of static reach.
 
 ## Why it matters

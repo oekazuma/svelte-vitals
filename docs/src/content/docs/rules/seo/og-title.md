@@ -7,7 +7,7 @@ description: Every route should include a <meta property="og:title"> tag.
 
 ## What it checks
 
-Every route must include a `<meta property="og:title">` tag (own or inherited through the layout chain). A missing or empty Open Graph title meta tag is flagged. A `<meta name="og:title">` does not count: when no `property=` tag exists, the finding reads `<meta name="og:title"> should be <meta property="og:title">` and recommends changing `name=` to `property=`.
+Every route must include a `<meta property="og:title">` tag (own or inherited through the layout chain). A missing or empty Open Graph title meta tag is flagged.
 
 ## Why it matters
 

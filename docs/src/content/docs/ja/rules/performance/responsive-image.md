@@ -1,6 +1,6 @@
 ---
 title: performance/responsive-image · レスポンシブ画像
-description: 画像には srcset を用意しましょう。
+description: 大きな画像には srcset を用意しましょう。
 ---
 
 **重大度:** info

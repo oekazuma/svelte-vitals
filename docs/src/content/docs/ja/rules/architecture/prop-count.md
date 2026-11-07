@@ -42,7 +42,7 @@ export default {
 
 ## 無効化
 
-検出はコンポーネントの 1 行目に付くため、その直前にインラインの `svelte-vitals-disable-next-line` を置けません。既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でパス単位に絞るか、ルールごと無効化するには、次のように設定します。
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/prop-count -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

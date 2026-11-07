@@ -17,13 +17,12 @@ Flags a keyboard-focusable element that a literal `aria-hidden="true"` hides fro
 <a href="/x" aria-hidden="true">Also flagged</a>
 ```
 
-Focusable means the same element set as `a11y/interactive-nesting`'s descendants: `<button>`, `<select>`, `<textarea>`, `<summary>`, `<iframe>`, `<embed>`, an `<input>` with no `type` or a literal `type` other than `hidden`, `<a>` with a literal `href`, `<audio controls>`/`<video controls>`, a literal `tabindex` ≥ 0, or a literal interactive ARIA role.
+Focusable means the same element set as `a11y/interactive-nesting`'s descendants: `<button>`, `<a href>`, form controls, `<audio controls>`/`<video controls>`, a literal `tabindex` ≥ 0, or a literal interactive ARIA role.
 
 Not flagged:
 
 - An expression-valued `aria-hidden` (`aria-hidden={!open}`). A toggled value is unknowable statically, so the legitimate open/close pattern — hide while closed, unhide while open — never triggers this rule. An expression `tabindex` is unknowable the same way (it may resolve to `-1`) and exempts the element.
 - An element removed from the tab order with a literal negative `tabindex`. `<button tabindex="-1" aria-hidden="true">` is the documented remediation, hidden from both the accessibility tree and keyboard focus.
-- An `<a>` whose `href` is an expression (`href={url}`) or interpolates one (`href="/x/{id}"`): whether it renders as a link is not known statically.
 - A `disabled` form control (`<button>`, `<input>`, `<select>`, `<textarea>`) — disabling removes it from the tab order too.
 - Anything at or under an element with the `inert` or `hidden` attribute: an inert subtree is unfocusable and a hidden one does not render, so combining either with `aria-hidden` is consistent, not a defect.
 - `aria-hidden="false"`, and `aria-hidden="true"` subtrees containing nothing focusable (a decorative `<svg aria-hidden="true">` icon stays clean).

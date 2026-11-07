@@ -77,7 +77,7 @@ None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it 
 
 ## Disabling
 
-Silence a single occurrence with `// svelte-vitals-disable-next-line architecture/doc-link-target` on the line above it in `<script>`, or `<!-- svelte-vitals-disable-next-line architecture/doc-link-target -->` above it in the markup, or turn the rule off:
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/doc-link-target -->` on the line above it, or turn the rule off:
 
 ```js svelte-vitals.config.js
 export default {

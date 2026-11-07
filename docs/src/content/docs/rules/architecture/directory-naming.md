@@ -139,7 +139,7 @@ directory, because `--diff` filters on `location` and git can only tell a file c
 directory.
 
 The two are kept apart on purpose: a directory nested inside another violating directory is still
-reported separately, and each can be recorded in the suppressions file on its own.
+reported separately, and each can be suppressed on its own.
 
 A declaration that is not checking what it says is reported, so a typo cannot leave the rule silently
 doing nothing. Five cases land in that finding, each named in the message:
@@ -175,7 +175,7 @@ None. This rule reads the project's source-file inventory, the `src/**` paths ra
 
 ## Disabling
 
-A finding has no source line, so an inline `svelte-vitals-disable-next-line` directive cannot silence it. Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per path with `overrides`, or turn it off:
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/directory-naming -->` on the line above it, or turn the rule off:
 
 ```js svelte-vitals.config.js
 export default {
