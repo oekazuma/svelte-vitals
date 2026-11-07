@@ -2440,11 +2440,6 @@
     "basis": "og:url absent on /support (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:url, twitter:card or <link rel=\"canonical\"> anywhere; og:title/og:description/og:image come only from lib/components/blog/BlogPostPage.svelte:59-69 and interviews/InterviewPage.svelte:22-32 (blog post and interview pages); root +layout.svelte renders <Meta> (layout/Meta.svelte:21-33: title, atom alternate, optional robots) only; app.html theme script/icon/fonts; hooks.server.ts transformPageChunk only fills %paraglide.lang%; no meta-tag library; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py; icon packs: non-icon files + 5 icons): none emits og:*/twitter:card/rel=canonical; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
   },
   {
-    "key": "hernihistorie/haweb::seo/single-h1::/blog/[id]-[slug]::Missing <h#>",
-    "verdict": "tp",
-    "basis": "read: blog post = BlogPostPage (title <h2>, :101) + the post component from src/data/blog/*/+page.svelte (grep: 91 posts, only <h4>s); the site's only <h1> is Hero.svelte:16, rendered on / alone; root +layout.svelte (Meta/Header/Footer) renders no heading, and page titles are <h2> (ProjectPage, InterviewPage, ProfilePage, BlogPostPage, H2Anchor); no Heading h=\"1\" use (Heading/HeadingAnchor are used with h=3/tag=h2/h4 only) -> no <h1>"
-  },
-  {
     "key": "hernihistorie/haweb::seo/single-h1::/blog/authors/[author]::Missing <h#>",
     "verdict": "tp",
     "basis": "read: author page renders AuthorBio (<h2>/<h3>) and post boxes; the site's only <h1> is Hero.svelte:16, rendered on / alone; root +layout.svelte (Meta/Header/Footer) renders no heading, and page titles are <h2> (ProjectPage, InterviewPage, ProfilePage, BlogPostPage, H2Anchor); no Heading h=\"1\" use (Heading/HeadingAnchor are used with h=3/tag=h2/h4 only) -> no <h1>"

@@ -473,6 +473,17 @@ export interface ComponentUse {
   offset: number;
 }
 
+/** The names a member-path component tag walks: `['pageData', 'post', 'component']` for `<pageData.post.component />` or `<svelte:component this={pageData.post.component}>`. */
+function memberPath(node: AST.Component | AST.SvelteComponent): string[] {
+  if (node.type === 'Component') return node.name.includes('.') ? node.name.split('.') : [];
+  type Expr = AST.SvelteComponent['expression'];
+  const path: string[] = [];
+  let e: Expr = node.expression;
+  for (; e.type === 'MemberExpression'; e = e.object as Expr)
+    path.unshift(!e.computed && e.property.type === 'Identifier' ? e.property.name : '');
+  return path.length > 0 && e.type === 'Identifier' ? [e.name, ...path] : [];
+}
+
 /** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
 function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSelf): string {
   if (node.type !== 'SvelteComponent') return node.name;
@@ -1854,6 +1865,10 @@ function collectHeadings(
         const level = Number(expr?.type === 'Literal' ? expr.value : set ? attrText(attrs, 'level') : 2);
         push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at, when, true, true);
       }
+      // A component `load` hands over (`<data.post.component />`) is often a markdown module
+      // found by `import.meta.glob` at run time: which headings it renders is not in the source.
+      const [root, next] = memberPath(node);
+      if (root && (props.get(root) === 'data' || (root === props.get(WHOLE_PROPS) && next === 'data'))) dynamic = true;
       meet(componentPaths, node, path);
       note(componentWhen, node, when);
       first(componentOffsets, node, at?.[0] ?? node.start);

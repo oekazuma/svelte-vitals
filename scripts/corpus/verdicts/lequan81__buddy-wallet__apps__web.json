@@ -1251,8 +1251,8 @@
   },
   {
     "key": "lequan81/buddy-wallet:apps/web::seo/single-h1::src/routes/(app)/+layout.svelte:86::Missing <h#>",
-    "verdict": "fp",
-    "basis": "local CLI: key covers 4 routes, mixed (3 fp, 1 tp), labelled by majority: /about, /privacy and /terms render <data.component /> from getContent() (lib/helpers/content.ts, import.meta.glob mdsvex), and src/contents/marketing/about.md, privacy.md, terms.md each open with '# ' (:5) -> an <h1>; /faq has only <h2>s and is a real miss"
+    "verdict": "tp",
+    "basis": "the key now covers /faq only: /about, /privacy and /terms render <data.component /> and are skipped; faq/+page.svelte renders only <h2>s under the (app) layout, so the page has no <h1> (was fp: local CLI: key covers 4 routes, mixed (3 fp, 1 tp), labelled by majority: /about, /privacy and /terms render <data.component /> from getContent() (lib/helpers/content.ts, import.meta.glob mdsvex), and src/contents/marketing/about.md, privacy.md, terms.md each open with '# ' (:5) -> an <h1>; /faq has only <h2>s and is a real miss)"
   },
   {
     "key": "lequan81/buddy-wallet:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
