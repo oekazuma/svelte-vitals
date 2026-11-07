@@ -71,7 +71,7 @@ Useful as a CI gate.
 
 ### Ramping up on an existing project
 
-`--diff [ref]` / `--staged` scope findings to changed/staged files; `--baseline <ref>` scopes to findings that are genuinely new versus a ref; `--update-suppressions` records today's findings once so only newly-introduced issues gate the build afterward. `--rules`/`--ignore`/`--category` select which rules run, `--weights` reweights the combined Health score, and `--min-health`/`--score` gate or print just the number. A `svelte-vitals.config.{js,ts}` file (scaffolded via `svelte-vitals install --client config-file`) can set any of these once instead of repeating flags.
+`--diff [ref]` / `--staged` scope findings to changed/staged files; `--baseline <ref>` scopes to findings that are genuinely new versus a ref; `--update-suppressions` records today's findings once so only newly-introduced issues gate the build afterward. `--rules`/`--ignore`/`--category` select which rules run, `--weights` reweights the combined Health score, and `--min-health`/`--score` gate or print just the number. A `svelte-vitals.config.{js,ts}` file (scaffolded via `svelte-vitals install --client config-file`) sets some of this once: `--weights`, `--fail-on`, `--meta-components`, `--treat-dynamic-as` and `--ignore` have config keys (`weights`, `failOn`, `metaComponents`, `treatDynamicAs`, and `rules` with `'off'`); `overrides` and `seo` are config-only; `--rules`, `--category`, `--diff`/`--staged`/`--baseline`, `--min-health` and `--score` are flag-only.
 
 ### `svelte-vitals install`
 

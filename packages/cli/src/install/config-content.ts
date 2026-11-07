@@ -1,8 +1,8 @@
 /**
  * Generates the scaffolded `svelte-vitals.config.*` content for `svelte-vitals install`.
  * Unlike the agent-target generators in `skill-content.ts` (which digest the current rule
- * set into Markdown), this is a fixed template — every `Config` field, commented out, so a
- * user can uncomment what they need. See docs/src/content/docs/guides/configuration.mdx for
+ * set into Markdown), this is a fixed template — the basic `Config` fields, commented out, so a
+ * user can uncomment what they need; `overrides` and `seo` are left to the docs. See docs/src/content/docs/guides/configuration.mdx for
  * the authoritative option reference this mirrors.
  */
 export function buildConfigFileTemplate(opts: { useDefineConfig?: boolean } = {}): string {

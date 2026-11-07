@@ -36,24 +36,26 @@ export default {
 
 ## オプション
 
-| オプション       | 型                                                           | デフォルト     | 説明                                                                                                                        |
-| ---------------- | ------------------------------------------------------------ | -------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`   | ビルドを失敗させる最低重大度                                                                                                |
-| `report`         | `'console' \| 'json' \| false`                               | `'console'`    | 分析レポートの出力形式                                                                                                      |
-| `outFile`        | `string`                                                     | —              | JSON レポートをこのパスのファイルに書き込む                                                                                 |
-| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き（ルールを無効化するか重大度を変更する）                                                                  |
-| `metaComponents` | `string[]`                                                   | —              | 解析が追跡できないヘッドメタデータ出力コンポーネント名（解決できるリポジトリ内のコンポーネントは自動的に追跡される）        |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`       | 動的に設定されたメタデータの扱い方                                                                                          |
-| `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み                                                                  |
-| `prerenderDir`   | `string`                                                     | —              | プリレンダリングページディレクトリの上書き（既定は `kit.outDir` 配下の `output/prerendered/pages`）                         |
-| `ui`             | `boolean`                                                    | `true`         | `vite dev` 中に[ライブダッシュボード](/ja/guides/dev-dashboard)を配信するかどうか。`false` にするとビルド時ゲートのみになる |
-| `cwd`            | `string`                                                     | Vite のルート  | プロジェクトルート                                                                                                          |
+| オプション       | 型                                  | デフォルト     | 説明                                                                                                                                                                 |
+| ---------------- | ----------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `failOn`         | `'critical' \| 'warning' \| 'info'` | `'critical'`   | ビルドを失敗させる最低重大度                                                                                                                                         |
+| `report`         | `'console' \| 'json' \| false`      | `'console'`    | 分析レポートの出力形式                                                                                                                                               |
+| `outFile`        | `string`                            | —              | JSON レポートをこのパスのファイルに書き込む                                                                                                                          |
+| `rules`          | `Record<string, RuleSetting>`       | `{}`           | ルールごとの上書き（ルールを無効化する、重大度を変更する、[オプション](/ja/guides/configuration#ルールオプション)を設定する）                                        |
+| `overrides`      | `RuleOverride[]`                    | —              | ルート/ファイル単位のルール上書き（[設定ファイル](/ja/guides/configuration#ルールをルートやファイルにスコープする-overrides)を参照）                                 |
+| `metaComponents` | `string[]`                          | —              | 解析が追跡できないヘッドメタデータ出力コンポーネント名（解決できるリポジトリ内のコンポーネントは自動的に追跡される）                                                 |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`       | 動的に設定されたメタデータの扱い方                                                                                                                                   |
+| `weights`        | `Partial<Record<Category, number>>` | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み                                                                                                           |
+| `seo`            | `{ indexable?: boolean }`           | —              | `indexable: false` で、検索結果に出るページにだけ意味のあるルールをまとめて無効化（[設定ファイル](/ja/guides/configuration#インデックスされないプロジェクト)を参照） |
+| `prerenderDir`   | `string`                            | —              | プリレンダリングページディレクトリの上書き（既定は `kit.outDir` 配下の `output/prerendered/pages`）                                                                  |
+| `ui`             | `boolean`                           | `true`         | `vite dev` 中に[ライブダッシュボード](/ja/guides/dev-dashboard)を配信するかどうか。`false` にするとビルド時ゲートのみになる                                          |
+| `cwd`            | `string`                            | Vite のルート  | プロジェクトルート                                                                                                                                                   |
 
 ## 設定ファイル
 
 `@svelte-vitals/vite` はプロジェクトルートの `svelte-vitals.config.*` を自動的に読み込みます。上記の明示的なオプションは常に設定ファイルの値より優先されます。優先順位のルールと、ライブダッシュボードが設定ファイルをどう利用するかは [設定ファイル § Vite プラグインで設定ファイルを再利用する](/ja/guides/configuration#vite-プラグインで設定ファイルを再利用する) を参照してください。
 
-同じ場所にある `svelte-vitals-suppressions.json`（[`svelte-vitals --update-suppressions`](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions) が書き出すファイル）も、ビルドゲートとライブダッシュボードのプロジェクト全体レイヤーの両方に適用され、CLI と結果が一致します。適用されるのはソース走査のエントリだけです（Correctness、Security、Architecture、コンポーネント単位の Accessibility。ルール ID・route・location が CLI と共通の検出結果）。レンダリング後のルート検出結果はビルド済み HTML ファイルに紐づき、CLI が記録する `+page.svelte` とは location が異なるため、プラグインはルート単位のエントリをビルドゲート・ダッシュボードのどちらでもスキップし、スキップした件数を出力します。それらには [`overrides`](/ja/guides/configuration#overrides) を使ってください。ビルド時には抑制した件数も出力します。stale なエントリの報告は CLI だけが行います。壊れたファイルは CLI と同様にビルドを失敗させます。
+同じ場所にある `svelte-vitals-suppressions.json`（[`svelte-vitals --update-suppressions`](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions) が書き出すファイル）も、ビルドゲートとライブダッシュボードのプロジェクト全体レイヤーの両方に適用され、CLI と結果が一致します。適用されるのはソース走査のエントリだけです（Correctness、Security、Architecture、コンポーネント単位の Accessibility。ルール ID・route・location が CLI と共通の検出結果）。レンダリング後のルート検出結果はビルド済み HTML ファイルに紐づき、CLI が記録する `+page.svelte` とは location が異なるため、プラグインはルート単位のエントリをビルドゲート・ダッシュボードのどちらでもスキップし、スキップした件数を出力します。それらには [`overrides`](/ja/guides/configuration#ルールをルートやファイルにスコープする-overrides) を使ってください。ビルド時には抑制した件数も出力します。stale なエントリの報告は CLI だけが行います。壊れたファイルは CLI と同様にビルドを失敗させます。
 
 ## 対象範囲
 

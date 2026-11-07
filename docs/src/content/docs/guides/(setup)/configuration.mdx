@@ -5,9 +5,9 @@ sidebar:
   order: 3
 ---
 
-Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI and the [Vite plugin](/guides/plugin-mode) both read it automatically. The plugin reads it directly; see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below.
+Instead of repeating `--ignore`, `--fail-on`, `--weights`, `--meta-components`, and `--treat-dynamic-as` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI and the [Vite plugin](/guides/plugin-mode) both read it automatically. The plugin reads it directly; see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below.
 
-Run `svelte-vitals install --client config-file` to scaffold one with every option below commented out.
+Run `svelte-vitals install --client config-file` to scaffold one with `treatDynamicAs`, `metaComponents`, `rules`, `failOn` and `weights` commented out.
 
 ## Where it lives
 
@@ -337,4 +337,4 @@ export default {
 };
 ```
 
-With a `svelte-vitals.config` file in the project root, the plugin above picks up its `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` / `overrides` automatically. There is no need to import the file yourself in `vite.config.ts`. Non-fatal config-file warnings (unknown top-level keys, invalid enum values) are logged to the console with a `svelte-vitals:` prefix, the same wording the CLI uses.
+With a `svelte-vitals.config` file in the project root, the plugin above picks up its `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` / `overrides` / `seo` automatically. There is no need to import the file yourself in `vite.config.ts`. Non-fatal config-file warnings (unknown top-level keys, invalid enum values) are logged to the console with a `svelte-vitals:` prefix, the same wording the CLI uses.

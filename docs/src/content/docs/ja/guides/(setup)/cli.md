@@ -16,9 +16,9 @@ svelte-vitals explain <rule-id>
 
 `path` は省略可能で、デフォルトはカレントディレクトリです。[`docs`](#docs) は CLI に同梱されたガイドを、[`explain`](#explain) はルール1件の根拠・修正方法・設定可能なオプションを表示します。どちらもプロジェクトの解析は行いません。
 
-> サブコマンドもあります。[`install`](/ja/guides/install) は Vite との連携、Cursor rules、設定ファイルをセットアップし（[Agent Skills](/ja/guides/agent-skills) は別途 `npx skills add` でインストールします）、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/ja/guides/ci) を参照してください）。
+> サブコマンドもあります。[`install`](/ja/guides/install) は Vite との連携、Cursor rules、設定ファイル、GitHub Actions の CI ワークフローをセットアップし（[Agent Skills](/ja/guides/agent-skills) は別途 `npx skills add` でインストールします）、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/ja/guides/ci) を参照してください）。
 
-以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定する方法もあります。詳しくは [設定ファイル](/ja/guides/configuration) を参照してください。フラグは常に設定ファイルより優先されます。
+以下のフラグのうち `--fail-on`、`--weights`、`--meta-components`、`--treat-dynamic-as`、`--ignore` の5つは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルに一度だけ書いておけます（設定キーは `failOn`、`weights`、`metaComponents`、`treatDynamicAs`、`--ignore` は `rules` の `'off'`）。それ以外のフラグに設定ファイル側の対応項目はありません。詳しくは [設定ファイル](/ja/guides/configuration) を参照してください。フラグは常に設定ファイルより優先されます。
 
 ## モノレポ
 
@@ -238,7 +238,7 @@ svelte-vitals --category seo
 svelte-vitals --category seo,performance
 ```
 
-`--category` は `--rules`/`--ignore`/設定ファイルのルール選択と積集合になります。ルールは両方を通過した場合のみ実行されます。カテゴリを絞り込むと [Health スコア](/ja/guides/health-report) も絞り込まれます。組み合わせたスコアが、検出結果の存在するカテゴリだけの加重平均になるため、フィルタなしの実行結果とは直接比較できません。未知のカテゴリを指定するとエラーになります（終了コード `2`）。
+`--category` は `--ignore`/設定ファイルのルール選択と積集合になります。ルールは両方を通過した場合のみ実行されます。`--rules` に指定したルール ID がカテゴリ外ならエラーになります（終了コード `2`）。カテゴリを絞り込むと [Health スコア](/ja/guides/health-report) も絞り込まれます。組み合わせたスコアが、検出結果の存在するカテゴリだけの加重平均になるため、フィルタなしの実行結果とは直接比較できません。未知のカテゴリを指定するとエラーになります（終了コード `2`）。
 
 ### `--weights <pairs>`
 
