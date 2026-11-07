@@ -34,7 +34,7 @@ export default {
 
 ## 起動直後からのプロジェクト全体カバレッジ
 
-dev サーバーの起動直後から、ダッシュボードは**プロジェクト全体**を表示します。起動時に、全ルートと全カテゴリ（SEO、Performance、Correctness、Security、Architecture、Accessibility）を対象とする静的解析（`npx svelte-vitals@latest` と同じ解析）が非同期で走るため、ページを1つも訪問しなくても本物のプロジェクト Health が得られます。ソースファイル（`src/` または `static/` 配下、あるいは `svelte.config.*` / `svelte-vitals.config.*`）を保存すると、デバウンス付きの再解析が走り、ダッシュボードが自動的に更新されます。
+dev サーバーの起動直後から、ダッシュボードは**プロジェクト全体**を表示します。起動時に、全ルートと全カテゴリ（SEO、Performance、Correctness、Security、Architecture、Accessibility）を対象とする静的解析（`npx svelte-vitals@latest` と同じ解析）が非同期で走るため、ページを1つも訪問しなくても本物のプロジェクト Health が得られます。ソースファイル（`src/` または `static/` 配下、あるいは `svelte.config.*` / `svelte-vitals.config.*` / `vite.config.*` / `svelte-vitals-suppressions.json`）を保存すると、デバウンス付きの再解析が走り、ダッシュボードが自動的に更新されます。
 
 「Overview」では、全ルートの指摘とプロジェクト全体のサイトチェックをひとつのリストにまとめて表示し、重要度やカテゴリのチップでそのリストを直接絞り込めます。各指摘にはどのルートのものかが表示され、クリックするとそのルートの詳細ペインへ直接移動します。
 
@@ -108,7 +108,7 @@ Fix this svelte-vitals finding:
 </svelte:head>
 ```
 
-- Docs: https://oekazuma.github.io/svelte-vitals/ja/rules/seo/title-presence
+- Docs: https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence
 
 After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm seo/title-presence passes for /blog/hello.
 ````
@@ -127,6 +127,6 @@ export default {
 
 ## バージョンのずれ
 
-ダッシュボードのトップバーには `v<@svelte-vitals/vite のバージョン>` と、その隣に `core v<@svelte-vitals/core のバージョン>` が表示されます。CLI と検出結果を比較するとき、注目すべきは後者の core バージョンです。`svelte-vitals`（CLI）と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されつつ、共有のルールエンジンである `@svelte-vitals/core` をラップしているだけなので、両方のパッケージ自体は最新に見えていても、実際には**異なる** core バージョンに解決されることがあります。その場合、新しい core リリースで追加されたルールは、実際にそのバージョンに依存している側にしか現れません。
+ダッシュボードのトップバーには `v<@svelte-vitals/vite のバージョン>` と、その隣に `core v<@svelte-vitals/core のバージョン>` が表示されます。CLI と検出結果を比較するとき、注目すべきは後者の core バージョンです。`svelte-vitals`（CLI）、`@svelte-vitals/vite`、共有のルールエンジンである `@svelte-vitals/core` は同じバージョン番号でそろってリリースされますが、起動する CLI と lockfile が固定するプラグインは別々に解決されるため、実際には**異なる** core バージョンで動くことがあります。その場合、新しい core リリースで追加されたルールは、実際にそのバージョンに依存している側にしか現れません。
 
 これはパッケージマネージャーのクールダウン/固定機能によって、気づかないうちに発生し得ます。例えば pnpm の [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) が有効だと、`pnpm dlx svelte-vitals@latest` が「十分に時間の経った」古いリリースへ静かに解決され、その CLI が使う core が、lockfile 上の `@svelte-vitals/vite` の依存する core より古くなることがあります。同じプロジェクトで CLI とダッシュボードの検出結果が食い違う場合は、まず `svelte-vitals --version` を実行して `(core X.Y.Z)` の部分をダッシュボードのトップバーの `core vX.Y.Z` と比較してください。バグを疑う前に真っ先に確認すべき点です。

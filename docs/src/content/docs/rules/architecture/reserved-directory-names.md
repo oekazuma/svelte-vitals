@@ -183,7 +183,7 @@ None. This rule reads the project's source-file inventory, the `src/**` paths ra
 
 ## Disabling
 
-Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/reserved-directory-names -->` on the line above it, or turn the rule off:
+A finding has no source line, so an inline `svelte-vitals-disable-next-line` directive cannot silence it. Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per path with `overrides`, or turn it off:
 
 ```js svelte-vitals.config.js
 export default {

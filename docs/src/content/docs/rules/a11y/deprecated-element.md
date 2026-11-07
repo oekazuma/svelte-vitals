@@ -25,7 +25,7 @@ Not flagged:
 
 An obsolete element yields one finding. Its deprecated attributes (`<font color>`) are not reported a second time by `a11y/deprecated-attr`, and that stays true when this rule is turned off or suppressed inline: the attribute rule skips obsolete elements by name, not by looking at this rule's result.
 
-The element list is the `obsolete` column of the vendored HTML spec data (`@markuplint/html-spec`), which matches the WHATWG obsolete-features section exactly.
+The element list is the `obsolete` column of the vendored HTML spec data (`@markuplint/html-spec`), which matches the WHATWG obsolete-features section exactly. Note that `<rb>`/`<rtc>` are obsolete in WHATWG but remain in W3C HTML 5.x, and turn up in Japanese ruby markup.
 
 ## Why it matters
 

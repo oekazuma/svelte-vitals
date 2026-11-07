@@ -38,8 +38,8 @@ export const INSTALL_ARGS = {
       'generated from the current rule set; supports --force to regenerate.\n' +
       'The setup-svelte-vitals, improve-svelte and svelte-vitals Agent Skills are not\n' +
       'installed here — install them with `npx skills add oekazuma/svelte-vitals`.\n' +
-      'config-file scaffolds svelte-vitals.config.{js,ts} with every option commented\n' +
-      'out, auto-picking .ts (with defineConfig) when the project looks\n' +
+      'config-file scaffolds svelte-vitals.config.{js,ts} with its basic options\n' +
+      'commented out, auto-picking .ts (with defineConfig) when the project looks\n' +
       'TypeScript-oriented (tsconfig.json or vite.config.ts present) and\n' +
       "svelte-vitals is a declared dependency (defineConfig's import resolves at load\n" +
       'time); else the .js (ESM) default. Supports --force to regenerate the file\n' +

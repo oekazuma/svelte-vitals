@@ -13,7 +13,7 @@ Health is computed in two stages:
 
 ### 1. Category score
 
-For each active category (SEO, Performance), svelte-vitals computes an independent score:
+For every category present in the results, svelte-vitals computes an independent score:
 
 - Each route scores the share of that category's checks it was measured against, weighted by severity,
   that passed. No failures scores **100**. A route is never scored against less than 25 points of severity
@@ -23,8 +23,10 @@ For each active category (SEO, Performance), svelte-vitals computes an independe
   check still scores **0**.
 - Severity sets the weight a failing check carries: `critical` weighs 15, `warning` weighs 5, `info` weighs 1.
 - A failing check counts once per (route, rule) pair. Duplicates take the maximum severity, not a sum.
-- Route scores are averaged to produce the category's headline score.
-- If any critical finding is present, the headline score is capped at **79**.
+- Route scores are averaged.
+- Findings with no route (site-wide checks) then deduct flat points from that average: 15, 5 or 1 per
+  failing rule by severity, counted once per rule. The JSON report shows this as `scoreModel.sitePenalty`.
+- If any critical finding is present, the resulting headline score is capped at **79**.
 
 ### 2. Weighted Health
 
@@ -74,14 +76,16 @@ Both can be used together.
 ## Example output
 
 ```text
-Health: 82  (SEO: 90 · Performance: 75)
+Health: 87/100
+SEO Score: 79/100   (route avg 91 · site −6 · capped at 79: critical present)
+Performance Score: 92/100   (route avg 97 · site −5)
+Correctness Score: 79/100   (route avg 92 · capped at 79: critical present)
+Security Score: 75/100   (route avg 75)
+Architecture Score: 99/100   (route avg 99)
+Accessibility Score: 97/100   (route avg 98 · site −1)
 ```
 
-When only SEO rules fire:
-
-```text
-Health: 90  (SEO: 90)
-```
+Each category line shows its route average, then the site penalty and the critical cap when they apply.
 
 ## Per-route breakdown
 

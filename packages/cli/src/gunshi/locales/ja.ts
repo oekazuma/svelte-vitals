@@ -74,7 +74,7 @@ export const JA_ARG_DESCRIPTIONS = {
       '現在のルールセットから生成され、--force で再生成できる。\n' +
       'setup-svelte-vitals、improve-svelte、svelte-vitals の Agent Skills はここでは\n' +
       'インストールしない — `npx skills add oekazuma/svelte-vitals` でインストールする。\n' +
-      'config-file は、すべてのオプションをコメントアウトした svelte-vitals.config.{js,ts} の雛形を\n' +
+      'config-file は、基本のオプションをコメントアウトした svelte-vitals.config.{js,ts} の雛形を\n' +
       '生成する。プロジェクトが TypeScript 志向に見え（tsconfig.json か vite.config.ts が存在する）、\n' +
       'かつ svelte-vitals が依存関係として宣言されていれば（defineConfig の import が読み込み時に\n' +
       '解決できるか）自動的に .ts（defineConfig 付き）を選び、それ以外は .js（ESM）をデフォルトにする。\n' +

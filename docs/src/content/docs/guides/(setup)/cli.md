@@ -18,9 +18,9 @@ svelte-vitals explain <rule-id>
 ship inside the CLI, and [`explain`](#explain) prints a single rule's rationale, fix, and
 configurable options. Neither analyzes a project.
 
-> There is also an [`install` subcommand](/guides/install) for setting up the Vite integration, Cursor rules, and the config file ([Agent Skills](/guides/agent-skills) are installed separately with `npx skills add`), and a `ci install` subcommand that scaffolds a GitHub Actions PR gate. See [CI integration](/guides/ci).
+> There is also an [`install` subcommand](/guides/install) for setting up the Vite integration, Cursor rules, the config file, and the GitHub Actions CI workflow ([Agent Skills](/guides/agent-skills) are installed separately with `npx skills add`), and a `ci install` subcommand that scaffolds a GitHub Actions PR gate. See [CI integration](/guides/ci).
 
-Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation; see [Config file](/guides/configuration). A flag always overrides the config file.
+Five of the flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation: `--fail-on`, `--weights`, `--meta-components`, `--treat-dynamic-as` and `--ignore` (config keys `failOn`, `weights`, `metaComponents`, `treatDynamicAs`, and `rules` with `'off'`). The other flags have no config equivalent. See [Config file](/guides/configuration). A flag always overrides the config file.
 
 ## Monorepos
 
@@ -243,7 +243,7 @@ svelte-vitals --category seo
 svelte-vitals --category seo,performance
 ```
 
-`--category` intersects with `--rules`, `--ignore`, and config-file rule selection. A rule only runs if it survives both. Narrowing to a subset of categories also narrows the [Health score](/guides/health-report): the combined score becomes the weighted average of only the categories that have findings, so it isn't directly comparable to an unfiltered run. An unknown category is an error (exit `2`).
+`--category` intersects with `--ignore` and config-file rule selection: a rule only runs if it survives both. A `--rules` id outside the listed categories is an error (exit `2`). Narrowing to a subset of categories also narrows the [Health score](/guides/health-report): the combined score becomes the weighted average of only the categories that have findings, so it isn't directly comparable to an unfiltered run. An unknown category is an error (exit `2`).
 
 ### `--weights <pairs>`
 

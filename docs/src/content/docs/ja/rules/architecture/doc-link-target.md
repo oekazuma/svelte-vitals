@@ -80,7 +80,7 @@ export default {
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/doc-link-target -->` を置きます。ルールごと無効化するには、次のように設定します。
+個別に抑制するには、対象行の直前に、`<script>` 内なら `// svelte-vitals-disable-next-line architecture/doc-link-target` を、マークアップ内なら `<!-- svelte-vitals-disable-next-line architecture/doc-link-target -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {
