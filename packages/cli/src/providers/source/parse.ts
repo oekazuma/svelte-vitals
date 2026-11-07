@@ -473,6 +473,16 @@ export interface ComponentUse {
   offset: number;
 }
 
+/** The binding a member-path component tag starts from: `pageData` in `<pageData.post.component />` or `<svelte:component this={pageData.post.component}>`. */
+function memberRoot(node: AST.Component | AST.SvelteComponent): string | undefined {
+  if (node.type === 'Component') return node.name.includes('.') ? node.name.split('.')[0] : undefined;
+  type Expr = AST.SvelteComponent['expression'];
+  let e: Expr = node.expression;
+  let hops = 0;
+  for (; e.type === 'MemberExpression'; hops++) e = e.object as Expr;
+  return hops > 0 && e.type === 'Identifier' ? e.name : undefined;
+}
+
 /** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
 function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSelf): string {
   if (node.type !== 'SvelteComponent') return node.name;
@@ -1856,7 +1866,7 @@ function collectHeadings(
       }
       // A component `load` hands over (`<data.post.component />`) is often a markdown module
       // found by `import.meta.glob` at run time: which headings it renders is not in the source.
-      if (componentName(node).startsWith('data.')) dynamic = true;
+      if (props.get(memberRoot(node) ?? '') === 'data') dynamic = true;
       meet(componentPaths, node, path);
       note(componentWhen, node, when);
       first(componentOffsets, node, at?.[0] ?? node.start);

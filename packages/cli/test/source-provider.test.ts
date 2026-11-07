@@ -263,15 +263,25 @@ describe('collectRoutes headings from <svelte:element> (issue #700)', () => {
   });
 
   it('skips the route instead of reporting "Missing <h1>" for a component that load data provides', async () => {
-    for (const usage of ['<data.post.component />', '<svelte:component this={data.content} />']) {
+    for (const usage of [
+      '<script>let { data } = $props();</script><data.post.component />',
+      '<script>let { data: page } = $props();</script><page.content />',
+      '<script>export let data;</script><svelte:component this={data.post.component} />'
+    ]) {
       const headings = await headingsFor(usage);
       expect(headings[0]!.dynamicHeading).toBe(true);
       expect(await check(headings)).toEqual([]);
     }
   });
 
+  it('still reports "Missing <h1>" for a namespace import that happens to be named data', async () => {
+    const headings = await headingsFor(`<script>import * as data from '$lib/data';</script><data.Card />`);
+    expect(headings[0]!.dynamicHeading).toBeUndefined();
+    expect(await check(headings)).toEqual(['Missing <h1>']);
+  });
+
   it('still reports "Multiple <h1>" beside a component that load data provides', async () => {
-    const headings = await headingsFor('<h1>A</h1><h1>B</h1><data.content />');
+    const headings = await headingsFor('<script>let { data } = $props();</script><h1>A</h1><h1>B</h1><data.content />');
     expect(await check(headings)).toEqual(['Multiple <h1> (2); a single <h1> is the conventional signal']);
   });
 
