@@ -266,7 +266,8 @@ describe('collectRoutes headings from <svelte:element> (issue #700)', () => {
     for (const usage of [
       '<script>let { data } = $props();</script><data.post.component />',
       '<script>let { data: page } = $props();</script><page.content />',
-      '<script>export let data;</script><svelte:component this={data.post.component} />'
+      '<script>export let data;</script><svelte:component this={data.post.component} />',
+      '<script>let props = $props();</script><props.data.post.component />'
     ]) {
       const headings = await headingsFor(usage);
       expect(headings[0]!.dynamicHeading).toBe(true);
