@@ -27,6 +27,7 @@ Not flagged:
 
 - A descendant whose only claim to interactivity is its `tabindex`, when that `tabindex` is negative (e.g. `<div tabindex="-1">`) — it is removed from the tab order and does not compete for keyboard focus. A natively interactive descendant such as `<button tabindex="-1">` is still flagged: it stays clickable, and the container's content model forbids it regardless of tab order.
 - A descendant of an href-less `<a>`, since a plain `<a>` with no `href` is not itself interactive.
+- A descendant of an `<a>` whose `href` is an expression (`href={url}`) or interpolates one (`href="/x/{id}"`): whether it renders as a link is not known statically.
 - Interactive elements nested across components (e.g. a `<button>` inside a child component rendered inside an `<a href>`). This rule only sees a single component's own template, so that variant is a known non-goal.
 - Namespace is not tracked: an `<a href>` inside `<svg>` is classified as the HTML `<a>`, so an SVG link wrapping a `<button>` is reported as interactive nesting. That is a parser approximation rather than an SVG restriction, since SVG itself forbids only nested SVG links, but the pattern is one no reader of the HTML rule would want either, so the finding stays.
 

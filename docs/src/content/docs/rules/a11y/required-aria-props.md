@@ -7,7 +7,7 @@ description: A role that requires state or property attributes needs them presen
 
 ## What it checks
 
-Flags a literal `role` attribute naming a role that requires one or more `aria-*` attributes, when none of those attributes are present on the element.
+Flags a literal `role` attribute naming a role that requires one or more `aria-*` attributes, when any of those attributes is missing from the element. The finding lists every missing one.
 
 An attribute counts as present whether its value is a literal or a dynamic expression. Only the attribute's presence matters here, not its value (a bad value is `a11y/invalid-aria-value`'s concern).
 
