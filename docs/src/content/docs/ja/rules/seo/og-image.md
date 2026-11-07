@@ -7,7 +7,7 @@ description: <meta property="og:image"> タグはどのルートにも必要で�
 
 ## チェック内容
 
-すべてのルートに `<meta property="og:image">` タグが必要です（直接指定でも、レイアウトチェーン経由の継承でも構いません）。Open Graph 画像のメタタグがない、または空のルートを検出します。
+すべてのルートに `<meta property="og:image">` タグが必要です（直接指定でも、レイアウトチェーン経由の継承でも構いません）。Open Graph 画像のメタタグがない、または空のルートを検出します。`<meta name="og:image">` は数えません。`property=` のタグがない場合、検出のメッセージは `<meta name="og:image"> should be <meta property="og:image">` となり、`name=` を `property=` に変えるよう勧めます。
 
 ## なぜ重要か
 

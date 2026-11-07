@@ -21,6 +21,7 @@ Not flagged, even with no name source found:
 
 - An element whose content is unknowable: any `{expression}` child, a component child, `{@render …}`, `{@html …}`, a `<slot>` or `<svelte:fragment>` (its content comes from the parent), a hyphenated custom element (its shadow root may supply content), or a spread attribute on the element itself.
   The rule only flags what it can prove is unnamed; it never guesses at dynamic content.
+- An `<a>` whose `href` is an expression (`href={url}`) or interpolates one (`href="/x/{id}"`): whether it renders as a link is not known statically.
 - Namespace is not tracked here: an `<a href>` inside `<svg>` is judged as the HTML `<a>`, so an SVG link without a computable accessible name (no text descendant, `aria-label`, `aria-labelledby`, or `<title>`) is reported. That is the same thing the SVG accessibility guidance asks for, so the verdict stands even though the reason differs.
 
 ```svelte
@@ -72,7 +73,7 @@ None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it 
 
 ## Disabling
 
-If the name is supplied some other way this rule can't see (e.g. a wrapping label element), silence a single element with `<!-- svelte-vitals-disable-next-line a11y/accessible-name -->`, or turn the rule off:
+If the name is supplied some other way this rule can't see (e.g. a `<label for>` in another component, or an `aria-label` set by script), silence a single element with `<!-- svelte-vitals-disable-next-line a11y/accessible-name -->`, or turn the rule off:
 
 ```js svelte-vitals.config.js
 export default {

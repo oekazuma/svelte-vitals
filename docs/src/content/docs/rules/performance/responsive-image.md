@@ -1,6 +1,6 @@
 ---
 title: performance/responsive-image · Responsive image
-description: Large images should provide a srcset.
+description: Images should provide a srcset.
 ---
 
 **Severity:** info
