@@ -67,7 +67,7 @@ svelte-vitals --reporter json
           "location": "src/routes/about/+page.svelte",
           "line": 12,
           "recommendation": "Keep exactly one <h1> per page.",
-          "docsUrl": "https://svelte-vitals.dev/rules/seo/single-h1",
+          "docsUrl": "https://oekazuma.github.io/svelte-vitals/rules/seo/single-h1",
           "fix": { "description": "…", "snippet": "…", "lang": "svelte" }
         }
       ]
@@ -201,7 +201,7 @@ svelte-vitals --reporter sarif
 
 ### `github`
 
-GitHub Actions [workflow command](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) format. Outputs `::error` and `::warning` annotations that appear inline in pull requests.
+GitHub Actions [workflow command](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) format. Outputs `::error` (critical), `::warning` (warning) and `::notice` (info) annotations that appear inline in pull requests.
 
 The `github` reporter is auto-selected when `GITHUB_ACTIONS=true` is set (which GitHub Actions sets automatically).
 

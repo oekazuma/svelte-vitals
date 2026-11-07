@@ -48,7 +48,7 @@ pnpm --filter kitchen-sink test   # static (CLI) + build (vite plugin) e2e
 pnpm bench --target examples/kitchen-sink
 ```
 
-`pnpm --filter kitchen-sink test` runs three suites:
+`pnpm --filter kitchen-sink test` runs four suites:
 
 - `test/e2e-static.test.ts` — runs the built CLI (`svelte-vitals`) against the source tree and
   checks the JSON report against `expected-findings.json`.
@@ -61,6 +61,8 @@ pnpm bench --target examples/kitchen-sink
   `overrides`, the inline `svelte-vitals-disable-next-line` directive, and the suppressions file)
   against the gallery on scratch copies, so a surface that silently stops working fails here rather
   than in a user's CI. The gallery files themselves are never edited.
+- `test/e2e-config-path.test.ts` — runs `--config <path>` against the gallery and checks that the
+  named file replaces the discovered `svelte-vitals.config.ts` rather than merging with it.
 
 This package has no `build` script — nothing here should ever produce `examples/kitchen-sink/build/`
 as a side effect of `pnpm -r build`. If it appears after a full build, that's a bug.
@@ -97,7 +99,7 @@ for what it checks.
 | `vite.config.ts` (`minify: false`)                                              | `performance/minify-disabled`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `static/robots.txt` / `static/sitemap.xml`                                      | `seo/sitemap-in-robots`, `seo/robots-txt` (pass-only), `seo/sitemap-xml` (pass-only)                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `src/routes/gallery/perf/_specimens.svelte`                                     | `performance/heavy-import` — no `+` prefix, so SvelteKit never bundles it; glob-collected by static analysis but never imported by any route (`lodash` isn't an installed dependency)                                                                                                                                                                                                                                                                                                                              |
-| (no specimen — inert in this project)                                           | `correctness/base-path-navigation` only opens its gate when `kit.paths.base` is configured, which this example doesn't set; see the `inert` entry in `expected-findings.json`                                                                                                                                                                                                                                                                                                                                      |
+| (no specimen — inert in this project)                                           | `correctness/base-path-navigation` only opens its gate when `kit.paths.base` is configured, which this example doesn't set; `a11y/unverified-id-ref` is off by default, so only the scoped `--rules` e2e invocation runs it (against `/gallery/a11y/skipped`); see the `inert` entries in `expected-findings.json`                                                                                                                                                                                                 |
 
 ## The crash-samples invariant
 

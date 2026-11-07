@@ -34,7 +34,7 @@ export default {
 
 ## Whole-project coverage from startup
 
-From the moment the dev server starts, the dashboard shows the whole project. A static analysis of all routes runs asynchronously at startup across every category (SEO, Performance, Correctness, Security, Architecture, Accessibility). It is the same analysis as `npx svelte-vitals@latest`, so you get the real project Health without visiting a single page. Saving a source file (anything under `src/` or `static/`, or a `svelte.config.*` / `svelte-vitals.config.*`) triggers a debounced re-analysis, and the dashboard refreshes itself.
+From the moment the dev server starts, the dashboard shows the whole project. A static analysis of all routes runs asynchronously at startup across every category (SEO, Performance, Correctness, Security, Architecture, Accessibility). It is the same analysis as `npx svelte-vitals@latest`, so you get the real project Health without visiting a single page. Saving a source file (anything under `src/` or `static/`, or a `svelte.config.*` / `svelte-vitals.config.*` / `vite.config.*` / `svelte-vitals-suppressions.json`) triggers a debounced re-analysis, and the dashboard refreshes itself.
 
 "Overview" lists every finding across the whole project in one place, every route plus the project's site-wide checks, and the severity and category chips filter that list directly. Each finding shows which route it came from; clicking it jumps straight to that route's detail pane.
 
@@ -129,7 +129,7 @@ export default {
 
 ## Version drift
 
-The topbar shows the plugin version and, next to it, `core v<@svelte-vitals/core version>`. The second is the one that matters when comparing against the CLI: both packages are versioned independently around the shared core, so they can resolve to _different_ core versions while each looks up to date. A rule added in a newer core then appears only in the package that depends on it.
+The topbar shows the plugin version and, next to it, `core v<@svelte-vitals/core version>`. The second is the one that matters when comparing against the CLI: `svelte-vitals`, `@svelte-vitals/vite` and `@svelte-vitals/core` are released together under one version number, but the CLI you launch and the plugin your lockfile pins are resolved separately, so they can still run _different_ core versions. A rule added in a newer core then appears only in the package that depends on it.
 
 Package-manager cooldown settings make this easy to hit unnoticed: pnpm's [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) can resolve `pnpm dlx svelte-vitals@latest` down to an older "mature" release than your lockfile's plugin depends on.
 
