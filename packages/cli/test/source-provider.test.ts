@@ -267,7 +267,8 @@ describe('collectRoutes headings from <svelte:element> (issue #700)', () => {
       '<script>let { data } = $props();</script><data.post.component />',
       '<script>let { data: page } = $props();</script><page.content />',
       '<script>export let data;</script><svelte:component this={data.post.component} />',
-      '<script>let props = $props();</script><props.data.post.component />'
+      '<script>let props = $props();</script><props.data.post.component />',
+      `<script>let props = $props();</script><svelte:component this={props['data'].post.component} />`
     ]) {
       const headings = await headingsFor(usage);
       expect(headings[0]!.dynamicHeading).toBe(true);
@@ -277,6 +278,14 @@ describe('collectRoutes headings from <svelte:element> (issue #700)', () => {
 
   it('still reports "Missing <h1>" for a namespace import that happens to be named data', async () => {
     const headings = await headingsFor(`<script>import * as data from '$lib/data';</script><data.Card />`);
+    expect(headings[0]!.dynamicHeading).toBeUndefined();
+    expect(await check(headings)).toEqual(['Missing <h1>']);
+  });
+
+  it('still reports "Missing <h1>" when a template binding named data shadows the prop', async () => {
+    const headings = await headingsFor(
+      '<script>let { data } = $props();</script>{#each data.icons as data}<data.component />{/each}'
+    );
     expect(headings[0]!.dynamicHeading).toBeUndefined();
     expect(await check(headings)).toEqual(['Missing <h1>']);
   });

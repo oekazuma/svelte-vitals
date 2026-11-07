@@ -479,8 +479,16 @@ function memberPath(node: AST.Component | AST.SvelteComponent): string[] {
   type Expr = AST.SvelteComponent['expression'];
   const path: string[] = [];
   let e: Expr = node.expression;
-  for (; e.type === 'MemberExpression'; e = e.object as Expr)
-    path.unshift(!e.computed && e.property.type === 'Identifier' ? e.property.name : '');
+  for (; e.type === 'MemberExpression'; e = e.object as Expr) {
+    const key = e.property;
+    path.unshift(
+      !e.computed && key.type === 'Identifier'
+        ? key.name
+        : key.type === 'Literal' && typeof key.value === 'string'
+          ? key.value
+          : ''
+    );
+  }
   return path.length > 0 && e.type === 'Identifier' ? [e.name, ...path] : [];
 }
 
@@ -1664,6 +1672,7 @@ function collectHeadings(
   titles: ReadonlySet<string> = new Set()
 ) {
   const headings: ParsedHeading[] = [];
+  const bound = templateBindings(fragment);
   const gates = new Map<number, PropGate>();
   const flagGates = new Map<number, FlagGate>();
   const urlGates = new Map<number, UrlCond>();
@@ -1868,7 +1877,12 @@ function collectHeadings(
       // A component `load` hands over (`<data.post.component />`) is often a markdown module
       // found by `import.meta.glob` at run time: which headings it renders is not in the source.
       const [root, next] = memberPath(node);
-      if (root && (props.get(root) === 'data' || (root === props.get(WHOLE_PROPS) && next === 'data'))) dynamic = true;
+      if (
+        root &&
+        !bound.has(root) &&
+        (props.get(root) === 'data' || (root === props.get(WHOLE_PROPS) && next === 'data'))
+      )
+        dynamic = true;
       meet(componentPaths, node, path);
       note(componentWhen, node, when);
       first(componentOffsets, node, at?.[0] ?? node.start);
