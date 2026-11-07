@@ -478,7 +478,7 @@ function memberPath(node: AST.Component | AST.SvelteComponent): string[] {
   if (node.type === 'Component') return node.name.includes('.') ? node.name.split('.') : [];
   type Expr = AST.SvelteComponent['expression'];
   const path: string[] = [];
-  let e: Expr = node.expression;
+  let e = (node.expression.type === 'ChainExpression' ? node.expression.expression : node.expression) as Expr;
   for (; e.type === 'MemberExpression'; e = e.object as Expr) {
     const key = e.property;
     path.unshift(
