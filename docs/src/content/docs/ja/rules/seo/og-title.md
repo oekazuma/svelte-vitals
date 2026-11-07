@@ -7,7 +7,7 @@ description: <meta property="og:title"> タグはどのルートにも必要で�
 
 ## チェック内容
 
-すべてのルートに `<meta property="og:title">` タグが必要です（直接指定でも、レイアウトチェーン経由の継承でも構いません）。Open Graph タイトルのメタタグがない、または空のルートを検出します。
+すべてのルートに `<meta property="og:title">` タグが必要です（直接指定でも、レイアウトチェーン経由の継承でも構いません）。Open Graph タイトルのメタタグがない、または空のルートを検出します。`<meta name="og:title">` は数えません。`property=` のタグがない場合、検出のメッセージは `<meta name="og:title"> should be <meta property="og:title">` となり、`name=` を `property=` に変えるよう勧めます。
 
 ## なぜ重要か
 

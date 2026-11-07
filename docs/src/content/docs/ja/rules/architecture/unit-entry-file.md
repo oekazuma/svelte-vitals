@@ -142,7 +142,7 @@ finding として報告されます。そのため、この finding を抑制す
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/unit-entry-file -->` を置きます。ルールごと無効化するには、次のように設定します。
+検出には行番号がないため、インラインの `svelte-vitals-disable-next-line` では抑制できません。既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

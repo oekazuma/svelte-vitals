@@ -7,7 +7,7 @@ description: og:description はどのルートにも入れましょう。
 
 ## チェック内容
 
-すべてのルートに `<meta property="og:description">` タグを含めるべきです（直接指定でも継承でも構いません）。タグがない場合や空の場合は、情報提供レベルの指摘として検出します。
+すべてのルートに `<meta property="og:description">` タグを含めるべきです（直接指定でも継承でも構いません）。タグがない場合や空の場合は、情報提供レベルの指摘として検出します。`<meta name="og:description">` は数えません。`property=` のタグがない場合、検出のメッセージは `<meta name="og:description"> should be <meta property="og:description">` となり、`name=` を `property=` に変えるよう勧めます。
 
 ## なぜ重要か
 

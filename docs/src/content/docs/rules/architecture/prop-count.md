@@ -42,7 +42,7 @@ None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it 
 
 ## Disabling
 
-Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/prop-count -->` on the line above it, or turn the rule off:
+A finding sits on line 1 of the component, so no inline `svelte-vitals-disable-next-line` directive can sit above it. Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per path with `overrides`, or turn it off:
 
 ```js svelte-vitals.config.js
 export default {

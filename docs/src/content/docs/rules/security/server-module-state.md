@@ -45,7 +45,7 @@ None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it 
 
 ## Disabling
 
-Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/server-module-state -->` on the line above it, or turn the rule off:
+Silence a single occurrence with `// svelte-vitals-disable-next-line security/server-module-state` on the line above it, or turn the rule off:
 
 ```js svelte-vitals.config.js
 export default {

@@ -7,7 +7,7 @@ description: Some schema types had their Google rich result dropped or restricte
 
 ## What it checks
 
-Flags a JSON-LD `@type` whose Google rich result was dropped or restricted (e.g. `HowTo`, `FAQPage`, `ClaimReview`).
+Flags a JSON-LD `@type` whose Google rich result was dropped or restricted: `HowTo`, `FAQPage` and `ClaimReview`.
 
 ## Why it matters
 
@@ -19,7 +19,7 @@ Verify the type's current rich-result status in Google's documentation; remove o
 
 ## Mode differences
 
-**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`, `svead`) and any you declare in `metaComponents`. It judges only a **literal** value; it never examines a dynamic one. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
+**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`, `svead`) and any you declare in `metaComponents`. It judges only a **literal** value; it never examines a dynamic one. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, and the JSON-LD in `<body>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
 
 ## Disabling
 
