@@ -23,7 +23,7 @@ npx skills add oekazuma/svelte-vitals -a claude-code -a cursor -a codex -y
 
 svelte-vitals を導入するときに最初に使うスキルです。空の雛形を置くのではなく、そのプロジェクト向けの `svelte-vitals.config` を導出します。
 
-いくつかのルールは初期状態では何も検査しません。オプションがすべて空でデフォルト定義されており、プロジェクトが値を埋めるまで検査対象がゼロのままだからです。`svelte-vitals install --client config-file` が書き出すのは全項目をコメントアウトした雛形、つまり答えではなく記入用紙です。このスキルはその記入用紙を、プロジェクトが既に持っている根拠から埋めます。既存の markuplint や eslint-plugin-check-file の設定、SvelteKit のアダプターと prerender の指定、`metaComponents` に入れるべきローカルの `<head>` コンポーネント、そして隣接する設定からは答えが出ない場合は、プロジェクト自身のディレクトリ名の分布を実際に数えて判断します。
+いくつかのルールは初期状態では何も検査しません。オプションがすべて空でデフォルト定義されており、プロジェクトが値を埋めるまで検査対象がゼロのままだからです。`svelte-vitals install --client config-file` が書き出すのは `treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights` をコメントアウトした雛形、つまり答えではなく記入用紙です。このスキルはその記入用紙を、プロジェクトが既に持っている根拠から埋めます。既存の markuplint や eslint-plugin-check-file の設定、SvelteKit のアダプターと prerender の指定、`metaComponents` に入れるべきローカルの `<head>` コンポーネント、そして隣接する設定からは答えが出ない場合は、プロジェクト自身のディレクトリ名の分布を実際に数えて判断します。
 
 計測せずに書き込むことはありません。候補となる設定はいったんプロジェクト外のスクラッチファイルに書き、[`--config <path>`](/ja/guides/configuration) でスコアを取ります。そのうえで各ルールを、まとめて一度に尋ねるのではなく件数ごとに「採用する」「見送る」「採用して既存分は抑制する」のいずれかに振り分けます。書き換えるのは設定だけで、ソースには手を触れません。既存の設定ファイルを上書きすることもなく、差分を提示するにとどめます。このスキルの担当外（Vite プラグイン、フック、CI ワークフロー）は [`svelte-vitals install`](/ja/guides/install) に引き渡します。
 

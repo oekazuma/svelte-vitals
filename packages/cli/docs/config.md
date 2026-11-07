@@ -13,7 +13,7 @@ In the **analyzed directory only**, with no upward search. First match wins:
 2. `svelte-vitals.config.ts`
 
 No file means built-in defaults. `svelte-vitals install --client config-file` scaffolds one with
-every option commented out.
+`treatDynamicAs`, `metaComponents`, `rules`, `failOn` and `weights` commented out.
 
 `--config <path>` analyzes under the config file at that path instead of the one in the analyzed
 directory: no discovery, no merge. A relative path resolves against the directory you run the
@@ -51,6 +51,7 @@ in `.js` behaves identically and needs no dependency. Both are ESM, so the proje
 | `failOn`         | `'critical' \| 'warning' \| 'info'`                            | `'critical'`       |
 | `weights`        | `Partial<Record<Category, number>>`                            | every category `1` |
 | `overrides`      | `RuleOverride[]`                                               | (none)             |
+| `seo`            | `{ indexable?: boolean }`                                      | (none)             |
 
 `Severity` is `'critical' | 'warning' | 'info'`. `Category` is `'seo' | 'performance' |
 'correctness' | 'security' | 'architecture' | 'a11y'`. A weight of `0` drops a category from the Health

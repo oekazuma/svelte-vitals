@@ -34,16 +34,14 @@ description: banner・main・complementary・contentinfo ランドマークは�
 
 ## 修正方法
 
-すべてのランドマークがルートの最上位で合成されるよう、ネストしたランドマークを外に出します。
+すべてのランドマークがルートの最上位で合成されるよう、ネストしたランドマークを外に出します。ページが描画するものはすべてレイアウトの `<main>` の中に入るため、`<aside>` はレイアウト側で `<main>` と並べて描画します。
 
 ```svelte +layout.svelte
-<header>サイトナビゲーション</header><main>{@render children()}</main>
+<header>サイトナビゲーション</header><main>{@render children()}</main><aside>関連リンク</aside>
 ```
 
 ```svelte +page.svelte
 <h1>ページの本文</h1>
-<aside>関連リンク</aside>
-<!-- +layout.svelte の <main> の下から外に出した -->
 ```
 
 ## モードによる違い

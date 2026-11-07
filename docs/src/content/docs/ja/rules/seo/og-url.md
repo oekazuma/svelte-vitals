@@ -7,7 +7,7 @@ description: og:url には、そのページの正規アドレスを入れまし
 
 ## チェック内容
 
-すべてのルートは `<meta property="og:url">` を持つべきです（直接指定でも継承でも構いません）。欠けている、または空のルートを検出します。
+すべてのルートは `<meta property="og:url">` を持つべきです（直接指定でも継承でも構いません）。欠けている、または空のルートを検出します。`<meta name="og:url">` は数えません。`property=` のタグがない場合、検出のメッセージは `<meta name="og:url"> should be <meta property="og:url">` となり、`name=` を `property=` に変えるよう勧めます。
 
 ## なぜ重要か
 

@@ -67,7 +67,7 @@ svelte-vitals --reporter json
           "location": "src/routes/about/+page.svelte",
           "line": 12,
           "recommendation": "Keep exactly one <h1> per page.",
-          "docsUrl": "https://svelte-vitals.dev/rules/seo/single-h1",
+          "docsUrl": "https://oekazuma.github.io/svelte-vitals/rules/seo/single-h1",
           "fix": { "description": "…", "snippet": "…", "lang": "svelte" }
         }
       ]
@@ -160,7 +160,7 @@ svelte-vitals --reporter sarif
 
 ### `github`
 
-GitHub Actions の [ワークフローコマンド](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) 形式。プルリクエストにインラインで表示される `::error` および `::warning` アノテーションを出力します。
+GitHub Actions の [ワークフローコマンド](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) 形式。プルリクエストにインラインで表示される `::error`（critical）、`::warning`（warning）、`::notice`（info）アノテーションを出力します。
 
 `github` レポーターは `GITHUB_ACTIONS=true` が設定されている場合（GitHub Actions が自動的に設定）に自動選択されます。
 

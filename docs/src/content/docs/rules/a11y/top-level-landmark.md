@@ -34,16 +34,14 @@ Assistive technology exposes `banner`, `main`, `complementary`, and `contentinfo
 
 ## How to fix
 
-Move the nested landmark out so every landmark composes at the top level of the route:
+Move the nested landmark out so every landmark composes at the top level of the route. Anything the page renders lands inside the layout's `<main>`, so render the `<aside>` from the layout, beside `<main>`:
 
 ```svelte +layout.svelte
-<header>Site navigation</header><main>{@render children()}</main>
+<header>Site navigation</header><main>{@render children()}</main><aside>Related links</aside>
 ```
 
 ```svelte +page.svelte
 <h1>Page content</h1>
-<aside>Related links</aside>
-<!-- moved out from under +layout.svelte's <main> -->
 ```
 
 ## Mode differences

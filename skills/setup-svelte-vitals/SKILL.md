@@ -11,7 +11,7 @@ Derive this project's `svelte-vitals.config` instead of scaffolding a blank one.
 
 Several rules ship inert: they declare options that all default empty, so until a project fills
 them in they examine nothing and report nothing. `svelte-vitals install --client config-file`
-writes a template with every field commented out — a form, not an answer. This skill fills the form
+writes a template with its basic fields commented out — a form, not an answer. This skill fills the form
 in from what the project has already declared elsewhere (a markuplint config, an
 eslint-plugin-check-file config, and how its directories are actually named), measures every
 candidate against the real scanner, and only then writes a file.
