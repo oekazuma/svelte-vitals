@@ -1,0 +1,912 @@
+[
+  {
+    "key": "borgand/kurious:app::a11y/disallowed-aria-props::src/lib/components/LectureCards.svelte:27::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <div aria-label> at src/lib/components/LectureCards.svelte:27 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "borgand/kurious:app::a11y/disallowed-aria-props::src/lib/components/Player.svelte:202::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <div aria-label> at src/lib/components/Player.svelte:202 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "borgand/kurious:app::a11y/disallowed-aria-props::src/routes/courses/[slug]/path/+page.svelte:115::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <div aria-label> at src/routes/courses/[slug]/path/+page.svelte:115 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "borgand/kurious:app::a11y/disallowed-aria-props::src/routes/profile/+page.svelte:23::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <div aria-label> at src/routes/profile/+page.svelte:23 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "borgand/kurious:app::architecture/component-size::src/lib/components/Player.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Player.svelte has 283 physical lines (newline count, trailing newline not counted; 268 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/lib/components/LectureCards.svelte:28::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LectureCards.svelte:28 '{#each cards as _card, i}' has no key; one progress segment per lecture card (item unused, class from i vs index); positional list (progress indicator)"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/lib/components/exercises/Choice.svelte:16::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/exercises/Choice.svelte:16 '{#each options as option, i}' has no key; options = $derived(exercise.body.options) (:4), the authored options of one exercise, selected by index; positional list replaced wholesale per exercise"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/lib/components/exercises/Match.svelte:30::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/exercises/Match.svelte:30 '{#each pairs as pair, i}' has no key; pairs = authored pairs of one exercise (:4), matched by index (chosen[i]); positional list"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/lib/components/exercises/Match.svelte:45::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/exercises/Match.svelte:45 '{#each rightOrder as r}' has no key; rightOrder = a deterministic shuffle of pair indices (:5), fixed per exercise; positional list"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/lib/components/exercises/Multi.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/exercises/Multi.svelte:22 '{#each options as option, i}' has no key; authored options of one exercise ($derived(exercise.body.options)), selected by index; positional list"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/routes/profile/+page.svelte:24::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/profile/+page.svelte:24 '{#each data.calendar as week}' has no key; streakCalendar(...) (+page.server.ts:32) 12 weeks of the activity calendar; positional list (calendar grid)"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/routes/profile/+page.svelte:25::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/profile/+page.svelte:25 '{#each week as cell}' has no key; the day cells of one calendar week; positional list (calendar cells)"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/routes/profile/authoring/+page.svelte:111::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/profile/authoring/+page.svelte:111 '{#each data.courses as course}' has no key; loadOwnedCourses(...) DB records (+page.server.ts:31), visibility changed by form action; runtime records"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/routes/profile/authoring/+page.svelte:50::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/profile/authoring/+page.svelte:50 '{#each data.tokens as token}' has no key; loadTokens(...) DB records (+page.server.ts:31), created and revoked by form actions (:35-60); runtime records"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/each-key::src/routes/profile/authoring/+page.svelte:85::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/profile/authoring/+page.svelte:85 '{#each data.snippets as snippet}' has no key; clientSnippets(endpoint) returns an authored literal list of client config snippets (lib/mcp-config.ts:35-47); static list"
+  },
+  {
+    "key": "borgand/kurious:app::correctness/effect-as-derived::src/lib/components/exercises/Order.svelte:6::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/exercises/Order.svelte:6 the effect only computes order from the steps prop; later writes reassign a copy (:13-15), the writable-$derived override pattern (svelte >= 5.25 in this app)"
+  },
+  {
+    "key": "borgand/kurious:app::performance/sequential-awaits::src/routes/catalogue/+page.server.ts:8::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read catalogue/+page.server.ts:6-8: the only preceding await is locals.safeGetSession() followed by the sign-in redirect (auth gate) — deliberate auth-before-query ordering, docs Limitations (ledger auth-gate convention)"
+  },
+  {
+    "key": "borgand/kurious:app::performance/sequential-awaits::src/routes/courses/[slug]/+page.server.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read courses/[slug]/+page.server.ts:8-11: loadVisibleCourses(locals.supabase) uses nothing from the preceding loadCourseBySlug, which only feeds the 404 gate (exceptional path; `related` is computed after) — independent Supabase requests serialized after the auth gate; Promise.all would work (ledger 404-gate convention)"
+  },
+  {
+    "key": "borgand/kurious:app::performance/sequential-awaits::src/routes/courses/[slug]/+page.server.ts:8::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read courses/[slug]/+page.server.ts:6-8: the only preceding await is locals.safeGetSession() followed by the sign-in redirect (auth gate) — deliberate auth-before-query ordering, docs Limitations (ledger auth-gate convention)"
+  },
+  {
+    "key": "borgand/kurious:app::performance/sequential-awaits::src/routes/courses/[slug]/path/+page.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read courses/[slug]/path/+page.server.ts:6-9: the only preceding await is locals.safeGetSession() followed by the sign-in redirect (auth gate) — deliberate auth-before-query ordering, docs Limitations (ledger auth-gate convention)"
+  },
+  {
+    "key": "borgand/kurious:app::performance/sequential-awaits::src/routes/courses/[slug]/play/+page.server.ts:13::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read courses/[slug]/play/+page.server.ts:10-13: the only preceding await is locals.safeGetSession() followed by the sign-in redirect (auth gate) — deliberate auth-before-query ordering, docs Limitations (ledger auth-gate convention)"
+  },
+  {
+    "key": "borgand/kurious:app::performance/sequential-awaits::src/routes/sign-up/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read sign-up/+page.server.ts:12-14: the only preceding await is locals.safeGetSession() whose session redirects signed-in users away (session gate), then the signup_enabled settings read — gate-before-query ordering (ledger auth-gate convention)"
+  },
+  {
+    "key": "borgand/kurious:app::security/raw-html::src/lib/components/LectureCards.svelte:36::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read LectureCards.svelte:12,36 + lib/server/course-data.ts:59-63 + packages/course-import/src/render.ts:84, sanitize.ts: card.html is stored lecture HTML that course import passes through sanitize-html (tag/attr/scheme allowlist, script/iframe dropped) before the service_role-only import_course RPC (supabase migration 20260906000500:110-111) writes it — sanitized, reported per docs"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in and admin/+layout.server.ts:6 404s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/admin/courses/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/courses (src/routes/admin/courses/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in and admin/+layout.server.ts:6 404s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/admin/courses/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/courses/[slug] (src/routes/admin/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in and admin/+layout.server.ts:6 404s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/admin/groups/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/groups (src/routes/admin/groups/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in and admin/+layout.server.ts:6 404s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/admin/users/[userId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users/[userId] (src/routes/admin/users/[userId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in and admin/+layout.server.ts:6 404s non-admins), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/catalogue/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /catalogue (src/routes/catalogue/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/courses/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /courses/[slug] (src/routes/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/courses/[slug]/path/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /courses/[slug]/path (src/routes/courses/[slug]/path/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/courses/[slug]/play/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /courses/[slug]/play (src/routes/courses/[slug]/play/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/onboarding/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /onboarding (src/routes/onboarding/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/practice/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /practice (src/routes/practice/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile (src/routes/profile/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/profile/authoring/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile/authoring (src/routes/profile/authoring/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (src/routes/reset-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); public route (in PUBLIC_ROUTES, lib/server/routes.ts:4; no noindex)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/sign-in/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sign-in (src/routes/sign-in/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); public route (in PUBLIC_ROUTES, lib/server/routes.ts:4; no noindex)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/sign-up/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sign-up (src/routes/sign-up/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); public route (in PUBLIC_ROUTES, lib/server/routes.ts:4; no noindex)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/canonical-url::src/routes/update-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /update-password (src/routes/update-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: hooks.server.ts guard -> lib/server/routes.ts:55-67 redirects every sessionless request outside PUBLIC_ROUTES (/sign-in,/sign-up,/reset-password,/auth/callback,/api/health,/mcp) to /sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /admin; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/admin/courses/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /admin/courses; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/admin/courses/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /admin/courses/[slug]; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/admin/groups/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /admin/groups; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/admin/users/[userId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /admin/users/[userId]; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/catalogue/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /catalogue; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/courses/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /courses/[slug]; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/courses/[slug]/path/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /courses/[slug]/path; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/courses/[slug]/play/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /courses/[slug]/play; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/onboarding/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /onboarding; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/practice/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /practice; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /profile; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/profile/authoring/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /profile/authoring; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /reset-password; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/sign-in/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /sign-in; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/sign-up/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /sign-up; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/description-presence::src/routes/update-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of app/src incl. app.html: no <meta name=description> anywhere; every svelte:head carries only a <title>) (literal claim holds) on /update-password; but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/duplicate-title::src/routes/admin/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app/src/routes/admin/+layout.svelte:12 literal <title>Admin · Kurious</title> is the only title of the 5 /admin routes (no admin page sets one), duplicate as claimed; but the admin console (guardRequest admin-only, behind sign-in) is not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/heading-level-skip::src/routes/courses/[slug]/path/+page.svelte:164::Heading level skipped (<h#> to <h#>)",
+    "verdict": "design",
+    "basis": "read: the flagged <h3> (courses/[slug]/path/+page.svelte:164) is the locked-unit sheet, open only after tapping a locked Tile; before it the path's {#each} Tiles render <h3> for the current unit / <h4> for a review tile (Tile.svelte:33/:53) whenever such a tile exists - data-dependent; per docs an {#each} body counts as possibly empty"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): / has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /admin has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/admin/courses/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /admin/courses has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/admin/courses/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /admin/courses/[slug] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/admin/groups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /admin/groups has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/admin/users/[userId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /admin/users/[userId] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/catalogue/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /catalogue has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/courses/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /courses/[slug] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/courses/[slug]/path/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /courses/[slug]/path has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/courses/[slug]/play/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /courses/[slug]/play has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/onboarding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /onboarding has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/practice/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /practice has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /profile has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/profile/authoring/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /profile/authoring has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /reset-password has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/sign-in/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /sign-in has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/sign-up/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /sign-up has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/json-ld::src/routes/update-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of app/src incl. app.html for ld+json/jsonld/@context: none): /update-password has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/admin/courses/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/courses (src/routes/admin/courses/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/admin/courses/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/courses/[slug] (src/routes/admin/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/admin/groups/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/groups (src/routes/admin/groups/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/admin/users/[userId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users/[userId] (src/routes/admin/users/[userId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/catalogue/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /catalogue (src/routes/catalogue/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/courses/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /courses/[slug] (src/routes/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/courses/[slug]/path/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /courses/[slug]/path (src/routes/courses/[slug]/path/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/courses/[slug]/play/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /courses/[slug]/play (src/routes/courses/[slug]/play/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /onboarding (src/routes/onboarding/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/practice/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /practice (src/routes/practice/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile (src/routes/profile/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/profile/authoring/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile/authoring (src/routes/profile/authoring/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (src/routes/reset-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/sign-in/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sign-in (src/routes/sign-in/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/sign-up/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sign-up (src/routes/sign-up/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-description::src/routes/update-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /update-password (src/routes/update-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/admin/courses/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/courses (src/routes/admin/courses/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/admin/courses/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/courses/[slug] (src/routes/admin/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/admin/groups/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/groups (src/routes/admin/groups/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/admin/users/[userId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users/[userId] (src/routes/admin/users/[userId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/catalogue/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /catalogue (src/routes/catalogue/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/courses/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /courses/[slug] (src/routes/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/courses/[slug]/path/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /courses/[slug]/path (src/routes/courses/[slug]/path/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/courses/[slug]/play/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /courses/[slug]/play (src/routes/courses/[slug]/play/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /onboarding (src/routes/onboarding/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/practice/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /practice (src/routes/practice/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile (src/routes/profile/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/profile/authoring/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile/authoring (src/routes/profile/authoring/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (src/routes/reset-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/sign-in/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sign-in (src/routes/sign-in/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/sign-up/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sign-up (src/routes/sign-up/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-image::src/routes/update-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /update-password (src/routes/update-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/admin/courses/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/courses (src/routes/admin/courses/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/admin/courses/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/courses/[slug] (src/routes/admin/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/admin/groups/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/groups (src/routes/admin/groups/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/admin/users/[userId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users/[userId] (src/routes/admin/users/[userId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/catalogue/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /catalogue (src/routes/catalogue/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/courses/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /courses/[slug] (src/routes/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/courses/[slug]/path/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /courses/[slug]/path (src/routes/courses/[slug]/path/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/courses/[slug]/play/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /courses/[slug]/play (src/routes/courses/[slug]/play/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /onboarding (src/routes/onboarding/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/practice/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /practice (src/routes/practice/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile (src/routes/profile/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/profile/authoring/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile/authoring (src/routes/profile/authoring/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password (src/routes/reset-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/sign-in/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sign-in (src/routes/sign-in/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/sign-up/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sign-up (src/routes/sign-up/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-title::src/routes/update-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /update-password (src/routes/update-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/admin/courses/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/courses (src/routes/admin/courses/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/admin/courses/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/courses/[slug] (src/routes/admin/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/admin/groups/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/groups (src/routes/admin/groups/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/admin/users/[userId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users/[userId] (src/routes/admin/users/[userId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/catalogue/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /catalogue (src/routes/catalogue/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/courses/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /courses/[slug] (src/routes/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/courses/[slug]/path/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /courses/[slug]/path (src/routes/courses/[slug]/path/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/courses/[slug]/play/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /courses/[slug]/play (src/routes/courses/[slug]/play/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /onboarding (src/routes/onboarding/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/practice/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /practice (src/routes/practice/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (src/routes/profile/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/profile/authoring/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile/authoring (src/routes/profile/authoring/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (src/routes/reset-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/sign-in/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sign-in (src/routes/sign-in/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/sign-up/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sign-up (src/routes/sign-up/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/og-url::src/routes/update-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /update-password (src/routes/update-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: app/static has icons/ and manifest.webmanifest only, no robots.txt route or generator (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/single-h1::src/lib/components/LectureCards.svelte:35::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: Player.svelte:10 renders <h1>{setup.title} unconditionally, and in the lecture phase LectureCards renders <h1>{card.title} {#if card.title} (LectureCards.svelte:35) beside it - two <h1>s render together"
+  },
+  {
+    "key": "borgand/kurious:app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in app/static or routes, no generator (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /'s page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/admin/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /admin's page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/catalogue/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /catalogue's page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/onboarding/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /onboarding's page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/practice/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /practice's page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /profile's page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/profile/authoring/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /profile/authoring's page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/reset-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /reset-password's page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/sign-in/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /sign-in's page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/title-length::src/routes/sign-up/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title>… · Kurious</title> in /sign-up's page or layout svelte:head, length as reported (literal claim holds); but Kurious is a sign-in-gated spaced-repetition learning app: hooks.server.ts guard (lib/server/routes.ts guardRequest) redirects every request without a session to /sign-in except the auth pages (PUBLIC_ROUTES /sign-in, /sign-up, /reset-password), so not a search target"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/admin/courses/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/courses (src/routes/admin/courses/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/admin/courses/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/courses/[slug] (src/routes/admin/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/admin/groups/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/groups (src/routes/admin/groups/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/admin/users/[userId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users/[userId] (src/routes/admin/users/[userId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/catalogue/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /catalogue (src/routes/catalogue/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/courses/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /courses/[slug] (src/routes/courses/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/courses/[slug]/path/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /courses/[slug]/path (src/routes/courses/[slug]/path/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/courses/[slug]/play/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /courses/[slug]/play (src/routes/courses/[slug]/play/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/onboarding/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /onboarding (src/routes/onboarding/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/practice/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /practice (src/routes/practice/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile (src/routes/profile/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/profile/authoring/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile/authoring (src/routes/profile/authoring/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (src/routes/reset-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/sign-in/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sign-in (src/routes/sign-in/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/sign-up/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sign-up (src/routes/sign-up/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "borgand/kurious:app::seo/twitter-card::src/routes/update-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /update-password (src/routes/update-password/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection, also packages/* workspace pkgs have no <svelte:head>); heads are <title> only (root +layout.svelte:21, pages); app.html theme-color/manifest/apple-touch only; no Svelte UI npm deps; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  }
+]

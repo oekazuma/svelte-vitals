@@ -1,0 +1,1287 @@
+[
+  {
+    "key": "maris-development/beacon-studio-ihm::a11y/disallowed-aria-props::src/lib/components/BeaconNodeStatus.svelte:55::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <span aria-label> at src/lib/components/BeaconNodeStatus.svelte:55 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::a11y/disallowed-aria-props::src/lib/components/data-browser/UploadDialog.svelte:202::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <div aria-label> at src/lib/components/data-browser/UploadDialog.svelte:202 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::a11y/disallowed-aria-props::src/lib/components/plots/PlotCanvas.svelte:597::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <div aria-label> at src/lib/components/plots/PlotCanvas.svelte:597 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::a11y/disallowed-aria-props::src/lib/components/sidebar/SidebarMenuItem.svelte:72::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <span aria-label> at src/lib/components/sidebar/SidebarMenuItem.svelte:72 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::a11y/interactive-nesting::src/lib/components/query-builder/QueryBuilderSelectorBlock.svelte:215::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read query-builder/QueryBuilderSelectorBlock.svelte:198-215: rename <input> (under {#if editingBlockId === block.id}) inside <Card> content, which card/Card.svelte renders in a <div> (no href/onclick passed), inside <div role=\"button\" tabindex=\"0\" class=\"query-block-wrapper\">; nested as reported"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::a11y/no-autofocus::src/lib/components/sql-editor/SqlTabs.svelte:44::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "read sql-editor/SqlTabs.svelte:42-50: rename <input autofocus> under {#if editingId === tab.id}, editingId = $state(null) (:20) set by the rename action (:24); focus moves on a user action, not page load (reported as documented)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::a11y/permitted-contents::src/lib/components/card/Card.svelte:28::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs): literal <div> at src/lib/components/card/Card.svelte:28 has literal <button> (line 26) as nearest element ancestor, only {#if}/{#each} between, no component/snippet/svelte:element boundary; <button> admits only phrasing content"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::a11y/top-level-landmark::src/routes/sql-editor/+page.svelte:288::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read sql-editor/+page.svelte:286-288: unlabelled <aside class=\"panel catalog-panel\"> in the {:else} workspace arm, inside plain <div>s, and root +layout.svelte:104-106 renders children inside <main class=\"main-content\"> (when sessionsReady); nested as reported"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/NodePicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NodePicker.svelte has 258 physical lines (newline count, trailing newline not counted; 229 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/buttons/Button.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/buttons/Button.svelte has 293 physical lines (newline count, trailing newline not counted; 247 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/data-browser/CrawlerDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data-browser/CrawlerDialog.svelte has 383 physical lines (newline count, trailing newline not counted; 342 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/data-browser/CreateExternalTableDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data-browser/CreateExternalTableDialog.svelte has 236 physical lines (newline count, trailing newline not counted; 209 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/data-browser/UploadDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data-browser/UploadDialog.svelte has 385 physical lines (newline count, trailing newline not counted; 334 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/home/QuickStartExamples.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/QuickStartExamples.svelte has 209 physical lines (newline count, trailing newline not counted; 183 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/input/DateTimeInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/input/DateTimeInput.svelte has 227 physical lines (newline count, trailing newline not counted; 202 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/legend/Legend.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/legend/Legend.svelte has 234 physical lines (newline count, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/modals/AddBeaconModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modals/AddBeaconModal.svelte has 509 physical lines (newline count, trailing newline not counted; 436 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/modals/AdminSignInDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modals/AdminSignInDialog.svelte has 208 physical lines (newline count, trailing newline not counted; 178 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/modals/CacheInfoModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modals/CacheInfoModal.svelte has 423 physical lines (newline count, trailing newline not counted; 384 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/modals/ChooseBeaconModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modals/ChooseBeaconModal.svelte has 215 physical lines (newline count, trailing newline not counted; 189 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/plots/PlotCanvas.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/plots/PlotCanvas.svelte has 643 physical lines (newline count, trailing newline not counted; 553 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/plots/PlotConfigPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/plots/PlotConfigPanel.svelte has 1845 physical lines (newline count, trailing newline not counted; 1680 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/plots/PlotTabs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/plots/PlotTabs.svelte has 326 physical lines (newline count, trailing newline not counted; 288 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/AddFilterDropdown.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/AddFilterDropdown.svelte has 224 physical lines (newline count, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/GeospatialFilterModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/GeospatialFilterModal.svelte has 338 physical lines (newline count, trailing newline not counted; 298 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/ParameterFilter.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/ParameterFilter.svelte has 249 physical lines (newline count, trailing newline not counted; 243 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/QueryActionBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/QueryActionBar.svelte has 273 physical lines (newline count, trailing newline not counted; 240 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/QueryBuilder.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/QueryBuilder.svelte has 357 physical lines (newline count, trailing newline not counted; 317 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/QueryBuilderNodeSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/QueryBuilderNodeSelector.svelte has 254 physical lines (newline count, trailing newline not counted; 224 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/QueryBuilderParameterBlock.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/QueryBuilderParameterBlock.svelte has 768 physical lines (newline count, trailing newline not counted; 671 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/QueryBuilderSelectorBlock.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/QueryBuilderSelectorBlock.svelte has 659 physical lines (newline count, trailing newline not counted; 584 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/QuerySelectorHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/QuerySelectorHeader.svelte has 231 physical lines (newline count, trailing newline not counted; 201 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/QuerySqlBuilder.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/QuerySqlBuilder.svelte has 303 physical lines (newline count, trailing newline not counted; 266 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/query-builder/QueryWorkbenchPanes.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/query-builder/QueryWorkbenchPanes.svelte has 589 physical lines (newline count, trailing newline not counted; 523 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/settings/SettingField.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SettingField.svelte has 228 physical lines (newline count, trailing newline not counted; 195 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/sidebar/AppSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/AppSidebar.svelte has 603 physical lines (newline count, trailing newline not counted; 530 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/sql-editor/CatalogTree.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sql-editor/CatalogTree.svelte has 391 physical lines (newline count, trailing newline not counted; 347 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/system-info/AdminSummary.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/system-info/AdminSummary.svelte has 263 physical lines (newline count, trailing newline not counted; 232 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/users-roles/AddRuleDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/users-roles/AddRuleDialog.svelte has 305 physical lines (newline count, trailing newline not counted; 272 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/users-roles/NewUserDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/users-roles/NewUserDialog.svelte has 303 physical lines (newline count, trailing newline not counted; 273 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/users-roles/RolesPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/users-roles/RolesPanel.svelte has 515 physical lines (newline count, trailing newline not counted; 467 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/users-roles/UsersTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/users-roles/UsersTable.svelte has 345 physical lines (newline count, trailing newline not counted; 314 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/visualisation/CoordinateColumnsDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisation/CoordinateColumnsDialog.svelte has 209 physical lines (newline count, trailing newline not counted; 179 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/visualisation/DataTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisation/DataTable.svelte has 337 physical lines (newline count, trailing newline not counted; 305 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/lib/components/visualisation/MapDrawTools.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisation/MapDrawTools.svelte has 540 physical lines (newline count, trailing newline not counted; 480 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 299 physical lines (newline count, trailing newline not counted; 257 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/beacon-nodes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/beacon-nodes/+page.svelte has 249 physical lines (newline count, trailing newline not counted; 221 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/data-browser/crawlers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/data-browser/crawlers/+page.svelte has 441 physical lines (newline count, trailing newline not counted; 393 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/data-browser/data-tables/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/data-browser/data-tables/+page.svelte has 382 physical lines (newline count, trailing newline not counted; 334 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/data-browser/data-tables/detail/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/data-browser/data-tables/detail/+page.svelte has 446 physical lines (newline count, trailing newline not counted; 396 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/data-browser/datasets/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/data-browser/datasets/+page.svelte has 549 physical lines (newline count, trailing newline not counted; 493 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/data-browser/datasets/detail/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/data-browser/datasets/detail/+page.svelte has 348 physical lines (newline count, trailing newline not counted; 306 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/node-management/users-roles/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/node-management/users-roles/+page.svelte has 504 physical lines (newline count, trailing newline not counted; 456 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/sql-editor/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sql-editor/+page.svelte has 545 physical lines (newline count, trailing newline not counted; 477 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/system-info/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/system-info/+page.svelte has 608 physical lines (newline count, trailing newline not counted; 537 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/visualisations/chart-explorer/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/visualisations/chart-explorer/+page.svelte has 340 physical lines (newline count, trailing newline not counted; 288 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/visualisations/map-viewer/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/visualisations/map-viewer/+page.svelte has 487 physical lines (newline count, trailing newline not counted; 421 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/component-size::src/routes/visualisations/table-explorer/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/visualisations/table-explorer/+page.svelte has 371 physical lines (newline count, trailing newline not counted; 313 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/ExternalLink.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/ExternalLink.svelte has a single destructured $props() with 7 named props plus a ...rest element (> 6): href, target, rel, title, openInSystemBrowser, class, children"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/buttons/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/buttons/Button.svelte has a single destructured $props() with 8 named props plus a ...rest element (> 6): class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/input/DateTimeInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/input/DateTimeInput.svelte has a single destructured $props() with 8 named props plus a ...rest element (> 6): value, min, max, disabled, dateOnly, placeholder, id, options"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/plots/DebouncedSlider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/plots/DebouncedSlider.svelte has a single destructured $props() with 9 named props (> 6): id, label, value, min, max, step, onCommit, suffix, delay"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/plots/PlotCanvas.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/plots/PlotCanvas.svelte has a single destructured $props() with 7 named props (> 6): plot, series, caption, contours, interpolation, message, onBusyChange"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/plots/PlotSlider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/plots/PlotSlider.svelte has a single destructured $props() with 8 named props (> 6): id, label, value, min, max, step, onCommit, suffix"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/query-builder/QueryBuilder.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/query-builder/QueryBuilder.svelte has a single destructured $props() with 13 named props (> 6): node, missingNodeUrl, nodesReady, onNodeChange, onSeedMismatch, initialDraft, pendingSeed, coordinateColumns, onDraftChange, onTableChange, status, actions, workbenchActions"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/query-builder/QueryBuilderParameterBlock.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/query-builder/QueryBuilderParameterBlock.svelte has a single destructured $props() with 11 named props (> 6): step, table_name, client, initialDraft, pendingSeed, coordinateColumns, onDraftChange, onSeedMismatch, selected_output_format, status, actions"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/query-builder/QueryBuilderStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/query-builder/QueryBuilderStep.svelte has a single destructured $props() with 8 named props (> 6): step, title, description, hint, done, grow, actions, children"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/query-builder/QueryBuilderTableSelector.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/query-builder/QueryBuilderTableSelector.svelte has a single destructured $props() with 7 named props (> 6): step, disabled, table_names, loaded, selected_table_name, status, onPick"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/query-builder/QuerySqlBuilder.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/query-builder/QuerySqlBuilder.svelte has a single destructured $props() with 13 named props (> 6): node, missingNodeUrl, nodesReady, onNodeChange, blockId, blockIds, sql, onSqlChange, outputFormat, onOutputFormatChange, reason, onRun, workbenchActions"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/sidebar/SidebarMenuItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/sidebar/SidebarMenuItem.svelte has a single destructured $props() with 9 named props (> 6): title, url, match, icon, target, lock, compact, onclick, buttonProps"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/sql-editor/CatalogTree.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/sql-editor/CatalogTree.svelte has a single destructured $props() with 8 named props (> 6): tree, loading, error, loadColumns, onInsert, onRefresh, placeholder, flatDefault"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/sql-editor/SqlEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/sql-editor/SqlEditor.svelte has a single destructured $props() with 7 named props (> 6): tabId, value, tabIds, completions, onChange, onRun, placeholder"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/ui/search-select/search-select-item.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/ui/search-select/search-select-item.svelte has a single destructured $props() with 8 named props plus a ...rest element (> 6): value, keywords, onSelect, onclick, disabled, class, children, hidden"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/users-roles/RolesPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/users-roles/RolesPanel.svelte has a single destructured $props() with 11 named props (> 6): roles, users, needle, selected, onSelect, onNewRole, onAddRule, onRemoveRule, onAddMember, onRemoveMember, onDelete"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/users-roles/UsersTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/users-roles/UsersTable.svelte has a single destructured $props() with 7 named props (> 6): users, roles, needle, onAddRole, onRemoveRole, onNewRoleFor, onDelete"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/visualisation/DataTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/visualisation/DataTable.svelte has a single destructured $props() with 13 named props (> 6): onChangeSort, onPageChange, onCellClick, columns, rows, pageSize, pageIndex, totalRows, isLoading, rowClass, size, pagination, showNull"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::architecture/prop-count::src/lib/components/visualisation/MapDrawTools.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/visualisation/MapDrawTools.svelte has a single destructured $props() with 10 named props (> 6): map, selection, onApply, canApply, disabledReason, showApply, onDrawingChange, countFeatures, countKey, lockedReason"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/base-path-navigation::src/routes/queries/+page.server.ts:4::redirect(…, '/queries/workbench') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/queries/workbench') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/queries/+page.server.ts:4 redirect(307, '/queries/workbench') in a +page.server.ts load; svelte.config.js sets paths.base from BASE_PATH (README documents a /studio build, so the gate opens), but the app is an adapter-static SPA (fallback index.html, src/routes/+layout.server.ts ssr=false/prerender=false) with no server, so this server load never runs in a deployed build; the literal is real but not a demonstrable production defect"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/cookiecrumb/CookieCrumb.svelte:26::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/cookiecrumb/CookieCrumb.svelte:26 '{#each crumbs as crumb, index (index)}' keyed by index; breadcrumbs of the current page; positional list (breadcrumbs)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/data-browser/CrawlerDialog.svelte:241::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/data-browser/CrawlerDialog.svelte:241 '{#each errors as error, index (index)}' keyed by index; errors $state (:52) set from form validation (:86, :101); runtime validation errors (ledger field-error convention)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/data-browser/CrawlerReport.svelte:15::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/data-browser/CrawlerReport.svelte:15 '{#each report.created as name, index (index)}' keyed by index; table names a crawler run created (report prop, CrawlReport from the API); runtime results"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/data-browser/CrawlerReport.svelte:26::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/data-browser/CrawlerReport.svelte:26 '{#each report.updated as name, index (index)}' keyed by index; table names a crawler run updated (CrawlReport); runtime results"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/data-browser/CrawlerReport.svelte:46::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/data-browser/CrawlerReport.svelte:46 '{#each report.failed as [name, reason], index (index)}' keyed by index; failures of a crawler run (CrawlReport); runtime results"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/data-browser/CreateExternalTableDialog.svelte:117::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/data-browser/CreateExternalTableDialog.svelte:117 '{#each form.options as option, index (index)}' keyed by index; user-edited key/value rows with bound inputs, appended (:142) and removed mid-list with splice(index, 1) (:131); index key misattributes input state"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/legend/Legend.svelte:131::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/legend/Legend.svelte:131 '{#each strip as block, index (index)}'; strip = $derived.by colors.map over COLOR_SCALE_BLIPS samples (:66); positional list (colour scale geometry)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/legend/Legend.svelte:137::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/legend/Legend.svelte:137 '{#each strip as block, index (index)}'; the same fixed-count colour strip as :131; positional list (colour scale geometry)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/query-builder/AddFilterDropdown.svelte:184::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/query-builder/AddFilterDropdown.svelte:184 '{#each available_filters as filter, index (index)}'; available_filters = [...getTypedFilters(data_type), ...untyped_filters] (:157), filter kinds from authored tables (:22-35); static list (spread copy, not the exempt literal shape)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/query-builder/Parameter.svelte:52::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/query-builder/Parameter.svelte:52 '{#each column.selected_filters as filter, index (index)}' keyed by index; filters the user adds (AddFilterDropdown push) and removes mid-list (.filter at :67), each with a stateful ParameterFilter bound by index; user-edited list"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/query-builder/QueryBuilderOutputFormatSelector.svelte:38::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/query-builder/QueryBuilderOutputFormatSelector.svelte:38 '{#each Object.entries(BeaconClient.output_formats) …, index (index)}'; output_formats is a constant static literal (lib/beacon-api/client.ts:93-98); static list"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/sql-editor/PlanTree.svelte:40::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/sql-editor/PlanTree.svelte:40 '{#each view.children as child, index (index)}'; children of one node of a parsed query plan (view = $derived(viewOf(node)) :12), read-only tree rebuilt wholesale per plan; positional list (tree of one result)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/lib/components/visualisation/DataTable.svelte:126::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/visualisation/DataTable.svelte:126 '{#each rows as row, rowIndex (rowIndex)}' keyed by index; rows prop = query result rows (ResultGrid, table-explorer, MapPopupContent callers) that page/sort/refresh; runtime records"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/routes/system-info/+page.svelte:303::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/system-info/+page.svelte:303 '{#each host.cores as core, index (index)}' keyed by index; the polled per-core CPU meters of the host (host = $derived(info?.host) :58), a fixed set identified by position; positional list"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::correctness/each-index-key::src/routes/visualisations/map-viewer/+page.svelte:295::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/visualisations/map-viewer/+page.svelte:295 '{#each map.dataColumnOptions as column, index (index)}' keyed by index; dataColumnOptions = $derived.by over the selected table's columns minus the chosen lat/lon columns (MapViewController.svelte.ts:195-210), so picking a column removes it mid-list; runtime list"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::performance/image-dimensions::src/routes/+page.svelte:117::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .shot width:100%; height:auto; aspect-ratio:16/9 (+page.svelte:254-262) - box reserved by CSS"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::performance/image-loading-hint::src/routes/+page.svelte:117::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; launchpad card screenshot in the fourth home section, after the hero cards, HowItWorks and QuickStartExamples sections (+page.svelte:104-121) - offscreen on load"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::performance/namespace-import::src/lib/components/query-editor/QueryTextEditor.svelte:9::Namespace import \"import * as … from 'monaco-editor'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read QueryTextEditor.svelte:7-13: `import * as monaco from 'monaco-editor'` is passed whole as loader.config({ monaco }) — @monaco-editor's loader API takes the monaco module object, so named imports cannot replace it (same shape as the ledger's monaco/MonacoJSXHighlighter design entry); other uses are static"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::performance/responsive-image::src/routes/+page.svelte:117::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; static/images/small-query-workbench.png (1280x718) in a launchpad card - raster, one fixed-size asset"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::security/raw-html::src/lib/components/visualisation/DataTable.svelte:136::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read DataTable.svelte:133-137 + grep over src: the {@html} branch runs only for a column with rawHtml === true, and no Column anywhere sets rawHtml (only the optional field in lib/util-types.ts:4) — dead branch, nothing unsanitized renders today; reported per docs"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::security/raw-html::src/routes/beacon-nodes/+page.svelte:99::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read beacon-nodes/+page.svelte:99 + lib/util/sanitize-html.ts:40-55: sanitizeHtml = DOMPurify with a tag/attr allowlist — sanitized, reported per docs"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/beacon-nodes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /beacon-nodes (src/routes/beacon-nodes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/data-browser/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /data-browser (src/routes/data-browser/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/data-browser/crawlers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /data-browser/crawlers (src/routes/data-browser/crawlers/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/data-browser/data-tables/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /data-browser/data-tables (src/routes/data-browser/data-tables/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/data-browser/data-tables/detail/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /data-browser/data-tables/detail (src/routes/data-browser/data-tables/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/data-browser/datasets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /data-browser/datasets (src/routes/data-browser/datasets/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/data-browser/datasets/detail/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /data-browser/datasets/detail (src/routes/data-browser/datasets/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/node-management/users-roles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /node-management/users-roles (src/routes/node-management/users-roles/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/queries/workbench/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /queries/workbench (src/routes/queries/workbench/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/sql-editor/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sql-editor (src/routes/sql-editor/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/system-info/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /system-info (src/routes/system-info/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/test/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /test (src/routes/test/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/visualisations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /visualisations (src/routes/visualisations/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/visualisations/chart-explorer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /visualisations/chart-explorer (src/routes/visualisations/chart-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/visualisations/map-viewer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /visualisations/map-viewer (src/routes/visualisations/map-viewer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/canonical-url::src/routes/visualisations/table-explorer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /visualisations/table-explorer (src/routes/visualisations/table-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); publicly served route of a client-only web app (also deployed as a static web build, README \"beacon-wod.maris.nl/studio\"; no auth gate, noindex or robots.txt)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/beacon-nodes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /beacon-nodes; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/data-browser/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /data-browser; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/data-browser/crawlers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /data-browser/crawlers; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/data-browser/data-tables/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /data-browser/data-tables; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/data-browser/data-tables/detail/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /data-browser/data-tables/detail; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/data-browser/datasets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /data-browser/datasets; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/data-browser/datasets/detail/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /data-browser/datasets/detail; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/node-management/users-roles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /node-management/users-roles; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/queries/workbench/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /queries/workbench; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /settings; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/sql-editor/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /sql-editor; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/system-info/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /system-info; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/test/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /test; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/visualisations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /visualisations; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/visualisations/chart-explorer/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /visualisations/chart-explorer; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/visualisations/map-viewer/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /visualisations/map-viewer; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/description-presence::src/routes/visualisations/table-explorer/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description>; pages' svelte:head carry only a <title>; the name=\"description\" hits are query-builder form props) (literal claim holds) on /visualisations/table-explorer; but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/heading-level-skip::src/routes/data-browser/+page.svelte:71::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: data-browser/+page.svelte:65 <h1>, then the first Card's <h3> (:71); Card.svelte renders no heading and the root layout's PageHeader/AppSidebar none -> h1 to h3"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/heading-level-skip::src/routes/data-browser/crawlers/+page.svelte:277::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: crawlers/+page.svelte:217 <h1>, then the {:else if phase === 'ready'} crawler cards' <h3> (:277); the <h2> (:269) is in the sibling empty-state arm -> h1 to h3"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/heading-level-skip::src/routes/data-browser/data-tables/+page.svelte:270::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: data-tables/+page.svelte:178 <h1>, then the schema-title <h3> (:270); no heading between (the tableRow snippet has none) -> h1 to h3"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/heading-level-skip::src/routes/settings/+page.svelte:89::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: settings/+page.svelte:82 <h1>, then each group Card's <h3> (:89); Card.svelte renders no heading -> h1 to h3"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/heading-level-skip::src/routes/test/+page.svelte:148::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: test/+page.svelte:136 <h1>, then <h3>Button variants (:148), no heading between -> h1 to h3"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/heading-level-skip::src/routes/visualisations/+page.svelte:22::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: visualisations/+page.svelte:16 <h1>, then the first Card's <h3> (:22) -> h1 to h3"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/heading-level-skip::src/routes/visualisations/chart-explorer/+page.svelte:260::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: QuerySelectorHeader's <h1 class=sr-only> (QuerySelectorHeader.svelte:119), then the loading overlay's <h3> (chart-explorer/+page.svelte:260); PlotConfigPanel's only heading is an <h4> for z-axis plot types ({#if usesZColumn(draft.type)}, :633-634) -> h1 to h3 for the other plot types"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/heading-level-skip::src/routes/visualisations/map-viewer/+page.svelte:338::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: QuerySelectorHeader's <h1 class=sr-only> (QuerySelectorHeader.svelte:119), then the {:else if map.isLoading} overlay's <h3> (map-viewer/+page.svelte:338), no heading between -> h1 to h3"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): / has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/beacon-nodes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /beacon-nodes has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/data-browser/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /data-browser has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/data-browser/crawlers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /data-browser/crawlers has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/data-browser/data-tables/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /data-browser/data-tables has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/data-browser/data-tables/detail/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /data-browser/data-tables/detail has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/data-browser/datasets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /data-browser/datasets has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/data-browser/datasets/detail/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /data-browser/datasets/detail has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/node-management/users-roles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /node-management/users-roles has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/queries/workbench/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /queries/workbench has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /settings has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/sql-editor/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /sql-editor has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/system-info/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /system-info has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/test/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /test has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/visualisations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /visualisations has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/visualisations/chart-explorer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /visualisations/chart-explorer has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/visualisations/map-viewer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /visualisations/map-viewer has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/json-ld::src/routes/visualisations/table-explorer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context: none): /visualisations/table-explorer has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/beacon-nodes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /beacon-nodes (src/routes/beacon-nodes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/data-browser/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /data-browser (src/routes/data-browser/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/data-browser/crawlers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /data-browser/crawlers (src/routes/data-browser/crawlers/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/data-browser/data-tables/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /data-browser/data-tables (src/routes/data-browser/data-tables/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/data-browser/data-tables/detail/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /data-browser/data-tables/detail (src/routes/data-browser/data-tables/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/data-browser/datasets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /data-browser/datasets (src/routes/data-browser/datasets/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/data-browser/datasets/detail/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /data-browser/datasets/detail (src/routes/data-browser/datasets/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/node-management/users-roles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /node-management/users-roles (src/routes/node-management/users-roles/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/queries/workbench/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /queries/workbench (src/routes/queries/workbench/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/sql-editor/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sql-editor (src/routes/sql-editor/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/system-info/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /system-info (src/routes/system-info/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/test/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /test (src/routes/test/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/visualisations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /visualisations (src/routes/visualisations/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/visualisations/chart-explorer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /visualisations/chart-explorer (src/routes/visualisations/chart-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/visualisations/map-viewer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /visualisations/map-viewer (src/routes/visualisations/map-viewer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-description::src/routes/visualisations/table-explorer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /visualisations/table-explorer (src/routes/visualisations/table-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/beacon-nodes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /beacon-nodes (src/routes/beacon-nodes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/data-browser/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /data-browser (src/routes/data-browser/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/data-browser/crawlers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /data-browser/crawlers (src/routes/data-browser/crawlers/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/data-browser/data-tables/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /data-browser/data-tables (src/routes/data-browser/data-tables/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/data-browser/data-tables/detail/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /data-browser/data-tables/detail (src/routes/data-browser/data-tables/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/data-browser/datasets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /data-browser/datasets (src/routes/data-browser/datasets/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/data-browser/datasets/detail/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /data-browser/datasets/detail (src/routes/data-browser/datasets/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/node-management/users-roles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /node-management/users-roles (src/routes/node-management/users-roles/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/queries/workbench/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /queries/workbench (src/routes/queries/workbench/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/sql-editor/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sql-editor (src/routes/sql-editor/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/system-info/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /system-info (src/routes/system-info/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/test/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /test (src/routes/test/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/visualisations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /visualisations (src/routes/visualisations/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/visualisations/chart-explorer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /visualisations/chart-explorer (src/routes/visualisations/chart-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/visualisations/map-viewer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /visualisations/map-viewer (src/routes/visualisations/map-viewer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-image::src/routes/visualisations/table-explorer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /visualisations/table-explorer (src/routes/visualisations/table-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/beacon-nodes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /beacon-nodes (src/routes/beacon-nodes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/data-browser/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /data-browser (src/routes/data-browser/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/data-browser/crawlers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /data-browser/crawlers (src/routes/data-browser/crawlers/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/data-browser/data-tables/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /data-browser/data-tables (src/routes/data-browser/data-tables/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/data-browser/data-tables/detail/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /data-browser/data-tables/detail (src/routes/data-browser/data-tables/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/data-browser/datasets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /data-browser/datasets (src/routes/data-browser/datasets/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/data-browser/datasets/detail/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /data-browser/datasets/detail (src/routes/data-browser/datasets/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/node-management/users-roles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /node-management/users-roles (src/routes/node-management/users-roles/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/queries/workbench/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /queries/workbench (src/routes/queries/workbench/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/sql-editor/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sql-editor (src/routes/sql-editor/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/system-info/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /system-info (src/routes/system-info/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/test/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /test (src/routes/test/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/visualisations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /visualisations (src/routes/visualisations/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/visualisations/chart-explorer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /visualisations/chart-explorer (src/routes/visualisations/chart-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/visualisations/map-viewer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /visualisations/map-viewer (src/routes/visualisations/map-viewer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-title::src/routes/visualisations/table-explorer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /visualisations/table-explorer (src/routes/visualisations/table-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/beacon-nodes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /beacon-nodes (src/routes/beacon-nodes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/data-browser/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /data-browser (src/routes/data-browser/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/data-browser/crawlers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /data-browser/crawlers (src/routes/data-browser/crawlers/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/data-browser/data-tables/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /data-browser/data-tables (src/routes/data-browser/data-tables/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/data-browser/data-tables/detail/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /data-browser/data-tables/detail (src/routes/data-browser/data-tables/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/data-browser/datasets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /data-browser/datasets (src/routes/data-browser/datasets/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/data-browser/datasets/detail/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /data-browser/datasets/detail (src/routes/data-browser/datasets/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/node-management/users-roles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /node-management/users-roles (src/routes/node-management/users-roles/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/queries/workbench/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /queries/workbench (src/routes/queries/workbench/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/sql-editor/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sql-editor (src/routes/sql-editor/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/system-info/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /system-info (src/routes/system-info/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/test/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /test (src/routes/test/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/visualisations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /visualisations (src/routes/visualisations/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/visualisations/chart-explorer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /visualisations/chart-explorer (src/routes/visualisations/chart-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/visualisations/map-viewer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /visualisations/map-viewer (src/routes/visualisations/map-viewer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/og-url::src/routes/visualisations/table-explorer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /visualisations/table-explorer (src/routes/visualisations/table-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has favicons, fonts, icons, images and web.config only, no robots.txt route or generator (literal claim holds); but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes, no generator (literal claim holds); but Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/ssr-disabled::src/routes/+layout.server.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.server.ts:1-2 (literal claim holds; the page-level ones are redundant with the root layout's); deliberate SPA: Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/ssr-disabled::src/routes/queries/workbench/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/queries/workbench/+page.server.ts:1-2 (literal claim holds; the page-level ones are redundant with the root layout's); deliberate SPA: Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/ssr-disabled::src/routes/visualisations/map-viewer/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/visualisations/map-viewer/+page.server.ts:1-2 (literal claim holds; the page-level ones are redundant with the root layout's); deliberate SPA: Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/title-length::src/routes/test/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: src/routes/test/+page.svelte:129 literal <title>Beacon Studio Test</title> (18) (literal claim holds); but a test page of Beacon Studio is a SvelteKit + Tauri data-exploration console for a Beacon data node (README; src-tauri/, adapter-static, root +layout.server.ts ssr = false), not a content site for search"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/beacon-nodes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /beacon-nodes (src/routes/beacon-nodes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/data-browser/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /data-browser (src/routes/data-browser/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/data-browser/crawlers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /data-browser/crawlers (src/routes/data-browser/crawlers/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/data-browser/data-tables/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /data-browser/data-tables (src/routes/data-browser/data-tables/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/data-browser/data-tables/detail/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /data-browser/data-tables/detail (src/routes/data-browser/data-tables/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/data-browser/datasets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /data-browser/datasets (src/routes/data-browser/datasets/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/data-browser/datasets/detail/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /data-browser/datasets/detail (src/routes/data-browser/datasets/detail/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/node-management/users-roles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /node-management/users-roles (src/routes/node-management/users-roles/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/queries/workbench/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /queries/workbench (src/routes/queries/workbench/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/sql-editor/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sql-editor (src/routes/sql-editor/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/system-info/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /system-info (src/routes/system-info/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/test/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /test (src/routes/test/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/visualisations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /visualisations (src/routes/visualisations/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/visualisations/chart-explorer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /visualisations/chart-explorer (src/routes/visualisations/chart-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/visualisations/map-viewer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /visualisations/map-viewer (src/routes/visualisations/map-viewer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "maris-development/beacon-studio-ihm::seo/twitter-card::src/routes/visualisations/table-explorer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /visualisations/table-explorer (src/routes/visualisations/table-explorer/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:94-96 apple-mobile-web-app-title and page <title>s; ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; npm Svelte deps bits-ui/@lucide/svelte/svelte-i18n emit none; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  }
+]

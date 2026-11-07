@@ -1,0 +1,1462 @@
+[
+  {
+    "key": "cedricgeissmann/volleyball::a11y/accessible-name::src/routes/[lang]/constraints/+page.svelte:172::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read src/routes/[lang]/constraints/+page.svelte:172: clear-search <button class=\"clear-search\"> under {#if searchQuery} holds only an <svg> of <line>/<path> with no <title>, and carries no aria-label/aria-labelledby/title; no name source, as reported"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/accessible-name::src/routes/[lang]/rollen/+page.svelte:158::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read src/routes/[lang]/rollen/+page.svelte:158: clear-search <button class=\"clear-search\"> under {#if searchQuery} holds only an <svg> of <line>/<path> with no <title>, and carries no aria-label/aria-labelledby/title; no name source, as reported"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/accessible-name::src/routes/[lang]/uebungen/+page.svelte:187::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read src/routes/[lang]/uebungen/+page.svelte:187: clear-search <button class=\"clear-search\"> under {#if searchQuery} holds only an <svg> of <line>/<path> with no <title>, and carries no aria-label/aria-labelledby/title; no name source, as reported"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/disallowed-aria-props::src/lib/components/blog/WorkingMemorySlots.svelte:157::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <div aria-label> at src/lib/components/blog/WorkingMemorySlots.svelte:157 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/duplicate-landmark::src/routes/[lang]/+page.svelte:15::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read [lang]/+page.svelte:15 <main class=\"container\"> while [lang]/+layout.svelte:24-26 renders {@render children()} inside <main class=\"main-content\">; two main landmarks on /[lang] (prerendered for de/en), as reported"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/interactive-nesting::src/routes/[lang]/taktik/editor/+page.svelte:967::<input> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read taktik/editor/+page.svelte:960-967: <input type=\"number\" class=\"duration-input\"> inside <button class=\"transition-header\">; interactive content inside a button, as reported"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/label-has-control::src/routes/[lang]/taktik/editor/+page.svelte:769::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read taktik/editor/+page.svelte:769: <label>Lernziele</label> has no for and wraps no control; the inputs follow in a sibling <div class=\"meta-list\"> {#each}, so the label is associated with nothing"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/label-has-control::src/routes/[lang]/taktik/editor/+page.svelte:804::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read taktik/editor/+page.svelte:804: <label>Ablauf-Schritte</label> has no for and wraps no control; the step inputs follow in a sibling <div class=\"meta-list\"> {#each}, so the label is associated with nothing"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/top-level-landmark::src/routes/[lang]/+page.svelte:15::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read [lang]/+page.svelte:15 <main class=\"container\"> sits in [lang]/+layout.svelte:24-26 <main class=\"main-content\">{@render children()}</main>; main nested inside main, as reported"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/top-level-landmark::src/routes/[lang]/taktik/[taktikId]/+page.svelte:120::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read [lang]/taktik/[taktikId]/+page.svelte:120: unlabelled <aside class=\"info-col\"> inside plain <div>s (no sectioning ancestor) placed in [lang]/+layout.svelte:24 <main>; load 404s only unknown ids; nested as reported"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::a11y/top-level-landmark::src/routes/[lang]/taktik/editor/+page.svelte:867::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read [lang]/taktik/editor/+page.svelte:864-867: unlabelled <aside class=\"editor-sidebar\"> in the {:else} (editor) arm of {#if showPreview}, inside plain <div>s placed in [lang]/+layout.svelte:24 <main>; nested as reported"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/AttackApproachAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/AttackApproachAnimation.svelte has 1499 physical lines (newline count, trailing newline not counted; 1349 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/AttackTimingAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/AttackTimingAnimation.svelte has 1448 physical lines (newline count, trailing newline not counted; 1321 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/AttackWindow3D.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/AttackWindow3D.svelte has 644 physical lines (newline count, trailing newline not counted; 575 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/AttackWindowAnatomy.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/AttackWindowAnatomy.svelte has 553 physical lines (newline count, trailing newline not counted; 502 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/AttackZoneSlots.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/AttackZoneSlots.svelte has 359 physical lines (newline count, trailing newline not counted; 323 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/BernsteinDoFAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/BernsteinDoFAnimation.svelte has 456 physical lines (newline count, trailing newline not counted; 401 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/BernsteinRepVarAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/BernsteinRepVarAnimation.svelte has 569 physical lines (newline count, trailing newline not counted; 519 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/BlogLayout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/BlogLayout.svelte has 282 physical lines (newline count, trailing newline not counted; 239 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/CombinationAttackView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/CombinationAttackView.svelte has 1045 physical lines (newline count, trailing newline not counted; 957 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/DefenseWindowRead.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/DefenseWindowRead.svelte has 433 physical lines (newline count, trailing newline not counted; 397 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/FocusRegeneration.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/FocusRegeneration.svelte has 852 physical lines (newline count, trailing newline not counted; 804 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/GazeMemoryCycle.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/GazeMemoryCycle.svelte has 370 physical lines (newline count, trailing newline not counted; 356 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/HandVelocityAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/HandVelocityAnimation.svelte has 870 physical lines (newline count, trailing newline not counted; 769 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/IntentionAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/IntentionAnimation.svelte has 823 physical lines (newline count, trailing newline not counted; 708 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/KreuzAttack.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/KreuzAttack.svelte has 574 physical lines (newline count, trailing newline not counted; 502 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/MemoryPhases.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/MemoryPhases.svelte has 327 physical lines (newline count, trailing newline not counted; 310 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/MemorySlots.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/MemorySlots.svelte has 408 physical lines (newline count, trailing newline not counted; 389 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/MiddleAttackReach.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/MiddleAttackReach.svelte has 612 physical lines (newline count, trailing newline not counted; 550 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/MonteCarloSatz.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/MonteCarloSatz.svelte has 370 physical lines (newline count, trailing newline not counted; 341 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/ReceptionZoneScenarios.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/ReceptionZoneScenarios.svelte has 497 physical lines (newline count, trailing newline not counted; 450 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/RelativeVelocityReception.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/RelativeVelocityReception.svelte has 348 physical lines (newline count, trailing newline not counted; 308 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/ServiceImpulse.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/ServiceImpulse.svelte has 347 physical lines (newline count, trailing newline not counted; 326 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/ServicePlanChain.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/ServicePlanChain.svelte has 342 physical lines (newline count, trailing newline not counted; 321 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/ServiceSimulation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/ServiceSimulation.svelte has 1661 physical lines (newline count, trailing newline not counted; 1465 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/SetAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/SetAnimation.svelte has 1130 physical lines (newline count, trailing newline not counted; 1016 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/SetCupAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/SetCupAnimation.svelte has 1109 physical lines (newline count, trailing newline not counted; 992 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/SetTopView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/SetTopView.svelte has 746 physical lines (newline count, trailing newline not counted; 671 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/SetterAttackerFlow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/SetterAttackerFlow.svelte has 347 physical lines (newline count, trailing newline not counted; 315 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/SetterRelativeVelocity.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/SetterRelativeVelocity.svelte has 437 physical lines (newline count, trailing newline not counted; 389 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/StackAttack.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/StackAttack.svelte has 581 physical lines (newline count, trailing newline not counted; 506 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/TauAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/TauAnimation.svelte has 660 physical lines (newline count, trailing newline not counted; 591 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/TreppeAttack.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/TreppeAttack.svelte has 556 physical lines (newline count, trailing newline not counted; 487 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/VorteilFlip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/VorteilFlip.svelte has 644 physical lines (newline count, trailing newline not counted; 607 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/blog/WorkingMemorySlots.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blog/WorkingMemorySlots.svelte has 267 physical lines (newline count, trailing newline not counted; 244 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/kompetenzraster/AssessmentForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/kompetenzraster/AssessmentForm.svelte has 624 physical lines (newline count, trailing newline not counted; 543 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/kompetenzraster/HistoryView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/kompetenzraster/HistoryView.svelte has 447 physical lines (newline count, trailing newline not counted; 383 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/layout/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/Header.svelte has 282 physical lines (newline count, trailing newline not counted; 253 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/uebungen/taktik/TaktikAnimation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/uebungen/taktik/TaktikAnimation.svelte has 445 physical lines (newline count, trailing newline not counted; 396 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/lib/components/uebungen/taktik/TaktikPrintView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/uebungen/taktik/TaktikPrintView.svelte has 255 physical lines (newline count, trailing newline not counted; 223 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/cla/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/cla/+page.svelte has 648 physical lines (newline count, trailing newline not counted; 574 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/cla/bernstein/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/cla/bernstein/+page.svelte has 356 physical lines (newline count, trailing newline not counted; 300 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/cla/franz-bosch/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/cla/franz-bosch/+page.svelte has 351 physical lines (newline count, trailing newline not counted; 300 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/cla/gibson/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/cla/gibson/+page.svelte has 332 physical lines (newline count, trailing newline not counted; 283 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/cla/rob-gray/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/cla/rob-gray/+page.svelte has 350 physical lines (newline count, trailing newline not counted; 297 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/constraints/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/constraints/+page.svelte has 943 physical lines (newline count, trailing newline not counted; 830 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/constraints/[constraintId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/constraints/[constraintId]/+page.svelte has 297 physical lines (newline count, trailing newline not counted; 257 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/rollen/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/rollen/+page.svelte has 782 physical lines (newline count, trailing newline not counted; 689 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/rollen/[rolleId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/rollen/[rolleId]/+page.svelte has 230 physical lines (newline count, trailing newline not counted; 197 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/service-matrix/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/service-matrix/+page.svelte has 815 physical lines (newline count, trailing newline not counted; 726 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/taktik/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/taktik/+page.svelte has 1166 physical lines (newline count, trailing newline not counted; 1028 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/taktik/[taktikId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/taktik/[taktikId]/+page.svelte has 421 physical lines (newline count, trailing newline not counted; 371 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/taktik/editor/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/taktik/editor/+page.svelte has 1980 physical lines (newline count, trailing newline not counted; 1785 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/uebungen/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/uebungen/+page.svelte has 974 physical lines (newline count, trailing newline not counted; 862 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/component-size::src/routes/[lang]/uebungen/[uebungId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/uebungen/[uebungId]/+page.svelte has 335 physical lines (newline count, trailing newline not counted; 292 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/prop-count::src/lib/components/uebungen/taktik/TaktikArrow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/uebungen/taktik/TaktikArrow.svelte has a single destructured $props() with 11 named props (> 6): x1, y1, x2, y2, moveType, objectType, fieldWidth, fieldHeight, arrowIndex, showNumber, playerRadius"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/prop-count::src/lib/components/uebungen/taktik/TaktikBoard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/uebungen/taktik/TaktikBoard.svelte has a single destructured $props() with 7 named props (> 6): animation, positions, arrows, showNumbersOnArrows, showZoneLabels, showCourtLabels, maxWidth"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/prop-count::src/lib/components/uebungen/taktik/TaktikPlayer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/uebungen/taktik/TaktikPlayer.svelte has a single destructured $props() with 8 named props (> 6): x, y, label, team, fieldWidth, fieldHeight, radius, highlighted"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::architecture/prop-count::src/lib/components/uebungen/taktik/TaktikZone.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/uebungen/taktik/TaktikZone.svelte has a single destructured $props() with 8 named props (> 6): x, y, width, height, color, label, fieldWidth, fieldHeight"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackApproachAnimation.svelte:1150::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackApproachAnimation.svelte:381 sim = $derived(calcApproach(...)) recomputed wholesale from the sliders; sim.steps are the computed approach steps drawn as bars/result rows: positional simulation geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackApproachAnimation.svelte:1244::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackApproachAnimation.svelte:381 sim = $derived(calcApproach(...)) recomputed wholesale from the sliders; sim.steps are the computed approach steps drawn as bars/result rows: positional simulation geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackApproachAnimation.svelte:683::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackApproachAnimation.svelte:329-332 heightRange.ticks is one of two literal tick arrays chosen by net; positional axis ticks (static)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackApproachAnimation.svelte:761::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackApproachAnimation.svelte:760 {@const distMarks = [1, 2, 4, 5, 6]} template literal (not the script-const exemption, ledger: design); static axis marks"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackApproachAnimation.svelte:780::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackApproachAnimation.svelte:381 sim = $derived(calcApproach(...)) recomputed wholesale from the sliders; sim.steps are the computed approach steps drawn as bars/result rows: positional simulation geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackApproachAnimation.svelte:850::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackApproachAnimation.svelte:381 sim = $derived(calcApproach(...)) recomputed wholesale from the sliders; sim.steps are the computed approach steps drawn as bars/result rows: positional simulation geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackApproachAnimation.svelte:866::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackApproachAnimation.svelte:556 scaleMarks = $derived(() => …) generated height scale marks; positional chart ticks"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackWindow3D.svelte:484::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackWindow3D.svelte:52 Object.entries(CAMS) of a constant camera table; static button list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackWindowAnatomy.svelte:406::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackWindowAnatomy.svelte:265 ticks = $derived.by(...) computed axis ticks; positional chart ticks"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackWindowAnatomy.svelte:442::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackWindowAnatomy.svelte:81 sc = SCENARIOS.find(...), sc.presets an authored literal preset list (:50,:71); static list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/AttackZoneSlots.svelte:256::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttackZoneSlots.svelte:129 memory = MEM[mode][phase.id], a constant table (:48); static authored slots"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/BernsteinDoFAnimation.svelte:248::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: BernsteinDoFAnimation.svelte:248 figs = $derived([computeFigure(0…),(1…),(2…)]) three fixed figures; positional geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/BernsteinDoFAnimation.svelte:368::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: BernsteinDoFAnimation.svelte:364 {@const summary = DOF_SUMMARY[stageIndex]} constant table; frozen/active joint names are static authored text"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/BernsteinDoFAnimation.svelte:371::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: BernsteinDoFAnimation.svelte:364 {@const summary = DOF_SUMMARY[stageIndex]} constant table; frozen/active joint names are static authored text"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/BlogLayout.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: BlogLayout.svelte:7 tags prop from the mdsvex post frontmatter (mdsvex.config.js layout); build-fixed content of a prerendered site: static list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/CombinationAttackView.svelte:460::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: CombinationAttackView.svelte 460 [...ATTACK_ZONES, ZONE_FINTE] spread of constant zones (spreads are not the exempt shape per docs); static list fixed at author time"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/CombinationAttackView.svelte:617::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: CombinationAttackView.svelte 617 [...ATTACK_ZONES, ZONE_FINTE] spread of constant zones (spreads are not the exempt shape per docs); static list fixed at author time"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/DefenseWindowRead.svelte:247::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DefenseWindowRead.svelte:157 geo = $derived.by(...) computed geometry of the chosen window; positional chart geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/DefenseWindowRead.svelte:267::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DefenseWindowRead.svelte:186 arcs = $derived.by(...) computed arcs; positional chart geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/DefenseWindowRead.svelte:295::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DefenseWindowRead.svelte:124 current = WINDOWS.find(...) from a constant WINDOWS table; players/memory are authored static entries"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/DefenseWindowRead.svelte:367::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DefenseWindowRead.svelte:124 current = WINDOWS.find(...) from a constant WINDOWS table; players/memory are authored static entries"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/FocusRegeneration.svelte:312::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FocusRegeneration.svelte:103/168 history = [...history, x] append-only simulation rows of a blog demo, reset wholesale to [] (:175); never inserted/removed mid-list: positional, append-only list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/FocusRegeneration.svelte:330::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FocusRegeneration.svelte:103/168 history = [...history, x] append-only simulation rows of a blog demo, reset wholesale to [] (:175); never inserted/removed mid-list: positional, append-only list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/FocusRegeneration.svelte:336::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FocusRegeneration.svelte:103/168 history = [...history, x] append-only simulation rows of a blog demo, reset wholesale to [] (:175); never inserted/removed mid-list: positional, append-only list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/FocusRegeneration.svelte:358::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FocusRegeneration.svelte:103/168 history = [...history, x] append-only simulation rows of a blog demo, reset wholesale to [] (:175); never inserted/removed mid-list: positional, append-only list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/GazeMemoryCycle.svelte:147::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: GazeMemoryCycle.svelte:15-49 t.stations/st.chips are authored literal track data; static list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/GazeMemoryCycle.svelte:152::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: GazeMemoryCycle.svelte:15-49 t.stations/st.chips are authored literal track data; static list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/MemoryPhases.svelte:109::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MemoryPhases.svelte:92 data = TRACKS[track], a constant authored table; variants/phases/rows/states are static grid content"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/MemoryPhases.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MemoryPhases.svelte:92 data = TRACKS[track], a constant authored table; variants/phases/rows/states are static grid content"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/MemoryPhases.svelte:122::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MemoryPhases.svelte:92 data = TRACKS[track], a constant authored table; variants/phases/rows/states are static grid content"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/MemoryPhases.svelte:124::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MemoryPhases.svelte:92 data = TRACKS[track], a constant authored table; variants/phases/rows/states are static grid content"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/MemorySlots.svelte:203::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MemorySlots.svelte:147-160 out = placed.filter(!fits) of the computed slot placement, rebuilt wholesale; positional visualization list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/MonteCarloSatz.svelte:180::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MonteCarloSatz.svelte:76-98 r.hist six fixed histogram bins; positional chart bars"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/ReceptionZoneScenarios.svelte:310::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ReceptionZoneScenarios.svelte:50 players = BASE.map(...) of a constant BASE player table; fixed authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/ReceptionZoneScenarios.svelte:348::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ReceptionZoneScenarios.svelte:50 players = BASE.map(...) of a constant BASE player table; fixed authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/ReceptionZoneScenarios.svelte:411::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ReceptionZoneScenarios.svelte:50 players = BASE.map(...) of a constant BASE player table; fixed authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/SetterAttackerFlow.svelte:173::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SetterAttackerFlow.svelte:64 steps = ATTACK_STEPS.map(...) of a constant list; static authored steps"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/TauAnimation.svelte:183::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TauAnimation.svelte GRID = gridLines() computed grid lines; positional geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/VorteilFlip.svelte:181::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: VorteilFlip.svelte tiles = toTiles(result) computed score tiles; positional visualization list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/VorteilFlip.svelte:195::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: VorteilFlip.svelte tiles = toTiles(result) computed score tiles; positional visualization list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/VorteilFlip.svelte:242::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: VorteilFlip.svelte curve = (() => …)() computed curve points; positional chart geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/blog/WorkingMemorySlots.svelte:190::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: WorkingMemorySlots.svelte dropped = filled.filter(!fits) of computed slots; positional visualization list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/kompetenzraster/AssessmentForm.svelte:159::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AssessmentForm.svelte:159 team.ziele, the team goals from committed YAML (contentLoader.js loadTeams); static authored list of a prerendered site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/kompetenzraster/AssessmentForm.svelte:245::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AssessmentForm.svelte:245 team.ziele, the team goals from committed YAML (contentLoader.js loadTeams); static authored list of a prerendered site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/kompetenzraster/FremdVergleich.svelte:33::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FremdVergleich.svelte:33 team.ziele, the team goals from committed YAML (contentLoader.js loadTeams); static authored list of a prerendered site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/kompetenzraster/HistoryView.svelte:129::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: HistoryView.svelte:39 changes = calculateChanges(team.id), a per-competency diff of the last two saved assessments rendered as plain rows, recomputed wholesale; positional summary of one computation"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/kompetenzraster/HistoryView.svelte:149::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: HistoryView.svelte:38 history = the user's saved assessments filtered from localStorage, rendered newest-first with a <details> per entry; runtime user records, a new assessment is inserted at the top"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/kompetenzraster/HistoryView.svelte:170::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: HistoryView.svelte:170 entry.bewertungen, the ratings of one saved assessment, plain rows; read-only parts of one record"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/team/TeamCard.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TeamCard.svelte:34 team.trainingszeiten from committed YAML; static authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/uebungen/base/StickFigure.svelte:181::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: StickFigure.svelte:14 positions = calculatePositions(joints…); Object.entries of computed joint positions; positional geometry"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/uebungen/taktik/TaktikAnimation.svelte:155::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TaktikAnimation.svelte:155 {#each animation.steps ?? [] as _, i} step indicator dots (item unused); positional indicator dots"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/lib/components/uebungen/taktik/TaktikPrintView.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TaktikPrintView.svelte:12 anleitung prop, passed only from taktik/[taktikId]/+page.svelte (authored YAML exercise); static list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/+page.svelte:25::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/+page.svelte:25 data.teams from the prerendered load (committed YAML/markdown); build-fixed content: static list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/blog/+page.svelte:23::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/blog/+page.svelte:23 data.posts from the prerendered load (committed YAML/markdown); build-fixed content: static list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/blog/+page.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/blog/+page.svelte:41 post.tags from the prerendered load (committed YAML/markdown); build-fixed content: static list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/cla/+page.svelte:113::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/cla/+page.svelte:113 $_(…).split(' · ') of a translation string; positional text segments"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/cla/+page.svelte:186::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/cla/+page.svelte:186 $_(…).split(' · ') of a translation string; positional text segments"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/cla/bernstein/+page.svelte:38::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/cla/bernstein/+page.svelte:38 $_(…).split(' · ') of a translation string; positional text segments"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/cla/franz-bosch/+page.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/cla/franz-bosch/+page.svelte:36 $_(…).split(' · ') of a translation string; positional text segments"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/cla/gibson/+page.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/cla/gibson/+page.svelte:36 $_(…).split(' · ') of a translation string; positional text segments"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/cla/rob-gray/+page.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/cla/rob-gray/+page.svelte:36 $_(…).split(' · ') of a translation string; positional text segments"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/constraints/+page.svelte:235::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: constraints/+page.svelte:119 filteredConstraints = constraints filtered by the search query/type filter, rendered as cards with checkboxes (:235); items drop out mid-list as the user types (ledger: runtime-filtered list, dockhand/filemat)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/constraints/+page.svelte:289::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: constraints/+page.svelte:134 selectedAndFilteredConstraints feeds the print-only cards (.print-cards hidden on screen), plain content with no element state; static catalog filtered by picks"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/constraints/[constraintId]/+page.svelte:69::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: constraints/[constraintId]/+page.svelte 69 authored YAML text split into lines; positional text segments"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/constraints/[constraintId]/+page.svelte:82::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: constraints/[constraintId]/+page.svelte 82 authored YAML text split into lines; positional text segments"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/rollen/+page.svelte:215::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: rollen/+page.svelte:92 filteredRollen = rollen filtered by the search query, cards with checkboxes (:215); items drop out mid-list as the user types (runtime-filtered list)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/rollen/+page.svelte:254::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: rollen/+page.svelte:105 selectedAndFilteredRollen feeds the print-only cards (:254, .print-cards display:none on screen), plain content; static catalog filtered by picks"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/rollen/+page.svelte:273::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/rollen/+page.svelte:273 rolle.aufgaben from committed YAML, plain <li>; static authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/rollen/[rolleId]/+page.svelte:45::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/rollen/[rolleId]/+page.svelte:45 rolle.aufgaben from committed YAML, plain <li>; static authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/+page.svelte:419::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/taktik/+page.svelte:419 uebung.ziele/anleitung from committed YAML, plain <li> in print cards; static authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/+page.svelte:430::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/taktik/+page.svelte:430 uebung.ziele/anleitung from committed YAML, plain <li> in print cards; static authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/+page.svelte:485::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: taktik/+page.svelte:485 draft.ziele/anleitung of one saved localStorage draft, plain <li> in a print card; read-only parts of one record"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/+page.svelte:496::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: taktik/+page.svelte:496 draft.ziele/anleitung of one saved localStorage draft, plain <li> in a print card; read-only parts of one record"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/[taktikId]/+page.svelte:152::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/taktik/[taktikId]/+page.svelte:152 uebung.ziele/anleitung from committed YAML, plain <li> in print cards; static authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/[taktikId]/+page.svelte:164::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/taktik/[taktikId]/+page.svelte:164 uebung.ziele/anleitung from committed YAML, plain <li> in print cards; static authored list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/editor/+page.svelte:771::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: taktik/editor/+page.svelte:104-105 metaZiele $state the user edits through inputs, appends to (:792) and removes from mid-list by index (:781/:817); user-edited list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/editor/+page.svelte:806::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: taktik/editor/+page.svelte:104-105 metaAnleitung $state the user edits through inputs, appends to (:792) and removes from mid-list by index (:781/:817); user-edited list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/editor/+page.svelte:944::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: taktik/editor/+page.svelte:944 animation.steps edited by the user: addStep (:507), removeStep filters mid-list (:515), per-row duration inputs and expandedTransitions keyed by index; user-edited list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/editor/+page.svelte:984::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: taktik/editor/+page.svelte:984 {@const movingIds = getMovingObjects(i)} the object ids that move between two user-edited configurations (:36), rows with buttons; changes as the user moves objects, runtime-derived list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/taktik/editor/+page.svelte:996::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: taktik/editor/+page.svelte:987 moveTypes = allBallMoveTypes/allPlayerMoveTypes, Object.entries of constant style tables (:600-601); static button list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/teams/+page.svelte:24::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/teams/+page.svelte:24 data.teams from the prerendered load (committed YAML/markdown); build-fixed content: static list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/teams/[teamId]/+page.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/teams/[teamId]/+page.svelte:41 team.trainingszeiten from committed YAML; static authored list of a prerendered site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/teams/[teamId]/+page.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/teams/[teamId]/+page.svelte:56 team.ziele from committed YAML; static authored list of a prerendered site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/uebungen/+page.svelte:244::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: uebungen/+page.svelte:136 categories = Object.keys(groupByCategory(filteredUebungen)).sort(), categories drop out mid-list as the search filter changes, each holding checkbox cards; runtime-filtered list"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/uebungen/+page.svelte:248::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: uebungen/+page.svelte:248 groupedUebungen[category] of filteredUebungen (:99, search-filtered), cards with checkboxes; items drop out mid-list as the user types (runtime-filtered list)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/uebungen/+page.svelte:316::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: uebungen/+page.svelte:113/316 selectedAndFilteredUebungen feeds the print-only cards (.print-cards), plain content; static catalog filtered by picks"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/uebungen/+page.svelte:342::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/uebungen/+page.svelte:342 uebung.ziele from committed YAML; static authored list of a prerendered site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/uebungen/[uebungId]/+page.svelte:108::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/uebungen/[uebungId]/+page.svelte:108 uebung.ziele from committed YAML; static authored list of a prerendered site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::correctness/each-key::src/routes/[lang]/uebungen/[uebungId]/+page.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/[lang]/uebungen/[uebungId]/+page.svelte:97 uebung.anleitung from committed YAML; static authored list of a prerendered site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-dimensions::src/routes/[lang]/+page.svelte:17::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; hero /logo.png (180x123) with .logo max-width:300px; height:auto only (+page.svelte:42-46) above the <h1> - natural size decides the box, the heading below shifts"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-dimensions::src/routes/[lang]/cla/+page.svelte:156::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; print-only copy (.print-only display:none on screen, :204-206) styled 1.8cm x 1.8cm in print (:513-515) - box reserved, never laid out on screen"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-dimensions::src/routes/[lang]/cla/+page.svelte:95::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .card-photo 100% x 100% inside .card-photo-wrap width:100%; aspect-ratio:4/3 (cla/+page.svelte:282-297) - box reserved by CSS"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-dimensions::src/routes/[lang]/cla/bernstein/+page.svelte:31::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .person-photo 100% x 100% inside the fixed 100x100 .photo-wrap (cla/bernstein/+page.svelte:167-181) - box reserved by CSS"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-dimensions::src/routes/[lang]/cla/gibson/+page.svelte:29::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .person-photo 100% x 100% inside the fixed 100x100 .photo-wrap (cla/gibson/+page.svelte:143-157) - box reserved by CSS"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-dimensions::src/routes/[lang]/service-matrix/+page.svelte:490::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; QR image .qr-img 200px x 200px (service-matrix/+page.svelte:775-779), shown only after the user presses the QR button - box reserved by CSS"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-loading-hint::src/routes/[lang]/+page.svelte:17::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; hero logo at the top of the home page above the <h1> (+page.svelte:17) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-loading-hint::src/routes/[lang]/cla/+page.svelte:156::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; print-only copy (display:none on screen) of the same photo URL the screen cards already load (cla/+page.svelte:156) - no extra request to defer, and lazy images risk missing from print"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-loading-hint::src/routes/[lang]/cla/+page.svelte:95::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the two person photos (only bernstein/gibson have one) top the first cards of the persons grid directly under the page title (cla/+page.svelte:91-96, grid minmax(280px,1fr)) - above the fold"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-loading-hint::src/routes/[lang]/cla/bernstein/+page.svelte:31::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; 100px portrait in the person header next to the <h1> (cla/bernstein/+page.svelte:28-31) - above the fold"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-loading-hint::src/routes/[lang]/cla/gibson/+page.svelte:29::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; 100px portrait in the person header next to the <h1> (cla/gibson/+page.svelte) - above the fold"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/image-loading-hint::src/routes/[lang]/service-matrix/+page.svelte:490::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; src is qrDataUrl, a data: URL from QRCode.toDataURL (service-matrix/+page.svelte:217), rendered after the user presses the QR button - no network request to defer"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/load-waterfall::src/routes/[lang]/taktik/+page.js:19::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read [lang]/taktik/+page.js:16-27 + lib/utils/contentLoader.js:152-198,493-575: the first await (loadTaktikUebungenWithFallback) reads eager import.meta.glob YAML bundled into the module (no fetch), and the dependent Promise.all only loads lazy JSON chunks via import.meta.glob — the hop is real in data flow but the first await starts no round trip, so there is no browser waterfall (ledger no-round-trip hop convention); route is prerendered on adapter-static"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/load-waterfall::src/routes/[lang]/uebungen/+page.js:19::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read [lang]/uebungen/+page.js:16-27 + lib/utils/contentLoader.js:152-198,493-575: the first await (loadUebungenWithFallback) reads eager import.meta.glob YAML bundled into the module (no fetch), and the dependent Promise.all only loads lazy JSON chunks via import.meta.glob — the hop is real in data flow but the first await starts no round trip, so there is no browser waterfall (ledger no-round-trip hop convention); route is prerendered on adapter-static"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/responsive-image::src/routes/[lang]/+page.svelte:17::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; static/logo.png 180x123 raster - one fixed-size asset"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/responsive-image::src/routes/[lang]/cla/+page.svelte:156::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; print-only copy (display:none on screen) of the same photo URL the screen card already loads, printed at 1.8cm (cla/+page.svelte:156, :513) - no separate download to size"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/responsive-image::src/routes/[lang]/cla/+page.svelte:95::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; person.photo is static/cla/bernstein.jpg (500x725) / gibson.jpg (600x700) in a 280px+ card - raster, one fixed-size asset"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/responsive-image::src/routes/[lang]/cla/bernstein/+page.svelte:31::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; static/cla/bernstein.jpg (500x725) shown in a 100px circle - raster, one fixed-size asset"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/responsive-image::src/routes/[lang]/cla/gibson/+page.svelte:29::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; static/cla/gibson.jpg (600x700) shown in a 100px circle - raster, one fixed-size asset"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/state-raw::src/lib/components/blog/IntentionAnimation.svelte:196::\"aRunPreviewSvg\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"aRunPreviewSvg\" in src/lib/components/blog/IntentionAnimation.svelte: declared :196, only whole-binding reassignments at :425; other uses read-only (member/length reads, {#each} rendering) at :681,683; no member writes, mutating calls, bind:, component-prop/call-arg escapes or item edits in {#each} — $state.raw fits"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/state-raw::src/lib/components/blog/IntentionAnimation.svelte:365::\"spFrom\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"spFrom\" in src/lib/components/blog/IntentionAnimation.svelte: declared :365, only whole-binding reassignments at :412; never read anywhere else (write-only state); no member writes, mutating calls, bind:, component-prop/call-arg escapes or item edits in {#each} — $state.raw fits"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/state-raw::src/lib/components/blog/IntentionAnimation.svelte:366::\"spTo\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"spTo\" in src/lib/components/blog/IntentionAnimation.svelte: declared :366, only whole-binding reassignments at :413; never read anywhere else (write-only state); no member writes, mutating calls, bind:, component-prop/call-arg escapes or item edits in {#each} — $state.raw fits"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/state-raw::src/lib/components/blog/IntentionAnimation.svelte:377::\"spSenderPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"spSenderPos\" in src/lib/components/blog/IntentionAnimation.svelte: declared :377, only whole-binding reassignments at :404; never read anywhere else (write-only state); no member writes, mutating calls, bind:, component-prop/call-arg escapes or item edits in {#each} — $state.raw fits"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::performance/state-raw::src/lib/components/kompetenzraster/HistoryView.svelte:25::\"history\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"history\" in src/lib/components/kompetenzraster/HistoryView.svelte: declared :25, only whole-binding reassignments at :38; other uses read-only (member/length reads, {#each} rendering) at :95,103; no member writes, mutating calls, bind:, component-prop/call-arg escapes or item edits in {#each} — $state.raw fits"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::security/raw-html::src/lib/components/uebungen/print/PrintCardBackKraft.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read PrintCardBackKraft.svelte:8-16,23: snapshots.start is SVG generated by lib/utils/svgSnapshot.js from the repo animation JSON (content/animationen) with numeric styling options — code-generated markup over repo data, reported per docs"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::security/raw-html::src/lib/components/uebungen/print/PrintCardBackKraft.svelte:29::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read PrintCardBackKraft.svelte:8-16,29: snapshots.end is SVG generated by lib/utils/svgSnapshot.js from the repo animation JSON (content/animationen) — code-generated markup over repo data, reported per docs"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang] (src/routes/[lang]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/blog (src/routes/[lang]/blog/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/blog/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/blog/[slug] (src/routes/[lang]/blog/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/cla/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/cla (src/routes/[lang]/cla/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/cla/bernstein/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/cla/bernstein (src/routes/[lang]/cla/bernstein/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/cla/franz-bosch/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/cla/franz-bosch (src/routes/[lang]/cla/franz-bosch/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/cla/gibson/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/cla/gibson (src/routes/[lang]/cla/gibson/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/cla/rob-gray/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/cla/rob-gray (src/routes/[lang]/cla/rob-gray/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/constraints/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/constraints (src/routes/[lang]/constraints/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/constraints/[constraintId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/constraints/[constraintId] (src/routes/[lang]/constraints/[constraintId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/datenschutz/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/datenschutz (src/routes/[lang]/datenschutz/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/events/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/events (src/routes/[lang]/events/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/kompetenzraster/[teamId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/kompetenzraster/[teamId] (src/routes/[lang]/kompetenzraster/[teamId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/planner/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/planner (src/routes/[lang]/planner/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/rollen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/rollen (src/routes/[lang]/rollen/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/rollen/[rolleId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/rollen/[rolleId] (src/routes/[lang]/rollen/[rolleId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/service-matrix/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/service-matrix (src/routes/[lang]/service-matrix/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/taktik/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/taktik (src/routes/[lang]/taktik/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/taktik/[taktikId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/taktik/[taktikId] (src/routes/[lang]/taktik/[taktikId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/taktik/editor/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/taktik/editor (src/routes/[lang]/taktik/editor/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/teams/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/teams (src/routes/[lang]/teams/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/teams/[teamId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/teams/[teamId] (src/routes/[lang]/teams/[teamId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/uebungen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/uebungen (src/routes/[lang]/uebungen/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/canonical-url::src/routes/[lang]/uebungen/[uebungId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/uebungen/[uebungId] (src/routes/[lang]/uebungen/[uebungId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); public page of a public static site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/description-length::src/routes/[lang]/datenschutz/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /[lang]/datenschutz page's top-level unconditional svelte:head literal <meta name=description> of the reported length (datenschutz 'Datenschutzerklärung für die TV Muttenz Volleyball Website' 58, taktik 'Taktische Volleyball-Übungen mit animiertem Taktikboard' 55; app.html also ships the site-wide one, so the head carries both); public prerendered TV Muttenz volleyball site on GitHub Pages"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/description-length::src/routes/[lang]/taktik/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /[lang]/taktik page's top-level unconditional svelte:head literal <meta name=description> of the reported length (datenschutz 'Datenschutzerklärung für die TV Muttenz Volleyball Website' 58, taktik 'Taktische Volleyball-Übungen mit animiertem Taktikboard' 55; app.html also ships the site-wide one, so the head carries both); public prerendered TV Muttenz volleyball site on GitHub Pages"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/heading-level-skip::src/routes/[lang]/constraints/+page.svelte:253::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: constraints/+page.svelte:147 <h1>, then the {#each filteredConstraints} cards' <h3> (:253); TranslationFallbackBanner and the [lang] layout's Header/Footer render no headings -> h1 to h3"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/heading-level-skip::src/routes/[lang]/rollen/+page.svelte:233::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: rollen/+page.svelte:118 <h1>, then the {#each filteredRollen} cards' <h3> (:233); TranslationFallbackBanner and Header render no headings -> h1 to h3"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/heading-level-skip::src/routes/[lang]/taktik/+page.svelte:285::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: taktik/+page.svelte:201 <h1>, then the {#each filteredUebungen} cards' <h3> (:285), no heading or heading component between -> h1 to h3"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/blog has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/blog/[slug] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/cla/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/cla has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/cla/bernstein/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/cla/bernstein has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/cla/franz-bosch/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/cla/franz-bosch has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/cla/gibson/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/cla/gibson has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/cla/rob-gray/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/cla/rob-gray has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/constraints/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/constraints has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/constraints/[constraintId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/constraints/[constraintId] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/datenschutz/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/datenschutz has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/events has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/kompetenzraster/[teamId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/kompetenzraster/[teamId] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/planner/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/planner has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/rollen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/rollen has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/rollen/[rolleId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/rollen/[rolleId] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/service-matrix/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/service-matrix has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/taktik/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/taktik has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/taktik/[taktikId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/taktik/[taktikId] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/taktik/editor/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/taktik/editor has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/teams/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/teams has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/teams/[teamId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/teams/[teamId] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/uebungen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/uebungen has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/json-ld::src/routes/[lang]/uebungen/[uebungId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context/schema.org: none): /[lang]/uebungen/[uebungId] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang] (src/routes/[lang]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/blog (src/routes/[lang]/blog/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/blog/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/blog/[slug] (src/routes/[lang]/blog/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/cla/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/cla (src/routes/[lang]/cla/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/cla/bernstein/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/cla/bernstein (src/routes/[lang]/cla/bernstein/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/cla/franz-bosch/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/cla/franz-bosch (src/routes/[lang]/cla/franz-bosch/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/cla/gibson/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/cla/gibson (src/routes/[lang]/cla/gibson/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/cla/rob-gray/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/cla/rob-gray (src/routes/[lang]/cla/rob-gray/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/constraints/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/constraints (src/routes/[lang]/constraints/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/constraints/[constraintId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/constraints/[constraintId] (src/routes/[lang]/constraints/[constraintId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/datenschutz/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/datenschutz (src/routes/[lang]/datenschutz/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/events/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/events (src/routes/[lang]/events/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/kompetenzraster/[teamId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/kompetenzraster/[teamId] (src/routes/[lang]/kompetenzraster/[teamId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/planner/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/planner (src/routes/[lang]/planner/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/rollen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/rollen (src/routes/[lang]/rollen/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/rollen/[rolleId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/rollen/[rolleId] (src/routes/[lang]/rollen/[rolleId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/service-matrix/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/service-matrix (src/routes/[lang]/service-matrix/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/taktik/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/taktik (src/routes/[lang]/taktik/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/taktik/[taktikId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/taktik/[taktikId] (src/routes/[lang]/taktik/[taktikId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/taktik/editor/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/taktik/editor (src/routes/[lang]/taktik/editor/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/teams/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/teams (src/routes/[lang]/teams/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/teams/[teamId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/teams/[teamId] (src/routes/[lang]/teams/[teamId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/uebungen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/uebungen (src/routes/[lang]/uebungen/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/og-url::src/routes/[lang]/uebungen/[uebungId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/uebungen/[uebungId] (src/routes/[lang]/uebungen/[uebungId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/single-h1::/[lang]/blog/[slug]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: the page renders <data.post.component /> (blog/[slug]/+page.svelte:14), an mdsvex post whose configured layout (mdsvex.config.js layout BlogLayoutWrapper -> lib/components/blog/BlogLayout.svelte:22-23) renders <header><h1>{title}</h1> unconditionally from the post's frontmatter title"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/single-h1::src/routes/[lang]/cla/+page.svelte:145::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the screen <h1> (cla/+page.svelte:81) and the print-only header <h1> (:145) are both in the DOM, but .print-only is display:none on screen and .no-print hides the screen view in print (:204-206, :425-432) - one visible <h1> per medium, a deliberate print layout"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/single-h1::src/routes/[lang]/taktik/editor/+page.svelte:678::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: taktik/editor/+page.svelte headings are <h2> (:77/:122) and <h3> panels; its components (TaktikBoard, TaktikAnimation, TaktikPrintView) and the [lang] layout have no <h1> (grep: the only <h1> in src/lib is BlogLayout.svelte)"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ or src/routes and no generator (package.json build is plain vite build, deploy.yml runs npm ci + build), although static/robots.txt points crawlers to .../volleyball/sitemap.xml; public prerendered club training site, missing as claimed"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/title-length::src/routes/[lang]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /[lang] page's top-level unconditional svelte:head literal <title> of the reported length ('TV Muttenz Volleyball' 21, 'Blog - TV Muttenz Volleyball' 28, 'Teams - TV Muttenz Volleyball' 29), no layout title; public prerendered club site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/title-length::src/routes/[lang]/blog/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /[lang]/blog page's top-level unconditional svelte:head literal <title> of the reported length ('TV Muttenz Volleyball' 21, 'Blog - TV Muttenz Volleyball' 28, 'Teams - TV Muttenz Volleyball' 29), no layout title; public prerendered club site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/title-length::src/routes/[lang]/teams/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /[lang]/teams page's top-level unconditional svelte:head literal <title> of the reported length ('TV Muttenz Volleyball' 21, 'Blog - TV Muttenz Volleyball' 28, 'Teams - TV Muttenz Volleyball' 29), no layout title; public prerendered club site"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang] (src/routes/[lang]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/blog (src/routes/[lang]/blog/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/blog/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/blog/[slug] (src/routes/[lang]/blog/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/cla/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/cla (src/routes/[lang]/cla/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/cla/bernstein/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/cla/bernstein (src/routes/[lang]/cla/bernstein/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/cla/franz-bosch/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/cla/franz-bosch (src/routes/[lang]/cla/franz-bosch/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/cla/gibson/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/cla/gibson (src/routes/[lang]/cla/gibson/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/cla/rob-gray/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/cla/rob-gray (src/routes/[lang]/cla/rob-gray/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/constraints/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/constraints (src/routes/[lang]/constraints/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/constraints/[constraintId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/constraints/[constraintId] (src/routes/[lang]/constraints/[constraintId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/datenschutz/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/datenschutz (src/routes/[lang]/datenschutz/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/events/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/events (src/routes/[lang]/events/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/kompetenzraster/[teamId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/kompetenzraster/[teamId] (src/routes/[lang]/kompetenzraster/[teamId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/planner/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/planner (src/routes/[lang]/planner/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/rollen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/rollen (src/routes/[lang]/rollen/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/rollen/[rolleId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/rollen/[rolleId] (src/routes/[lang]/rollen/[rolleId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/service-matrix/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/service-matrix (src/routes/[lang]/service-matrix/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/taktik/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/taktik (src/routes/[lang]/taktik/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/taktik/[taktikId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/taktik/[taktikId] (src/routes/[lang]/taktik/[taktikId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/taktik/editor/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/taktik/editor (src/routes/[lang]/taktik/editor/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/teams/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/teams (src/routes/[lang]/teams/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/teams/[teamId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/teams/[teamId] (src/routes/[lang]/teams/[teamId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/uebungen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/uebungen (src/routes/[lang]/uebungen/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "cedricgeissmann/volleyball::seo/twitter-card::src/routes/[lang]/uebungen/[uebungId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/uebungen/[uebungId] (src/routes/[lang]/uebungen/[uebungId]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection except app.html:30-36 og:type/og:title/og:description/og:image, which is why only canonical/og:url/twitter:card are reported); page heads are <title>/description only; no hooks; mdsvex layout BlogLayoutWrapper.svelte has no <svelte:head>; dep svelte-i18n emits none; public static site (adapter-static, robots.txt Allow: /); route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  }
+]

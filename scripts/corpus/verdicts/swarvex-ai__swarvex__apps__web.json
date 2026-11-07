@@ -1,0 +1,482 @@
+[
+  {
+    "key": "swarvex-ai/swarvex:apps/web::a11y/disallowed-aria-props::src/lib/components/Logo.svelte:16::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <span aria-label> at src/lib/components/Logo.svelte:16 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::a11y/disallowed-aria-props::src/lib/components/Rangliste.svelte:46::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-a11y/anc.mjs; PlotCanvas/SidebarMenuItem read by hand): <span aria-label> at src/lib/components/Rangliste.svelte:46 has no role, no spread and no use: action, and the app has no svelte-dnd-action zone, so its role is generic, which prohibits a name"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::a11y/interactive-nesting::src/lib/components/Suche.svelte:68::<button> is nested inside interactive <li role=\"option\">",
+    "verdict": "tp",
+    "basis": "read Suche.svelte:67-68: <button> inside <li role=\"option\"> of the result listbox; option is children-presentational, so the nested control is as reported (ledger option-button precedent)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::a11y/top-level-landmark::src/routes/[[lang=en]]/[melden=melden]/+page.svelte:171::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read [[lang=en]]/[melden=melden]/+page.svelte:171: <aside aria-labelledby=\"t-ablauf\"> (labelled, so complementary even inside its <section>) and root +layout.svelte:76 wraps every page in <main id=\"inhalt\">; +page.ts redirects only mixed-language URLs, so the route renders; nested as reported"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::a11y/top-level-landmark::src/routes/[[lang=en]]/docs/+layout.svelte:13::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read [[lang=en]]/docs/+layout.svelte:13: unlabelled <aside class=\"seitenleiste\"> inside <div class=\"doku\"> (no sectioning ancestor), and root +layout.svelte:76 wraps it in <main id=\"inhalt\">; complementary nested in main as reported"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::a11y/top-level-landmark::src/routes/[[lang=en]]/docs/[slug]/+page.svelte:66::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read [[lang=en]]/docs/[slug]/+page.svelte:66: <aside class=\"toc\" aria-label> under {#if data.ueberschriften.length > 1}, placed in the docs layout's <div class=\"inhalt\"> inside root +layout.svelte:76 <main>; the load 404s/redirects only unknown or renamed slugs; nested as reported"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::architecture/component-size::src/lib/components/Schwarm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Schwarm.svelte has 212 physical lines (newline count, trailing newline not counted; 192 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::architecture/component-size::src/routes/[[lang=en]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[lang=en]]/+page.svelte has 281 physical lines (newline count, trailing newline not counted; 258 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::architecture/component-size::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[lang=en]]/[konto=konto]/+page.svelte has 683 physical lines (newline count, trailing newline not counted; 656 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::architecture/component-size::src/routes/[[lang=en]]/[melden=melden]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[lang=en]]/[melden=melden]/+page.svelte has 223 physical lines (newline count, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::architecture/component-size::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte has 419 physical lines (newline count, trailing newline not counted; 397 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::architecture/component-size::src/routes/[[lang=en]]/[starten=starten]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[lang=en]]/[starten=starten]/+page.svelte has 435 physical lines (newline count, trailing newline not counted; 414 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::architecture/prop-count::src/lib/components/Seo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/Seo.svelte has a single destructured $props() with 9 named props (> 6): titel, beschreibung, pfad, bild, typ, daten, alternativen, noindex, feed"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Ablauf.svelte:38::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Ablauf.svelte:22 ring = Array.from({ length: 8 }, mapper), fixed SVG geometry of the diagram; positional list (chart geometry, not the exempt bare length-only form)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Ablauf.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Ablauf.svelte:22 ring = Array.from({ length: 8 }, mapper), fixed SVG geometry of the diagram; positional list (chart geometry)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Ablauf.svelte:78::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Ablauf.svelte:7 schritte = $derived(tx().ablauf), the three authored steps from the $lib/texte translation table; static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Kontrolle.svelte:63::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Kontrolle.svelte:5 t = tx().kontrolle; t.alleProjekte is the authored demo list ['Spiel X','Tool Y','App Z'] (texte.ts:338); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Kontrolle.svelte:77::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Kontrolle.svelte:77 t.modelle, the authored model option list (texte.ts:338); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Kontrolle.svelte:82::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Kontrolle.svelte:82 Object.entries(vorlagen) of the same-file constant preset object (:19-24); static list fixed at author time"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Kontrolle.svelte:88::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Kontrolle.svelte:88 t.tage, the authored weekday names (texte.ts:330); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Kontrolle.svelte:93::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Kontrolle.svelte:93 stunden.slice(0, 24) of the constant stunden = Array.from({ length: 25 }, mapper) (:30); static hour option list"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Kontrolle.svelte:94::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Kontrolle.svelte:94 stunden.slice(1) of the constant stunden = Array.from({ length: 25 }, mapper) (:30); static hour option list"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/LogoAnimation.svelte:101::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: LogoAnimation.svelte:20 punkte = STROEME.flatMap(...) over same-file constants (ABSTAENDE/RADIEN), fixed SVG dots of the logo; positional list (geometry)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/LogoAnimation.svelte:107::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: LogoAnimation.svelte:20 punkte = STROEME.flatMap(...) over same-file constants, fixed SVG dots of the logo; positional list (geometry)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/LogoAnimation.svelte:98::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: LogoAnimation.svelte:26 strahlen = Array.from({ length: 16 }, mapper), fixed SVG rays of the logo animation; positional list (geometry)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Rangliste.svelte:25::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Rangliste.svelte:25 Object.entries(ordnungen) of the same-file `as const` sort-mode object (:9-13); static tab list"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Seo.svelte:19::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Seo.svelte:19 Object.entries(alternativen), the hreflang map every caller passes as an object literal ({ de: '/', en: '/en' }, routes/[[lang=en]]/+page.svelte:37 and others); static head links per page"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/lib/components/Suche.svelte:66::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: Suche.svelte:15/42 treffer = $state search results recomputed on every query (sorted, sliced to 12); runtime list whose items insert/remove/reorder as the user types"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/+layout.svelte:60::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: +layout.svelte:31 links = $derived literal of four fixed nav entries; static list"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/+layout.svelte:92::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: +layout.svelte:92 t.fuss.recht, authored footer legal links; static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/+page.svelte:123::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [[lang=en]]/+page.svelte:123 os.manifest.punkte (os = tx().opensource, :21); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/+page.svelte:163::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [[lang=en]]/+page.svelte:163 t.ehrlich.jaListe (t = tx().start); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/+page.svelte:164::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [[lang=en]]/+page.svelte:164 t.ehrlich.neinListe (t = tx().start); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/+page.svelte:171::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [[lang=en]]/+page.svelte:171 t.fragen.liste FAQ pairs (t = tx().start); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/+page.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [[lang=en]]/+page.svelte:43 t.h1.split(...) lines of the authored headline; positional text segments"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/+page.svelte:71::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [[lang=en]]/+page.svelte:71 t.video.saetze (t = tx().start); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/+page.svelte:89::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [[lang=en]]/+page.svelte:89 t.warum.punkte (t = tx().start); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/+page.svelte:99::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [[lang=en]]/+page.svelte:99 t.vorhaben.karten (t = tx().start); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:351::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [konto=konto]/+page.svelte:351 w.hints, the hint messages of one weekly report (stateless <li> text); positional list (messages of one record)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:365::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: [konto=konto]/+page.svelte:153 projektListe = $state filled from a fetch of the user's projects; runtime records rendered as <option>s"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:416::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: [konto=konto]/+page.svelte:416 konto.roles, konto = await fetch('/api/account') (:46-49); runtime records of the user's project roles"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:510::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [konto=konto]/+page.svelte:510 b.kinds, the kind tags of one submission rendered as marker spans; positional list (parts of one record)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:551::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: [konto=konto]/+page.svelte:551 konto.models, per-model statistics rows of the fetched account (/api/account, :46-49); runtime records"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[melden=melden]/+page.svelte:107::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [melden=melden]/+page.svelte:107 Object.entries(t.arten), authored report kinds; static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[melden=melden]/+page.svelte:174::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [melden=melden]/+page.svelte:174 t.ablauf, authored process steps; static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[mitstreiter=mitstreiter]/[login]/+page.svelte:37::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [login]/+page.svelte:37 p.badges, the badge codes of one public profile (data.profil from /api/people, +page.ts:6) rendered as stateless <li> text; parts of one record rebuilt wholesale"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[mitstreiter=mitstreiter]/[login]/+page.svelte:54::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [login]/+page.svelte:54 p.kinds, the per-kind counts of one public profile (stateless <li>); parts of one record rebuilt wholesale"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[modelle=modelle]/+page.svelte:73::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [modelle=modelle]/+page.svelte:73 m.levels, the per-level breakdown of one model row inside its <details>; parts of one record"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[modelle=modelle]/+page.svelte:74::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [modelle=modelle]/+page.svelte:74 m.kinds, the per-kind breakdown of one model row; parts of one record"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[modelle=modelle]/+page.svelte:75::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [modelle=modelle]/+page.svelte:75 m.programs, the agent-program shares of one model row; parts of one record"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[modelle=modelle]/+page.svelte:89::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [modelle=modelle]/+page.svelte:89 t.methode (t = tx().modelle); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[modelle=modelle]/+page.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [modelle=modelle]/+page.svelte:91 t.grenzen (t = tx().modelle); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[projekte=projekte]/+page.svelte:111::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [projekte=projekte]/+page.svelte:111 p.wants, the wanted-skill codes of one project card rendered as <code>; parts of one record"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[projekte=projekte]/+page.svelte:78::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: [projekte=projekte]/+page.svelte:36 engines = $derived([...new Set(projekte.map(p => p.engine))].sort()) from the loaded project records; filter chips that change as projects come and go"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[projekte=projekte]/+page.svelte:83::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [projekte=projekte]/+page.svelte:83 Object.keys(ordnungen), a same-file constant sort-mode object; static option list"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:110::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: [slug]/+page.svelte:110 p.milestones of data.projekt, which the page re-loads every 15 s (invalidate('app:projekt'), :23); runtime records that can be added/removed"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:192::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [slug]/+page.svelte:192 Object.entries(b.stufen), b = t.detail.bilanz (:51), authored stage labels; static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:205::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: [slug]/+page.svelte:205 bilanz.milestones = p.swarm_balance.milestones (:53) of the polled project load; runtime records"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:243::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [slug]/+page.svelte:243 Object.entries(d.filter), authored filter tab labels (d = t.detail, :15); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:248::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [slug]/+page.svelte:248 p.critical_path_trust, per-trust-level counts of one project rendered as stateless tip paragraphs; parts of one record"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:275::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: [slug]/+page.svelte:275 p.contributors of the project load polled every 15 s (:23); runtime records (people join, order by accepted work)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[starten=starten]/+page.svelte:162::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [starten=starten]/+page.svelte:99 folge = $derived step names of the wizard (fixed literal plus optional steps), rendered as stateless progress <li>; positional step list"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[starten=starten]/+page.svelte:172::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [starten=starten]/+page.svelte:172 Object.entries(t.lead.agenten); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[starten=starten]/+page.svelte:194::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [starten=starten]/+page.svelte:194 ARTEN.filter(...) of the same-file constant (:14), the filter only drops the last two entries; static option list"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[starten=starten]/+page.svelte:302::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [starten=starten]/+page.svelte:302 STACKS[d.type] ?? [] of the same-file constant table (:20); static datalist options"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/[starten=starten]/+page.svelte:309::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: [starten=starten]/+page.svelte:309 the constant ASSETS licence list, or it plus one upstream licence appended at the end; static option list"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/docs/+layout.svelte:20::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: docs/+layout.svelte:20 data.nav from navigation() of the committed docs (docs/+layout.server.ts:3-4, prerender = true); build-fixed content"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/docs/+layout.svelte:23::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: docs/+layout.svelte:23 g.seiten of the prerendered docs navigation (+layout.server.ts:4); build-fixed content"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/docs/[slug]/+page.svelte:69::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: docs/[slug]/+page.svelte:69 data.ueberschriften, the headings of one rendered doc page (+page.server.ts:25) under the prerendered docs layout; build-fixed content (table of contents)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/open-source/+page.svelte:33::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: open-source/+page.svelte:33 t.thesen (t = tx().opensource); static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/open-source/+page.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: open-source/+page.svelte:43 t.clean.raeume; static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/open-source/+page.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: open-source/+page.svelte:52 t.clean.regeln; static list: a translation table field of $lib/texte (tx()), authored per language, never reorders/inserts"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/open-source/+page.svelte:60::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: open-source/+page.svelte:12 gruppen = Object.entries(t.dank.gruppen) joined with the committed docs/thanks.json (:7); static list fixed at build"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/each-key::src/routes/[[lang=en]]/open-source/+page.svelte:66::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: open-source/+page.svelte:12 g.eintraege, entries of the committed docs/thanks.json filtered by group; static list fixed at build"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::correctness/effect-as-derived::src/routes/+layout.svelte:23::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:23 assigns hell from document.documentElement.dataset.thema, the docs' browser-global capture limitation (a $derived would read document during SSR)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/image-dimensions::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:519::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; .vorschauen img height:96px; max-width:160px; object-fit:contain in a flex-wrap row (konto/+page.svelte:633-634) - height fixed only, width comes from the loaded image, so the row can reflow (holdout 45 call)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/image-dimensions::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:157::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> has height=\"20\", no width, no spread; the README badge inside a closed <details> (projekte/[slug]/+page.svelte:155-160), alone in its <p> - height reserved, nothing beside it to shift"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/image-loading-hint::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:157::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; the badge sits inside a closed <details> 'Abzeichen' (projekte/[slug]/+page.svelte:155-157), fetched eagerly while hidden until the user opens it"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/lcp-image::src/routes/[[lang=en]]/+page.svelte:102::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "read: <img> has literal loading=\"lazy\"; first <img> of the route templates, but it is a card image of the 'vorhaben' section after the hero, the video section and the 'warum' section ([[lang=en]]/+page.svelte:5-60, :102) - below the fold, not the LCP candidate"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/lcp-image::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:519::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "read: <img> has literal loading=\"lazy\"; first <img> of the route templates, but it is a 96px file preview in a submission row of the account page's lower sections (konto/+page.svelte:501-519) - not the LCP candidate"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/responsive-image::src/routes/[[lang=en]]/+page.svelte:102::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; /bilder/vorhaben-*.webp at width 640 in a four-card grid ([[lang=en]]/+page.svelte:102) - raster, one fixed-size asset"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/responsive-image::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:519::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; vorschau(b, f) is a submitted file's preview image from the API (konto/+page.svelte:517-519) - raster, one fixed-size asset"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/responsive-image::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.svelte:157::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src is the template literal `/api/projects/${p.project}/badge.svg` (projekte/[slug]/+page.svelte:157), served as SVG by apps/api/src/main.ts:307 - a vector, but a template-literal src is outside the docs' enumerated static SVG detection (the same path as a quoted mixed attribute would be exempt)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/sequential-awaits::src/routes/[[lang=en]]/[projekte=projekte]/[slug]/+page.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read +page.ts:7-12: the /lead/stats.json fetch uses nothing from the preceding /api/projects/{slug} response, which only feeds the 404/503 gates (exceptional path) and is parsed after — independent requests serialized; Promise.all would work (ledger 404-gate convention)"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::performance/state-raw::src/routes/[[lang=en]]/[konto=konto]/+page.svelte:153::\"projektListe\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"projektListe\" in src/routes/[[lang=en]]/[konto=konto]/+page.svelte: declared :153, only whole-binding reassignments at :157; other uses read-only (member/length reads, {#each} rendering) at :365; no member writes, mutating calls, bind:, component-prop/call-arg escapes or item edits in {#each} — $state.raw fits"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/lib/components/Kontrolle.svelte:107::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Kontrolle.svelte:107 + lib/texte.ts:332,846: t.angehalten is a literal i18n string with <strong> — repo constant, reported per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/lib/components/Kontrolle.svelte:111::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Kontrolle.svelte:5-50,111 + lib/texte.ts:334-335: t.satz interpolates project/model names from the constant t.alleProjekte/t.modelle arrays, select-bound times and a numeric budget — repo constants and the visitor's own picks, no stored or foreign input; reported per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/lib/components/Logo.svelte:15::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Logo.svelte:3-11: symbol is the repo SVG media/logo/export/swarvex_symbol.svg?raw with an id rewrite — repo asset, reported per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/lib/components/Logo.svelte:16::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Logo.svelte:4,11: wortmarke is the repo SVG swarvex_wortmarke_dunkel.svg?raw with fill rewrites — repo asset, reported per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/lib/components/LogoAnimation.svelte:111::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read LogoAnimation.svelte:5,11: wortmarke is the repo SVG swarvex_wortmarke_dunkel.svg?raw with fill rewrites — repo asset, reported per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/lib/components/Seo.svelte:31::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Seo.svelte:7: jsonld = JSON.stringify(...).replace(/</g,'\\\\u003c') — script-safe JSON-LD serialization per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/routes/[[lang=en]]/+page.svelte:145::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:140,145 + lib/texte.ts:498: w.anbinden comes from the literal t.wege.mit/ohne i18n objects — repo constant, reported per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/routes/[[lang=en]]/[recht=recht]/+page.svelte:12::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [recht=recht]/+page.server.ts + lib/server/recht.ts:9,49: html = marked.parse of the committed src/lib/inhalt/recht/*/*.md (import.meta.glob ?raw) — repo-authored content, reported per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/routes/[[lang=en]]/docs/[slug]/+page.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read docs/[slug]/+page.server.ts + lib/server/doku.ts:43-53 + lib/texte.ts:344: t.eingebunden(q) wraps the `quelle:` frontmatter path of a committed doc page — repo-authored content, reported per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::security/raw-html::src/routes/[[lang=en]]/docs/[slug]/+page.svelte:56::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read docs/[slug]/+page.server.ts + lib/server/doku.ts:43-53,76+: html is marked+shiki over the committed src/lib/inhalt/doku/<lang>/*.md (or a repo file named by `quelle:`) — repo-authored content, reported per docs"
+  },
+  {
+    "key": "swarvex-ai/swarvex:apps/web::seo/heading-level-skip::src/routes/[[lang=en]]/[modelle=modelle]/+page.svelte:73::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: [modelle=modelle]/+page.svelte:34 <h1>, then the per-model <h3>s (:73-75) with no <h2> between -> h1 to h3"
+  }
+]
