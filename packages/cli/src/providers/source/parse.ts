@@ -1854,6 +1854,9 @@ function collectHeadings(
         const level = Number(expr?.type === 'Literal' ? expr.value : set ? attrText(attrs, 'level') : 2);
         push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at, when, true, true);
       }
+      // A component `load` hands over (`<data.post.component />`) is often a markdown module
+      // found by `import.meta.glob` at run time: which headings it renders is not in the source.
+      if (componentName(node).startsWith('data.')) dynamic = true;
       meet(componentPaths, node, path);
       note(componentWhen, node, when);
       first(componentOffsets, node, at?.[0] ?? node.start);
