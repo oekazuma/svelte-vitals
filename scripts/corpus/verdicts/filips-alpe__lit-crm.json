@@ -1,0 +1,547 @@
+[
+  {
+    "key": "filips-alpe/lit-crm::architecture/component-size::src/lib/fields/inputs/RelationInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/fields/inputs/RelationInput.svelte has 242 physical lines (newline count, trailing newline not counted; 224 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "filips-alpe/lit-crm::architecture/component-size::src/lib/forms/FormBuilder.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/forms/FormBuilder.svelte has 331 physical lines (newline count, trailing newline not counted; 316 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "filips-alpe/lit-crm::architecture/component-size::src/routes/(app)/data/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/data/+page.svelte has 327 physical lines (newline count, trailing newline not counted; 306 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "filips-alpe/lit-crm::architecture/component-size::src/routes/(app)/types/TypeForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/types/TypeForm.svelte has 201 physical lines (newline count, trailing newline not counted; 186 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "filips-alpe/lit-crm::architecture/component-size::src/routes/(app)/types/TypeIdentityHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/types/TypeIdentityHeader.svelte has 277 physical lines (newline count, trailing newline not counted; 266 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "filips-alpe/lit-crm::architecture/prop-count::src/lib/components/RecordDetail.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/RecordDetail.svelte has a single destructured $props() with 8 named props (> 6): record, type, form, layout, thread, letters, options, onNavigate"
+  },
+  {
+    "key": "filips-alpe/lit-crm::architecture/prop-count::src/lib/renderers/_shared/CardShell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/renderers/_shared/CardShell.svelte has a single destructured $props() with 8 named props (> 6): creator, createdAt, status, bg, accent, meta, class, children"
+  },
+  {
+    "key": "filips-alpe/lit-crm::architecture/prop-count::src/lib/renderers/correspondence/CorrespondenceDetail.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/renderers/correspondence/CorrespondenceDetail.svelte has a single destructured $props() with 7 named props (> 6): sf, layout, fields, record, thread, letters, onNavigate"
+  },
+  {
+    "key": "filips-alpe/lit-crm::architecture/prop-count::src/routes/(app)/types/RendererPicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/routes/(app)/types/RendererPicker.svelte has a single destructured $props() with 7 named props (> 6): value, onChange, layout, code, color, iconSeed, accent"
+  },
+  {
+    "key": "filips-alpe/lit-crm::correctness/each-index-key::src/lib/components/RecordCard.svelte:67::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/RecordCard.svelte:67 '{#each field.value as item, i (i)}' keyed by index; the string values of one record field (rows keyed by field.id at :63); positional list (parts of one record, read-only)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::correctness/each-index-key::src/lib/components/RecordRow.svelte:59::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/RecordRow.svelte:59 '{#each field.value as item, i (i)}' keyed by index; the values of one record field, read-only chips; positional list (parts of one record)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::correctness/each-index-key::src/lib/components/bestPage/BestPage.svelte:111::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bestPage/BestPage.svelte:111 '{#each group.contexts as ctx, i (i)}' keyed by index; the before/match/after text snippets of one mention group (groups keyed by source.id :104) of the read-only assembled page (data.page from buildBestPage); positional list (text segments)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::correctness/each-index-key::src/lib/components/bestPage/BestPage.svelte:142::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bestPage/BestPage.svelte:142 '{#each section.references as ref, i (i)}' keyed by index; reference strings/URLs of one record's sources section, read-only page from buildBestPage (routes/(app)/page/[id]/+page.server.ts); positional list (parts of one record)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::correctness/each-index-key::src/lib/components/bestPage/BestPage.svelte:55::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bestPage/BestPage.svelte:55 '{#each section.facts as fact, i (i)}' keyed by index; the label/value facts of one record's read-only assembled page; positional list (parts of one record, rebuilt wholesale)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::correctness/each-index-key::src/lib/components/bestPage/BestPage.svelte:60::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bestPage/BestPage.svelte:60 '{#each fact.value.value as item, i (i)}' keyed by index; the string values of one fact; positional list (parts of one record)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::correctness/each-index-key::src/lib/components/bestPage/MentionText.svelte:11::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bestPage/MentionText.svelte:11 '{#each segments as segment, i (i)}' keyed by index; TextSegment[] of one record's stored text (:7); positional list (text segments)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::correctness/each-index-key::src/lib/renderers/headline/HeadlineCard.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/renderers/headline/HeadlineCard.svelte:22 '{#each rest as field, i (i)}'; rest = $derived(entries.slice(1)) of Object.values(fields) of one record (:8-10), read-only label/value lines; positional list (parts of one record)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::correctness/each-index-key::src/lib/renderers/headline/HeadlineRow.svelte:20::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/renderers/headline/HeadlineRow.svelte:20 '{#each rest as field, i (i)}'; rest = entries.slice(1) of one record's fields, read-only; positional list (parts of one record)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::performance/sequential-awaits::src/routes/login/+page.server.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read login/+page.server.ts:13-18: flagged await is superValidate(zod4(loginSchema)) with no input — in-process form defaults, no request to parallelize (ledger superValidate convention)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::security/raw-html::src/lib/components/Markdown.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Markdown.svelte:11 + lib/utils/markdown.ts:11-21,73: renderMarkdown HTML-escapes the whole source before emitting its own tags and allows only http(s)/mailto/local hrefs — escaped by construction, reported per docs"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/(app)/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: (app)/+layout.server.ts:4-5 requireUser() redirects every guest to /login (lib/server/auth/requireUser.ts:5-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/(app)/data/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /data (src/routes/(app)/data/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: (app)/+layout.server.ts:4-5 requireUser() redirects every guest to /login (lib/server/auth/requireUser.ts:5-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/(app)/data/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /data/[id] (src/routes/(app)/data/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: (app)/+layout.server.ts:4-5 requireUser() redirects every guest to /login (lib/server/auth/requireUser.ts:5-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/(app)/page/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /page/[id] (src/routes/(app)/page/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: (app)/+layout.server.ts:4-5 requireUser() redirects every guest to /login (lib/server/auth/requireUser.ts:5-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/(app)/record/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /record (src/routes/(app)/record/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: (app)/+layout.server.ts:4-5 requireUser() redirects every guest to /login (lib/server/auth/requireUser.ts:5-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/(app)/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: (app)/+layout.server.ts:4-5 requireUser() redirects every guest to /login (lib/server/auth/requireUser.ts:5-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/(app)/types/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /types (src/routes/(app)/types/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: (app)/+layout.server.ts:4-5 requireUser() redirects every guest to /login (lib/server/auth/requireUser.ts:5-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/(app)/types/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /types/[id] (src/routes/(app)/types/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: (app)/+layout.server.ts:4-5 requireUser() redirects every guest to /login (lib/server/auth/requireUser.ts:5-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/(app)/types/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /types/new (src/routes/(app)/types/new/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); not a search target (auth-gated: (app)/+layout.server.ts:4-5 requireUser() redirects every guest to /login (lib/server/auth/requireUser.ts:5-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (src/routes/login/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); public sign-in page (robots.txt allows all)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/(app)/data/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /data; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/(app)/data/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /data/[id]; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/(app)/page/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /page/[id]; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/(app)/record/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /record; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /settings; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/(app)/types/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /types; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/(app)/types/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /types/[id]; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/(app)/types/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /types/new; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=description> anywhere; the only name=\"description\" hit is a form field in TypeIdentityHeader.svelte) (literal claim holds) on /login; but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/heading-level-skip::src/routes/(app)/settings/+page.svelte:137::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: settings/+page.svelte:75 <h1>, then the avatar Field's <h3> (:137); between them only formsnap Fieldset/Legend (a <legend>, not a heading) -> h1 to h3"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): / has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/(app)/data/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): /data has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/(app)/data/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): /data/[id] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/(app)/page/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): /page/[id] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/(app)/record/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): /record has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): /settings has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/(app)/types/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): /types has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/(app)/types/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): /types/[id] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/(app)/types/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): /types/new has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html for ld+json/jsonld/@context: none): /login has no JSON-LD, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/(app)/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/(app)/data/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /data (src/routes/(app)/data/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/(app)/data/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /data/[id] (src/routes/(app)/data/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/(app)/page/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /page/[id] (src/routes/(app)/page/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/(app)/record/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /record (src/routes/(app)/record/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/(app)/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/(app)/types/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /types (src/routes/(app)/types/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/(app)/types/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /types/[id] (src/routes/(app)/types/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/(app)/types/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /types/new (src/routes/(app)/types/new/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (src/routes/login/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/(app)/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/(app)/data/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /data (src/routes/(app)/data/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/(app)/data/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /data/[id] (src/routes/(app)/data/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/(app)/page/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /page/[id] (src/routes/(app)/page/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/(app)/record/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /record (src/routes/(app)/record/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/(app)/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/(app)/types/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /types (src/routes/(app)/types/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/(app)/types/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /types/[id] (src/routes/(app)/types/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/(app)/types/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /types/new (src/routes/(app)/types/new/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (src/routes/login/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/(app)/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/(app)/data/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /data (src/routes/(app)/data/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/(app)/data/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /data/[id] (src/routes/(app)/data/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/(app)/page/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /page/[id] (src/routes/(app)/page/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/(app)/record/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /record (src/routes/(app)/record/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/(app)/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/(app)/types/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /types (src/routes/(app)/types/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/(app)/types/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /types/[id] (src/routes/(app)/types/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/(app)/types/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /types/new (src/routes/(app)/types/new/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (src/routes/login/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/(app)/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/(app)/data/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /data (src/routes/(app)/data/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/(app)/data/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /data/[id] (src/routes/(app)/data/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/(app)/page/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /page/[id] (src/routes/(app)/page/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/(app)/record/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /record (src/routes/(app)/record/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/(app)/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/(app)/types/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /types (src/routes/(app)/types/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/(app)/types/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /types/[id] (src/routes/(app)/types/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/(app)/types/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /types/new (src/routes/(app)/types/new/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (src/routes/login/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/single-h1::/::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: (app)/+page.svelte renders <Dashboard> = dashboardFor(username) (lib/dashboards/registry.ts), the user's extension dashboard or FallbackDashboard; FallbackDashboard.svelte:22 and every extensions/franklin/dashboards/*/Dashboard.svelte render an unconditional <h1> - a component picked from a lookup table"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/single-h1::/data/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> in the page, the (app)/(admin) layout chain or any followed component: data/[id]/+page.svelte renders RecordDetail; grep finds <h1> only in FallbackDashboard, BestPage, the extension dashboards and a vitest example, none on this route; Markdown {@html} is the record's user-authored text"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/single-h1::/data::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> in the page, the (app)/(admin) layout chain or any followed component: data/+page.svelte renders TypeFilterTabs, RecordCard/RecordRow and a Modal with RecordDetail; none of them holds an <h1> (grep of src)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/single-h1::/types/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> in the page, the (app)/(admin) layout chain or any followed component: types/[id]/+page.svelte renders only TypeForm, which has no <h1> (grep of src)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/single-h1::/types/new::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> in the page, the (app)/(admin) layout chain or any followed component: types/new/+page.svelte renders only TypeForm, which has no <h1> (grep of src)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/single-h1::src/routes/(app)/record/+page.svelte:20::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: record/+page.svelte's title is an <h2> (:20 area); RecordForm/TypeBadge and the (app) layout's Navigation render no <h1> (grep of src)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/single-h1::src/routes/(app)/types/+page.svelte:24::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: types/+page.svelte's title is an <h2> (:24 area) and a dialog <h3>; Navigation and TypeBadge render no <h1> (grep of src)"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has the sv template robots.txt (allow all) but no sitemap.xml file, route or generator (literal claim holds); but lit-crm is a sign-in-gated CRM of typed records: (app)/+layout.server.ts calls requireUser, which redirects every visitor without a session to /login, so only /login is public, not a search target"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/(app)/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/(app)/data/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /data (src/routes/(app)/data/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/(app)/data/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /data/[id] (src/routes/(app)/data/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/(app)/page/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /page/[id] (src/routes/(app)/page/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/(app)/record/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /record (src/routes/(app)/record/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/(app)/settings/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/(app)/types/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /types (src/routes/(app)/types/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/(app)/types/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /types/[id] (src/routes/(app)/types/[id]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/(app)/types/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /types/new (src/routes/(app)/types/new/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "filips-alpe/lit-crm::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (src/routes/login/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:8 (favicon) and page <title>s; app.html charset/viewport/text-scale; hooks.server.ts transformPageChunk only fills %paraglide.lang%/%paraglide.dir%; Svelte npm deps formsnap/sveltekit-superforms emit no head tags; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  }
+]

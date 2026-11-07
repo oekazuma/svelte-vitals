@@ -1,0 +1,512 @@
+[
+  {
+    "key": "jinrudals/jinrudals.github.io::a11y/deprecated-aria::src/routes/+layout.svelte:50::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:50: <span aria-disabled=\"true\">KO</span> (shown when the Korean page is missing) has no role, so its role is generic, on which aria-disabled is deprecated in ARIA 1.3 (ledger aria-disabled-on-span precedent)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::correctness/each-key::src/lib/EntryList.svelte:17::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/EntryList.svelte:17 '{#each e.tags as t}' has no key; frontmatter tags of committed markdown entries (lib/content.ts:31-34 import.meta.glob eager), site prerendered (routes/+layout.ts:3); static list fixed at build"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::correctness/each-key::src/routes/[[lang=lang]]/career/+page.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[[lang=lang]]/career/+page.svelte:22 '{#each c.highlights[lang] as h}' has no key; highlights of the authored constant career list (lib/career.ts:15); static list"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::correctness/each-key::src/routes/[[lang=lang]]/career/+page.svelte:25::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[[lang=lang]]/career/+page.svelte:25 '{#each c.stack as s}' has no key; stack strings of the authored constant career list (lib/career.ts:15,28); static list"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]] (src/routes/[[lang=lang]]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/about (src/routes/[[lang=lang]]/about/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/career/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/career (src/routes/[[lang=lang]]/career/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/notes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/notes (src/routes/[[lang=lang]]/notes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/notes/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/notes/[slug] (src/routes/[[lang=lang]]/notes/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/projects (src/routes/[[lang=lang]]/projects/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/projects/[slug] (src/routes/[[lang=lang]]/projects/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/resume/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/resume (src/routes/[[lang=lang]]/resume/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/study/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/study (src/routes/[[lang=lang]]/study/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/study/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/study/[slug] (src/routes/[[lang=lang]]/study/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/writing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/writing (src/routes/[[lang=lang]]/writing/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/canonical-url::src/routes/[[lang=lang]]/writing/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[lang=lang]]/writing/[slug] (src/routes/[[lang=lang]]/writing/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); public page of a public personal site"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]] is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]]/about is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/career/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]]/career is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/notes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]]/notes is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/notes/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (page head only <title>, root layout only hreflang links, app.html none) (literal claim holds); but at this sha src/content/ has only projects/ and writing/, so the load (+page.ts getEntry … error(404)) 404s on every slug and entries() is empty: /[[lang=lang]]/notes/[slug] is never built or served yet (same treatment as the ledger's 404-in-production routes: design for description presence)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]]/projects is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]]/projects/[slug] is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/resume/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]]/resume is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/study/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]]/study is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/study/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (page head only <title>, root layout only hreflang links, app.html none) (literal claim holds); but at this sha src/content/ has only projects/ and writing/, so the load (+page.ts getEntry … error(404)) 404s on every slug and entries() is empty: /[[lang=lang]]/study/[slug] is never built or served yet (same treatment as the ledger's 404-in-production routes: design for description presence)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/writing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]]/writing is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/description-presence::src/routes/[[lang=lang]]/writing/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for description: none in src, app.html or any component; the page svelte:head sets only <title>, root +layout.svelte head only hreflang links) (literal claim holds); /[[lang=lang]]/writing/[slug] is a public page of the prerendered personal site jinrudals.github.io"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/about has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/career/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/career has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/notes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/notes has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/notes/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/notes/[slug] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/projects has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/projects/[slug] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/resume/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/resume has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/study/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/study has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/study/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/study/[slug] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/writing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/writing has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/json-ld::src/routes/[[lang=lang]]/writing/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the repo outside node_modules for ld+json/jsonld/@context/schema.org: none): /[[lang=lang]]/writing/[slug] has no JSON-LD, missing as claimed (json-ld convention: tp regardless of search reach)"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]] (src/routes/[[lang=lang]]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/about (src/routes/[[lang=lang]]/about/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/career/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/career (src/routes/[[lang=lang]]/career/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/notes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/notes (src/routes/[[lang=lang]]/notes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/notes/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/notes/[slug] (src/routes/[[lang=lang]]/notes/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/projects (src/routes/[[lang=lang]]/projects/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/projects/[slug] (src/routes/[[lang=lang]]/projects/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/resume/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/resume (src/routes/[[lang=lang]]/resume/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/study/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/study (src/routes/[[lang=lang]]/study/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/study/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/study/[slug] (src/routes/[[lang=lang]]/study/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/writing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/writing (src/routes/[[lang=lang]]/writing/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-description::src/routes/[[lang=lang]]/writing/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/writing/[slug] (src/routes/[[lang=lang]]/writing/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]] (src/routes/[[lang=lang]]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/about (src/routes/[[lang=lang]]/about/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/career/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/career (src/routes/[[lang=lang]]/career/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/notes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/notes (src/routes/[[lang=lang]]/notes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/notes/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/notes/[slug] (src/routes/[[lang=lang]]/notes/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/projects (src/routes/[[lang=lang]]/projects/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/projects/[slug] (src/routes/[[lang=lang]]/projects/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/resume/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/resume (src/routes/[[lang=lang]]/resume/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/study/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/study (src/routes/[[lang=lang]]/study/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/study/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/study/[slug] (src/routes/[[lang=lang]]/study/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/writing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/writing (src/routes/[[lang=lang]]/writing/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-image::src/routes/[[lang=lang]]/writing/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/writing/[slug] (src/routes/[[lang=lang]]/writing/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]] (src/routes/[[lang=lang]]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/about (src/routes/[[lang=lang]]/about/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/career/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/career (src/routes/[[lang=lang]]/career/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/notes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/notes (src/routes/[[lang=lang]]/notes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/notes/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/notes/[slug] (src/routes/[[lang=lang]]/notes/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/projects (src/routes/[[lang=lang]]/projects/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/projects/[slug] (src/routes/[[lang=lang]]/projects/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/resume/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/resume (src/routes/[[lang=lang]]/resume/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/study/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/study (src/routes/[[lang=lang]]/study/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/study/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/study/[slug] (src/routes/[[lang=lang]]/study/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/writing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/writing (src/routes/[[lang=lang]]/writing/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-title::src/routes/[[lang=lang]]/writing/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/writing/[slug] (src/routes/[[lang=lang]]/writing/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]] (src/routes/[[lang=lang]]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/about (src/routes/[[lang=lang]]/about/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/career/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/career (src/routes/[[lang=lang]]/career/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/notes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/notes (src/routes/[[lang=lang]]/notes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/notes/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/notes/[slug] (src/routes/[[lang=lang]]/notes/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/projects (src/routes/[[lang=lang]]/projects/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/projects/[slug] (src/routes/[[lang=lang]]/projects/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/resume/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/resume (src/routes/[[lang=lang]]/resume/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/study/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/study (src/routes/[[lang=lang]]/study/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/study/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/study/[slug] (src/routes/[[lang=lang]]/study/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/writing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/writing (src/routes/[[lang=lang]]/writing/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/og-url::src/routes/[[lang=lang]]/writing/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[lang=lang]]/writing/[slug] (src/routes/[[lang=lang]]/writing/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has favicon.svg only, no robots.txt route, hook or generator (package.json build is plain vite build; repo-wide grep finds no robots/sitemap); public personal site deployed to GitHub Pages, missing as claimed"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ or routes, no generator anywhere in the repo; public prerendered personal site (writing, projects, resume) on GitHub Pages, missing as claimed"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]] (src/routes/[[lang=lang]]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/about (src/routes/[[lang=lang]]/about/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/career/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/career (src/routes/[[lang=lang]]/career/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/notes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/notes (src/routes/[[lang=lang]]/notes/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/notes/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/notes/[slug] (src/routes/[[lang=lang]]/notes/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/projects (src/routes/[[lang=lang]]/projects/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/projects/[slug] (src/routes/[[lang=lang]]/projects/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/resume/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/resume (src/routes/[[lang=lang]]/resume/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/study/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/study (src/routes/[[lang=lang]]/study/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/study/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/study/[slug] (src/routes/[[lang=lang]]/study/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/writing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/writing (src/routes/[[lang=lang]]/writing/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "jinrudals/jinrudals.github.io::seo/twitter-card::src/routes/[[lang=lang]]/writing/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[lang=lang]]/writing/[slug] (src/routes/[[lang=lang]]/writing/[slug]/+page.svelte); script-verified (grep of the whole app tree excl. node_modules/tests/docs, *.svelte/ts/js/html incl. app.html and hooks: no literal og:*/twitter:card/rel=canonical emitter, no dynamic <meta {property}>/property={…}, no document.head injection); heads are root +layout.svelte:31-37 hreflang alternates and page <title>s; hooks.server.ts only rewrites <html lang>; app.html charset/viewport/icon/font; public prerendered personal site; route renders (no load/layout/hooks path that always redirects or errors); og/twitter convention: tp on every rendered route"
+  }
+]
