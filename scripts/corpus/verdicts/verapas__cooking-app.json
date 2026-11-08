@@ -1,0 +1,852 @@
+[
+  {
+    "key": "verapas/cooking-app::a11y/disallowed-aria-props::src/routes/public/[id]/+page.svelte:129::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/public/[id]/+page.svelte:129 (<div class=recipe-tags aria-label=\"Tags\">): literal <div> with aria-label and no role, spread or use: action (not a dnd-zone child); a div is generic, which prohibits a name"
+  },
+  {
+    "key": "verapas/cooking-app::a11y/disallowed-aria-props::src/routes/recipe/[id]/+page.svelte:321::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/recipe/[id]/+page.svelte:321 (<div class=recipe-tags aria-label=\"Tags\">): literal <div> with aria-label and no role, spread or use: action (not a dnd-zone child); a div is generic, which prohibits a name"
+  },
+  {
+    "key": "verapas/cooking-app::a11y/disallowed-aria-props::src/routes/recipe/[id]/edit/+page.svelte:289::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/recipe/[id]/edit/+page.svelte:289 (<div class=tag-suggestions aria-label=\"Tag-Vorschläge\">): literal <div> with aria-label and no role, spread or use: action (not a dnd-zone child); a div is generic, which prohibits a name"
+  },
+  {
+    "key": "verapas/cooking-app::a11y/label-has-control::src/routes/recipe/[id]/edit/+page.svelte:358::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/edit/+page.svelte:358: <label>Name</label> has no for and wraps no control; the input/select/textarea is its next sibling (no id), so the label is not associated, as reported"
+  },
+  {
+    "key": "verapas/cooking-app::a11y/label-has-control::src/routes/recipe/[id]/edit/+page.svelte:363::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/edit/+page.svelte:363: <label>Menge</label> has no for and wraps no control; the input/select/textarea is its next sibling (no id), so the label is not associated, as reported"
+  },
+  {
+    "key": "verapas/cooking-app::a11y/label-has-control::src/routes/recipe/[id]/edit/+page.svelte:368::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/edit/+page.svelte:368: <label>Einheit</label> has no for and wraps no control; the input/select/textarea is its next sibling (no id), so the label is not associated, as reported"
+  },
+  {
+    "key": "verapas/cooking-app::a11y/label-has-control::src/routes/recipe/[id]/edit/+page.svelte:374::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/edit/+page.svelte:374: <label>Zuordnung zu Schritt</label> has no for and wraps no control; the input/select/textarea is its next sibling (no id), so the label is not associated, as reported"
+  },
+  {
+    "key": "verapas/cooking-app::a11y/label-has-control::src/routes/recipe/[id]/edit/+page.svelte:403::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/edit/+page.svelte:403: <label>Anleitung</label> has no for and wraps no control; the input/select/textarea is its next sibling (no id), so the label is not associated, as reported"
+  },
+  {
+    "key": "verapas/cooking-app::a11y/label-has-control::src/routes/recipe/[id]/edit/+page.svelte:408::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/edit/+page.svelte:408: <label>Dauer (Sekunden)</label> has no for and wraps no control; the input/select/textarea is its next sibling (no id), so the label is not associated, as reported"
+  },
+  {
+    "key": "verapas/cooking-app::a11y/permitted-contents::src/routes/recipe/[id]/edit/+page.svelte:316::`<style>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/edit/+page.svelte:228/:316: a literal <style> inside <section class=form-section> in the page body (Svelte emits a nested <style> as-is); <style> is metadata content allowed only in <head>, as reported (ledger <style>-in-body precedent)"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/lib/components/ChatPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ChatPanel.svelte has 691 physical lines (split on \\n, trailing newline not counted; 650 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/lib/components/NavDrawer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NavDrawer.svelte has 288 physical lines (split on \\n, trailing newline not counted; 274 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/lib/components/RecipeCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RecipeCard.svelte has 303 physical lines (split on \\n, trailing newline not counted; 269 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/lib/components/StepTimer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/StepTimer.svelte has 445 physical lines (split on \\n, trailing newline not counted; 425 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 505 physical lines (split on \\n, trailing newline not counted; 463 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 722 physical lines (split on \\n, trailing newline not counted; 688 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/routes/public/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/public/+page.svelte has 407 physical lines (split on \\n, trailing newline not counted; 378 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/routes/public/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/public/[id]/+page.svelte has 538 physical lines (split on \\n, trailing newline not counted; 509 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/routes/recipe/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/recipe/[id]/+page.svelte has 821 physical lines (split on \\n, trailing newline not counted; 776 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/routes/recipe/[id]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/recipe/[id]/edit/+page.svelte has 745 physical lines (split on \\n, trailing newline not counted; 644 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/routes/settings/ai/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/ai/+page.svelte has 287 physical lines (split on \\n, trailing newline not counted; 269 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/routes/settings/tags/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/tags/+page.svelte has 259 physical lines (split on \\n, trailing newline not counted; 245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::architecture/component-size::src/routes/settings/tools/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/tools/+page.svelte has 239 physical lines (split on \\n, trailing newline not counted; 226 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "verapas/cooking-app::correctness/each-key::src/lib/components/ChatPanel.svelte:344::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ChatPanel.svelte:344 '{#each preview.ingredients as ing}' has no key; the ingredients of the one generated recipe preview (preview = data.recipe, :205), display-only <li>s; read-only parts of one record"
+  },
+  {
+    "key": "verapas/cooking-app::correctness/each-key::src/lib/components/ChatPanel.svelte:360::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ChatPanel.svelte:360 '{#each preview.steps as step}' has no key; the steps of the one generated recipe preview, display-only <li>s; read-only parts of one record"
+  },
+  {
+    "key": "verapas/cooking-app::correctness/instance-browser-global::src/routes/offline/+page.svelte:5::navigator is accessed during component initialisation — during SSR this runs on the server, where navigator is not defined",
+    "verdict": "tp",
+    "basis": "read: src/routes/offline/+page.svelte:5 `let isOnline = $state(navigator.onLine)` at instance top level, unguarded; no ssr export anywhere (root +layout.server.ts only loads data), /offline is a public path (hooks.server.ts:29) and the PWA navigateFallback (vite.config.ts:93), so it is server-rendered; ledger convention for unguarded navigator reads (note: the Dockerfile runs node:22, whose global navigator exists, so onLine is undefined there rather than a ReferenceError)"
+  },
+  {
+    "key": "verapas/cooking-app::performance/image-dimensions::src/routes/public/[id]/+page.svelte:114::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; hero photo in .hero {aspect-ratio:16/10} with .hero img {width:100%;height:100%} (public/[id]/+page.svelte) - box reserved by CSS"
+  },
+  {
+    "key": "verapas/cooking-app::performance/image-dimensions::src/routes/recipe/[id]/+page.svelte:226::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; hero photo in .hero {aspect-ratio:16/10} with .hero img {width:100%;height:100%} (recipe/[id]/+page.svelte) - box reserved by CSS"
+  },
+  {
+    "key": "verapas/cooking-app::performance/image-loading-hint::src/routes/public/[id]/+page.svelte:114::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; recipe hero photo at the top of the detail card above the <h1> (public/[id]/+page.svelte:114) - above the fold"
+  },
+  {
+    "key": "verapas/cooking-app::performance/image-loading-hint::src/routes/recipe/[id]/+page.svelte:226::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; recipe hero photo at the top of the detail card above the <h1> (recipe/[id]/+page.svelte:226) - above the fold"
+  },
+  {
+    "key": "verapas/cooking-app::performance/responsive-image::src/routes/public/[id]/+page.svelte:114::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; recipe image_url, an uploaded jpeg/png/webp raster shown full card width (public/[id]/+page.svelte:114) - one fixed-size asset"
+  },
+  {
+    "key": "verapas/cooking-app::performance/responsive-image::src/routes/recipe/[id]/+page.svelte:226::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; recipe image_url, an uploaded jpeg/png/webp raster shown full card width (recipe/[id]/+page.svelte:226) - one fixed-size asset"
+  },
+  {
+    "key": "verapas/cooking-app::performance/sequential-awaits::src/routes/public/[id]/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read public/[id]/+page.server.ts:11-14: getPublishedVersions(id) uses only the param id, nothing from the getPublishedRecipe row, which only feeds the 404 gate at :12 — independent mysql2 pool queries (lib/server/db.ts) serialized; Promise.all would work (ledger 404-gate convention)"
+  },
+  {
+    "key": "verapas/cooking-app::performance/sequential-awaits::src/routes/recipe/[id]/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/+page.server.ts:14-22: listTags(spaceId) uses nothing from the recipe/mainRecipeId/versions/imageUrl awaits — independent mysql2 pool query (queries.ts:145) serialized; Promise.all would work"
+  },
+  {
+    "key": "verapas/cooking-app::performance/sequential-awaits::src/routes/recipe/[id]/edit/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/edit/+page.server.ts:8-14: listCategories(spaceId) uses nothing from the recipe/mainRecipeId/versions awaits — independent mysql2 pool query (queries.ts:36) serialized; Promise.all would work"
+  },
+  {
+    "key": "verapas/cooking-app::performance/sequential-awaits::src/routes/recipe/[id]/edit/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read recipe/[id]/edit/+page.server.ts:8-15: listTags(spaceId) uses nothing from the earlier awaits — independent mysql2 pool query (queries.ts:145) serialized; Promise.all would work"
+  },
+  {
+    "key": "verapas/cooking-app::performance/sequential-awaits::src/routes/settings/ai/+page.server.ts:19::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read settings/ai/+page.server.ts:18-19 + lib/server/settings.ts:16-34: getModel(userId) is its own SELECT on the settings table, independent of getApiKey — mysql2 pool queries serialized; Promise.all would work"
+  },
+  {
+    "key": "verapas/cooking-app::performance/sequential-awaits::src/routes/settings/ai/+page.server.ts:20::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read settings/ai/+page.server.ts:18-20 + lib/server/settings.ts:16-34: getBaseUrl(userId) is its own SELECT on the settings table, independent of the key/model reads — mysql2 pool queries serialized; Promise.all would work"
+  },
+  {
+    "key": "verapas/cooking-app::security/raw-html::src/lib/components/Icon.svelte:29::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Icon.svelte:29 + lib/icons.ts: icons[name] is one of the literal SVG path strings of the icons registry — repo constants, reported per docs"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/category/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /category/[slug] (src/routes/category/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/chat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /chat (src/routes/chat/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/favorites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /favorites (src/routes/favorites/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/offline/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /offline (src/routes/offline/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); offline fallback in hooks.server.ts PUBLIC_PATHS, robots.txt Allow: /, no noindex (ledger treats ungated offline fallbacks as tp)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/public/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /public (src/routes/public/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/public/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /public/[id] (src/routes/public/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/recipe/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recipe/[id] (src/routes/recipe/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/recipe/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recipe/[id]/edit (src/routes/recipe/[id]/edit/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/settings/ai/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/ai (src/routes/settings/ai/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/settings/tags/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/tags (src/routes/settings/tags/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/canonical-url::src/routes/settings/tools/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/tools (src/routes/settings/tools/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records); but not a search target (auth-gated: hooks.server.ts:25-83 redirects (:82) every sessionless request outside PUBLIC_PATHS (/auth/*, /offline, PWA assets) to /auth/login; self-hosted recipe app), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-length::src/routes/offline/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py): src/routes/offline/+page.svelte carries the literal <meta name=description> content of the reported length (Description is too short (47 chars; aim for 70–160)); route list ['/offline'] from the local CLI run (claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on / (page src/routes/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /admin (page src/routes/admin/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/category/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /category/[slug] (page src/routes/category/[slug]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/chat/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /chat (page src/routes/chat/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/favorites/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /favorites (page src/routes/favorites/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/public/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /public (page src/routes/public/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/public/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /public/[id] (page src/routes/public/[id]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/recipe/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /recipe/[id] (page src/routes/recipe/[id]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/recipe/[id]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /recipe/[id]/edit (page src/routes/recipe/[id]/edit/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /settings (page src/routes/settings/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/settings/ai/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /settings/ai (page src/routes/settings/ai/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/settings/tags/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /settings/tags (page src/routes/settings/tags/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/description-presence::src/routes/settings/tools/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /settings/tools (page src/routes/settings/tools/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/heading-level-skip::src/routes/offline/+page.svelte:41::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: offline/+page.svelte:28 <h1>Offline, then the tips <h3>Verfügbare Inhalte (:41) with no heading between -> h1 to h3 (/offline is a public path in hooks.server.ts)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so / renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /admin renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/category/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /category/[slug] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /chat renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/favorites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /favorites renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/offline/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /offline renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/public/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /public renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/public/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /public/[id] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/recipe/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /recipe/[id] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/recipe/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /recipe/[id]/edit renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/settings/ai/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings/ai renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/settings/tags/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings/tags renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/json-ld::src/routes/settings/tools/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings/tools renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/category/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /category/[slug] (src/routes/category/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/chat/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /chat (src/routes/chat/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/favorites/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /favorites (src/routes/favorites/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/offline/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /offline (src/routes/offline/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/public/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /public (src/routes/public/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/public/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /public/[id] (src/routes/public/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/recipe/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recipe/[id] (src/routes/recipe/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/recipe/[id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recipe/[id]/edit (src/routes/recipe/[id]/edit/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/settings/ai/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/ai (src/routes/settings/ai/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/settings/tags/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/tags (src/routes/settings/tags/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-description::src/routes/settings/tools/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/tools (src/routes/settings/tools/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/category/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /category/[slug] (src/routes/category/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/chat/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /chat (src/routes/chat/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/favorites/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /favorites (src/routes/favorites/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/offline/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /offline (src/routes/offline/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/public/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /public (src/routes/public/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/public/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /public/[id] (src/routes/public/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/recipe/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recipe/[id] (src/routes/recipe/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/recipe/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recipe/[id]/edit (src/routes/recipe/[id]/edit/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/settings/ai/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/ai (src/routes/settings/ai/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/settings/tags/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/tags (src/routes/settings/tags/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-image::src/routes/settings/tools/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/tools (src/routes/settings/tools/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/category/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /category/[slug] (src/routes/category/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/chat/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /chat (src/routes/chat/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/favorites/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /favorites (src/routes/favorites/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/offline/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /offline (src/routes/offline/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/public/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /public (src/routes/public/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/public/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /public/[id] (src/routes/public/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/recipe/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recipe/[id] (src/routes/recipe/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/recipe/[id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recipe/[id]/edit (src/routes/recipe/[id]/edit/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/settings/ai/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/ai (src/routes/settings/ai/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/settings/tags/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/tags (src/routes/settings/tags/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-title::src/routes/settings/tools/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/tools (src/routes/settings/tools/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/category/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /category/[slug] (src/routes/category/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/chat/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /chat (src/routes/chat/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/favorites/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /favorites (src/routes/favorites/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/offline/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /offline (src/routes/offline/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/public/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /public (src/routes/public/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/public/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /public/[id] (src/routes/public/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/recipe/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recipe/[id] (src/routes/recipe/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/recipe/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recipe/[id]/edit (src/routes/recipe/[id]/edit/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/settings/ai/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/ai (src/routes/settings/ai/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/settings/tags/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/tags (src/routes/settings/tags/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/og-url::src/routes/settings/tools/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/tools (src/routes/settings/tools/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /: TopBar shows the section title as <span class=title> (lib/components/TopBar.svelte:48-50) and the page has no <h1>; script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the only <h1>s are on chat, recipe, edit, admin, public/[id], offline, +error); login-gated by hooks.server.ts but renders for users"
+  },
+  {
+    "key": "verapas/cooking-app::seo/single-h1::/category/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /category/[slug]: TopBar shows the section title as <span class=title> (lib/components/TopBar.svelte:48-50) and the page has no <h1>; script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the only <h1>s are on chat, recipe, edit, admin, public/[id], offline, +error); login-gated by hooks.server.ts but renders for users"
+  },
+  {
+    "key": "verapas/cooking-app::seo/single-h1::/favorites::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /favorites: TopBar shows the section title as <span class=title> (lib/components/TopBar.svelte:48-50) and the page has no <h1>; script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the only <h1>s are on chat, recipe, edit, admin, public/[id], offline, +error); login-gated by hooks.server.ts but renders for users"
+  },
+  {
+    "key": "verapas/cooking-app::seo/single-h1::/public::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /public: TopBar shows the section title as <span class=title> (lib/components/TopBar.svelte:48-50) and the page has no <h1>; script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the only <h1>s are on chat, recipe, edit, admin, public/[id], offline, +error); login-gated by hooks.server.ts but renders for users"
+  },
+  {
+    "key": "verapas/cooking-app::seo/single-h1::/settings/tags::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /settings/tags: TopBar shows the section title as <span class=title> (lib/components/TopBar.svelte:48-50) and the page has no <h1>; script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the only <h1>s are on chat, recipe, edit, admin, public/[id], offline, +error); login-gated by hooks.server.ts but renders for users"
+  },
+  {
+    "key": "verapas/cooking-app::seo/single-h1::/settings/tools::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /settings/tools: TopBar shows the section title as <span class=title> (lib/components/TopBar.svelte:48-50) and the page has no <h1>; script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the only <h1>s are on chat, recipe, edit, admin, public/[id], offline, +error); login-gated by hooks.server.ts but renders for users"
+  },
+  {
+    "key": "verapas/cooking-app::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /settings: TopBar shows the section title as <span class=title> (lib/components/TopBar.svelte:48-50) and the page has no <h1>; script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the only <h1>s are on chat, recipe, edit, admin, public/[id], offline, +error); login-gated by hooks.server.ts but renders for users"
+  },
+  {
+    "key": "verapas/cooking-app::seo/single-h1::src/routes/settings/ai/+page.svelte:121::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: settings/ai/+page.svelte has no <h1> and TopBar's title is a <span> (TopBar.svelte:48-50); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route"
+  },
+  {
+    "key": "verapas/cooking-app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep (repo-wide search for sitemap outside node_modules/lockfiles): no sitemap.xml in static/, no sitemap.xml route endpoint, hook or generator anywhere in the repo (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/+page.svelte, entities decoded, whitespace collapsed, 18 chars as reported; route list ['/'] from the local CLI run) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/admin/+page.svelte, entities decoded, whitespace collapsed, 16 chars as reported; route list ['/admin'] from the local CLI run) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/title-length::src/routes/favorites/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/favorites/+page.svelte, entities decoded, whitespace collapsed, 20 chars as reported; route list ['/favorites'] from the local CLI run) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/title-length::src/routes/offline/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/offline/+page.svelte, entities decoded, whitespace collapsed, 18 chars as reported; route list ['/offline'] from the local CLI run) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/title-length::src/routes/public/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/public/+page.svelte, entities decoded, whitespace collapsed, 21 chars as reported; route list ['/public'] from the local CLI run) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/settings/+page.svelte, entities decoded, whitespace collapsed, 24 chars as reported; route list ['/settings'] from the local CLI run) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/title-length::src/routes/settings/ai/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/settings/ai/+page.svelte, entities decoded, whitespace collapsed, 27 chars as reported; route list ['/settings/ai'] from the local CLI run) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/title-length::src/routes/settings/tags/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/settings/tags/+page.svelte, entities decoded, whitespace collapsed, 15 chars as reported; route list ['/settings/tags'] from the local CLI run) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/title-length::src/routes/settings/tools/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/settings/tools/+page.svelte, entities decoded, whitespace collapsed, 27 chars as reported; route list ['/settings/tools'] from the local CLI run) (literal claim holds); but not a search target: Koch-App is a self-hosted recipe app behind Keycloak login (README); hooks.server.ts:77-83 redirects every session-less request except /auth/*, /offline and static assets to /auth/login"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/category/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /category/[slug] (src/routes/category/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/chat/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /chat (src/routes/chat/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/favorites/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /favorites (src/routes/favorites/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/offline/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /offline (src/routes/offline/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/public/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /public (src/routes/public/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/public/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /public/[id] (src/routes/public/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/recipe/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recipe/[id] (src/routes/recipe/[id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/recipe/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recipe/[id]/edit (src/routes/recipe/[id]/edit/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/settings/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/settings/ai/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/ai (src/routes/settings/ai/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/settings/tags/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/tags (src/routes/settings/tags/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "verapas/cooking-app::seo/twitter-card::src/routes/settings/tools/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/tools (src/routes/settings/tools/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html icon/viewport/theme-color/apple PWA metas; page heads <title>/description only; Svelte-side deps @vite-pwa/sveltekit (no components) and sweetalert2 emit none; route renders for signed-in users (hooks.server.ts redirects only sessionless requests; page loads error only on missing records) (og/twitter absence is tp regardless of gating, per the ledger)"
+  }
+]

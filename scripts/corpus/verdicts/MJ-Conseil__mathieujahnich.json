@@ -1,0 +1,1147 @@
+[
+  {
+    "key": "MJ-Conseil/mathieujahnich::a11y/id-duplication::src/lib/components/atoms/SkipLink/SkipLink.svelte:4::Duplicate id \"skip-nav\"",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte renders Header.svelte on every route, which renders DesktopMainNavigation.svelte:18 and MobileMainNavigation.svelte:29 unconditionally (CSS-toggled 'hidden lg:block' / 'md:hidden' only), each with <SkipLink /> whose <a id=\"skip-nav\"> (SkipLink.svelte:4) is literal, so the id occurs twice in the DOM on all 18 routes (local run: same 18 routes)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/component-size::src/lib/components/atoms/Icon/Icon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/atoms/Icon/Icon.svelte has 214 physical lines (split on \\n, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/component-size::src/lib/components/mollecules/Footer/Footer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mollecules/Footer/Footer.svelte has 203 physical lines (split on \\n, trailing newline not counted; 181 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/component-size::src/routes/a-propos/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/a-propos/+page.svelte has 248 physical lines (split on \\n, trailing newline not counted; 222 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/component-size::src/routes/blog/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/+page.svelte has 225 physical lines (split on \\n, trailing newline not counted; 191 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/component-size::src/routes/informations-legales/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/informations-legales/+page.svelte has 204 physical lines (split on \\n, trailing newline not counted; 191 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/component-size::src/routes/offres-de-services/donner-de-l-elan/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/offres-de-services/donner-de-l-elan/+page.svelte has 238 physical lines (split on \\n, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/component-size::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/offres-de-services/faire-monter-en-competence/+page.svelte has 253 physical lines (split on \\n, trailing newline not counted; 231 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/component-size::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; 223 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/prop-count::src/lib/components/atoms/Input/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/atoms/Input/Input.svelte has a single destructured $props() with 7 named props (> 6): name, label, id, type, required, error, autocomplete"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/prop-count::src/lib/components/mollecules/ArrowLink/ArrowLink.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/mollecules/ArrowLink/ArrowLink.svelte has a single destructured $props() with 7 named props (> 6): href, alt, arrowSize, linkTitle, external, focused, children"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::architecture/prop-count::src/lib/components/mollecules/PostCard/PostCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/mollecules/PostCard/PostCard.svelte has a single destructured $props() with 12 named props (> 6): title, picureAlternativeText, createdDate, pictureURL, testId, href, imageCover, focused, excerpt, tagName, size, children"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/lib/components/mollecules/Header/MobileMenu.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Header/MobileMenu.svelte:52 '{#each Object.keys(ROUTES) as key, index}' has no key; ROUTES is the exported const route map (src/lib/constants.ts:8); static nav list"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/lib/components/mollecules/Search/Search.svelte:130::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: Search/Search.svelte:130 '{#each categories as category}' has no key; categories prop = data.categories.map(...) (blog/recherche/+page.svelte:91), the blog categories fetched from WordPress per request; WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/+page.svelte:104::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:104 '{#each data.posts as post}' has no key; data.posts = getPosts(fetch) (+page.ts:4); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/blog/+page.svelte:157::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: blog/+page.svelte:157 '{#each data.categories as category}' has no key; getCategories(serverFetch) (blog/+page.ts:9); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/blog/+page.svelte:168::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: blog/+page.svelte:168 '{#each posts as post, i}' has no key; posts = $derived(data.posts), replaced by a search (:60) and appended by load-more (:75); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/blog/+page.svelte:193::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: blog/+page.svelte:193 '{#each postGrouppedByCategories as ..., index}' has no key; $derived from data.postGrouppedByCategories (:25), posts grouped by fetched categories (blog/+page.ts:28-38); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/blog/+page.svelte:200::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: blog/+page.svelte:200 '{#each postGrouppedByCategory.posts as post, i}' has no key; the posts of each fetched category group (blog/+page.ts:28-38), also appended per category; WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/blog/[slug]/+page.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: blog/[slug]/+page.svelte:52 '{#each data.post.tags as tag}' has no key; tags of the one post the route shows, display-only; read-only parts of one record"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/blog/[slug]/+page.svelte:69::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: blog/[slug]/+page.svelte:69 '{#each data.lastPosts as post}' has no key; lastPosts = getPosts(fetch, ...) (blog/[slug]/+page.ts:15), reused across [slug] navigations; WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/blog/recherche/+page.svelte:116::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: blog/recherche/+page.svelte:116 '{#each data.categories as category}' has no key; categories fetched from WordPress in the load; WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/blog/recherche/+page.svelte:127::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: blog/recherche/+page.svelte:127 '{#each posts as post, i}' has no key; search results fetched from WordPress, replaced and appended at runtime; WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/espace-presse/+page.svelte:145::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: espace-presse/+page.svelte:145 '{#each mediaResources as mediaResourceItem, index}' has no key; mediaResources = $derived(data.mediaResources) (:25), groups built from the fetched media resource types (espace-presse/+page.ts:11-16); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/espace-presse/+page.svelte:153::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: espace-presse/+page.svelte:153 '{#each mediaResourceItem.resource as mediaResource, i}' has no key; the media resources of each fetched type (espace-presse/+page.ts:16); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/greenwashing-cases/+page.svelte:120::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: greenwashing-cases/+page.svelte:120 '{#each data.greenWashingCaseTypes as ...}' has no key; getGreenWhasingCasesTypes(fetch) (greenwashing-cases/+page.ts:14); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/greenwashing-cases/+page.svelte:133::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: greenwashing-cases/+page.svelte:133 '{#each filteredgrennWashingCases as greenWashingCase, i}' has no key; fetched cases (greenwashing-cases/+page.ts:15) refiltered by the selected type at runtime; WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/newsletter/+page.svelte:164::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: newsletter/+page.svelte:164 '{#each data.newsletters as newsletter}' has no key; getNewsletters(fetch) (newsletter/+page.ts:5); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/newsletter/inscription-validee/+page.svelte:40::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: newsletter/inscription-validee/+page.svelte:40 '{#each data.newsletters as newsletter}' has no key; getNewsletters(fetch) (inscription-validee/+page.ts:5); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/offres-de-services/donner-de-l-elan/+page.svelte:184::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: offres-de-services/donner-de-l-elan/+page.svelte:184 '{#each references as reference}' has no key; references = $derived(data.references.data) (:19), appended by load-more (:34); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte:197::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: offres-de-services/faire-monter-en-competence/+page.svelte:197 '{#each references as reference}' has no key; references from data.references.data, appended by load-more; WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte:189::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: offres-de-services/trouver-le-juste-equilibre/+page.svelte:189 '{#each references as reference}' has no key; references from data.references.data, appended by load-more; WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/references/+page.svelte:118::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: references/+page.svelte:118 '{#each data.referenceTypes as referenceType}' has no key; getReferencesTypes(fetch) (references/+page.ts:21); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/references/+page.svelte:131::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: references/+page.svelte:131 '{#each filteredReferences as reference, i}' has no key; filteredReferences = $derived(data.references.data) (:22), replaced by a type filter (:44-50) and appended (:66); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::correctness/each-key::src/routes/references/+page.svelte:92::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: references/+page.svelte:92 '{#each highlightedReferences as reference}' has no key; highlightedReferences = $derived(data.highlightedReferences) (:23), fetched by getReferences (references/+page.ts:23); WordPress REST records the route's universal load fetches per request (adapter-node, no prerender; $lib/repositories/*.ts via $lib/utils/api); runtime records"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/+page.svelte:47::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; hero group picture (700x460 jpg) in a w-4/5 md:w-1/2 wrapper, no height or aspect-ratio (+page.svelte:45-47) - natural aspect decides the box and main shifts"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/a-propos/+page.svelte:134::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; mj-nb.jpg (700x700) class object-contain rounded-xl in a w-full div (:133-135) - natural size decides the box"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/a-propos/+page.svelte:34::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; portrait (300x300 jpg) with class object-contain rounded-xl only (a-propos/+page.svelte:34) - natural size decides the box"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/blog/[slug]/+page.svelte:60::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; post image (data.post.imageUrl from WordPress) in a flex justify-center div (:59-61) - natural size decides the box"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/espace-presse/+page.svelte:115::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; mj-interview.jpg (520x335) class object-contain in a flex row (espace-presse/+page.svelte:115) - natural size decides the box"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/espace-presse/[slug]/+page.svelte:41::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; media resource image (CMS URL) in a flex justify-center div (:40-42) - natural size decides the box"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/greenwashing-cases/+page.svelte:104::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; legend icon (case-closed-not-guilty.jpg, 200x200) with class max-h-[40px] w-auto in a flex row (:104) - only a max-height, the box is 0 until it loads"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/greenwashing-cases/+page.svelte:108::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; legend icon (foo.jpg, 200x200) with class max-h-[40px] w-auto in a flex row (:108) - only a max-height, the box is 0 until it loads"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/greenwashing-cases/+page.svelte:112::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; legend icon (case-still-pending.jpg, 200x200) with class max-h-[40px] w-auto in a flex row (:112) - only a max-height, the box is 0 until it loads"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/greenwashing-cases/+page.svelte:82::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; greenwashing-cases-logo.svg with class w-[15%] only (:82) - width set, height comes from the loaded SVG's aspect"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-dimensions::src/routes/references/[slug]/+page.svelte:41::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; reference image (CMS URL) in a flex justify-center div (:40-42) - natural size decides the box"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/+page.svelte:47::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; hero picture inside the page <header role=banner> under the <h1> (+page.svelte:7-47) - above the fold, the LCP candidate"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/a-propos/+page.svelte:134::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; image under the 'Born in 331 PPM' <h3> (:132-135), after three long sections - offscreen on load"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/a-propos/+page.svelte:34::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; portrait in the first section right after the page header <h1> (:17-34) - above the fold"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/blog/[slug]/+page.svelte:60::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the post's lead image directly after the title/author section (:22-61) - above the fold, the LCP candidate"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/espace-presse/+page.svelte:115::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; interview photo at the start of the first section after the page header (:7-115) - above the fold"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/espace-presse/[slug]/+page.svelte:41::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; lead image directly after the title section <h1> (:36-41) - above the fold"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/greenwashing-cases/+page.svelte:104::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; legend icon in the Legend list after the tall PageHeader with its multi-sentence headline (:78-114) - can sit offscreen on load"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/greenwashing-cases/+page.svelte:108::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; legend icon in the Legend list after the tall PageHeader with its multi-sentence headline (:78-114) - can sit offscreen on load"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/greenwashing-cases/+page.svelte:112::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; legend icon in the Legend list after the tall PageHeader with its multi-sentence headline (:78-114) - can sit offscreen on load"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/greenwashing-cases/+page.svelte:82::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo inside <PageHeader> next to the headline, under the page <h1> (:78-82) - above the fold"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/image-loading-hint::src/routes/references/[slug]/+page.svelte:41::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; lead image directly after the title section <h1> (:36-41) - above the fold"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/load-waterfall::src/routes/blog/+page.ts:35::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read blog/+page.ts:9,27-35: the per-category getPosts Promise.all is built from categoriesToDisplay, a filter of the awaited getCategories result — a dependent WordPress REST round trip in a universal load; no csr/ssr export anywhere in src/routes (CSR on), so it reruns from the browser on navigation"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/load-waterfall::src/routes/espace-presse/+page.ts:22::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read espace-presse/+page.ts:11-22: the per-type getMediaResources Promise.all is mapped from the awaited getMediaResourceTypes result — a dependent WordPress REST round trip in a universal load with CSR on (no csr export in src/routes)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/load-waterfall::src/routes/offres-de-services/donner-de-l-elan/+page.ts:26::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read donner-de-l-elan/+page.ts:8-30: getReferences takes offer_types: offerType.id from the awaited getOfferTypes result — a dependent WordPress REST round trip in a universal load with CSR on (no csr export in src/routes)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/load-waterfall::src/routes/offres-de-services/faire-monter-en-competence/+page.ts:27::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read faire-monter-en-competence/+page.ts:7-30: getReferences takes offer_types: offerType.id from the awaited getOfferTypes result — a dependent WordPress REST round trip in a universal load with CSR on (no csr export in src/routes)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/load-waterfall::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.ts:25::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read trouver-le-juste-equilibre/+page.ts:7-29: getReferences takes offer_types: offerType.id from the awaited getOfferTypes result — a dependent WordPress REST round trip in a universal load with CSR on (no csr export in src/routes)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/+page.svelte:47::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; bundled raster $lib/assets/images/mj-group-picture.jpg (700x460) shown at 80vw/50vw - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/a-propos/+page.svelte:134::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; bundled raster mj-nb.jpg (700x700) shown full width - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/a-propos/+page.svelte:34::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; bundled raster MJConseil-mathieu-jahnich.jpg (300x300) - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/blog/[slug]/+page.svelte:60::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; data.post.imageUrl is the WordPress/S3 featured-image raster (one URL) - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/espace-presse/+page.svelte:115::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; bundled raster mj-interview.jpg (520x335, 168KB) - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/espace-presse/[slug]/+page.svelte:41::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; data.mediaResource.imageUrl CMS raster - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/greenwashing-cases/+page.svelte:104::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; bundled raster case-closed-not-guilty.jpg (200x200) drawn at 40px - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/greenwashing-cases/+page.svelte:108::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; bundled raster foo.jpg (200x200) drawn at 40px - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/greenwashing-cases/+page.svelte:112::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; bundled raster case-still-pending.jpg (200x200) drawn at 40px - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/responsive-image::src/routes/references/[slug]/+page.svelte:41::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; data.reference.imageUrl CMS raster - one fixed-size asset"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/sequential-awaits::src/routes/blog/+page.ts:16::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read blog/+page.ts:9-16: getPosts(serverFetch, options) uses nothing from the earlier getCategories await (both are WordPress REST fetches via lib/utils/api.ts) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/sequential-awaits::src/routes/blog/[slug]/+page.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read blog/[slug]/+page.ts:7-17: the latest-posts getPosts({per_page: 3}) uses nothing from the slug lookup, which only feeds the 404 gate at :11-13 — independent WordPress REST fetches serialized; Promise.all would work (ledger 404-gate convention)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::performance/sequential-awaits::src/routes/blog/recherche/+page.ts:24::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read blog/recherche/+page.ts:23-24: getPosts(serverFetch, options) uses only the URL-built options, nothing from the getCategories await — independent WordPress REST fetches serialized; Promise.all would work"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::security/raw-html::src/lib/components/atoms/Icon/Icon.svelte:213::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Icon.svelte:21-200,213: displayIcon.svg is one of the literal SVG strings of the in-file icons map, chosen by the name prop — repo constants, reported per docs"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::security/raw-html::src/lib/components/mollecules/PostCard/PostCard.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read PostCard.svelte:72 {@html title}: callers pass WordPress post.title.rendered (lib/transformers/posts.ts) — site-owner headless WordPress content (README: the WordPress site turned headless CMS, fetched from PUBLIC_API_URL/wp-json/wp/v2 via lib/utils/api.ts) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::security/raw-html::src/lib/components/mollecules/PostCard/PostCard.svelte:77::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read PostCard.svelte:77 {@html excerpt}: callers pass WordPress post excerpts or newsletter content.rendered (lib/transformers/newsletters.ts:10) — site-owner headless WordPress content (README: the WordPress site turned headless CMS, fetched from PUBLIC_API_URL/wp-json/wp/v2 via lib/utils/api.ts) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::security/raw-html::src/lib/components/mollecules/ResourceAccordion/ResourceAccordion.svelte:43::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ResourceAccordion.svelte:43 {@html content}: callers pass reference.content / greenWashingCase.content from the WordPress custom post types (lib/repositories via api.ts) — site-owner headless WordPress content (README: the WordPress site turned headless CMS, fetched from PUBLIC_API_URL/wp-json/wp/v2 via lib/utils/api.ts) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::security/raw-html::src/routes/blog/[slug]/+page.svelte:62::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read blog/[slug]/+page.svelte:62 {@html data.post.content}: post.content.rendered (lib/transformers/posts.ts) — site-owner headless WordPress content (README: the WordPress site turned headless CMS, fetched from PUBLIC_API_URL/wp-json/wp/v2 via lib/utils/api.ts) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::security/raw-html::src/routes/espace-presse/[slug]/+page.svelte:43::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read espace-presse/[slug]/+page.svelte:43 {@html data.mediaResource.associatedContent}: media-resource post content from WordPress — site-owner headless WordPress content (README: the WordPress site turned headless CMS, fetched from PUBLIC_API_URL/wp-json/wp/v2 via lib/utils/api.ts) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::security/raw-html::src/routes/references/[slug]/+page.svelte:43::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read references/[slug]/+page.svelte:43 {@html data.reference.caseStudy?.content}: case-study content from WordPress — site-owner headless WordPress content (README: the WordPress site turned headless CMS, fetched from PUBLIC_API_URL/wp-json/wp/v2 via lib/utils/api.ts) — first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/a-propos/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /a-propos (src/routes/a-propos/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog (src/routes/blog/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/blog/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/[slug] (src/routes/blog/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/blog/recherche/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/recherche (src/routes/blog/recherche/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/declaration-accessibilité/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /declaration-accessibilité (src/routes/declaration-accessibilité/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/espace-presse/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /espace-presse (src/routes/espace-presse/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/espace-presse/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /espace-presse/[slug] (src/routes/espace-presse/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/greenwashing-cases/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /greenwashing-cases (src/routes/greenwashing-cases/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/informations-legales/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /informations-legales (src/routes/informations-legales/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/newsletter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /newsletter (src/routes/newsletter/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/newsletter/inscription-validee/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /newsletter/inscription-validee (src/routes/newsletter/inscription-validee/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/offres-de-services/donner-de-l-elan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /offres-de-services/donner-de-l-elan (src/routes/offres-de-services/donner-de-l-elan/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /offres-de-services/faire-monter-en-competence (src/routes/offres-de-services/faire-monter-en-competence/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /offres-de-services/trouver-le-juste-equilibre (src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/plan-de-site/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /plan-de-site (src/routes/plan-de-site/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/references/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /references (src/routes/references/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/canonical-url::src/routes/references/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /references/[slug] (src/routes/references/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs); public marketing/content site, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on / (page src/routes/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/a-propos/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /a-propos (page src/routes/a-propos/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/blog/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog (page src/routes/blog/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/blog/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog/[slug] (page src/routes/blog/[slug]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/blog/recherche/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog/recherche (page src/routes/blog/recherche/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/declaration-accessibilité/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /declaration-accessibilité (page src/routes/declaration-accessibilité/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/espace-presse/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /espace-presse (page src/routes/espace-presse/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/espace-presse/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /espace-presse/[slug] (page src/routes/espace-presse/[slug]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/greenwashing-cases/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /greenwashing-cases (page src/routes/greenwashing-cases/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/informations-legales/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /informations-legales (page src/routes/informations-legales/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/newsletter/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /newsletter (page src/routes/newsletter/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/newsletter/inscription-validee/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /newsletter/inscription-validee (page src/routes/newsletter/inscription-validee/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/offres-de-services/donner-de-l-elan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /offres-de-services/donner-de-l-elan (page src/routes/offres-de-services/donner-de-l-elan/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /offres-de-services/faire-monter-en-competence (page src/routes/offres-de-services/faire-monter-en-competence/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /offres-de-services/trouver-le-juste-equilibre (page src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/plan-de-site/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /plan-de-site (page src/routes/plan-de-site/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/references/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /references (page src/routes/references/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/description-presence::src/routes/references/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /references/[slug] (page src/routes/references/[slug]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the consultant's site mathieu-jahnich.fr (README; sitemap.xml route lists it)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/heading-level-skip::src/routes/blog/[slug]/+page.svelte:66::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: blog/[slug]/+page.svelte:37 <h1>{data.post.title}, then {@html data.post.content} (WordPress post body, CMS content not in the repo, not counted per ledger), then the <h3>Les derniers articles (:66) -> h1 to h3 in the source"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/heading-level-skip::src/routes/plan-de-site/+page.svelte:20::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: plan-de-site/+page.svelte:14 <h1>Plan de site in PageHeader, then the nav's <h3>Mathieu Jahnich (:20) with no heading between -> h1 to h3"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so / renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/a-propos/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /a-propos renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog/[slug] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/blog/recherche/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog/recherche renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/declaration-accessibilité/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /declaration-accessibilité renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/espace-presse/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /espace-presse renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/espace-presse/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /espace-presse/[slug] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/greenwashing-cases/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /greenwashing-cases renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/informations-legales/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /informations-legales renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/newsletter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /newsletter renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/newsletter/inscription-validee/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /newsletter/inscription-validee renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/offres-de-services/donner-de-l-elan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /offres-de-services/donner-de-l-elan renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /offres-de-services/faire-monter-en-competence renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /offres-de-services/trouver-le-juste-equilibre renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/plan-de-site/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /plan-de-site renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/references/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /references renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/json-ld::src/routes/references/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /references/[slug] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/a-propos/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /a-propos (src/routes/a-propos/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog (src/routes/blog/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/[slug] (src/routes/blog/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/blog/recherche/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/recherche (src/routes/blog/recherche/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/declaration-accessibilité/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /declaration-accessibilité (src/routes/declaration-accessibilité/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/espace-presse/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /espace-presse (src/routes/espace-presse/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/espace-presse/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /espace-presse/[slug] (src/routes/espace-presse/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/greenwashing-cases/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /greenwashing-cases (src/routes/greenwashing-cases/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/informations-legales/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /informations-legales (src/routes/informations-legales/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /newsletter (src/routes/newsletter/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/newsletter/inscription-validee/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /newsletter/inscription-validee (src/routes/newsletter/inscription-validee/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/offres-de-services/donner-de-l-elan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /offres-de-services/donner-de-l-elan (src/routes/offres-de-services/donner-de-l-elan/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /offres-de-services/faire-monter-en-competence (src/routes/offres-de-services/faire-monter-en-competence/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /offres-de-services/trouver-le-juste-equilibre (src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/plan-de-site/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /plan-de-site (src/routes/plan-de-site/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/references/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /references (src/routes/references/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-description::src/routes/references/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /references/[slug] (src/routes/references/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/a-propos/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /a-propos (src/routes/a-propos/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog (src/routes/blog/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/[slug] (src/routes/blog/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/blog/recherche/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/recherche (src/routes/blog/recherche/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/declaration-accessibilité/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /declaration-accessibilité (src/routes/declaration-accessibilité/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/espace-presse/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /espace-presse (src/routes/espace-presse/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/espace-presse/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /espace-presse/[slug] (src/routes/espace-presse/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/greenwashing-cases/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /greenwashing-cases (src/routes/greenwashing-cases/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/informations-legales/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /informations-legales (src/routes/informations-legales/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /newsletter (src/routes/newsletter/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/newsletter/inscription-validee/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /newsletter/inscription-validee (src/routes/newsletter/inscription-validee/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/offres-de-services/donner-de-l-elan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /offres-de-services/donner-de-l-elan (src/routes/offres-de-services/donner-de-l-elan/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /offres-de-services/faire-monter-en-competence (src/routes/offres-de-services/faire-monter-en-competence/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /offres-de-services/trouver-le-juste-equilibre (src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/plan-de-site/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /plan-de-site (src/routes/plan-de-site/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/references/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /references (src/routes/references/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-image::src/routes/references/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /references/[slug] (src/routes/references/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/a-propos/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /a-propos (src/routes/a-propos/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog (src/routes/blog/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/[slug] (src/routes/blog/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/blog/recherche/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/recherche (src/routes/blog/recherche/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/declaration-accessibilité/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /declaration-accessibilité (src/routes/declaration-accessibilité/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/espace-presse/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /espace-presse (src/routes/espace-presse/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/espace-presse/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /espace-presse/[slug] (src/routes/espace-presse/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/greenwashing-cases/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /greenwashing-cases (src/routes/greenwashing-cases/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/informations-legales/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /informations-legales (src/routes/informations-legales/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /newsletter (src/routes/newsletter/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/newsletter/inscription-validee/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /newsletter/inscription-validee (src/routes/newsletter/inscription-validee/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/offres-de-services/donner-de-l-elan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /offres-de-services/donner-de-l-elan (src/routes/offres-de-services/donner-de-l-elan/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /offres-de-services/faire-monter-en-competence (src/routes/offres-de-services/faire-monter-en-competence/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /offres-de-services/trouver-le-juste-equilibre (src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/plan-de-site/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /plan-de-site (src/routes/plan-de-site/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/references/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /references (src/routes/references/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-title::src/routes/references/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /references/[slug] (src/routes/references/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/a-propos/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /a-propos (src/routes/a-propos/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog (src/routes/blog/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/[slug] (src/routes/blog/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/blog/recherche/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/recherche (src/routes/blog/recherche/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/declaration-accessibilité/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /declaration-accessibilité (src/routes/declaration-accessibilité/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/espace-presse/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /espace-presse (src/routes/espace-presse/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/espace-presse/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /espace-presse/[slug] (src/routes/espace-presse/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/greenwashing-cases/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /greenwashing-cases (src/routes/greenwashing-cases/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/informations-legales/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /informations-legales (src/routes/informations-legales/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /newsletter (src/routes/newsletter/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/newsletter/inscription-validee/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /newsletter/inscription-validee (src/routes/newsletter/inscription-validee/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/offres-de-services/donner-de-l-elan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /offres-de-services/donner-de-l-elan (src/routes/offres-de-services/donner-de-l-elan/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /offres-de-services/faire-monter-en-competence (src/routes/offres-de-services/faire-monter-en-competence/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /offres-de-services/trouver-le-juste-equilibre (src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/plan-de-site/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /plan-de-site (src/routes/plan-de-site/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/references/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /references (src/routes/references/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/og-url::src/routes/references/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /references/[slug] (src/routes/references/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/sitemap-in-robots::(site)::robots.txt does not reference your sitemap",
+    "verdict": "tp",
+    "basis": "read: static/robots.txt is '# https://www.robotstxt.org/robotstxt.html / User-agent: * / Disallow:' with no Sitemap: line while src/routes/sitemap.xml/+server.ts serves a sitemap; no robots +server endpoint; public site mathieu-jahnich.fr, as claimed"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/a-propos/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /a-propos (src/routes/a-propos/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog (src/routes/blog/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/blog/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/[slug] (src/routes/blog/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/blog/recherche/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/recherche (src/routes/blog/recherche/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/declaration-accessibilité/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /declaration-accessibilité (src/routes/declaration-accessibilité/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/espace-presse/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /espace-presse (src/routes/espace-presse/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/espace-presse/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /espace-presse/[slug] (src/routes/espace-presse/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/greenwashing-cases/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /greenwashing-cases (src/routes/greenwashing-cases/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/informations-legales/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /informations-legales (src/routes/informations-legales/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/newsletter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /newsletter (src/routes/newsletter/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/newsletter/inscription-validee/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /newsletter/inscription-validee (src/routes/newsletter/inscription-validee/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/offres-de-services/donner-de-l-elan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /offres-de-services/donner-de-l-elan (src/routes/offres-de-services/donner-de-l-elan/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/offres-de-services/faire-monter-en-competence/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /offres-de-services/faire-monter-en-competence (src/routes/offres-de-services/faire-monter-en-competence/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /offres-de-services/trouver-le-juste-equilibre (src/routes/offres-de-services/trouver-le-juste-equilibre/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/plan-de-site/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /plan-de-site (src/routes/plan-de-site/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/references/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /references (src/routes/references/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  },
+  {
+    "key": "MJ-Conseil/mathieujahnich::seo/twitter-card::src/routes/references/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /references/[slug] (src/routes/references/[slug]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title> only; WordPress content rendered with {@html} goes to the body, not the head; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (loads 404 only on unknown slugs)"
+  }
+]

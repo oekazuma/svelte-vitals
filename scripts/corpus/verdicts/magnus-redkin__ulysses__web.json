@@ -1,0 +1,557 @@
+[
+  {
+    "key": "magnus-redkin/ulysses:web::a11y/accessible-name::src/routes/SocialLinks.svelte:2::<a> has no accessible name",
+    "verdict": "tp",
+    "basis": "read routes/SocialLinks.svelte:2-15: <a href=https://hiddify.com/> holds only an inline <svg> of <path>s with no <title>, aria-label, alt text or visible text (the sibling GitHub link at :17 has aria-label, this one does not), so the link has no name"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::a11y/permitted-contents::src/routes/admin/components/Sidebar.svelte:72::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read admin/components/Sidebar.svelte:66-72 (ticket <button> in {#each openTickets}): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::a11y/permitted-contents::src/routes/admin/components/Sidebar.svelte:94::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read admin/components/Sidebar.svelte:66-94 (ticket <button> wrapping <p> last-message text): literal <p> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::a11y/permitted-contents::src/routes/admin/components/Sidebar.svelte:98::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read admin/components/Sidebar.svelte:66-98 (ticket <button> wrapping the time <div>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::a11y/permitted-contents::src/routes/pricing/+page.svelte:160::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read pricing/+page.svelte:145-160: <h3> in the {#if plan.isFree} arm directly inside the plan <button type=button> (no boundary); a heading inside <button> crosses the phrasing boundary, as reported"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::a11y/permitted-contents::src/routes/pricing/+page.svelte:166::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read pricing/+page.svelte:145-166: <h3> in the {:else} arm directly inside the plan <button type=button>; a heading inside <button> crosses the phrasing boundary, as reported"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::a11y/permitted-contents::src/routes/pricing/+page.svelte:167::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read pricing/+page.svelte:145-167 (plan <button> wrapping <p> price-per-day): literal <p> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::architecture/component-size::src/lib/components/JungleBook.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/JungleBook.svelte has 261 physical lines (split on \\n, trailing newline not counted; 228 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::architecture/component-size::src/routes/admin/components/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/components/Sidebar.svelte has 226 physical lines (split on \\n, trailing newline not counted; 210 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::architecture/component-size::src/routes/fingerprint/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/fingerprint/+page.svelte has 635 physical lines (split on \\n, trailing newline not counted; 561 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::architecture/component-size::src/routes/pricing/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/pricing/+page.svelte has 236 physical lines (split on \\n, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::correctness/each-key::src/lib/components/JungleBook.svelte:198::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/JungleBook.svelte:198 '{#each currentChapters as ch}' has no key; currentChapters = $derived(chaptersData[currentLang] || chaptersData.ru) (:90), a same-file const object of authored chapter lists (:17); static list"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::correctness/each-key::src/routes/admin/components/Chat.svelte:87::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/components/Chat.svelte:87 '{#each selectedTicket.messages || [] as msg}' has no key; messages of the selected support ticket, fetched and appended at runtime; runtime records"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::correctness/each-key::src/routes/admin/components/Sidebar.svelte:124::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/components/Sidebar.svelte:124 '{#each historyTickets as ticket}' has no key; historyTickets = $state, reassigned from the fetched tickets (:10, :26); runtime records"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::correctness/each-key::src/routes/admin/components/Sidebar.svelte:65::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/components/Sidebar.svelte:65 '{#each openTickets as ticket}' has no key; openTickets = $derived(tickets.filter(t => t.status === 'open')) (:19), fetched tickets that leave the list when closed; runtime records"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::correctness/each-key::src/routes/fingerprint/+page.svelte:405::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/fingerprint/+page.svelte:405 '{#each browserDetails as d}' has no key; browserDetails = d, the description lines built once from one fingerprint result (:80-113); read-only parts of one record"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::correctness/each-key::src/routes/pricing/+page.svelte:145::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/pricing/+page.svelte:145 '{#each plans as plan}' has no key; plans = $derived((page.data?.plans ?? []).map(...)) (:57), tariffs the server load fetches from the backend API (+page.server.js:10-28, each with an id); runtime records"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::performance/state-raw::src/routes/fingerprint/+page.svelte:71::\"browserDetails\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read every reference to browserDetails in fingerprint/+page.svelte: declared $state([]) :71, whole reassignments :80,:113 (d is a local array built before assignment), template reads only .length :401 and {#each} items as text :405; no member writes, mutating calls, bind: or escapes — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::security/raw-html::src/routes/+page.svelte:44::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:44-46: {@html} of a literal ternary of two in-file strings on locale.current — repo constant, reported per docs"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::security/raw-html::src/routes/+page.svelte:49::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:49-51: {@html} of a literal ternary of two in-file strings with author <b> markup — repo constant, reported per docs"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::security/raw-html::src/routes/+page.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:55-57: {@html} of a literal ternary of two in-file strings — repo constant, reported per docs"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::security/raw-html::src/routes/+page.svelte:62::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:62-64: {@html} of a literal ternary of two in-file strings — repo constant, reported per docs"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::security/server-module-state::src/routes/admin/api/system/+server.js:16::module-scope variable \"lastBotMessage\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read admin/api/system/+server.js:6-22: POST stores the bot's health report in module-scope lastBotMessage, a single process-wide status value (comment: sidebar display of the bot's last message); never served back (GET proxies the backend), only logged; /admin/* is session-gated in hooks.server.js — process-wide status with no per-user data, not a demonstrable cross-user leak: no other request reads it (ledger aolose/emm 'no cross-request read' design precedent)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); publicly reachable route: no auth gate, noindex or robots.txt Disallow (robots.txt disallows only /admin, /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/[page_id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[page_id] (src/routes/[page_id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); publicly reachable route: no auth gate, noindex or robots.txt Disallow (robots.txt disallows only /admin, /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/account/[uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/[uuid] (src/routes/account/[uuid]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); publicly reachable route: no auth gate, noindex or robots.txt Disallow (robots.txt disallows only /admin, /api); note: per-user account page keyed by a hiddify UUID, but nothing gates or noindexes it"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); but not a search target (static/robots.txt Disallow: /admin; admin login wall (admin/+page.server.ts returns authenticated:false without a session)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/fingerprint/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /fingerprint (src/routes/fingerprint/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); publicly reachable route: no auth gate, noindex or robots.txt Disallow (robots.txt disallows only /admin, /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/junglebook/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /junglebook (src/routes/junglebook/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); publicly reachable route: no auth gate, noindex or robots.txt Disallow (robots.txt disallows only /admin, /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/junglebook/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /junglebook/[slug] (src/routes/junglebook/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); publicly reachable route: no auth gate, noindex or robots.txt Disallow (robots.txt disallows only /admin, /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/payment/fail/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /payment/fail (src/routes/payment/fail/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); publicly reachable route: no auth gate, noindex or robots.txt Disallow (robots.txt disallows only /admin, /api); note: payment-provider return page, ungated"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/payment/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /payment/success (src/routes/payment/success/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); publicly reachable route: no auth gate, noindex or robots.txt Disallow (robots.txt disallows only /admin, /api); note: payment-provider return page, ungated"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/canonical-url::src/routes/pricing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /pricing (src/routes/pricing/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs); publicly reachable route: no auth gate, noindex or robots.txt Disallow (robots.txt disallows only /admin, /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/description-presence::src/routes/[page_id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /[page_id] (page src/routes/[page_id]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Ulysses VPN site (root page robots index,follow; static/robots.txt only disallows /admin and /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/description-presence::src/routes/account/[uuid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /account/[uuid] (page src/routes/account/[uuid]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but a subscriber's own account page reachable only by its secret Hiddify UUID link (account/[uuid]/+page.server.js fetches that user's balance), not content for search"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /admin (page src/routes/admin/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but the admin sign-in/panel page (static/robots.txt Disallow: /admin; hooks.server.js guards /admin/*)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/description-presence::src/routes/fingerprint/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /fingerprint (page src/routes/fingerprint/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Ulysses VPN site (root page robots index,follow; static/robots.txt only disallows /admin and /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/description-presence::src/routes/junglebook/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /junglebook (page src/routes/junglebook/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Ulysses VPN site (root page robots index,follow; static/robots.txt only disallows /admin and /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/description-presence::src/routes/junglebook/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /junglebook/[slug] (page src/routes/junglebook/[slug]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Ulysses VPN site (root page robots index,follow; static/robots.txt only disallows /admin and /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/description-presence::src/routes/payment/fail/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /payment/fail (page src/routes/payment/fail/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Ulysses VPN site (root page robots index,follow; static/robots.txt only disallows /admin and /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/description-presence::src/routes/payment/success/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /payment/success (page src/routes/payment/success/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Ulysses VPN site (root page robots index,follow; static/robots.txt only disallows /admin and /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/description-presence::src/routes/pricing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /pricing (page src/routes/pricing/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Ulysses VPN site (root page robots index,follow; static/robots.txt only disallows /admin and /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/heading-level-skip::src/routes/pricing/+page.svelte:160::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: pricing/+page.svelte:126 <h1>{t.title}, then the plan cards' <h3>{plan.displayTitle} (:160/:166) with no heading between (layout header md is an h2 before the h1) -> h1 to h3"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so / renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/[page_id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /[page_id] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/account/[uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /account/[uuid] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /admin renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/fingerprint/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /fingerprint renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/junglebook/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /junglebook renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/junglebook/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /junglebook/[slug] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/payment/fail/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /payment/fail renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/payment/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /payment/success renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/json-ld::src/routes/pricing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /pricing renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-description::src/routes/[page_id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[page_id] (src/routes/[page_id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-description::src/routes/account/[uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/[uuid] (src/routes/account/[uuid]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-description::src/routes/fingerprint/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /fingerprint (src/routes/fingerprint/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-description::src/routes/junglebook/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /junglebook (src/routes/junglebook/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-description::src/routes/junglebook/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /junglebook/[slug] (src/routes/junglebook/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-description::src/routes/payment/fail/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /payment/fail (src/routes/payment/fail/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-description::src/routes/payment/success/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /payment/success (src/routes/payment/success/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-description::src/routes/pricing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pricing (src/routes/pricing/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/[page_id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[page_id] (src/routes/[page_id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/account/[uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/[uuid] (src/routes/account/[uuid]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/fingerprint/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /fingerprint (src/routes/fingerprint/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/junglebook/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /junglebook (src/routes/junglebook/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/junglebook/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /junglebook/[slug] (src/routes/junglebook/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/payment/fail/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /payment/fail (src/routes/payment/fail/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/payment/success/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /payment/success (src/routes/payment/success/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-image::src/routes/pricing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pricing (src/routes/pricing/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-title::src/routes/[page_id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[page_id] (src/routes/[page_id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-title::src/routes/account/[uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/[uuid] (src/routes/account/[uuid]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-title::src/routes/fingerprint/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /fingerprint (src/routes/fingerprint/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-title::src/routes/junglebook/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /junglebook (src/routes/junglebook/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-title::src/routes/junglebook/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /junglebook/[slug] (src/routes/junglebook/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-title::src/routes/payment/fail/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /payment/fail (src/routes/payment/fail/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-title::src/routes/payment/success/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /payment/success (src/routes/payment/success/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-title::src/routes/pricing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pricing (src/routes/pricing/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/[page_id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[page_id] (src/routes/[page_id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/account/[uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/[uuid] (src/routes/account/[uuid]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/fingerprint/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /fingerprint (src/routes/fingerprint/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/junglebook/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /junglebook (src/routes/junglebook/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/junglebook/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /junglebook/[slug] (src/routes/junglebook/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/payment/fail/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /payment/fail (src/routes/payment/fail/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/payment/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /payment/success (src/routes/payment/success/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/og-url::src/routes/pricing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pricing (src/routes/pricing/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/single-h1::/[page_id]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<h1> IS rendered on most of /[page_id]: load allows only offer/privacy/contacts ([page_id]/+page.js:5-10) and the page renders the mdsvex module picked from an eager import.meta.glob('/src/lib/content/**/*.md') by locale+id ([page_id]/+page.svelte:9-24); offer.md and privacy.md (ru and en) open with '# ' -> <h1>, only contacts.md opens with '##' - 2 of 3 values render an h1 (runtime glob lookup the analyzer cannot follow)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/single-h1::/junglebook/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> in the server HTML of /junglebook/[slug]: JungleBook.svelte loads the chapter with a lazy import.meta.glob loader() inside {#await contentPromise} (:9-15, :226-233), so SSR (adapter-node, no ssr=false) renders only the pending <p>Loading…</p>; the markdown heading (index.md opens '# ', most chapters '##') renders only in the browser - client-only content counts as absent on SSR routes; the sidebar heading is an <h3>"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/single-h1::/junglebook::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> in the server HTML of /junglebook: JungleBook.svelte loads the chapter with a lazy import.meta.glob loader() inside {#await contentPromise} (:9-15, :226-233), so SSR (adapter-node, no ssr=false) renders only the pending <p>Loading…</p>; the markdown heading (index.md opens '# ', most chapters '##') renders only in the browser - client-only content counts as absent on SSR routes; the sidebar heading is an <h3>"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for sitemap outside node_modules/lockfiles): no sitemap.xml in static/, no sitemap.xml route endpoint, hook or generator anywhere in the repo (literal claim holds); public VPN marketing site (root page robots index,follow, static/robots.txt allows all but /admin and /api)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/title-length::src/routes/payment/fail/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/payment/fail/+page.svelte, entities decoded, whitespace collapsed, 26 chars as reported; route list ['/payment/fail'] from the local CLI run); public, SSR-rendered page of the Ulysses VPN site (root page robots index,follow; static/robots.txt only disallows /admin and /api), too short as claimed"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/title-length::src/routes/payment/success/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/payment/success/+page.svelte, entities decoded, whitespace collapsed, 23 chars as reported; route list ['/payment/success'] from the local CLI run); public, SSR-rendered page of the Ulysses VPN site (root page robots index,follow; static/robots.txt only disallows /admin and /api), too short as claimed"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/title-presence::src/routes/[page_id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "renders for offer/privacy/contacts ([page_id]/+page.js:6-14 allows those three, 404 otherwise); [page_id]/+page.svelte has no svelte:head and renders mdsvex content from src/lib/content/<locale>/<id>.md (no svelte:head/<title> in any .md, no mdsvex layout in svelte.config.js); root +layout.svelte:35-37 head is a favicon link only, header.md has no title, app.html none, hooks.server.js passes it through; no npm Svelte component deps"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/title-presence::src/routes/account/[uuid]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "account/[uuid]/+page.svelte has no svelte:head (its t.title 'Your Account' is body text) and imports only $lib/locale.svelte.js; root +layout.svelte:35-37 head is a favicon link only, app.html none, no document.title in src; +page.server.js load renders on a found account (errors only on backend 404/failure), hooks.server.js only guards /admin"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/title-presence::src/routes/admin/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "admin/+page.svelte has no svelte:head and its components (admin/components/Login, Header, Sidebar, Chat, BillingCard, Modal, NotifyModal) have none (grep of src: only JungleBook.svelte, /, fingerprint and payment pages have <title>); admin/+layout.svelte only wraps children, root +layout.svelte renders children alone when isAdminRoute with only a favicon link in head; renders (login form when unauthenticated, hooks.server.js lets /admin itself through, load never redirects)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/title-presence::src/routes/pricing/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "pricing/+page.svelte has no svelte:head and imports only $app/forms, $lib/locale.svelte.js, $app/state; root +layout.svelte:35-37 head is a favicon link only, app.html none, no document.title in src; pricing/+page.server.js load always returns {plans} (error path returns plans: []), so the public pricing page renders untitled"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/[page_id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[page_id] (src/routes/[page_id]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/account/[uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/[uuid] (src/routes/account/[uuid]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (src/routes/admin/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/fingerprint/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /fingerprint (src/routes/fingerprint/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/junglebook/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /junglebook (src/routes/junglebook/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/junglebook/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /junglebook/[slug] (src/routes/junglebook/[slug]/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/payment/fail/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /payment/fail (src/routes/payment/fail/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/payment/success/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /payment/success (src/routes/payment/success/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "magnus-redkin/ulysses:web::seo/twitter-card::src/routes/pricing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pricing (src/routes/pricing/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection except routes/+page.svelte:11-20 og:title/og:description (both {#if locale} arms)/og:type on / only, which is why / reports only canonical/og:image/og:url/twitter:card); app.html charset/viewport/text-scale; root +layout.svelte head is a favicon; other heads <title> only (fingerprint, payment/*, JungleBook.svelte:188); mdsvex .md content has no <svelte:head>; hooks.server.js only redirects unauthenticated /admin/* subpaths; no Svelte npm deps; CLI on the clone reproduces the first-look set exactly; route renders (no load/layout/hooks path that always redirects or errors; [page_id] 404s only outside offer/privacy/contacts, account/[uuid] only for unknown UUIDs) (og/twitter absence is tp regardless of gating, per the ledger)"
+  }
+]
