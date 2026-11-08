@@ -704,7 +704,7 @@ Measured on 663 apps, each pinned to a commit:
 - [maris-development/beacon-studio-ihm](https://github.com/maris-development/beacon-studio-ihm/tree/07cedb8da1004005bcb5c8898e4058b5c872b03f) (`07cedb8`)
 - [MauriceIsrael/archinex](https://github.com/MauriceIsrael/archinex/tree/725127f0e596142a28032aa29cd5865f60653cb9) (`725127f`)
 
-252775 of 252800 corpus findings have a verdict.
+252770 of 252795 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share      |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ----------------- |
@@ -805,7 +805,7 @@ Measured on 663 apps, each pinned to a commit:
 | [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 16041           | 516  | 15954 / 84 / 3 / 0                    | 99% (15954/16038)  | 0% (3/16041)      |
 | [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 16568           | 526  | 16508 / 55 / 5 / 0                    | 100% (16508/16563) | 0% (5/16568)      |
 | [`seo/robots-txt`](../../docs/src/content/docs/rules/seo/robots-txt.md)                                               | 268             | 268  | 101 / 2 / 165 / 0                     | 98% (101/103)      | 62% (165/268)     |
-| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 4470            | 518  | 4030 / 134 / 275 / 6                  | 97% (4030/4164)    | 6% (275/4445)     |
+| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 4465            | 518  | 4029 / 131 / 275 / 5                  | 97% (4029/4160)    | 6% (275/4440)     |
 | [`seo/sitemap-in-robots`](../../docs/src/content/docs/rules/seo/sitemap-in-robots.md)                                 | 16              | 16   | 15 / 0 / 1 / 0                        | 100% (15/15)       | 6% (1/16)         |
 | [`seo/sitemap-xml`](../../docs/src/content/docs/rules/seo/sitemap-xml.md)                                             | 480             | 480  | 169 / 2 / 309 / 0                     | 99% (169/171)      | 64% (309/480)     |
 | [`seo/ssr-disabled`](../../docs/src/content/docs/rules/seo/ssr-disabled.md)                                           | 808             | 234  | 149 / 0 / 659 / 0                     | 100% (149/149)     | 82% (659/808)     |

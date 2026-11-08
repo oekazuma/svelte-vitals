@@ -473,6 +473,25 @@ export interface ComponentUse {
   offset: number;
 }
 
+/** The names a member-path component tag walks: `['pageData', 'post', 'component']` for `<pageData.post.component />` or `<svelte:component this={pageData.post.component}>`. */
+function memberPath(node: AST.Component | AST.SvelteComponent): string[] {
+  if (node.type === 'Component') return node.name.includes('.') ? node.name.split('.') : [];
+  type Expr = AST.SvelteComponent['expression'];
+  const path: string[] = [];
+  let e = (node.expression.type === 'ChainExpression' ? node.expression.expression : node.expression) as Expr;
+  for (; e.type === 'MemberExpression'; e = e.object as Expr) {
+    const key = e.property;
+    path.unshift(
+      !e.computed && key.type === 'Identifier'
+        ? key.name
+        : key.type === 'Literal' && typeof key.value === 'string'
+          ? key.value
+          : ''
+    );
+  }
+  return path.length > 0 && e.type === 'Identifier' ? [e.name, ...path] : [];
+}
+
 /** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
 function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSelf): string {
   if (node.type !== 'SvelteComponent') return node.name;
@@ -1653,6 +1672,7 @@ function collectHeadings(
   titles: ReadonlySet<string> = new Set()
 ) {
   const headings: ParsedHeading[] = [];
+  const bound = templateBindings(fragment);
   const gates = new Map<number, PropGate>();
   const flagGates = new Map<number, FlagGate>();
   const urlGates = new Map<number, UrlCond>();
@@ -1854,6 +1874,15 @@ function collectHeadings(
         const level = Number(expr?.type === 'Literal' ? expr.value : set ? attrText(attrs, 'level') : 2);
         push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at, when, true, true);
       }
+      // A component `load` hands over (`<data.post.component />`) is often a markdown module
+      // found by `import.meta.glob` at run time: which headings it renders is not in the source.
+      const [root, next] = memberPath(node);
+      if (
+        root &&
+        !bound.has(root) &&
+        (props.get(root) === 'data' || (root === props.get(WHOLE_PROPS) && next === 'data'))
+      )
+        dynamic = true;
       meet(componentPaths, node, path);
       note(componentWhen, node, when);
       first(componentOffsets, node, at?.[0] ?? node.start);
