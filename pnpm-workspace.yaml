@@ -47,3 +47,9 @@ catalog:
   typescript: ^6.0.3
   vite: ^8.3.6
   vitest: ^5.1.0
+
+overrides:
+  # rolldown's wasm32 binding pulls @emnapi/* 2.0 betas, and pnpm then resolves
+  # @napi-rs/wasm-runtime's runtime peer to the beta beside a 1.x core, which crashes blume's build
+  '@emnapi/core': ^1.11.3
+  '@emnapi/runtime': ^1.11.3
